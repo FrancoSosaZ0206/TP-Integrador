@@ -17,6 +17,10 @@ Estuvo muy divertido jajaj
 el equipo contrario hico 50 puntos y el nuestro solo 3
 Pero no importa, la pase bien lol
 
+Que bueno, seguro que dejaste todo en la cancha
+Yo estuve visitando a mis abuelos, comi hasta reventar
+Y disfrute mucho con ellos
+
 
 */
 
