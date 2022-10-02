@@ -10,6 +10,16 @@
 
 //Todo bien, y tu?
 
+///Que hiciste este fin de semana
+/*
+Yo jugué al basquet
+Estuvo muy divertido jajaj
+el equipo contrario hico 50 puntos y el nuestro solo 3
+Pero no importa, la pase bien lol
+
+
+*/
+
 
 /**
 DIRECTORIOS (FRANCO S.)
