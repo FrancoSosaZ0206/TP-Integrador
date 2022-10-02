@@ -6,6 +6,26 @@
 #include "test.h"
 #include "util.h"
 
+///HOLA COMO EST√ÅS GASTON
+
+//Todo bien, y tu?
+
+///Que hiciste este fin de semana
+/*
+Yo jugu√© al basquet
+Estuvo muy divertido jajaj
+el equipo contrario hico 50 puntos y el nuestro solo 3
+Pero no importa, la pase bien lol
+
+Que bueno, seguro que dejaste todo en la cancha
+Yo estuve visitando a mis abuelos, comi hasta reventar
+Y disfrute mucho con ellos
+
+La verdad que este fin de semana estuvo interesante
+
+*/
+
+=======
 //AAAAAAAAAAAAAAAAA
 //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
@@ -13,10 +33,10 @@
 DIRECTORIOS (FRANCO S.)
 
 Para crear y linkear archivos
-E:\Franco\0. UNIVERSIDAD Y APRENDIZAJE\INFORM¡TICA\°LIC. EN SISTEMAS - UNLa\CARRERA\1ER A—O\PROGRAMACI”N\TP INTEGRADOR\CÛdigo - FINAL - ACTUALIZAR PEN DRIVE\V1.7\TPIntegrador_FINAL\
+E:\Franco\0. UNIVERSIDAD Y APRENDIZAJE\INFORM√ÅTICA\¬°LIC. EN SISTEMAS - UNLa\CARRERA\1ER A√ëO\PROGRAMACI√ìN\TP INTEGRADOR\C√≥digo - FINAL - ACTUALIZAR PEN DRIVE\V1.7\TPIntegrador_FINAL\
 
 Para abrir/guardar files = CARPETA "Archivos"
-E:\Franco\0. UNIVERSIDAD Y APRENDIZAJE\INFORM¡TICA\°LIC. EN SISTEMAS - UNLa\CARRERA\1ER A—O\PROGRAMACI”N\TP INTEGRADOR\CÛdigo - FINAL - ACTUALIZAR PEN DRIVE\V1.7\Archivos\
+E:\Franco\0. UNIVERSIDAD Y APRENDIZAJE\INFORM√ÅTICA\¬°LIC. EN SISTEMAS - UNLa\CARRERA\1ER A√ëO\PROGRAMACI√ìN\TP INTEGRADOR\C√≥digo - FINAL - ACTUALIZAR PEN DRIVE\V1.7\Archivos\
 */
 
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
@@ -74,10 +94,10 @@ int main()
 
 int MAIN_MENU(CentroLogisticoPtr centroLogistico)
 {
-    ///Men˙es
+    ///Men√∫es
     int MAIN_OP = 0;
     int op1=0;  //usamos otras para los loops internos, para evitar que,
-    int op2=0;  //si queremos volver atr·s, se vuelva todo atr·s o cosas asÌ.
+    int op2=0;  //si queremos volver atr√°s, se vuelva todo atr√°s o cosas as√≠.
 
     do
     {
