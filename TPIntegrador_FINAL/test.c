@@ -4,17 +4,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include <math.h>
-#include "Lista.h"
-#include "Pila.h"
 #include "TDACentroLogistico.h"
-#include "TDACuil.h"
-#include "TDADomicilio.h"
-#include "TDAFechaYHora.h"
-#include "TDANodo.h"
-#include "TDAPaquetes.h"
-#include "TDAPersona.h"
-#include "TDARepartos.h"
-#include "TDAVehiculo.h"
 #include "test.h"
 #include "util.h"
 
@@ -23,7 +13,7 @@ VehiculoPtr crearVehiculoPorDefecto() ///Crea un vehículo de forma rápida con da
     VehiculoPtr vehiculo=crearVehiculo(3,"Mercedes-Benz","Actros","ZZ 999 ZZ");
     return vehiculo;
 }
-VehiculoPtr crearVehiculoGenerico() ///Crea un vehículo de forma rápida con datos aleatorios.
+VehiculoPtr crearVehiculoGenerico() ///Crea un vehículo de forma rápida con datos aleatorios. BROKEN
 {
 /*
 NOTA: En esta version, simplifiqué el funcionamiento para que sea más facil de entender.
@@ -172,3 +162,84 @@ Fórmula para calcular un numero aleatorio entre dos límites determinados:
     return vehiculo;
 }
 
+ListaPtr crearListaRepartosPorDefecto()
+{
+///Creamos una lista de repartos
+    ListaPtr listaRepartos=crearLista();
+
+
+//Creamos un grupo de domicilios
+    DomicilioPtr domicilioChofer=crearDomicilio("Vieytes",2000,"Lomas de zamora");
+    DomicilioPtr dirRetiro=crearDomicilio("Deposito",5000,"Sector industrial"); /// (*)
+    DomicilioPtr dirEntrega=crearDomicilio("Santa fe",1500,"Banfield"); /// (**)
+//Creamos una serie de fechas
+    FechaPtr fechaSalida=crearFecha(2459610,16,45); //Para el reparto
+    FechaPtr fechaRetorno=crearFecha(2459610,17,45); //Para el reparto
+    FechaPtr fechaEntrega=crearFecha(2459610,18,45);
+//Creamos un Cuil
+    CuilPtr cuil=crearCuil("20 34654754 6");
+
+//Creamos un chofer
+    PersonaPtr chofer=crearPersona("Roberto","Garcia",domicilioChofer,cuil,true);
+//Creamos un paquete con (*) y (**)
+    PaquetePtr paquete=crearPaquete(1,4,5,2,65,dirRetiro,dirEntrega,fechaEntrega,0);
+//Creamos una pila de paquetes para el reparto
+    PilaPtr pilaPaquetes=crearPila();
+    apilar(pilaPaquetes,(PaquetePtr)paquete); /// Pila de 1 paquete
+//Creamos un vehículo genérico aprovechando que tenemos hecha la funcion
+    VehiculoPtr vehiculo=crearVehiculoGenerico();
+///Creamos un reparto con los datos creados previamente
+    RepartoPtr reparto=crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,pilaPaquetes);
+
+
+///REPETIMOS EL PROCESO 2 VECES MÁS
+    DomicilioPtr domicilioChofer1=crearDomicilio("Boqueron",1500,"Villa Fiorito");
+    DomicilioPtr dirRetiro1=crearDomicilio("Repositorio Intel",5000,"Sector industrial");
+    DomicilioPtr dirEntrega1=crearDomicilio("Italia",3000,"Palermo");
+
+    FechaPtr fechaSalida1=crearFecha(2459300,8,30);
+    FechaPtr fechaRetorno1=crearFecha(2459610,9,30);
+    FechaPtr fechaEntrega1=crearFecha(2459610,10,30);
+
+    CuilPtr cuil1=crearCuil("27 24576456 7");
+
+    PersonaPtr chofer1=crearPersona("Maria","Gonzalez",domicilioChofer1,cuil1,true);
+
+    PaquetePtr paquete1=crearPaquete(2,2,5,3,120,dirRetiro1,dirEntrega1,fechaEntrega1,0);
+    PilaPtr pilaPaquetes1=crearPila();
+    apilar(pilaPaquetes1,(PaquetePtr)paquete1);
+
+    VehiculoPtr vehiculo1=crearVehiculoGenerico();
+
+    RepartoPtr reparto1=crearReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,pilaPaquetes1);
+
+
+
+    DomicilioPtr domicilioChofer2=crearDomicilio("Espania",1500,"Puerto Madero");
+    DomicilioPtr dirRetiro2=crearDomicilio("Tesla Industry",10000,"Washington DC");
+    DomicilioPtr dirEntrega2=crearDomicilio("24 de mayo",3000,"Capital Federal");
+
+    FechaPtr fechaSalida2=crearFecha(2378300,19,15);
+    FechaPtr fechaRetorno2=crearFecha(2378300,21,15);
+    FechaPtr fechaEntrega2=crearFecha(2378300,22,15);
+
+    CuilPtr cuil2=crearCuil("30 23456543 1");
+
+    PersonaPtr chofer2=crearPersona("Sociedades","Anonimas",domicilioChofer2,cuil2,true);
+
+    PaquetePtr paquete2=crearPaquete(3,8,8,10,800,dirRetiro2,dirEntrega2,fechaEntrega2,0);
+    PilaPtr pilaPaquetes2=crearPila();
+    apilar(pilaPaquetes2,(PaquetePtr)paquete);
+
+    VehiculoPtr vehiculo2=crearVehiculoGenerico();
+
+    RepartoPtr reparto2=crearReparto(chofer2,vehiculo2,fechaSalida2,fechaRetorno2,pilaPaquetes2);
+
+
+///Agregamos los 3 repartos a la lista
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto1);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto2);
+///Retornamos la lista de repartos
+    return listaRepartos;
+}

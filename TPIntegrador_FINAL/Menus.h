@@ -5,11 +5,15 @@
 #include <stdlib.h>
 #include "TDACentroLogistico.h"
 
-/*********************************************************************************************************
+/**************************************************************************************************************************
 
-                                        MENUS - INTERFAZ DE OPERACIONES
+                                                MENUS - INTERFAZ DE OPERACIONES
 
-*********************************************************************************************************/
+***************************************************************************************************************************/
+
+
+///                             FUNCIONES DE CARGA, VALIDACIÓN Y ACTUALIZACIÓN DE SUBESTRUCTURAS
+
 
 //OPERACION: carga de cuil con datos
 //PRECONDICIÓN: cuil debe haber sido DECLARADO
@@ -58,6 +62,13 @@ void actualizarDomicilio(DomicilioPtr domicilio);
 //DEVUELVE: Nada
 void actualizarFecha(FechaPtr fecha);
 
+///--------------------------------------------------------------------------------------------------------------------------
+
+///                                             MENÚS DE CARGA DE DATOS
+
+///--------------------------------------------------------------------------------------------------------------------------
+
+
 //OPERACION: menu de carga de paquete
 //PRECONDICIÓN: centro logistico debe haberse creado en main.c
 //POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion,
@@ -82,6 +93,13 @@ void menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 //  puntero al centro logistico
 //DEVUELVE: Nada
 void menuCargarVehiculo(CentroLogisticoPtr centroLogistico);
+
+///--------------------------------------------------------------------------------------------------------------------------
+
+///                                             MENÚS DE BÚSQUEDA DE DATOS
+
+///--------------------------------------------------------------------------------------------------------------------------
+
 
 //OPERACION: menu de busqueda de paquetes
 //PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de paquetes.
@@ -116,6 +134,14 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico);
 //PARÁMETROS:
 //  puntero al centro logistico
 //DEVUELVE: Nada
+
+///--------------------------------------------------------------------------------------------------------------------------
+
+///                                             MENÚS DE ELIMINACIÓN DE DATOS
+
+///--------------------------------------------------------------------------------------------------------------------------
+
+
 void menuEliminarPaquete(CentroLogisticoPtr centroLogistico);
 //OPERACION: menu de eliminacion de un persona de la lista
 //PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de personas.
@@ -136,27 +162,53 @@ void menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 //DEVUELVE: Nada
 void menuEliminarVehiculo(CentroLogisticoPtr centroLogistico);
 
-//OPERACION:
+///--------------------------------------------------------------------------------------------------------------------------
+
+///                                             MENÚS DE MODIFICACIÓN DE DATOS
+
+///--------------------------------------------------------------------------------------------------------------------------
+
+
+//FUNCIÓN DE MODIFICACIÓN DE PAQUETE DE CENTRO LOGISTICO
 //PRECONDICIÓN:
-//POSTCONDICION:
-//PARÁMETROS:
-//
-//DEVUELVE:
+//              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
+//              - El campo de listaPaquetes debe haber sido creada con la funcion crearLista previamente en memoria dinamica
+//POSTCONDICIÓN: Genera una serie de opciones por pantalla que le permite al usuario modificar el valor de algún campo
+//               de algún paquete solciitado por el usuario, seleccionando mediante un numero
+//               Luego, se elige el campo que se desea modificar, y posteriormente se asigna el valor ingresado por teclado
+//               Hasta que el usuario desee encerrado en un do while
+//PARÁMETROS: CentroLogisticoPtr donde se generara la modificacion del paquete procedente
+//DEVUELVE: Nada.
 void menuModificarPaquete(CentroLogisticoPtr centroLogistico);
-//OPERACION:
+//FUNCIÓN DE MODIFICACIÓN DE CLIENTE DE CENTRO LOGISTICO
 //PRECONDICIÓN:
-//POSTCONDICION:
-//PARÁMETROS:
-//
-//DEVUELVE:
+//              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
+//              - El campo de listaClientes debe haber sido creada con la funcion crearLista previamente en memoria dinamica
+//POSTCONDICIÓN: Genera una serie de opciones por pantalla que le permite al usuario modificar el valor de algún campo
+//               de algún cliente solciitado por el usuario, seleccionando mediante un numero
+//               Luego se elige el campo que se desea modificar, y posteriormente se asigna el valor ingresado por teclado
+//               Hasta que el usuario desee encerrado en un do while
+//PARÁMETROS: CentroLogisticoPtr donde se generara la modificacion del cliente o chofer procedente
+//DEVUELVE: Nada.
 void menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
-//OPERACION:
+//FUNCIÓN DE MODIFICACIÓN DE VEHICULO DE CENTRO LOGISTICO
 //PRECONDICIÓN:
-//POSTCONDICION:
-//PARÁMETROS:
-//
-//DEVUELVE:
+//              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
+//              - El campo de listaVehiculos debe haber sido creada con la funcion crearLista previamente en memoria dinamica
+//POSTCONDICIÓN: Genera una serie de opciones por pantalla que le permite al usuario modificar el valor de algún campo
+//               de algún vehiculo solciitado por el usuario, seleccionando mediante un numero
+//               Luego se elige el campo que se desea modificar, y posteriormente se asigna el valor ingresado por teclado
+//               Hasta que el usuario desee encerrado en un do while
+//PARÁMETROS: CentroLogisticoPtr donde se generara la modificacion del vehiculo procedente
+//DEVUELVE: Nada.
 void menuModificarVehiculo(CentroLogisticoPtr centroLogistico);
+
+///--------------------------------------------------------------------------------------------------------------------------
+
+///                                             MENÚS DE ACCIÓN DEDICADOS A REPARTOS
+
+///--------------------------------------------------------------------------------------------------------------------------
+
 
 //OPERACION:
 //PRECONDICIÓN:
