@@ -25,6 +25,8 @@ La verdad que este fin de semana estuvo interesante
 
 Probando con modificacion con codeblocks
 
+No entiendo por que no funciona
+
 */
 
 
