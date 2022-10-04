@@ -135,3 +135,13 @@ void mostrarReparto(RepartoPtr reparto)
     }
     pilaAux=destruirPila(pilaAux);
 }
+void mostrarRepartoSinPaquetes(RepartoPtr reparto)
+{
+    mostrarPersona(getChofer(reparto));
+    mostrarVehiculo(getVehiculo(reparto));
+    char *strFecha;
+    traerFechaYHora(getFechaSalida(reparto),strFecha);
+    printf("Fecha de Salida: %s\n",strFecha);
+    traerFechaYHora(getFechaRetorno(reparto),strFecha);
+    printf("Fecha de Retorno: %s\n",strFecha);
+}

@@ -245,6 +245,30 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico)
     listaAux=destruirLista(listaAux,false);
     printf("\n");
 }
+void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico)
+{
+    ordenarPorFechaDeSalidaRepartos(centroLogistico);
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico));
+
+    int i=0;
+
+    printf("\n LISTA DE REPARTOS POR FECHA DE SALIDA: \n\n");
+    while(!listaVacia(listaAux))
+    {
+        printf("%d. ",i+1);
+
+        mostrarRepartoSinPaquetes((RepartoPtr)getCabecera(listaAux));
+        ListaPtr listaADestruir=listaAux;
+        listaAux=getResto(listaAux);
+        listaADestruir=destruirLista(listaADestruir,false);
+
+        i++;
+    }
+    listaAux=destruirLista(listaAux,false);
+    printf("\n");
+
+}
 void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
 {
     ListaPtr listaAux=crearLista();
@@ -341,6 +365,7 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer
 }
 bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente)
 {
+
     bool match=false;
 
     ListaPtr listaAux=crearLista();
@@ -352,6 +377,59 @@ bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente)
         {
             match=true;
             mostrarVehiculo(vehiculoAux); //mostramos si las patentes coinciden, es decir, si strcmp da cero.
+        }
+        ListaPtr listaADestruir=listaAux;
+        listaAux=getResto(listaAux);
+        listaADestruir=destruirLista(listaADestruir,false);
+    }
+    listaAux=destruirLista(listaAux,false);
+
+    if(match)
+        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
+
+    return match;
+}
+///////////////////////////////////////////////////FUNCIONES DE VALIDACION//////////////////////////////////////////////////////////////////////////
+
+bool cuilExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) // devuelve true si la persona que le ingresamos tiene el mismo cuil que una de las personas, false si no
+{
+
+    bool match=false;
+
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getPersonas(centroLogistico));
+    while(!listaVacia(listaAux))
+    {
+
+        PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
+        if(strcmp(getCuil(getCuilPersona(personaAux)),getCuil(persona))==0)
+        {
+            match=true;
+        }
+        ListaPtr listaADestruir=listaAux;
+        listaAux=getResto(listaAux);
+        listaADestruir=destruirLista(listaADestruir,false);
+    }
+    listaAux=destruirLista(listaAux,false);
+
+    if(match)
+        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
+
+    return match;
+}
+bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
+{
+    bool match=false;
+
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico));
+    while(!listaVacia(listaAux))
+    {
+
+        RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
+        if(calcularDiferenciaFechas(getFechaSalida(repartoAux),getFechaSalida(reparto))==0  &&  strcmp(getCuil(getCuilPersona(repartoAux)),getCuil(getCuilPersona(reparto)))==0)
+        {
+            match=true;
         }
         ListaPtr listaADestruir=listaAux;
         listaAux=getResto(listaAux);

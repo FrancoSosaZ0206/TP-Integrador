@@ -167,6 +167,13 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico);
 // centroLogistico: puntero a estructura que representa al centro logistico.
 //Devuelve nada
 void mostrarRepartos(CentroLogisticoPtr centroLogistico);
+//Operacion: Muestra lista de repartos filtrados por fecha de salida.(fecha,vehiculo, chofer)
+//Precondicion: La lista debe estar creada.
+//Postcondicion: Imprime lista de repartos.
+//Parametros:
+// listaRepartos: puntero a la estructura lista a imprimir.
+//Devuelve nada
+void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico);
 //Operación: Muestra los paquetes con el estado que le haya pasado.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: Imprime los paquetes con la condicion que se les haya pasado.
