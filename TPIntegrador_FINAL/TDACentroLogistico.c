@@ -420,20 +420,23 @@ bool cuilExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) // de
 bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
 {
     bool match=false;
+    RepartoPtr repartoAux;
+
+    bool condicion;
 
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico));
     while(!listaVacia(listaAux))
     {
+        repartoAux=(RepartoPtr)getCabecera(listaAux);
 
-        RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
-        if(calcularDiferenciaFechas(getFechaSalida(repartoAux),getFechaSalida(reparto))==0  &&  strcmp(getCuil(getCuilPersona(repartoAux)),getCuil(getCuilPersona(reparto)))==0)
-        {
+        condicion=calcularDiferenciaFechas(getFechaSalida(repartoAux),getFechaSalida(reparto))==0;
+        condicion = condicion && strcmp(getCuil(getCuilPersona(repartoAux)),getCuil(getCuilPersona(reparto)))==0;
+
+        if(condicion)
             match=true;
-        }
-        ListaPtr listaADestruir=listaAux;
+
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
     }
     listaAux=destruirLista(listaAux,false);
 
