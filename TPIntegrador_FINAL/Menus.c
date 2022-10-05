@@ -937,15 +937,16 @@ void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico)
         agregarDatoLista(listaPaquetes, (PaquetePtr)paqueteAux);
     }
     int i=0;
-    while(!listaVacia)
+    while(i != longitudLista(listaPaquetes))
     {
+        printf("Indice %d\n", i);
         mostrarPaquete(getDatoLista(listaAux, i));
         i++;
     }
     do
     {
         limpiarBufferTeclado();
-        printf("Seleccione un reparto mediante su indice: ");
+        printf("Seleccione un paquete mediante su indice: ");
         printf("Eleccion: ");
         scanf("%d",&eleccion);
         limpiarBufferTeclado();
@@ -964,12 +965,12 @@ void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico)
     system("cls");
     limpiarBufferTeclado();
     setEstado(paqueteAux, eleccion);
-    i=0;
-    while(!listaVacia(listaPaquetes))
+    i=longitudLista(listaPaquetes);
+    while(i != 0)
     {
         paqueteAux = getDatoLista(listaPaquetes, i);
         apilar(pilaPaquetes, (PaquetePtr)paqueteAux);
-        i++;
+        i--;
     }
 
     listaRepartos = destruirLista(listaRepartos, false);
