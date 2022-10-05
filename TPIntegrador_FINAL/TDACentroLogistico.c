@@ -109,13 +109,11 @@ void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
     int i=0;
 
     printf("\nLISTA DE PAQUETES: \n\n");
-    while(!listaVacia(listaAux)) //getPaquetes(centroLogistico)
+    while(!listaVacia(listaAux))
     {
         printf("%d. ",i+1);
         mostrarPaquete((PaquetePtr)getCabecera(listaAux));
-        ListaPtr listaADestruir=listaAux;
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
 
         i++;
     }
@@ -135,9 +133,7 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico)
     {
         printf("%d. ",i+1);
         mostrarPersona((PersonaPtr)getCabecera(listaAux));
-        ListaPtr listaADestruir=listaAux;
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
 
         i++;
     }
@@ -161,9 +157,7 @@ void mostrarClientes(CentroLogisticoPtr centroLogistico) //busca y muestra solo 
 
             mostrarPersona(personaAux);
         }
-        ListaPtr listaADestruir=listaAux;
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
 
         i++;
     }
@@ -187,9 +181,7 @@ void mostrarChoferes(CentroLogisticoPtr centroLogistico) //busca y muestra solo 
 
             mostrarPersona(personaAux);
         }
-        ListaPtr listaADestruir=listaAux;
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
 
         i++;
     }
@@ -210,15 +202,15 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
         printf("%d. ",i+1);
 
         mostrarVehiculo((VehiculoPtr)getCabecera(listaAux));
-        ListaPtr listaADestruir=listaAux;
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
 
         i++;
     }
     listaAux=destruirLista(listaAux,false);
     printf("\n");
 }
+
+
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     ListaPtr listaAux=crearLista();
@@ -249,6 +241,8 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
     listaAux=destruirLista(listaAux,false);
     printf("\n");
 }
+
+
 void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
 {
     ListaPtr listaAux=crearLista();
@@ -306,10 +300,7 @@ bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID)
             match=true;
             mostrarPaquete(paqueteAux);
         }
-        ListaPtr listaADestruir=listaAux;
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
-
     }
     listaAux=destruirLista(listaAux,false);
 
@@ -332,9 +323,7 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer
             match=true;
             mostrarPersona(personaAux); //mostramos solo si el cuil y esChofer coinciden
         }
-        ListaPtr listaADestruir=listaAux;
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
     }
     listaAux=destruirLista(listaAux,false);
 
@@ -357,9 +346,7 @@ bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente)
             match=true;
             mostrarVehiculo(vehiculoAux); //mostramos si las patentes coinciden, es decir, si strcmp da cero.
         }
-        ListaPtr listaADestruir=listaAux;
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
     }
     listaAux=destruirLista(listaAux,false);
 
