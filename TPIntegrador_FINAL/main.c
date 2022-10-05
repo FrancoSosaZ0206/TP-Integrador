@@ -7,11 +7,7 @@
 #include "test.h"
 #include "util.h"
 
-///otro nuevo cambio por franco S.
 /**
-aaaaaaaaa
-un nuevo cambio
-
 DIRECTORIOS (FRANCO S.)
 
 Para crear y linkear archivos
