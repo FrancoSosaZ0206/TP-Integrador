@@ -999,7 +999,28 @@ void menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbier
 }
 
 
-void menuCerrarReparto(CentroLogisticoPtr centroLogistico);
+void menuCerrarReparto(CentroLogisticoPtr centroLogistico)
+{
+    int eleccion;
+    ListaPtr listaAbiertos = crearLista();
+    ListaPtr listaCerrados = crearLista();
+    RepartoPtr repartoAux;
+    listaAbiertos = getRepartos(centroLogistico, true);
+    mostrarRepartos(centroLogistico, true);
+    do
+    {
+        limpiarBufferTeclado();
+        //Para seleccionar el reparto
+        printf("Selecciona un reparto por su indice: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0 && eleccion > longitudLista(listaAbiertos));
+    repartoAux = removerDeLista(listaAbiertos, eleccion-1);
+    agregarDatoLista(listaCerrados,(RepartoPtr)repartoAux);
+
+    listaAbiertos = destruirLista(listaAbiertos, false);
+    listaCerrados = destruirLista(listaCerrados, false);
+}
 
 
 void menuActualizarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
