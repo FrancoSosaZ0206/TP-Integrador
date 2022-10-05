@@ -80,7 +80,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
     int MAIN_OP = 0;
     int op1=0;  //usamos otras para los loops internos, para evitar que,
     int op2=0;  //si queremos volver atrás, se vuelva todo atrás o cosas así.
-
+    int op3 = 0;
     do
     {
         system("cls");
@@ -316,8 +316,127 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             } while(op1!=0);
             break;
         case 2:
+            printf("Seccion de repartos\n\n");
+
+            printf("1. Repartos abiertos\n");
+            printf("2. Repartos cerrados\n");
+            printf("0. Volver\n");
+            printf("-1. MENU PRINCIPAL\n");
+            printf("\n-----------------------------------------\n\n");
+
+            printf("Elija una opcion: ");
+            scanf("%d", &op2);
+            limpiarBufferTeclado();
+            switch(op2)
+            {
+                case 1:
+                    do
+                    {
+                        printf("Repartos abiertos\n");
+
+                        printf("1. Armar reparto\n");
+                        printf("2. Eliminar reparto\n"); //Borramos su existencia (cerrados y abiertos)
+                        printf("3. Mostrar repartos\n"); //Plural
+                        printf("4. Buscar reparto\n"); //Particular
+                        printf("5. Cerrar un reparto\n");//Lo cambiamos de lista de abierto a cerrado
+                        printf("0. Volver\n");
+                        printf("-1. MENU PRINCIPAL\n");
+                        printf("\n-----------------------------------------\n\n");
+
+                        printf("Elija una opcion: ");
+                        scanf("%d", &op3);
+                        limpiarBufferTeclado();
+                    switch(op3)
+                    {
+                        case 1:
+                            menuArmarReparto(centroLogistico);
+                        break;
+                        case 2:
+                            menuEliminarReparto(centroLogistico, true);
+                        break;
+                        case 3:
+                            mostrarRepartos(centroLogistico, true);
+                        break;
+                        case 4:
+                            menuMostrarEntregasReparto(centroLogistico, true);
+                        break;
+                        case 5:
+                            menuCerrarReparto(centroLogistico);
+                        break;
+
+                        default:
+                        printf("\nOpcion incorrecta.\n\n");
+                        presionarEnterYLimpiarPantalla();
+                        break;
+                    }
+                } while(op3!=0);
             break;
+
+            case 2:
+                    do
+                    {
+                        printf("Repartos cerrados\n");
+
+                        printf("1. Armar reparto\n");
+                        printf("2. Eliminar reparto\n"); //Borramos su existencia (cerrados y abiertos)
+                        printf("3. Mostrar repartos\n"); //Plural
+                        printf("4. Buscar reparto\n"); //Particular
+                        printf("5. Cerrar un reparto\n");//Lo cambiamos de lista de abierto a cerrado
+                        printf("0. Volver\n");
+                        printf("-1. MENU PRINCIPAL\n");
+                        printf("\n-----------------------------------------\n\n");
+
+                        printf("Elija una opcion: ");
+                        scanf("%d", &op3);
+                        limpiarBufferTeclado();
+                    switch(op3)
+                    {
+                        case 1:
+                            menuArmarReparto(centroLogistico);
+                        break;
+                        case 2:
+                            menuEliminarReparto(centroLogistico, true);
+                        break;
+                        case 3:
+                            mostrarRepartos(centroLogistico, true);
+                        break;
+                        case 4:
+                            menuMostrarEntregasReparto(centroLogistico, true);
+                        break;
+                        case 5:
+                            menuCerrarReparto(centroLogistico);
+                        break;
+
+                        default:
+                        printf("\nOpcion incorrecta.\n\n");
+                        presionarEnterYLimpiarPantalla();
+                        break;
+                    }
+                } while(op3!=0);
+            break;
+            }
+        break;
         case 3:
+            printf("Seccion de repartos\n\n");
+
+            printf("1. Repartos abiertos\n");
+            printf("2. Repartos cerrados\n");
+            printf("0. Volver\n");
+            printf("-1. MENU PRINCIPAL\n");
+            printf("\n-----------------------------------------\n\n");
+
+            printf("Elija una opcion: ");
+            scanf("%d", &op2);
+            limpiarBufferTeclado();
+            switch(op2)
+            {
+            case 1:
+                menuActualizarReparto(centroLogistico, true);
+                break;
+            case 2:
+                menuActualizarReparto(centroLogistico, false);
+                break;
+            }
             break;
         case 4:
             do
