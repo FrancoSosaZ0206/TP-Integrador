@@ -8,13 +8,6 @@
 #include "util.h"
 
 /**
-HOLA COMO ESTAS
-BIEN Y TU?
-
-*/
-
-
-/**
 DIRECTORIOS (FRANCO S.)
 
 Para crear y linkear archivos
