@@ -455,3 +455,408 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico)
 }
 
 ****************AGREGADO DESDE ARRIBA HASTA ACÁ****************
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+					MENUES.C
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+{
+    int eleccion;
+    ListaPtr listaRepartos = crearLista();
+    PilaPtr pilaPaquetes = crearPila();
+    ListaPtr listaPaquetes = crearLista();
+    RepartoPtr repartoAux;
+    PaquetePtr paqueteAux;
+    listaRepartos = getRepartos(centroLogistico, esRepartoAbierto);
+    mostrarRepartos(centroLogistico, esRepartoAbierto);
+    do
+    {
+        limpiarBufferTeclado();
+        printf("Seleccione un reparto mediante su indice: ");
+        printf("Eleccion: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0);
+    system("cls");
+    repartoAux = getDatoLista(listaRepartos, eleccion-1);
+    pilaPaquetes = getPaquetesReparto(repartoAux);
+    while(!pilaVacia(pilaPaquetes))
+    {
+        paqueteAux = desapilar(pilaPaquetes);
+        agregarDatoLista(listaPaquetes, (PaquetePtr)paqueteAux);
+    }
+    int i=0;
+    while(i != longitudLista(listaPaquetes))
+    {
+        printf("Indice %d\n", i);
+        mostrarPaquete(getDatoLista(listaAux, i));
+        i++;
+    }
+    while(i != 0)
+    {
+        paqueteAux = getDatoLista(listaPaquetes, i);
+        apilar(pilaPaquetes, (PaquetePtr)paqueteAux);
+        i--;
+    }
+    listaRepartos = destruirLista(listaRepartos, false);
+    listaPaquetes = destruirLista(listaRepartos, false);
+}
+
+
+
+void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+{
+    int eleccion;
+    ListaPtr listaRepartos = crearLista();
+    RepartoPtr repartoAux;
+    listaRepartos = getRepartos(centroLogistico, esRepartoAbierto);
+    mostrarRepartos(centroLogistico, esRepartoAbierto);
+    do
+    {
+        limpiarBufferTeclado();
+        //Para devolver el reparto o para mostrarlo
+        printf("Selecciona un reparto por su indice: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0);
+    repartoAux = getDatoLista(listaRepartos, eleccion-1);
+    //return repartoAux; Por si se quiere el reparto
+    //mostrarReparto(repartoAux); // por si se quiere mostrar simplemente
+    listaRepartos = destruirLista(listaRepartos, false);
+}
+
+
+void menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+{
+    int eleccion;
+    ListaPtr listaRepartos = crearLista();
+    RepartoPtr repartoAux;
+    listaRepartos = getRepartos(centroLogistico, esRepartoAbierto);
+    mostrarRepartos(centroLogistico, esRepartoAbierto);
+    do
+    {
+        limpiarBufferTeclado();
+        //Para remvoerlo de la lista
+        printf("Selecciona un reparto por su indice: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0);
+    repartoAux = removerDeLista(listaRepartos, eleccion-1);
+    //return repartoAux; Por si se quiere el reparto
+    //mostrarReparto(repartoAux); // por si se quiere mostrar simplemente
+    listaRepartos = destruirLista(listaRepartos, false);
+}
+
+
+void menuCerrarReparto(CentroLogisticoPtr centroLogistico)
+{
+    int eleccion, totalPaquetes, i;
+    ListaPtr listaAbiertos = crearLista();
+    ListaPtr listaCerrados = crearLista();
+    ListaPtr listaPaquetes = crearLista();
+    PilaPtr pilaPaquetes = crearPila();
+    RepartoPtr repartoAux;
+    PaquetePtr paqueteAux;
+    listaAbiertos = getRepartos(centroLogistico, true);
+    mostrarRepartos(centroLogistico, true);
+    do
+    {
+        limpiarBufferTeclado();
+        //Para seleccionar el reparto
+        printf("Selecciona un reparto por su indice: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0 && eleccion > longitudLista(listaAbiertos));
+    pilaPaquetes = getPaquetesReparto(repartoAux);
+    while(!pilaVacia(pilaPaquetes))
+    {
+        paqueteAux = desapilar(pilaPaquetes);
+        agregarDatoLista(listaPaquetes, (PaquetePtr)paqueteAux)
+    }
+    totalPaquetes = longitudLista(listaPaquetes);
+    i = 0;
+    while(i <= totalPaquetes)
+    {
+        paqueteAux = getDatoLista(listaPaquetes, i);
+        if(getEstado(paqueteAux) != 0 && getEstado(paqueteAux) != 3)
+        {
+            setEstado(paqueteAux, 0);
+            agregarDatoLista(listaPaquetes, paqueteAux);
+        }
+        i++;
+    }
+    i = totalPaquetes;
+    while(i > -1)
+    {
+        paqueteAux = getDatoLista(listaPaquetes, i);
+        apilar(pilaPaquetes, (PaquetePtr)paqueteAux);
+        i--;
+    }
+    repartoAux = removerDeLista(listaAbiertos, eleccion-1);
+    agregarDatoLista(listaCerrados,(RepartoPtr)repartoAux);
+
+    listaAbiertos = destruirLista(listaAbiertos, false);
+    listaCerrados = destruirLista(listaCerrados, false);
+    listaPaquetes = destruirLista(listaPaquetes, false);
+    pilaPaquetes = destruirPila(pilaPaquetes);
+}
+
+
+void menuActualizarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+{
+    int eleccion, i;
+    ListaPtr listaRepartos = crearLista();
+    ListaPtr listaPaquetes = crearLista();
+    PilaPtr pilaPaquetes = crearPila();
+    PaquetePtr paqueteAux;
+    RepartoPtr repartoAux;
+    listaRepartos = getRepartos(centroLogistico, esRepartoAbierto);
+    mostrarRepartos(centroLogistico, esRepartoAbierto);
+    do
+    {
+        limpiarBufferTeclado();
+        //Para modificar el reparto
+        printf("Selecciona un reparto por su indice: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0 && eleccion > longitudLista(listaRepartos));
+    repartoAux = getDatoLista(listaRepartos, eleccion-1);
+    pilaPaquetes = getPaquetesReparto(repartoAux);
+    while(!pilaVacia)
+    {
+        paqueteAux = desapilar(pilaPaquetes);
+        mostrarPaquete(paqueteAux);
+        agregarDatoLista(listaPaquetes, paqueteAux);
+    }
+    do
+    {
+        limpiarBufferTeclado();
+        //Para modificar el paquete
+        printf("Selecciona un paquete por su indice: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0 && eleccion > longitudLista(listaPaquetes));
+    system("cls");
+    paqueteAux = getDatoLista(listaPaquetes, eleccion-1);
+    helpEstadoPaquete();
+    do
+    {
+        limpiarBufferTeclado();
+        printf("Seleccione un estado mediante su indice: ");
+        printf("Eleccion: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0 && eleccion < 4);
+    system("cls");
+    limpiarBufferTeclado();
+    setEstado(paqueteAux, eleccion);
+    i=longitudLista(listaPaquetes);
+    while(i != -1)
+    {
+        paqueteAux = getDatoLista(listaPaquetes, i);
+        apilar(pilaPaquetes, paqueteAux);
+        i--;
+    }
+    listaRepartos = destruirLista(listaRepartos, false);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+					MENUES.H
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//OPERACION: Crear un reparto en la lista
+//PRECONDICIÓN: centroLogistico debe haber sido creado previamente con crearCentroLogistico
+//POSTCONDICION: crea una unidade de repartoPtr en la cual se seleccionaran los elementos
+//acumulados de los archivos de choferes, paquetes, y vehiculos para poner en marcha
+//el reparto, todos los elementos seran seleccionados por el usuario
+//PARÁMETROS:
+//          puntero a la estructura centro logistico
+//DEVUELVE: vacio
+void menuArmarReparto(CentroLogisticoPtr centroLogistico);
+//OPERACION: Busqueda de un reparto en la lista
+//PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
+//POSTCONDICION: buscara dentro de los repartos abiertos o cerrados un reparto en particular
+//este sera solicitado de manera numerica por el usuario, buscando dentro de la lista de repartos
+//abiertos de centro logistico
+//PARÁMETROS: puntero a centro logistico
+//variable logica que determina a que lista de repartos se iniciara la busqueda
+//DEVUELVE: vacio
+void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+//OPERACION: eliminacion de reparto
+//PRECONDICIÓN: centroLogistico debe haber sido creado previamente con crearCentroLogistico
+//POSTCONDICION: eliminara un reparto seleccionado mediante el indice por el usuario,
+//mostrandolos por pantalla, el cual removera el reparto en esa posicion de los existentes
+//PARÁMETROS: puntero a centro logistico
+//variable logica que determina a que lista de repartos se iniciara la busqueda
+//DEVUELVE: vacio
+void menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+//OPERACION: cerrar reparto
+//PRECONDICIÓN: centroLogistico debe haber sido creado previamente con crearCentroLogistico
+//POSTCONDICION: se solicitara por pantalla la seleccion de un reparto por parte del usuario
+//para remover de los repartos abiertos a los cerrados, devolviendo aquellos que no han sido entregados
+//PARÁMETROS: puntero a centro logistico
+//variable logica que determina a que lista de repartos se iniciara la busqueda
+//DEVUELVE: vacio
+void menuCerrarReparto(CentroLogisticoPtr centroLogistico);
+//OPERACION: actualizar reparto
+//PRECONDICIÓN: centroLogistico debe haber sido creado previamente con crearCentroLogistico
+//POSTCONDICION: se le solicitara al usuario un reparto para modificar su estado
+//posteriormente se le solicitara un indice para seleccionar un paquete y
+//actualizarle el estado mediante una representacion numerica ingresada por consola
+//PARÁMETROS: puntero a centro logistico
+//variable logica que determina a que lista de repartos se iniciara la busqueda
+//DEVUELVE: vacio
+void menuActualizarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+
+//OPERACION: menú de muestra de repartos
+//PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
+//POSTCONDICION: despliega una serie de opciones de menues y submenues que permiten mostrar por
+//               pantalla los repartos abiertos y cerrados en las categorias de totales, particular, y filtrados por fecha
+//PARÁMETROS:
+//  centroLogistico: puntero a la estructura centro logistico
+//DEVUELVE: nada.
+void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
+
+
+//OPERACION: menú de muestra de entregas de un solo reparto
+//PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
+//POSTCONDICION: despliega una serie de opciones de menues y submenues que permiten mostrar por
+//               pantalla los repartos abiertos unicamente, se le solicitara al usuario que seleccione un
+//               reparto para mostrar sus entregas, y asi poder seleccionar una entrega modificando
+//               su valor de estado, 0 deposito, 1 en curso, 2 cancelado, 3 entregado
+//PARÁMETROS:
+//  centroLogistico: puntero a la estructura centro logistico
+// variable logica para saber si son abiertos o cerrados los repartos
+//DEVUELVE: nada.
+void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+					MAIN.C
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            printf("Seccion de repartos\n\n");
+
+            printf("1. Repartos abiertos\n");
+            printf("2. Repartos cerrados\n");
+            printf("0. Volver\n");
+            printf("-1. MENU PRINCIPAL\n");
+            printf("\n-----------------------------------------\n\n");
+
+            printf("Elija una opcion: ");
+            scanf("%d", &op2);
+            limpiarBufferTeclado();
+            switch(op2)
+            {
+                case 1:
+                    do
+                    {
+                        printf("Repartos abiertos\n");
+
+                        printf("1. Armar reparto\n");
+                        printf("2. Eliminar reparto\n"); //Borramos su existencia (cerrados y abiertos)
+                        printf("3. Mostrar repartos\n"); //Plural
+                        printf("4. Buscar reparto\n"); //Particular
+                        printf("5. Cerrar un reparto\n");//Lo cambiamos de lista de abierto a cerrado
+                        printf("0. Volver\n");
+                        printf("-1. MENU PRINCIPAL\n");
+                        printf("\n-----------------------------------------\n\n");
+
+                        printf("Elija una opcion: ");
+                        scanf("%d", &op3);
+                        limpiarBufferTeclado();
+                    switch(op3)
+                    {
+                        case 1:
+                            menuArmarReparto(centroLogistico);
+                        break;
+                        case 2:
+                            menuEliminarReparto(centroLogistico, true);
+                        break;
+                        case 3:
+                            mostrarRepartos(centroLogistico, true);
+                        break;
+                        case 4:
+                            menuMostrarEntregasReparto(centroLogistico, true);
+                        break;
+                        case 5:
+                            menuCerrarReparto(centroLogistico);
+                        break;
+
+                        default:
+                        printf("\nOpcion incorrecta.\n\n");
+                        presionarEnterYLimpiarPantalla();
+                        break;
+                    }
+                } while(op3!=0);
+            break;
+
+            case 2:
+                    do
+                    {
+                        printf("Repartos cerrados\n");
+
+                        printf("1. Armar reparto\n");
+                        printf("2. Eliminar reparto\n"); //Borramos su existencia (cerrados y abiertos)
+                        printf("3. Mostrar repartos\n"); //Plural
+                        printf("4. Buscar reparto\n"); //Particular
+                        printf("0. Volver\n");
+                        printf("-1. MENU PRINCIPAL\n");
+                        printf("\n-----------------------------------------\n\n");
+
+                        printf("Elija una opcion: ");
+                        scanf("%d", &op3);
+                        limpiarBufferTeclado();
+                    switch(op3)
+                    {
+                        case 1:
+                            menuArmarReparto(centroLogistico);
+                        break;
+                        case 2:
+                            menuEliminarReparto(centroLogistico, true);
+                        break;
+                        case 3:
+                            mostrarRepartos(centroLogistico, true);
+                        break;
+                        case 4:
+                            menuMostrarEntregasReparto(centroLogistico, true);
+                        break;
+
+                        default:
+                        printf("\nOpcion incorrecta.\n\n");
+                        presionarEnterYLimpiarPantalla();
+                        break;
+                    }
+                } while(op3!=0);
+            break;
+            }
+        break;
+        case 3:
+            printf("Seccion de repartos\n\n");
+
+            printf("1. Repartos abiertos\n");
+            printf("2. Repartos cerrados\n");
+            printf("0. Volver\n");
+            printf("-1. MENU PRINCIPAL\n");
+            printf("\n-----------------------------------------\n\n");
+
+            printf("Elija una opcion: ");
+            scanf("%d", &op2);
+            limpiarBufferTeclado();
+            switch(op2)
+            {
+            case 1:
+                menuActualizarReparto(centroLogistico, true);
+                break;
+            case 2:
+                menuActualizarReparto(centroLogistico, false);
+                break;
+            }
+            break;
