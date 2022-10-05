@@ -916,7 +916,6 @@ void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico)
     ListaPtr listaRepartos = crearLista();
     PilaPtr pilaPaquetes = crearPila();
     ListaPtr listaPaquetes = crearLista();
-    ListaPtr listaAux = crearLista();
     RepartoPtr repartoAux;
     PaquetePtr paqueteAux;
     listaRepartos = getRepartos(centroLogistico, true);
@@ -937,17 +936,12 @@ void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico)
         paqueteAux = desapilar(pilaPaquetes);
         agregarDatoLista(listaPaquetes, (PaquetePtr)paqueteAux);
     }
-    agregarLista(listaAux, listaPaquetes);
     int i=0;
     while(!listaVacia)
     {
         mostrarPaquete(getDatoLista(listaAux, i));
-        ListaPtr listaADestruir = listaAux;
-        listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
         i++;
     }
-    listaAux = destruirLista(listaAux, false);
     do
     {
         limpiarBufferTeclado();
@@ -979,7 +973,6 @@ void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico)
     }
 
     listaRepartos = destruirLista(listaRepartos, false);
-    pilaPaquetes = destruirPila(pilaPaquetes);
     listaPaquetes = destruirLista(listaRepartos, false);
 }
 
