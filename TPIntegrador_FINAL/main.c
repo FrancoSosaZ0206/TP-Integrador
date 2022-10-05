@@ -381,7 +381,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         printf("2. Eliminar reparto\n"); //Borramos su existencia (cerrados y abiertos)
                         printf("3. Mostrar repartos\n"); //Plural
                         printf("4. Buscar reparto\n"); //Particular
-                        printf("5. Cerrar un reparto\n");//Lo cambiamos de lista de abierto a cerrado
                         printf("0. Volver\n");
                         printf("-1. MENU PRINCIPAL\n");
                         printf("\n-----------------------------------------\n\n");
@@ -402,9 +401,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         break;
                         case 4:
                             menuMostrarEntregasReparto(centroLogistico, true);
-                        break;
-                        case 5:
-                            menuCerrarReparto(centroLogistico);
                         break;
 
                         default:
