@@ -210,40 +210,49 @@ void menuModificarVehiculo(CentroLogisticoPtr centroLogistico);
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
-//OPERACION:
-//PRECONDICIÓN:
-//POSTCONDICION:
+//OPERACION: menu de armado de repartos
+//PRECONDICIÓN: centroLogistico debe haber sido creado y llenado con, al menos:
+//                  - Un chofer.
+//                  - Un vehiculo.
+//                  - Un paquete.
+//POSTCONDICION: se arma un reparto con fecha de salida y retorno ingresadas por el usuario, y un chofer, vehiculo
+//               y pila de paquetes seleccionados de las respectivas listas del centro logistico.
+//               Luego, se determina si los datos del reparto no existen en ningún otro:
+//                  1. De ser así, se agrega a la lista de repartos abiertos del centro logístico.
+//                  2. De lo contrario, se vuelven a elegir estos ultimos datos.
+//               El proceso se repite hasta que se cumpla la condicion 1.
 //PARÁMETROS:
-//
-//DEVUELVE:
+//  centroLogistico: puntero a la estructura del Centro Logistico
+//DEVUELVE: nada.
 void menuArmarReparto(CentroLogisticoPtr centroLogistico);
-//OPERACION:
-//PRECONDICIÓN:
-//POSTCONDICION:
+//OPERACION: menu de busqueda de repartos
+//PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
+//POSTCONDICION: se muestra el reparto buscado, o se muestra un mensaje de error de lo contrario.
 //PARÁMETROS:
-//
-//DEVUELVE:
+//  centroLogistico: puntero a la estructura del Centro Logistico
+//DEVUELVE: nada.
 void menuBuscarReparto(CentroLogisticoPtr centroLogistico);
-//OPERACION:
-//PRECONDICIÓN:
-//POSTCONDICION:
+//OPERACION: menu de eliminacion de repartos
+//PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
+//POSTCONDICION: se destruye el reparto seleccionado.
 //PARÁMETROS:
-//
-//DEVUELVE:
+//  centroLogistico: puntero a la estructura del Centro Logistico
+//DEVUELVE: nada.
 void menuEliminarReparto(CentroLogisticoPtr centroLogistico);
-//OPERACION:
-//PRECONDICIÓN:
-//POSTCONDICION:
+//OPERACION: menu de cerrado de repartos
+//PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
+//POSTCONDICION: se mueve el reparto seleccionado a la lista de repartos cerrados.
 //PARÁMETROS:
-//
-//DEVUELVE:
+//  centroLogistico: puntero a la estructura del Centro Logistico
+//DEVUELVE: nada.
 void menuCerrarReparto(CentroLogisticoPtr centroLogistico);
-//OPERACION:
-//PRECONDICIÓN:
-//POSTCONDICION:
+//OPERACION: menu de actualizacion de datos de un reparto
+//PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
+//POSTCONDICION: se ingresan los nuevos datos del reparto y se aplican los cambios,
+///              pasando previamente por el mismo proceso de chequeo que en la funcion menuArmarReparto.
 //PARÁMETROS:
-//
-//DEVUELVE:
+//  centroLogistico: puntero a la estructura del Centro Logistico
+//DEVUELVE: nada.
 void menuActualizarReparto(CentroLogisticoPtr centroLogistico);
 
 //OPERACION: menú de muestra de repartos
