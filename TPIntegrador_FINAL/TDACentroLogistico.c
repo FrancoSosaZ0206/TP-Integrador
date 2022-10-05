@@ -701,13 +701,18 @@ void ordenarPorChoferRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoA
     for(int i=0;i<n;i++) ///Primero, vaciamos la lista en el vector
         repartos[i]=removerReparto(centroLogistico,0,esRepartoAbierto);
 
+        /*
+        Alvarez, Vanesa - repartos[j]
+        Alvarez, Julian - repartos[j+1]
+        */
+
 ///Luego, ordenamos el vector (m. burbuja)
     for(int i=0; i<n-1 ; i++)
     {
         for(int j=i; j<n-1; j++)
         {
             int diferenciaApellidos = strcmp(getApellido(getChofer(repartos[j])),getApellido(getChofer(repartos[j+1])));
-            bool condicion = diferenciaApellidos > 0;
+            bool condicion = diferenciaApellidos >= 0;
             int diferenciaNombres = strcmp(getNombre(getChofer(repartos[j])),getNombre(getChofer(repartos[j+1])));
             condicion = condicion && diferenciaNombres > 0;
         //condicion de la bandera: "Si el APELLIDO Y NOMBRE del chofer del reparto en j van después de los del chofer del reparto en j+1..."

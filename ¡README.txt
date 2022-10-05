@@ -61,22 +61,19 @@ Creamos el paquete con el campo "motivo de entrega" vacío. Luego, tendríamos q
 
 
 - Agregar llamado a las funciones de repartos.
-- Ver como hacer para el resultado de la entrega. (llamar a la funcion "filtrarPaquetesPorEstado")
 
 - IMPORTANTE: agregar lo que decia en las consignas del TP "El sistema debe/no debe permitir...". Tip: es posible que necesitemos hacer más funciones de búsqueda.
-	FALTAN: debe permitir: 6
-		    no debe permitir: 1, 2, 4 y 5
+	FALTAN:
+		   debe permitir:
+			- 6 (desarrollar)
+			-  7 (llamar a la funcion "filtrarPaquetesPorEstado")
+		    no debe permitir: 
+			- 1, 2: las hizo Franquete, revisar.
+			- 5: la estan haciendo Franquete y Santiti.
 
-		- bool cuilExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona)
-
-- Menus: agregar un submenu donde puedas elegir si queres tomar accion sobre un solo dato o un grupo de datos a la vez, para evitar tener que entrar al menu varias veces (sería tedioso). Dentro de la segunda opcion (habria una 3ra, volver), podemos elegir si queremos tomar accion de un rango de indices, o bien si queremos tomar accion sobre varios indices especificos.
+- Menus: agregar un submenu donde puedas elegir si queres tomar accion sobre un solo dato o un grupo de datos a la vez, para evitar tener que entrar al menu varias veces (sería tedioso). Dentro de la segunda opcion (habria una 3ra, volver), podemos elegir si queremos tomar accion de un rango de indices, o bien si queremos tomar accion sobre varios indices especificos. (opcional)
 
 - Agregar getters y setters adicionales para las subestructuras de cada estructura (domicilio, cuil o fecha). Por ejemplo, agregar getters y setters a sus campos específicos) (opcional).
-
-- Agregar funciones de ordenamiento.
-	FALTAN: 
-		Ordenar paquetes por ID (opcional)
-		Ordenar Vehiculos alfabeticamente por marca
 
 - ARREGLAR POSIBLES BUGS :(
 
