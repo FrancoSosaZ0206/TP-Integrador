@@ -210,41 +210,49 @@ void menuModificarVehiculo(CentroLogisticoPtr centroLogistico);
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
-//OPERACION:
-//PRECONDICIÓN:
-//POSTCONDICION:
+//OPERACION: Crear un reparto en la lista
+//PRECONDICIÓN: centroLogistico debe haber sido creado previamente con crearCentroLogistico
+//POSTCONDICION: crea una unidade de repartoPtr en la cual se seleccionaran los elementos
+//acumulados de los archivos de choferes, paquetes, y vehiculos para poner en marcha
+//el reparto, todos los elementos seran seleccionados por el usuario
 //PARÁMETROS:
-//
-//DEVUELVE:
+//          puntero a la estructura centro logistico
+//DEVUELVE: vacio
 void menuArmarReparto(CentroLogisticoPtr centroLogistico);
-//OPERACION:
-//PRECONDICIÓN:
-//POSTCONDICION:
-//PARÁMETROS:
-//
-//DEVUELVE:
-void menuBuscarReparto(CentroLogisticoPtr centroLogistico);
-//OPERACION:
-//PRECONDICIÓN:
-//POSTCONDICION:
-//PARÁMETROS:
-//
-//DEVUELVE:
-void menuEliminarReparto(CentroLogisticoPtr centroLogistico);
-//OPERACION:
-//PRECONDICIÓN:
-//POSTCONDICION:
-//PARÁMETROS:
-//
-//DEVUELVE:
+//OPERACION: Busqueda de un reparto en la lista
+//PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
+//POSTCONDICION: buscara dentro de los repartos abiertos o cerrados un reparto en particular
+//este sera solicitado de manera numerica por el usuario, buscando dentro de la lista de repartos
+//abiertos de centro logistico
+//PARÁMETROS: puntero a centro logistico
+//variable logica que determina a que lista de repartos se iniciara la busqueda
+//DEVUELVE: vacio
+void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+//OPERACION: eliminacion de reparto
+//PRECONDICIÓN: centroLogistico debe haber sido creado previamente con crearCentroLogistico
+//POSTCONDICION: eliminara un reparto seleccionado mediante el indice por el usuario,
+//mostrandolos por pantalla, el cual removera el reparto en esa posicion de los existentes
+//PARÁMETROS: puntero a centro logistico
+//variable logica que determina a que lista de repartos se iniciara la busqueda
+//DEVUELVE: vacio
+void menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+//OPERACION: cerrar reparto
+//PRECONDICIÓN: centroLogistico debe haber sido creado previamente con crearCentroLogistico
+//POSTCONDICION: se solicitara por pantalla la seleccion de un reparto por parte del usuario
+//para remover de los repartos abiertos a los cerrados, devolviendo aquellos que no han sido entregados
+//PARÁMETROS: puntero a centro logistico
+//variable logica que determina a que lista de repartos se iniciara la busqueda
+//DEVUELVE: vacio
 void menuCerrarReparto(CentroLogisticoPtr centroLogistico);
-//OPERACION:
-//PRECONDICIÓN:
-//POSTCONDICION:
-//PARÁMETROS:
-//
-//DEVUELVE:
-void menuActualizarReparto(CentroLogisticoPtr centroLogistico);
+//OPERACION: actualizar reparto
+//PRECONDICIÓN: centroLogistico debe haber sido creado previamente con crearCentroLogistico
+//POSTCONDICION: se le solicitara al usuario un reparto para modificar su estado
+//posteriormente se le solicitara un indice para seleccionar un paquete y
+//actualizarle el estado mediante una representacion numerica ingresada por consola
+//PARÁMETROS: puntero a centro logistico
+//variable logica que determina a que lista de repartos se iniciara la busqueda
+//DEVUELVE: vacio
+void menuActualizarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 //OPERACION: menú de muestra de repartos
 //PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
@@ -266,6 +274,7 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 //  centroLogistico: puntero a la estructura centro logistico
 //DEVUELVE: nada.
 void mostrarEntregasReparto(CentroLogisticoPtr centroLogistico);
+
 
 
 ///--------------------------------------------------------------------------------------------------------------------------

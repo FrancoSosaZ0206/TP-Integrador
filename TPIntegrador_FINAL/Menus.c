@@ -1001,10 +1001,13 @@ void menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbier
 
 void menuCerrarReparto(CentroLogisticoPtr centroLogistico)
 {
-    int eleccion;
+    int eleccion, totalPaquetes, i;
     ListaPtr listaAbiertos = crearLista();
     ListaPtr listaCerrados = crearLista();
+    ListaPtr listaPaquetes = crearLista();
+    PilaPtr pilaPaquetes = crearPila();
     RepartoPtr repartoAux;
+    PaquetePtr paqueteAux;
     listaAbiertos = getRepartos(centroLogistico, true);
     mostrarRepartos(centroLogistico, true);
     do
@@ -1015,11 +1018,38 @@ void menuCerrarReparto(CentroLogisticoPtr centroLogistico)
         scanf("%d",&eleccion);
         limpiarBufferTeclado();
     }while(eleccion < 0 && eleccion > longitudLista(listaAbiertos));
+    pilaPaquetes = getPaquetesReparto(repartoAux);
+    while(!pilaVacia(pilaPaquetes))
+    {
+        paqueteAux = desapilar(pilaPaquetes);
+        agregarDatoLista(listaPaquetes, (PaquetePtr)paqueteAux)
+    }
+    totalPaquetes = longitudLista(listaPaquetes);
+    i = 0;
+    while(i <= totalPaquetes)
+    {
+        paqueteAux = getDatoLista(listaPaquetes, i);
+        if(getEstado(paqueteAux) != 0 && getEstado(paqueteAux) != 3)
+        {
+            setEstado(paqueteAux, 0);
+            agregarDatoLista(listaPaquetes, paqueteAux);
+        }
+        i++;
+    }
+    i = totalPaquetes;
+    while(i > -1)
+    {
+        paqueteAux = getDatoLista(listaPaquetes, i);
+        apilar(pilaPaquetes, (PaquetePtr)paqueteAux);
+        i--;
+    }
     repartoAux = removerDeLista(listaAbiertos, eleccion-1);
     agregarDatoLista(listaCerrados,(RepartoPtr)repartoAux);
 
     listaAbiertos = destruirLista(listaAbiertos, false);
     listaCerrados = destruirLista(listaCerrados, false);
+    listaPaquetes = destruirLista(listaPaquetes, false);
+    pilaPaquetes = destruirPila(pilaPaquetes);
 }
 
 
@@ -1188,7 +1218,6 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
         }
     } while(op!=0);
 }
-
 
 CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog)
 {
