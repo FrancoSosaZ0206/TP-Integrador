@@ -20,7 +20,6 @@ typedef struct Reparto
 } Reparto;
 typedef Reparto * RepartoPtr;
 
-///estas 2 primeras llaman a crear y destruir reparto. Son como sinónimos, pero más user-friendly.
 //Operación: Creacion del TDArepartos.
 //Precondición: Repartos no debe estar creado.
 //Postcondición: Se crea un nuevo reparto.
@@ -115,21 +114,21 @@ void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno);
 // reparto: puntero a la estructura a asignar el nuevo valor.
 // paquete: puntero a la estructura del nuevo valor.
 //Devuelve nada
-void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete); //agrega un paquete a la pila de paquetes.
+void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete);
 //Operación: Elimina el ultimo paquete agregado en la pila.(LIFO)
 //Precondición: La pila debe haberse creado
 //Postcondición: La pila tiene un paquete menos.
 //Parámetros:
 // reparto: puntero a la estructura a eliminar el valor.
 //Devuelve un puntero a la estrutura eliminada.
-PaquetePtr descargarPaquete(RepartoPtr reparto); //elimina el ultimo paquete agregado de la pila. Devuelve el paquete eliminado.
-//Operación: Longitud de pila de repartos.
+PaquetePtr descargarPaquete(RepartoPtr reparto);
+//Operación: calcula la cantidad de paquetes que contiene el reparto.
 //Precondición: La pila debe haberse creado.
 //Postcondición: Se obtiene la cantidad de paquetes del reparto.
 //Parámetros:
 // reparto: puntero a la estructura a sacar la longitud.
 //Devuelve un entero representando la cantidad de paquetes.
-int cantidadPaquetes(RepartoPtr reparto); //devuelve cantidad de paquetes que contiene el reparto
+int cantidadPaquetes(RepartoPtr reparto);
 //Operación: Muestra el reparto.
 //Precondición: Reparto debe estar creado.
 //Postcondición: Imprime el reparto.
@@ -137,5 +136,13 @@ int cantidadPaquetes(RepartoPtr reparto); //devuelve cantidad de paquetes que co
 // reparto: un puntero a la estructura a mostrar.
 //Devuelve nada
 void mostrarReparto(RepartoPtr reparto);
+//Operación: Muestra un reparto con todos sus datos, excepto por los paquetes que contiene.
+//Precondición: Reparto debe estar creado.
+//Postcondición: Imprime el reparto sin los paquetes por pantalla.
+//Parámetros:
+// reparto: un puntero a la estructura a mostrar.
+//Devuelve nada
+void mostrarRepartoSinPaquetes(RepartoPtr reparto); ///NUEVA
+
 
 #endif // TDAREPARTOS_H_INCLUDED

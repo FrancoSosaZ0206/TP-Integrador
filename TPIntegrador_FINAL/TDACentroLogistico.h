@@ -177,6 +177,15 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico);
 //      false = si se quiere mostrar un reparto cerrado.
 //Devuelve: nada.
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+
+//Operacion: Muestra lista de repartos ordenados por fecha de salida.
+///          De cada reparto de la lista, solo se muestran fecha, vehiculo y chofer
+//Precondicion: La lista debe estar creada.
+//Postcondicion: Se ordena la lista por fecha de salida y se muestra por pantalla.
+//Parametros:
+// centroLogistico: puntero al Centro Logistico del que se quiere mostrar los repartos.
+//Devuelve: nada.
+void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico); ///NUEVA
 //Operación: Muestra los paquetes con el estado que le haya pasado.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: Imprime los paquetes con la condicion que se les haya pasado.

@@ -210,7 +210,6 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
     printf("\n");
 }
 
-
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     ListaPtr listaAux=crearLista();
@@ -240,6 +239,28 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
     }
     listaAux=destruirLista(listaAux,false);
     printf("\n");
+}
+void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico)
+{
+    ordenarPorFechaSalida(centroLogistico);
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico));
+
+    int i=0;
+
+    printf("\nLISTA DE REPARTOS POR FECHA DE SALIDA: \n\n");
+    while(!listaVacia(listaAux))
+    {
+        printf("%d. ",i+1);
+
+        mostrarRepartoSinPaquetes((RepartoPtr)getCabecera(listaAux));
+        listaAux=getResto(listaAux);
+
+        i++;
+    }
+    listaAux=destruirLista(listaAux,false);
+    printf("\n");
+
 }
 
 
@@ -466,6 +487,60 @@ void resetearRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
         repartoEliminar=cerrarReparto(repartoEliminar); //usamos cerrar reparto porque la destructora es una funcion privada.
     }
 }
+
+///////////////////////////////////////////////////FUNCIONES DE VALIDACION//////////////////////////////////////////////////////////////////////////
+
+bool cuilExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) // devuelve true si la persona que le ingresamos tiene el mismo cuil que una de las personas, false si no
+{
+    bool match=false;
+
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getPersonas(centroLogistico));
+    while(!listaVacia(listaAux))
+    {
+
+        PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
+        if(strcmp(getCuil(getCuilPersona(personaAux)),getCuil(persona))==0)
+            match=true;
+        listaAux=getResto(listaAux);
+    }
+    listaAux=destruirLista(listaAux,false);
+
+    if(match)
+        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
+
+    return match;
+}
+bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
+{
+    bool match=false;
+    RepartoPtr repartoAux;
+
+    bool condicion;
+
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico));
+    while(!listaVacia(listaAux))
+    {
+        repartoAux=(RepartoPtr)getCabecera(listaAux);
+
+        condicion=calcularDiferenciaFechas(getFechaSalida(repartoAux),getFechaSalida(reparto))==0;
+        condicion = condicion && strcmp(getCuil(getCuilPersona(repartoAux)),getCuil(getCuilPersona(reparto)))==0;
+///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
+///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
+        if(condicion)
+            match=true;
+
+        listaAux=getResto(listaAux);
+    }
+    listaAux=destruirLista(listaAux,false);
+
+    if(match)
+        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
+
+    return match;
+}
+
 
 ///FUNCIONES DE ORDENAMIENTO
 void ordenarPorMarca(CentroLogisticoPtr centroLogistico)
