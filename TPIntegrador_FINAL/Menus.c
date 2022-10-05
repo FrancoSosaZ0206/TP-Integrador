@@ -909,6 +909,82 @@ void menuArmarReparto(CentroLogisticoPtr centroLogistico)
     if(n>1)
         printf("Repartos cargados exitosamente.\n\n");
 }
+
+void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico)
+{
+    int eleccion;
+    ListaPtr listaRepartos = crearLista();
+    PilaPtr pilaPaquetes = crearPila();
+    ListaPtr listaPaquetes = crearLista();
+    ListaPtr listaAux = crearLista();
+    RepartoPtr repartoAux;
+    PaquetePtr paqueteAux;
+    listaRepartos = getRepartos(centroLogistico, true);
+    mostrarRepartos(centroLogistico, true);
+    do
+    {
+        limpiarBufferTeclado();
+        printf("Seleccione un reparto mediante su indice: ");
+        printf("Eleccion: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0);
+    system("cls");
+    repartoAux = getDatoLista(listaRepartos, eleccion-1);
+    pilaPaquetes = getPaquetesReparto(repartoAux);
+    while(!pilaVacia(pilaPaquetes))
+    {
+        paqueteAux = desapilar(pilaPaquetes);
+        agregarDatoLista(listaPaquetes, (PaquetePtr)paqueteAux);
+    }
+    agregarLista(listaAux, listaPaquetes);
+    int i=0;
+    while(!listaVacia)
+    {
+        mostrarPaquete(getDatoLista(listaAux, i));
+        ListaPtr listaADestruir = listaAux;
+        listaAux=getResto(listaAux);
+        listaADestruir=destruirLista(listaADestruir,false);
+        i++;
+    }
+    listaAux = destruirLista(listaAux, false);
+    do
+    {
+        limpiarBufferTeclado();
+        printf("Seleccione un reparto mediante su indice: ");
+        printf("Eleccion: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0);
+    system("cls");
+    paqueteAux = getDatoLista(listaPaquetes, eleccion);
+    helpEstadoPaquete();
+    do
+    {
+        limpiarBufferTeclado();
+        printf("Seleccione un reparto mediante su indice: ");
+        printf("Eleccion: ");
+        scanf("%d",&eleccion);
+        limpiarBufferTeclado();
+    }while(eleccion < 0);
+    system("cls");
+    limpiarBufferTeclado();
+    setEstado(paqueteAux, eleccion);
+    i=0;
+    while(!listaVacia(listaPaquetes))
+    {
+        paqueteAux = getDatoLista(listaPaquetes, i);
+        apilar(pilaPaquetes, (PaquetePtr)paqueteAux);
+        i++;
+    }
+
+    listaRepartos = destruirLista(listaRepartos, false);
+    pilaPaquetes = destruirPila(pilaPaquetes);
+    listaPaquetes = destruirLista(listaRepartos, false);
+}
+
+
+
 void menuBuscarReparto(CentroLogisticoPtr centroLogistico);
 void menuEliminarReparto(CentroLogisticoPtr centroLogistico);
 void menuCerrarReparto(CentroLogisticoPtr centroLogistico);

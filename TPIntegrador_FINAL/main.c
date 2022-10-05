@@ -7,6 +7,7 @@
 #include "test.h"
 #include "util.h"
 
+
 /**
 DIRECTORIOS (FRANCO S.)
 
@@ -340,8 +341,28 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 switch(op1)
                 {
                 case 1:
-                    printf("EMITIENDO LISTADO DE PAQUETES\n\n");
-                    mostrarPaquetes(centroLogistico);
+                    printf("Mostrar paquetes como:\n\n");
+
+                    printf("1. Universal\n");
+                    printf("2. En curso\n");
+                    printf("0. Volver\n");
+                    printf("\n-----------------------------------------\n\n");
+
+                    printf("Elija una opcion: ");
+                    scanf("%d",&op2);
+                    limpiarBufferTeclado();
+
+                    switch(op2)
+                    {
+                    case 1:
+                        mostrarPaquetes(centroLogistico);
+                        break;
+                    case 2:
+                        filtrarPaquetes(centroLogistico, 1);
+                        filtrarPaquetes(centroLogistico, 2);
+                        break;
+                    }
+
                     break;
                 case 2:
                     printf("EMITIENDO LISTADO DE CLIENTES\n\n");
@@ -356,10 +377,46 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     mostrarVehiculos(centroLogistico);
                     break;
                 case 5:
-                    menuMostrarRepartos(centroLogistico,true);
+                        printf("Mostrar repartos en formato:\n\n");
+                        printf("1. Particular\n");
+                        printf("2. Universal\n");
+                        printf("0. Volver\n");
+                        printf("\n-----------------------------------------\n\n");
+
+                        printf("Elija una opcion: ");
+                        scanf("%d",&op2);
+                        limpiarBufferTeclado();
+
+                        switch(op2)
+                        {
+                        case 1:
+                            menuMostrarEntregasReparto(centroLogistico, true);
+                            break;
+                        case 2:
+                            mostrarRepartos(centroLogistico, true);
+                            break;
+                        }
                     break;
                 case 6:
-                    menuMostrarRepartos(centroLogistico,false);
+                        printf("Mostrar repartos en formato:\n\n");
+                        printf("1. Particular\n");
+                        printf("2. Universal\n");
+                        printf("0. Volver\n");
+                        printf("\n-----------------------------------------\n\n");
+
+                        printf("Elija una opcion: ");
+                        scanf("%d",&op2);
+                        limpiarBufferTeclado();
+
+                        switch(op2)
+                        {
+                        case 1:
+                            menuMostrarEntregasReparto(centroLogistico, false);
+                            break;
+                        case 2:
+                            mostrarRepartos(centroLogistico, false);
+                            break;
+                        }
                 case 0:
                     break;
                 default:

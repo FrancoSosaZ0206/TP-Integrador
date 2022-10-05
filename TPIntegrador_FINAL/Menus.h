@@ -256,6 +256,18 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico);
 void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 
 
+//OPERACION: menú de muestra de entregas de un solo reparto
+//PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
+//POSTCONDICION: despliega una serie de opciones de menues y submenues que permiten mostrar por
+//               pantalla los repartos abiertos unicamente, se le solicitara al usuario que seleccione un
+//               reparto para mostrar sus entregas, y asi poder seleccionar una entrega modificando
+//               su valor de estado, 0 deposito, 1 en curso, 2 cancelado, 3 entregado
+//PARÁMETROS:
+//  centroLogistico: puntero a la estructura centro logistico
+//DEVUELVE: nada.
+void mostrarEntregasReparto(CentroLogisticoPtr centroLogistico);
+
+
 ///--------------------------------------------------------------------------------------------------------------------------
 
 ///                                             MENÚS DE ACCIÓN DEDICADOS A CENTROLOGISTICO
