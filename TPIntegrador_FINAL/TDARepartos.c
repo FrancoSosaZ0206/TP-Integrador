@@ -144,3 +144,26 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
     traerFechaYHora(getFechaRetorno(reparto),strFecha);
     printf("Fecha de Retorno: %s\n",strFecha);
 }
+
+///---------------------------------------Funciones de validación------------------------------------------------
+
+bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete); ///NUEVA
+{
+    bool match = false;
+
+    int n=cantidadPaquetes(reparto);
+    PaquetePtr paquetes[n]; ///Acá definieron una lista, lo cual era erróneo puesto que los paquetes de un reparto se almacenan en una pila.
+///Además, manejar las verificaciones con un vector es más fácil.
+
+    for(int i=0;i<n;i++)
+    { ///paquetes obtiene los paquetes del reparto, almacenandolos en c/u de sus posiciones.
+        paquetes[i]=descargarPaquete(reparto);
+
+        if(paquetesIguales(paquetes[i],paquete))
+            match = true;
+    }
+    for(int i=n;i>0;i--) ///Antes de obtener el siguiente reparto, reinsertamos los paquetes en el reparto.
+        cargarPaquete(reparto,paquetes[i]); ///El for va de n hasta 0 para mantener el orden original de los paquetes como estaban en la pila.
+
+    return match;
+}

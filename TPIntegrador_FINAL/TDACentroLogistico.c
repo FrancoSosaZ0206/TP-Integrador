@@ -490,7 +490,26 @@ void resetearRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 
 ///////////////////////////////////////////////////FUNCIONES DE VALIDACION//////////////////////////////////////////////////////////////////////////
 
-bool cuilExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) // devuelve true si la persona que le ingresamos tiene el mismo cuil que una de las personas, false si no
+bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
+{
+    bool match=false;
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getPaquetes(centroLogistico));
+
+    while(!listaVacia(listaAux))
+    {
+        PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
+        if(paquetesIguales(paqueteAux,paquete))
+            match=true;
+
+        listaAux=getResto(listaAux);
+    }
+
+    listaAux=destruirLista(listaAux,false);
+
+    return match;
+}
+bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) // devuelve true si la persona que le ingresamos tiene el mismo cuil que una de las personas, false si no
 {
     bool match=false;
 
@@ -498,19 +517,16 @@ bool cuilExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) // de
     agregarLista(listaAux,getPersonas(centroLogistico));
     while(!listaVacia(listaAux))
     {
-
         PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
-        if(strcmp(getCuil(getCuilPersona(personaAux)),getCuil(persona))==0)
+        if(personasIguales(personaAux,persona))
             match=true;
         listaAux=getResto(listaAux);
     }
     listaAux=destruirLista(listaAux,false);
 
-    if(match)
-        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
-
     return match;
 }
+bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo);
 bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
 {
     bool match=false;
@@ -535,12 +551,8 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
     }
     listaAux=destruirLista(listaAux,false);
 
-    if(match)
-        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
-
     return match;
 }
-
 
 ///FUNCIONES DE ORDENAMIENTO
 void ordenarPorMarca(CentroLogisticoPtr centroLogistico)

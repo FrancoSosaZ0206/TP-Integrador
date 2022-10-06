@@ -220,6 +220,7 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer
 // patente: char que representa la patente del vehiculo.
 //Devuelve true si se encontró una coincidencia, false de lo contrario.
 bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente);
+/
 //---------------------------------------Funciones de agregado a la lista----------------------------------------------
 //Operación: Agrega un nuevo paquete.
 //Precondición: Centro logistico debe haberse creado.
@@ -257,7 +258,7 @@ void agregarVehiculo(CentroLogisticoPtr centroLogistico,VehiculoPtr vehiculo);
 //Devuelve: nada.
 void agregarReparto(CentroLogisticoPtr centroLogistico,RepartoPtr reparto, bool esRepartoAbierto);
 
-//-----------------------------------------Funciones de inserción a la lista--------------------------------------------------
+///-----------------------------------------Funciones de inserción a la lista--------------------------------------------------
 //Operación: Inserta un paquete en la posicion de la lista pasada por referencia.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: Un nuevo paquete se va a agregar a la posicion de la lista.
@@ -294,7 +295,8 @@ bool insertarVehiculoLista(CentroLogisticoPtr centroLogistico,VehiculoPtr vehicu
 // posicion: entero que representa la posicion.
 //Devuelve true=si pudo agregar o false=si no pudo agregar.
 bool insertarRepartoLista(CentroLogisticoPtr centroLogistico,RepartoPtr reparto,int posicion);
-//----------------------------------------------Funciones para remover de la lista----------------------------------------------
+
+///----------------------------------------------Funciones para remover de la lista----------------------------------------------
 //Operación: Remueve un paquete en la posicion de la lista.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: El paquete de la posicion pasada por referencia se remueve.
@@ -340,39 +342,77 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
 //Devuelve: nada.
 void cerrarRepartoCtroLogistico(CentroLogisticoPtr centroLogistico, int posicion);
 
-//---------------------------------------Funciones para resetear listas------------------------------------------------
+///---------------------------------------Funciones para resetear listas------------------------------------------------
 
 ///Precondición: debe existir una funcion de destruccion para cada tipo de dato.
 //Operación: Elimina la lista de paquetes.
 //Precondición: Centro logistico debe haberse creado.
-//Postcondición: La estructura pasada por referencia no existe.
+//Postcondición: Se eliminan los contenidos, conservando la estructura.
 //Parámetros:
 // centroLogistico: puntero a estructura que representa al centro logistico.
 //Devuelve: nada.
 void resetearPaquetes(CentroLogisticoPtr centroLogistico);
 //Operación: Elimina la lista de personas.
 //Precondición: Centro logistico debe haberse creado.
-//Postcondición: La estructura pasada por referencia no existe.
+//Postcondición: Se eliminan los contenidos, conservando la estructura.
 //Parámetros:
 // centroLogistico: puntero a estructura que representa al centro logistico.
 //Devuelve: nada.
 void resetearPersonas(CentroLogisticoPtr centroLogistico);
 //Operación: Elimina la lista de vehiculos.
 //Precondición: Centro logistico debe haberse creado.
-//Postcondición: La estructura pasada por referencia no existe.
+//Postcondición: Se eliminan los contenidos, conservando la estructura.
 //Parámetros:
 // centroLogistico: puntero a estructura que representa al centro logistico.
 //Devuelve: nada.
 void resetearVehiculos(CentroLogisticoPtr centroLogistico);
 //Operación: Elimina la lista de repartos.
 //Precondición: Centro logistico debe haberse creado.
-//Postcondición: La estructura pasada por referencia no existe.
+//Postcondición: Se eliminan los contenidos, conservando la estructura.
 //Parámetros:
 // centroLogistico: puntero a estructura que representa al centro logistico.
 //Devuelve: nada.
 void resetearRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
-//---------------------------------------Funciones de ordenamiento------------------------------------------------
 
+///---------------------------------------Funciones de validación------------------------------------------------
+
+//Operación: se verifica si el paquete existe en el Centro Logistico.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, un paquete.
+//Postcondición: se recorre la lista de paquetes del centro, chequeando si en algun momento coincide el ID
+//               o el resto de campos con el paquete recibido.
+//Parámetros:
+//  centroLogistico: puntero a estructura que representa al centro logistico.
+//  paquete: puntero a la estructura paquete de la que se desea verificar su existencia.
+//Devuelve: true si el paquete recibido tiene el mismo ID O parámetros que uno de los paquetes, false de lo contrario.
+bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete);
+//Operación: se verifica si la persona existe en el Centro Logistico.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, una persona.
+//Postcondición: se recorre la lista de personas del centro, chequeando si en algun momento coincide el cuil con la persona recibida.
+//Parámetros:
+//  centroLogistico: puntero a estructura que representa al centro logistico.
+//  persona: puntero a la estructura persona de la que se desea verificar su existencia.
+//Devuelve: true si la persona recibida tiene el mismo cuil que una de las personas, false de lo contrario.
+bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona);
+//Operación: se verifica si el vehiculo existe en el Centro Logistico.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, un vehiculo.
+//Postcondición: se recorre la lista de vehiculos del centro, chequeando si en algun momento coincide el ID
+//               o el resto de campos con el vehiculo recibido.
+//Parámetros:
+//  centroLogistico: puntero a estructura que representa al centro logistico.
+//  vehiculo: puntero a la estructura vehiculo de la que se desea verificar su existencia.
+//Devuelve: true si el vehiculo recibido tiene el mismo ID O parámetros que uno de los vehiculos, false de lo contrario.
+bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo);
+//Operación: se verifica si el chofer y fecha de salida de un reparto, son iguales a los de algún reparto previamente ingresado.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, una persona.
+//Postcondición: se recorre la lista de repartos del centro,
+//               chequeando si en algun momento coincide el cuil del chofer Y la fecha de salida con los del reparto recibido.
+//Parámetros:
+//  centroLogistico: puntero a estructura que representa al centro logistico.
+//  reparto: puntero a la estructura reparto que se desea verificar.
+//Devuelve: true si el reparto recibido tiene el mismo chofer y fecha de salida que uno de los repartos, false de lo contrario.
+bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto);
+
+///---------------------------------------Funciones de ordenamiento------------------------------------------------
 //Operación: ordena una lista de vehiculos por marca, alfabéticamente
 //Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
 //Postcondicion: setea dentro de centro logistico todos los vehiculos ordenados alfabeticamente

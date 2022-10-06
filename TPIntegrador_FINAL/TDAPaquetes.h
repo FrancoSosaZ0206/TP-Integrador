@@ -223,4 +223,13 @@ void helpEstadoPaquete(); //muestra que relacion hay entre cada numero y cada es
 //Devuelve nada
 void mostrarEstadopaquete(PaquetePtr paquete); //muestra solo el estado actual del paquete recibido.
 
+//Operación: verifica si dos paquetes son iguales.
+//Precondición: Ambos paquetes deben haber sido creados.
+//Postcondición: chequea si cada campo de las estructuras son idénticos
+//Parámetros:
+//  paquete1: puntero a la estructura a verificar.
+//  paquete2: puntero a la estructura a verificar.
+//Devuelve: true si son idénticos en ID O en el resto de campos, false de lo contrario.
+bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2);
+
 #endif // TDAPAQUETES_H_INCLUDED

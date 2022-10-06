@@ -144,5 +144,17 @@ void mostrarReparto(RepartoPtr reparto);
 //Devuelve nada
 void mostrarRepartoSinPaquetes(RepartoPtr reparto); ///NUEVA
 
+///---------------------------------------Funciones de validación------------------------------------------------
+
+//Operación: se verifica si el paquete recibido ya se había cargado en el reparto recibido.
+//Precondición: El reparto debe haberse creado y cargado con, al menos, un paquete.
+//Postcondición: se recorre la pila de paquetes del reparto,
+//               chequeando si el ID del paquete coincide con el de algún paquete del reparto.
+//Parámetros:
+//  reparto: puntero a estructura que representa al reparto.
+//  paquete: puntero a la estructura paquete que se desea verificar si se cargó.
+//Devuelve: true si el paquete recibido ya estaba cargado en el reparto, false de lo contrario.
+bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete); ///NUEVA
+
 
 #endif // TDAREPARTOS_H_INCLUDED

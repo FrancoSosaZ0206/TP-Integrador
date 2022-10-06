@@ -39,11 +39,7 @@ PENDIENTES
   1. O bien nos quedamos con lo que tenemos, la variable int estado del paquete,
   2. O bien agregamos un string aparte. Tip: hay un motivo de entrega solo si hay un problema con dicha entrega, lo que quiere decir que sería un dato circunstancial. Entonces, es posible que no haga falta meterlo en una estructura, sino que los tengamos aparte.
 
-Creamos el paquete con el campo "motivo de entrega" vacío. Luego, tendríamos que tener una funcion "agregarMotivo", recibe el string del motivo por el cual no se pudo entregar, y en el campo de la estrctura paquete, crea el string dinamicamente y le copia el contenido.
-
-
-
-
+	- Posible implementacion: Creamos el paquete con el campo "motivo de entrega" vacío. Luego, tendríamos que tener una funcion "agregarMotivo", recibe el string del motivo por el cual no se pudo entregar, y en el campo de la estrctura paquete, crea el string dinamicamente y le copia el contenido.
 
 - Agregar llamado a las funciones de repartos.
 
@@ -59,6 +55,12 @@ Creamos el paquete con el campo "motivo de entrega" vacío. Luego, tendríamos q
 - (OPCIONAL) Menus: agregar un submenu donde puedas elegir si queres tomar accion sobre un solo dato o un grupo de datos a la vez, para evitar tener que entrar al menu varias veces (sería tedioso). Dentro de la segunda opcion (habria una 3ra, volver), podemos elegir si queremos tomar accion de un rango de indices, o bien si queremos tomar accion sobre varios indices especificos.
 
 - (OPCIONAL) Agregar getters y setters adicionales para las subestructuras de cada estructura (domicilio, cuil o fecha). Por ejemplo, agregar getters y setters a sus campos específicos).
+
+- (IMPORTANTE) TDACentroLogistico - Funcion "esPaqueteExistente" y TDARepartos - Funcion "esPaqueteCargado": Justo el ID es raro que coincida. Además, eso se genera automáticamente, y no lo pone el usuario, así que realmente no sirve. Una forma útil de verificar coincidencias de paquetes, sería chequeando si todos los datos del paquete coinciden, o al menos, las dimensiones, el peso y las direcciones de retiro y entrega.
+
+- (IMPORTANTE) GLOBAL: agregar familia de funciones "... Idéntico(s)" - funcion que retorna un booleano dependiendo de si las dos estructuras recibidas son idénticas o no.
+	- Hechas:
+		- paquetesIguales.
 
 - ARREGLAR POSIBLES BUGS :(
 

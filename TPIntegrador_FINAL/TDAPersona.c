@@ -112,3 +112,8 @@ void mostrarPersona(PersonaPtr persona)
     mostrarDomicilio(getDomicilio(persona));
     mostrarCuil(getCuilPersona(persona));
 }
+
+bool personasIguales(PersonaPtr persona1,PersonaPtr persona2)
+{
+    return strcmp(getCuil(getCuilPersona(persona1)),getCuil(getCuilPersona(persona2))) == 0;
+}
