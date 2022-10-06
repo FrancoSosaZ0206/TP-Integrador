@@ -910,7 +910,7 @@ void menuArmarReparto(CentroLogisticoPtr centroLogistico)
         printf("Repartos cargados exitosamente.\n\n");
 }
 
-void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico)
+void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     int eleccion;
     ListaPtr listaRepartos = crearLista();
@@ -918,8 +918,8 @@ void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico)
     ListaPtr listaPaquetes = crearLista();
     RepartoPtr repartoAux;
     PaquetePtr paqueteAux;
-    listaRepartos = getRepartos(centroLogistico, true);
-    mostrarRepartos(centroLogistico, true);
+    listaRepartos = getRepartos(centroLogistico, esRepartoAbierto);
+    mostrarRepartos(centroLogistico, esRepartoAbierto);
     do
     {
         limpiarBufferTeclado();

@@ -272,8 +272,9 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 //               su valor de estado, 0 deposito, 1 en curso, 2 cancelado, 3 entregado
 //PARÁMETROS:
 //  centroLogistico: puntero a la estructura centro logistico
+// variable logica para saber si son abiertos o cerrados los repartos
 //DEVUELVE: nada.
-void mostrarEntregasReparto(CentroLogisticoPtr centroLogistico);
+void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 
 
 
