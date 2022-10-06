@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct Domicilio
 {
@@ -71,6 +72,15 @@ void mostrarDomicilio(DomicilioPtr domicilio);
 //Parámetros: domicilio(puntero a la estructura domicilio)
 //
 //Devuelve: todos los datos de Domicilio
+
+bool domiciliosIguales(DomicilioPtr domicilio1,DomicilioPtr domicilio2);
+//Operación: verifica si dos domicilios son iguales.
+//Precondición: Ambos domicilios deben haber sido creados.
+//Postcondición: chequea si las estructuras son idénticas en calle, altura y localidad
+//Parámetros:
+//  domicilio1: puntero a la estructura a verificar.
+//  domicilio2: puntero a la estructura a verificar.
+//Devuelve: true si son idénticos, false de lo contrario.
 
 
 #endif // TDADOMICILIO_H_INCLUDED

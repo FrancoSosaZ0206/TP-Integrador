@@ -212,7 +212,7 @@ void traerFechaLarga(FechaPtr fecha, char* buffer)
     free(diaSemana);
     diaSemana=NULL;
 }
-void traerFechaYHora(FechaPtr fecha,char *buffer) ///NUEVA
+void traerFechaYHora(FechaPtr fecha,char *buffer)
 {
     traerFechaCorta(fecha,buffer);
     strcat(buffer,", ");
@@ -220,7 +220,7 @@ void traerFechaYHora(FechaPtr fecha,char *buffer) ///NUEVA
     strcat(buffer,":");
     sprintf(buffer+strlen(buffer),"%d",getMinuto(fecha));
 }/// Nota: cuando usamos buffer+strlen(buffer), realmente no hace falta restar nada. Así como está, está bien.
-char *traerFechaYHoraDinamica(FechaPtr fecha) ///NUEVA
+char *traerFechaYHoraDinamica(FechaPtr fecha)
 {
     char *buffer=(char*)obtenerMemoria(sizeof(char)*18);
     ///18 porque es el tamaño mas grande posible para este formato de fecha y hora.
@@ -228,7 +228,7 @@ char *traerFechaYHoraDinamica(FechaPtr fecha) ///NUEVA
     return buffer;
 }
 
-bool esFechaValida(FechaPtr fecha) ///NUEVA
+bool esFechaValida(FechaPtr fecha)
 {
     bool resultado=true;
 
@@ -257,4 +257,10 @@ bool esFechaValida(FechaPtr fecha) ///NUEVA
     resultado = resultado && ((getMinuto(fecha)>=0) && (getMinuto(fecha)<=59));
 
     return resultado;
+}
+
+bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
+{
+    int *diferencia = calcularDiferenciaFechas(fecha1,fecha2);
+    return diferencia[0]==0 && diferencia[1]==0 && diferencia[2]==0;
 }

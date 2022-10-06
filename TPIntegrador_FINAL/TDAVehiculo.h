@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct Vehiculo
 {
@@ -115,5 +116,15 @@ void helpTipoVehiculo(); ///muestra al usuario que significa cada numero de tipo
 //PARAMETROS: puntero al vehiculo del que se quiere saber su tipo
 //DEVUELVE: nada.
 void mostrarTipoVehiculo(VehiculoPtr vehiculo); ///informa al usuario de que tipo es el vehículo que ingresa.
+
+//Operación: verifica si dos vehiculos son iguales.
+//Precondición: Ambos vehiculos deben haber sido creados.
+//Postcondición: chequea si las estructuras son idénticas en patente
+//Parámetros:
+//  vehiculo1: puntero a la estructura a verificar.
+//  vehiculo2: puntero a la estructura a verificar.
+//Devuelve: true si son idénticos en patente, false de lo contrario.
+bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2);
+
 
 #endif // TDAVEHICULO_H_INCLUDED

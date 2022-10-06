@@ -63,3 +63,10 @@ void mostrarDomicilio(DomicilioPtr domicilio)
 {
     printf("%s %d, %s\n",getCalle(domicilio),getAltura(domicilio),getLocalidad(domicilio));
 }
+
+bool domiciliosIguales(DomicilioPtr domicilio1,DomicilioPtr domicilio2)
+{
+    bool condicion = strcmp(getCalle(domicilio1),getCalle(domicilio2)) == 0;
+    condicion = condicion && getAltura(domicilio1) == getAltura(domicilio2);
+    return condicion && strcmp(getLocalidad(domicilio1),getLocalidad(domicilio2)) == 0;
+}

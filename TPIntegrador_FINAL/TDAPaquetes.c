@@ -220,7 +220,7 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 
     FechaPtr fechaEntrega1 = getFechaEntrega(paquete1);
     FechaPtr fechaEntrega2 = getFechaEntrega(paquete2);
-    int *difFechas = diferenciaFechas(fechaEntrega1,fechaEntrega2);
+    int *difFechas = calcularDiferenciaFechas(fechaEntrega1,fechaEntrega2);
 
 //primero, se verifica si el ID de paquete1 es igual al del paquete2
     matchID = getID(paquete1) == getID(paquete2);

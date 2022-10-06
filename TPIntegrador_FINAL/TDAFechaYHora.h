@@ -243,6 +243,16 @@ char *traerFechaYHoraDinamica(FechaPtr fecha);
 //Parámetros:
 // fecha: puntero a la fecha a válidar.
 //Devuelve true si es válida, false si no es valida.
-bool esFechaValida(FechaPtr fecha); ///NUEVA
+bool esFechaValida(FechaPtr fecha);
+
+//Operación: verifica si dos fechas son iguales.
+//Precondición: Ambas fechas deben haber sido creadas.
+//Postcondición: chequea si las estructuras son idénticas en días, horas y minutos (utiliza la funcion diferenciaFechas)
+//Parámetros:
+//  fecha1: puntero a la estructura a verificar.
+//  fecha2: puntero a la estructura a verificar.
+//Devuelve: true si son idénticas, false de lo contrario.
+bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2); ///NUEVA
+
 
 #endif //TDAFECHAYHORA_H_INCLUDED

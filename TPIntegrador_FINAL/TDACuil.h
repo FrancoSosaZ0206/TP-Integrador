@@ -126,4 +126,14 @@ void helpCuil();
 //No devuelve nada.
 void mostrarCuil(CuilPtr cuil);
 
+//Operación: verifica si dos CUIL son iguales.
+//Precondición: Ambos cuil deben haber sido creados.
+//Postcondición: chequea si las estructuras son idénticas en cuil
+//Parámetros:
+//  cuil1: puntero a la estructura a verificar.
+//  cuil2: puntero a la estructura a verificar.
+//Devuelve: true si son idénticos, false de lo contrario.
+bool cuilsIguales(CuilPtr cuil1,CuilPtr cuil2);
+
+
 #endif // TDACUIL_H_INCLUDED

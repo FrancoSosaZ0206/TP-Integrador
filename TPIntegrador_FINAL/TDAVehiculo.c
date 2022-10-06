@@ -96,3 +96,8 @@ void mostrarTipoVehiculo(VehiculoPtr vehiculo) ///informa al usuario de que tipo
         printf("Ingrese otro invocando a la funcion 'setTipoVehiculo()'.\n");
     }
 }
+
+bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2)
+{
+    return strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0;
+}

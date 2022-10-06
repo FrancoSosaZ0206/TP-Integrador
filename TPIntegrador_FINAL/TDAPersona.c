@@ -115,5 +115,5 @@ void mostrarPersona(PersonaPtr persona)
 
 bool personasIguales(PersonaPtr persona1,PersonaPtr persona2)
 {
-    return strcmp(getCuil(getCuilPersona(persona1)),getCuil(getCuilPersona(persona2))) == 0;
+    return cuilsIguales(getCuilPersona(persona1),getCuilPersona(persona2));
 }

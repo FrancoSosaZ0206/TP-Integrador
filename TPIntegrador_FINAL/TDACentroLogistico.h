@@ -185,7 +185,7 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 //Parametros:
 // centroLogistico: puntero al Centro Logistico del que se quiere mostrar los repartos.
 //Devuelve: nada.
-void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico); ///NUEVA
+void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico); ///NUEVA || Solo funciona con repartos abiertos
 //Operación: Muestra los paquetes con el estado que le haya pasado.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: Imprime los paquetes con la condicion que se les haya pasado.
@@ -220,7 +220,7 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer
 // patente: char que representa la patente del vehiculo.
 //Devuelve true si se encontró una coincidencia, false de lo contrario.
 bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente);
-/
+
 //---------------------------------------Funciones de agregado a la lista----------------------------------------------
 //Operación: Agrega un nuevo paquete.
 //Precondición: Centro logistico debe haberse creado.
@@ -342,39 +342,7 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
 //Devuelve: nada.
 void cerrarRepartoCtroLogistico(CentroLogisticoPtr centroLogistico, int posicion);
 
-///---------------------------------------Funciones para resetear listas------------------------------------------------
-
-///Precondición: debe existir una funcion de destruccion para cada tipo de dato.
-//Operación: Elimina la lista de paquetes.
-//Precondición: Centro logistico debe haberse creado.
-//Postcondición: Se eliminan los contenidos, conservando la estructura.
-//Parámetros:
-// centroLogistico: puntero a estructura que representa al centro logistico.
-//Devuelve: nada.
-void resetearPaquetes(CentroLogisticoPtr centroLogistico);
-//Operación: Elimina la lista de personas.
-//Precondición: Centro logistico debe haberse creado.
-//Postcondición: Se eliminan los contenidos, conservando la estructura.
-//Parámetros:
-// centroLogistico: puntero a estructura que representa al centro logistico.
-//Devuelve: nada.
-void resetearPersonas(CentroLogisticoPtr centroLogistico);
-//Operación: Elimina la lista de vehiculos.
-//Precondición: Centro logistico debe haberse creado.
-//Postcondición: Se eliminan los contenidos, conservando la estructura.
-//Parámetros:
-// centroLogistico: puntero a estructura que representa al centro logistico.
-//Devuelve: nada.
-void resetearVehiculos(CentroLogisticoPtr centroLogistico);
-//Operación: Elimina la lista de repartos.
-//Precondición: Centro logistico debe haberse creado.
-//Postcondición: Se eliminan los contenidos, conservando la estructura.
-//Parámetros:
-// centroLogistico: puntero a estructura que representa al centro logistico.
-//Devuelve: nada.
-void resetearRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
-
-///---------------------------------------Funciones de validación------------------------------------------------
+///---------------------------------------Funciones de verificación------------------------------------------------
 
 //Operación: se verifica si el paquete existe en el Centro Logistico.
 //Precondición: Centro logistico debe haberse creado y cargado con, al menos, un paquete.
@@ -409,10 +377,30 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
 //Parámetros:
 //  centroLogistico: puntero a estructura que representa al centro logistico.
 //  reparto: puntero a la estructura reparto que se desea verificar.
+//  esRepartoAbierto: booleano que indica de que reparto se trata.
 //Devuelve: true si el reparto recibido tiene el mismo chofer y fecha de salida que uno de los repartos, false de lo contrario.
-bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto);
+bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,bool esRepartoAbierto);
 
 ///---------------------------------------Funciones de ordenamiento------------------------------------------------
+
+//Operación: ordena una lista de personas alfabéticamente por nombre.
+//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
+//Postcondicion: reinserta dentro de centro logistico todas las personas ordenadas segun su nombre.
+//Parametros: puntero a la estructura centro logistico
+//Devuelve: nada
+void ordenarPorNombre(CentroLogisticoPtr centroLogistico);
+//Operación: ordena una lista de personas alfabéticamente por apellido.
+//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
+//Postcondicion: reinserta dentro de centro logistico todas las personas ordenadas segun su apellido.
+//Parametros: puntero a la estructura centro logistico
+//Devuelve: nada
+void ordenarPorApellido(CentroLogisticoPtr centroLogistico);
+//Operación: ordena una lista de personas alfabéticamente por apellido y nombre.
+//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
+//Postcondicion: reinserta dentro de centro logistico todas las personas ordenadas segun su apellido y nombre.
+//Parametros: puntero a la estructura centro logistico
+//Devuelve: nada
+void ordenarPersonas(CentroLogisticoPtr centroLogistico);
 //Operación: ordena una lista de vehiculos por marca, alfabéticamente
 //Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
 //Postcondicion: setea dentro de centro logistico todos los vehiculos ordenados alfabeticamente
@@ -451,21 +439,21 @@ void ordenarPorFechaRetorno(CentroLogisticoPtr centroLogistico,bool esRepartoAbi
 void ordenarPorFechaRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 //Operación: ordena una lista de repartos alfabéticamente por nombre del chofer.
 //Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todos los paquetes ordenados segun el
+//Postcondicion: reinserta dentro de centro logistico todos los choferes ordenados segun el
 //               nombre del chofer
 //Parametros: puntero a la estructura centro logistico
 //Devuelve: nada
 void ordenarPorNombreChofer(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 //Operación: ordena una lista de repartos alfabéticamente por apellido del chofer.
 //Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todos los paquetes ordenados segun el
+//Postcondicion: reinserta dentro de centro logistico todos los choferes ordenados segun el
 //               apellido del chofer
 //Parametros: puntero a la estructura centro logistico
 //Devuelve: nada
 void ordenarPorApellidoChofer(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 //Operación: ordena una lista de repartos alfabéticamente por nombre y apellido del chofer.
 //Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todos los paquetes ordenados segun el
+//Postcondicion: reinserta dentro de centro logistico todos los choferes ordenados segun el
 //               nombre y el apellido del chofer
 //Parametros: puntero a la estructura centro logistico
 //Devuelve: nada

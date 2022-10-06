@@ -253,3 +253,8 @@ void mostrarCuil(CuilPtr cuil)
 {
     printf("\tCuil: %s\n",getCuil(cuil));
 }
+
+bool cuilsIguales(CuilPtr cuil1,CuilPtr cuil2)
+{
+    return strcmp(getCuil(cuil1),getCuil(cuil2)) == 0;
+}

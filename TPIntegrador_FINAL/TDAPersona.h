@@ -157,8 +157,8 @@ bool personasIguales(PersonaPtr persona1,PersonaPtr persona2);
 //Precondición: Ambas personas deben haber sido creadas.
 //Postcondición: chequea si las estructuras son idénticas en cuil
 //Parámetros:
-//  paquete1: puntero a la estructura a verificar.
-//  paquete2: puntero a la estructura a verificar.
+//  persona1: puntero a la estructura a verificar.
+//  persona2: puntero a la estructura a verificar.
 //Devuelve: true si son idénticos en cuil, false de lo contrario.
 
 

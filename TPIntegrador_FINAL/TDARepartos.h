@@ -135,6 +135,7 @@ int cantidadPaquetes(RepartoPtr reparto);
 //Parámetros:
 // reparto: un puntero a la estructura a mostrar.
 //Devuelve nada
+///     Tip: también muestra los paquetes.
 void mostrarReparto(RepartoPtr reparto);
 //Operación: Muestra un reparto con todos sus datos, excepto por los paquetes que contiene.
 //Precondición: Reparto debe estar creado.

@@ -240,11 +240,11 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
     listaAux=destruirLista(listaAux,false);
     printf("\n");
 }
-void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico)
+void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico) ///Solo funciona con repartos abiertos
 {
-    ordenarPorFechaSalida(centroLogistico);
+    ordenarPorFechaSalida(centroLogistico,true);
     ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getRepartos(centroLogistico));
+    agregarLista(listaAux,getRepartos(centroLogistico,true));
 
     int i=0;
 
@@ -451,43 +451,6 @@ void cerrarRepartoCtroLogistico(CentroLogisticoPtr centroLogistico, int posicion
     agregarReparto(centroLogistico,repartoACerrar,false);
 }
 
-//Funciones para resetear listas
-///Precondición: debe existir una funcion de destruccion para cada tipo de dato.
-void resetearPaquetes(CentroLogisticoPtr centroLogistico)
-{
-    while(!listaVacia(centroLogistico->listaPaquetes))
-    {
-        PaquetePtr paqueteEliminar=(PaquetePtr)removerDeLista(centroLogistico->listaPaquetes,0);
-        paqueteEliminar=destruirPaquete(paqueteEliminar);
-    }
-}
-void resetearPersonas(CentroLogisticoPtr centroLogistico)
-{
-    while(!listaVacia(centroLogistico->listaPersonas))
-    {
-        PersonaPtr personaEliminar=(PersonaPtr)removerDeLista(centroLogistico->listaPersonas,0);
-        personaEliminar=destruirPersona(personaEliminar);
-    }
-}
-void resetearVehiculos(CentroLogisticoPtr centroLogistico)
-{
-    while(!listaVacia(centroLogistico->listaVehiculos))
-    {
-        VehiculoPtr vehiculoEliminar=(VehiculoPtr)removerDeLista(centroLogistico->listaVehiculos,0);
-        vehiculoEliminar=destruirVehiculo(vehiculoEliminar);
-    }
-}
-void resetearRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
-{
-    ListaPtr listaAux=getRepartos(centroLogistico,esRepartoAbierto);
-
-    while(!listaVacia(listaAux))
-    {
-        RepartoPtr repartoEliminar=(RepartoPtr)removerDeLista(listaAux,0);
-        repartoEliminar=cerrarReparto(repartoEliminar); //usamos cerrar reparto porque la destructora es una funcion privada.
-    }
-}
-
 ///////////////////////////////////////////////////FUNCIONES DE VALIDACION//////////////////////////////////////////////////////////////////////////
 
 bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
@@ -501,10 +464,8 @@ bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
         PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
         if(paquetesIguales(paqueteAux,paquete))
             match=true;
-
         listaAux=getResto(listaAux);
     }
-
     listaAux=destruirLista(listaAux,false);
 
     return match;
@@ -526,27 +487,39 @@ bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) 
 
     return match;
 }
-bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo);
-bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
+bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo)
 {
     bool match=false;
-    RepartoPtr repartoAux;
-
-    bool condicion;
-
     ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getRepartos(centroLogistico));
+    agregarLista(listaAux,getVehiculos(centroLogistico));
+
     while(!listaVacia(listaAux))
     {
-        repartoAux=(RepartoPtr)getCabecera(listaAux);
+        VehiculoPtr vehculoAux = (VehiculoPtr)getCabecera(listaAux);
+        if(vehiculosIguales(vehculoAux,vehiculo))
+            match=true;
+        listaAux=getResto(listaAux);
+    }
+    listaAux=destruirLista(listaAux,false);
 
-        condicion=calcularDiferenciaFechas(getFechaSalida(repartoAux),getFechaSalida(reparto))==0;
-        condicion = condicion && strcmp(getCuil(getCuilPersona(repartoAux)),getCuil(getCuilPersona(reparto)))==0;
+    return match;
+}
+bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,bool esRepartoAbierto)
+{
+    bool match=false;
+
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
+    while(!listaVacia(listaAux))
+    {
+        RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
+
+        bool condicion = fechasIguales(getFechaSalida(repartoAux),getFechaSalida(reparto));
+        condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto));
 ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
 ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
         if(condicion)
             match=true;
-
         listaAux=getResto(listaAux);
     }
     listaAux=destruirLista(listaAux,false);
@@ -555,6 +528,94 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
 }
 
 ///FUNCIONES DE ORDENAMIENTO
+void ordenarPorNombre(CentroLogisticoPtr centroLogistico)
+{
+    int n=longitudLista(getpersonas(centroLogistico));
+
+    PersonaPtr personas[n];
+    PersonaPtr personaAux;
+
+    for(int i=0;i<n;i++) ///Primero, vaciamos la lista en el vector
+        personas[i]=removerPersona(centroLogistico,0);
+
+///Luego, ordenamos el vector (m. burbuja)
+    for(int i=0; i<n-1 ; i++)
+    {
+        for(int j=i; j<n-1; j++)
+        {
+            bool condicion = strcmp(getNombre(personas[j]),getNombre(personas[j+1])) > 0;
+        //condicion de la bandera: "Si el nombre de la persona en j va después del de la persona en j+1..."
+            if(condicion)
+            { //Hago un swap
+                personaAux=personas[j];
+                personas[j]=personas[j+1];
+                personas[j+1]=personaAux;
+            }
+        }
+    }
+///Finalmente, agregamos nuevamente los elementos ordenados a la lista
+    for(int i=0; i<n; i++)
+        agregarPersona(centroLogistico,personas[i],espersonaAbierto);
+}
+void ordenarPorApellido(CentroLogisticoPtr centroLogistico)
+{
+    int n=longitudLista(getpersonas(centroLogistico));
+
+    PersonaPtr personas[n];
+    PersonaPtr personaAux;
+
+    for(int i=0;i<n;i++) ///Primero, vaciamos la lista en el vector
+        personas[i]=removerPersona(centroLogistico,0);
+
+///Luego, ordenamos el vector (m. burbuja)
+    for(int i=0; i<n-1 ; i++)
+    {
+        for(int j=i; j<n-1; j++)
+        {
+            bool condicion = strcmp(getApellido(personas[j]),getApellido(personas[j+1])) > 0;
+        //condicion de la bandera: "Si el apellido de la persona en j va después del de la persona en j+1..."
+            if(condicion)
+            { //Hago un swap
+                personaAux=personas[j];
+                personas[j]=personas[j+1];
+                personas[j+1]=personaAux;
+            }
+        }
+    }
+///Finalmente, agregamos nuevamente los elementos ordenados a la lista
+    for(int i=0; i<n; i++)
+        agregarPersona(centroLogistico,personas[i],espersonaAbierto);
+}
+void ordenarPersonas(CentroLogisticoPtr centroLogistico)
+{
+    int n=longitudLista(getpersonas(centroLogistico));
+
+    PersonaPtr personas[n];
+    PersonaPtr personaAux;
+
+    for(int i=0;i<n;i++) ///Primero, vaciamos la lista en el vector
+        personas[i]=removerPersona(centroLogistico,0);
+
+///Luego, ordenamos el vector (m. burbuja)
+    for(int i=0; i<n-1 ; i++)
+    {
+        for(int j=i; j<n-1; j++)
+        {
+            bool condicion = strcmp(getApellido(personas[j]),getApellido(personas[j+1])) >= 0;
+            condicion = condicion && strcmp(getNombre(personas[j]),getNombre(personas[j+1])) > 0;
+        //condicion de la bandera: "Si el APELLIDO Y NOMBRE de la persona en j van después de los de la persona en j+1..."
+            if(condicion)
+            { //Hago un swap
+                personaAux=personas[j];
+                personas[j]=personas[j+1];
+                personas[j+1]=personaAux;
+            }
+        }
+    }
+///Finalmente, agregamos nuevamente los elementos ordenados a la lista
+    for(int i=0; i<n; i++)
+        agregarPersona(centroLogistico,personas[i],espersonaAbierto);
+}
 void ordenarPorMarca(CentroLogisticoPtr centroLogistico)
 {
     int n=longitudLista(getVehiculos(centroLogistico));
@@ -774,11 +835,6 @@ void ordenarPorChoferRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoA
 
     for(int i=0;i<n;i++) ///Primero, vaciamos la lista en el vector
         repartos[i]=removerReparto(centroLogistico,0,esRepartoAbierto);
-
-        /*
-        Alvarez, Vanesa - repartos[j]
-        Alvarez, Julian - repartos[j+1]
-        */
 
 ///Luego, ordenamos el vector (m. burbuja)
     for(int i=0; i<n-1 ; i++)

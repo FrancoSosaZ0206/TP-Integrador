@@ -147,7 +147,7 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 
 ///---------------------------------------Funciones de validación------------------------------------------------
 
-bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete); ///NUEVA
+bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete) ///NUEVA
 {
     bool match = false;
 
