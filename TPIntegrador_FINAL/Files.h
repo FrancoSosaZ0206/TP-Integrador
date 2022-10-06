@@ -20,62 +20,62 @@
 /// Para datos individuales
 //  Se pueden pensar como un portapapeles.
 
-//OPERACIÓN: Guarda un Cuil en un archivo dedicado
+//OPERACIÓN: Copia un Cuil en un archivo dedicado
 //PRECONDICIÓN: La variable CuilPtr que se pase deberá haber sido creada previamente con crearA.
 //POSTCONDICIÓN: se copian los contenidos de la estructura CuilPtr en una estructura estática interna "fCuil",
-//               la cual se guarda posteriormente en un archivo de texto (.txt).
+//               la cual se copia posteriormente en un archivo de texto (.txt).
 //PARÁMETROS
 //  Puntero a la estructura Cuil dinámica
-//DEVUELVE: true si se pudo guardar, false de lo contrario (if archivo == NULL)
-bool guardarCuil(CuilPtr cuil);
-//OPERACIÓN: Guarda un Domicilio en un archivo dedicado
+//DEVUELVE: true si se pudo copiar, false de lo contrario (if archivo == NULL)
+bool copiarCuil(CuilPtr cuil);
+//OPERACIÓN: Copia un Domicilio en un archivo dedicado
 //PRECONDICIÓN: La variable DomicilioPtr que se pase deberá haber sido creada previamente con crearB.
 //POSTCONDICIÓN: se copian los contenidos de la estructura DomicilioPtr en una estructura estática interna "fDomicilio",
-//               la cual se guarda posteriormente en un archivo de texto (.txt).
+//               la cual se copia posteriormente en un archivo de texto (.txt).
 //PARÁMETROS
 //  Puntero a la estructura Domicilio dinámica
-//DEVUELVE: true si se pudo guardar, false de lo contrario (if archivo == NULL)
-bool guardarDomicilio(DomicilioPtr domicilio);
-//OPERACIÓN: Guarda una Fecha en un archivo dedicado
+//DEVUELVE: true si se pudo copiar, false de lo contrario (if archivo == NULL)
+bool copiarDomicilio(DomicilioPtr domicilio);
+//OPERACIÓN: Copia una Fecha en un archivo dedicado
 //PRECONDICIÓN: La variable FechaPtr que se pase deberá haber sido creada previamente con crearFecha.
 //POSTCONDICIÓN: se copian los contenidos de la estructura FechaPtr en una estructura estática interna "fFecha",
-//               la cual se guarda posteriormente en un archivo de texto (.txt).
+//               la cual se copia posteriormente en un archivo de texto (.txt).
 //PARÁMETROS
 //  Puntero a la estructura Fecha dinámica
-//DEVUELVE: true si se pudo guardar, false de lo contrario (if archivo == NULL)
-bool guardarFecha(FechaPtr fecha);
-//OPERACIÓN: Guarda una Persona en un archivo dedicado
+//DEVUELVE: true si se pudo copiar, false de lo contrario (if archivo == NULL)
+bool copiarFecha(FechaPtr fecha);
+//OPERACIÓN: Copia una Persona en un archivo dedicado
 //PRECONDICIÓN: La variable PersonaPtr que se pase deberá haber sido creada previamente con crearPersona.
 //POSTCONDICIÓN: se copian los contenidos de la estructura PersonaPtr en una estructura estática interna "fPersona",
-//               la cual se guarda posteriormente en un archivo de texto (.txt).
+//               la cual se copia posteriormente en un archivo de texto (.txt).
 //PARÁMETROS
 //  Puntero a la estructura Persona dinámica
-//DEVUELVE: true si se pudo guardar, false de lo contrario (if archivo == NULL)
-bool guardarPersona(PersonaPtr persona);
-//OPERACIÓN: Guarda una Paquete en un archivo dedicado
+//DEVUELVE: true si se pudo copiar, false de lo contrario (if archivo == NULL)
+bool copiarPersona(PersonaPtr persona);
+//OPERACIÓN: Copia una Paquete en un archivo dedicado
 //PRECONDICIÓN: La variable PaquetePtr que se pase deberá haber sido creada previamente con crearPaquete.
 //POSTCONDICIÓN: se copian los contenidos de la estructura PaquetePtr en una estructura estática interna "fPaquete",
-//               la cual se guarda posteriormente en un archivo de texto (.txt).
+//               la cual se copia posteriormente en un archivo de texto (.txt).
 //PARÁMETROS
 //  Puntero a la estructura Paquete dinámica
-//DEVUELVE: true si se pudo guardar, false de lo contrario (if archivo == NULL)
-bool guardarPaquete(PaquetePtr paquete);
-//OPERACIÓN: Guarda una Vehiculo en un archivo dedicado
+//DEVUELVE: true si se pudo copiar, false de lo contrario (if archivo == NULL)
+bool copiarPaquete(PaquetePtr paquete);
+//OPERACIÓN: Copia una Vehiculo en un archivo dedicado
 //PRECONDICIÓN: La variable VehiculoPtr que se pase deberá haber sido creada previamente con crearVehiculo.
 //POSTCONDICIÓN: se copian los contenidos de la estructura VehiculoPtr en una estructura estática interna "fVehiculo",
-//               la cual se guarda posteriormente en un archivo de texto (.txt).
+//               la cual se copia posteriormente en un archivo de texto (.txt).
 //PARÁMETROS
 //  Puntero a la estructura Vehiculo dinámica
-//DEVUELVE: true si se pudo guardar, false de lo contrario (if archivo == NULL)
-bool guardarVehiculo(VehiculoPtr vehiculo);
-//OPERACIÓN: Guarda una Reparto en un archivo dedicado
+//DEVUELVE: true si se pudo copiar, false de lo contrario (if archivo == NULL)
+bool copiarVehiculo(VehiculoPtr vehiculo);
+//OPERACIÓN: Copia una Reparto en un archivo dedicado
 //PRECONDICIÓN: La variable RepartoPtr que se pase deberá haber sido creada previamente con crearReparto.
 //POSTCONDICIÓN: se copian los contenidos de la estructura RepartoPtr en una estructura estática interna "fReparto",
-//               la cual se guarda posteriormente en un archivo de texto (.txt).
+//               la cual se copia posteriormente en un archivo de texto (.txt).
 //PARÁMETROS
 //  Puntero a la estructura Reparto dinámica
-//DEVUELVE: true si se pudo guardar, false de lo contrario (if archivo == NULL)
-bool guardarReparto(RepartoPtr reparto);
+//DEVUELVE: true si se pudo copiar, false de lo contrario (if archivo == NULL)
+bool copiarReparto(RepartoPtr reparto);
 
 
 ///---------------------------------------------------------------------------------------------------------------
@@ -87,58 +87,51 @@ bool guardarReparto(RepartoPtr reparto);
 //PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
 //POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
 //PARÁMETROS
-//  cuils: PUNTERO A PUNTERO A la estructura Cuil (Doble puntero). Se puede pensar como un vector de Cuils
-//  cantidad: entero representando la cantidad de Cuils a guardar.
+//  listaCuils: puntero a la lista de cuils por defecto.
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarCuils(CuilPtr *cuils,int cantidad);
+bool guardarCuils(ListaPtr listaCuils);
 //OPERACIÓN: Guarda un conjunto de Domicilios
 //PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
 //POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
 //PARÁMETROS
-//  cuils: PUNTERO A PUNTERO A la estructura Domicilio (Doble puntero). Se puede pensar como un vector de Domicilios
-//  cantidad: entero representando la cantidad de Domicilios a guardar.
+//  listaDomicilios: puntero a la lista de domicilios por defecto.
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarDomicilios(DomicilioPtr *domicilios,int cantidad);
+bool guardarDomicilios(ListaPtr listaDomicilios);
 //OPERACIÓN: Guarda un conjunto de Fechas
 //PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
 //POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
 //PARÁMETROS
-//  cuils: PUNTERO A PUNTERO A la estructura Fecha (Doble puntero). Se puede pensar como un vector de Fechas
-//  cantidad: entero representando la cantidad de Fechas a guardar.
+//  listaFechas: puntero a la lista de fechas por defecto.
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarFechas(FechaPtr *fechas,int cantidad);
+bool guardarFechas(ListaPtr listaFechas);
 //OPERACIÓN: Guarda un conjunto de Personas
 //PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
 //POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
 //PARÁMETROS
-//  cuils: PUNTERO A PUNTERO A la estructura Persona (Doble puntero). Se puede pensar como un vector de Personas
-//  cantidad: entero representando la cantidad de Personas a guardar.
+//  centroLogistico: puntero al centro logistico donde se encuentran todos los datos por defecto.
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarPersonas(PersonaPtr *personas,int cantidad);
+bool guardarPersonas(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: Guarda un conjunto de Paquetes
 //PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
 //POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
 //PARÁMETROS
-//  cuils: PUNTERO A PUNTERO A la estructura Paquete (Doble puntero). Se puede pensar como un vector de Paquetes
-//  cantidad: entero representando la cantidad de Paquetes a guardar.
+//  centroLogistico: puntero al centro logistico donde se encuentran todos los datos por defecto.
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarPaquetes(PaquetePtr *paquetes,int cantidad);
+bool guardarPaquetes(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: Guarda un conjunto de Vehiculos
 //PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
 //POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
 //PARÁMETROS
-//  cuils: PUNTERO A PUNTERO A la estructura Vehiculo (Doble puntero). Se puede pensar como un vector de Vehiculos
-//  cantidad: entero representando la cantidad de Vehiculos a guardar.
+//  centroLogistico: puntero al centro logistico donde se encuentran todos los datos por defecto.
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarVehiculos(VehiculoPtr *vehiculos,int cantidad);
+bool guardarVehiculos(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: Guarda un conjunto de Repartos
 //PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
 //POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
 //PARÁMETROS
-//  cuils: PUNTERO A PUNTERO A la estructura Reparto (Doble puntero). Se puede pensar como un vector de Repartos
-//  cantidad: entero representando la cantidad de Repartos a guardar.
+//  centroLogistico: puntero al centro logistico donde se encuentran todos los datos por defecto.
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarRepartos(RepartoPtr *repartos,int cantidad);
+bool guardarRepartos(CentroLogisticoPtr centroLogistico);
 
 
 ///---------------------------------------------------------------------------------------------------------------
@@ -190,6 +183,8 @@ bool guardarListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbie
 
 /// Guardado general
 
+bool copiarTodo(CuilPtr cuil,DomicilioPtr domicilio,PaquetePtr paquete,PersonaPtr persona,VehiculoPtr vehiculo,RepartoPtr reparto); ///PENDIENTE
+bool guardarTodoPorDefecto(CentroLogisticoPtr centroLogistico); ///PENDIENTE
 
 //OPERACIÓN: guarda un centro logístico en un conjunto de archivos de texto.
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico previamente
@@ -223,8 +218,8 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico); //implementacion: llamará 
 //POSTCONDICIÓN: se llena la estructura Cuil con los contenidos del archivo de texto
 //PARÁMETROS
 //  Cuil: puntero a la estructura Cuil en la que se quiere cargar datos
-//DEVUELVE: true si se pudo abrir, false de lo contrario (if archivo == NULL)
-bool abrirCuil(CuilPtr cuil);
+//DEVUELVE: true si se pudo pegar, false de lo contrario (if archivo == NULL)
+bool pegarCuil(CuilPtr cuil);
 //OPERACIÓN: recupera los datos de una estructura Domicilio desde un archivo de texto
 //PRECONDICIÓN: La variable Domicilio recibida debe haber sido definida previamente,
 //              y su contenido vaciado con su función destructora.
@@ -233,8 +228,8 @@ bool abrirCuil(CuilPtr cuil);
 //POSTCONDICIÓN: se llena la estructura Domicilio con los contenidos del archivo de texto
 //PARÁMETROS
 //  Domicilio: puntero a la estructura Domicilio en la que se quiere cargar datos
-//DEVUELVE: true si se pudo abrir, false de lo contrario (if archivo == NULL)
-bool abrirDomicilio(DomicilioPtr domicilio);
+//DEVUELVE: true si se pudo pegar, false de lo contrario (if archivo == NULL)
+bool pegarDomicilio(DomicilioPtr domicilio);
 //OPERACIÓN: recupera los datos de una estructura Fecha desde un archivo de texto
 //PRECONDICIÓN: La variable Fecha recibida debe haber sido definida previamente,
 //              y su contenido vaciado con su función destructora.
@@ -243,8 +238,8 @@ bool abrirDomicilio(DomicilioPtr domicilio);
 //POSTCONDICIÓN: se llena la estructura Fecha con los contenidos del archivo de texto
 //PARÁMETROS
 //  Fecha: puntero a la estructura Fecha en la que se quiere cargar datos
-//DEVUELVE: true si se pudo abrir, false de lo contrario (if archivo == NULL)
-bool abrirFecha(FechaPtr fecha);
+//DEVUELVE: true si se pudo pegar, false de lo contrario (if archivo == NULL)
+bool pegarFecha(FechaPtr fecha);
 //OPERACIÓN: recupera los datos de una estructura Persona desde un archivo de texto
 //PRECONDICIÓN: La variable Persona recibida debe haber sido definida previamente,
 //              y su contenido vaciado con su función destructora.
@@ -253,8 +248,8 @@ bool abrirFecha(FechaPtr fecha);
 //POSTCONDICIÓN: se llena la estructura Persona con los contenidos del archivo de texto
 //PARÁMETROS
 //  Persona: puntero a la estructura Persona en la que se quiere cargar datos
-//DEVUELVE: true si se pudo abrir, false de lo contrario (if archivo == NULL)
-bool abrirPersona(PersonaPtr persona);
+//DEVUELVE: true si se pudo pegar, false de lo contrario (if archivo == NULL)
+bool pegarPersona(PersonaPtr persona);
 //OPERACIÓN: recupera los datos de una estructura Paquete desde un archivo de texto
 //PRECONDICIÓN: La variable Paquete recibida debe haber sido definida previamente,
 //              y su contenido vaciado con su función destructora.
@@ -263,8 +258,8 @@ bool abrirPersona(PersonaPtr persona);
 //POSTCONDICIÓN: se llena la estructura Paquete con los contenidos del archivo de texto
 //PARÁMETROS
 //  Paquete: puntero a la estructura Paquete en la que se quiere cargar datos
-//DEVUELVE: true si se pudo abrir, false de lo contrario (if archivo == NULL)
-bool abrirPaquete(PaquetePtr paquete);
+//DEVUELVE: true si se pudo pegar, false de lo contrario (if archivo == NULL)
+bool pegarPaquete(PaquetePtr paquete);
 //OPERACIÓN: recupera los datos de una estructura Vehiculo desde un archivo de texto
 //PRECONDICIÓN: La variable Vehiculo recibida debe haber sido definida previamente,
 //              y su contenido vaciado con su función destructora.
@@ -273,8 +268,8 @@ bool abrirPaquete(PaquetePtr paquete);
 //POSTCONDICIÓN: se llena la estructura Vehiculo con los contenidos del archivo de texto
 //PARÁMETROS
 //  Vehiculo: puntero a la estructura Vehiculo en la que se quiere cargar datos
-//DEVUELVE: true si se pudo abrir, false de lo contrario (if archivo == NULL)
-bool abrirVehiculo(VehiculoPtr vehiculo);
+//DEVUELVE: true si se pudo pegar, false de lo contrario (if archivo == NULL)
+bool pegarVehiculo(VehiculoPtr vehiculo);
 //OPERACIÓN: recupera los datos de una estructura Reparto desde un archivo de texto
 //PRECONDICIÓN: La variable Reparto recibida debe haber sido definida previamente,
 //              y su contenido vaciado con su función destructora.
@@ -283,8 +278,8 @@ bool abrirVehiculo(VehiculoPtr vehiculo);
 //POSTCONDICIÓN: se llena la estructura Reparto con los contenidos del archivo de texto
 //PARÁMETROS
 //  Reparto: puntero a la estructura Reparto en la que se quiere cargar datos
-//DEVUELVE: true si se pudo abrir, false de lo contrario (if archivo == NULL)
-bool abrirReparto(RepartoPtr reparto);
+//DEVUELVE: true si se pudo pegar, false de lo contrario (if archivo == NULL)
+bool pegarReparto(RepartoPtr reparto);
 
 
 ///---------------------------------------------------------------------------------------------------------------
@@ -423,8 +418,10 @@ bool abrirListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbiert
 
 ///---------------------------------------------------------------------------------------------------------------
 
-/// Guardado general
+/// Apertura general
 
+void pegarTodo(); ///PENDIENTE
+CentroLogisticoPtr abrirTodoPorDefecto(CentroLogisticoPtr centroLogistico); ///PENDIENTE
 
 //OPERACIÓN: Crea un centro logístico a partir de los datos de un conjunto de archivos de texto.
 //PRECONDICIÓN: centroLogistico debe haber sido declarado previamente
