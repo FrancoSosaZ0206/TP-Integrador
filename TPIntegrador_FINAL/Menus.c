@@ -1002,6 +1002,7 @@ void menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbier
 void menuCerrarReparto(CentroLogisticoPtr centroLogistico)
 {
     int eleccion, totalPaquetes, i;
+    bool resultadoBusqueda;
     ListaPtr listaAbiertos = crearLista();
     ListaPtr listaCerrados = crearLista();
     ListaPtr listaPaquetes = crearLista();
@@ -1031,8 +1032,10 @@ void menuCerrarReparto(CentroLogisticoPtr centroLogistico)
         paqueteAux = getDatoLista(listaPaquetes, i);
         if(getEstado(paqueteAux) != 0 && getEstado(paqueteAux) != 3)
         {
-            setEstado(paqueteAux, 0);
-            agregarDatoLista(listaPaquetes, paqueteAux);
+            paqueteAux = getDatoLista(listaPaquetes,i);
+            resultadoBusqueda = buscarPaquete(centroLogistico, getID(paqueteAux));
+            if(resultadoBusqueda)
+                setEstado(paqueteAux, 0);
         }
         i++;
     }
