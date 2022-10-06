@@ -530,7 +530,7 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
 ///FUNCIONES DE ORDENAMIENTO
 void ordenarPorNombre(CentroLogisticoPtr centroLogistico)
 {
-    int n=longitudLista(getpersonas(centroLogistico));
+    int n=longitudLista(getPersonas(centroLogistico));
 
     PersonaPtr personas[n];
     PersonaPtr personaAux;
@@ -555,11 +555,11 @@ void ordenarPorNombre(CentroLogisticoPtr centroLogistico)
     }
 ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
     for(int i=0; i<n; i++)
-        agregarPersona(centroLogistico,personas[i],espersonaAbierto);
+        agregarPersona(centroLogistico,personas[i]);
 }
 void ordenarPorApellido(CentroLogisticoPtr centroLogistico)
 {
-    int n=longitudLista(getpersonas(centroLogistico));
+    int n=longitudLista(getPersonas(centroLogistico));
 
     PersonaPtr personas[n];
     PersonaPtr personaAux;
@@ -584,11 +584,11 @@ void ordenarPorApellido(CentroLogisticoPtr centroLogistico)
     }
 ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
     for(int i=0; i<n; i++)
-        agregarPersona(centroLogistico,personas[i],espersonaAbierto);
+        agregarPersona(centroLogistico,personas[i]);
 }
 void ordenarPersonas(CentroLogisticoPtr centroLogistico)
 {
-    int n=longitudLista(getpersonas(centroLogistico));
+    int n=longitudLista(getPersonas(centroLogistico));
 
     PersonaPtr personas[n];
     PersonaPtr personaAux;
@@ -614,7 +614,7 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico)
     }
 ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
     for(int i=0; i<n; i++)
-        agregarPersona(centroLogistico,personas[i],espersonaAbierto);
+        agregarPersona(centroLogistico,personas[i]);
 }
 void ordenarPorMarca(CentroLogisticoPtr centroLogistico)
 {
