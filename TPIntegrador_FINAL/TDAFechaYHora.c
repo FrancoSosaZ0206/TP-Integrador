@@ -258,3 +258,14 @@ bool esFechaValida(FechaPtr fecha) ///NUEVA
 
     return resultado;
 }
+
+void mostrarFecha(FechaPtr fecha){
+    printf("Formato DIAS / MESES / ANIOS: \n");
+    printf("%d / %d / %d \n", getDia(fecha),getMes(fecha),getAnio(fecha));
+    printf("Formato HORAS : MINUTOS: \n");
+    printf("%d : %d \n", getHora(fecha),getMinuto(fecha));
+}
+
+
+
+

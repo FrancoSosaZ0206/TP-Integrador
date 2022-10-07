@@ -17,6 +17,7 @@ typedef struct Reparto
     FechaPtr fechaSalida;
     FechaPtr fechaRetorno;
     PilaPtr paquetes;
+    ListaPtr listaPaquetes;
 } Reparto;
 typedef Reparto * RepartoPtr;
 
@@ -31,7 +32,7 @@ typedef Reparto * RepartoPtr;
 // fechaRetorno: un puntero a la estructura fecha representando la fecha de retorno.
 // paquetes: un puntero a la estructura pila que contiene los paquetes del reparto.
 //Devuelve un puntero a la nueva estructura.
-RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes);
+RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes);
 //Operación: Destruccion del TDArepartos.
 //Precondición: Repartos debe estar creado.
 //Postcondición: Se elimina el reparto y se libera la memoria.

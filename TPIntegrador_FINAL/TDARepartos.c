@@ -9,16 +9,16 @@
 #include "Pila.h"
 #include "TDARepartos.h"
 
-RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes)
+RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr listaPaquetes)
 {
     RepartoPtr reparto=(RepartoPtr)obtenerMemoria(sizeof(Reparto));
-
+    ListaPtr listaAux = crearLista();
+    listaAux = listaPaquetes;
     reparto->chofer=chofer;
     reparto->vehiculo=vehiculo;
     reparto->fechaSalida=fechaSalida;
     reparto->fechaRetorno=fechaRetorno;
-    reparto->paquetes=paquetes;
-
+    reparto->listaPaquetes=listaAux;
     return reparto;
 }
 
@@ -34,7 +34,7 @@ No queremos eso, así que simplemente no las destruimos.*/
 
     return NULL;
 }
-RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes)
+RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes)
 {
     RepartoPtr reparto=crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
     return reparto;
@@ -65,6 +65,16 @@ PilaPtr getPaquetesReparto(RepartoPtr reparto)
 {
     return reparto->paquetes;
 }
+
+ListaPtr getListaPaquetesReparto(RepartoPtr reparto){
+    return reparto->listaPaquetes;
+}
+
+void setListaPaquetesReparto(RepartoPtr reparto, ListaPtr paquetes){
+    reparto->listaPaquetes = paquetes;
+}
+
+
 
 void setChofer(RepartoPtr reparto,PersonaPtr chofer)
 {
@@ -114,22 +124,34 @@ void mostrarReparto(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
-    char *strFecha;
-    traerFechaYHora(getFechaSalida(reparto),strFecha);
-    printf("Fecha de Salida: %s\n",strFecha);
-    traerFechaYHora(getFechaRetorno(reparto),strFecha);
-    printf("Fecha de Retorno: %s\n",strFecha);
+    mostrarFecha(getFechaSalida(reparto));
+    mostrarFecha(getFechaRetorno(reparto));
+    //char *strFecha;
+    //traerFechaYHora(getFechaSalida(reparto),strFecha);
+    //printf("Fecha de Salida: %s\n",strFecha);
+    //traerFechaYHora(getFechaRetorno(reparto),strFecha);
+    //printf("Fecha de Retorno: %s\n",strFecha);
+    int i=0;
+    while(i<longitudLista(reparto->listaPaquetes)){
+        printf("Paquete nro: %d\n\n",i);
+        mostrarPaquete(getDatoLista(reparto->listaPaquetes,i++));
+    }
 
-    int cantPaq=longitudPila(getPaquetesReparto(reparto));
+    /*int cantPaq=longitudPila(getPaquetesReparto(reparto));
     PaquetePtr paqueteAux;
     PaquetePtr paquetes[cantPaq];
-
-    for(int i=0;i<cantPaq;i++)
-    {
+    for(int i=0;i<cantPaq;i++){
         printf("%d. ",i+1);
         paquetes[i]=(PaquetePtr)desapilar(getPaquetesReparto(reparto));
         mostrarPaquete(paquetes[i]);
     }
     for(int i=0;i<cantPaq;i++)
-        apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[cantPaq-i]);
+        apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[cantPaq-i]);*/
+}
+
+void mostrarPaquetesListaReparto(RepartoPtr reparto){
+    for(int i=0;i<longitudLista(getListaPaquetesReparto(reparto));i++){
+        printf("Paquete NRO: %d\n", i);
+        mostrarPaquete(getDatoLista(getListaPaquetesReparto(reparto),i));
+    }
 }

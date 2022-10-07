@@ -280,15 +280,15 @@ ListaPtr crearListaClientesGenerico()
     //Cliente 2
     DomicilioPtr domicilio2 = crearDomicilio("Italia",1000,"Lomas de zamora");
     CuilPtr cuil_2 = crearCuil("20655612339");
-    PersonaPtr cliente2 = crearPersona("Gonzalo","Gutierrez",domicilio1,cuil_1,false);
+    PersonaPtr cliente2 = crearPersona("Gonzalo","Gutierrez",domicilio2,cuil_2,false);
     //Cliente 3
     DomicilioPtr domicilio3 = crearDomicilio("Espania",3000,"Lomas de zamora");
     CuilPtr cuil_3 = crearCuil("20245432349");
-    PersonaPtr cliente3 = crearPersona("Gabriel","Alonzo",domicilio1,cuil_1,false);
+    PersonaPtr cliente3 = crearPersona("Gabriel","Alonzo",domicilio3,cuil_3,false);
     //Cliente 4
     DomicilioPtr domicilio4 = crearDomicilio("9 de mayo",2000,"Lomas de zamora");
     CuilPtr cuil_4 = crearCuil("20126543212");
-    PersonaPtr cliente4 = crearPersona("Alfonso","Romero",domicilio1,cuil_1,false);
+    PersonaPtr cliente4 = crearPersona("Alfonso","Romero",domicilio4,cuil_4,false);
     /*agregarDatoLista(listaPaquetes,(PersonaPtr)cliente1);
     agregarDatoLista(listaPaquetes,(PersonaPtr)cliente2);
     agregarDatoLista(listaPaquetes,(PersonaPtr)cliente3);
@@ -312,15 +312,15 @@ ListaPtr crearListaChoferesGenerico()
     //chofer 2
     DomicilioPtr domicilio2 = crearDomicilio("Italia",1000,"Lomas de zamora");
     CuilPtr cuil_2 = crearCuil("20655612339");
-    PersonaPtr chofer2 = crearPersona("Gonzalo","Gutierrez",domicilio1,cuil_1,true);
+    PersonaPtr chofer2 = crearPersona("Gonzalo","Gutierrez",domicilio2,cuil_2,true);
     //chofer 3
-    DomicilioPtr domicili3 = crearDomicilio("Espania",3000,"Lomas de zamora");
+    DomicilioPtr domicilio3 = crearDomicilio("Espania",3000,"Lomas de zamora");
     CuilPtr cuil_3 = crearCuil("20245432349");
-    PersonaPtr chofer3 = crearPersona("Gabriel","Alonzo",domicilio1,cuil_1,true);
+    PersonaPtr chofer3 = crearPersona("Gabriel","Alonzo",domicilio3,cuil_3,true);
     //chofer 4
     DomicilioPtr domicilio4 = crearDomicilio("9 de mayo",2000,"Lomas de zamora");
     CuilPtr cuil_4 = crearCuil("20126543212");
-    PersonaPtr chofer4 = crearPersona("Alfonso","Romero",domicilio1,cuil_1,true);
+    PersonaPtr chofer4 = crearPersona("Alfonso","Romero",domicilio4,cuil_4,true);
     /*agregarDatoLista(listaChoferes,(PersonaPtr)chofer1);
     agregarDatoLista(listaChoferes,(PersonaPtr)chofer1);
     agregarDatoLista(listaChoferes,(PersonaPtr)chofer1);
@@ -359,15 +359,14 @@ ListaPtr crearListaVehiculosGenerico()
 
 void MetodoDistintoDeMostrado()
 {
-    /*int i=0;
+    int i=0;
     ListaPtr listaPaquetes = crearLista();
     listaPaquetes = crearListaPaquetesGenerico();
     while(i<longitudLista(listaPaquetes)){
         printf("%d.",i);
         mostrarPaquete((PaquetePtr)getDatoLista(listaPaquetes,i++));
-    }*/
-    /*
-    ListaPtr listaPaquetes = crearLista();
+    }
+    ListaPtr listaPaquetes1 = crearLista();
     listaPaquetes = crearListaPaquetesGenerico();
     CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido("Distribuidora");
     setPaquetes(centroLogistico, listaPaquetes);
@@ -376,7 +375,7 @@ void MetodoDistintoDeMostrado()
         printf("%d.",i);
         mostrarPaquete((PaquetePtr)getDatoLista(getPaquetes(centroLogistico),i));
     }
-    system("pause");*/
+    system("pause");
 }
 
 

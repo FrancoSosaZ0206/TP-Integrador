@@ -15,6 +15,8 @@ typedef struct CentroLogistico
     char *nombre;
     ListaPtr listaPaquetes;
     ListaPtr listaPersonas;
+    ListaPtr listaClientes;
+    ListaPtr listaChoferes;
     ListaPtr listaVehiculos;
     ListaPtr listaRepartosAbiertos; ///Nueva implementacion: Ahora los repartos que se cierran
     ListaPtr listaRepartosCerrados; ///se pasan a esta lista en lugar de ser eliminados.
@@ -102,7 +104,7 @@ void setNombreCentroLogistico(CentroLogisticoPtr centroLogistico,char *nombre);
 // centroLogistico: puntero a estructura que representa al centro logistico.
 // listaPaquetes: puntero a estructura que representa al nuevo valor de paquetes.
 //Devuelve: nada.
-void setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes);
+CentroLogisticoPtr setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes);
 //Operación:Asigna la estructura de personas.
 //Precondición:Centro logistico debe haberse creado.
 //Postcondición: personas cambia con el nuevo valor de personas.
@@ -110,7 +112,7 @@ void setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes);
 // centroLogistico: puntero a estructura que representa al centro logistico.
 // listaPersonas: puntero a estructura que representa al nuevo valor de personas.
 //Devuelve: nada.
-void setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr listaPersonas);
+CentroLogisticoPtr setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr listaPersonas);
 //Operación:Asigna la estructura de vehiculos.
 //Precondición:Centro logistico debe haberse creado.
 //Postcondición: vehiculos cambia con el nuevo valor de vehiculos.
@@ -118,7 +120,7 @@ void setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr listaPersonas);
 // centroLogistico: puntero a estructura que representa al centro logistico.
 // listaPaquetes: puntero a estructura que representa al nuevo valor de vehiculos.
 //Devuelve: nada.
-void setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos);
+CentroLogisticoPtr setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos);
 //Operación: Asigna la estructura de repartos.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: la lista de repartos seleccionada cambia con el nuevo valor de repartos.

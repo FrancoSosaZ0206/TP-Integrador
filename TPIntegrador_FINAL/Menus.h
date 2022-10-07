@@ -252,7 +252,7 @@ void menuCerrarReparto(CentroLogisticoPtr centroLogistico);
 //PARÁMETROS: puntero a centro logistico
 //variable logica que determina a que lista de repartos se iniciara la busqueda
 //DEVUELVE: vacio
-void menuActualizarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+void menuActualizarReparto(CentroLogisticoPtr centroLogistico);
 
 //OPERACION: menú de muestra de repartos
 //PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico

@@ -86,7 +86,7 @@ void actualizarCuil(CuilPtr cuil)
         helpCuil();
         printf("\n\tNuevo CUIL:");
         scanf("%[^\n]%*c",strCuil);
-        limpiarBufferTeclado();
+        fflush(stdin);
         if(i<4)
             setCuil(cuil,strCuil);
         else    //if(i==4)
@@ -104,10 +104,10 @@ void actualizarDomicilio(DomicilioPtr domicilio)
 
     printf("\n\t\tCalle y Altura [CALLE, ALTURA]: ");
     scanf("%[^,]%*c, %d",calle,&altura);
-    limpiarBufferTeclado();
+    fflush(stdin);
     printf("\n\t\tLocalidad: ");
     scanf("%[^\n]%*c",localidad);
-    limpiarBufferTeclado();
+    fflush(stdin);
 
     setCalle(domicilio,calle);
     setAltura(domicilio,altura);
@@ -127,10 +127,10 @@ void actualizarFecha(FechaPtr fecha)
     {
         printf("\n\t\tFecha (DD MM AAAA): ");
         scanf("%d %d %d",&dia,&mes,&anio);
-        limpiarBufferTeclado();
+        fflush(stdin);
         printf("\n\t\tHorario (HH MM): ");
         scanf("%d %d",&hora,&minuto);
-        limpiarBufferTeclado();
+        fflush(stdin);
 
         setDia(fecha,dia);
         setMes(fecha,mes);
@@ -140,12 +140,12 @@ void actualizarFecha(FechaPtr fecha)
         if(!esFechaValida(fecha) && i<4)
         {
             printf("\n\nFecha invalida. Reingrese la fecha.\n\n");
-            presionarEnterYLimpiarPantalla();
+            system("cls");
         }
         else if(i==4)
         {
             printf("\n\nSe agotaron los intentos.\n\n");
-            presionarEnterYLimpiarPantalla();
+            system("cls");
             break;
         }
     } while (!esFechaValida(fecha));
@@ -203,13 +203,13 @@ void menuCargarPaquete(CentroLogisticoPtr centroLogistico)
     }
     if(n>1)
         printf("Paquetes cargados exitosamente.\n\n");
-        system("pause");
+    system("pause");
 }
 void menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
     int n=0;
-    char nombre[20];
-    char apellido[20];
+    char nombre[100];
+    char apellido[100];
     PersonaPtr persona;
     DomicilioPtr domicilio;
     CuilPtr cuil;
@@ -226,7 +226,7 @@ void menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         scanf("%d",&n);
         if(n<1)
             printf("\nCantidad incorrecta.\n");
-        presionarEnterYLimpiarPantalla();
+        system("cls");
     }while(n<1);
     for(int i=0;i<n;i++){
         if(n>0)
@@ -253,82 +253,72 @@ void menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         printf("Choferes cargados exitosamente.\n\n");
     else if(n>1)
         printf("Clientes cargados exitosamente.\n\n");
-    presionarEnterYLimpiarPantalla();
+    system("cls");
 }
 void menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 {
-    ///Variables para funciones
-    int n=0;
-    ///Vehiculo
-    int tipoVehiculo=0;
+    int n=0,tipoVehiculo=0;
     char marca[100];
     char modelo[100];
     char patente[100];
     VehiculoPtr vehiculo;
     do{
-        limpiarBufferTeclado();
+        fflush(stdin);
         system("cls");
         printf("CARGAR VEHICULO\n\n");
         printf("Ingrese cantidad de vehiculos a cargar: ");
         scanf("%d",&n);
-        limpiarBufferTeclado();
-
+        fflush(stdin);
         if(n<1)
             printf("\nCantidad incorrecta.\n");
-        presionarEnterYLimpiarPantalla();
-    } while(n<1);
+        system("cls");
+    }while(n<1);
     for(int i=0;i<n;i++){
         if(n>1)
             printf("\n\nVEHICULO %d\n\n",i+1);
-        limpiarBufferTeclado();
+        fflush(stdin);
         helpTipoVehiculo();
         printf("\n\n\tSeleccione un Tipo: ");
         scanf("%d",&tipoVehiculo);
-        limpiarBufferTeclado();
+        fflush(stdin);
         printf("\n\n\tMarca: ");
         scanf("%[^\n]%*c",marca);
-        limpiarBufferTeclado();
+        fflush(stdin);
         printf("\n\tModelo: ");
         scanf("%[^\n]%*c",modelo);
-        limpiarBufferTeclado();
+        fflush(stdin);
         printf("\n\tPatente (AA 000 AA): ");
         scanf("%[^\n]%*c",patente);
-        limpiarBufferTeclado();
+        fflush(stdin);
         vehiculo=crearVehiculo(tipoVehiculo,marca,modelo,patente);
-        limpiarBufferTeclado();
+        fflush(stdin);
         agregarDatoLista(centroLogistico->listaVehiculos,(VehiculoPtr)vehiculo);
         printf("\n\nVehiculo cargado exitosamente.\n\n");
-        presionarEnterYLimpiarPantalla();
+        system("cls");
     }
     if(n>1){
         printf("\n\nVehiculos cargados exitosamente.\n\n");
-        presionarEnterYLimpiarPantalla();
+        system("cls");
     }
 }
 
 void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
 {
     int op=0;
-
-    do
-    {
+    do{
         int ID=0;
-
         system("cls");
         printf("BUSCAR PAQUETE\n\n");
-
         printf("Ingrese ID del paquete a buscar: ");
         scanf("%d",&ID);
-        limpiarBufferTeclado();
+        fflush(stdin);
         printf("\n\n");
-
         if(buscarPaquete(centroLogistico,ID)==false)
             printf("\n\nNo se pudo encontrar el paquete con ID #%d.\n\n",ID);
-
         printf("Volver? 0=Si, 1=No");
         scanf("%d",&op);
-        limpiarBufferTeclado();
-    } while(op!=0);
+        fflush(stdin);
+    }while(op!=0);
 }
 void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
@@ -361,9 +351,12 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         }
         printf("Volver? 0=Si, 1=No");
         scanf("%d",&op);
-        limpiarBufferTeclado();
+        fflush(stdin);
+
     } while(op!=0);
 }
+
+
 void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
 {
     int op=0;
@@ -385,111 +378,112 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
 void menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
 {
     int iElim=0;
-
     system("cls");
-    printf("ELIMINAR PAQUETE\n\n");
-
-    mostrarPaquetes(centroLogistico);
-
-    printf("\n\nSeleccione indice del paquete a eliminar: ");
-    scanf("%d",&iElim);
-
-    PaquetePtr paqueteRemovido=removerPaquete(centroLogistico,iElim);
-    if(paqueteRemovido!=NULL)
-        printf("\n\nPaquete #%d eliminado exitosamente.\n\n",getID(paqueteRemovido));
-    else
-        printf("\n\nEl paquete %d no se pudo eliminar.\n\n",iElim);
-
-    paqueteRemovido=destruirPaquete(paqueteRemovido);
+    if(longitudLista(getPaquetes(centroLogistico))!=0){
+        printf("ELIMINAR PAQUETE\n\n");
+        mostrarPaquetes(centroLogistico);
+        printf("\n\nSeleccione indice del paquete a eliminar: ");
+        scanf("%d",&iElim);
+        if(iElim>0 && iElim<longitudLista(getPaquetes(centroLogistico))){
+            PaquetePtr paqueteRemovido=removerPaquete(centroLogistico,iElim);
+            if(paqueteRemovido!=NULL)
+                printf("\n\nPaquete #%d eliminado exitosamente.\n\n",getID(paqueteRemovido));
+            else
+                printf("\n\nEl paquete %d no se pudo eliminar.\n\n",iElim);
+            paqueteRemovido=destruirPaquete(paqueteRemovido);
+        }
+    }else{
+        printf("Agregue paquetes para poder eliminarlos\n");
+    }
 }
 void menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
     int iElim=0;
-
     system("cls");
-    if(esChofer)
-    {
-        printf("ELIMINAR CHOFER\n\n");
-
-        mostrarChoferes(centroLogistico);
-
-        printf("\n\nSeleccione indice del chofer a eliminar: ");
-        scanf("%d",&iElim);
-    }
-    else
-    {
+    if(longitudLista(getChoferes(centroLogistico))!=0)
         printf("ELIMINAR CLIENTE\n\n");
-
         mostrarClientes(centroLogistico);
-
         printf("\n\nSeleccione indice del cliente a eliminar: ");
         scanf("%d",&iElim);
-    }
-
-    PersonaPtr personaRemovida=removerPersona(centroLogistico,iElim);
-    if(personaRemovida!=NULL)
-        printf("\n\nCliente %d eliminado exitosamente.\n\n",iElim);
-    else
-        printf("\n\nEl cliente %d no se pudo eliminar.\n\n",iElim);
-
-    personaRemovida=destruirPersona(personaRemovida);
+        if(iElim>0 && iElim<longitudLista(getChoferes(centroLogistico))){
+            removerDeLista(getClientes(centroLogistico),iElim);
+        }
 }
-void menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
-{
+
+void menuEliminarCliente(CentroLogisticoPtr centroLogistico){
     int iElim=0;
-
     system("cls");
-    printf("ELIMINAR VEHICULO\n\n");
-
-    mostrarVehiculos(centroLogistico);
-
-    printf("\n\nSeleccione indice del vehiculo a eliminar: ");
-    scanf("%d",&iElim);
-
-    VehiculoPtr vehiculoRemovido=removerVehiculo(centroLogistico,iElim);
-    if(vehiculoRemovido!=NULL)
-        printf("\n\nVehiculo %d eliminado exitosamente.\n\n",iElim);
-    else
-        printf("\n\nEl vehiculo %d no se pudo eliminar.\n\n",iElim);
-
-    vehiculoRemovido=destruirVehiculo(vehiculoRemovido);
+    if(longitudLista(getClientes(centroLogistico))!=0){
+        printf("ELIMINAR CLIENTE\n\n");
+        mostrarClientes(centroLogistico);
+        printf("\n\nSeleccione indice del cliente a eliminar: ");
+        scanf("%d",&iElim);
+        if(iElim>0 && iElim<longitudLista(getClientes(centroLogistico))){
+            PersonaPtr clienteRemovido=removerDeLista(getClientes(centroLogistico),iElim);
+            clienteRemovido=destruirPersona(clienteRemovido);
+        }
+    }else{
+        printf("No existen clientes para remover\n");
+    }
 }
+
+
+void menuEliminarChofer(CentroLogisticoPtr centroLogistico){
+    int iElim=0;
+    system("cls");
+    if(longitudLista(getChofer(centroLogistico))!=0){
+        printf("ELIMINAR CHOFER\n\n");
+        mostrarChoferes(centroLogistico);
+        printf("\n\nSeleccione indice del chofer a eliminar: ");
+        scanf("%d",&iElim);
+        if(iElim>0 && iElim<longitudLista(getChoferes(centroLogistico))){
+            PersonaPtr choferRemovido=removerDeLista(getChoferes(centroLogistico),iElim);
+            choferRemovido=destruirPersona(choferRemovido);
+        }
+    }else{
+        printf("No existen choferes para remover\n");
+    }
+}
+
+
+
+void menuEliminarVehiculo(CentroLogisticoPtr centroLogistico){
+    int iElim=0;
+    system("cls");
+    if(longitudLista(getVehiculos(centroLogistico))!=0){
+        printf("ELIMINAR VEHICULO\n\n");
+        mostrarVehiculos(centroLogistico);
+        printf("\n\nSeleccione indice del vehiculo a eliminar: ");
+        scanf("%d",&iElim);
+        if(iElim>0 && iElim<longitudLista(getVehiculos(centroLogistico))){
+            VehiculoPtr vehiculoRemovido=removerVehiculo(centroLogistico,iElim);
+            vehiculoRemovido=destruirVehiculo(vehiculoRemovido);
+        }else{
+            printf("No existen vehiculos para remover\n");
+        }
+    }
+}
+
 
 void menuModificarPaquete(CentroLogisticoPtr centroLogistico)
 {
-    int iMod=0;
-    int op=0;
-    int seguirMod=0; //para no volver a entrar al menu si queremos cambiar varios parámetros de un dato.
-
-    int nAncho=0;
-    int nAlto=0;
-    int nLargo=0;
-    int nPeso=0;
-
+    int iMod=0,op=0,seguirMod=0,nAncho=0,nAlto=0,nLargo=0,nPeso=0,nEstado=0;
     DomicilioPtr nuevaDirRetiro;
     DomicilioPtr nuevaDirEntrega;
     FechaPtr nuevaFechaEntrega;
-
-    int nEstado=0;
-
     system("cls");
     printf("MODIFICAR PAQUETE\n\n");
-
     mostrarPaquetes(centroLogistico);
-
     printf("\n\nIngrese indice del paquete a modificar: ");
     scanf("%d",&iMod);
-
-    PaquetePtr paqueteAModificar=(PaquetePtr)getDatoLista(getPaquetes(centroLogistico),iMod-1); //-1 porque muestra con i+1 dentro de la funcion.
-
-    do
-    {
+    //-1 porque muestra con i+1 dentro de la funcion.
+    PaquetePtr paqueteAModificar=(PaquetePtr)getDatoLista(getPaquetes(centroLogistico),iMod-1);
+    do{
         system("cls");
+        fflush(stdin);
         printf("Ha elegido el ");
         mostrarPaquete(paqueteAModificar);
-
         printf("\n\nQué desea modificar?\n\n");
-
         printf("1. Ancho\n");
         printf("2. Alto\n");
         printf("3. Largo\n");
@@ -498,34 +492,28 @@ void menuModificarPaquete(CentroLogisticoPtr centroLogistico)
         printf("6. Direccion de Entrega\n");
         printf("7. Fecha de Entrega\n");
         printf("8. Estado\n");
-
         printf("Seleccione una opcion: ");
         scanf("%d",&op);
-
-        switch(op)
-        {
+        fflush(stdin);
+        switch(op){
         case 1:
             printf("\n\nIngrese el nuevo ancho: ");
             scanf("%d",&nAncho);
-
             setAncho(paqueteAModificar,nAncho);
             break;
         case 2:
             printf("\n\nIngrese el nuevo alto: ");
             scanf("%d",&nAlto);
-
             setAlto(paqueteAModificar,nAlto);
             break;
         case 3:
             printf("\n\nIngrese el nuevo largo: ");
             scanf("%d",&nLargo);
-
             setLargo(paqueteAModificar,nLargo);
             break;
         case 4:
             printf("\n\nIngrese el nuevo peso: ");
             scanf("%d",&nPeso);
-
             setPeso(paqueteAModificar,nPeso);
             break;
         case 5:
@@ -545,413 +533,432 @@ void menuModificarPaquete(CentroLogisticoPtr centroLogistico)
             break;
         case 8:
             helpEstadoPaquete();
-
             printf("\n\nIngrese el nuevo estado: ");
             scanf("%d",&nEstado);
-
             setEstado(paqueteAModificar,nEstado);
             break;
         default:
             printf("\nOpcion incorrecta.\n\n");
-            presionarEnterYLimpiarPantalla();
+            system("cls");
             break;
         }
-
+        fflush(stdin);
         printf("\n\nDatos modificados exitosamente.\n\n");
-
         printf("Desea seguir modificando este paquete?\n\n");
         printf("\t1. SI\n\t");
         printf("0. NO\n\n");
-
         printf("Seleccione una opcion: ");
         scanf("%d",&seguirMod);
-    } while(seguirMod!=0);
+        fflush(stdin);
+    }while(seguirMod!=0);
 }
 void menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
-    int iMod=0;
-    int op=0;
-    int seguirMod=0;
-
+    int iMod=0,op=0,seguirMod=0,cantidadPersonas=0;
     char nNombre[100];
     char nApellido[100];
-
     DomicilioPtr nuevoDomicilio;
     CuilPtr nuevoCuil;
-
-//esChofer se puede modificar sin crear una variable
-
+    //esChofer se puede modificar sin crear una variable
     system("cls");
-
-    if(esChofer)
-    {
+    if(esChofer){
         printf("MODIFICAR CHOFER\n\n");
         mostrarChoferes(centroLogistico);
+        cantidadPersonas=longitudLista(getChoferes(centroLogistico));
         printf("\n\nIngrese indice del chofer a modificar: ");
-    }
-    else
-    {
+    }else{
         printf("MODIFICAR CLIENTE\n\n");
         mostrarClientes(centroLogistico);
+        cantidadPersonas=longitudLista(getClientes(centroLogistico));
         printf("\n\nIngrese indice del cliente a modificar: ");
     }
-
     scanf("%d",&iMod);
-//Obtenemos la persona del índice de la lista de personas que se eligió (-1 porque la funcion siempre obtiene el siguiente al pedido. CORROBORAR)
-    PersonaPtr personaAModificar=(PersonaPtr)getDatoLista(getPersonas(centroLogistico),iMod-1);
-
-    do
-    {
-        system("cls");
-        printf("Ha elegido - ");
-        mostrarPersona(personaAModificar);
-
-        printf("\n\nQué desea modificar?\n\n");
-
-        printf("1. Nombre y Apellido\n");
-        printf("2. Domicilio\n");
-        printf("3. CUIL\n");
-
-        if(esChofer)
-            printf("4. Cambiar persona a: CLIENTE\n");
-        else
-            printf("4. Cambiar persona a: CHOFER\n");
-
-        printf("Seleccione una opcion: ");
-        scanf("%d",&op);
-
-
-        switch(op)
-        {
-        case 1:
-            printf("\n\nIngrese el nuevo nombre y apellido de esta manera:");
-            printf("\n\t[Nombre];[Apellido]\n\t");
-            scanf("%[^;]%*c;%[^\n]%*c",nNombre,nApellido);
-
-            setNombre(personaAModificar,nNombre);
-            setApellido(personaAModificar,nApellido);
-            break;
-        case 2:
-            printf("\n\nIngrese el nuevo domicilio:");
-            actualizarDomicilio(nuevoDomicilio);
-            setDomicilio(personaAModificar,nuevoDomicilio);
-            break;
-        case 3:
-            actualizarCuil(nuevoCuil);
-            setCuilPersona(personaAModificar,nuevoCuil);
-            break;
-        case 4:
+    //Obtenemos la persona del índice de la lista de
+    //personas que se eligió (-1 porque la funcion siempre
+    //obtiene el siguiente al pedido. CORROBORAR)
+    if(iMod>0 && iMod<cantidadPersonas){
+        PersonaPtr personaAModificar=(PersonaPtr)getDatoLista(getPersonas(centroLogistico),iMod-1);
+        do{
+            system("cls");
+            printf("Ha elegido - ");
+            mostrarPersona(personaAModificar);
+            printf("\n\nQué desea modificar?\n\n");
+            printf("1. Nombre y Apellido\n");
+            printf("2. Domicilio\n");
+            printf("3. CUIL\n");
             if(esChofer)
-                setEsChofer(personaAModificar,false);
+                printf("4. Cambiar persona a: CLIENTE\n");
             else
-                setEsChofer(personaAModificar,true);
-            break;
-        default:
-            printf("\nOpcion incorrecta.\n\n");
-            presionarEnterYLimpiarPantalla();
-            break;
-        }
+                printf("4. Cambiar persona a: CHOFER\n");
+            printf("Seleccione una opcion: ");
+            scanf("%d",&op);
+            switch(op){
+            case 1:
+                printf("\n\nIngrese el nuevo nombre y apellido de esta manera:");
+                printf("\n\t[Nombre];[Apellido]\n\t");
+                scanf("%[^;]%*c;%[^\n]%*c",nNombre,nApellido);
+                setNombre(personaAModificar,nNombre);
+                setApellido(personaAModificar,nApellido);
+                break;
+            case 2:
+                printf("\n\nIngrese el nuevo domicilio:");
+                actualizarDomicilio(nuevoDomicilio);
+                setDomicilio(personaAModificar,nuevoDomicilio);
+                break;
+            case 3:
+                actualizarCuil(nuevoCuil);
+                setCuilPersona(personaAModificar,nuevoCuil);
+                break;
+            case 4:
+                if(esChofer)
+                    setEsChofer(personaAModificar,false);
+                else
+                    setEsChofer(personaAModificar,true);
+                break;
+            default:
+                printf("\nOpcion incorrecta.\n\n");
+                system("cls");
+                break;
+            }
 
-        printf("\n\nDatos modificados exitosamente.\n\n");
-
-        printf("Desea seguir modificando esta persona?\n\n");
-        printf("\t1. SI\n\t");
-        printf("0. NO\n\n");
-
-        printf("Seleccione una opcion: ");
-        scanf("%d",&seguirMod);
-    } while(seguirMod!=0);
+            printf("\n\nDatos modificados exitosamente.\n\n");
+            printf("Desea seguir modificando esta persona?\n\n");
+            printf("\t1. SI\n\t");
+            printf("0. NO\n\n");
+            printf("Seleccione una opcion: ");
+            scanf("%d",&seguirMod);
+        }while(seguirMod!=0);
+    }else{
+        printf("Seleccion inexistente\n");
+    }
 }
 void menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
 {
-    int iMod=0;
-    int op=0;
-    int seguirMod=0;
-
-    int nTipo=0;
+    int iMod=0,op=0,seguirMod=0,nTipo=0;
     char nMarca[100];
     char nModelo[100];
     char nPatente[100];
-
     system("cls");
     printf("MODIFICAR VEHICULO\n\n");
-
     mostrarVehiculos(centroLogistico);
-
     printf("\n\nIngrese indice del vehiculo a modificar: ");
     scanf("%d",&iMod);
-
-    VehiculoPtr vehiculoAModificar=(VehiculoPtr)getDatoLista(getVehiculos(centroLogistico),iMod-1);
-
-    do
-    {
-        system("cls");
-        printf("Ha elegido - ");
-        mostrarVehiculo(vehiculoAModificar);
-
-        printf("\n\nQué desea modificar?\n\n");
-
-        printf("1. Tipo de vehiculo\n");
-        printf("2. Marca\n");
-        printf("3. Modelo\n");
-        printf("4. Patente\n");
-
-        printf("Seleccione una opcion: ");
-        scanf("%d",&op);
-
-        switch(op)
-        {
-        case 1:
-            printf("\n\n");
-            helpTipoVehiculo();
-
-            printf("\n\nSeleccione una opcion: ");
-            scanf("%d",&nTipo);
-
-            switch(nTipo)
-            {
+    if(iMod>0 && iMod<longitudLista(getVehiculos(centroLogistico))){
+         VehiculoPtr vehiculoAModificar=(VehiculoPtr)getDatoLista(getVehiculos(centroLogistico),iMod-1);
+        do{
+            system("cls");
+            fflush(stdin);
+            printf("Ha elegido - ");
+            mostrarVehiculo(vehiculoAModificar);
+            printf("\n\nQué desea modificar?\n\n");
+            printf("1. Tipo de vehiculo\n");
+            printf("2. Marca\n");
+            printf("3. Modelo\n");
+            printf("4. Patente\n");
+            printf("Seleccione una opcion: ");
+            scanf("%d",&op);
+            fflush(stdin);
+            switch(op){
             case 1:
-                setTipoVehiculo(vehiculoAModificar,1);
+                printf("\n\n");
+                helpTipoVehiculo();
+                printf("\n\nSeleccione una opcion: ");
+                scanf("%d",&nTipo);
+                switch(nTipo){
+                case 1:
+                    setTipoVehiculo(vehiculoAModificar,1);
+                    break;
+                case 2:
+                    setTipoVehiculo(vehiculoAModificar,2);
+                    break;
+                case 3:
+                    setTipoVehiculo(vehiculoAModificar,3);
+                    break;
+                default:
+                    printf("\nERROR: esa opcion no existe.\n\n");
+                    system("cls");
+                    break;
+                }
                 break;
             case 2:
-                setTipoVehiculo(vehiculoAModificar,2);
+                printf("\n\nIngrese la nueva marca:");
+                scanf("%[^\n]%*c",nMarca);
+                setMarca(vehiculoAModificar,nMarca);
                 break;
             case 3:
-                setTipoVehiculo(vehiculoAModificar,3);
+                printf("\n\nIngrese el nuevo modelo:");
+                scanf("%[^\n]%*c",nModelo);
+                setModelo(vehiculoAModificar,nModelo);
+                break;
+            case 5:
+                printf("\n\nIngrese la nueva patente (AA 111 AA):\n\t");
+                scanf("%[^\n]%*c",nPatente);
+                setPatente(vehiculoAModificar,nPatente);
                 break;
             default:
-                printf("\nERROR: esa opcion no existe.\n\n");
-                presionarEnterYLimpiarPantalla();
+                printf("\nOpcion incorrecta.\n\n");
+                system("cls");
                 break;
             }
-            break;
-        case 2:
-            printf("\n\nIngrese la nueva marca:");
-            scanf("%[^\n]%*c",nMarca);
-
-            setMarca(vehiculoAModificar,nMarca);
-            break;
-        case 3:
-            printf("\n\nIngrese el nuevo modelo:");
-            scanf("%[^\n]%*c",nModelo);
-
-            setModelo(vehiculoAModificar,nModelo);
-            break;
-        case 5:
-            printf("\n\nIngrese la nueva patente (AA 111 AA):\n\t");
-            scanf("%[^\n]%*c",nPatente);
-            setPatente(vehiculoAModificar,nPatente);
-            break;
-        default:
-            printf("\nOpcion incorrecta.\n\n");
-            presionarEnterYLimpiarPantalla();
-            break;
-        }
-
-        printf("\n\nDatos modificados exitosamente.\n\n");
-
-        printf("Desea seguir modificando este vehiculo?\n\n");
-        printf("\t1. SI\n\t");
-        printf("0. NO\n\n");
-
-        printf("Seleccione una opcion: ");
-        scanf("%d",&seguirMod);
-    } while(seguirMod!=0);
+            fflush(stdin);
+            printf("\n\nDatos modificados exitosamente.\n\n");
+            printf("Desea seguir modificando este vehiculo?\n\n");
+            printf("\t1. SI\n\t");
+            printf("0. NO\n\n");
+            printf("Seleccione una opcion: ");
+            scanf("%d",&seguirMod);
+            fflush(stdin);
+        } while(seguirMod!=0);
+    }
 }
-
 
 void menuArmarReparto(CentroLogisticoPtr centroLogistico)
 {
+    fflush(stdin);
+    int n=0,k=0,m=0;
+    bool elegidoCorrectamente=false,paquetesElegidos=false,choferesElegidos=false,vehiculosElegidos=false,choferElegidoBool=false;
     RepartoPtr reparto;
-    int n=0;
-    int k=0;
     PersonaPtr choferElegido;
     VehiculoPtr vehiculoElegido;
-
+    //FechaPtr fechaSalida=crearFecha(10,12,2022,16,45);
+    //FechaPtr fechaRetorno=crearFecha(10,12,2022,16,45);
     FechaPtr fechaSalida;
     FechaPtr fechaRetorno;
-
-    PilaPtr pilaPaquetesElegidos=crearPila();
+    //PilaPtr pilaPaquetesElegidos=crearPila();
+    ListaPtr listaPaquetes = crearLista();
     int cantPaquetesElegidos=0;
     PaquetePtr paqueteElegido;
-
-    do
-    {
-        system("cls");
-        printf("ARMAR REPARTO\n\n");
-        printf("Ingrese cantidad de repartos a armar: ");
-        scanf("%d",&n);
-        limpiarBufferTeclado();
-
-        if(n<1)
-            printf("\nCantidad incorrecta.\n");
-        presionarEnterYLimpiarPantalla();
-    } while(n<1);
-
-    for(int i=0;i<n;i++)
-    {
-        if(n>1)
-            printf("\n\nREPARTO %d\n\n",i+1);
-
-
-        do
-        {
-            mostrarChoferes(centroLogistico);
-            printf("\n\nSeleccione un chofer ingresando su indice: ");
-            scanf("%d",&k);
-            limpiarBufferTeclado();
-
-            choferElegido=(PersonaPtr)getDatoLista(getPersonas(centroLogistico),k-1);
-            if(getEsChofer(choferElegido)==false)
-            {
-                printf("\n\nERROR: el indice ingresado no corresponde a un chofer. Vuelva a elegir.\n\n");
+    if(longitudLista(getPersonas(centroLogistico))!=0 && longitudLista(getPaquetes(centroLogistico))!=0 && longitudLista(getVehiculos(centroLogistico))!=0){
+        do{
+            system("cls");
+            fflush(stdin);
+            printf("ARMAR REPARTO\n\n");
+            printf("Ingrese cantidad de repartos a armar: ");
+            scanf("%d",&n);
+            fflush(stdin);
+            system("cls");
+            if(n<1)
+                printf("\nCantidad incorrecta.\n");
+        }while(n<1);
+        for(int i=0;i<n;i++){
+            if(n>0)
+                printf("\n\nREPARTO %d\n\n",i+1);
+            ///SECCION DE CHOFERES
+            do{
+                system("cls");
+                fflush(stdin);
+                printf("Cantidad disponible de choferes: %d\n", longitudLista(getPersonas(centroLogistico)));
+                if(longitudLista(getPersonas(centroLogistico))!=0){
+                    mostrarChoferes(centroLogistico);
+                    printf("\n\nSeleccione un chofer ingresando su indice: ");
+                    scanf("%d",&k);
+                    if(k>0 && k<longitudLista(getPersonas(centroLogistico))){
+                        fflush(stdin);
+                        choferElegido=(PersonaPtr)getDatoLista(getPersonas(centroLogistico),k-1);
+                        if(getEsChofer(choferElegido)==false){
+                            printf("\n\nERROR: el indice ingresado no corresponde a un chofer. Vuelva a elegir.\n\n");
+                            system("cls");
+                        }
+                        if(getEsChofer(choferElegido)==true){
+                            choferesElegidos=true;
+                            choferElegidoBool=true;
+                        }
+                    }
+                }
+                if(longitudLista(getPersonas(centroLogistico))==0){
+                    printf("No existen choferes para mostrar\n");
+                }
+                if(k<0 || k>longitudLista(getPersonas(centroLogistico))){
+                    printf("No existe el chofer seleccionado\n");
+                }
+            }while(choferElegidoBool==false && longitudLista(getPersonas(centroLogistico))!=0);
+            system("cls");
+            ///SECCION VEHICULOS
+            do{
+                system("cls");
+                fflush(stdin);
+                printf("Vehiculos totales disponibles: %d\n", longitudLista(getVehiculos(centroLogistico)));
+                if(longitudLista(getVehiculos(centroLogistico))!=0){
+                    mostrarVehiculos(centroLogistico);
+                    printf("\n\nSeleccione un vehiculo ingresando su indice: ");
+                    scanf("%d",&k);
+                    fflush(stdin);
+                    if(k>0 && k<longitudLista(getVehiculos(centroLogistico))){
+                        vehiculoElegido=getDatoLista(getVehiculos(centroLogistico),k-1);
+                        elegidoCorrectamente=true;
+                        vehiculosElegidos=true;
+                    }else{
+                        printf("Seleccione un vehiculo valido\n");
+                    }
+                }
+                if(longitudLista(getVehiculos(centroLogistico))==0){
+                    printf("No existen vehiculos para mostrar\n");
+                }
+            }while(elegidoCorrectamente==false && longitudLista(getVehiculos(centroLogistico))!=0);
+            system("cls");
+            ///SECCION DE FECHAS
+            printf("\n\nFecha de salida:");
+            fechaSalida=cargarFecha(fechaSalida);
+            printf("\n\nFecha de retorno:");
+            fechaRetorno=cargarFecha(fechaRetorno);
+            system("cls");
+            ///SECCION DE PAQUETES
+            if(longitudLista(getPaquetes(centroLogistico))!=0){
+                do{
+                    system("cls");
+                    fflush(stdin);
+                    printf("Cantidad disponible de paquetes: %d\n", longitudLista(getPaquetes(centroLogistico)));
+                    printf("Ingrese cantidad de paquetes a agregar al reparto: ");
+                    scanf("%d",&cantPaquetesElegidos);
+                    fflush(stdin);
+                    if(n<1 || n>longitudLista(getPaquetes(centroLogistico))){
+                        printf("\n\nERROR: cantidad incorrecta. Vuelva a ingresar.\n\n");
+                    }
+                }while(n<1);
+            }
+            int j=0;
+            while(j<cantPaquetesElegidos && (longitudLista(getPaquetes(centroLogistico))-j) != 0){
+                if(longitudLista(getPaquetes(centroLogistico))!=0){
+                    system("cls");
+                    mostrarPaquetes(centroLogistico);
+                    fflush(stdin);
+                    printf("\n\nPaquete N. %d\n",j+1);
+                    printf("Seleccione el paquete a cargar ingresando su indice: ");
+                    scanf("%d",&k);
+                    fflush(stdin);
+                    if(k>0 && k<longitudLista(getPaquetes(centroLogistico)) && getEstado(getDatoLista(getPaquetes(centroLogistico),k-1))==0){
+                        paqueteElegido=getDatoLista(getPaquetes(centroLogistico),k-1);
+                        setEstado(paqueteElegido,1);
+                        insertarDatoLista(listaPaquetes,(PaquetePtr)paqueteElegido,m++);
+                        j++;
+                    }
+                    if(j==cantPaquetesElegidos){
+                        paquetesElegidos=true;
+                    }
+                }
+                if(longitudLista(getPaquetes(centroLogistico))==0){
+                    printf("No existen paquetes para mostrar\n");
+                }
                 system("cls");
             }
-        } while(getEsChofer(choferElegido)==false);
-
-        presionarEnterYLimpiarPantalla();
-
-        mostrarVehiculos(centroLogistico);
-        printf("\n\nSeleccione un vehiculo ingresando su indice: ");
-        scanf("%d",&k);
-        limpiarBufferTeclado();
-        vehiculoElegido=getDatoLista(getVehiculos(centroLogistico),k-1);
-
-        presionarEnterYLimpiarPantalla();
-        printf("\n\nFecha de salida:");
-        cargarFecha(fechaSalida);
-        printf("\n\nFecha de retorno:");
-        cargarFecha(fechaRetorno);
-
-        presionarEnterYLimpiarPantalla();
-
-        do
-        {
-            printf("Ingrese cantidad de paquetes a agregar al reparto: ");
-            scanf("%d",&cantPaquetesElegidos);
-            if(n<1)
-            {
-                printf("\n\nERROR: cantidad incorrecta. Vuelva a ingresar.\n\n");
-                presionarEnterYLimpiarPantalla();
-            }
-        } while(n<1);
-
-        for(int j=0;j<cantPaquetesElegidos;j++)
-        {
-            mostrarPaquetes(centroLogistico);
-            if(cantPaquetesElegidos>1)
-                printf("\n\nPaquete N. %d\n",j+1);
-            printf("Seleccione el paquete a cargar ingresando su indice: ");
-            scanf("%d",&k);
-            limpiarBufferTeclado();
-            paqueteElegido=getDatoLista(getPaquetes(centroLogistico),k-1);
-            apilar(pilaPaquetesElegidos,(PaquetePtr)paqueteElegido);
-            system("cls");
         }
-
-
-        reparto=armarReparto(choferElegido,vehiculoElegido,fechaSalida,fechaRetorno,pilaPaquetesElegidos);
-        agregarReparto(centroLogistico,reparto,true);
-
-        printf("\n\nReparto armado exitosamente.\n\n");
-        presionarEnterYLimpiarPantalla();
     }
-    if(n>1)
-        printf("Repartos cargados exitosamente.\n\n");
+    if(choferesElegidos==true && paquetesElegidos==true && vehiculosElegidos==true){
+        reparto=armarReparto(choferElegido,vehiculoElegido,fechaSalida,fechaRetorno,listaPaquetes);
+        agregarReparto(centroLogistico,reparto,true);
+        printf("\n\nReparto armado exitosamente.\n\n");
+    }
+    if(vehiculosElegidos==false){
+        printf("Vehiculo no seleccionado\n");
+    }
+    if(choferesElegidos==false){
+        printf("Chofer no seleccionado\n");
+    }
+    if(paquetesElegidos==false){
+        printf("Paquetes no seleccionados\n");
+    }
+     system("pause");
+    //pilaPaquetes = destruirPila(pilaPaquetes);
 }
 
 void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     int eleccion;
-    ListaPtr listaAux = crearLista();
-    ListaPtr listaRepartos = crearLista();
-    PilaPtr pilaPaquetes = crearPila();
-    ListaPtr listaPaquetes = crearLista();
     RepartoPtr repartoAux;
     PaquetePtr paqueteAux;
-    listaRepartos = getRepartos(centroLogistico, esRepartoAbierto);
     mostrarRepartos(centroLogistico, esRepartoAbierto);
-    do
-    {
-        limpiarBufferTeclado();
+    do{
+        fflush(stdin);
         printf("Seleccione un reparto mediante su indice: ");
         printf("Eleccion: ");
         scanf("%d",&eleccion);
-        limpiarBufferTeclado();
-    }while(eleccion < 0);
+    }while(eleccion<0 && eleccion>longitudLista(getRepartos(centroLogistico,esRepartoAbierto)));
     system("cls");
-    repartoAux = getDatoLista(listaRepartos, eleccion-1);
-    pilaPaquetes = getPaquetesReparto(repartoAux);
-    while(!pilaVacia(pilaPaquetes))
-    {
+    repartoAux = getDatoLista(getRepartos(centroLogistico,esRepartoAbierto), eleccion-1);
+    mostrarPaquetesListaReparto(repartoAux);
+    /*while(!pilaVacia(pilaPaquetes)){
         paqueteAux = desapilar(pilaPaquetes);
         agregarDatoLista(listaPaquetes, (PaquetePtr)paqueteAux);
     }
     int i=0;
-    while(i != longitudLista(listaPaquetes))
-    {
+    while(i != longitudLista(listaPaquetes)){
         printf("Indice %d\n", i);
         mostrarPaquete(getDatoLista(listaAux, i));
         i++;
     }
-    while(i != 0)
-    {
+    while(i != 0){
         paqueteAux = getDatoLista(listaPaquetes, i);
         apilar(pilaPaquetes, (PaquetePtr)paqueteAux);
         i--;
-    }
-    listaRepartos = destruirLista(listaRepartos, false);
-    listaPaquetes = destruirLista(listaRepartos, false);
-    listaAux = destruirLista(listaAux, false);
+    }*/
 }
 
 void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
-    int eleccion;
+    /*int eleccion;
     ListaPtr listaRepartos = crearLista();
     RepartoPtr repartoAux;
     listaRepartos = getRepartos(centroLogistico, esRepartoAbierto);
     mostrarRepartos(centroLogistico, esRepartoAbierto);
     do
     {
-        limpiarBufferTeclado();
+        fflush(stdin);
         //Para devolver el reparto o para mostrarlo
         printf("Selecciona un reparto por su indice: ");
         scanf("%d",&eleccion);
-        limpiarBufferTeclado();
+        fflush(stdin);
     }while(eleccion < 0);
     repartoAux = getDatoLista(listaRepartos, eleccion-1);
     //return repartoAux; Por si se quiere el reparto
     //mostrarReparto(repartoAux); // por si se quiere mostrar simplemente
-    listaRepartos = destruirLista(listaRepartos, false);
+    listaRepartos = destruirLista(listaRepartos, false);*/
+    int eleccion=0;
+    RepartoPtr repartoBuscar;
+    do{
+        fflush(stdin);
+        printf("Seleccione un reparto para buscar mediante su indice: ");
+        scanf("%d",&eleccion);
+    }while(eleccion<0 && eleccion>longitudLista(getRepartos(centroLogistico,esRepartoAbierto)));
+    repartoBuscar=getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),eleccion);
+    ///mostrarReparto(repartoBuscar);
+    ///return repartoBuscar;
 }
 
 
 void menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
-    int eleccion;
+    /*int eleccion;
     ListaPtr listaRepartos = crearLista();
     RepartoPtr repartoAux;
     listaRepartos = getRepartos(centroLogistico, esRepartoAbierto);
     mostrarRepartos(centroLogistico, esRepartoAbierto);
     do
     {
-        limpiarBufferTeclado();
+        fflush(stdin);
         //Para remvoerlo de la lista
         printf("Selecciona un reparto por su indice: ");
         scanf("%d",&eleccion);
-        limpiarBufferTeclado();
+        fflush(stdin);
     }while(eleccion < 0);
     repartoAux = removerDeLista(listaRepartos, eleccion-1);
     //return repartoAux; Por si se quiere el reparto
     //mostrarReparto(repartoAux); // por si se quiere mostrar simplemente
-    listaRepartos = destruirLista(listaRepartos, false);
+    listaRepartos = destruirLista(listaRepartos, false);*/
+    int eleccion=0;
+    mostrarRepartos(centroLogistico,esRepartoAbierto);
+    do{
+        fflush(stdin);
+        printf("Seleccione un reparto para remover segun su indice: ");
+        scanf("%d",&eleccion);
+    }while(eleccion<0 && eleccion>longitudLista(getRepartos(centroLogistico,esRepartoAbierto)));
+    RepartoPtr repartoRemover=removerDeLista(getRepartos(centroLogistico,esRepartoAbierto),eleccion);
+    ///return repartoRemover;
 }
 
 
 void menuCerrarReparto(CentroLogisticoPtr centroLogistico)
 {
-    int eleccion, totalPaquetes, i;
+    /*int eleccion, totalPaquetes, i;
     bool resultadoBusqueda;
     ListaPtr listaAbiertos = crearLista();
     ListaPtr listaCerrados = crearLista();
@@ -963,18 +970,16 @@ void menuCerrarReparto(CentroLogisticoPtr centroLogistico)
     mostrarRepartos(centroLogistico, true);
     do
     {
-        limpiarBufferTeclado();
+        fflush(stdin);
         //Para seleccionar el reparto
         printf("Selecciona un reparto por su indice: ");
         scanf("%d",&eleccion);
-        limpiarBufferTeclado();
+        fflush(stdin);
     }while(eleccion < 0 && eleccion > longitudLista(listaAbiertos));
     pilaPaquetes = getPaquetesReparto(repartoAux);
     while(!pilaVacia(pilaPaquetes))
     {
-        paqueteAux = desapilar(pilaPaquetes);
-        agregarDatoLista(listaPaquetes, (PaquetePtr)paqueteAux);
-    }
+
     totalPaquetes = longitudLista(listaPaquetes);
     i = 0;
     while(i <= totalPaquetes)
@@ -1002,13 +1007,23 @@ void menuCerrarReparto(CentroLogisticoPtr centroLogistico)
     listaAbiertos = destruirLista(listaAbiertos, false);
     listaCerrados = destruirLista(listaCerrados, false);
     listaPaquetes = destruirLista(listaPaquetes, false);
-    pilaPaquetes = destruirPila(pilaPaquetes);
+    pilaPaquetes = destruirPila(pilaPaquetes);*/
+
+    int eleccion=0;
+    mostrarRepartos(centroLogistico,true);
+    do{
+        fflush(stdin);
+        printf("Seleccione un reparto mediante su indice: ");
+        scanf("%d",&eleccion);
+    }while(eleccion<0 && eleccion>longitudLista(getRepartos(centroLogistico,true)));
+    RepartoPtr repartoCerrado=removerDeLista(getRepartos(centroLogistico,true),eleccion);
+    agregarDatoLista(getRepartos(centroLogistico,false),(RepartoPtr)repartoCerrado);
 }
 
 
-void menuActualizarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
 {
-    int eleccion, i;
+    /*int eleccion, i;
     ListaPtr listaRepartos = crearLista();
     ListaPtr listaPaquetes = crearLista();
     PilaPtr pilaPaquetes = crearPila();
@@ -1018,11 +1033,11 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbi
     mostrarRepartos(centroLogistico, esRepartoAbierto);
     do
     {
-        limpiarBufferTeclado();
+        fflush(stdin);
         //Para modificar el reparto
         printf("Selecciona un reparto por su indice: ");
         scanf("%d",&eleccion);
-        limpiarBufferTeclado();
+        fflush(stdin);
     }while(eleccion < 0 && eleccion > longitudLista(listaRepartos));
     repartoAux = getDatoLista(listaRepartos, eleccion-1);
     pilaPaquetes = getPaquetesReparto(repartoAux);
@@ -1034,25 +1049,25 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbi
     }
     do
     {
-        limpiarBufferTeclado();
+        fflush(stdin);
         //Para modificar el paquete
         printf("Selecciona un paquete por su indice: ");
         scanf("%d",&eleccion);
-        limpiarBufferTeclado();
+        fflush(stdin);
     }while(eleccion < 0 && eleccion > longitudLista(listaPaquetes));
     system("cls");
     paqueteAux = getDatoLista(listaPaquetes, eleccion-1);
     helpEstadoPaquete();
     do
     {
-        limpiarBufferTeclado();
+        fflush(stdin);
         printf("Seleccione un estado mediante su indice: ");
         printf("Eleccion: ");
         scanf("%d",&eleccion);
-        limpiarBufferTeclado();
+        fflush(stdin);
     }while(eleccion < 0 && eleccion < 4);
     system("cls");
-    limpiarBufferTeclado();
+    fflush(stdin);
     setEstado(paqueteAux, eleccion);
     i=longitudLista(listaPaquetes);
     while(i != -1)
@@ -1061,63 +1076,72 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbi
         apilar(pilaPaquetes, paqueteAux);
         i--;
     }
-    listaRepartos = destruirLista(listaRepartos, false);
+    listaRepartos = destruirLista(listaRepartos, false);*/
+
+    int eleccion=0;
+    mostrarRepartos(centroLogistico,true);
+    do{
+        fflush(stdin);
+        printf("Seleccione un reparto para actualizar mediante su indice: ");
+        scanf("%d",&eleccion);
+    }while(eleccion<0 && eleccion>longitudLista(getRepartos(centroLogistico,true)));
+    RepartoPtr repartoActualizar=getDatoLista(getRepartos(centroLogistico,true),eleccion);
+    mostrarPaquetesListaReparto(repartoActualizar);
+    do{
+        fflush(stdin);
+        printf("Seleccione una entrega para actualizar mediante su indice: ");
+        scanf("%d",&eleccion);
+    }while(eleccion<0 && eleccion>longitudLista(getListaPaquetesReparto(repartoActualizar)));
+    PaquetePtr paqueteActualizar=getDatoLista(getListaPaquetesReparto(repartoActualizar),eleccion);
+    do{
+        fflush(stdin);
+        helpEstadoPaquete();
+        printf("Eleccion: ");
+        scanf("%d",&eleccion);
+        setEstado(paqueteActualizar,eleccion);
+    }while(eleccion<0 && eleccion>3);
 }
 
 
 void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 {
-	int op=0;
-	int op1=0;
-
-	int i=0;
+	int op=0,op1,i=0;
 	int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
-
-    do
-    {
+    do{
         system("cls");
         if(esRepartoAbierto)
             printf("REPARTOS ABIERTOS\n\n");
         else
             printf("REPARTOS CERRADOS\n\n");
-
         printf("1. Mostrar reparto individual\n");
         printf("2. Mostrar listado completo\n");
         printf("3. Ordenar y mostrar...\n");
         printf("0. Volver\n\n");
         printf("Elija una opcion:");
         scanf("%d",&op);
-        limpiarBufferTeclado();
-
+        fflush(stdin);
         system("cls");
-        switch(op)
-        {
+        switch(op){
         case 1:
-            do
-            {
+            do{
                 mostrarRepartos(centroLogistico,esRepartoAbierto);
-
                 printf("\nSeleccione un reparto para mostrar:");
                 scanf("%d",&i);
-                limpiarBufferTeclado();
+                fflush(stdin);
                 if(i<=0 || i>=n)
                     printf("\n\nERROR: indice inexistente. Vuelva a ingresarlo.\n\n");
-                presionarEnterYLimpiarPantalla();
+                system("cls");
             } while(i>0 && i<n);
-
             mostrarReparto(getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i-1));
-
-            presionarEnterYLimpiarPantalla();
+            system("cls");
             break;
         case 2:
             mostrarRepartos(centroLogistico, esRepartoAbierto);
-            presionarEnterYLimpiarPantalla();
+            system("cls");
             break;
         case 3:
-            do
-            {
+            do{
                 printf("ORDENAR Y MOSTRAR POR...");
-
                 printf("1. Fecha de salida\n");
                 printf("2. Fecha de retorno\n");
                 printf("3. Fecha de salida y retorno\n");
@@ -1125,13 +1149,10 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 printf("5. Apellido del chofer\n");
                 printf("6. Nombre y apellido del chofer\n");
                 printf("0. Volver\n\n");
-
                 printf("Elija una opcion: ");
                 scanf("%d",&op1);
-
                 system("cls");
-                switch(op1)
-                {
+                switch(op1){
                 case 1:
                     ordenarPorFechaSalida(centroLogistico,esRepartoAbierto);
                     break;
@@ -1156,10 +1177,9 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                     printf("Opcion incorrecta.\n\n");
                     break;
                 }
-
                 if(op1>=1 && op1<=6) //si se eligio volver o una opcion invalida,
                     mostrarRepartos(centroLogistico, esRepartoAbierto); //no mostramos nada.
-                presionarEnterYLimpiarPantalla();
+                system("cls");
                 system("cls");
             } while(op1!=0);
             break;
@@ -1174,12 +1194,9 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 
 CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog)
 {
-    char nuevoNombre[100];
-
-    printf("INGRESE EL NOMBRE DEL CENTRO LOGISTICO: ");
-    scanf("%[^\n]%*c",nuevoNombre);
-
+    char nuevoNombre[100]={"Distribuidora De Amazon"};
+    //printf("INGRESE EL NOMBRE DEL CENTRO LOGISTICO: ");
+    //scanf("%[^\n]%*c",nuevoNombre);
     ctroLog=crearCentroLogisticoRapido(nuevoNombre);
-
     return ctroLog;
 }
