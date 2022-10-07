@@ -77,23 +77,14 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
     ///Menúes
     int MAIN_OP = 0;
     int op1=0;
-    int op2=0;
+    int
 
     int n=0;
+    bool res;
 
     ///NO ESTOY SEGURO DE SI VAN O NO
     //Datos por defecto
     CentroLogisticoPtr datosPorDefecto = crearCentroLogisticoRapido("DATOS POR DEFECTO");
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///Portapapeles
-    CuilPtr cuilPortapapeles;
-    DomicilioPtr domicilioPortapapeles;
-    FechaPtr fechaPortapapeles;
-
-    PaquetePtr paquetePortapapeles;
-    PersonaPtr personaPortapapeles;
-    VehiculoPtr vehiculoPortapapeles;
-    RepartoPtr repartoPortapapeles;
 
     do
     {
@@ -148,7 +139,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         scanf("%d", &op2);
                         limpiarBufferTeclado();
 
-
+                        system("cls");
                         switch(op2)
                         {
                         case 1:
@@ -166,16 +157,15 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op2=0;
                             op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
                             break;
                         default:
                             printf("\nOpcion incorrecta.\n\n");
                             break;
                         }
-                        if(op2!=0) //A menos que elija volver,
+                        if(op2!=0 && op2!=-1) //A menos que elija volver,
                             presionarEnterYLimpiarPantalla(); //hacemos esto
-                    } while(op2!=0);
+                    } while(op2!=0 && op2!=-1);
                     break;
                 case 2:
                     do
@@ -194,7 +184,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         scanf("%d",&op2);
                         limpiarBufferTeclado();
 
-
+                        system("cls");
                         switch(op2)
                         {
                         case 1:
@@ -212,16 +202,15 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op2=0;
                             op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
                             break;
                         default:
                             printf("\nOpcion incorrecta.\n\n");
                             break;
                         }
-                        if(op2!=0)
+                        if(op2!=0 && op2!=-1)
                             presionarEnterYLimpiarPantalla();
-                    } while(op2!=0);
+                    } while(op2!=0 && op2!=-1);
                     break;
                 case 3:
                     do
@@ -240,7 +229,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         scanf("%d",&op2);
                         limpiarBufferTeclado();
 
-
+                        system("cls");
                         switch(op2)
                         {
                         case 1:
@@ -258,16 +247,15 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op2=0;
                             op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
                             break;
                         default:
                             printf("\nOpcion incorrecta.\n\n");
                             break;
                         }
-                        if(op2!=0)
+                        if(op2!=0 && op2!=-1)
                             presionarEnterYLimpiarPantalla();
-                    } while(op2!=0);
+                    } while(op2!=0 && op2!=-1);
                     break;
                 case 4:
                     do
@@ -286,7 +274,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         scanf("%d", &op2);
                         limpiarBufferTeclado();
 
-
+                        system("cls");
                         switch(op2)
                         {
                         case 1:
@@ -304,27 +292,44 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op2=0;
                             op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
                             break;
                         default:
                             printf("\nOpcion incorrecta.\n\n");
                             break;
                         }
-                        if(op2!=0)
+                        if(op2!=0 && op2!=-1)
                             presionarEnterYLimpiarPantalla();
-                    } while(op2!=0);
+                    } while(op2!=0 && op2!=-1);
                     break;
                 case 0:
-                    //guardar lista de clientes / choferes;
-                    //guardar repartos;
-
+                    do
+                    {
+                        printf("Guardar Cambios?\t1.SI\t0.NO\t");
+                        scanf("%d",&op2);
+                        limpiarBufferTeclado();
+                    } while(op2!=1 && op2!=0);
+                    switch(op2)
+                    {
+                    case 1:
+                        res = guardarListaPaquetes(centroLogistico);
+                        res = res && guardarListaPersonas(centroLogistico);
+                        res = res && guardarListaVehiculos(centroLogistico);
+                        if(res)
+                            printf("\n\nCambios guardados exitosamente.\n\n");
+                        else
+                            printf("\n\nERROR AL GUARDAR.\n\n");
+                        break;
+                    case 0:
+                        break;
+                    }
+                    presionarEnterYLimpiarPantalla();
                     break;
                 default:
                     printf("\nOpcion incorrecta.\n\n");
-                    presionarEnterYLimpiarPantalla();
                     break;
                 }
+                presionarEnterYLimpiarPantalla();
             } while(op1!=0);
             break;
         case 2:
@@ -477,16 +482,15 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op2=0;
                             op1=0;
                             break;
                         default:
                             printf("\nOpcion incorrecta.\n\n");
                             break;
                         }
-                        if(op2!=0)
+                        if(op2!=0 && op2!=-1)
                             presionarEnterYLimpiarPantalla();
-                    } while(op2!=0);
+                    } while(op2!=0 && op2!=-1);
                     break;
                 case 2:
                     do
@@ -570,7 +574,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                                     printf("\n\nERROR: cantidad incorrecta. Vuelva a ingresarla.\n");
                             } while(n<1);
 
-                            if(guardarRepartos(datosPorDefecto))
+                            if(guardarRepartos(datosPorDefecto,true) && guardarRepartos(datosPorDefecto,false))
                                 printf("Repartos por defecto guardados exitosamente.\n\n");
                             else
                             {
@@ -590,16 +594,16 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op2=0;
+
                             op1=0;
                             break;
                         default:
                             printf("\nOpcion incorrecta.\n\n");
                             break;
                         }
-                        if(op2!=0)
+                        if(op2!=0 && op2!=-1)
                             presionarEnterYLimpiarPantalla();
-                    } while(op2!=0);
+                    } while(op2!=0 && op2!=-1);
                     break;
                 case 0:
                     break;
@@ -607,14 +611,15 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     printf("\nOpcion incorrecta.\n\n");
                     break;
                 }
+                presionarEnterYLimpiarPantalla();
             } while(op1!=0);
             break;
         case 0:
             do
             {
-                printf("Tiene cambios sin guardar. Seguro que quiere salir?\n\n");
+                printf("Es posible que tenga cambios sin guardar. Seguro que quiere salir?\n\n");
 
-                printf("1. Guardar cambios y salir\n");
+                printf("1. Guardar y salir\n");
                 printf("2. Salir sin guardar\n");
                 printf("0. Volver\n\n");
 
@@ -627,7 +632,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     guardarTodo(centroLogistico);
                     break;
                 case 2:
-                    presionarEnterYLimpiarPantalla();
                     break;
                 case 0:
                     MAIN_OP=1; //Cambiamos el valor para evitar que salga el programa. No pasa nada, luego se espera a que el usuario ingrese una opcion.
@@ -641,9 +645,9 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             break;
         default:
             printf("\nOpcion incorrecta.\n\n");
-            presionarEnterYLimpiarPantalla();
             break;
         }
+        presionarEnterYLimpiarPantalla();
     } while(MAIN_OP!=0);
 
     return MAIN_OP; //salimos de todo el programa

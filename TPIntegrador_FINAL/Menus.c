@@ -183,7 +183,6 @@ void menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 
     do
     {
-        system("cls");
         printf("CARGAR PAQUETE\n\n");
         printf("Ingrese cantidad de paquetes a cargar: ");
         scanf("%d",&n);
@@ -243,8 +242,6 @@ void menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 
     do
     {
-        system("cls");
-
         if(esChofer)
         {
             printf("CARGAR CHOFER\n\n");
@@ -299,8 +296,6 @@ void menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         printf("Choferes cargados exitosamente.\n\n");
     else if(n>1)
         printf("Clientes cargados exitosamente.\n\n");
-
-    presionarEnterYLimpiarPantalla();
 }
 void menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 {
@@ -315,7 +310,6 @@ void menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 
     do
     {
-        system("cls");
         printf("CARGAR VEHICULO\n\n");
         printf("Ingrese cantidad de vehiculos a cargar: ");
         scanf("%d",&n);
@@ -350,21 +344,15 @@ void menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
         presionarEnterYLimpiarPantalla();
     }
     if(n>1)
-    {
         printf("\n\nVehiculos cargados exitosamente.\n\n");
-        presionarEnterYLimpiarPantalla();
-    }
 }
 
 void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
 {
     int op=0;
-
     do
     {
         int ID=0;
-
-        system("cls");
         printf("BUSCAR PAQUETE\n\n");
 
         printf("Ingrese ID del paquete a buscar: ");
@@ -386,9 +374,6 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     do
     {
         CuilPtr cuilABuscar;
-
-        system("cls");
-
         if(esChofer)
         {
             printf("BUSCAR CHOFER\n\n");
@@ -420,8 +405,6 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
     do
     {
         char patente[100];
-
-        system("cls");
         printf("BUSCAR VEHICULO\n\n");
 
         printf("Ingrese la patente del vehiculo a buscar (AA 111 AA): ");
@@ -435,8 +418,6 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
 void menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
 {
     int iElim=0;
-
-    system("cls");
     printf("ELIMINAR PAQUETE\n\n");
 
     mostrarPaquetes(centroLogistico);
@@ -455,8 +436,6 @@ void menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
 void menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
     int iElim=0;
-
-    system("cls");
     if(esChofer)
     {
         printf("ELIMINAR CHOFER\n\n");
@@ -487,8 +466,6 @@ void menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 void menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
 {
     int iElim=0;
-
-    system("cls");
     printf("ELIMINAR VEHICULO\n\n");
 
     mostrarVehiculos(centroLogistico);
@@ -521,8 +498,6 @@ void menuModificarPaquete(CentroLogisticoPtr centroLogistico)
     FechaPtr nuevaFechaEntrega;
 
     int nEstado=0;
-
-    system("cls");
     printf("MODIFICAR PAQUETE\n\n");
 
     mostrarPaquetes(centroLogistico);
@@ -631,8 +606,6 @@ void menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 
 //esChofer se puede modificar sin crear una variable
 
-    system("cls");
-
     if(esChofer)
     {
         printf("MODIFICAR CHOFER\n\n");
@@ -723,7 +696,6 @@ void menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
     char nModelo[100];
     char nPatente[100];
 
-    system("cls");
     printf("MODIFICAR VEHICULO\n\n");
 
     mostrarVehiculos(centroLogistico);
@@ -827,7 +799,6 @@ void menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
     do
     {
-        system("cls");
         printf("ARMAR REPARTO\n\n");
         printf("Ingrese cantidad de repartos a armar: ");
         scanf("%d",&n);
@@ -923,7 +894,6 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 
     do
     {
-        system("cls");
         if(esRepartoAbierto)
             printf("REPARTOS ABIERTOS\n\n");
         else

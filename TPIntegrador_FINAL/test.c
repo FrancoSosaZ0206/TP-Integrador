@@ -18,7 +18,7 @@ DomicilioPtr crearDomicilioPorDefecto()
 }
 FechaPtr crearFechaPorDefecto()
 {
-    return crearFecha(22,2,2022,22,22);
+    return crearFecha(22,2,2022,12,02);
 }
 
 PaquetePtr crearPaquetePorDefecto()
@@ -34,19 +34,51 @@ VehiculoPtr crearVehiculoPorDefecto() ///Crea un vehículo de forma rápida con da
 {
     return crearVehiculo(3,"Mercedes-Benz","Actros","ZZ 999 ZZ");
 }
-RepartoPtr crearRepartoPorDefecto() //solo se crean repartos abiertos.
+RepartoPtr crearRepartoPorDefecto(bool esRepartoAbierto)
 {
     PilaPtr paquetes = crearPila();
     PaquetePtr temp[5];
     temp[0]=crearPaquetePorDefecto();
-    temp[1]=crearPaqueteDirect(2222,22,22,22,22,"Una Calle B",2222,"Una Localidad B","Otra Calle B",2333,"Otra Localidad B",22,2,2022,23,22);
-    temp[2]=crearPaqueteDirect(3333,33,33,33,33,"Una Calle C",3333,"Una Localidad C","Otra Calle C",3444,"Otra Localidad C",22,2,2022,23,23);
-    temp[3]=crearPaqueteDirect(4444,44,44,44,44,"Una Calle D",4444,"Una Localidad D","Otra Calle D",4555,"Otra Localidad D",24,2,2022,23,22);
-    temp[4]=crearPaqueteDirect(5555,55,55,55,55,"Una Calle E",5555,"Una Localidad E","Otra Calle E",5666,"Otra Localidad E",22,2,2022,22,22);
+    temp[1]=crearPaqueteDirect(2222,22,22,22,22,"Una Calle B",2222,"Una Localidad B","Otra Calle B",2233,"Otra Localidad B",22,2,2022,15,05,1);
+    temp[2]=crearPaqueteDirect(3333,33,33,33,33,"Una Calle C",3333,"Una Localidad C","Otra Calle C",3344,"Otra Localidad C",22,2,2022,15,16,1);
+    temp[3]=crearPaqueteDirect(4444,44,44,44,44,"Una Calle D",4444,"Una Localidad D","Otra Calle D",4455,"Otra Localidad D",22,2,2022,17,00,1);
+    temp[4]=crearPaqueteDirect(5555,55,55,55,55,"Una Calle D",4444,"Una Localidad D","Otra Calle D",4455,"Otra Localidad D",22,2,2022,17,00,1);
+
     for(int i=0;i<5;i++)
-        apilar(paquetes,(PaquetePtr)crearPaquetePorDefecto());
-    return crearReparto(crearPersonaPorDefecto(true),);
+    {
+        if(!esRepartoAbierto)
+            setEstado(temp[i],3); //seteamos a "entregado", como para tener por defecto un estado diferente en la lista de cerrados
+        apilar(paquetes,(PaquetePtr)temp[i]);
+    }
+
+    FechaPtr fechaSalida = crearFecha(22,2,2022,9,30);
+    FechaPtr fechaRetorno = crearFecha(22,2,2022,19,45);
+
+    return crearReparto(crearPersonaPorDefecto(true),crearVehiculoPorDefecto(),fechaSalida,fechaRetorno,paquetes);
 }
+
+CentroLogisticoPtr crearTodoPorDefecto() //Crea un centro logistico llamando a las otras funciones
+{
+    ListaPtr paquetes=crearLista();
+    ListaPtr personas=crearLista();
+    ListaPtr vehiculos=crearLista();
+    ListaPtr repartosAbiertos=crearLista();
+    ListaPtr repartosCerrados=crearLista();
+
+    for(int i=0;i<5;i++)
+    {
+        agregarDatoLista(paquetes,(PaquetePtr)crearPaquetePorDefecto());
+        agregarDatoLista(vehiculos,(PaquetePtr)crearVehiculoPorDefecto());
+        agregarDatoLista(personas,(PaquetePtr)crearPersonaPorDefecto(false)); //Agregamos un cliente
+        agregarDatoLista(personas,(PaquetePtr)crearPersonaPorDefecto(true)); //Y un chofer, intercalados
+        agregarDatoLista(repartosAbiertos,(PaquetePtr)crearRepartoPorDefecto(true));
+        agregarDatoLista(repartosCerrados,(PaquetePtr)crearRepartoPorDefecto(false));
+    }
+
+    return crearCentroLogistico("CENTRO LOGISTICO POR DEFECTO",paquetes,personas,vehiculos,repartosAbiertos,repartosCerrados);
+}
+
+
 
 VehiculoPtr crearVehiculoGenerico() ///Crea un vehículo de forma rápida con datos aleatorios. BROKEN
 {
@@ -197,7 +229,7 @@ Fórmula para calcular un numero aleatorio entre dos límites determinados:
     return vehiculo;
 }
 
-ListaPtr crearListaRepartosPorDefecto()
+ListaPtr crearListaRepartosGenerica(bool esRepartoAbierto)
 {
 ///Creamos una lista de repartos
     ListaPtr listaRepartos=crearLista();
@@ -217,7 +249,9 @@ ListaPtr crearListaRepartosPorDefecto()
 //Creamos un chofer
     PersonaPtr chofer=crearPersona("Roberto","Garcia",domicilioChofer,cuil,true);
 //Creamos un paquete con (*) y (**)
-    PaquetePtr paquete=crearPaquete(1,4,5,2,65,dirRetiro,dirEntrega,fechaEntrega,0);
+    PaquetePtr paquete=crearPaquete(1,4,5,2,65,dirRetiro,dirEntrega,fechaEntrega,1);
+    if(!esRepartoAbierto)
+        setEstado(paquete,3); //si es para un reparto cerrado, lo seteamos a "entregado"
 //Creamos una pila de paquetes para el reparto
     PilaPtr pilaPaquetes=crearPila();
     apilar(pilaPaquetes,(PaquetePtr)paquete); /// Pila de 1 paquete
@@ -240,7 +274,9 @@ ListaPtr crearListaRepartosPorDefecto()
 
     PersonaPtr chofer1=crearPersona("Maria","Gonzalez",domicilioChofer1,cuil1,true);
 
-    PaquetePtr paquete1=crearPaquete(2,2,5,3,120,dirRetiro1,dirEntrega1,fechaEntrega1,0);
+    PaquetePtr paquete1=crearPaquete(2,2,5,3,120,dirRetiro1,dirEntrega1,fechaEntrega1,1);
+    if(!esRepartoAbierto)
+        setEstado(paquete1,3);
     PilaPtr pilaPaquetes1=crearPila();
     apilar(pilaPaquetes1,(PaquetePtr)paquete1);
 
@@ -262,7 +298,9 @@ ListaPtr crearListaRepartosPorDefecto()
 
     PersonaPtr chofer2=crearPersona("Sociedades","Anonimas",domicilioChofer2,cuil2,true);
 
-    PaquetePtr paquete2=crearPaquete(3,8,8,10,800,dirRetiro2,dirEntrega2,fechaEntrega2,0);
+    PaquetePtr paquete2=crearPaquete(3,8,8,10,800,dirRetiro2,dirEntrega2,fechaEntrega2,1);
+    if(!esRepartoAbierto)
+        setEstado(paquete2,3);
     PilaPtr pilaPaquetes2=crearPila();
     apilar(pilaPaquetes2,(PaquetePtr)paquete);
 

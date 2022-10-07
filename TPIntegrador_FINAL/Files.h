@@ -48,7 +48,7 @@ bool guardarVehiculos(CentroLogisticoPtr datosPorDefecto);
 //PARÁMETROS
 //  centroLogistico: puntero al centro logistico donde se encuentran todos los datos por defecto.
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarRepartos(CentroLogisticoPtr datosPorDefecto);
+bool guardarRepartos(CentroLogisticoPtr datosPorDefecto,bool esRepartoAbierto);
 
 
 ///---------------------------------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ bool guardarListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbie
 
 /// Guardado general
 
-bool guardarTodoPorDefecto(CentroLogisticoPtr centroLogistico); ///PENDIENTE
+bool guardarTodoPorDefecto(CentroLogisticoPtr datosPorDefecto);
 
 //OPERACIÓN: guarda un centro logístico en un conjunto de archivos de texto.
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico previamente
@@ -124,7 +124,6 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico); //implementacion: llamará 
 /// Para conjuntos de datos - Para abrir bases de datos de structs por defecto.
 //  Dedicadas a las funciones de creación de datos por defecto de test.h.
 
-bool abrirFechas(FechaPtr *fechas);
 //OPERACIÓN: Recupera los datos de un conjunto de Personas de un archivo de texto
 //PRECONDICIÓN:
 //  - La estructura debe haber sido definida previamente,
@@ -135,7 +134,7 @@ bool abrirFechas(FechaPtr *fechas);
 //PARÁMETROS
 //  Personas: PUNTERO A PUNTERO A la estructura Persona (Doble puntero). Se puede pensar como un vector de Personas
 //DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirPersonas(PersonaPtr *personas);
+bool abrirPersonas(CentroLogisticoPtr datosPorDefecto);
 //OPERACIÓN: Recupera los datos de un conjunto de Paquetes de un archivo de texto
 //PRECONDICIÓN:
 //  - La estructura debe haber sido definida previamente,
@@ -146,7 +145,7 @@ bool abrirPersonas(PersonaPtr *personas);
 //PARÁMETROS
 //  Paquetes: PUNTERO A PUNTERO A la estructura Paquete (Doble puntero). Se puede pensar como un vector de Paquetes
 //DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirPaquetes(PaquetePtr *paquetes);
+bool abrirPaquetes(CentroLogisticoPtr datosPorDefecto);
 //OPERACIÓN: Recupera los datos de un conjunto de Vehiculos de un archivo de texto
 //PRECONDICIÓN:
 //  - La estructura debe haber sido definida previamente,
@@ -157,7 +156,7 @@ bool abrirPaquetes(PaquetePtr *paquetes);
 //PARÁMETROS
 //  Vehiculos: PUNTERO A PUNTERO A la estructura Vehiculo (Doble puntero). Se puede pensar como un vector de Vehiculos
 //DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirVehiculos(VehiculoPtr *vehiculos);
+bool abrirVehiculos(CentroLogisticoPtr datosPorDefecto);
 //OPERACIÓN: Recupera los datos de un conjunto de Repartos de un archivo de texto
 //PRECONDICIÓN:
 //  - La estructura debe haber sido definida previamente,
@@ -168,7 +167,7 @@ bool abrirVehiculos(VehiculoPtr *vehiculos);
 //PARÁMETROS
 //  Repartos: PUNTERO A PUNTERO A la estructura Reparto (Doble puntero). Se puede pensar como un vector de Repartos
 //DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirRepartos(RepartoPtr *repartos);
+bool abrirRepartos(CentroLogisticoPtr datosPorDefecto,bool esRepartoAbierto);
 
 
 ///---------------------------------------------------------------------------------------------------------------
@@ -225,7 +224,7 @@ bool abrirListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbiert
 
 /// Apertura general
 
-CentroLogisticoPtr abrirTodoPorDefecto(CentroLogisticoPtr centroLogistico); ///PENDIENTE
+CentroLogisticoPtr abrirTodoPorDefecto();
 
 //OPERACIÓN: Crea un centro logístico a partir de los datos de un conjunto de archivos de texto.
 //PRECONDICIÓN: centroLogistico debe haber sido declarado previamente
