@@ -8,11 +8,46 @@
 #include "test.h"
 #include "util.h"
 
+CuilPtr crearCuilPorDefecto()
+{
+    return crearCuil("20 11111111 2");
+}
+DomicilioPtr crearDomicilioPorDefecto()
+{
+    return crearDomicilio("Una Calle",1111,"Una Localidad");
+}
+FechaPtr crearFechaPorDefecto()
+{
+    return crearFecha(22,2,2022,22,22);
+}
+
+PaquetePtr crearPaquetePorDefecto()
+{
+    DomicilioPtr dirEntrega = crearDomicilio("Otra Calle",9999,"Otra Localidad");
+    return crearPaquete(1111,11,11,11,11,crearDomicilioPorDefecto(),dirEntrega,crearFechaPorDefecto(),0);
+}
+PersonaPtr crearPersonaPorDefecto(bool esChofer)
+{
+    return crearPersona("Fulanito","De Tal",crearDomicilioPorDefecto(),crearCuilPorDefecto(),esChofer);
+}
 VehiculoPtr crearVehiculoPorDefecto() ///Crea un vehículo de forma rápida con datos predeterminados.
 {
-    VehiculoPtr vehiculo=crearVehiculo(3,"Mercedes-Benz","Actros","ZZ 999 ZZ");
-    return vehiculo;
+    return crearVehiculo(3,"Mercedes-Benz","Actros","ZZ 999 ZZ");
 }
+RepartoPtr crearRepartoPorDefecto() //solo se crean repartos abiertos.
+{
+    PilaPtr paquetes = crearPila();
+    PaquetePtr temp[5];
+    temp[0]=crearPaquetePorDefecto();
+    temp[1]=crearPaqueteDirect(2222,22,22,22,22,"Una Calle B",2222,"Una Localidad B","Otra Calle B",2333,"Otra Localidad B",22,2,2022,23,22);
+    temp[2]=crearPaqueteDirect(3333,33,33,33,33,"Una Calle C",3333,"Una Localidad C","Otra Calle C",3444,"Otra Localidad C",22,2,2022,23,23);
+    temp[3]=crearPaqueteDirect(4444,44,44,44,44,"Una Calle D",4444,"Una Localidad D","Otra Calle D",4555,"Otra Localidad D",24,2,2022,23,22);
+    temp[4]=crearPaqueteDirect(5555,55,55,55,55,"Una Calle E",5555,"Una Localidad E","Otra Calle E",5666,"Otra Localidad E",22,2,2022,22,22);
+    for(int i=0;i<5;i++)
+        apilar(paquetes,(PaquetePtr)crearPaquetePorDefecto());
+    return crearReparto(crearPersonaPorDefecto(true),);
+}
+
 VehiculoPtr crearVehiculoGenerico() ///Crea un vehículo de forma rápida con datos aleatorios. BROKEN
 {
 /*

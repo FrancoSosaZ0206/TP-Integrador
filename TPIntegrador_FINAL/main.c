@@ -390,7 +390,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
 
                 printf("1. Listas del Centro Logistico\n");
                 printf("2. Datos por Defecto\n");
-                printf("3. Copiar al Portapapeles\n");
                 printf("0. Volver\n");
                 printf("\n-----------------------------------------\n\n");
                 printf("Elija una opcion: ");
@@ -493,15 +492,11 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     do
                     {
                         printf("GUARDAR DATOS POR DEFECTO\n\n");
-
-                        printf("1. CUILs\n");
-                        printf("2. Domicilios\n");
-                        printf("3. Fechas\n");
-                        printf("4. Paquetes\n");
-                        printf("5. Personas\n");
-                        printf("6. Vehiculos\n");
-                        printf("7. Repartos\n");
-                        printf("8. TODOS LOS DATOS POR DEFECTO\n");
+                        printf("1. Paquetes\n");
+                        printf("2. Personas\n");
+                        printf("3. Vehiculos\n");
+                        printf("4. Repartos\n");
+                        printf("5. TODOS LOS DATOS POR DEFECTO\n");
                         printf("0. Volver\n");
                         printf("-1. MENU PRINCIPAL\n");
                         printf("\n-----------------------------------------\n\n");
@@ -512,60 +507,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         switch(op2)
                         {
                         case 1:
-                            do
-                            {
-                                printf("Ingrese la cantidad de CUILs a guardar: ");
-                                scanf("%d",&n);
-                                limpiarBufferTeclado();
-                                if(n<1)
-                                    printf("\n\nERROR: cantidad incorrecta. Vuelva a ingresarla.\n");
-                            } while(n<1);
-
-                            if(guardarCuils(crearCuilsPorDefecto()))
-                                printf("CUILs por defecto guardados exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL GUARDAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 2:
-                            do
-                            {
-                                printf("Ingrese la cantidad de Domicilios a guardar: ");
-                                scanf("%d",&n);
-                                limpiarBufferTeclado();
-                                if(n<1)
-                                    printf("\n\nERROR: cantidad incorrecta. Vuelva a ingresarla.\n");
-                            } while(n<1);
-
-                            if(guardarDomicilios(crearDomiciliosPorDefecto()))
-                                printf("Domicilios por defecto guardados exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL GUARDAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 3:
-                            do
-                            {
-                                printf("Ingrese la cantidad de Fechas a guardar: ");
-                                scanf("%d",&n);
-                                limpiarBufferTeclado();
-                                if(n<1)
-                                    printf("\n\nERROR: cantidad incorrecta. Vuelva a ingresarla.\n");
-                            } while(n<1);
-
-                            if(guardarFechas(crearFechasPorDefecto()))
-                                printf("Fechas por defecto guardadas exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL GUARDAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 4:
                             do
                             {
                                 printf("Ingrese la cantidad de Paquetes a guardar: ");
@@ -583,7 +524,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                                 exit(1);
                             }
                             break;
-                        case 5:
+                        case 2:
                             do
                             {
                                 printf("Ingrese la cantidad de Personas a guardar: ");
@@ -601,7 +542,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                                 exit(1);
                             }
                             break;
-                        case 6:
+                        case 3:
                             do
                             {
                                 printf("Ingrese la cantidad de Vehiculos a guardar: ");
@@ -619,7 +560,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                                 exit(1);
                             }
                             break;
-                        case 7:
+                        case 4:
                             do
                             {
                                 printf("Ingrese la cantidad de repartos a guardar: ");
@@ -637,120 +578,12 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                                 exit(1);
                             }
                             break;
-                        case 8:
+                        case 5:
                             if(guardarTodoPorDefecto(datosPorDefecto))
                                 printf("Todos los datos por defecto han sido guardados exitosamente.\n\n");
                             else
                             {
                                 printf("ERROR AL GUARDAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 0:
-                            break;
-                        case -1:
-                            op2=0;
-                            op1=0;
-                            break;
-                        default:
-                            printf("\nOpcion incorrecta.\n\n");
-                            break;
-                        }
-                        if(op2!=0)
-                            presionarEnterYLimpiarPantalla();
-                    } while(op2!=0);
-                    break;
-                case 3:
-                    do
-                    {
-                        printf("COPIAR AL PORTAPAPELES\n\n");
-
-                        printf("1. CUIL\n");
-                        printf("2. Domicilio\n");
-                        printf("3. Fecha\n");
-                        printf("4. Paquete\n");
-                        printf("5. Persona\n");
-                        printf("6. Vehiculo\n");
-                        printf("7. Reparto\n");
-                        printf("8. COPIAR TODO\n");
-                        printf("0. Volver\n");
-                        printf("-1. MENU PRINCIPAL\n");
-                        printf("\n-----------------------------------------\n\n");
-                        printf("Elija una opcion: ");
-                        scanf("%d",&op2);
-
-                        limpiarBufferTeclado();
-                        switch(op2)
-                        {
-                        case 1:
-                            if(copiarCuil(cuil))
-                                printf("CUIL copiado exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL COPIAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 2:
-                            if(copiarDomicilio(domicilio))
-                                printf("Domicilio copiado exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL COPIAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 3:
-                            if(copiarFechas(fecha))
-                                printf("Fechas copiada exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL COPIAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 4:
-                            if(copiarPaquetes(paquete))
-                                printf("Paquete copiado exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL COPIAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 5:
-                            if(copiarPersonas(persona))
-                                printf("Persona copiada exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL COPIAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 6:
-                            if(copiarVehiculos(vehiculo))
-                                printf("Vehiculo copiado exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL COPIAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 7:
-                            if(copiarRepartos(reparto))
-                                printf("Reparto copiado exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL COPIAR\n\n");
-                                exit(1);
-                            }
-                            break;
-                        case 8:
-                            if(copiarTodo(cuilPortapapeles,domicilioPortapapeles,fechaPortapapeles,paquetePortapapeles,personaPortapapeles,vehiculoPortapapeles,repartoPortapapeles));
-                                printf("Todos los datos han sido copiados exitosamente.\n\n");
-                            else
-                            {
-                                printf("ERROR AL COPIAR\n\n");
                                 exit(1);
                             }
                             break;

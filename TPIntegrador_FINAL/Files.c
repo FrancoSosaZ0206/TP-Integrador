@@ -390,276 +390,116 @@ void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
 ///                                             FUNCIONES PÚBLICAS/DE LA INTERFAZ
 
 
-//Escritura
-//Precondición: La variable estructura / lista que se pase deberá haber sido creada previamente.
-//Postcondición: se guarda los contenidos de la estructura / lista en un archivo dedicado al tipo de estructura / lista.
-//Devuelve true si se pudo guardar, false de lo contrario (if archivo != NULL)
-//  datos / estructuras individuales
-bool guardarCuil(CuilPtr cuil)
-{
-    FILE *archivo = fopen("Cuil.txt","w");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fCuil fcuil;
-        fsetCuil(&fcuil,cuil,true);
-
-        fwrite(&fcuil,sizeof(fCuil),1,archivo);
-        fclose(archivo);
-        return true;
-    }
-}
-bool guardarDomicilio(DomicilioPtr domicilio)
-{
-    FILE *archivo = fopen("Domicilio.txt","w");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fDomicilio fdomicilio;
-        fsetDomicilio(&fdomicilio,domicilio,true);
-
-        fwrite(&fdomicilio,sizeof(fDomicilio),1,archivo);
-        fclose(archivo);
-        return true;
-    }
-}
-bool guardarFecha(FechaPtr fecha)
-{
-    FILE *archivo = fopen("Fecha.txt","w");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fFecha ffecha;
-        fsetFecha(&ffecha,fecha,true);
-
-        fwrite(&ffecha,sizeof(fFecha),1,archivo);
-        fclose(archivo);
-        return true;
-    }
-}
-bool guardarPersona(PersonaPtr persona)
-{
-    FILE *archivo = fopen("Persona.txt","w");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fPersona fpersona;
-        fsetPersona(&fpersona,persona,true);
-
-        fwrite(&fpersona,sizeof(fPersona),1,archivo);
-        fclose(archivo);
-        return true;
-    }
-}
-bool guardarPaquete(PaquetePtr paquete)
-{
-    FILE *archivo = fopen("Paquete.txt","w");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fPaquete fpaquete;
-        fsetPaquete(&fpaquete,paquete,true);
-
-        fwrite(&fpaquete,sizeof(fPaquete),1,archivo);
-        fclose(archivo);
-        return true;
-    }
-}
-bool guardarVehiculo(VehiculoPtr vehiculo)
-{
-    FILE *archivo = fopen("Vehiculo.txt","w");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fVehiculo fvehiculo;
-        fsetVehiculo(&fvehiculo,vehiculo,true);
-
-        fwrite(&fvehiculo,sizeof(fVehiculo),1,archivo);
-        fclose(archivo);
-        return true;
-    }
-}
-bool guardarReparto(RepartoPtr reparto)
-{
-    FILE *archivo = fopen("Reparto.txt","w");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fReparto freparto;
-        fsetReparto(&freparto,reparto,true);
-
-        fwrite(&freparto,sizeof(fReparto),1,archivo);
-        fclose(archivo);
-        return true;
-    }
-}
 //  conjuntos de datos / estructuras    -   Para guardar bases de datos de structs por defecto. Nos servirá para las funciones de creacion de datos por defecto.
-///Postcondición: LA CANTIDAD QUE ELEMENTOS QUE SE PASAN DEBEN TENERSE EN CUENTA AL USAR LAS CONTRAPARTES DE APERTURA
-bool guardarCuils(CuilPtr *cuils,int cantidad)
-{
-    FILE *archivo = fopen("Cuils por Defecto.txt","w");
-
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-    ///guardamos la cantidad que son, para que al abrir sepa donde parar de buscar
-        fwrite(&cantidad,sizeof(int),1,archivo);
-
-        fCuil fcuil;
-
-        for(int i=0;i<cantidad;i++)
-        {
-            fsetCuil(&fcuil,*(cuils+i),true);
-            fwrite(&fcuil,sizeof(fCuil),1,archivo);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
-bool guardarDomicilios(DomicilioPtr *domicilios,int cantidad)
-{
-    FILE *archivo = fopen("Domicilios por Defecto.txt","w");
-
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-    ///guardamos la cantidad que son, para que al abrir sepa donde parar de buscar
-        fwrite(&cantidad,sizeof(int),1,archivo);
-
-        fDomicilio fdomicilio;
-
-        for(int i=0;i<cantidad;i++)
-        {
-            fsetDomicilio(&fdomicilio,*(domicilios+i),true);
-            fwrite(&fdomicilio,sizeof(fDomicilio),1,archivo);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
-bool guardarFechas(FechaPtr *fechas,int cantidad)
-{
-    FILE *archivo = fopen("Fechas por Defecto.txt","w");
-
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-    ///guardamos la cantidad que son, para que al abrir sepa donde parar de buscar
-        fwrite(&cantidad,sizeof(int),1,archivo);
-
-        fFecha ffecha;
-
-        for(int i=0;i<cantidad;i++)
-        {
-            fsetFecha(&ffecha,*(fechas+i),true);
-            fwrite(&ffecha,sizeof(fFecha),1,archivo);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
-bool guardarPersonas(PersonaPtr *personas,int cantidad)
+bool guardarPersonas(CentroLogisticoPtr datosPorDefecto)
 {
     FILE *archivo = fopen("Personas por Defecto.txt","w");
 
-
     if(archivo==NULL)
         return false;
     else
     {
+        ListaPtr listaAux=getPersonas(datosPorDefecto);
+        int n=longitudLista(listaAux);
     ///guardamos la cantidad que son, para que al abrir sepa donde parar
-        fwrite(&cantidad,sizeof(int),1,archivo);
+        fwrite(&n,sizeof(int),1,archivo);
 
+        PersonaPtr personaAux;
         fPersona fpersona;
 
-        for(int i=0;i<cantidad;i++)
+        for(int i=0;i<n;i++)
         {
-            fsetPersona(&fpersona,*(personas+i),true);
+            personaAux=getCabecera(listaAux);
+            fsetPersona(&fpersona,personaAux,true);
             fwrite(&fpersona,sizeof(fPersona),1,archivo);
+            listaAux=getResto(listaAux);
         }
         fclose(archivo);
+        listaAux=destruirLista(listaAux,false);
         return true;
     }
 }
-bool guardarPaquetes(PaquetePtr *paquetes,int cantidad)
+bool guardarPaquetes(CentroLogisticoPtr datosPorDefecto)
 {
     FILE *archivo = fopen("Paquetes por Defecto.txt","w");
 
-
     if(archivo==NULL)
         return false;
     else
     {
-    ///guardamos la cantidad que son, para que al abrir sepa donde parar de buscar
-        fwrite(&cantidad,sizeof(int),1,archivo);
+        ListaPtr listaAux=getPaquetes(datosPorDefecto);
+        int n=longitudLista(listaAux);
+    ///guardamos la cantidad que son, para que al abrir sepa donde parar
+        fwrite(&n,sizeof(int),1,archivo);
 
+        PaquetePtr paqueteAux;
         fPaquete fpaquete;
 
-        for(int i=0;i<cantidad;i++)
+        for(int i=0;i<n;i++)
         {
-            fsetPaquete(&fpaquete,*(paquetes+i),true);
+            paqueteAux=getCabecera(listaAux);
+            fsetPaquete(&fpaquete,paqueteAux,true);
             fwrite(&fpaquete,sizeof(fPaquete),1,archivo);
+            listaAux=getResto(listaAux);
         }
         fclose(archivo);
+        listaAux=destruirLista(listaAux,false);
         return true;
     }
 }
-bool guardarVehiculos(VehiculoPtr *vehiculos,int cantidad)
+bool guardarVehiculos(CentroLogisticoPtr datosPorDefecto)
 {
     FILE *archivo = fopen("Vehiculos por Defecto.txt","w");
 
-
     if(archivo==NULL)
         return false;
     else
     {
-    ///guardamos la cantidad que son, para que al abrir sepa donde parar de buscar
-        fwrite(&cantidad,sizeof(int),1,archivo);
+        ListaPtr listaAux=getVehiculos(datosPorDefecto);
+        int n=longitudLista(listaAux);
+    ///guardamos la cantidad que son, para que al abrir sepa donde parar
+        fwrite(&n,sizeof(int),1,archivo);
 
+        VehiculoPtr vehiculoAux;
         fVehiculo fvehiculo;
 
-        for(int i=0;i<cantidad;i++)
+        for(int i=0;i<n;i++)
         {
-            fsetVehiculo(&fvehiculo,*(vehiculos+i),true);
+            vehiculoAux=getCabecera(listaAux);
+            fsetVehiculo(&fvehiculo,vehiculoAux,true);
             fwrite(&fvehiculo,sizeof(fVehiculo),1,archivo);
+            listaAux=getResto(listaAux);
         }
         fclose(archivo);
+        listaAux=destruirLista(listaAux,false);
         return true;
     }
 }
-bool guardarRepartos(RepartoPtr *repartos,int cantidad)
+bool guardarRepartos(CentroLogisticoPtr datosPorDefecto)
 {
     FILE *archivo = fopen("Repartos por Defecto.txt","w");
-
 
     if(archivo==NULL)
         return false;
     else
     {
-    ///guardamos la cantidad que son, para que al abrir sepa donde parar de buscar
-        fwrite(&cantidad,sizeof(int),1,archivo);
+        ListaPtr listaAux=getRepartos(datosPorDefecto);
+        int n=longitudLista(listaAux);
+    ///guardamos la cantidad que son, para que al abrir sepa donde parar
+        fwrite(&n,sizeof(int),1,archivo);
 
+        RepartoPtr repartoAux;
         fReparto freparto;
 
-        for(int i=0;i<cantidad;i++)
+        for(int i=0;i<n;i++)
         {
-            fsetReparto(&freparto,*(repartos+i),true);
+            repartoAux=getCabecera(listaAux);
+            fsetReparto(&freparto,repartoAux,true);
             fwrite(&freparto,sizeof(fReparto),1,archivo);
+            listaAux=getResto(listaAux);
         }
         fclose(archivo);
+        listaAux=destruirLista(listaAux,false);
         return true;
     }
 }
@@ -829,186 +669,9 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
     return res;
 }
 
-//  datos / estructuras individuales
-bool abrirCuil(CuilPtr cuil)
-{
-    FILE *archivo = fopen("Cuil.txt","r");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fCuil fcuil;
 
-        fread(&fcuil,sizeof(fCuil),1,archivo);
-
-        fsetCuil(&fcuil,cuil,false);
-
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirDomicilio(DomicilioPtr domicilio)
-{
-    FILE *archivo = fopen("Domicilio.txt","r");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fDomicilio fdomicilio;
-
-        fwrite(&fdomicilio,sizeof(fDomicilio),1,archivo);
-
-        fsetDomicilio(&fdomicilio,domicilio,false);
-
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirFecha(FechaPtr fecha)
-{
-    FILE *archivo = fopen("Fecha.txt","r");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fFecha ffecha;
-
-        fwrite(&ffecha,sizeof(fFecha),1,archivo);
-        fsetFecha(&ffecha,fecha,false);
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirPersona(PersonaPtr persona)
-{
-    FILE *archivo = fopen("Persona.txt","r");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fPersona fpersona;
-
-        fwrite(&fpersona,sizeof(fPersona),1,archivo);
-        fsetPersona(&fpersona,persona,false);
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirPaquete(PaquetePtr paquete)
-{
-    FILE *archivo = fopen("Paquete.txt","r");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fPaquete fpaquete;
-
-        fwrite(&fpaquete,sizeof(fPaquete),1,archivo);
-        fsetPaquete(&fpaquete,paquete,false);
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirVehiculo(VehiculoPtr vehiculo)
-{
-    FILE *archivo = fopen("Vehiculo.txt","r");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fVehiculo fvehiculo;
-
-        fwrite(&fvehiculo,sizeof(fVehiculo),1,archivo);
-        fsetVehiculo(&fvehiculo,vehiculo,false);
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirReparto(RepartoPtr reparto)
-{
-    FILE *archivo = fopen("Reparto.txt","r");
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        fReparto freparto;
-
-        fwrite(&freparto,sizeof(fReparto),1,archivo);
-        fsetReparto(&freparto,reparto,false);
-        fclose(archivo);
-        return true;
-    }
-}
 //  conjuntos de datos / estructuras    -   Para abrir bases de datos de structs por defecto. Nos servirá para las funciones de creacion de datos por defecto.
 ///Parámetros
-///     cantidad: numero de elementos guardados previamente con la contraparte de guardado.
-bool abrirCuils(CuilPtr *cuils)
-{
-    FILE *archivo = fopen("Cuils por Defecto.txt","r");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-    //leemos la cantidad que son y la almacenamos en un entero que delimita el for
-        int n;
-        fread(&n,sizeof(int),1,archivo);
-
-        fCuil fcuil;
-
-        for(int i=0;i<n;i++)
-        {
-            fwrite(&fcuil,sizeof(fCuil),1,archivo);
-            fsetCuil(&fcuil,*(cuils+i),false);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirDomicilios(DomicilioPtr *domicilios)
-{
-    FILE *archivo = fopen("Domicilios por Defecto.txt","r");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-    //leemos la cantidad que son y la almacenamos en un entero que delimita el for
-        int n;
-        fread(&n,sizeof(int),1,archivo);
-        fDomicilio fdomicilio;
-
-        for(int i=0;i<n;i++)
-        {
-            fwrite(&fdomicilio,sizeof(fDomicilio),1,archivo);
-            fsetDomicilio(&fdomicilio,*(domicilios+i),false);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirFechas(FechaPtr *fechas)
-{
-    FILE *archivo = fopen("Fechas por Defecto.txt","r");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-    //leemos la cantidad que son y la almacenamos en un entero que delimita el for
-        int n;
-        fread(&n,sizeof(int),1,archivo);
-        fFecha ffecha;
-
-        for(int i=0;i<n;i++)
-        {
-            fwrite(&ffecha,sizeof(fFecha),1,archivo);
-            fsetFecha(&ffecha,*(fechas+i),false);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
 bool abrirPersonas(PersonaPtr *personas)
 {
     FILE *archivo = fopen("Personas por Defecto.txt","r");
