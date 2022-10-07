@@ -804,14 +804,14 @@ bool guardarListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbie
 bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a las otras funciones de guardado
 {
     FILE *archivo = fopen("Nombre del Centro Logistico.txt","w");
-    bool res = true; //a diferencia de las funciones anteriores, usamos una bandera para juntar al conjugado.
+    //a diferencia de las funciones anteriores, usamos una bandera para juntar al conjugado
+    bool res = true;
     if(archivo==NULL)
         res=false;
-    else
-    {
+    else{
         char *temp = getNombreCentroLogistico(centroLogistico);
-        int longStr = strlen(temp) + 2; //2 más que el original: 1 x el '\0', y 2 x el caracter que le agregaremos.
-
+        //2 más que el original: 1 x el '\0', y 2 x el caracter que le agregaremos.
+        int longStr = strlen(temp) + 2;
         char nombreCtroLog[longStr];
         strcpy(nombreCtroLog,temp);
         nombreCtroLog[longStr-1]='\n'; ///le agregamos el caracter especial para la apertura.

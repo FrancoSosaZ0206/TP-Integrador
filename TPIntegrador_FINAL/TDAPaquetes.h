@@ -5,9 +5,9 @@
 #include <stdlib.h>
 #include "TDAFechaYHora.h"
 #include "TDADomicilio.h"
+#include "TDAPersona.h"
 
-typedef struct Paquete
-{
+typedef struct Paquete{
     int ID;
     int ancho;
     int alto;
@@ -16,6 +16,7 @@ typedef struct Paquete
     DomicilioPtr dirRetiro;
     DomicilioPtr dirEntrega;
     FechaPtr fechaEntrega;
+    PersonaPtr cliente;
     int estado; ///0=En depósito,1=En curso,2=Retirado,3=Entregado,4=Demorado,5=Suspendido
 } Paquete;
 typedef Paquete * PaquetePtr;

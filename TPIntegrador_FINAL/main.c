@@ -48,14 +48,6 @@ int main()
     listaClientes=crearListaClientesGenerico();
     listaVehiculos=crearListaVehiculosGenerico();
     listaPaquetes=crearListaPaquetesGenerico();
-
-    for(int i=0;i<longitudLista(listaChoferes);i++){
-        printf("%d.",i);
-        mostrarPersona((PersonaPtr)getDatoLista(listaChoferes,i));
-    }
-
-
-    system("pause");
     int START_OP=0;
     do{
         system("cls");
@@ -558,8 +550,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             }
             break;
         case 0:
-            do
-            {
+            do{
                 system("cls");
                 printf("Tiene cambios sin guardar. Seguro que quiere salir?\n\n");
                 printf("1. Guardar cambios y salir\n");

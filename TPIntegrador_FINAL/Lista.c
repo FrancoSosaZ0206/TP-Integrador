@@ -20,7 +20,6 @@ ListaPtr destruirLista(ListaPtr lista,bool remover)
     if(remover)
         while(!listaVacia(lista))
             removerDeLista(lista,0);
-
     free(lista);
     return FinLista; //no estaba en la implementacion del profe. Supongo que va, pero si no funca probamos sacandola
 }
@@ -102,19 +101,15 @@ void agregarDatoAlFinalDeLista(ListaPtr lista,PtrDato dato)
     setSiguiente(ultNodo, nuevoNodo); //ponemos el nuevo nodo como siguiente del último
 }
 
-bool insertarDatoLista(ListaPtr lista,PtrDato dato,int posicion)
-{ //recordamos: inserta el dato DESPUES de la posicion. NOTA: Lo hace 2 posiciones después.
+bool insertarDatoLista(ListaPtr lista,PtrDato dato,int posicion){ //recordamos: inserta el dato DESPUES de la posicion. NOTA: Lo hace 2 posiciones después.
     PtrNodo nodo=getNodoLista(lista,posicion); //obtiene el nodo DE LA POSICION PEDIDA
     bool resultado=false;
-    if(nodo!=FinLista)
-    {
+    if(nodo!=FinLista){
         PtrNodo nuevoNodo=crearNodo(dato); //el nuevo dato precisa un nodo para ser insertado a la lista
         setSiguiente(nuevoNodo,getSiguiente(nodo)); //el nodo siguiente a nodo (siguiente del siguiente) es ahora el siguiente al nuevo
         setSiguiente(nodo,nuevoNodo); //el nuevo nodo es ahora el siguiente al nodo en la posicion indicada (otra vez: DESPUES de la posicion).
         resultado=true;
-    }
-    else
-    {
+    }else{
         agregarDatoLista(lista,dato);
     }
     return resultado;

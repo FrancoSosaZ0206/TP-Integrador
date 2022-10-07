@@ -8,6 +8,7 @@
 #include "Lista.h"
 #include "Pila.h"
 #include "TDARepartos.h"
+#include "TDACentroLogistico.h"
 
 RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr listaPaquetes)
 {
@@ -154,4 +155,20 @@ void mostrarPaquetesListaReparto(RepartoPtr reparto){
         printf("Paquete NRO: %d\n", i);
         mostrarPaquete(getDatoLista(getListaPaquetesReparto(reparto),i));
     }
+}
+
+bool buscarChoferRepartos(CentroLogisticoPtr centroLogistico, CuilPtr cuil){
+    bool encontrado=false;
+    for(int i=0;i<longitudLista(getRepartos(centroLogistico,true));i++)
+        if(strcmp(getCuil(cuil),getCuil(getCuilPersona(getDatoLista(getChoferes(centroLogistico),i))))==0)
+            encontrado=true;
+    return encontrado;
+}
+
+bool buscarvehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente){
+    bool encontrado=false;
+    for(int i=0;i<longitudLista(getVehiculos(centroLogistico));i++)
+        if(strcmp(patente,getPatente(getDatoLista(getVehiculos(centroLogistico),i)))==0)
+           encontrado=true;
+    return encontrado;
 }
