@@ -883,7 +883,7 @@ void menuArmarReparto(CentroLogisticoPtr centroLogistico)
 void menuBuscarReparto(CentroLogisticoPtr centroLogistico);
 void menuEliminarReparto(CentroLogisticoPtr centroLogistico);
 void menuCerrarReparto(CentroLogisticoPtr centroLogistico);
-void menuActualizarReparto(CentroLogisticoPtr centroLogistico);
+void menuModificarReparto(CentroLogisticoPtr centroLogistico);
 void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 {
 	int op=0;

@@ -253,7 +253,7 @@ void menuCerrarReparto(CentroLogisticoPtr centroLogistico);
 //PARÁMETROS:
 //  centroLogistico: puntero a la estructura del Centro Logistico
 //DEVUELVE: nada.
-void menuActualizarReparto(CentroLogisticoPtr centroLogistico);
+void menuModificarReparto(CentroLogisticoPtr centroLogistico);
 
 //OPERACION: menú de muestra de repartos
 //PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico

@@ -77,7 +77,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
     ///Menúes
     int MAIN_OP = 0;
     int op1=0;
-    int
+    int op2=0;
 
     int n=0;
     bool res;
@@ -333,8 +333,71 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             } while(op1!=0);
             break;
         case 2:
+            do
+            {
+                printf("MENU DE REPARTOS\n\n");
+
+                printf("1. Armar reparto\n");
+                printf("2. Cerrar reparto\n");
+                printf("3. Eliminar reparto\n");
+                printf("4. Actualizar reparto\n");
+                printf("5. Buscar reparto\n");
+                printf("0. Volver\n");
+                printf("Elija una opcion: ");
+                scanf("%d",&op1);
+
+                limpiarBufferTeclado();
+                system("cls");
+                switch(op1)
+                {
+                case 1:
+                    menuArmarReparto(centroLogistico);
+                    break;
+                case 2:
+                    menuCerrarReparto(centroLogistico);
+                    break;
+                case 3:
+                    menuEliminarReparto(centroLogistico);
+                    break;
+                case 4:
+                    menuModificarReparto(centroLogistico);
+                    break;
+                case 5:
+                    menuBuscarReparto(centroLogistico);
+                    break;
+                case 0:
+                    do
+                    {
+                        printf("Guardar Cambios?\t1.SI\t0.NO\t");
+                        scanf("%d",&op2);
+                        limpiarBufferTeclado();
+                    } while(op2!=1 && op2!=0);
+                    switch(op2)
+                    {
+                    case 1:
+                        res = guardarListaRepartos(centroLogistico,true);
+                        res = res && guardarListaRepartos(centroLogistico,false);
+                        if(res)
+                            printf("\n\nCambios guardados exitosamente.\n\n");
+                        else
+                            printf("\n\nERROR AL GUARDAR.\n\n");
+                        break;
+                    case 0:
+                        break;
+                    }
+                    presionarEnterYLimpiarPantalla();
+                    break;
+                default:
+                    printf("\nOpcion incorrecta.\n\n");
+                    break;
+                }
+                presionarEnterYLimpiarPantalla();
+            } while(op1!=0);
             break;
         case 3:
+    /**Idea: se puede generar un estado al azar entre "entregado" (3) y "suspendido" (5)
+        Luego, se muestra los resultados de las entregas de los repartos
+    */
             break;
         case 4:
             do
