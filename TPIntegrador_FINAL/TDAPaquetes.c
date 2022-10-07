@@ -28,19 +28,15 @@ PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPt
 PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado)
 {
     PaquetePtr paquete = (PaquetePtr) obtenerMemoria(sizeof(Paquete));
-
     paquete->ID=ID;
     paquete->ancho=ancho;
     paquete->alto=alto;
     paquete->largo=largo;
     paquete->peso=peso;
-
     paquete->dirRetiro=crearDomicilio(calleRetiro,alturaRetiro,localidadRetiro);
     paquete->dirEntrega=crearDomicilio(calleEntrega,alturaEntrega,localidadEntrega);
     paquete->fechaEntrega=crearFecha(dia,mes,anio,hora,minuto);
-
     paquete->estado=estado;
-
     return paquete;
 }
 
@@ -131,9 +127,7 @@ void setEstado(PaquetePtr paquete,int estado)
 void mostrarPaquete(PaquetePtr paquete)
 {
     printf("Paquete #%d\n",getID(paquete));
-
-    switch(getEstado(paquete))
-    {
+    switch(getEstado(paquete)){
     case 0:
         printf("\tEstado: En Deposito\n");
         break;
@@ -156,17 +150,14 @@ void mostrarPaquete(PaquetePtr paquete)
         printf("\tEstado: ERROR\n");
         break;
     }
-
     printf("\tAncho: %d\n",getAncho(paquete));
     printf("\tAlto: %d\n",getAlto(paquete));
     printf("\tLargo: %d\n",getLargo(paquete));
     printf("\tPeso: %d\n",getPeso(paquete));
-
     printf("\tDireccion de Retiro: ");
     mostrarDomicilio(getDirRetiro(paquete));
     printf("\tDireccion de Entrega: ");
     mostrarDomicilio(getDirEntrega(paquete));
-
     char *bufferFecha;
     traerFechaYHora(getFechaEntrega(paquete),bufferFecha);
     printf("\tFecha y Hora de Entrega: %s\n",bufferFecha);

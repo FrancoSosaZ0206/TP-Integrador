@@ -30,8 +30,6 @@ bool listaVacia(ListaPtr lista)
     return (lista->primero==FinLista);
 }
 
-
-
 PtrNodo getNodoLista(ListaPtr lista, int posicion)
 {//funcion auxiliar para getDatoLista, no está en la interfaz de Lista.h
     PtrNodo nodo=lista->primero;
@@ -78,8 +76,6 @@ ListaPtr getResto(ListaPtr lista)
     return resto;
 }
 
-
-
 int longitudLista(ListaPtr lista)
 {
     int longitud=0;
@@ -103,10 +99,8 @@ void agregarDatoAlFinalDeLista(ListaPtr lista,PtrDato dato)
 {
     PtrNodo nuevoNodo=crearNodo(dato);
     PtrNodo ultNodo=getNodoLista(lista,longitudLista(lista)); //obtenemos el último nodo de la lista
-    setSiguiente(ultNodo,nuevoNodo); //ponemos el nuevo nodo como siguiente del último
+    setSiguiente(ultNodo, nuevoNodo); //ponemos el nuevo nodo como siguiente del último
 }
-
-
 
 bool insertarDatoLista(ListaPtr lista,PtrDato dato,int posicion)
 { //recordamos: inserta el dato DESPUES de la posicion. NOTA: Lo hace 2 posiciones después.
@@ -118,6 +112,10 @@ bool insertarDatoLista(ListaPtr lista,PtrDato dato,int posicion)
         setSiguiente(nuevoNodo,getSiguiente(nodo)); //el nodo siguiente a nodo (siguiente del siguiente) es ahora el siguiente al nuevo
         setSiguiente(nodo,nuevoNodo); //el nuevo nodo es ahora el siguiente al nodo en la posicion indicada (otra vez: DESPUES de la posicion).
         resultado=true;
+    }
+    else
+    {
+        agregarDatoLista(lista,dato);
     }
     return resultado;
 }
@@ -145,8 +143,6 @@ void agregarLista(ListaPtr estaLista,ListaPtr otraLista)
         setSiguiente(nodo,otraLista->primero);
     }
 }
-
-
 
 PtrDato removerDeLista(ListaPtr lista, int posicion)
 {

@@ -22,7 +22,7 @@
 // puntero a la estructura cuil que se quiere cargar
 //DEVUELVE: Nada
 ///ADVERTENCIA: No debe crearse el cuil con su constructora, causará memory leaks.
-void cargarCuil(CuilPtr cuil);
+CuilPtr cargarCuil(CuilPtr cuil);
 //OPERACION: carga de domicilio con datos
 //PRECONDICIÓN: domicilio debe haber sido DECLARADO
 //POSTCONDICION: se piden datos por pantalla y se crea un domicilio en memoria dinamica
@@ -30,7 +30,7 @@ void cargarCuil(CuilPtr cuil);
 // puntero a la estructura domicilio que se quiere cargar
 //DEVUELVE: Nada
 ///ADVERTENCIA: No debe crearse el domicilio con su constructora, causará memory leaks.
-void cargarDomicilio(DomicilioPtr domicilio);
+DomicilioPtr cargarDomicilio(DomicilioPtr domicilio);
 //OPERACION: carga de fecha con datos
 //PRECONDICIÓN: fecha debe haber sido DECLARADA
 //POSTCONDICION: se piden datos por pantalla y se crea una fecha con datos válidos
@@ -38,7 +38,7 @@ void cargarDomicilio(DomicilioPtr domicilio);
 // puntero a la estructura fecha que se quiere cargar
 //DEVUELVE: Nada
 ///ADVERTENCIA: No debe crearse la fecha con su constructora, causará memory leaks.
-void cargarFecha(FechaPtr fecha);
+FechaPtr cargarFecha(FechaPtr fecha);
 
 //OPERACION: actualiza los datos de un cuil
 //PRECONDICIÓN: cuil debe haberse creado
@@ -274,7 +274,7 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 //  centroLogistico: puntero a la estructura centro logistico
 // variable logica para saber si son abiertos o cerrados los repartos
 //DEVUELVE: nada.
-void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 
 

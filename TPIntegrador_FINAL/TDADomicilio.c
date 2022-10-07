@@ -7,13 +7,9 @@
 DomicilioPtr crearDomicilio(char *calle,int altura,char *localidad)
 {
     DomicilioPtr domicilio=(DomicilioPtr)obtenerMemoria(sizeof(Domicilio));
-
     domicilio->calle=crearStringDinamico(calle);
-
     domicilio->altura=altura;
-
     domicilio->localidad=crearStringDinamico(localidad);
-
     return domicilio;
 }
 
@@ -24,8 +20,6 @@ DomicilioPtr destruirDomicilio(DomicilioPtr domicilio)
     free(domicilio);
     return NULL;
 }
-
-
 
 void setCalle(DomicilioPtr domicilio,char *calle)
 {
@@ -41,8 +35,6 @@ void setLocalidad(DomicilioPtr domicilio,char *localidad)
 {
     strcpy(domicilio->localidad,localidad);
 }
-
-
 
 char *getCalle(DomicilioPtr domicilio)
 {

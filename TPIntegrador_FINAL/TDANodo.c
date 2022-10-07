@@ -19,8 +19,6 @@ PtrNodo destruirNodo(PtrNodo nodo)
     return SinNodoSgte;
 }
 
-
-
 void setDato(PtrNodo nodo,PtrDato dato)
 {
     nodo->dato=dato;

@@ -18,30 +18,41 @@ Para abrir/guardar files = CARPETA "Archivos"
 E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\Archivos\
 */
 
+int deseaGuardarAntesDeSalir()
+{
+    int eleccion=0;
+    do{
+        system("cls");
+        fflush(stdin);
+        printf("Seccion seguro ACTIVADA\n");
+        printf("Desea guardar antes de salir?");
+        printf("1. Guardar cambios y salir\n");
+        printf("2. Salir sin guardar cambios\n");
+        printf("Eleccion: ");
+        scanf("%d",&eleccion);
+        fflush(stdin);
+    }while(eleccion>0 && eleccion<3);
+    return eleccion;
+}
+
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
 int main()
 {
     CentroLogisticoPtr centroLogistico;
-
     int START_OP=0;
-
-    do
-    {
+    do{
+        system("cls");
+        fflush(stdin);
         printf("START MENU - BIENVENIDO\n\n");
         printf("\t1. INICIAR DE CERO\n");
         printf("\t2. ABRIR ARCHIVOS\n");
         printf("\t0. SALIR\n\n");
         printf("Seleccione una opcion: ");
         scanf("%d",&START_OP);
-
-        limpiarBufferTeclado();
+        fflush(stdin);
         system("cls");
-
-
-
-        switch(START_OP)
-        {
+        switch(START_OP){
         case 1:
             centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             START_OP = MAIN_MENU(centroLogistico);
@@ -49,13 +60,10 @@ int main()
             break;
         case 2:
             centroLogistico = abrirTodo();
-            if(centroLogistico==NULL)
-            {
+            if(centroLogistico==NULL){
                 printf("ERROR AL ABRIR.\n\n");
                 exit(1);
-            }
-            else
-            {
+            }else{
                 START_OP = MAIN_MENU(centroLogistico);
                 centroLogistico=destruirCentroLogistico(centroLogistico);
             }
@@ -69,7 +77,6 @@ int main()
             break;
         }
     } while(START_OP!=0);
-
     return 0;
 }
 
@@ -77,15 +84,12 @@ int main()
 int MAIN_MENU(CentroLogisticoPtr centroLogistico)
 {
     ///Menúes
-    int MAIN_OP = 0;
-    int op1=0;  //usamos otras para los loops internos, para evitar que,
-    int op2=0;  //si queremos volver atrás, se vuelva todo atrás o cosas así.
-    int op3 = 0;
-    do
-    {
+    bool resultadoGuardadoGeneral;
+    int MAIN_OP=0,op1=0,op2=0,op3=0,op4=0,op5=0,op6=0;///Para cada Sub Menu
+    do{
         system("cls");
+        fflush(stdin);
         printf("CENTRO LOGISTICO '%s' - MENU PRINCIPAL\n\n",getNombreCentroLogistico(centroLogistico));
-
         printf("1. BASE DE DATOS\n");
         printf("2. REPARTOS\n");
         printf("3. VER RESULTADOS DE ENTREGAS\n");
@@ -95,17 +99,12 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
         printf("\n-----------------------------------------\n\n");
         printf("Elija una opcion: ");
         scanf("%d", &MAIN_OP);
-        limpiarBufferTeclado();
-
-
-        switch(MAIN_OP)
-        {
+        fflush(stdin);
+        switch(MAIN_OP){
         case 1:
-            do
-            {
+            do{
                 system("cls");
                 printf("BASE DE DATOS\n\n");
-
                 printf("1. Cargar Datos\n");
                 printf("2. Eliminar Datos\n");
                 printf("3. Modificar Datos\n");
@@ -113,18 +112,13 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 printf("0. Volver\n");
                 printf("\n-----------------------------------------\n\n");
                 printf("Elija una opcion: ");
-                scanf("%d", &op1);
-                limpiarBufferTeclado();
-
-
+                scanf("%d", &op2);
+                fflush(stdin);
                 system("cls");
-                switch(op1)
-                {
+                switch(op2){
                 case 1:
-                    do
-                    {
+                    do{
                         printf("CARGAR DATOS\n\n");
-
                         printf("1. Cargar paquete\n");
                         printf("2. Cargar cliente\n");
                         printf("3. Cargar chofer\n");
@@ -133,12 +127,9 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         printf("-1. MENU PRINCIPAL\n");
                         printf("\n-----------------------------------------\n\n");
                         printf("Elija una opcion: ");
-                        scanf("%d", &op2);
-                        limpiarBufferTeclado();
-
-
-                        switch(op2)
-                        {
+                        scanf("%d", &op3);
+                        fflush(stdin);
+                        switch(op3){
                         case 1:
                             menuCargarPaquete(centroLogistico);
                             break;
@@ -161,15 +152,13 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                             printf("\nOpcion incorrecta.\n\n");
                             break;
                         }
-                        if(op2!=0) //A menos que elija volver,
-                            presionarEnterYLimpiarPantalla(); //hacemos esto
-                    } while(op2!=0);
+                        if(op3!=0) //A menos que elija volver,
+                            system("cls"); //hacemos esto
+                    } while(op3!=0);
                     break;
                 case 2:
-                    do
-                    {
+                    do{
                         printf("ELIMINAR DATOS\n\n");
-
                         printf("1. Eliminar Paquete\n");
                         printf("2. Eliminar Cliente\n");
                         printf("3. Eliminar Chofer\n");
@@ -177,14 +166,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         printf("0. Volver\n");
                         printf("-1. MENU PRINCIPAL\n");
                         printf("\n-----------------------------------------\n\n");
-
                         printf("Elija una opcion: ");
                         scanf("%d",&op2);
-                        limpiarBufferTeclado();
-
-
-                        switch(op2)
-                        {
+                        fflush(stdin);
+                        switch(op2){
                         case 1:
                             menuEliminarPaquete(centroLogistico);
                             break;
@@ -212,10 +197,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     } while(op2!=0);
                     break;
                 case 3:
-                    do
-                    {
+                    do{
                         printf("MODIFICAR DATOS\n\n");
-
                         printf("1. Modificar Paquete\n");
                         printf("2. Modificar Cliente\n");
                         printf("3. Modificar Chofer\n");
@@ -223,14 +206,11 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         printf("0. Volver\n");
                         printf("-1. MENU PRINCIPAL\n");
                         printf("\n-----------------------------------------\n\n");
-
+                        fflush(stdin);
                         printf("Elija una opcion: ");
                         scanf("%d",&op2);
-                        limpiarBufferTeclado();
-
-
-                        switch(op2)
-                        {
+                        fflush(stdin);
+                        switch(op2){
                         case 1:
                             menuModificarPaquete(centroLogistico);
                             break;
@@ -258,10 +238,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     } while(op2!=0);
                     break;
                 case 4:
-                    do
-                    {
+                    do{
                         printf("BUSCAR DATOS\n\n");
-
                         printf("1. Buscar paquete\n"); //buscamos por ID
                         printf("2. Buscar cliente\n"); //buscamos por
                         printf("3. Buscar chofer\n"); //cuil
@@ -269,14 +247,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         printf("0. Volver\n");
                         printf("-1. MENU PRINCIPAL\n");
                         printf("\n-----------------------------------------\n\n");
-
                         printf("Elija una opcion: ");
                         scanf("%d", &op2);
-                        limpiarBufferTeclado();
-
-
-                        switch(op2)
-                        {
+                        fflush(stdin);
+                        switch(op2){
                         case 1:
                             menuBuscarPaquete(centroLogistico);
                             break;
@@ -304,9 +278,14 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     } while(op2!=0);
                     break;
                 case 0:
-                    //guardar lista de clientes / choferes;
-                    //guardar repartos;
-
+                    op4=deseaGuardarAntesDeSalir();
+                    switch(op4){
+                    case 1:
+                        guardarListaRepartos(centroLogistico,true);
+                        break;
+                    case 2:
+                        break;
+                    }
                     break;
                 default:
                     printf("\nOpcion incorrecta.\n\n");
@@ -317,18 +296,16 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             break;
         case 2:
             printf("Seccion de repartos\n\n");
-
             printf("1. Repartos abiertos\n");
             printf("2. Repartos cerrados\n");
             printf("0. Volver\n");
             printf("-1. MENU PRINCIPAL\n");
             printf("\n-----------------------------------------\n\n");
-
+            fflush(stdin);
             printf("Elija una opcion: ");
             scanf("%d", &op2);
-            limpiarBufferTeclado();
-            switch(op2)
-            {
+            fflush(stdin);
+            switch(op2){
                 case 1:
                     do
                     {
@@ -363,13 +340,23 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 5:
                             menuCerrarReparto(centroLogistico);
                         break;
+                        case 0:
+                            op4=deseaGuardarAntesDeSalir();
+                            switch(op4){
+                            case 1:
+                                guardarListaRepartos(centroLogistico,true);
+                                break;
+                            case 2:
+                                break;
+                            }
+                            break;
 
                         default:
                         printf("\nOpcion incorrecta.\n\n");
                         presionarEnterYLimpiarPantalla();
                         break;
                     }
-                } while(op3!=0);
+                } while(op2!=0);
             break;
 
             case 2:
@@ -402,7 +389,16 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 4:
                             menuMostrarEntregasReparto(centroLogistico, true);
                         break;
-
+                        case 0:
+                            op4=deseaGuardarAntesDeSalir();
+                            switch(op4){
+                            case 1:
+                                guardarListaRepartos(centroLogistico,true);
+                                break;
+                            case 2:
+                                break;
+                            }
+                            break;
                         default:
                         printf("\nOpcion incorrecta.\n\n");
                         presionarEnterYLimpiarPantalla();
@@ -413,32 +409,42 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             }
         break;
         case 3:
-            printf("Seccion de repartos\n\n");
-
-            printf("1. Repartos abiertos\n");
-            printf("2. Repartos cerrados\n");
-            printf("0. Volver\n");
-            printf("-1. MENU PRINCIPAL\n");
-            printf("\n-----------------------------------------\n\n");
-
-            printf("Elija una opcion: ");
-            scanf("%d", &op2);
-            limpiarBufferTeclado();
-            switch(op2)
-            {
-            case 1:
-                menuActualizarReparto(centroLogistico, true);
-                break;
-            case 2:
-                menuActualizarReparto(centroLogistico, false);
-                break;
-            }
+            do{
+                printf("Seccion de repartos\n\n");
+                printf("1. Repartos abiertos\n");
+                printf("2. Repartos cerrados\n");
+                printf("0. Volver\n");
+                printf("-1. MENU PRINCIPAL\n");
+                printf("\n-----------------------------------------\n\n");
+                printf("Elija una opcion: ");
+                scanf("%d", &op2);
+                fflush(stdin);
+                switch(op2)
+                {
+                case 1:
+                    menuActualizarReparto(centroLogistico, true);
+                    break;
+                case 2:
+                    menuActualizarReparto(centroLogistico, false);
+                    break;
+                case 0:
+                    op4=deseaGuardarAntesDeSalir();
+                    switch(op4){
+                    case 1:
+                        guardarListaRepartos(centroLogistico,true);
+                        guardarListaRepartos(centroLogistico,false);
+                        break;
+                    case 2:
+                        break;
+                    }
+                    break;
+                }
+            }while(op2!=0);
             break;
         case 4:
             do
             {
                 printf("EMITIR LISTADOS DE:\n\n");
-
                 printf("1. Paquetes\n");
                 printf("2. Clientes\n");
                 printf("3. Choferes\n");
@@ -447,49 +453,48 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 printf("6. Repartos - CERRADOS\n");
                 printf("0. Volver\n");
                 printf("\n-----------------------------------------\n\n");
-
+                fflush(stdin);
                 printf("Elija una opcion: ");
-                scanf("%d",&op1);
-                limpiarBufferTeclado();
-
+                scanf("%d",&op2);
+                fflush(stdin);
                 system("cls");
-                switch(op1)
-                {
+                switch(op2){
                 case 1:
                     printf("Mostrar paquetes como:\n\n");
-
                     printf("1. Universal\n");
                     printf("2. En curso\n");
                     printf("0. Volver\n");
                     printf("\n-----------------------------------------\n\n");
-
+                    fflush(stdin);
                     printf("Elija una opcion: ");
-                    scanf("%d",&op2);
-                    limpiarBufferTeclado();
-
-                    switch(op2)
-                    {
+                    scanf("%d",&op3);
+                    fflush(stdin);
+                    switch(op3){
                     case 1:
                         mostrarPaquetes(centroLogistico);
+                        system("pause");
                         break;
                     case 2:
                         filtrarPaquetes(centroLogistico, 1);
                         filtrarPaquetes(centroLogistico, 2);
+                        system("pause");
                         break;
                     }
-
                     break;
                 case 2:
                     printf("EMITIENDO LISTADO DE CLIENTES\n\n");
                     mostrarClientes(centroLogistico);
+                    system("pause");
                     break;
                 case 3:
                     printf("EMITIENDO LISTADO DE CHOFERES\n\n");
                     mostrarChoferes(centroLogistico);
+                    system("pause");
                     break;
                 case 4:
                     printf("EMITIENDO LISTADO DE VEHICULOS\n\n");
                     mostrarVehiculos(centroLogistico);
+                    system("pause");
                     break;
                 case 5:
                         printf("Mostrar repartos en formato:\n\n");
@@ -497,18 +502,17 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         printf("2. Universal\n");
                         printf("0. Volver\n");
                         printf("\n-----------------------------------------\n\n");
-
                         printf("Elija una opcion: ");
-                        scanf("%d",&op2);
-                        limpiarBufferTeclado();
-
-                        switch(op2)
-                        {
+                        scanf("%d",&op3);
+                        fflush(stdin);
+                        switch(op3){
                         case 1:
                             menuMostrarEntregasReparto(centroLogistico, true);
+                            system("pause");
                             break;
                         case 2:
                             mostrarRepartos(centroLogistico, true);
+                            system("pause");
                             break;
                         }
                     break;
@@ -518,22 +522,19 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         printf("2. Universal\n");
                         printf("0. Volver\n");
                         printf("\n-----------------------------------------\n\n");
-
                         printf("Elija una opcion: ");
                         scanf("%d",&op2);
-                        limpiarBufferTeclado();
-
-                        switch(op2)
-                        {
+                        fflush(stdin);
+                        switch(op2){
                         case 1:
                             menuMostrarEntregasReparto(centroLogistico, false);
+                            system("pause");
                             break;
                         case 2:
                             mostrarRepartos(centroLogistico, false);
+                            system("pause");
                             break;
                         }
-                case 0:
-                    break;
                 default:
                     printf("\nOpcion incorrecta.\n\n");
                     break;
@@ -543,22 +544,26 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             } while(op1!=0);
             break;
         case 5:
+            resultadoGuardadoGeneral=guardarTodo(centroLogistico);
+            if(resultadoGuardadoGeneral==false){
+                printf("No se han podido guardar los datos\n");
+                printf("Es muy probable que la funcion GUARDAR_TODO\n");
+                printf("Este funcionando incorrectamente\n");
+                printf("Dirigase a solucionarlo\n");
+                exit(1);
+            }
             break;
         case 0:
             do
             {
                 system("cls");
                 printf("Tiene cambios sin guardar. Seguro que quiere salir?\n\n");
-
                 printf("1. Guardar cambios y salir\n");
                 printf("2. Salir sin guardar\n");
                 printf("0. Volver\n\n");
-
                 printf("Seleccione una opcion: ");
                 scanf("%d",&op1);
-
-                switch(op1)
-                {
+                switch(op1){
                 case 1:
                     guardarTodo(centroLogistico);
                     break;
@@ -577,7 +582,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             break;
         default:
             printf("\nOpcion incorrecta.\n\n");
-            presionarEnterYLimpiarPantalla();
+            system("cls");
             break;
         }
     } while(MAIN_OP!=0);

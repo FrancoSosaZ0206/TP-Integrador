@@ -243,3 +243,149 @@ ListaPtr crearListaRepartosPorDefecto()
 ///Retornamos la lista de repartos
     return listaRepartos;
 }
+
+ListaPtr crearListaPaquetesGenerico()
+{
+    ListaPtr listaPaquetes = crearLista();
+    PaquetePtr paquete1 = crearPaqueteDirect(rand(),4,2,5,150,"Sixto Fernandez",1800,"Lomas de Zamora","Calle Morazan",2100,"Villa fiorito",10,12,2022,16,45,0);
+    PaquetePtr paquete2 = crearPaqueteDirect(rand(),20,7,3,200,"Sixto Fernandez",1700,"Lomas de Zamora","Calle Morazan",2020,"Villa fiorito",10,12,2022,17,45,0);
+    PaquetePtr paquete3 = crearPaqueteDirect(rand(),15,5,9,75,"Sixto Fernandez",1220,"Lomas de Zamora","Calle Morazan",2310,"Villa fiorito",10,12,2022,18,45,0);
+    PaquetePtr paquete4 = crearPaqueteDirect(rand(),25,14,15,54,"Sixto Fernandez",5000,"Lomas de Zamora","Calle Morazan",250,"Villa fiorito",10,12,2022,19,45,0);
+    PaquetePtr paquete5 = crearPaqueteDirect(rand(),12,11,23,54,"Sixto Fernandez",1000,"Lomas de Zamora","Calle Morazan",650,"Villa fiorito",10,12,2022,20,45,0);
+    PaquetePtr paquete6 = crearPaqueteDirect(rand(),14,16,31,54,"Sixto Fernandez",2000,"Lomas de Zamora","Calle Morazan",550,"Villa fiorito",10,12,2022,21,45,0);
+    insertarDatoLista(listaPaquetes,(PaquetePtr)paquete1, longitudLista(listaPaquetes));
+    insertarDatoLista(listaPaquetes,(PaquetePtr)paquete2, longitudLista(listaPaquetes));
+    insertarDatoLista(listaPaquetes,(PaquetePtr)paquete3, longitudLista(listaPaquetes));
+    insertarDatoLista(listaPaquetes,(PaquetePtr)paquete4, longitudLista(listaPaquetes));
+    insertarDatoLista(listaPaquetes,(PaquetePtr)paquete5, longitudLista(listaPaquetes));
+    insertarDatoLista(listaPaquetes,(PaquetePtr)paquete6, longitudLista(listaPaquetes));
+    /*
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete1);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete2);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete3);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete4);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete5);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete6);
+    */
+    return listaPaquetes;
+}
+
+ListaPtr crearListaClientesGenerico()
+{
+    ListaPtr listaClientes = crearLista();
+    //Cliente 1
+    DomicilioPtr domicilio1 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
+    CuilPtr cuil_1 = crearCuil("20654342349");
+    PersonaPtr cliente1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,false);
+    //Cliente 2
+    DomicilioPtr domicilio2 = crearDomicilio("Italia",1000,"Lomas de zamora");
+    CuilPtr cuil_2 = crearCuil("20655612339");
+    PersonaPtr cliente2 = crearPersona("Gonzalo","Gutierrez",domicilio1,cuil_1,false);
+    //Cliente 3
+    DomicilioPtr domicilio3 = crearDomicilio("Espania",3000,"Lomas de zamora");
+    CuilPtr cuil_3 = crearCuil("20245432349");
+    PersonaPtr cliente3 = crearPersona("Gabriel","Alonzo",domicilio1,cuil_1,false);
+    //Cliente 4
+    DomicilioPtr domicilio4 = crearDomicilio("9 de mayo",2000,"Lomas de zamora");
+    CuilPtr cuil_4 = crearCuil("20126543212");
+    PersonaPtr cliente4 = crearPersona("Alfonso","Romero",domicilio1,cuil_1,false);
+    /*agregarDatoLista(listaPaquetes,(PersonaPtr)cliente1);
+    agregarDatoLista(listaPaquetes,(PersonaPtr)cliente2);
+    agregarDatoLista(listaPaquetes,(PersonaPtr)cliente3);
+    agregarDatoLista(listaPaquetes,(PersonaPtr)cliente4);*/
+    int i=0;
+    insertarDatoLista(listaClientes,(PersonaPtr)cliente1,i++);
+    insertarDatoLista(listaClientes,(PersonaPtr)cliente2,i++);
+    insertarDatoLista(listaClientes,(PersonaPtr)cliente3,i++);
+    insertarDatoLista(listaClientes,(PersonaPtr)cliente4,i++);
+    return listaClientes;
+}
+
+
+ListaPtr crearListaChoferesGenerico()
+{
+    ListaPtr listaChoferes = crearLista();
+    //chofer 1
+    DomicilioPtr domicilio1 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
+    CuilPtr cuil_1 = crearCuil("20654342349");
+    PersonaPtr chofer1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,true);
+    //chofer 2
+    DomicilioPtr domicilio2 = crearDomicilio("Italia",1000,"Lomas de zamora");
+    CuilPtr cuil_2 = crearCuil("20655612339");
+    PersonaPtr chofer2 = crearPersona("Gonzalo","Gutierrez",domicilio1,cuil_1,true);
+    //chofer 3
+    DomicilioPtr domicili3 = crearDomicilio("Espania",3000,"Lomas de zamora");
+    CuilPtr cuil_3 = crearCuil("20245432349");
+    PersonaPtr chofer3 = crearPersona("Gabriel","Alonzo",domicilio1,cuil_1,true);
+    //chofer 4
+    DomicilioPtr domicilio4 = crearDomicilio("9 de mayo",2000,"Lomas de zamora");
+    CuilPtr cuil_4 = crearCuil("20126543212");
+    PersonaPtr chofer4 = crearPersona("Alfonso","Romero",domicilio1,cuil_1,true);
+    /*agregarDatoLista(listaChoferes,(PersonaPtr)chofer1);
+    agregarDatoLista(listaChoferes,(PersonaPtr)chofer1);
+    agregarDatoLista(listaChoferes,(PersonaPtr)chofer1);
+    agregarDatoLista(listaChoferes,(PersonaPtr)chofer1);*/
+    int i=0;
+    insertarDatoLista(listaChoferes,(PersonaPtr)chofer1,i++);
+    insertarDatoLista(listaChoferes,(PersonaPtr)chofer2,i++);
+    insertarDatoLista(listaChoferes,(PersonaPtr)chofer3,i++);
+    insertarDatoLista(listaChoferes,(PersonaPtr)chofer4,i++);
+    return listaChoferes;
+}
+
+ListaPtr crearListaVehiculosGenerico()
+{
+    ListaPtr listaVehiculos = crearLista();
+    //vehiculo 1
+    VehiculoPtr vehiculo1 = crearVehiculo(3,"Mercedes Benz","Actros","19 UJI 30");
+    //vehiculo 2
+    VehiculoPtr vehiculo2 = crearVehiculo(3,"Ferrari","Benne","65 MNJ 91");
+    //vehiculo 3
+    VehiculoPtr vehiculo3 = crearVehiculo(3,"Volkswagen","17720","54 UYT 95");
+    //vehiculo 4
+    VehiculoPtr vehiculo4 = crearVehiculo(3,"Ford","C916","20 JUI 12");
+    /*agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo1);
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo2);
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo3);
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo4);*/
+    int i=0;
+    insertarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo1,i++);
+    insertarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo2,i++);
+    insertarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo3,i++);
+    insertarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo4,i++);
+    return listaVehiculos;
+}
+
+
+void MetodoDistintoDeMostrado()
+{
+    /*int i=0;
+    ListaPtr listaPaquetes = crearLista();
+    listaPaquetes = crearListaPaquetesGenerico();
+    while(i<longitudLista(listaPaquetes)){
+        printf("%d.",i);
+        mostrarPaquete((PaquetePtr)getDatoLista(listaPaquetes,i++));
+    }*/
+    /*
+    ListaPtr listaPaquetes = crearLista();
+    listaPaquetes = crearListaPaquetesGenerico();
+    CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido("Distribuidora");
+    setPaquetes(centroLogistico, listaPaquetes);
+    printf("Paquetes del centro logistico: %s\n", getNombreCentroLogistico(centroLogistico));
+    for(int i=0;i<longitudLista(getPaquetes(centroLogistico));i++){
+        printf("%d.",i);
+        mostrarPaquete((PaquetePtr)getDatoLista(getPaquetes(centroLogistico),i));
+    }
+    system("pause");*/
+}
+
+
+
+
+
+
+
+
+
+
+

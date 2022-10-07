@@ -103,24 +103,14 @@ void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esR
 
 void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
 {
-    ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getPaquetes(centroLogistico));
-
     int i=0;
-
     printf("\nLISTA DE PAQUETES: \n\n");
-    while(!listaVacia(listaAux)) //getPaquetes(centroLogistico)
+    while(i != longitudLista(getPaquetes(centroLogistico))) //getPaquetes(centroLogistico)
     {
         printf("%d. ",i+1);
-        mostrarPaquete((PaquetePtr)getCabecera(listaAux));
-        ListaPtr listaADestruir=listaAux;
-        listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
-
+        mostrarPaquete((PaquetePtr)getDatoLista(getPaquetes(centroLogistico),i));
         i++;
     }
-    listaAux=destruirLista(listaAux,false);
-    printf("\n");
 }
 
 void mostrarPersonas(CentroLogisticoPtr centroLogistico)

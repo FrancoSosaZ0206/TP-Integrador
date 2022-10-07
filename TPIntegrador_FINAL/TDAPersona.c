@@ -12,7 +12,6 @@
 PersonaPtr crearPersona(char *nombre,char *apellido,DomicilioPtr domicilio,CuilPtr cuil,bool esChofer)
 {
     PersonaPtr persona=(PersonaPtr)obtenerMemoria(sizeof(Persona));
-
     persona->nombre=crearStringDinamico(nombre);
     persona->apellido=crearStringDinamico(apellido);
     persona->domicilio=domicilio;
@@ -42,8 +41,6 @@ PersonaPtr destruirPersona(PersonaPtr persona)
     return NULL;
 }
 
-
-
 void setNombre(PersonaPtr persona,char *nombre)
 {
     strcpy(persona->nombre,nombre);
@@ -69,8 +66,6 @@ void setEsChofer(PersonaPtr persona,bool esChofer)
     persona->esChofer=esChofer; //de nuevo, esto se puede hacer sin drama.
 }
 
-
-
 char *getNombre(PersonaPtr persona)
 {
     return persona->nombre;
@@ -95,8 +90,6 @@ bool getEsChofer(PersonaPtr persona)
 {
     return persona->esChofer;
 }
-
-
 
 void mostrarPersona(PersonaPtr persona)
 {
