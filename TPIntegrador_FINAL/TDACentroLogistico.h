@@ -235,9 +235,21 @@ void agregarPaquete(CentroLogisticoPtr centroLogistico,PaquetePtr paquete);
 // persona: puntero a estructura que representa a la nueva persona.
 //Devuelve: nada.
 void agregarPersona(CentroLogisticoPtr centroLogistico,PersonaPtr persona);
-
+//Operación: Agrega una nueva persona.
+//Precondición: Centro logistico debe haberse creado.
+//Postcondición: El centro logistico va a tener un nuevo chofer.
+//Parámetros:
+// centroLogistico: puntero a estructura que representa al centro logistico.
+// persona: puntero a estructura que representa a la nueva persona.
+//Devuelve: nada.
 void agregarChofer(CentroLogisticoPtr centroLogistico,PersonaPtr chofer);
-
+//Operación: Agrega una nueva persona.
+//Precondición: Centro logistico debe haberse creado.
+//Postcondición: El centro logistico va a tener un nuevo cliente.
+//Parámetros:
+// centroLogistico: puntero a estructura que representa al centro logistico.
+// persona: puntero a estructura que representa a la nueva persona.
+//Devuelve: nada.
 void agregarCliente(CentroLogisticoPtr centroLogistico,PersonaPtr cliente);
 
 //Operación: Agrega un nuevo vehiculo.
@@ -343,13 +355,60 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
 //Devuelve: nada.
 void cerrarRepartoCtroLogistico(CentroLogisticoPtr centroLogistico, int posicion);
 
+//OPERACION: busqueda de vehiculos en repartos
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de repartos.
+//POSTCONDICION: se pide una patente, se busca si hay algun vehiculo que lo tenga.
+//              De encontrarse, la muestra por pantalla, y de lo contrario se informa que no se encontró.
+//PARÁMETROS:
+//  puntero al centro logistico
+//  patente a buscar
+//DEVUELVE: Nada.
 int buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
-
+//OPERACION: busqueda de choferes en repartos
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de repartos.
+//POSTCONDICION: se pide un CUIL, se busca si hay algun chofer que lo tenga.
+//               De encontrarse, devuelve la posicion, en caso contrario devuelve -1
+//PARÁMETROS:
+//  puntero al centro logistico
+//  cuil a buscar
+//DEVUELVE: Nada.
 int buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuil);
-
+//OPERACION: busqueda de clientes
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de clientes .
+//POSTCONDICION: se pide un CUIL, se busca si hay algun chofer que lo tenga.
+//               De encontrarse, devuelve la posicion, en caso contrario devuelve -1
+//PARÁMETROS:
+//  puntero al centro logistico
+//  cuil a buscar
+//DEVUELVE: Nada.
 int buscarCliente(CentroLogisticoPtr centroLogistico, char* cuil);
-
+//OPERACION: busqueda de choferes
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de choferes.
+//POSTCONDICION: se pide un CUIL, se busca si hay algun chofer que lo tenga.
+//               De encontrarse, devuelve la posicion, en caso contrario devuelve -1
+//PARÁMETROS:
+//  puntero al centro logistico
+//  cuil a buscar
+//DEVUELVE: Nada.
 int buscarChofer(CentroLogisticoPtr centroLogistico, char* cuil);
+//OPERACION: busqueda de reparto
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de repartos.
+//POSTCONDICION: se pide un indice, se busca si hay algun reparto que exista.
+//              De encontrarse, devuelve la posicion, en caso contrario devuelve -1
+//PARÁMETROS:
+//  puntero al centro logistico
+//  indice a buscar
+//DEVUELVE: Nada.
+int buscarReparto(CentroLogisticoPtr centroLogistico, int posicionSolicitada);
+//OPERACION: busqueda de paquete
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de repartos.
+//POSTCONDICION: se pide un indice, se busca si hay algun paquete que exista.
+//              De encontrarse, devuelve la posicion, en caso contrario devuelve -1
+//PARÁMETROS:
+//  puntero al centro logistico
+//  reparto en el cual buscar
+//DEVUELVE: Nada.
+int menuBuscarPaqueteReparto(CentroLogisticoPtr centroLogistico, RepartoPtr reparto);
 
 //---------------------------------------Funciones para resetear listas------------------------------------------------
 

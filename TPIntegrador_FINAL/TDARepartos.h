@@ -21,7 +21,16 @@ typedef struct Reparto
 } Reparto;
 typedef Reparto * RepartoPtr;
 
-
+//Operación: Creacion del TDArepartos.
+//Precondición: Repartos no debe estar creado.
+//Postcondición: Se crea un nuevo reparto.
+//Parámetros:
+// chofer: un puntero de la estructura persona representando al chofer.
+// vehiculo: un puntero a de la estructura vehiculo representando al vehiculo.
+// fechaSalida: un puntero a la estructura fecha representando la fecha de salida.
+// fechaRetorno: un puntero a la estructura fecha representando la fecha de retorno.
+// paquetes: un puntero a la estructura pila que contiene los paquetes del reparto.
+//Devuelve un puntero a la nueva estructura.
 RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr listaPaquetes);
 
 ///estas 2 primeras llaman a crear y destruir reparto. Son como sinónimos, pero más user-friendly.
@@ -112,6 +121,16 @@ void setFechaSalida(RepartoPtr reparto,FechaPtr fechaSalida);
 // fechaRetorno: puntero a la estructura del nuevo valor.
 //Devuelve nada
 void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno);
+
+//Operación: Setter
+//Precondición: La lista debe haberse creado.
+//Postcondición: Se asigna la lista de paquetes en reparto
+//Parámetros:
+// reparto: puntero a la estructura a guardar
+//paquetes: puntero a la estructura a guardar
+//Devuelve vacio
+void setListaPaquetesReparto(RepartoPtr repart, ListaPtr paquetes);
+
 //Operación: Agrega un nuevo paquete a la pila de paquetes.
 //Precondición: La pila debe haberse creado
 //Postcondición: La pila tiene un nuevo paquete
@@ -142,10 +161,28 @@ int cantidadPaquetes(RepartoPtr reparto); //devuelve cantidad de paquetes que co
 //Devuelve nada
 void mostrarReparto(RepartoPtr reparto);
 
+//Operación: Longitud de lista de repartos.
+//Precondición: La lista debe haberse creado.
+//Postcondición: Se obtiene la cantidad de paquetes del reparto.
+//Parámetros:
+// reparto: puntero a la estructura a sacar la longitud.
+//Devuelve un entero representando la cantidad de paquetes.
 int CantidadEntregas(RepartoPtr reparto);
 
+//Operación: Getter
+//Precondición: La lista de paquetes debe haberse creado.
+//Postcondición: Se obtiene la lista de paquetes
+//Parámetros:
+// reparto: puntero a la estructura a sacar los paquetes.
+//Devuelve un puntero a la lista de paquetes
 ListaPtr getListaPaquetesReparto(RepartoPtr reparto);
 
+//Operación: mostrado
+//Precondición: La lista debe haberse creado.
+//Postcondición: Se muestran todos los paquetes del reparto
+//Parámetros:
+// reparto: puntero a la estructura a mostrar
+//Devuelve vacio
 void mostrarPaquetesListaReparto(RepartoPtr reparto);
 
 #endif // TDAREPARTOS_H_INCLUDED

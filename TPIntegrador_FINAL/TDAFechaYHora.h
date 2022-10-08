@@ -247,13 +247,34 @@ char *traerFechaYHoraDinamica(FechaPtr fecha);
 // fecha: puntero a la fecha a válidar.
 //Devuelve true si es válida, false si no es valida.
 bool esFechaValida(FechaPtr fecha); ///NUEVA
-
+//Operación: Mostrar
+//Precondición: fecha debe haberse creado
+//Postcondición: Se muestra la fecha en formato D/M/A H:M
+//Parámetros:
+// fecha: puntero a fecha
+//Devuelve vacio
 void mostrarFecha(FechaPtr fecha);
 
+//Operación: diferencia fecha dias
+//Precondición: fecha debe haberse creado
+//Postcondición: fetermina la diferencia de dias
+//Parámetros:
+// fecha: puntero a la fecha a válidar.
+//Devuelve la diferencia en dias
 int calcularDiferenciaFechasDias(FechaPtr fecha1,FechaPtr fecha2);
-
+//Operación: diferencia fecha hora
+//Precondición: fecha debe haberse creado
+//Postcondición: fetermina la diferencia de hora
+//Parámetros:
+// fecha: puntero a la fecha a válidar.
+//Devuelve la diferencia en horas
 int calcularDiferenciaFechasHora(FechaPtr fecha1,FechaPtr fecha2);
-
+//Operación: diferencia fecha minutos
+//Precondición: fecha debe haberse creado
+//Postcondición: fetermina la diferencia de minutos
+//Parámetros:
+// fecha: puntero a la fecha a válidar.
+//Devuelve la diferencia en minutos
 int calcularDiferenciaFechasMinutos(FechaPtr fecha1,FechaPtr fecha2);
 
 #endif //TDAFECHAYHORA_H_INCLUDED

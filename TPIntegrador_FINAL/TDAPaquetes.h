@@ -130,6 +130,12 @@ FechaPtr getFechaEntrega(PaquetePtr paquete);
 //Devuelve un entero que representa el estado del paquete.
 int getEstado(PaquetePtr paquete);
 
+//Operación: Obtencion de cliente.
+//Precondición: Paquete debe estar creado.
+//Postcondición: Se obtiene el cliente/destinatario.
+//Parámetros:
+// paquete: puntero a la estructura a sacar el dato.
+//Devuelve estructura con los datos de Persona.
 PersonaPtr getClientePaquete(PaquetePtr paquete);
 
 //Operación: Asignar Id.
@@ -204,6 +210,15 @@ void setFechaEntrega(PaquetePtr paquete,FechaPtr fechaEntrega);
 // entero: entero que representa el nuevo estado del paquete. 0:en deposito 1:en curso 2:retirado  3:entregado 4:demorado 5:suspendido
 //Devuelve nada
 void setEstado(PaquetePtr paquete,int estado);
+
+//Operación: Asignar cliente.
+//Precondición: Paquete debe estar creado.
+//Postcondición: Paquete tiene un nuevo cliente.
+//Parámetros:
+// paquete: puntero a la estructura a asignar el  nuevo dato.
+// Persona: estructura de Persona
+//Devuelve nada
+void setClientePaquete(PaquetePtr paquete, PersonaPtr cliente);
 
 //Operación: Muestra el paquete.
 //Precondición: Paquete debe estar creado.

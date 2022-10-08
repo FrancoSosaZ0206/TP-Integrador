@@ -993,29 +993,97 @@ void menuCerrarReparto(CentroLogisticoPtr centroLogistico){
     agregarDatoLista(getRepartos(centroLogistico,false),(RepartoPtr)repartoCerrado);
 }
 
-void menuActualizarReparto(CentroLogisticoPtr centroLogistico){
-    int eleccion=0;
-    mostrarRepartos(centroLogistico,true);
-    do{
-        fflush(stdin);
-        printf("Seleccione un reparto para actualizar mediante su indice: ");
-        scanf("%d",&eleccion);
-    }while(eleccion<0 && eleccion>longitudLista(getRepartos(centroLogistico,true)));
-    RepartoPtr repartoActualizar=getDatoLista(getRepartos(centroLogistico,true),eleccion);
-    mostrarPaquetesListaReparto(repartoActualizar);
-    do{
-        fflush(stdin);
-        printf("Seleccione una entrega para actualizar mediante su indice: ");
-        scanf("%d",&eleccion);
-    }while(eleccion<0 && eleccion>longitudLista(getListaPaquetesReparto(repartoActualizar)));
-    PaquetePtr paqueteActualizar=getDatoLista(getListaPaquetesReparto(repartoActualizar),eleccion);
-    do{
-        fflush(stdin);
-        helpEstadoPaquete();
-        printf("Eleccion: ");
-        scanf("%d",&eleccion);
+int menuBuscadoReparto(){
+    int eleccion;
+    fflush(stdin);
+    printf("Buscar reparto mediante\n");
+    printf("1. El indice\n");
+    printf("2. Cuil del chofer\n");
+    printf("3. Patente del vehiculo\n");
+    printf("0. Volver\n");
+    printf("Opcion: ");
+    scanf("%d",&eleccion);
+    fflush(stdin);
+    return eleccion;
+}
+
+int seleccionarEstadoReparto(){
+    int eleccion;
+    fflush(stdin);
+    helpEstadoPaquete();
+    printf("Eleccion: ");
+    scanf("%d",&eleccion);
+    fflush(stdin);
+    return eleccion;
+}
+
+void modificarEstadoPaquete(CentroLogisticoPtr centroLogistico, int posicionEncontrado){
+    int eleccion;
+    system("cls");
+    RepartoPtr repartoActualizar=getDatoLista(getRepartos(centroLogistico,true),posicionEncontrado);
+    ///mostrarPaquetesListaReparto(repartoActualizar);
+    posicionEncontrado=menuBuscarPaqueteReparto(centroLogistico,repartoActualizar);
+    if(posicionEncontrado!=-1){
+        system("cls");
+        PaquetePtr paqueteActualizar=getDatoLista(getListaPaquetesReparto(repartoActualizar),posicionEncontrado);
+        eleccion=seleccionarEstadoReparto();
         setEstado(paqueteActualizar,eleccion);
-    }while(eleccion<0 && eleccion>3);
+    }else{
+        printf("No existe tal paquete\n");
+        system("pause");
+    }
+}
+
+void menuActualizarReparto(CentroLogisticoPtr centroLogistico){
+    int MAIN=0,posicionEncontrado=0,eleccion=0;
+    char cuilBuscar[100];
+    char patenteBuscar[100];
+    do{
+        system("cls");
+        ///mostrarRepartos(centroLogistico,true);
+        MAIN=menuBuscadoReparto();
+        switch(MAIN){
+        case 1:
+            printf("Seleccione un reparto para actualizar mediante su indice: ");
+            scanf("%d",&eleccion);
+            posicionEncontrado=buscarReparto(centroLogistico,eleccion);
+            if(posicionEncontrado!=-1)
+                modificarEstadoPaquete(centroLogistico,posicionEncontrado);
+            else{
+                printf("Reparto inexistente\n");
+                system("pause");
+            }
+            break;
+        case 2:
+            system("cls");
+            fflush(stdin);
+            printf("Seleccione un reparto para actualizar mediante el cuil del chofer: ");
+            scanf("%[^\n]%*c",cuilBuscar);
+            fflush(stdin);
+            posicionEncontrado=buscarChoferRepartos(centroLogistico,cuilBuscar);
+            if(posicionEncontrado!=-1)
+                modificarEstadoPaquete(centroLogistico,posicionEncontrado);
+            else{
+                printf("No existe este reparto con este chofer\n");
+                system("pause");
+            }
+            break;
+        case 3:
+            system("cls");
+            fflush(stdin);
+            printf("Seleccione un reparto para actualizar mediante la patente del vehiculo: ");
+            scanf("%[^\n]%*c",patenteBuscar);
+            fflush(stdin);
+            posicionEncontrado=buscarVehiculoRepartos(centroLogistico,patenteBuscar);
+            if(posicionEncontrado!=-1)
+                modificarEstadoPaquete(centroLogistico,posicionEncontrado);
+            else{
+                printf("No existe este reparto con este vehiculo\n");
+                system("pause");
+            }
+            break;
+        }
+    }while(MAIN!=0);
 }
 
 void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto){

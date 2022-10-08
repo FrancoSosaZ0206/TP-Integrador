@@ -9,6 +9,7 @@
 #include "TDARepartos.h"
 #include "TDACentroLogistico.h"
 #include "util.h"
+#include "Menus.h"
 
 
 CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,ListaPtr listaClientes,ListaPtr listaChoferes,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados){
@@ -181,10 +182,14 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico){
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
     int i=0;
     printf("\n\n\n /////////////////////////////////////////////////////////////////////////////////// \n");
-    printf("\n\t\t LISTA DE REPARTOS \n\n");
+    printf("\n\t\t LISTA DE REPARTOS ");
+    if(esRepartoAbierto)
+        printf("ABIERTOS \n\n");
+    else
+        printf("CERRADOS \n\n");
     printf(" /////////////////////////////////////////////////////////////////////////////////// \n\n\n");
     ListaPtr listaAuxiliar=crearLista();
-    agregarLista(listaAuxiliar,getRepartos(centroLogistico,true));
+    agregarLista(listaAuxiliar,getRepartos(centroLogistico,esRepartoAbierto));
     while(!listaVacia(listaAuxiliar)){
         printf(" ----------------------------------------------------------------------------\n");
         printf("\t\t REPARTO NRO %d \n",i++);
@@ -331,9 +336,47 @@ int buscarPaquete(CentroLogisticoPtr centroLogistico, int codigo){
 
 int buscarReparto(CentroLogisticoPtr centroLogistico, int posicionSolicitada){
     int posicionEncontrado=-1;
-        if(posicionSolicitada>0 && posicionSolicitada<longitudLista(getRepartos(centroLogistico,true)))
+        if(posicionSolicitada>=0 && posicionSolicitada<longitudLista(getRepartos(centroLogistico,true)))
             return posicionSolicitada;
     return posicionEncontrado;
+}
+
+int menuBusquedaPaqueteReparto(){
+    int eleccion=0;
+    fflush(stdin);
+    printf("Buscar paquete mediante\n");
+    printf("1. El indice\n");
+    printf("2. El id\n");
+    printf("Opcion: ");
+    scanf("%d",&eleccion);
+    fflush(stdin);
+    return eleccion;
+}
+
+int menuBuscarPaqueteReparto(CentroLogisticoPtr centroLogistico, RepartoPtr reparto){
+    int posicionEncontrado=-1,eleccion=0,ID=0,posicionSolicitada=0;
+    eleccion=menuBusquedaPaqueteReparto(reparto);
+    printf("Menu de busqueda de paquete\n");
+    switch(eleccion){
+    case 1:
+        printf("Ingrese el indice para buscar: ");
+        scanf("%d",&posicionSolicitada);
+        if(posicionSolicitada>=0 && posicionSolicitada<longitudLista(getPaquetes(centroLogistico)))
+            return posicionSolicitada;
+        else
+            return -1;
+        break;
+    case 2:
+        printf("Ingrese ID para buscar:");
+        scanf("%d",&ID);
+        posicionEncontrado=buscarPaquete(centroLogistico,ID);
+        return posicionEncontrado;
+        break;
+    default:
+        printf("Seleccione una opcion valida\n");
+        return -1;
+        break;
+    }
 }
 
 //Funciones de agregado a la lista

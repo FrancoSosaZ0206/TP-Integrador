@@ -94,8 +94,22 @@ void menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 //DEVUELVE: Nada
 void menuCargarVehiculo(CentroLogisticoPtr centroLogistico);
 
+//OPERACION: menu de carga de vehiculos
+//PRECONDICIÓN: centro logistico debe haberse creado en main.c
+//POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion,
+//               se crea un chofer y se agrega a la lista de choferes del centro logistico
+//PARÁMETROS:
+//  puntero al centro logistico
+//DEVUELVE: Nada
 void menuCargarChofer(CentroLogisticoPtr centroLogistico);
 
+//OPERACION: menu de carga de vehiculos
+//PRECONDICIÓN: centro logistico debe haberse creado en main.c
+//POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion,
+//               se crea un cliente y se agrega a la lista de clientes del centro logistico
+//PARÁMETROS:
+//  puntero al centro logistico
+//DEVUELVE: Nada
 PersonaPtr menuCargarCliente(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
@@ -130,26 +144,59 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 //DEVUELVE: Nada.
 void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico);
 
-//OPERACION: menu de eliminacion de un paquete de la lista
-//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de paquetes.
-//POSTCONDICION: Se muestra la lista de paquetes, y el usuario elige el indice del paquete a eliminar.
-//               Si el indice es valido, se destruye el paquete, y si no se muestra un mensaje
-//               que informa el fracaso de la operacion.
+//OPERACION: menu de busqueda de personas
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de personas.
+//POSTCONDICION: se pide un CUIL, se busca si hay algun cliente que lo tenga.
+//              De encontrarse, la muestra por pantalla, y de lo contrario se informa que no se encontró.
 //PARÁMETROS:
 //  puntero al centro logistico
-//DEVUELVE: Nada
+//DEVUELVE: Nada.
+void menuBuscarCliente(CentroLogisticoPtr centroLogistico);
 
+//OPERACION: menu de busqueda de personas
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de personas.
+//POSTCONDICION: se pide un CUIL, se busca si hay algun chofer que lo tenga.
+//              De encontrarse, la muestra por pantalla, y de lo contrario se informa que no se encontró.
+//PARÁMETROS:
+//  puntero al centro logistico
+//DEVUELVE: Nada.
+void menuBuscarChofer(CentroLogisticoPtr centroLogistico);
 ///--------------------------------------------------------------------------------------------------------------------------
 
 ///                                             MENÚS DE ELIMINACIÓN DE DATOS
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
+//OPERACION: menu de eliminacion de un persona de la lista
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de personas.
+//POSTCONDICION: Se muestra la lista de clientes, y el usuario elige el indice de la persona a eliminar.
+//               Si el indice es valido, se destruye la persona, y si no se muestra un mensaje
+//               que informa el fracaso de la operacion.
+//PARÁMETROS:
+//  puntero al centro logistico, booleano para determinar si es un chofer o un cliente
+//DEVUELVE: Nada
 void menuEliminarCliente(CentroLogisticoPtr centroLogistico);
 
+//OPERACION: menu de eliminacion de un persona de la lista
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de personas.
+//POSTCONDICION: Se muestra la lista de choferes, y el usuario elige el indice de la persona a eliminar.
+//               Si el indice es valido, se destruye la persona, y si no se muestra un mensaje
+//               que informa el fracaso de la operacion.
+//PARÁMETROS:
+//  puntero al centro logistico, booleano para determinar si es un chofer o un cliente
+//DEVUELVE: Nada
 void menuEliminarChofer(CentroLogisticoPtr centroLogistico);
 
+//OPERACION: menu de eliminacion de un persona de la lista
+//PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de personas.
+//POSTCONDICION: Se muestra la lista de paquetes, y el usuario elige el indice del paquete a eliminar.
+//               Si el indice es valido, se destruye la paquete, y si no se muestra un mensaje
+//               que informa el fracaso de la operacion.
+//PARÁMETROS:
+//  puntero al centro logistico, booleano para determinar si es un chofer o un cliente
+//DEVUELVE: Nada
 void menuEliminarPaquete(CentroLogisticoPtr centroLogistico);
+
 //OPERACION: menu de eliminacion de un persona de la lista
 //PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de personas.
 //POSTCONDICION: Se muestra la lista de personas, y el usuario elige el indice de la persona a eliminar.
@@ -175,14 +222,30 @@ void menuEliminarVehiculo(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
-
+//FUNCIÓN DE MODIFICACIÓN DE PAQUETE DE CENTRO LOGISTICO
+//PRECONDICIÓN:
+//              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
+//              - El campo de listaClientes debe haber sido creada con la funcion crearLista previamente en memoria dinamica
+//POSTCONDICIÓN: Genera una serie de opciones por pantalla que le permite al usuario modificar el valor de algún campo
+//               de algún paquete solciitado por el usuario, seleccionando mediante un numero
+//               Luego, se elige el campo que se desea modificar, y posteriormente se asigna el valor ingresado por teclado
+//               Hasta que el usuario desee encerrado en un do while
+//PARÁMETROS: CentroLogisticoPtr donde se generara la modificacion del cliente procedente
+//DEVUELVE: Nada.
 void menuModificarCliente(CentroLogisticoPtr centroLogistico);
 
+//FUNCIÓN DE MODIFICACIÓN DE PAQUETE DE CENTRO LOGISTICO
+//PRECONDICIÓN:
+//              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
+//              - El campo de listaChoferes debe haber sido creada con la funcion crearLista previamente en memoria dinamica
+//POSTCONDICIÓN: Genera una serie de opciones por pantalla que le permite al usuario modificar el valor de algún campo
+//               de algún paquete solciitado por el usuario, seleccionando mediante un numero
+//               Luego, se elige el campo que se desea modificar, y posteriormente se asigna el valor ingresado por teclado
+//               Hasta que el usuario desee encerrado en un do while
+//PARÁMETROS: CentroLogisticoPtr donde se generara la modificacion del chofer procedente
+//DEVUELVE: Nada.
 void menuModificarChofer(CentroLogisticoPtr centroLogistico);
 
-void menuBuscarCliente(CentroLogisticoPtr centroLogistico);
-
-void menuBuscarChofer(CentroLogisticoPtr centroLogistico);
 
 //FUNCIÓN DE MODIFICACIÓN DE PAQUETE DE CENTRO LOGISTICO
 //PRECONDICIÓN:
@@ -292,6 +355,13 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 
+//OPERACION: Setter
+//PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
+//POSTCONDICION: Despliega un menu para modificar el paquete pasado por parametro de la funcion
+//PARÁMETROS:
+//  centroLogistico: puntero a la estructura centro logistico, posicion del paquete a modificar
+//DEVUELVE: nada.
+void modificarEstadoPaquete(CentroLogisticoPtr centroLogistico, int posicionEncontrado);
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
