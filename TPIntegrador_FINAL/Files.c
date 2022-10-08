@@ -1394,11 +1394,12 @@ ListaPtr LeerListaVehiculosNuevo(){
 
 PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico){
     if(ADinamico){
-        PD=crearPersonaDirect(PE->nombre,PE->apellido,
+        /*PD=crearPersonaDirect(PE->nombre,PE->apellido,
                               PE->domicilio.calle,
                               PE->domicilio.altura,
                               PE->domicilio.localidad,
-                              PE->cuil,PE->esChofer);
+                              PE->cuil,PE->esChofer);*/
+        PD=crearPersonaDirectNuevo(PE);
     }else{
         strcpy(PE->nombre ,PD->nombre);
         strcpy(PE->apellido,PD->apellido);
@@ -1471,33 +1472,77 @@ PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico){
         PE->largo=PD->largo;
         PE->peso=PD->peso;
         PE->estado=PD->estado;
-        //PasajeDomicilioDinamico(&PE->dirRetiro,PD->dirRetiro,false);
-        //PasajeDomicilioDinamico(&PE->dirEntrega,PD->dirEntrega,false);
-        //PasajeFechaDinamico(&PE->fechaEntrega,PD->fechaEntrega,false);
-        //strcpy(PE->cliente.nombre,PD->cliente->nombre);
+        PasajeDomicilioDinamico(&PE->dirRetiro,PD->dirRetiro,false);
+        PasajeDomicilioDinamico(&PE->dirEntrega,PD->dirEntrega,false);
+        PasajeFechaDinamico(&PE->fechaEntrega,PD->fechaEntrega,false);
         PasajePersonaDinamico(&PE->cliente,PD->cliente,false);
     }
     return PD;
 }
 
 
+void GuardarListaPaquetesNuevo(ListaPtr listaPaquetes){
+    FILE* arch;
+    fPaquete PE;
+    PaquetePtr PD;
+    ListaPtr LA=listaPaquetes;
+    arch=fopen("PaquetesPrueba.bin","wb");
+    fclose(arch);
+    arch=fopen("PaquetesPrueba.bin","ab");
+    while(!listaVacia(LA)){
+        PD=getCabecera(LA);
+        PasajePaqueteDinamico(&PE,PD,false);
+        fwrite(&PE,sizeof(fPaquete),1,arch);
+        LA=getResto(LA);
+    }
+    fclose(arch);
+}
+
+ListaPtr LeerListaPaquetesNuevo(){
+    FILE* arch;
+    fPaquete PE;
+    PaquetePtr PD;
+    ListaPtr LP=crearLista();
+    arch=fopen("PaquetesPrueba.bin","rb");
+    fread(&PE,sizeof(fPaquete),1,arch);
+    while(!feof(arch)){
+        PD=PasajePaqueteDinamico(&PE,PD,true);
+        agregarDatoLista(LP,(PaquetePtr)PD);
+        fread(&PE,sizeof(fPaquete),1,arch);
+    }
+    fclose(arch);
+    ListaPtr LA=LP;
+    while(!listaVacia(LA)){
+        PD=getCabecera(LA);
+        mostrarPaquete(PD);
+        LA=getResto(LA);
+    }
+    return LP;
+}
+
+
+///-----------------------------------------------------------------------///
+
+/*
 void pruebaPasajePaquete(){
     fPaquete PE;
     DomicilioPtr domicilio1 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
     CuilPtr cuil_1 = crearCuil("20654342349");
     PersonaPtr cliente1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,false);
-    PaquetePtr PD=crearPaqueteDirect(1,1,1,1,1,"1",1,"1","1",1,"1",1,1,2022,1,1,1,"1","1","1",1,"1","1",cliente1);
+    PaquetePtr PD=crearPaqueteDirect1(1,1,1,1,1,"1",1,"1","1",1,"1",1,1,2022,1,1,1,"1","1","1",1,"1","1","1","1","1",1,"1","1",false);
+    ///mostrarPaquete(PD);
     PasajePaqueteDinamico(&PE,PD,false);
-    //strcpy(PE.cliente.nombre,PD->cliente->nombre);
+    PaquetePtr PDP=PasajePaqueteDinamico(&PE,PDP,true);
+    system("cls");
+    mostrarPaquete(PDP);
     printf("%d\n", PE.alto);
     printf("%d\n", PE.fechaEntrega.dia);
     printf("%d\n", PE.dirEntrega.altura);
     printf("%d\n", PE.dirRetiro.altura);
     printf("%s\n", PE.cliente.nombre);
-}
+}*/
 
 
-///-----------------------------------------------------------------------///
 /*
 
 void pruebaPasaje(ListaPtr listaVehiculos){

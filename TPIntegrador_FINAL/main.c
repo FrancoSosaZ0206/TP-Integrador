@@ -83,7 +83,9 @@ int main(){
     ///mostrarPaquete(PD);
     ///PersonaPtr PDD=crearPersonaDirect("1","1","1",1,"1","1",false);
     ///mostrarPersona(PDD);
-    pruebaPasajePaquete();
+    //pruebaPasajePaquete();
+    GuardarListaPaquetesNuevo(listaPaquetes);
+    LeerListaPaquetesNuevo();
     system("pause");
     //pruebaPasajePersona();
     int START_OP=0;
