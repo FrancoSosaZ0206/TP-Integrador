@@ -142,6 +142,45 @@ void actualizarFecha(FechaPtr fecha){
     system("pause");
 }
 
+PersonaPtr actualizarCliente(PersonaPtr cliente){
+    int eleccion;
+    char nombre[100];
+    char apellido[100];
+    DomicilioPtr domicilio = getDomicilio(cliente);
+    CuilPtr Cuil = getCuilPersona(cliente);
+    char cuil[100];
+    system("cls");
+    fflush(stdin);
+    printf("1. Modificar nombre y apellido\n");
+    printf("2. Modificar domicilio\n");
+    printf("3. Modificar cuil\n");
+    scanf("%d",&eleccion);
+    fflush(stdin);
+    switch(eleccion){
+    case 1:
+        fflush(stdin);
+        printf("Nombre:");
+        scanf("%[^\n]%*c",nombre);
+        fflush(stdin);
+        printf("Apellido:");
+        scanf("%[^\n]%*c",apellido);
+        fflush(stdin);
+        setNombre(cliente,nombre);
+        setApellido(cliente,apellido);
+        break;
+    case 2:
+        actualizarDomicilio(domicilio);
+        break;
+    case 3:
+        fflush(stdin);
+        printf("Cuil:");
+        scanf("%[^\n]%*c", cuil);
+        fflush(stdin);
+        Cuil = setCuil(Cuil,cuil);
+        break;
+    }
+    return cliente;
+}
 
 
 
@@ -188,14 +227,16 @@ void menuCargarPaquete(CentroLogisticoPtr centroLogistico){
         fflush(stdin);
         fechaEntrega=cargarFecha(fechaEntrega);
         fflush(stdin);
-        paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,0);
+        system("cls");
+        PersonaPtr cliente=menuCargarCliente(centroLogistico);
+        paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,cliente,0);
         agregarPaquete(centroLogistico,paquete);
         printf("\n\nPaquete #%d cargado exitosamente.\n\n",ID);
         system("pause");
     }
 }
 
-void menuCargarCliente(CentroLogisticoPtr centroLogistico){
+PersonaPtr menuCargarCliente(CentroLogisticoPtr centroLogistico){
     int n=0,posicionEncontrado=0;
     char nombre[100];
     char apellido[100];
@@ -235,6 +276,7 @@ void menuCargarCliente(CentroLogisticoPtr centroLogistico){
             system("pause");
         }
     }
+    return cliente;
 }
 
 void menuCargarChofer(CentroLogisticoPtr centroLogistico){
@@ -465,6 +507,7 @@ void menuModificarPaquete(CentroLogisticoPtr centroLogistico){
     DomicilioPtr nuevaDirRetiro;
     DomicilioPtr nuevaDirEntrega;
     FechaPtr nuevaFechaEntrega;
+    PersonaPtr cliente;
     system("cls");
     printf("MODIFICAR PAQUETE\n\n");
     mostrarPaquetes(centroLogistico);
@@ -472,6 +515,7 @@ void menuModificarPaquete(CentroLogisticoPtr centroLogistico){
     scanf("%d",&iMod);
     //-1 porque muestra con i+1 dentro de la funcion.
     PaquetePtr paqueteAModificar=(PaquetePtr)getDatoLista(getPaquetes(centroLogistico),iMod);
+    cliente = getClientePaquete(paqueteAModificar);
     do{
         system("cls");
         fflush(stdin);
@@ -486,6 +530,7 @@ void menuModificarPaquete(CentroLogisticoPtr centroLogistico){
         printf("6. Direccion de Entrega\n");
         printf("7. Fecha de Entrega\n");
         printf("8. Estado\n");
+        printf("9. Modificar al destinatario\n");
         printf("Seleccione una opcion: ");
         scanf("%d",&op);
         fflush(stdin);
@@ -530,6 +575,9 @@ void menuModificarPaquete(CentroLogisticoPtr centroLogistico){
             printf("\n\nIngrese el nuevo estado: ");
             scanf("%d",&nEstado);
             setEstado(paqueteAModificar,nEstado);
+            break;
+        case 9:
+            cliente = actualizarCliente(cliente);
             break;
         default:
             printf("\nOpcion incorrecta.\n\n");

@@ -94,6 +94,8 @@ void menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 //DEVUELVE: Nada
 void menuCargarVehiculo(CentroLogisticoPtr centroLogistico);
 
+PersonaPtr menuCargarCliente(CentroLogisticoPtr centroLogistico);
+
 ///--------------------------------------------------------------------------------------------------------------------------
 
 ///                                             MENÚS DE BÚSQUEDA DE DATOS

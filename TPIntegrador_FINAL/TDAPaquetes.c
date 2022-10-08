@@ -6,7 +6,7 @@
 #include "TDAPaquetes.h"
 #include "util.h"
 
-PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,int estado){
+PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,PersonaPtr cliente,int estado){
     PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
     paquete->ID=ID;
     paquete->ancho=ancho;
@@ -16,6 +16,7 @@ PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPt
     paquete->dirRetiro=dirRetiro;
     paquete->dirEntrega=dirEntrega;
     paquete->fechaEntrega=fechaEntrega;
+    paquete->cliente=cliente;
     paquete->estado=estado;
     return paquete;
 }
@@ -35,7 +36,7 @@ PaquetePtr crearPaqueteNuevo(int ID,int ancho,int alto,int largo,int peso,Domici
     return paquete;
 }
 
-PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado)
+PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado,PersonaPtr cliente)
 {
     PaquetePtr paquete = (PaquetePtr) obtenerMemoria(sizeof(Paquete));
     paquete->ID=ID;
@@ -47,6 +48,7 @@ PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char 
     paquete->dirEntrega=crearDomicilio(calleEntrega,alturaEntrega,localidadEntrega);
     paquete->fechaEntrega=crearFecha(dia,mes,anio,hora,minuto);
     paquete->estado=estado;
+    paquete->cliente=cliente;
     return paquete;
 }
 
@@ -55,7 +57,7 @@ PaquetePtr destruirPaquete(PaquetePtr paquete)
     paquete->dirRetiro=destruirDomicilio(paquete->dirRetiro);
     paquete->dirEntrega=destruirDomicilio(paquete->dirEntrega);
     paquete->fechaEntrega=destruirFecha(paquete->fechaEntrega);
-
+    paquete->cliente=destruirPersona(paquete->cliente);
     free(paquete);
     return NULL;
 }
@@ -176,6 +178,7 @@ void mostrarPaquete(PaquetePtr paquete){
     printf("\tDireccion de Entrega: ");
     mostrarDomicilio(getDirEntrega(paquete));
     mostrarFecha(getFechaEntrega(paquete));
+    mostrarPersona(getClientePaquete(paquete));
 }
 void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
 {

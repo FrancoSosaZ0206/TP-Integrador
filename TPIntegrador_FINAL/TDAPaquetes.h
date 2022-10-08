@@ -35,7 +35,7 @@ typedef Paquete * PaquetePtr;
 // fechaEntrega: puntero a la estructura que representa la fecha de entrega.
 // estado: entero que represeta el estado del paquete.
 //Devuelve un puntero a la estructura creada.
-PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,int estado);
+PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,PersonaPtr cliente,int estado);
 
 
 //Operación: crea un paquete de forma directa, sin recibir estructuras
@@ -56,7 +56,7 @@ PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPt
 // fechaEntrega: 5 enteros representando el dia, mes, año, hora y minuto de entrega.
 // estado: entero que represeta el estado del paquete.
 //Devuelve un puntero a la estructura creada.
-PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado);
+PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado,PersonaPtr cliente);
 
 //Operación: Destruye el TDApaquete
 //Precondición: Paquete debe estar creado.
