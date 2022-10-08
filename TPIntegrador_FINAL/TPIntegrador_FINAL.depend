@@ -694,7 +694,7 @@
 	<string.h>
 	"util.h"
 
-1664986440 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\files.c
+1665179757 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\files.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -731,7 +731,7 @@
 	<stdbool.h>
 	"TDANodo.h"
 
-1665115493 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacentrologistico.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacentrologistico.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -741,38 +741,39 @@
 	"TDAVehiculo.h"
 	"TDARepartos.h"
 
-1665121572 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapaquetes.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapaquetes.h
 	<stdio.h>
 	<stdlib.h>
 	"TDAFechaYHora.h"
 	"TDADomicilio.h"
+	"TDAPersona.h"
 
-1665087515 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdafechayhora.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdafechayhora.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
 
-1665087515 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdadomicilio.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdadomicilio.h
 	<stdio.h>
 	<stdlib.h>
 
-1665087515 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapersona.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapersona.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
 	"TDADomicilio.h"
 	"TDACuil.h"
 
-1665087515 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacuil.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacuil.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
 
-1665087515 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdavehiculo.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdavehiculo.h
 	<stdio.h>
 	<stdlib.h>
 
-1665113928 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdarepartos.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdarepartos.h
 	<stdio.h>
 	<stdlib.h>
 	"TDAPersona.h"
@@ -782,7 +783,7 @@
 	"Lista.h"
 	"Pila.h"
 
-1664986440 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\files.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\files.h
 	<stdio.h>
 	<stdlib.h>
 	"TDACentroLogistico.h"
@@ -794,14 +795,14 @@
 	"TDANodo.h"
 	"Util.h"
 
-1665087515 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacuil.c
+1665179757 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacuil.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"TDACuil.h"
 	"util.h"
 
-1665114299 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdafechayhora.c
+1665184816 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdafechayhora.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -809,7 +810,7 @@
 	"TDAFechaYHora.h"
 	"util.h"
 
-1665102287 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapaquetes.c
+1665179757 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapaquetes.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -818,7 +819,7 @@
 	"TDAPaquetes.h"
 	"util.h"
 
-1665117397 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdarepartos.c
+1665188350 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdarepartos.c
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -829,8 +830,9 @@
 	"Lista.h"
 	"Pila.h"
 	"TDARepartos.h"
+	"TDACentroLogistico.h"
 
-1665087515 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdavehiculo.c
+1665183163 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdavehiculo.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -838,7 +840,7 @@
 	"TDAVehiculo.h"
 	"util.h"
 
-1665115941 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\test.c
+1665187177 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\test.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -849,24 +851,24 @@
 	"test.h"
 	"util.h"
 
-1664982014 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\test.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\test.h
 	<stdio.h>
 	<stdlib.h>
 	"TDACentroLogistico.h"
 
-1665097964 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\util.c
+1665179757 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\util.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"util.h"
 
-1665121138 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\lista.c
+1665186559 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\lista.c
 	<stdbool.h>
 	"util.h"
 	"TDANodo.h"
 	"Lista.h"
 
-1665118598 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacentrologistico.c
+1665188366 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacentrologistico.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -879,20 +881,20 @@
 	"TDACentroLogistico.h"
 	"util.h"
 
-1665098020 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdadomicilio.c
+1665179757 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdadomicilio.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"TDADomicilio.h"
 	"util.h"
 
-1665091648 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdanodo.c
+1665179757 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdanodo.c
 	<stdio.h>
 	<stdlib.h>
 	"util.h"
 	"TDANodo.h"
 
-1665121331 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\main.c
+1665188350 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -902,12 +904,12 @@
 	"test.h"
 	"util.h"
 
-1665118284 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\menus.h
+1665179757 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\menus.h
 	<stdio.h>
 	<stdlib.h>
 	"TDACentroLogistico.h"
 
-1665104417 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapersona.c
+1665184791 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapersona.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -917,7 +919,7 @@
 	"TDAPersona.h"
 	"util.h"
 
-1665121254 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\menus.c
+1665188386 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\menus.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

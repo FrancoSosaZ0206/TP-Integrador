@@ -65,6 +65,16 @@ PtrDato getCabecera(ListaPtr lista)
     return dato;
 }
 
+ListaPtr getRestoLimitado(ListaPtr lista,int primeraVez){
+    ListaPtr resto=crearLista();
+    if(primeraVez==0){
+        return lista;
+    }else{
+        resto->primero=getSiguiente(lista);
+        return resto;
+    }
+}
+
 ListaPtr getResto(ListaPtr lista)
 {
     ListaPtr resto=crearLista();

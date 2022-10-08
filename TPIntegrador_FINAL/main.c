@@ -37,21 +37,19 @@ int deseaGuardarAntesDeSalir()
 
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
-int main()
-{
+int main(){
     CentroLogisticoPtr centroLogistico;
-    ListaPtr listaClientes = crearLista();
-    ListaPtr listaVehiculos = crearLista();
-    ListaPtr listaChoferes = crearLista();
-    ListaPtr listaPaquetes = crearLista();
-    listaChoferes=crearListaChoferesGenerico();
-    listaClientes=crearListaClientesGenerico();
-    listaVehiculos=crearListaVehiculosGenerico();
-    listaPaquetes=crearListaPaquetesGenerico();
+    ListaPtr listaClientes=crearListaClientesGenerico();
+    ListaPtr listaVehiculos=crearListaVehiculosGenerico();
+    ListaPtr listaRepartos=crearListaRepartosPorDefecto();
+    ListaPtr listaChoferes=crearListaChoferesGenerico();
+    ListaPtr listaPaquetes=crearListaPaquetesGenerico();
+
+
+
+    system("pause");fflush(stdin);system("cls");
     int START_OP=0;
     do{
-        system("cls");
-        fflush(stdin);
         printf("START MENU - BIENVENIDO\n\n");
         printf("\t1. INICIAR DE CERO\n");
         printf("\t2. ABRIR ARCHIVOS\n");
@@ -64,10 +62,11 @@ int main()
         case 1:
             centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             centroLogistico=setPaquetes(centroLogistico,listaPaquetes);
-            //centroLogistico=setPersonas(centroLogistico,listaChoferes);
+            centroLogistico=setPersonas(centroLogistico,listaChoferes);
             centroLogistico=setClientes(centroLogistico,listaClientes);
             centroLogistico=setChoferes(centroLogistico,listaChoferes);
             centroLogistico=setVehiculos(centroLogistico,listaVehiculos);
+            setRepartos(centroLogistico,listaRepartos,true);
             START_OP = MAIN_MENU(centroLogistico);
             //centroLogistico=destruirCentroLogistico(centroLogistico);
             break;
@@ -188,10 +187,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                             menuEliminarPaquete(centroLogistico);
                             break;
                         case 2:
-                            menuEliminarPersona(centroLogistico,false);
+                            menuEliminarCliente(centroLogistico);
                             break;
                         case 3:
-                            menuEliminarPersona(centroLogistico,true);
+                            menuEliminarChofer(centroLogistico);
                             break;
                         case 4:
                             menuEliminarVehiculo(centroLogistico);

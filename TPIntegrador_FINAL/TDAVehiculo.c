@@ -6,15 +6,12 @@
 #include "util.h"
 
 
-VehiculoPtr crearVehiculo(int tipo,char *marca,char *modelo,char *patente)
-{
+VehiculoPtr crearVehiculo(int tipo,char *marca,char *modelo,char *patente){
     VehiculoPtr vehiculo=(VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));
-
     vehiculo->tipo=tipo;
     vehiculo->marca=crearStringDinamico(marca);
     vehiculo->modelo=crearStringDinamico(modelo);
     vehiculo->patente=crearStringDinamico(patente);
-
     return vehiculo;
 }
 VehiculoPtr destruirVehiculo(VehiculoPtr vehiculo)
@@ -60,8 +57,7 @@ void setPatente(VehiculoPtr vehiculo,char *patente)
     strcpy(vehiculo->patente,patente);
 }
 
-void mostrarVehiculo(VehiculoPtr vehiculo)
-{
+void mostrarVehiculo(VehiculoPtr vehiculo){
     if(getTipoVehiculo(vehiculo)==1)
         printf("Vehiculo tipo: MOTO.\n");
     else if(getTipoVehiculo(vehiculo)==2)
@@ -70,7 +66,6 @@ void mostrarVehiculo(VehiculoPtr vehiculo)
         printf("Vehiculo tipo: CAMION.\n");
     else
         printf("ERROR, REINGRESE TIPO DE VEHICULO EXISTENTE\n");
-
     printf("\tMarca: %s\n",getMarca(vehiculo));
     printf("\tModelo: %s\n",getModelo(vehiculo));
     printf("\tPatente: %s\n",getPatente(vehiculo));

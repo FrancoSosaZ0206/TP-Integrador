@@ -98,8 +98,7 @@ void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) //agrega un paquete a 
 { //antes de hacer nada, debemos comprobar que haya algun dato en la pila. Sino, creamos la pila y le insertamos el dato.
     if(pilaVacia(getPaquetesReparto(reparto)))
         reparto->paquetes=crearPila();
-    else
-    {
+    else{
         printf("\n\nERROR: PILA YA CREADA.\n\n");
         exit(1);
     }
@@ -110,8 +109,7 @@ PaquetePtr descargarPaquete(RepartoPtr reparto) //elimina el ultimo paquete agre
     PaquetePtr paquete;
     if(!pilaVacia(getPaquetesReparto(reparto)))
         paquete=(PaquetePtr)desapilar(reparto->paquetes);
-    else
-    {
+    else{
         printf("\n\nERROR: NO SE PUEDE ELIMINAR ELEMENTOS PORQUE LA PILA YA ESTA VACIA.\n\n");
         exit(1);
     }
@@ -121,54 +119,20 @@ int cantidadPaquetes(RepartoPtr reparto) //devuelve cantidad de paquetes que con
 {
     return longitudPila(getPaquetesReparto(reparto));
 }
-void mostrarReparto(RepartoPtr reparto)
+int CantidadEntregas(RepartoPtr reparto) //devuelve cantidad de paquetes que contiene el reparto
 {
+    return longitudLista(getListaPaquetesReparto(reparto));
+}
+void mostrarReparto(RepartoPtr reparto){
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
     mostrarFecha(getFechaSalida(reparto));
     mostrarFecha(getFechaRetorno(reparto));
-    //char *strFecha;
-    //traerFechaYHora(getFechaSalida(reparto),strFecha);
-    //printf("Fecha de Salida: %s\n",strFecha);
-    //traerFechaYHora(getFechaRetorno(reparto),strFecha);
-    //printf("Fecha de Retorno: %s\n",strFecha);
-    int i=0;
-    while(i<longitudLista(reparto->listaPaquetes)){
-        printf("Paquete nro: %d\n\n",i);
-        mostrarPaquete(getDatoLista(reparto->listaPaquetes,i++));
-    }
-
-    /*int cantPaq=longitudPila(getPaquetesReparto(reparto));
-    PaquetePtr paqueteAux;
-    PaquetePtr paquetes[cantPaq];
-    for(int i=0;i<cantPaq;i++){
-        printf("%d. ",i+1);
-        paquetes[i]=(PaquetePtr)desapilar(getPaquetesReparto(reparto));
-        mostrarPaquete(paquetes[i]);
-    }
-    for(int i=0;i<cantPaq;i++)
-        apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[cantPaq-i]);*/
+    mostrarPaquetesListaReparto(reparto);
 }
 
 void mostrarPaquetesListaReparto(RepartoPtr reparto){
-    for(int i=0;i<longitudLista(getListaPaquetesReparto(reparto));i++){
-        printf("Paquete NRO: %d\n", i);
-        mostrarPaquete(getDatoLista(getListaPaquetesReparto(reparto),i));
-    }
+    for(int i=0;i<longitudLista(getListaPaquetesReparto(reparto));i++)
+        printf("%d.",i),mostrarPaquete(getDatoLista(getListaPaquetesReparto(reparto),i));
 }
 
-bool buscarChoferRepartos(CentroLogisticoPtr centroLogistico, CuilPtr cuil){
-    bool encontrado=false;
-    for(int i=0;i<longitudLista(getRepartos(centroLogistico,true));i++)
-        if(strcmp(getCuil(cuil),getCuil(getCuilPersona(getDatoLista(getChoferes(centroLogistico),i))))==0)
-            encontrado=true;
-    return encontrado;
-}
-
-bool buscarvehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente){
-    bool encontrado=false;
-    for(int i=0;i<longitudLista(getVehiculos(centroLogistico));i++)
-        if(strcmp(patente,getPatente(getDatoLista(getVehiculos(centroLogistico),i)))==0)
-           encontrado=true;
-    return encontrado;
-}
