@@ -14,6 +14,8 @@
 #include "TDARepartos.h"
 #include "TDAVehiculo.h"
 #include "Files.h"
+#include "Menus.h"
+#include "test.h"
 
 /**
 DIRECTORIOS (FRANCO S.)
@@ -24,6 +26,8 @@ E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\TP
 Para abrir/guardar files = CARPETA "Archivos"
 E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\Archivos\
 */
+
+int menuPrincipal();
 
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
@@ -71,10 +75,6 @@ int main(){
     ListaPtr listaChoferes=crearListaChoferesGenerico();
     ListaPtr listaPaquetes=crearListaPaquetesGenerico();
     ListaPtr listaRepartosCerrados=crearLista();
-
-    VehiculoPtr prueba = pruebaDePasaje();
-    prueba = pruebaDeLectura();
-    system("pause");
     int START_OP=0;
     do{
         START_OP=menuPrincipal();

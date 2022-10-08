@@ -168,7 +168,7 @@ void setMinuto(FechaPtr fecha,int minuto);
 
 ///     *** Si diferencia==0 EN TODAS SUS POSICIONES, entonces las fechas son totalmente idénticas.
 ///     ADVERTENCIA: manejar con cuidado, chequeando siempre con lo explicado acá.
-int *calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2); ///Nueva implementación
+int calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2); ///Nueva implementación
 // Operación de conversión a string
 // Precondición: fecha debe haberse creado
 // Postcondición: se obtiene la representación "dd/mm/aaaa" de la fecha
@@ -247,5 +247,13 @@ char *traerFechaYHoraDinamica(FechaPtr fecha);
 // fecha: puntero a la fecha a válidar.
 //Devuelve true si es válida, false si no es valida.
 bool esFechaValida(FechaPtr fecha); ///NUEVA
+
+void mostrarFecha(FechaPtr fecha);
+
+int calcularDiferenciaFechasDias(FechaPtr fecha1,FechaPtr fecha2);
+
+int calcularDiferenciaFechasHora(FechaPtr fecha1,FechaPtr fecha2);
+
+int calcularDiferenciaFechasMinutos(FechaPtr fecha1,FechaPtr fecha2);
 
 #endif //TDAFECHAYHORA_H_INCLUDED

@@ -7,5 +7,10 @@
 
 VehiculoPtr crearVehiculoPorDefecto(); ///Crea un vehículo de forma rápida con datos predeterminados.
 VehiculoPtr crearVehiculoGenerico(); ///Crea un vehículo de forma rápida con datos aleatorios ///BROKEN
+ListaPtr crearListaClientesGenerico();
+ListaPtr crearListaVehiculosGenerico();
+ListaPtr crearListaRepartosPorDefecto();
+ListaPtr crearListaChoferesGenerico();
+ListaPtr crearListaPaquetesGenerico();
 
 #endif // TEST_H_INCLUDED

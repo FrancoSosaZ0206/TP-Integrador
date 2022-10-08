@@ -81,13 +81,13 @@ ListaPtr getChoferes(CentroLogisticoPtr centroLogistico){
 void setNombreCentroLogistico(CentroLogisticoPtr centroLogistico,char *nombre){
     strcpy(centroLogistico->nombre,nombre);
 }
-CentroLogisticoPtr setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes){
+void setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes){
     centroLogistico->listaPaquetes=listaPaquetes;
 }
-CentroLogisticoPtr setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr listaPersonas){
+void setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr listaPersonas){
     centroLogistico->listaPersonas=listaPersonas;
 }
-CentroLogisticoPtr setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos){
+void setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos){
     centroLogistico->listaVehiculos=listaVehiculos;
 }
 void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esRepartoAbierto){
@@ -96,23 +96,28 @@ void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esR
 	else
 		centroLogistico->listaRepartosCerrados = repartos;
 }
-CentroLogisticoPtr setClientes(CentroLogisticoPtr centroLogistico, ListaPtr clientes){
+void setClientes(CentroLogisticoPtr centroLogistico, ListaPtr clientes){
     centroLogistico->listaClientes=clientes;
 }
-CentroLogisticoPtr setChoferes(CentroLogisticoPtr centroLogistico, ListaPtr choferes){
+void setChoferes(CentroLogisticoPtr centroLogistico, ListaPtr choferes){
     centroLogistico->listaChoferes=choferes;
 }
 void mostrarPaquetes(CentroLogisticoPtr centroLogistico){
     printf("\n\n\n /////////////////////////////////////////////////////////////////////////////////// \n");
     printf("\n\t\t LISTA DE PAQUETES: \n\n");
     printf(" /////////////////////////////////////////////////////////////////////////////////// \n\n\n");
-    for(int i=0;i<longitudLista(getPaquetes(centroLogistico));i++){
-        printf("\n\n\n----------------------------------------------------------------------------\n");
-        printf("\t\t PAQUETE NRO %d \n",i);
-        printf("----------------------------------------------------------------------------\n\n\n");
-        mostrarPaquete(getDatoLista(getPaquetes(centroLogistico),i));
+    int i=0;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getPaquetes(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        printf("----------------------------------------------------------------------------\n");
+        printf("\t\t PAQUETE NRO %d \n",i++);
+        printf(" ----------------------------------------------------------------------------\n\n\n");
+        mostrarPaquete(getCabecera(listaAuxiliar));
+        listaAuxiliar=getResto(listaAuxiliar);
         printf("\n\n");
     }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
     printf("\n\n");
 }
 
@@ -120,13 +125,18 @@ void mostrarClientes(CentroLogisticoPtr centroLogistico) {
     printf("\n\n\n /////////////////////////////////////////////////////////////////////////////////// \n");
     printf("\n\t\t LISTA DE CLIENTES: \n\n");
     printf(" /////////////////////////////////////////////////////////////////////////////////// \n\n\n");
-    for(int i=0;i<longitudLista(getClientes(centroLogistico));i++){
-        printf(" ----------------------------------------------------------------------------\n");
-        printf("\t\t CLIENTE NRO %d \n",i);
-        printf("----------------------------------------------------------------------------\n\n\n");
-        mostrarPersona((PersonaPtr)getDatoLista(getClientes(centroLogistico),i));
+    int i=0;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getClientes(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        printf("----------------------------------------------------------------------------\n");
+        printf("\t\t CLIENTE NRO %d \n",i++);
+        printf(" ----------------------------------------------------------------------------\n\n\n");
+        mostrarPersona(getCabecera(listaAuxiliar));
+        listaAuxiliar=getResto(listaAuxiliar);
         printf("\n\n");
     }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
     printf("\n\n");
 }
 
@@ -134,13 +144,18 @@ void mostrarChoferes(CentroLogisticoPtr centroLogistico){
     printf(" /////////////////////////////////////////////////////////////////////////////////// \n");
     printf("\n\t\t LISTA DE CHOFERES: \n\n");
     printf(" /////////////////////////////////////////////////////////////////////////////////// \n\n\n");
-    for(int i=0;i<longitudLista(getChoferes(centroLogistico));i++){
-        printf(" ----------------------------------------------------------------------------\n");
-        printf("\t\t CHOFER NRO %d \n",i);
-        printf("----------------------------------------------------------------------------\n\n\n");
-        mostrarPersona((PersonaPtr)getDatoLista(getChoferes(centroLogistico),i));
+    int i=0;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getChoferes(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        printf("----------------------------------------------------------------------------\n");
+        printf("\t\t CHOFER NRO %d \n",i++);
+        printf(" ----------------------------------------------------------------------------\n\n\n");
+        mostrarPersona(getCabecera(listaAuxiliar));
+        listaAuxiliar=getResto(listaAuxiliar);
         printf("\n\n");
     }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
     printf("\n\n");
 }
 
@@ -148,27 +163,37 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico){
     printf("\n\n\n /////////////////////////////////////////////////////////////////////////////////// \n");
     printf("\n\t\t LISTA DE VEHICULOS: \n\n");
     printf(" /////////////////////////////////////////////////////////////////////////////////// \n\n\n");
-    for(int i=0;i<longitudLista(getVehiculos(centroLogistico));i++){
+    int i=0;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getVehiculos(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
         printf("----------------------------------------------------------------------------\n");
-        printf("\t\t VEHICULO NRO %d \n",i);
+        printf("\t\t VEHICULO NRO %d \n",i++);
         printf(" ----------------------------------------------------------------------------\n\n\n");
-        mostrarVehiculo((VehiculoPtr)getDatoLista(getVehiculos(centroLogistico),i));
+        mostrarVehiculo(getCabecera(listaAuxiliar));
+        listaAuxiliar=getResto(listaAuxiliar);
         printf("\n\n");
     }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
     printf("\n\n");
 }
 
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
+    int i=0;
     printf("\n\n\n /////////////////////////////////////////////////////////////////////////////////// \n");
     printf("\n\t\t LISTA DE REPARTOS \n\n");
     printf(" /////////////////////////////////////////////////////////////////////////////////// \n\n\n");
-    for(int i=0;i<longitudLista(getRepartos(centroLogistico,esRepartoAbierto));i++){
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getRepartos(centroLogistico,true));
+    while(!listaVacia(listaAuxiliar)){
         printf(" ----------------------------------------------------------------------------\n");
-        printf("\t\t REPARTO NRO %d \n",i);
+        printf("\t\t REPARTO NRO %d \n",i++);
         printf("----------------------------------------------------------------------------\n\n\n");
-        mostrarReparto(getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i));
+        mostrarReparto(getCabecera(listaAuxiliar));
+        listaAuxiliar=getResto(listaAuxiliar);
         printf("\n\n");
     }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
     printf("\n\n");
 }
 void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado){
@@ -201,56 +226,106 @@ void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado){
 }
 
 int buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuil){
-    int posicionEncontrado = -1;
-    RepartoPtr reparto;
-    for(int i = 0 ; i < longitudLista(getRepartos(centroLogistico,true)) ; i++){
-        reparto = getDatoLista(getRepartos(centroLogistico,true), i);
-        if(strcmp(cuil, getCuil(getCuilPersona(getChofer(reparto)))) == 0)
+    int i=0,posicionEncontrado=-1;
+    PersonaPtr choferAuxiliar;
+    char cuilAuxiliar[100];
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getRepartos(centroLogistico,true));
+    while(!listaVacia(listaAuxiliar)){
+        choferAuxiliar=getChofer(getCabecera(listaAuxiliar));
+        strcpy(cuilAuxiliar,getCuil(getCuilPersona(choferAuxiliar)));
+        if(strcmp(cuil, cuilAuxiliar) == 0)
             posicionEncontrado = i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
     }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
     return posicionEncontrado;
 }
 
 int buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente){
-    int posicionEncontrado=-1;
-    RepartoPtr reparto;
-    for(int i=0;i<longitudLista(getVehiculos(centroLogistico));i++){
-        reparto = getDatoLista(getRepartos(centroLogistico,true),i);
-        if(strcmp(patente,getPatente(getVehiculo(reparto)))==0)
+    int i=0,posicionEncontrado=-1;
+    VehiculoPtr vehiculoAuxiliar;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getRepartos(centroLogistico,true));
+    while(!listaVacia(listaAuxiliar)){
+        vehiculoAuxiliar=getVehiculo(getCabecera(listaAuxiliar));
+        if(strcmp(patente, getPatente(vehiculoAuxiliar)) == 0)
             posicionEncontrado=i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
     }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
     return posicionEncontrado;
 }
 
 int buscarVehiculo(CentroLogisticoPtr centroLogistico, char* patente){
-    int posicionEncontrado=-1;
-    for(int i=0;i<longitudLista(getVehiculos(centroLogistico));i++)
-        if(strcmp(patente,getPatente(getDatoLista(getVehiculos(centroLogistico),i)))==0)
+    int i=0,posicionEncontrado=-1;
+    VehiculoPtr vehiculoAuxiliar;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getVehiculos(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        vehiculoAuxiliar=getCabecera(listaAuxiliar);
+        if(strcmp(patente, getPatente(vehiculoAuxiliar)) == 0)
             posicionEncontrado=i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
     return posicionEncontrado;
 }
 
 int buscarCliente(CentroLogisticoPtr centroLogistico, char* cuil){
-    int posicionEncontrado=-1;
-    for(int i=0;i<longitudLista(getClientes(centroLogistico));i++)
-        if(strcmp(cuil,getCuil(getCuilPersona(getDatoLista(getClientes(centroLogistico),i))))==0)
+    int i=0,posicionEncontrado=-1;
+    PersonaPtr clienteAuxiliar;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getClientes(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        clienteAuxiliar=getCabecera(listaAuxiliar);
+        if(strcmp(cuil, getCuil(getCuilPersona(clienteAuxiliar))) == 0)
             posicionEncontrado=i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
     return posicionEncontrado;
 }
 
 int buscarChofer(CentroLogisticoPtr centroLogistico, char* cuil){
-    int posicionEncontrado=-1;
-    for(int i=0;i<longitudLista(getChoferes(centroLogistico));i++)
-        if(strcmp(cuil,getCuil(getCuilPersona(getDatoLista(getChoferes(centroLogistico),i))))==0)
+    int i=0,posicionEncontrado=-1;
+    PersonaPtr choferAuxiliar;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getChoferes(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        choferAuxiliar=getCabecera(listaAuxiliar);
+        if(strcmp(cuil, getCuil(getCuilPersona(choferAuxiliar))) == 0)
             posicionEncontrado=i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
     return posicionEncontrado;
 }
 
 int buscarPaquete(CentroLogisticoPtr centroLogistico, int codigo){
-    int posicionEncontrado=-1;
-    for(int i=0;i<longitudLista(getPaquetes(centroLogistico));i++)
-        if(codigo==getID(getDatoLista(getPaquetes(centroLogistico),i)))
+    int i=0,posicionEncontrado=-1;
+    PaquetePtr paqueteAuxiliar;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getPaquetes(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        paqueteAuxiliar=getCabecera(listaAuxiliar);
+        if(codigo==getID(paqueteAuxiliar))
             posicionEncontrado=i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
     return posicionEncontrado;
 }
 
@@ -440,8 +515,10 @@ void ordenarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
     {
         for(int j=i; j<n-1; j++)
         {
-            int *diferenciaFechas = calcularDiferenciaFechas(getFechaSalida(repartos[j]),getFechaSalida(repartos[j+1]));
-            bool condicion = diferenciaFechas[0]>0 || diferenciaFechas[1]>0 || diferenciaFechas[2]>0;
+            int diferenciaDia = calcularDiferenciaFechasDias(getFechaSalida(repartos[j]),getFechaSalida(repartos[j+1]));
+            int diferenciaHora = calcularDiferenciaFechasHora(getFechaSalida(repartos[j]),getFechaSalida(repartos[j+1]));
+            int diferenciaMinutos = calcularDiferenciaFechasMinutos(getFechaSalida(repartos[j]),getFechaSalida(repartos[j+1]));
+            bool condicion = diferenciaDia>0 || diferenciaHora>0 || diferenciaMinutos>0;
         //condicion de la bandera: "Ya sea en dias, horas o minutos, si fechaDeSalida de reparto[j] es posterior a la de repartos[j+1]..."
             if(condicion)
             { //Hago un swap
@@ -470,8 +547,10 @@ void ordenarPorFechaRetorno(CentroLogisticoPtr centroLogistico,bool esRepartoAbi
     {
         for(int j=i; j<n-1; j++)
         {
-            int *diferenciaFechas = calcularDiferenciaFechas(getFechaRetorno(repartos[j]),getFechaRetorno(repartos[j+1]));
-            bool condicion = diferenciaFechas[0]>0 || diferenciaFechas[1]>0 || diferenciaFechas[2]>0;
+            int diferenciaDia = calcularDiferenciaFechasDias(getFechaRetorno(repartos[j]),getFechaRetorno(repartos[j+1]));
+            int diferenciaHora = calcularDiferenciaFechasHora(getFechaRetorno(repartos[j]),getFechaRetorno(repartos[j+1]));
+            int diferenciaMinutos = calcularDiferenciaFechasMinutos(getFechaRetorno(repartos[j]),getFechaRetorno(repartos[j+1]));
+            bool condicion = diferenciaDia>0 || diferenciaHora>0 || diferenciaMinutos>0;
         //condicion de la bandera: "Ya sea en dias, horas o minutos, si fechaDeRetorno de reparto[j] es posterior a la de repartos[j+1]..."
             if(condicion)
             { //Hago un swap
@@ -500,10 +579,16 @@ void ordenarPorFechaRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAb
     {
         for(int j=i; j<n-1; j++)
         {
-            int *diferenciaFechaSalida = calcularDiferenciaFechas(getFechaSalida(repartos[j]),getFechaSalida(repartos[j+1]));
-            bool condicion = diferenciaFechaSalida[0]>0 || diferenciaFechaSalida[1]>0 || diferenciaFechaSalida[2]>0; //agrego la condicion de fechaSalida
-            int *diferenciaFechaRetorno = calcularDiferenciaFechas(getFechaRetorno(repartos[j]),getFechaRetorno(repartos[j+1]));
-            condicion = condicion && (diferenciaFechaRetorno[0]>0 || diferenciaFechaRetorno[1]>0 || diferenciaFechaRetorno[2]>0); //sumo la condicion de fechaRetorno
+            int diferenciaDiaFS = calcularDiferenciaFechasDias(getFechaSalida(repartos[j]),getFechaSalida(repartos[j+1]));
+            int diferenciaHoraFS = calcularDiferenciaFechasHora(getFechaSalida(repartos[j]),getFechaSalida(repartos[j+1]));
+            int diferenciaMinutosFS = calcularDiferenciaFechasMinutos(getFechaSalida(repartos[j]),getFechaSalida(repartos[j+1]));
+            bool condicionFS = diferenciaDiaFS>0 || diferenciaHoraFS>0 || diferenciaMinutosFS>0;
+
+            int diferenciaDiaFR = calcularDiferenciaFechasDias(getFechaRetorno(repartos[j]),getFechaRetorno(repartos[j+1]));
+            int diferenciaHoraFR = calcularDiferenciaFechasHora(getFechaRetorno(repartos[j]),getFechaRetorno(repartos[j+1]));
+            int diferenciaMinutosFR = calcularDiferenciaFechasMinutos(getFechaRetorno(repartos[j]),getFechaRetorno(repartos[j+1]));
+            bool condicionFR = diferenciaDiaFR>0 || diferenciaHoraFR>0 || diferenciaMinutosFR>0;
+            bool condicion = condicionFS && condicionFR; //sumo la condicion de fechaRetorno
 ///condicion de la bandera: "Ya sea en dias, horas o minutos, si fechaDeSalida *Y* fechaDeRetorno de reparto[j] son posteriores a las de repartos[j+1]..."
             if(condicion)
             { //Hago un swap

@@ -119,16 +119,22 @@ void setMinuto(FechaPtr fecha,int minuto) ///NUEVA
 {
     fecha->minuto=minuto;
 }
-//Operaciones
-int *calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2) ///Nueva implementación
-{
-    int diferencias[3] = {0,0,0}; //Definimos e inicializamos el vector
 
-    diferencias[0] = getDiaJuliano(fecha1) - getDiaJuliano(fecha2);
-    diferencias[1] = getHora(fecha1) - getHora(fecha2);
-    diferencias[2] = getMinuto(fecha1) - getMinuto(fecha2);
-
-    return diferencias;
+//Operaciones///Nueva implementació
+int calcularDiferenciaFechasDias(FechaPtr fecha1,FechaPtr fecha2){
+    int diferenciaDia; //Definimos e inicializamos el vector
+    diferenciaDia = getDiaJuliano(fecha1) - getDiaJuliano(fecha2);
+    return diferenciaDia;
+}
+int calcularDiferenciaFechasHora(FechaPtr fecha1,FechaPtr fecha2){
+    int diferenciaHora;
+    diferenciaHora = getHora(fecha1) - getHora(fecha2);
+    return diferenciaHora;
+}
+int calcularDiferenciaFechasMinutos(FechaPtr fecha1,FechaPtr fecha2){
+    int diferenciaMinutos;
+    diferenciaMinutos = getMinuto(fecha1) - getMinuto(fecha2);
+    return diferenciaMinutos;
 }
 void traerFechaCorta(FechaPtr fecha,char *buffer)
 { /**OPTIMIZACION DE LA FUNCIÓN:

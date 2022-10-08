@@ -94,6 +94,8 @@ void menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 //DEVUELVE: Nada
 void menuCargarVehiculo(CentroLogisticoPtr centroLogistico);
 
+void menuCargarChofer(CentroLogisticoPtr centroLogistico);
+
 PersonaPtr menuCargarCliente(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
@@ -143,6 +145,9 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
+void menuEliminarCliente(CentroLogisticoPtr centroLogistico);
+
+void menuEliminarChofer(CentroLogisticoPtr centroLogistico);
 
 void menuEliminarPaquete(CentroLogisticoPtr centroLogistico);
 //OPERACION: menu de eliminacion de un persona de la lista
@@ -170,6 +175,14 @@ void menuEliminarVehiculo(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
+
+void menuModificarCliente(CentroLogisticoPtr centroLogistico);
+
+void menuModificarChofer(CentroLogisticoPtr centroLogistico);
+
+void menuBuscarCliente(CentroLogisticoPtr centroLogistico);
+
+void menuBuscarChofer(CentroLogisticoPtr centroLogistico);
 
 //FUNCIÓN DE MODIFICACIÓN DE PAQUETE DE CENTRO LOGISTICO
 //PRECONDICIÓN:
@@ -229,7 +242,7 @@ void menuArmarReparto(CentroLogisticoPtr centroLogistico);
 //PARÁMETROS: puntero a centro logistico
 //variable logica que determina a que lista de repartos se iniciara la busqueda
 //DEVUELVE: vacio
-void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 //OPERACION: eliminacion de reparto
 //PRECONDICIÓN: centroLogistico debe haber sido creado previamente con crearCentroLogistico
 //POSTCONDICION: eliminara un reparto seleccionado mediante el indice por el usuario,
@@ -237,7 +250,7 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto
 //PARÁMETROS: puntero a centro logistico
 //variable logica que determina a que lista de repartos se iniciara la busqueda
 //DEVUELVE: vacio
-void menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+RepartoPtr menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 //OPERACION: cerrar reparto
 //PRECONDICIÓN: centroLogistico debe haber sido creado previamente con crearCentroLogistico
 //POSTCONDICION: se solicitara por pantalla la seleccion de un reparto por parte del usuario

@@ -71,6 +71,11 @@ ListaPtr getPaquetes(CentroLogisticoPtr centroLogistico);
 // centroLogistico: puntero a estructura que representa al centro logistico.
 //Devuelve un puntero de la estructura lista.
 ListaPtr getPersonas(CentroLogisticoPtr centroLogistico);
+
+ListaPtr getClientes(CentroLogisticoPtr centroLogistico);
+
+ListaPtr getChoferes(CentroLogisticoPtr centroLogistico);
+
 //Operación:Obtencion de la estructura de lista de vehiculos.
 //Precondición:Que centro logistico haya sido creado.
 //Postcondición:Se obtiene la lista de vehiculos.
@@ -104,7 +109,7 @@ void setNombreCentroLogistico(CentroLogisticoPtr centroLogistico,char *nombre);
 // centroLogistico: puntero a estructura que representa al centro logistico.
 // listaPaquetes: puntero a estructura que representa al nuevo valor de paquetes.
 //Devuelve: nada.
-CentroLogisticoPtr setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes);
+void setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes);
 //Operación:Asigna la estructura de personas.
 //Precondición:Centro logistico debe haberse creado.
 //Postcondición: personas cambia con el nuevo valor de personas.
@@ -112,7 +117,7 @@ CentroLogisticoPtr setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr lista
 // centroLogistico: puntero a estructura que representa al centro logistico.
 // listaPersonas: puntero a estructura que representa al nuevo valor de personas.
 //Devuelve: nada.
-CentroLogisticoPtr setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr listaPersonas);
+void setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr listaPersonas);
 //Operación:Asigna la estructura de vehiculos.
 //Precondición:Centro logistico debe haberse creado.
 //Postcondición: vehiculos cambia con el nuevo valor de vehiculos.
@@ -120,7 +125,7 @@ CentroLogisticoPtr setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr lista
 // centroLogistico: puntero a estructura que representa al centro logistico.
 // listaPaquetes: puntero a estructura que representa al nuevo valor de vehiculos.
 //Devuelve: nada.
-CentroLogisticoPtr setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos);
+void setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos);
 //Operación: Asigna la estructura de repartos.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: la lista de repartos seleccionada cambia con el nuevo valor de repartos.
@@ -230,6 +235,11 @@ void agregarPaquete(CentroLogisticoPtr centroLogistico,PaquetePtr paquete);
 // persona: puntero a estructura que representa a la nueva persona.
 //Devuelve: nada.
 void agregarPersona(CentroLogisticoPtr centroLogistico,PersonaPtr persona);
+
+void agregarChofer(CentroLogisticoPtr centroLogistico,PersonaPtr chofer);
+
+void agregarCliente(CentroLogisticoPtr centroLogistico,PersonaPtr cliente);
+
 //Operación: Agrega un nuevo vehiculo.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: El centro logistico va a tener un nuevo vehiculo.
@@ -332,6 +342,14 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
 //  posicion: entero representando la posicion del reparto a cerrar.
 //Devuelve: nada.
 void cerrarRepartoCtroLogistico(CentroLogisticoPtr centroLogistico, int posicion);
+
+int buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
+
+int buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuil);
+
+int buscarCliente(CentroLogisticoPtr centroLogistico, char* cuil);
+
+int buscarChofer(CentroLogisticoPtr centroLogistico, char* cuil);
 
 //---------------------------------------Funciones para resetear listas------------------------------------------------
 

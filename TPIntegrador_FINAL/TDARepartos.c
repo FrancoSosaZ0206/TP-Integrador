@@ -102,7 +102,21 @@ void mostrarReparto(RepartoPtr reparto){
 }
 
 void mostrarPaquetesListaReparto(RepartoPtr reparto){
-    for(int i=0;i<longitudLista(getListaPaquetesReparto(reparto));i++)
-        printf("%d.",i),mostrarPaquete(getDatoLista(getListaPaquetesReparto(reparto),i));
+    printf("\n\n\n /////////////////////////////////////////////////////////////////////////////////// \n");
+    printf("\n\t\t LISTA DE PAQUETES DE REPARTO: \n\n");
+    printf(" /////////////////////////////////////////////////////////////////////////////////// \n\n\n");
+    int i=0;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getListaPaquetesReparto(reparto));
+    while(!listaVacia(listaAuxiliar)){
+        printf("----------------------------------------------------------------------------\n");
+        printf("\t\t PAQUETE DE REPARTO NRO %d \n",i++);
+        printf(" ----------------------------------------------------------------------------\n\n\n");
+        mostrarPaquete(getCabecera(listaAuxiliar));
+        listaAuxiliar=getResto(listaAuxiliar);
+        printf("\n\n");
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
 }
 

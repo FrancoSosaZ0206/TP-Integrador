@@ -130,6 +130,8 @@ FechaPtr getFechaEntrega(PaquetePtr paquete);
 //Devuelve un entero que representa el estado del paquete.
 int getEstado(PaquetePtr paquete);
 
+PersonaPtr getClientePaquete(PaquetePtr paquete);
+
 //Operación: Asignar Id.
 //Precondición: Paquete debe estar creado.
 //Postcondición: Paquete tiene un nuevo id.

@@ -21,6 +21,9 @@ typedef struct Reparto
 } Reparto;
 typedef Reparto * RepartoPtr;
 
+
+RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr listaPaquetes);
+
 ///estas 2 primeras llaman a crear y destruir reparto. Son como sinónimos, pero más user-friendly.
 //Operación: Creacion del TDArepartos.
 //Precondición: Repartos no debe estar creado.
@@ -138,5 +141,11 @@ int cantidadPaquetes(RepartoPtr reparto); //devuelve cantidad de paquetes que co
 // reparto: un puntero a la estructura a mostrar.
 //Devuelve nada
 void mostrarReparto(RepartoPtr reparto);
+
+int CantidadEntregas(RepartoPtr reparto);
+
+ListaPtr getListaPaquetesReparto(RepartoPtr reparto);
+
+void mostrarPaquetesListaReparto(RepartoPtr reparto);
 
 #endif // TDAREPARTOS_H_INCLUDED
