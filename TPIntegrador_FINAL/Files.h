@@ -5,6 +5,78 @@
 #include <stdlib.h>
 #include "TDACentroLogistico.h"
 
+typedef struct fCuil //a este ya lo definimos como nos dijo el profe. Despues cambio el que utilizamos siempre.
+{
+    char cuil[15]; //un CUIL con espacios entre cada campo ocuparía 13 espacios, pero le damos un poco de
+} fCuil; //espacio extra por las dudas.
+typedef fCuil* fCuilPtr;
+
+typedef struct fDomicilio
+{
+    char calle[50];
+    int altura;
+    char localidad[50];
+} fDomicilio;
+typedef fDomicilio* fDomicilioPtr;
+
+typedef struct fFecha
+{
+    int dia;
+    int mes;
+    int anio;
+    int hora;
+    int minuto;
+} fFecha;
+typedef fFecha* fFechaPtr;
+
+
+typedef struct fPersona
+{
+    char nombre[50];
+    char apellido[50];
+    fDomicilio domicilio; ///Ojo:
+    char cuil[20]; ///las estructuras tampoco pueden ser punteros!!!
+    bool esChofer;
+} fPersona; //Lo único que pasamos como puntero es la estructura dentro del campo de fwrite o fread
+typedef fPersona* fPersonaPtr;
+
+typedef struct fPaquete
+{
+    int ID;
+    int ancho;
+    int alto;
+    int largo;
+    int peso;
+    fDomicilio dirRetiro;
+    fDomicilio dirEntrega;
+    fFecha fechaEntrega;
+    fPersona cliente;
+    int estado; ///0=En depósito,1=En curso,2=Retirado,3=Entregado,4=Demorado,5=Suspendido
+} fPaquete;
+typedef fPaquete* fPaquetePtr;
+
+typedef struct fVehiculo
+{
+    int tipo;
+    char marca[50];
+    char modelo[50];
+    char patente[15];
+} fVehiculo;
+typedef fVehiculo* fVehiculoPtr;
+
+
+typedef struct fReparto
+{
+    fPersona chofer;
+    fVehiculo vehiculo;
+    fFecha fechaSalida;
+    fFecha fechaRetorno;
+    int tamanioPilaPaq; ///la dimension del array...
+    fPaquete paquetes[]; ///depende de la longitud de la pila que me pasan
+} fReparto;
+typedef fReparto* fRepartoPtr;
+
+
 /**
 ****************************************************************************************************************
                                                 INTERFAZ DE ARCHIVOS
@@ -173,7 +245,7 @@ bool guardarListaVehiculos(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: guarda una lista de Repartos Abiertos en un archivo de texto
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico y cargado con una
 //              lista de Repartos
-//POSTCONDICIÓN: guarda en el archivo correspondiente según la variable esRepartoAbierto
+//POTCONDICIÓN: guarda en el archivo correspondiente según la variable esRepartoAbierto
 //          si es true (esRepartoAbierto) se guardará en un archivo "Lista de Repartos Abiertos.txt"
 //          en caso contrario (!esRepartoAbiero) se guardará en un archivo "Lista de Repartos Cerrados.txt"
 

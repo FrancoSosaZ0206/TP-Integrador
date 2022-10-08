@@ -31,6 +31,17 @@ FechaPtr crearFechaDirect(int diaJuliano,int hora,int minuto)
 
     return f;
 }
+
+FechaPtr crearFechaDirectNuevo(int dia,int mes,int anio,int hora,int minuto){
+    FechaPtr f=(FechaPtr)obtenerMemoria(sizeof(Fecha));
+    f->dia=dia;
+    f->mes=mes;
+    f->anio=anio;
+    f->hora=hora;
+    f->minuto=minuto;
+    return f;
+}
+
 FechaPtr destruirFecha(FechaPtr fecha) ///Esta no cambia.
 {
     free(fecha);
@@ -70,6 +81,24 @@ int getAnio(FechaPtr fecha)
     int mes =((h / 153 + 2) % 12) + 1;
     return (e / 1461) - 4716 + (12 + 2 - mes) / 12;
 }
+
+int getDiaNatural(FechaPtr fecha){
+    return fecha->dia;
+}
+int getMesNatural(FechaPtr fecha){
+    return fecha->mes;
+}
+int getAnioNatural(FechaPtr fecha){
+    return fecha->anio;
+}
+int getHoraNatural(FechaPtr fecha){
+    return fecha->hora;
+}
+int getMinutoNatural(FechaPtr fecha){
+    return fecha->minuto;
+}
+
+
 int getHora(FechaPtr fecha) ///NUEVA
 {
     return fecha->hora;
@@ -265,8 +294,8 @@ bool esFechaValida(FechaPtr fecha) ///NUEVA
 }
 
 void mostrarFecha(FechaPtr fecha){
-    printf("%d / %d / %d \n", getDia(fecha),getMes(fecha),getAnio(fecha));
-    printf("%d : %d \n", getHora(fecha),getMinuto(fecha));
+    printf("%d / %d / %d \n", getDiaNatural(fecha),getMesNatural(fecha),getAnioNatural(fecha));
+    printf("%d : %d \n", getHoraNatural(fecha),getMinutoNatural(fecha));
 }
 
 

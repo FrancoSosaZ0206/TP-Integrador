@@ -75,6 +75,17 @@ int main(){
     ListaPtr listaChoferes=crearListaChoferesGenerico();
     ListaPtr listaPaquetes=crearListaPaquetesGenerico();
     ListaPtr listaRepartosCerrados=crearLista();
+    ///GuardarListaVehiculosNuevo(listaVehiculos);
+    ///LeerListaVehiculosNuevo();
+    ///GuardarListaClientesNuevo(listaClientes);
+    ///LeerListaClientesNuevo();
+    ///PaquetePtr PD=crearPaqueteDirect(1,1,1,1,1,"1",1,"1","1",1,"1",1,1,2022,1,1,1,"1","1","1",1,"1","1",false);
+    ///mostrarPaquete(PD);
+    ///PersonaPtr PDD=crearPersonaDirect("1","1","1",1,"1","1",false);
+    ///mostrarPersona(PDD);
+    pruebaPasajePaquete();
+    system("pause");
+    //pruebaPasajePersona();
     int START_OP=0;
     do{
         START_OP=menuPrincipal();

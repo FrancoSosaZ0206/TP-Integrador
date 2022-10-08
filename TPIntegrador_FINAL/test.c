@@ -320,6 +320,13 @@ void MetodoDistintoDeMostrado(){
         mostrarPersona((PersonaPtr)getCabecera(listaAux));
         listaAux=getResto(listaAux);
     }
+
+    ListaPtr LA;
+    ///LA=listaChoferes;
+    while(!listaVacia(LA)){
+        mostrarPersona(getCabecera(LA));
+        LA=getResto(LA);
+    }
     system("pause");
 }
 

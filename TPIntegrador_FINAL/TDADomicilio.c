@@ -13,6 +13,14 @@ DomicilioPtr crearDomicilio(char *calle,int altura,char *localidad)
     return domicilio;
 }
 
+DomicilioPtr crearDomicilioDirect(char* calle, int altura, char* localidad){
+    DomicilioPtr domicilio = (DomicilioPtr)obtenerMemoria(sizeof(Domicilio));
+    domicilio->calle=crearStringDinamico(calle);
+    domicilio->altura=altura;
+    domicilio->localidad=crearStringDinamico(localidad);
+    return domicilio;
+}
+
 DomicilioPtr destruirDomicilio(DomicilioPtr domicilio)
 {
     destruirStringDinamico(getCalle(domicilio)); //no probé esta funcion con estructuras, así que si sale mal,

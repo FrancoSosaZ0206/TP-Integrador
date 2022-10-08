@@ -24,10 +24,13 @@ PersonaPtr crearPersona(char *nombre,char *apellido,DomicilioPtr domicilio,CuilP
 ///Creador especial que solo recibe datos primitivos.
 PersonaPtr crearPersonaDirect(char *nombre,char *apellido,char *calle,int altura,char *localidad,char *cuilStr,bool esChofer)
 {
-    DomicilioPtr domicilio = crearDomicilio(calle,altura,localidad);
-    CuilPtr cuil = crearCuil(cuilStr);
-
-    return crearPersona(nombre,apellido,domicilio,cuil,esChofer);
+    PersonaPtr persona=(PersonaPtr)obtenerMemoria(sizeof(Persona));
+    persona->nombre=crearStringDinamico(nombre);
+    persona->apellido=crearStringDinamico(apellido);
+    persona->domicilio=crearDomicilioDirect(calle,altura,localidad);
+    persona->cuil=crearCuil(cuilStr);
+    persona->esChofer=esChofer;
+    return persona;
 }
 
 PersonaPtr destruirPersona(PersonaPtr persona)

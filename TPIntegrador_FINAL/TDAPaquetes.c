@@ -5,6 +5,7 @@
 #include "TDADomicilio.h"
 #include "TDAPaquetes.h"
 #include "util.h"
+#include "Files.h"
 
 PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,PersonaPtr cliente,int estado){
     PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
@@ -21,36 +22,62 @@ PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPt
     return paquete;
 }
 
-PaquetePtr crearPaqueteNuevo(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,PersonaPtr cliente,int estado){
+PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,
+                              char *calleR,int alturaR,char *localidadR,
+                              char *calleE,int alturaE,char *localidadE,
+                              int dia,int mes,int anio,int hora,int minuto,int estado,
+                              PersonaPtr cliente)
+{
     PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
     paquete->ID=ID;
     paquete->ancho=ancho;
     paquete->alto=alto;
     paquete->largo=largo;
     paquete->peso=peso;
-    paquete->dirRetiro=dirRetiro;
-    paquete->dirEntrega=dirEntrega;
-    paquete->fechaEntrega=fechaEntrega;
-    paquete->cliente=cliente;
     paquete->estado=estado;
+    paquete->dirRetiro=crearDomicilioDirect(calleR,alturaR,localidadR);
+    paquete->dirEntrega=crearDomicilioDirect(calleE,alturaE,localidadE);
+    paquete->fechaEntrega=crearFechaDirectNuevo(dia,mes,anio,hora,minuto);
+    paquete->cliente=(PersonaPtr)obtenerMemoria(sizeof(Persona));
+    paquete->cliente=cliente;
     return paquete;
 }
 
-PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado,PersonaPtr cliente)
+PaquetePtr crearPaqueteDirect1(int ID,int ancho,int alto,int largo,int peso,
+                              char *calleR,int alturaR,char *localidadR,
+                              char *calleE,int alturaE,char *localidadE,
+                              int dia,int mes,int anio,int hora,int minuto,int estado,
+                              char* nom, char* ap, char* calleP,int alturaP,char* localidadP,char* cuilStr,bool esChofer)
 {
-    PaquetePtr paquete = (PaquetePtr) obtenerMemoria(sizeof(Paquete));
+    PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
     paquete->ID=ID;
     paquete->ancho=ancho;
     paquete->alto=alto;
     paquete->largo=largo;
     paquete->peso=peso;
-    paquete->dirRetiro=crearDomicilio(calleRetiro,alturaRetiro,localidadRetiro);
-    paquete->dirEntrega=crearDomicilio(calleEntrega,alturaEntrega,localidadEntrega);
-    paquete->fechaEntrega=crearFecha(dia,mes,anio,hora,minuto);
     paquete->estado=estado;
-    paquete->cliente=cliente;
+    paquete->dirRetiro=crearDomicilioDirect(calleR,alturaR,localidadR);
+    paquete->dirEntrega=crearDomicilioDirect(calleE,alturaE,localidadE);
+    paquete->fechaEntrega=crearFechaDirectNuevo(dia,mes,anio,hora,minuto);
+    paquete->cliente=crearPersonaDirect(nom,ap,calleP,alturaP,localidadP,cuilStr,esChofer);
     return paquete;
 }
+
+PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE){
+    PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
+    paquete->ID=PE->ID;
+    paquete->ancho=PE->ancho;
+    paquete->alto=PE->alto;
+    paquete->largo=PE->largo;
+    paquete->peso=PE->peso;
+    paquete->estado=PE->estado;
+    paquete->dirRetiro=crearDomicilioDirect(PE->dirRetiro.calle,PE->dirRetiro.altura,PE->dirRetiro.localidad);
+    paquete->dirEntrega=crearDomicilioDirect(PE->dirEntrega.calle,PE->dirEntrega.altura,PE->dirEntrega.localidad);
+    paquete->fechaEntrega=crearFechaDirectNuevo(PE->fechaEntrega.dia,PE->fechaEntrega.mes,PE->fechaEntrega.anio,PE->fechaEntrega.hora,PE->fechaEntrega.minuto);
+    paquete->cliente=crearPersonaDirect(PE->cliente.nombre,PE->cliente.apellido,PE->cliente.domicilio.calle,PE->cliente.domicilio.altura,PE->cliente.domicilio.localidad,PE->cliente.cuil,PE->cliente.esChofer);
+    return paquete;
+}
+
 
 PaquetePtr destruirPaquete(PaquetePtr paquete)
 {
