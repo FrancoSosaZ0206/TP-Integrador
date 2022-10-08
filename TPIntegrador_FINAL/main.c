@@ -53,6 +53,7 @@ int menuCentroLogistico(CentroLogisticoPtr centroLogistico);
 
 int menuGuardadoRespaldo();
 
+int deseaGuardarAntesDeSalir();
 
 ///--------------------------------------------------------------------------------------------------------------///
 ///--------------------------------------------------------------------------------------------------------------///
@@ -63,7 +64,6 @@ int menuGuardadoRespaldo();
 
 
 int main(){
-    bool resultado;
     CentroLogisticoPtr centroLogistico;
     ListaPtr listaClientes=crearListaClientesGenerico();
     ListaPtr listaVehiculos=crearListaVehiculosGenerico();
@@ -71,7 +71,10 @@ int main(){
     ListaPtr listaChoferes=crearListaChoferesGenerico();
     ListaPtr listaPaquetes=crearListaPaquetesGenerico();
     ListaPtr listaRepartosCerrados=crearLista();
-    //system("pause");fflush(stdin);system("cls");
+
+    VehiculoPtr prueba = pruebaDePasaje();
+    prueba = pruebaDeLectura();
+    system("pause");
     int START_OP=0;
     do{
         START_OP=menuPrincipal();
@@ -104,8 +107,7 @@ int main(){
     return 0;
 }
 
-int MAIN_MENU(CentroLogisticoPtr centroLogistico)
-{
+int MAIN_MENU(CentroLogisticoPtr centroLogistico){
     ///Menúes
     bool resultadoGuardadoGeneral;
     int MAIN_OP=0,op1=0,op2=0,op3=0;///Para cada Sub Menu
@@ -377,10 +379,9 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     break;
                     case 5:
                             resultadoGuardadoGeneral=guardarTodo(centroLogistico);
-                            if(resultadoGuardadoGeneral==false){
+                            if(resultadoGuardadoGeneral==false)
                                 printf("No se han podido guardar los datos\n");
-                                exit(1);
-                            }
+                            system("pause");
                     break;
                 } while(op2!=0);
                 break;
@@ -409,28 +410,11 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         printf("\nOpcion incorrecta.\n\n");
                         system("cls");
                     break;
-
         }
     } while(MAIN_OP!=0);
     return MAIN_OP;
 }
 
-int deseaGuardarAntesDeSalir()
-{
-    int eleccion=0;
-    do{
-        system("cls");
-        fflush(stdin);
-        printf("Seccion seguro ACTIVADA\n");
-        printf("Desea guardar antes de salir?\n");
-        printf("1. Guardar cambios y salir\n");
-        printf("2. Salir sin guardar cambios\n");
-        printf("Eleccion: ");
-        scanf("%d",&eleccion);
-        fflush(stdin);
-    }while(eleccion<1 && eleccion>2);
-    return eleccion;
-}
 
 
 ///--------------------------------------------------------------------------------------------------------------///
@@ -452,8 +436,6 @@ int menuPrincipal(){
     fflush(stdin);
     return eleccion;
 }
-
-
 
 
 ///--------------------------------------------------------------------------------------------------------------///
@@ -670,5 +652,22 @@ int menuGuardadoRespaldo(){
     printf("Seleccione una opcion: ");
     scanf("%d",&eleccion);
     fflush(stdin);
+    return eleccion;
+}
+
+
+int deseaGuardarAntesDeSalir(){
+    int eleccion=0;
+    do{
+        system("cls");
+        fflush(stdin);
+        printf("Seccion seguro ACTIVADA\n");
+        printf("Desea guardar antes de salir?\n");
+        printf("1. Guardar cambios y salir\n");
+        printf("2. Salir sin guardar cambios\n");
+        printf("Eleccion: ");
+        scanf("%d",&eleccion);
+        fflush(stdin);
+    }while(eleccion<1 && eleccion>2);
     return eleccion;
 }

@@ -46,15 +46,15 @@ void setTipoVehiculo(VehiculoPtr vehiculo,int tipo)
 }
 void setMarca(VehiculoPtr vehiculo,char *marca)
 {
-    strcpy(vehiculo->marca,marca);
+    vehiculo->marca=marca;
 }
 void setModelo(VehiculoPtr vehiculo,char *modelo)
 {
-    strcpy(vehiculo->modelo,modelo);
+    vehiculo->modelo=modelo;
 }
 void setPatente(VehiculoPtr vehiculo,char *patente)
 {
-    strcpy(vehiculo->patente,patente);
+    vehiculo->patente=patente;
 }
 
 void mostrarVehiculo(VehiculoPtr vehiculo){

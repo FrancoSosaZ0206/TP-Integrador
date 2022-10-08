@@ -234,8 +234,6 @@ fPaquete *fgetPaquetesReparto(fRepartoPtr pfreparto)
     return pfreparto->paquetes;
 }
 
-
-
 ///Setters
 /**
 Se puede setear toda la estructura de una.
@@ -368,6 +366,46 @@ void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar){
     paqueteAux = NULL;
 }
 
+
+VehiculoPtr pruebaDePasaje(){
+    /*fVehiculo vehiculoEstatico;
+    vehiculoEstatico.tipo=3;
+    strcpy(vehiculoEstatico.marca,"Mercedes");
+    strcpy(vehiculoEstatico.modelo,"Actros");
+    strcpy(vehiculoEstatico.patente,"12JKU89");
+    VehiculoPtr vehiculoDinamico;
+    vehiculoDinamico=crearVehiculo(vehiculoEstatico.tipo,vehiculoEstatico.marca,vehiculoEstatico.modelo,vehiculoEstatico.patente);*/
+
+    /*fVehiculoPtr vehiculoEstatico=(fVehiculoPtr)obtenerMemoria(sizeof(fVehiculo));
+    vehiculoEstatico=crearVehiculo(3,"Mercedes","Actros","19JKU89");
+    VehiculoPtr vehiculoDinamico=crearVehiculo(getTipoVehiculo(vehiculoEstatico),getMarca(vehiculoEstatico),getModelo(vehiculoEstatico),getPatente(vehiculoEstatico));
+    FILE* a;
+    a=fopen("Pruebas.bin","wb");
+    fwrite(&vehiculoEstatico,sizeof(fVehiculo),1,a);
+    fclose(a);
+    free(vehiculoEstatico);*/
+
+    fVehiculo vehiculoEstatico;
+    setTipoVehiculo(&vehiculoEstatico,3);
+    setMarca(&vehiculoEstatico,"Mercedes");
+    setModelo(&vehiculoEstatico,"Actros");
+    setPatente(&vehiculoEstatico,"10JKU89");
+    VehiculoPtr vehiculoDinamico = crearVehiculo(getTipoVehiculo(&vehiculoEstatico),getMarca(&vehiculoEstatico),getModelo(&vehiculoEstatico),getPatente(&vehiculoEstatico));
+    FILE* a;
+    a=fopen("Pruebas.bin","wb");
+    fwrite(&vehiculoEstatico,sizeof(fVehiculo),1,a);
+    fclose(a);
+    return vehiculoDinamico;
+}
+
+VehiculoPtr pruebaDeLectura(){
+    fVehiculo vehiculoEstatico;
+    FILE* a;
+    a=fopen("Pruebas.bin","rb");
+    fread(&vehiculoEstatico,sizeof(fVehiculo),1,a);
+    fclose(a);
+    mostrarVehiculo(&vehiculoEstatico);
+}
 
 ///*************************************************************************************************************
 

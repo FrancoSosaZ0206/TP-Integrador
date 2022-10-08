@@ -136,10 +136,10 @@ void actualizarFecha(FechaPtr fecha){
         if(i==4){
             system("cls");
             printf("\n\nSe agotaron los intentos.\n\n");
+            system("pause");
             break;
         }
     }while(!esFechaValida(fecha));
-    system("pause");
 }
 
 PersonaPtr actualizarCliente(PersonaPtr cliente){
@@ -232,7 +232,6 @@ void menuCargarPaquete(CentroLogisticoPtr centroLogistico){
         paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,cliente,0);
         agregarPaquete(centroLogistico,paquete);
         printf("\n\nPaquete #%d cargado exitosamente.\n\n",ID);
-        system("pause");
     }
 }
 
@@ -939,7 +938,6 @@ void menuMostrarEntregasReparto(CentroLogisticoPtr centroLogistico, bool esRepar
     }while(eleccion<0 && eleccion>longitudLista(getRepartos(centroLogistico,esRepartoAbierto)));
     system("cls");;
     mostrarPaquetesListaReparto(getDatoLista(getRepartos(centroLogistico,esRepartoAbierto), eleccion-1));
-    system("pause");
 }
 
 void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
@@ -953,7 +951,6 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto
     repartoBuscar=getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),eleccion);
     mostrarReparto(repartoBuscar);
     return repartoBuscar;
-    system("pause");
 }
 
 void menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
@@ -1091,6 +1088,5 @@ void menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
             break;
         }
     } while(op!=0);
-    system("pause");
 }
 
