@@ -22,17 +22,14 @@ RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
     reparto->listaPaquetes=listaAux;
     return reparto;
 }
-
 RepartoPtr destruirReparto(RepartoPtr reparto)
 { //liberamos la memoria de todos los campos que hayan sido reservados dinamicamente con sus respectivas funciones. En este caso, son todos los campos.
 /**Como el chofer y vehiculo se los pasamos como punteros, destruirlos acá ocasionaría que se eliminen tambien del centro logistico.
 No queremos eso, así que simplemente no las destruimos.*/
     reparto->fechaSalida=destruirFecha(reparto->fechaSalida);
     reparto->fechaRetorno=destruirFecha(reparto->fechaRetorno);
-    reparto->paquetes=destruirPila(reparto->paquetes);
-
+    reparto->listaPaquetes=destruirLista(reparto->listaPaquetes,true);
     free(reparto);
-
     return NULL;
 }
 RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes)
@@ -75,8 +72,6 @@ void setListaPaquetesReparto(RepartoPtr reparto, ListaPtr paquetes){
     reparto->listaPaquetes = paquetes;
 }
 
-
-
 void setChofer(RepartoPtr reparto,PersonaPtr chofer)
 {
     reparto->chofer=chofer;
@@ -94,31 +89,6 @@ void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno)
     reparto->fechaRetorno=fechaRetorno;
 }
 
-void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) //agrega un paquete a la pila de paquetes
-{ //antes de hacer nada, debemos comprobar que haya algun dato en la pila. Sino, creamos la pila y le insertamos el dato.
-    if(pilaVacia(getPaquetesReparto(reparto)))
-        reparto->paquetes=crearPila();
-    else{
-        printf("\n\nERROR: PILA YA CREADA.\n\n");
-        exit(1);
-    }
-    apilar(reparto->paquetes,(PaquetePtr)paquete);
-}
-PaquetePtr descargarPaquete(RepartoPtr reparto) //elimina el ultimo paquete agregado de la pila. Devuelve el paquete eliminado.
-{
-    PaquetePtr paquete;
-    if(!pilaVacia(getPaquetesReparto(reparto)))
-        paquete=(PaquetePtr)desapilar(reparto->paquetes);
-    else{
-        printf("\n\nERROR: NO SE PUEDE ELIMINAR ELEMENTOS PORQUE LA PILA YA ESTA VACIA.\n\n");
-        exit(1);
-    }
-    return paquete;
-}
-int cantidadPaquetes(RepartoPtr reparto) //devuelve cantidad de paquetes que contiene el reparto
-{
-    return longitudPila(getPaquetesReparto(reparto));
-}
 int CantidadEntregas(RepartoPtr reparto) //devuelve cantidad de paquetes que contiene el reparto
 {
     return longitudLista(getListaPaquetesReparto(reparto));

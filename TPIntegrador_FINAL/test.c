@@ -299,7 +299,7 @@ void MetodoDistintoDeMostrado(){
     }
     ListaPtr listaPaquetes1 = crearLista();
     listaPaquetes = crearListaPaquetesGenerico();
-    CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido("Distribuidora");
+    CentroLogisticoPtr centroLogistico;
     setPaquetes(centroLogistico, listaPaquetes);
     printf("Paquetes del centro logistico: %s\n", getNombreCentroLogistico(centroLogistico));
     for(int i=0;i<longitudLista(getPaquetes(centroLogistico));i++){

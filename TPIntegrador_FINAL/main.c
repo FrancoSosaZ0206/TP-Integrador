@@ -39,15 +39,13 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
 int main(){
     CentroLogisticoPtr centroLogistico;
-    ListaPtr listaClientes=crearListaClientesGenerico();
-    ListaPtr listaVehiculos=crearListaVehiculosGenerico();
-    ListaPtr listaRepartos=crearListaRepartosPorDefecto();
-    ListaPtr listaChoferes=crearListaChoferesGenerico();
-    ListaPtr listaPaquetes=crearListaPaquetesGenerico();
-
-
-
-    system("pause");fflush(stdin);system("cls");
+    ListaPtr listaClientes=(ListaPtr)crearListaClientesGenerico();
+    ListaPtr listaVehiculos=(ListaPtr)crearListaVehiculosGenerico();
+    ListaPtr listaRepartos=(ListaPtr)crearListaRepartosPorDefecto();
+    ListaPtr listaChoferes=(ListaPtr)crearListaChoferesGenerico();
+    ListaPtr listaPaquetes=(ListaPtr)crearListaPaquetesGenerico();
+    ListaPtr listaRepartosCerrados=crearLista();
+    //system("pause");fflush(stdin);system("cls");
     int START_OP=0;
     do{
         printf("START MENU - BIENVENIDO\n\n");
@@ -60,13 +58,7 @@ int main(){
         system("cls");
         switch(START_OP){
         case 1:
-            centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
-            centroLogistico=setPaquetes(centroLogistico,listaPaquetes);
-            centroLogistico=setPersonas(centroLogistico,listaChoferes);
-            centroLogistico=setClientes(centroLogistico,listaClientes);
-            centroLogistico=setChoferes(centroLogistico,listaChoferes);
-            centroLogistico=setVehiculos(centroLogistico,listaVehiculos);
-            setRepartos(centroLogistico,listaRepartos,true);
+            crearCentroLogistico("Distribuidora",listaPaquetes,listaClientes,listaChoferes,listaVehiculos,listaRepartos,listaRepartosCerrados);
             START_OP = MAIN_MENU(centroLogistico);
             //centroLogistico=destruirCentroLogistico(centroLogistico);
             break;
@@ -97,7 +89,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
 {
     ///Menúes
     bool resultadoGuardadoGeneral;
-    int MAIN_OP=0,op1=0,op2=0,op3=0,op4=0,op5=0,op6=0;///Para cada Sub Menu
+    int MAIN_OP=0,op1=0,op2=0,op3=0;///Para cada Sub Menu
     do{
         system("cls");
         fflush(stdin);
@@ -147,10 +139,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                             menuCargarPaquete(centroLogistico);
                             break;
                         case 2:
-                            menuCargarPersona(centroLogistico,false);
+                            menuCargarCliente(centroLogistico);
                             break;
                         case 3:
-                            menuCargarPersona(centroLogistico,true);
+                            menuCargarChofer(centroLogistico);
                             break;
                         case 4:
                             menuCargarVehiculo(centroLogistico);
@@ -228,10 +220,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                             menuModificarPaquete(centroLogistico);
                             break;
                         case 2:
-                            menuModificarPersona(centroLogistico,false);
+                            menuModificarCliente(centroLogistico);
                             break;
                         case 3:
-                            menuModificarPersona(centroLogistico,true);
+                            menuModificarChofer(centroLogistico);
                             break;
                         case 4:
                             menuModificarVehiculo(centroLogistico);
@@ -268,10 +260,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                             menuBuscarPaquete(centroLogistico);
                             break;
                         case 2:
-                            menuBuscarPersona(centroLogistico,false);
+                            menuBuscarCliente(centroLogistico);
                             break;
                         case 3:
-                            menuBuscarPersona(centroLogistico,true);
+                            menuBuscarChofer(centroLogistico);
                             break;
                         case 4:
                             menuBuscarVehiculo(centroLogistico);

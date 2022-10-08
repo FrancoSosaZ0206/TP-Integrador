@@ -349,12 +349,12 @@ void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
         fsetFecha(fgetFechaSalida(pfreparto),getFechaSalida(reparto),true);
         fsetFecha(fgetFechaRetorno(pfreparto),getFechaRetorno(reparto),true);
 
-        n = cantidadPaquetes(reparto);
+        n=CantidadEntregas(reparto);
         pfreparto->tamanioPilaPaq = n;
 
         for(int i=0;i<n;i++)
         {
-            paqueteAux = descargarPaquete(reparto);
+            paqueteAux = getDatoLista(getListaPaquetesReparto(reparto),i);
             fsetPaquete(&pfreparto->paquetes[i],paqueteAux,true);
         }
     }
@@ -455,6 +455,8 @@ bool guardarPersona(PersonaPtr persona)
         return true;
     }
 }
+
+
 bool guardarPaquete(PaquetePtr paquete)
 {
     FILE *archivo = fopen("Paquete.txt","w");
@@ -691,6 +693,44 @@ bool guardarListaPersonas(CentroLogisticoPtr centroLogistico)
         }
         listaAux=destruirLista(listaAux,false);
 
+        fclose(archivo);
+        return true;
+    }
+}
+
+bool guardarListaClientes(CentroLogisticoPtr centroLogistico){
+    FILE *archivo = fopen("Lista de Clientes.txt","w");
+    if(archivo==NULL)
+        return false;
+    else{
+    ///Como hicimos en funciones anteriores, guardamos primero la cantidad de elementos de la lista
+        int n=longitudLista(getClientes(centroLogistico));
+        fwrite(&n,sizeof(int),1,archivo);
+        fPersona fpersona;
+        for(int i=0;i<longitudLista(getClientes(centroLogistico));i++){
+            PersonaPtr personaAux=getDatoLista(getClientes(centroLogistico),i);
+            fsetPersona(&fpersona,personaAux,true);
+            fwrite(&fpersona,sizeof(fPersona),1,archivo);
+        }
+        fclose(archivo);
+        return true;
+    }
+}
+
+bool guardarListaChoferes(CentroLogisticoPtr centroLogistico){
+    FILE *archivo = fopen("Lista de Choferes.txt","w");
+    if(archivo==NULL)
+        return false;
+    else{
+    ///Como hicimos en funciones anteriores, guardamos primero la cantidad de elementos de la lista
+        int n=longitudLista(getChoferes(centroLogistico));
+        fwrite(&n,sizeof(int),1,archivo);
+        fPersona fpersona;
+        for(int i=0;i<longitudLista(getChoferes(centroLogistico));i++){
+            PersonaPtr personaAux=getDatoLista(getChoferes(centroLogistico),i);
+            fsetPersona(&fpersona,personaAux,true);
+            fwrite(&fpersona,sizeof(fPersona),1,archivo);
+        }
         fclose(archivo);
         return true;
     }
@@ -1098,25 +1138,18 @@ bool abrirRepartos(RepartoPtr *repartos)
     }
 }
 //  conjuntos de datos / estructuras
-bool abrirListaPersonas(CentroLogisticoPtr centroLogistico)
-{
+bool abrirListaPersonas(CentroLogisticoPtr centroLogistico){
     FILE *archivo = fopen("Lista de Personas.txt","r");
-
     if(archivo==NULL)
         return false;
-    else
-    {
+    else{
     ///Como hicimos en funciones anteriores, recuperamos primero la cantidad de elementos de la lista
         int n = 0;
         fread(&n,sizeof(int),1,archivo);
-
         fPersona fpersona;
         PersonaPtr personaAux;
-
-        for(int i=0;i<n;i++)
-        {
+        for(int i=0;i<n;i++){
             fread(&fpersona,sizeof(fPersona),1,archivo);
-
             fsetPersona(&fpersona,personaAux,false);
             agregarPersona(centroLogistico,personaAux);
         }
@@ -1124,6 +1157,47 @@ bool abrirListaPersonas(CentroLogisticoPtr centroLogistico)
         return true;
     }
 }
+
+bool abrirListaChoferes(CentroLogisticoPtr centroLogistico){
+    FILE *archivo = fopen("Lista de Choferes.txt","r");
+    if(archivo==NULL)
+        return false;
+    else{
+    ///Como hicimos en funciones anteriores, recuperamos primero la cantidad de elementos de la lista
+        int n=0;
+        fread(&n,sizeof(int),1,archivo);
+        fPersona fpersona;
+        PersonaPtr personaAux;
+        for(int i=0;i<n;i++){
+            fread(&fpersona,sizeof(fPersona),1,archivo);
+            fsetPersona(&fpersona,personaAux,false);
+            agregarChofer(centroLogistico,personaAux);
+        }
+        fclose(archivo);
+        return true;
+    }
+}
+
+bool abrirListaClientes(CentroLogisticoPtr centroLogistico){
+    FILE *archivo = fopen("Lista de Clientes.txt","r");
+    if(archivo==NULL)
+        return false;
+    else{
+    ///Como hicimos en funciones anteriores, recuperamos primero la cantidad de elementos de la lista
+        int n=0;
+        fread(&n,sizeof(int),1,archivo);
+        fPersona fpersona;
+        PersonaPtr personaAux;
+        for(int i=0;i<n;i++){
+            fread(&fpersona,sizeof(fPersona),1,archivo);
+            fsetPersona(&fpersona,personaAux,false);
+            agregarCliente(centroLogistico,personaAux);
+        }
+        fclose(archivo);
+        return true;
+    }
+}
+
 bool abrirListaPaquetes(CentroLogisticoPtr centroLogistico)
 {
     FILE *archivo = fopen("Lista de Paquetes.txt","r");
@@ -1213,25 +1287,19 @@ bool abrirListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbiert
         return true;
     }
 }
-//  general
-CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo llenará de datos. Llamará a las otras funciones de apertura
-{
+//implementacion: creará un centro logistico y lo llenará de datos. Llamará a las otras funciones de apertura
+CentroLogisticoPtr abrirTodo(){
     //Primero, recuperamos el nombre del centro logistico.
     FILE *archivo = fopen("Nombre del Centro Logistico.txt","r");
     bool res=true;
-
     char *nombreCtroLog;
-
     if(archivo==NULL)
         res=false;
-    else
-    {
+    else{
         if(LeerString(archivo,nombreCtroLog,100,'\n')==EOF)
             res=false; ///volvemos a poner false si el archivo abre, pero está vacío por alguna razón.
     }
-
-    CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido(nombreCtroLog);
-
+    CentroLogisticoPtr centroLogistico;
     res = res && abrirListaPaquetes(centroLogistico);
     res = res && abrirListaPersonas(centroLogistico);
     res = res && abrirListaVehiculos(centroLogistico);

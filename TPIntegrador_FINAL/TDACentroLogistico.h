@@ -34,7 +34,7 @@ typedef CentroLogistico * CentroLogisticoPtr;
 // listaVehiculos: puntero a lista representando la lista de vehiculos.
 // listaRepartos: puntero a lista representando la lista de repartos.
 //Devuelve un puntero de la estructura creada.
-CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,ListaPtr listaPersonas,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados);
+CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,ListaPtr listaClientes,ListaPtr listaChoferes,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados);
 //Operación:Crea la estructura Centro Logistico de forma aleatoria
 //Precondición:Que el centro logistico no haya sido creado
 //Postcondición:Se crea un centro logistico con nombre, lista de paquetes, lista de personas, lista de vehiculos y lista de repartos.
@@ -195,7 +195,7 @@ void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado); //filtra lo
 // centroLogistico: puntero a estructura que representa al centro logistico.
 // ID: entero que representa el ID del paquete.
 //Devuelve true si se encontró una coincidencia, false de lo contrario.
-bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID);
+int buscarPaquete(CentroLogisticoPtr centroLogistico,int ID);
 //Operación: Muestra las personas (clientes o choferes) con el cuil que le haya pasado.
 //Precondición: Centro logistico debe haberse creado y llenado con una lista de clientes/choferes
 //Postcondición: Si hay coincidencia, imprime la persona (cliente o chofer) con el cuil buscado.
@@ -204,7 +204,7 @@ bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID);
 // cuil: string que representa el cuil de la persona.
 // esChofer: booleano que aclara al buscador si se trata de un chofer (true) o un cliente (false).
 //Devuelve true si se encontró una coincidencia, false de lo contrario.
-bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer);
+int buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer);
 //Operación: Muestra los vehiculos con la patente que le haya pasado.
 //Precondición: Centro logistico debe haberse creado y llenado con una lista de vehiculos
 //Postcondición: De encontrarse, imprime el vehiculo buscado.
@@ -212,7 +212,7 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer
 // centroLogistico: puntero a estructura que representa al centro logistico.
 // patente: char que representa la patente del vehiculo.
 //Devuelve true si se encontró una coincidencia, false de lo contrario.
-bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente);
+int buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente);
 //---------------------------------------Funciones de agregado a la lista----------------------------------------------
 //Operación: Agrega un nuevo paquete.
 //Precondición: Centro logistico debe haberse creado.

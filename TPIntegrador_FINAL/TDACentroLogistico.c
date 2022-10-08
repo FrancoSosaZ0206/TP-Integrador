@@ -11,43 +11,28 @@
 #include "util.h"
 
 
-CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,ListaPtr listaPersonas,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados){
+CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,ListaPtr listaClientes,ListaPtr listaChoferes,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados){
     CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
     centroLogistico->nombre=crearStringDinamico(nombre);
     centroLogistico->listaPaquetes=listaPaquetes;
-    centroLogistico->listaPersonas=listaPersonas;
+    centroLogistico->listaClientes=listaClientes;
+    centroLogistico->listaChoferes=listaChoferes;
     centroLogistico->listaVehiculos=listaVehiculos;
     centroLogistico->listaRepartosAbiertos=listaRepartosAbiertos;
     centroLogistico->listaRepartosCerrados=listaRepartosCerrados;
     return centroLogistico;
 }
- ///Crea un centro logístico con un nombre y listas vacías.
-CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre){
-    CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
-    ListaPtr listaPaquetesAux = crearLista();
-    ListaPtr listaPersonasAux = crearLista();
-    ListaPtr listaVehiculosAux = crearLista();
-    ListaPtr listaRepartosAbiertosAux = crearLista();
-    ListaPtr listaRepartosCerradosAux = crearLista();
-    centroLogistico->nombre=crearStringDinamico(nombre);
-    centroLogistico->listaPaquetes = listaPaquetesAux;
-    centroLogistico->listaPersonas = listaPersonasAux;
-    centroLogistico->listaVehiculos = listaVehiculosAux;
-    centroLogistico->listaRepartosAbiertos = listaRepartosAbiertosAux;
-    centroLogistico->listaRepartosCerrados = listaRepartosCerradosAux;
-    return centroLogistico;
-}
 CentroLogisticoPtr destruirCentroLogistico(CentroLogisticoPtr centroLogistico){
     destruirStringDinamico(centroLogistico->nombre);
     centroLogistico->listaPaquetes=destruirLista(centroLogistico->listaPaquetes,true);
-    centroLogistico->listaPersonas=destruirLista(centroLogistico->listaPersonas,true);
+    centroLogistico->listaClientes=destruirLista(centroLogistico->listaClientes,true);
+    centroLogistico->listaChoferes=destruirLista(centroLogistico->listaChoferes,true);
     centroLogistico->listaVehiculos=destruirLista(centroLogistico->listaVehiculos,true);
     centroLogistico->listaRepartosAbiertos=destruirLista(centroLogistico->listaRepartosAbiertos,true);
     centroLogistico->listaRepartosCerrados=destruirLista(centroLogistico->listaRepartosCerrados,true);
     free(centroLogistico);
     return NULL;
 }
-
 char *getNombreCentroLogistico(CentroLogisticoPtr centroLogistico){
     return centroLogistico->nombre;
 }
@@ -169,84 +154,24 @@ void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado){
         if(getEstado(getDatoLista(getPaquetes(centroLogistico),i))==estado)
             printf("%d.",i),mostrarPaquete(getDatoLista(getPaquetes(centroLogistico),i)),printf("\n\n");
 }
-///NUEVO: Funciones de búsqueda de datos en la lista
-bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID){
-    bool match=false;
-    ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getPaquetes(centroLogistico));
-    while(!listaVacia(listaAux)){
-        PaquetePtr paqueteAux=(PaquetePtr)getCabecera(listaAux);
-        if(getID(paqueteAux)==ID){
-            match=true;
-            mostrarPaquete(paqueteAux);
-        }
-        ListaPtr listaADestruir=listaAux;
-        listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
-    }
-    listaAux=destruirLista(listaAux,false);
-    if(match)
-        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
-    return match;
-}
-bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer)
-{
-    bool match=false;
-    ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getPersonas(centroLogistico));
-    while(!listaVacia(listaAux))
-    {
-        PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
-        if(strcmp(getCuil(getCuilPersona(personaAux)),getCuil(cuil))==0 && getEsChofer(personaAux)==esChofer){
-            match=true;
-            mostrarPersona(personaAux); //mostramos solo si el cuil y esChofer coinciden
-        }
-        ListaPtr listaADestruir=listaAux;
-        listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
-    }
-    listaAux=destruirLista(listaAux,false);
 
-    if(match)
-        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
-
-    return match;
-}
-bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente)
-{
-    bool match=false;
-
-    ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getVehiculos(centroLogistico));
-    while(!listaVacia(listaAux))
-    {
-        VehiculoPtr vehiculoAux=(VehiculoPtr)getCabecera(listaAux);
-        if(strcmp(getPatente(vehiculoAux),patente)==0)
-        {
-            match=true;
-            mostrarVehiculo(vehiculoAux); //mostramos si las patentes coinciden, es decir, si strcmp da cero.
-        }
-        ListaPtr listaADestruir=listaAux;
-        listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
-    }
-    listaAux=destruirLista(listaAux,false);
-
-    if(match)
-        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
-
-    return match;
-}
-
-int buscarChoferRepartosNuevo(CentroLogisticoPtr centroLogistico, CuilPtr cuil){
+int buscarChoferRepartos(CentroLogisticoPtr centroLogistico, CuilPtr cuil){
     int posicionEncontrado=-1;
     for(int i=0;i<longitudLista(getRepartos(centroLogistico,true));i++)
-        if(strcmp(getCuil(cuil),getCuil(getCuilPersona(getDatoLista(getChoferes(centroLogistico),i))))==0)
+        if(strcmp(getCuil(cuil),getCuil(getCuilPersona(getChofer(getDatoLista(getRepartos(centroLogistico,true),i))))==0))
             posicionEncontrado=i;
     return posicionEncontrado;
 }
 
-int buscarVehiculoRepartosNuevo(CentroLogisticoPtr centroLogistico, char* patente){
+int buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente){
+    int posicionEncontrado=-1;
+    for(int i=0;i<longitudLista(getVehiculos(centroLogistico));i++)
+        if(strcmp(patente,getPatente(getVehiculo(getDatoLista(getRepartos(centroLogistico,true),i)))==0))
+            posicionEncontrado=i;
+    return posicionEncontrado;
+}
+
+int buscarVehiculo(CentroLogisticoPtr centroLogistico, char* patente){
     int posicionEncontrado=-1;
     for(int i=0;i<longitudLista(getVehiculos(centroLogistico));i++)
         if(strcmp(patente,getPatente(getDatoLista(getVehiculos(centroLogistico),i)))==0)
@@ -254,7 +179,7 @@ int buscarVehiculoRepartosNuevo(CentroLogisticoPtr centroLogistico, char* patent
     return posicionEncontrado;
 }
 
-int buscarClienteNuevo(CentroLogisticoPtr centroLogistico, char* cuil){
+int buscarCliente(CentroLogisticoPtr centroLogistico, char* cuil){
     int posicionEncontrado=-1;
     for(int i=0;i<longitudLista(getClientes(centroLogistico));i++)
         if(strcmp(cuil,getCuil(getCuilPersona(getDatoLista(getClientes(centroLogistico),i))))==0)
@@ -262,7 +187,7 @@ int buscarClienteNuevo(CentroLogisticoPtr centroLogistico, char* cuil){
     return posicionEncontrado;
 }
 
-int buscarChoferNuevo(CentroLogisticoPtr centroLogistico, char* cuil){
+int buscarChofer(CentroLogisticoPtr centroLogistico, char* cuil){
     int posicionEncontrado=-1;
     for(int i=0;i<longitudLista(getChoferes(centroLogistico));i++)
         if(strcmp(cuil,getCuil(getCuilPersona(getDatoLista(getChoferes(centroLogistico),i))))==0)
@@ -270,7 +195,7 @@ int buscarChoferNuevo(CentroLogisticoPtr centroLogistico, char* cuil){
     return posicionEncontrado;
 }
 
-int buscarPaqueteNuevo(CentroLogisticoPtr centroLogistico, int codigo){
+int buscarPaquete(CentroLogisticoPtr centroLogistico, int codigo){
     int posicionEncontrado=-1;
     for(int i=0;i<longitudLista(getPaquetes(centroLogistico));i++)
         if(codigo==getID((getDatoLista(getPaquetes(centroLogistico),i))))
@@ -278,15 +203,12 @@ int buscarPaqueteNuevo(CentroLogisticoPtr centroLogistico, int codigo){
     return posicionEncontrado;
 }
 
-int buscarRepartoNuevo(CentroLogisticoPtr centroLogistico, int posicionSolicitada){
+int buscarReparto(CentroLogisticoPtr centroLogistico, int posicionSolicitada){
     int posicionEncontrado=-1;
         if(posicionSolicitada>0 && posicionSolicitada<longitudLista(getRepartos(centroLogistico,true)))
             return posicionSolicitada;
     return posicionEncontrado;
 }
-
-
-
 
 //Funciones de agregado a la lista
 void agregarPaquete(CentroLogisticoPtr centroLogistico,PaquetePtr paquete)
@@ -352,23 +274,6 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
         return (RepartoPtr)removerDeLista(centroLogistico->listaRepartosAbiertos,posicion);
     else
         return (RepartoPtr)removerDeLista(centroLogistico->listaRepartosCerrados,posicion);
-}
-///NUEVA
-void cerrarRepartoCtroLogistico(CentroLogisticoPtr centroLogistico, int posicion)
-{ ///extraemos el reparto de la lista de abiertos
-    RepartoPtr repartoACerrar = removerReparto(centroLogistico,posicion,true);
-///Obtenemos cada paquete de la pila y le cambiamos el estado a 3: "entregado"
-    PaquetePtr paqueteAux;
-    int n=cantidadPaquetes(repartoACerrar);
-    for(int i=0;i<n;i++)
-    {
-        paqueteAux = descargarPaquete(repartoACerrar);
-        setEstado(paqueteAux,3);
-    }
-    for(int i=0;i<n;i++)
-        cargarPaquete(repartoACerrar,paqueteAux);
-///Agregamos el reparto a la lista de cerrados
-    agregarReparto(centroLogistico,repartoACerrar,false);
 }
 
 //Funciones para resetear listas
