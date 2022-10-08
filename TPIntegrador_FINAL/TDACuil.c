@@ -8,9 +8,7 @@
 CuilPtr crearCuil(char *cuilStr)
 {
     CuilPtr cuil=(CuilPtr)obtenerMemoria(sizeof(Cuil));
-
     cuil->cuil=crearStringDinamico(cuilStr);
-
     return cuil;
 }
 
@@ -40,9 +38,9 @@ CuilPtr destruirCuil(CuilPtr cuil)
 }
 
 
-void setCuil(CuilPtr cuil,char *cuilStr) ///NUEVA
+CuilPtr setCuil(CuilPtr cuil,char *cuilStr) ///NUEVA
 {
-    strcpy(cuil->cuil,cuilStr);
+    cuil->cuil = cuilStr;
 }
 
 void setTipo(CuilPtr cuil,int tipo)
@@ -87,7 +85,7 @@ void setNVerificador(CuilPtr cuil,int nVerificador)
 }
 
 
-char *getCuil(CuilPtr cuil) ///NUEVA
+char* getCuil(CuilPtr cuil) ///NUEVA
 {
     return cuil->cuil;
 }

@@ -1,12 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Files.h"
+#include <stdbool.h>
 #include "Lista.h"
-#include "Menus.h"
-#include "test.h"
-#include "util.h"
-
+#include "Pila.h"
+#include "TDACentroLogistico.h"
+#include "TDACuil.h"
+#include "TDADomicilio.h"
+#include "TDAFechaYHora.h"
+#include "TDANodo.h"
+#include "TDAPaquetes.h"
+#include "TDAPersona.h"
+#include "TDARepartos.h"
+#include "TDAVehiculo.h"
+#include "Files.h"
 
 /**
 DIRECTORIOS (FRANCO S.)
@@ -38,12 +45,13 @@ int deseaGuardarAntesDeSalir()
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
 int main(){
+    bool resultado;
     CentroLogisticoPtr centroLogistico;
-    ListaPtr listaClientes=(ListaPtr)crearListaClientesGenerico();
-    ListaPtr listaVehiculos=(ListaPtr)crearListaVehiculosGenerico();
-    ListaPtr listaRepartos=(ListaPtr)crearListaRepartosPorDefecto();
-    ListaPtr listaChoferes=(ListaPtr)crearListaChoferesGenerico();
-    ListaPtr listaPaquetes=(ListaPtr)crearListaPaquetesGenerico();
+    ListaPtr listaClientes=crearListaClientesGenerico();
+    ListaPtr listaVehiculos=crearListaVehiculosGenerico();
+    ListaPtr listaRepartos=crearListaRepartosPorDefecto();
+    ListaPtr listaChoferes=crearListaChoferesGenerico();
+    ListaPtr listaPaquetes=crearListaPaquetesGenerico();
     ListaPtr listaRepartosCerrados=crearLista();
     //system("pause");fflush(stdin);system("cls");
     int START_OP=0;
@@ -58,7 +66,7 @@ int main(){
         system("cls");
         switch(START_OP){
         case 1:
-            crearCentroLogistico("Distribuidora",listaPaquetes,listaClientes,listaChoferes,listaVehiculos,listaRepartos,listaRepartosCerrados);
+            centroLogistico=crearCentroLogistico("Distribuidora",listaPaquetes,listaClientes,listaChoferes,listaVehiculos,listaRepartos,listaRepartosCerrados);
             START_OP = MAIN_MENU(centroLogistico);
             //centroLogistico=destruirCentroLogistico(centroLogistico);
             break;

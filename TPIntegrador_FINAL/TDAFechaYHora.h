@@ -15,6 +15,9 @@
 typedef struct Fecha
 {//definicion del TDA con su variante puntero
     int diaJuliano;
+    int dia;
+    int mes;
+    int anio;
     int hora;
     int minuto;
 }   Fecha;

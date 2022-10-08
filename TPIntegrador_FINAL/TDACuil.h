@@ -47,7 +47,7 @@ CuilPtr destruirCuil(CuilPtr cuil);
 ///*****************************************************************************************************
 ///                                            SETTERS
 
-void setCuil(CuilPtr cuil,char *cuilStr); ///NUEVA
+CuilPtr setCuil(CuilPtr cuil,char *cuilStr); ///NUEVA
 //Operación: Asignacion de tipo de genero.
 //Precondición: Cuil debe estar creado.
 //Postcondición: Cuil va a tener un nuevo tipo de valor.

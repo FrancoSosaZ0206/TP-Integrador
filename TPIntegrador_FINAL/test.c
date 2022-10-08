@@ -206,9 +206,10 @@ ListaPtr crearListaRepartosPorDefecto(){
     VehiculoPtr vehiculo3=crearVehiculo(3,"Mercedes Benz","Actros","19 JUY 78");
     RepartoPtr reparto3=crearReparto(chofer3,vehiculo3,fechaSalida3,fechaRetorno3,listaPaquetes3);
 
-    agregarDatoLista(listaRepartos,(RepartoPtr)reparto1);
-    agregarDatoLista(listaRepartos,(RepartoPtr)reparto2);
-    agregarDatoLista(listaRepartos,(RepartoPtr)reparto3);
+    int i=0;
+    insertarDatoLista(listaRepartos,(RepartoPtr)reparto1,i++);
+    insertarDatoLista(listaRepartos,(RepartoPtr)reparto2,i++);
+    insertarDatoLista(listaRepartos,(RepartoPtr)reparto3,i++);
     return listaRepartos;
 }
 
@@ -276,10 +277,10 @@ ListaPtr crearListaChoferesGenerico(){
 
 ListaPtr crearListaVehiculosGenerico(){
     ListaPtr listaVehiculos = crearLista();
-    VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","17UJI30");
+    VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","99 UJI 99");
     VehiculoPtr vehiculo2=crearVehiculo(3,"Ferrari","Benne","65MNJ91");
-    VehiculoPtr vehiculo3=crearVehiculo(3,"Volkswagen","17720","54UYT95");
-    VehiculoPtr vehiculo4=crearVehiculo(3,"Ford","C916","20JUI12");
+    VehiculoPtr vehiculo3=crearVehiculo(3,"Volkswagen","17720","98 UYT 98");
+    VehiculoPtr vehiculo4=crearVehiculo(3,"Ford","C916","97 JUI 97");
     int i=0;
     insertarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo1,i++);
     insertarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo2,i++);
@@ -299,7 +300,7 @@ void MetodoDistintoDeMostrado(){
     }
     ListaPtr listaPaquetes1 = crearLista();
     listaPaquetes = crearListaPaquetesGenerico();
-    CentroLogisticoPtr centroLogistico;
+    CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido("Distribuidora");
     setPaquetes(centroLogistico, listaPaquetes);
     printf("Paquetes del centro logistico: %s\n", getNombreCentroLogistico(centroLogistico));
     for(int i=0;i<longitudLista(getPaquetes(centroLogistico));i++){

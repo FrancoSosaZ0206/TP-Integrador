@@ -36,7 +36,9 @@ typedef fDomicilio* fDomicilioPtr;
 
 typedef struct fFecha
 {
-    int diaJuliano;
+    int dia;
+    int mes;
+    int anio;
     int hora;
     int minuto;
 } fFecha;
@@ -84,10 +86,9 @@ typedef struct fReparto
     fFecha fechaSalida;
     fFecha fechaRetorno;
     int tamanioPilaPaq; ///la dimension del array...
-    fPaquete paquetes[]; ///depende de la longitud de la pila que me pasan
+    fPaquete paquetes[100]; ///depende de la longitud de la pila que me pasan
 } fReparto;
 typedef fReparto* fRepartoPtr;
-
 
 //Ayudín - ¿Cuánto espacio ocupan 50 caracteres?
 
@@ -125,10 +126,6 @@ char *fgetLocalidad(fDomicilioPtr pfdomicilio)
     return pfdomicilio->localidad;
 }
 //  Fecha
-int fgetDiaJuliano(fFechaPtr pffecha) //no necesitamos pasar los días, meses y anios.
-{
-    return pffecha->diaJuliano;
-}
 int fgetHora(fFechaPtr pffecha)
 {
     return pffecha->hora;
@@ -267,12 +264,10 @@ void fsetFecha(fFechaPtr pffecha,FechaPtr fecha,bool setParaGuardar)
 {
     if(setParaGuardar)
     {
-        pffecha->diaJuliano=getDiaJuliano(fecha);
         pffecha->hora=getHora(fecha);
         pffecha->minuto=getMinuto(fecha);
     }
-    else ///asumimos que la estructura está vacía y la creamos.
-        fecha = crearFechaDirect(fgetDiaJuliano(pffecha),fgetHora(pffecha),fgetMinuto(pffecha));
+     ///asumimos que la estructura está vacía y la creamos.
 }
 void fsetPersona(fPersonaPtr pfpersona,PersonaPtr persona,bool setParaGuardar)
 {
@@ -337,50 +332,39 @@ void fsetVehiculo(fVehiculoPtr pfvehiculo,VehiculoPtr vehiculo,bool setParaGuard
     else ///asumimos que la estructura está vacía y la creamos.
         vehiculo=crearVehiculo(fgetTipoVehiculo(pfvehiculo),fgetMarca(pfvehiculo),fgetModelo(pfvehiculo),fgetPatente(pfvehiculo));
 }
-void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
-{
+void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar){
     int n=0;
     PaquetePtr paqueteAux;
-
-    if(setParaGuardar)
-    {
+    if(setParaGuardar){
         fsetPersona(fgetChofer(pfreparto),getChofer(reparto),true);
         fsetVehiculo(fgetVehiculo(pfreparto),getVehiculo(reparto),true);
         fsetFecha(fgetFechaSalida(pfreparto),getFechaSalida(reparto),true);
         fsetFecha(fgetFechaRetorno(pfreparto),getFechaRetorno(reparto),true);
-
         n=CantidadEntregas(reparto);
         pfreparto->tamanioPilaPaq = n;
-
-        for(int i=0;i<n;i++)
-        {
+        for(int i=0;i<n;i++){
             paqueteAux = getDatoLista(getListaPaquetesReparto(reparto),i);
             fsetPaquete(&pfreparto->paquetes[i],paqueteAux,true);
         }
-    }
-    else ///asumimos que la estructura está vacía y la creamos.
-    {
+    }else{ ///asumimos que la estructura está vacía y la creamos.
         PersonaPtr chofer;
         VehiculoPtr vehiculo;
         FechaPtr fechaSalida;
         FechaPtr fechaRetorno;
-
         fsetPersona(fgetChofer(pfreparto),chofer,false);
         fsetVehiculo(fgetVehiculo(pfreparto),vehiculo,false);
         fsetFecha(fgetFechaSalida(pfreparto),fechaSalida,false);
         fsetFecha(fgetFechaRetorno(pfreparto),fechaRetorno,false);
-
-        PilaPtr paquetes = crearPila();
+        ListaPtr paquetes = crearLista();
         n=pfreparto->tamanioPilaPaq;
-
-        for(int i=n;i>0;i--) ///lo hacemos al revés para mantener el orden original de la pila.
-        {
+        ///lo hacemos al revés para mantener el orden original de la pila.
+        for(int i=0;i<n;i++){
             fsetPaquete(&pfreparto->paquetes[i],paqueteAux,false);
-            apilar(paquetes,(PaquetePtr)paqueteAux);
+            agregarDatoLista(paquetes,(PaquetePtr)paqueteAux);
         }
-        reparto = armarReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
+        reparto = crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
     }
-
+    return reparto;
     paqueteAux = NULL;
 }
 
@@ -751,8 +735,7 @@ bool guardarListaPaquetes(CentroLogisticoPtr centroLogistico)
         ListaPtr listaAux = crearLista();
         agregarLista(listaAux , getPaquetes(centroLogistico));
 
-        while(!listaVacia(listaAux))
-        {
+        while(!listaVacia(listaAux)){
             PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
             fsetPaquete(&fpaquete,paqueteAux,true);
 
@@ -849,9 +832,10 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
     if(archivo==NULL)
         res=false;
     else{
-        char *temp = getNombreCentroLogistico(centroLogistico);
+        char temp[100];
+        strcpy(temp,getNombreCentroLogistico(centroLogistico));
         //2 más que el original: 1 x el '\0', y 2 x el caracter que le agregaremos.
-        int longStr = strlen(temp) + 2;
+        int longStr=strlen(temp) + 2;
         char nombreCtroLog[longStr];
         strcpy(nombreCtroLog,temp);
         nombreCtroLog[longStr-1]='\n'; ///le agregamos el caracter especial para la apertura.
@@ -859,11 +843,20 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
         fwrite(nombreCtroLog,sizeof(char),longStr,archivo);
         fclose(archivo);
     }
-    res = res && guardarListaPaquetes(centroLogistico);
-    res = res && guardarListaPersonas(centroLogistico);
+    /*res = res && guardarListaPaquetes(centroLogistico);
+    //res = res && guardarListaPersonas(centroLogistico);
+    res = res && guardarListaChoferes(centroLogistico);
+    res = res && guardarListaClientes(centroLogistico);
     res = res && guardarListaVehiculos(centroLogistico);
     res = res && guardarListaRepartos(centroLogistico,true);
-    res = res && guardarListaRepartos(centroLogistico,false);
+    res = res && guardarListaRepartos(centroLogistico,false);*/
+    guardarListaPaquetes(centroLogistico);
+    //res = res && guardarListaPersonas(centroLogistico);
+    guardarListaChoferes(centroLogistico);
+    guardarListaClientes(centroLogistico);
+    guardarListaVehiculos(centroLogistico);
+    guardarListaRepartos(centroLogistico,true);
+    guardarListaRepartos(centroLogistico,false);
 ///Un booleano almacenará el valor de verdad de los resultados de todas las funciones.
 ///De esta manera, si alguno falla, el conjugado será falso, lo retornará, y nos daremos cuenta.
     return res;
@@ -1299,9 +1292,11 @@ CentroLogisticoPtr abrirTodo(){
         if(LeerString(archivo,nombreCtroLog,100,'\n')==EOF)
             res=false; ///volvemos a poner false si el archivo abre, pero está vacío por alguna razón.
     }
-    CentroLogisticoPtr centroLogistico;
+    CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido(nombreCtroLog);
     res = res && abrirListaPaquetes(centroLogistico);
-    res = res && abrirListaPersonas(centroLogistico);
+    //res = res && guardarListaPersonas(centroLogistico);
+    res = res && guardarListaClientes(centroLogistico);
+    res = res && guardarListaChoferes(centroLogistico);
     res = res && abrirListaVehiculos(centroLogistico);
     res = res && abrirListaRepartos(centroLogistico,true);
     res = res && abrirListaRepartos(centroLogistico,false);

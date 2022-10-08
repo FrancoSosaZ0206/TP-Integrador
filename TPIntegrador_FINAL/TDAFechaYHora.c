@@ -16,7 +16,6 @@ FechaPtr crearFecha(int dia,int mes,int anio,int hora,int minuto)
 {
     FechaPtr f=(FechaPtr)obtenerMemoria(sizeof(Fecha));
     f->diaJuliano=calcularDiaJuliano(dia,mes,anio);
-
     f->hora=hora;
     f->minuto=minuto; ///Agregamos estas dos a la estructura antes de retornar f.
 

@@ -142,8 +142,7 @@ void setClientePaquete(PaquetePtr paquete, PersonaPtr cliente){
     paquete->cliente = cliente;
 }
 
-void mostrarPaquete(PaquetePtr paquete)
-{
+void mostrarPaquete(PaquetePtr paquete){
     printf("Paquete #%d\n",getID(paquete));
     switch(getEstado(paquete)){
     case 0:
@@ -176,50 +175,7 @@ void mostrarPaquete(PaquetePtr paquete)
     mostrarDomicilio(getDirRetiro(paquete));
     printf("\tDireccion de Entrega: ");
     mostrarDomicilio(getDirEntrega(paquete));
-    char *bufferFecha;
-    traerFechaYHora(getFechaEntrega(paquete),bufferFecha);
-    printf("\tFecha y Hora de Entrega: %s\n",bufferFecha);
-}
-
-void mostrarPaqueteNuevo(PaquetePtr paquete)
-{
-    printf("Paquete #%d\n",getID(paquete));
-    switch(getEstado(paquete)){
-    case 0:
-        printf("\tEstado: En Deposito\n");
-        break;
-    case 1:
-        printf("\tEstado: En Curso\n");
-        break;
-    case 2:
-        printf("\tEstado: Retirado\n");
-        break;
-    case 3:
-        printf("\tEstado: Entregado\n");
-        break;
-    case 4:
-        printf("\tEstado: Demorado\n");
-        break;
-    case 5:
-        printf("\tEstado: Suspendido\n");
-        break;
-    default:
-        printf("\tEstado: ERROR\n");
-        break;
-    }
-    printf("\tAncho: %d\n",getAncho(paquete));
-    printf("\tAlto: %d\n",getAlto(paquete));
-    printf("\tLargo: %d\n",getLargo(paquete));
-    printf("\tPeso: %d\n",getPeso(paquete));
-    printf("\tDireccion de Retiro: ");
-    mostrarDomicilio(getDirRetiro(paquete));
-    printf("\tDireccion de Entrega: ");
-    mostrarDomicilio(getDirEntrega(paquete));
-    /*char *bufferFecha;
-    traerFechaYHora(getFechaEntrega(paquete),bufferFecha);
-    printf("\tFecha y Hora de Entrega: %s\n",bufferFecha);*/
     mostrarFecha(getFechaEntrega(paquete));
-    mostrarPersona(getClientePaquete(paquete));
 }
 void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
 {
