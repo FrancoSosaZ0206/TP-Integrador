@@ -25,6 +25,8 @@ Para abrir/guardar files = CARPETA "Archivos"
 E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\Archivos\
 */
 
+int menuPrincipal();
+
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
 int menuTipoListado();
