@@ -15,7 +15,7 @@ PilaPtr crearPila(){
 }
 
 PilaPtr destruirPila(PilaPtr pila){
-    // desapilamos cada uno de los nodos y para eliminamos.  Si habian datos a eliminar,
+    // desapilamos cada uno de los nodos para eliminarlos. Si habian datos a eliminar,
     // eso es responsabilidad del usuario
     while(!pilaVacia(pila)){
         desapilar(pila);

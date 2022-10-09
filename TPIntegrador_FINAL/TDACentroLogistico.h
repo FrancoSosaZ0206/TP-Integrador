@@ -132,43 +132,33 @@ void setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos);
 void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esRepartoAbierto);
 
 //Operación: Muestra los paquetes.
-//Precondición: Centro logistico debe haberse creado.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, un paquete
 //Postcondición: Imprime la lista de paquetes.
 //Parámetros:
 // centroLogistico: puntero a estructura que representa al centro logistico.
 //Devuelve: nada.
 void mostrarPaquetes(CentroLogisticoPtr centroLogistico);
-//Operación: Muestra las personas.
-//Precondición: Centro logistico debe haberse creado.
-//Postcondición: Imprime la lista de personas.
+//Operación: Muestra una las personas del centro logistico
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, una persona
+//Postcondición: Imprime la lista de personas filtrada bajo una serie de parámetros a elegir por el usuario.
+//                  1 = Filtramos por Chofer
+//                  2 = Filtramos por Cliente
+///                 3 = SIN FILTRO - Se muestran todas las personas
 //Parámetros:
-// centroLogistico: puntero a estructura que representa al centro logistico.
+//  centroLogistico: puntero a estructura que representa al centro logistico.
+//  modo: entero representando el modo en que se quiere mostrar la lista.
 //Devuelve: nada.
-void mostrarPersonas(CentroLogisticoPtr centroLogistico);
-//Operación: Muestra los clientes.
-//Precondición: Centro logistico debe haberse creado.
-//Postcondición: Imprime la lista de clientes.
-//Parámetros:
-// centroLogistico: puntero a estructura que representa al centro logistico.
-//Devuelve: nada.
-void mostrarClientes(CentroLogisticoPtr centroLogistico); //busca y muestra solo las personas cuyo esChofer==false.
-//Operación: Muestra los choferes.
-//Precondición: Centro logistico debe haberse creado.
-//Postcondición: Imprime la lista de choferes.
-//Parámetros:
-// centroLogistico: puntero a estructura que representa al centro logistico.
-//Devuelve: nada.
-void mostrarChoferes(CentroLogisticoPtr centroLogistico); //busca y muestra solo las personas cuyo esChofer==true.
+void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo);
 
 //Operación: Muestra los vehiculos.
-//Precondición: Centro logistico debe haberse creado.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, un vehiculo
 //Postcondición: Imprime la lista de vehiculos.
 //Parámetros:
 // centroLogistico: puntero a estructura que representa al centro logistico.
 //Devuelve: nada.
 void mostrarVehiculos(CentroLogisticoPtr centroLogistico);
 //Operación: Muestra los repartos.
-//Precondición: Centro logistico debe haberse creado.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, un reparto
 //Postcondición: Imprime la lista de repartos.
 //Parámetros:
 // centroLogistico: puntero a estructura que representa al centro logistico.
@@ -185,13 +175,19 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 //Parametros:
 // centroLogistico: puntero al Centro Logistico del que se quiere mostrar los repartos.
 //Devuelve: nada.
-void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico); ///NUEVA || Solo funciona con repartos abiertos
+void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto); ///NUEVA
 //Operación: Muestra los paquetes con el estado que le haya pasado.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: Imprime los paquetes con la condicion que se les haya pasado.
 //Parámetros:
 // centroLogistico: puntero a estructura que representa al centro logistico.
-// estado: entero que representa el estado del paquete. 0:en deposito 1:en curso 2:retirado  3:entregado 4:demorado 5:suspendido
+// estado: entero que representa el estado del paquete. Valores:
+//              0 = en deposito
+//              1 = en curso
+//              2 = retirado
+//              3 = entregado
+//              4 = demorado
+//              5 = suspendido
 //Devuelve: nada.
 void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado); //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
 
@@ -340,7 +336,7 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
 //  centroLogistico: puntero a estructura que representa al centro logistico.
 //  posicion: entero representando la posicion del reparto a cerrar.
 //Devuelve: nada.
-void cerrarRepartoCtroLogistico(CentroLogisticoPtr centroLogistico, int posicion);
+void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion);
 
 ///---------------------------------------Funciones de verificación------------------------------------------------
 
@@ -383,81 +379,62 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
 
 ///---------------------------------------Funciones de ordenamiento------------------------------------------------
 
-//Operación: ordena una lista de personas alfabéticamente por nombre.
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todas las personas ordenadas segun su nombre.
-//Parametros: puntero a la estructura centro logistico
+//Operación: ordena una lista de paquetes por una serie de parámetros:
+//              1 = Por ID
+//              2 = Por Fecha de Entrega
+//              3 = Por Estado (como están representados por números, se ordenan "de menor a mayor")
+//PRECONDICIÓN:
+//              - centroLogistico debe haber sido creado previamente
+//              - Una lista de paquetes debe haber sido creada y cargada con, al menos, 2 paquetes.
+//Postcondicion: reinserta dentro de centro logistico todos los paquetes ordenados segun el parámetro elegido.
+//Parametros:
+//  centroLogistico: puntero a la estructura centro logistico
+//  modoOrden: entero representando el parámetro con el que se quiere ordenar la lista
 //Devuelve: nada
-void ordenarPorNombre(CentroLogisticoPtr centroLogistico);
-//Operación: ordena una lista de personas alfabéticamente por apellido.
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todas las personas ordenadas segun su apellido.
-//Parametros: puntero a la estructura centro logistico
-//Devuelve: nada
-void ordenarPorApellido(CentroLogisticoPtr centroLogistico);
-//Operación: ordena una lista de personas alfabéticamente por apellido y nombre.
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
+void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modoOrden);
+//Operación: ordena una lista de personas alfabéticamente.
+//Precondicion: centroLogistico debe haber sido creado anteriormente  y cargado con, al menos, 2 personas.
 //Postcondicion: reinserta dentro de centro logistico todas las personas ordenadas segun su apellido y nombre.
-//Parametros: puntero a la estructura centro logistico
+//               los modos de ordenamiento son:
+//                  1. Por nombre.
+//                  2. Por apellido.
+//                  3. Por ambos.
+//Parametros:
+//  centroLogistico: puntero a la estructura centro logistico
+//  modo: entero representando el modo de ordenamiento elegido
 //Devuelve: nada
-void ordenarPersonas(CentroLogisticoPtr centroLogistico);
-//Operación: ordena una lista de vehiculos por marca, alfabéticamente
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: setea dentro de centro logistico todos los vehiculos ordenados alfabeticamente
-//Parametros: puntero a la estructura centro logistico
+void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo);
+//Operación: ordena una lista de vehículos alfabéticamente
+//Precondicion: centroLogistico debe haber sido creado anteriormente y cargado con, al menos, 2 vehículos.
+//Postcondicion: setea dentro de centro logistico todos los vehículos ordenados alfabéticamente.
+//               los modos de ordenamiento son:
+//                  1. Por marca.
+//                  2. Por marca y modelo.
+//Parametros:
+//  centroLogistico: puntero a la estructura centro logistico
+//  modo: entero representando el modo de ordenamiento elegido
 //Devuelve: nada
-void ordenarPorMarca(CentroLogisticoPtr centroLogistico);
+void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo);
 
-//Operación: ordena una lista de paquetes por ID, de menor a mayor
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todos los paquetes ordenados segun su ID
-//Parametros: puntero a la estructura centro logistico
-//Devuelve: nada
-void ordenarPorID(CentroLogisticoPtr centroLogistico);
 
-
-//Operación: ordena una lista de repartos por fecha de salida, de X a Y.
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todos los paquetes ordenados
-//               segun su fecha de salida
-//Parametros: puntero a la estructura centro logistico
+//Operación: ordena una lista de repartos.
+//Precondicion:
+//      - centroLogistico debe haber sido creado anteriormente.
+//      - Se deben haber armado, al menos, 2 repartos del tipo que se quiera ordenar.
+//Postcondicion: reinserta dentro de centro logistico todos los repartos ordenados.
+//               los modos de ordenamiento son:
+//                  1. Por fecha de salida.
+//                  2. Por fecha de retorno.
+//                  3. Por fecha de salida y retorno.
+//                  4. Por nombre del chofer.
+//                  5. Por apellido del chofer.
+//                  6. Por nombre y apellido del chofer.
+//Parametros:
+//  centroLogistico: puntero a la estructura centro logistico
+//  esRepartoAbierto: booleano que indica si es un reparto abierto (true) o cerrado (false)
+//  modo: entero representando el modo de ordenamiento elegido
 //Devuelve: nada
-void ordenarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
-//Operación: ordena una lista de repartos por fecha de retorno, de X a Y.
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todos los paquetes ordenados
-//               segun su fecha de retorno
-//Parametros: puntero a la estructura centro logistico
-//Devuelve: nada
-void ordenarPorFechaRetorno(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
-//Operación: ordena una lista de repartos por fecha de salida y retorno, de X a Y.
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todos los paquetes ordenados
-//               segun su fecha de salida y retorno
-//Parametros: puntero a la estructura centro logistico
-//Devuelve: nada
-void ordenarPorFechaRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
-//Operación: ordena una lista de repartos alfabéticamente por nombre del chofer.
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todos los choferes ordenados segun el
-//               nombre del chofer
-//Parametros: puntero a la estructura centro logistico
-//Devuelve: nada
-void ordenarPorNombreChofer(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
-//Operación: ordena una lista de repartos alfabéticamente por apellido del chofer.
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todos los choferes ordenados segun el
-//               apellido del chofer
-//Parametros: puntero a la estructura centro logistico
-//Devuelve: nada
-void ordenarPorApellidoChofer(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
-//Operación: ordena una lista de repartos alfabéticamente por nombre y apellido del chofer.
-//Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: reinserta dentro de centro logistico todos los choferes ordenados segun el
-//               nombre y el apellido del chofer
-//Parametros: puntero a la estructura centro logistico
-//Devuelve: nada
-void ordenarPorChoferRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
+void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo);
 
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

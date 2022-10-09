@@ -21,7 +21,11 @@ RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
 
     return reparto;
 }
-
+RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes)
+{
+    RepartoPtr reparto=crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
+    return reparto;
+}
 RepartoPtr destruirReparto(RepartoPtr reparto)
 { //liberamos la memoria de todos los campos que hayan sido reservados dinamicamente con sus respectivas funciones. En este caso, son todos los campos.
 /**Como el chofer y vehiculo se los pasamos como punteros, destruirlos acá ocasionaría que se eliminen tambien del centro logistico.
@@ -33,16 +37,6 @@ No queremos eso, así que simplemente no las destruimos.*/
     free(reparto);
 
     return NULL;
-}
-RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes)
-{
-    RepartoPtr reparto=crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
-    return reparto;
-}
-RepartoPtr cerrarReparto(RepartoPtr reparto)
-{
-    reparto=destruirReparto(reparto);
-    return reparto;
 }
 
 PersonaPtr getChofer(RepartoPtr reparto)
@@ -122,7 +116,6 @@ void mostrarReparto(RepartoPtr reparto)
     printf("Fecha de Retorno: %s\n",strFecha);
 
     int cantPaq=longitudPila(getPaquetesReparto(reparto));
-    PaquetePtr paqueteAux;
     PaquetePtr paquetes[cantPaq];
 
     for(int i=0;i<cantPaq;i++)
@@ -166,4 +159,40 @@ bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete) ///NUEVA
         cargarPaquete(reparto,paquetes[i]); ///El for va de n hasta 0 para mantener el orden original de los paquetes como estaban en la pila.
 
     return match;
+}
+
+bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
+{
+    PilaPtr pilaAux1=crearPila();
+    PilaPtr pilaAux2=crearPila();
+
+    bool condicion = personasIguales(getChofer(reparto1),getChofer(reparto2));
+    condicion = condicion && vehiculosIguales(getVehiculo(reparto1),getVehiculo(reparto2));
+    condicion = condicion && fechasIguales(getFechaSalida(reparto1),getFechaSalida(reparto2));
+    condicion = condicion && fechasIguales(getFechaRetorno(reparto1),getFechaRetorno(reparto2));
+
+    bool pilasIguales=false; //para los paquetes;
+    int n=cantidadPaquetes(reparto1)-cantidadPaquetes(reparto2);
+    if(n<0)
+        n=cantidadPaquetes(reparto2);
+    else if(n==0) //si tienen la misma cantidad de paquetes, usamos cualquiera de las dos
+        n=cantidadPaquetes(reparto1);
+    else //if(n>0)
+        n=cantidadPaquetes(reparto1);
+    PaquetePtr paqueteAux1;
+    PaquetePtr paqueteAux2;
+    for(int i=0;i<n;i++)
+    {
+        paqueteAux1=descargarPaquete(reparto1);
+        paqueteAux2=descargarPaquete(reparto2);
+        if(paquetesIguales(paqueteAux1,paqueteAux2))
+            pilasIguales=true;
+    }
+    for(int i=0;i<n;i++)
+    {
+        cargarPaquete(reparto1,(PaquetePtr)desapilar(pilaAux1));
+        cargarPaquete(reparto2,(PaquetePtr)desapilar(pilaAux2));
+    } ///Las pilas no las destruimos.
+
+    return condicion && pilasIguales;
 }

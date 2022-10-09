@@ -69,3 +69,77 @@ PENDIENTES
 
 CORRECCIONES
 
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+IDEAS
+
+- Guardado de datos en archivos: Todo lo que sea strings se puede guardar con un '\n' al final del string, de modo que no se guarde "basura" y sea más legible a la hora de ver lo que hay adentro del archivo.
+
+- MENUS - DETECCIÓN DE CAMBIOS:
+   1. funciones de menu que hacen cambios analizan el imput del usuario y retornan un booleano:
+        true o false dependiendo de si se hizo o no un cambio.
+    2. Definimos e inicializamos un flag en main:
+            bool cambios=false;
+    3. Cuando cualquiera de las funciones de menu de ordenamiento, carga, actualizacion y
+       eliminacion de datos (en el caso de los repartos, en vez de carga es apertura,
+       y aparte de eliminacion está el cierre de repartos) detecte que hubo un cambio,
+       retornará true.
+    4. Almacenaremos ese valor en nuestra variable "cambios".
+    5. Al final del switch, cuando se elige la opcion "Volver" o "MENU PRINCIPAL",
+       se habrá una cláusula if que preguntará por el valor del flag.
+       Dentro, tendrá el siguiente código:
+
+                    do
+                    {
+                        printf("Guardar Cambios?\t1.SI\t0.NO\t");
+                        scanf("%d",&op2);
+                        limpiarBufferTeclado();
+                        switch(op2)
+                        {
+                        case 1:
+                            if(guardarXXX(centroLogistico))
+                                printf("\n\nCambios guardados exitosamente.\n\n");
+                            else
+                                printf("\n\nERROR AL GUARDAR.\n\n");
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            printf("\n\nOpcion incorrecta\n\n");
+                            break;
+                        }
+                        presionarEnterYLimpiarPantalla();
+                    } while(op2!=1 && op2!=0);
+
+       De esta manera, podremos desplegar este submenú sólo si el usuario realmente hizo cambios,
+       y que este pueda elegir si guardar los datos en un archivo o no.
+
+       Además, podemos incluso usar esta variable para cuando salimos del menú principal,
+       preguntando si quiere guardar todos los cambios realizados y salir, o salir sin guardar.
+       La manera de hacerlo sería añadiendo al booleano de retorno que retorne true SI LOS CAMBIOS
+       REALIZADOS SE GUARDARON, y false de lo contrario. De esta forma sabremos mejor cuando desplegar este
+       último menú, y cuando no es necesario hacerlo (por ej. cuando se hicieron cambios, pero se guardaron).
+
+       De esta forma, la nueva overview de las funciones de menú sería:
+
+       bool cambios=false; //cambia a true si se cambia/elimina algún dato o se ordena una lista - esta variable es interna de la funcion
+       bool cambiosGuardados=false; //cambia a true si el usuario elige guardar los cambios en archivo
+
+       ... //se hacen las cosas del menú
+
+       cambios=!datosIguales(datoOriginal,nuevoDato);
+
+       if(cambios) //esto es por si los cambios introducidos resultan ser iguales a los que estaban antes.
+                   //Es decir, que se paso por el menu, pero igualmente no se cambio nada.
+       {
+           Preguntamos si se quiere guardar los cambios
+           if(el usuario elige guardar los cambios)
+                cambiosGuardados=true;
+       }
+
+       return cambiosGuardados;
+
+
+---------------------------------------------------------------------------------------------------------------------

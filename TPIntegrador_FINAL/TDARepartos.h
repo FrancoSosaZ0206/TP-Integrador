@@ -37,7 +37,7 @@ RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
 //Parámetros:
 // reparto: puntero a la estructura a liberar.
 //Devuelve NULL
-RepartoPtr cerrarReparto(RepartoPtr reparto);
+RepartoPtr destruirReparto(RepartoPtr reparto);
 
 //Operación: Obtencion de chofer.
 //Precondición: Repartos debe estar creado.
@@ -156,6 +156,15 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto); ///NUEVA
 //  paquete: puntero a la estructura paquete que se desea verificar si se cargó.
 //Devuelve: true si el paquete recibido ya estaba cargado en el reparto, false de lo contrario.
 bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete); ///NUEVA
+
+//Operación: verifica si dos repartos son iguales.
+//Precondición: Ambos repartos deben haber sido creados.
+//Postcondición: chequea si las estructuras son idénticas en todos sus campos
+//Parámetros:
+//  reparto1: puntero a la estructura a verificar.
+//  reparto2: puntero a la estructura a verificar.
+//Devuelve: true si son idénticos todos sus cambios, false de lo contrario.
+bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2); ///NUEVA
 
 
 #endif // TDAREPARTOS_H_INCLUDED

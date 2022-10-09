@@ -18,44 +18,6 @@
 /// //////////////////////////////////////////////////////////////////////////////////////////////////////// ///
 
 
-/// Para conjuntos de datos - Para guardar bases de datos de structs por defecto.
-//  Dedicadas a las funciones de creación de datos por defecto de test.h.
-
-//OPERACIÓN: Guarda un conjunto de Personas
-//PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
-//POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
-//PARÁMETROS
-//  centroLogistico: puntero al centro logistico donde se encuentran todos los datos por defecto.
-//DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarPersonas(CentroLogisticoPtr datosPorDefecto);
-//OPERACIÓN: Guarda un conjunto de Paquetes
-//PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
-//POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
-//PARÁMETROS
-//  centroLogistico: puntero al centro logistico donde se encuentran todos los datos por defecto.
-//DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarPaquetes(CentroLogisticoPtr datosPorDefecto);
-//OPERACIÓN: Guarda un conjunto de Vehiculos
-//PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
-//POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
-//PARÁMETROS
-//  centroLogistico: puntero al centro logistico donde se encuentran todos los datos por defecto.
-//DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarVehiculos(CentroLogisticoPtr datosPorDefecto);
-//OPERACIÓN: Guarda un conjunto de Repartos
-//PRECONDICIÓN: La estructura debe haber sido creada con su respectiva constructora.
-//POSTCONDICIÓN: Copia dentro del archivo los datos pasados por medio de un doble puntero y la cantidad enviada
-//PARÁMETROS
-//  centroLogistico: puntero al centro logistico donde se encuentran todos los datos por defecto.
-//DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarRepartos(CentroLogisticoPtr datosPorDefecto,bool esRepartoAbierto);
-
-
-///---------------------------------------------------------------------------------------------------------------
-
-/// Para listas de datos - Centro Logístico
-
-
 //OPERACIÓN: guarda una lista de Personas en un archivo de texto
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico y cargado con una
 //              lista de Personas
@@ -63,7 +25,7 @@ bool guardarRepartos(CentroLogisticoPtr datosPorDefecto,bool esRepartoAbierto);
 //PARÁMETROS
 //  centroLogistico: puntero a la estructura CentroLogistico del que extraer la lista de Personas para guardar
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarListaPersonas(CentroLogisticoPtr centroLogistico);
+bool guardarPersonas(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: guarda una lista de Paquetes en un archivo de texto
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico y cargado con una
 //              lista de Paquetes
@@ -71,7 +33,7 @@ bool guardarListaPersonas(CentroLogisticoPtr centroLogistico);
 //PARÁMETROS
 //  centroLogistico: puntero a la estructura CentroLogistico del que extraer la lista de Paquetes para guardar
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarListaPaquetes(CentroLogisticoPtr centroLogistico);
+bool guardarPaquetes(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: guarda una lista de Vehiculos en un archivo de texto
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico y cargado con una
 //              lista de Vehiculos
@@ -79,7 +41,7 @@ bool guardarListaPaquetes(CentroLogisticoPtr centroLogistico);
 //PARÁMETROS
 //  centroLogistico: puntero a la estructura CentroLogistico del que extraer la lista de Vehiculos para guardar
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarListaVehiculos(CentroLogisticoPtr centroLogistico);
+bool guardarVehiculos(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: guarda una lista de Repartos Abiertos en un archivo de texto
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico y cargado con una
 //              lista de Repartos
@@ -93,18 +55,16 @@ bool guardarListaVehiculos(CentroLogisticoPtr centroLogistico);
 //      true = si se quiere guardar un reparto abierto,
 //      false = si se quiere guardar un reparto cerrado.
 //DEVUELVE: verdadero si se guardó correctamente, falso si ocurrió un error
-bool guardarListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 
 ///---------------------------------------------------------------------------------------------------------------
 
 /// Guardado general
 
-bool guardarTodoPorDefecto(CentroLogisticoPtr datosPorDefecto);
-
 //OPERACIÓN: guarda un centro logístico en un conjunto de archivos de texto.
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico previamente
-//POSTCONDICIÓN: Utiliza a las funciones "guardarLista" para registrar el conjunto de datos procedente del
+//POSTCONDICIÓN: Utiliza a las funciones "guardar" para registrar el conjunto de datos procedente del
 //               centro logistico en una serie de archivos de texto.
 //PARÁMETROS
 //      centroLogistico: Puntero a la estructura CentroLogistico a guardar
@@ -121,59 +81,6 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico); //implementacion: llamará 
 //                                 Se reutilizan las estructuras creadas en main.c
 /// //////////////////////////////////////////////////////////////////////////////////////////////////////// ///
 
-/// Para conjuntos de datos - Para abrir bases de datos de structs por defecto.
-//  Dedicadas a las funciones de creación de datos por defecto de test.h.
-
-//OPERACIÓN: Recupera los datos de un conjunto de Personas de un archivo de texto
-//PRECONDICIÓN:
-//  - La estructura debe haber sido definida previamente,
-//      y su contenido vaciado con su respectiva función destructora.
-/// - ADEMÁS, DEBEN HABERSE GUARDADO UN CONJUNTO DE PersonaS PREVIAMENTE.
-///     VERIFICAR QUE EXISTA UN ARCHIVO "Personas por Defecto.txt" Y QUE TENGA CONTENIDO.
-//POSTCONDICIÓN: Copia dentro del conjunto de Personas los datos almacenados en un archivo de texto.
-//PARÁMETROS
-//  Personas: PUNTERO A PUNTERO A la estructura Persona (Doble puntero). Se puede pensar como un vector de Personas
-//DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirPersonas(CentroLogisticoPtr datosPorDefecto);
-//OPERACIÓN: Recupera los datos de un conjunto de Paquetes de un archivo de texto
-//PRECONDICIÓN:
-//  - La estructura debe haber sido definida previamente,
-//      y su contenido vaciado con su respectiva función destructora.
-/// - ADEMÁS, DEBEN HABERSE GUARDADO UN CONJUNTO DE CuilS PREVIAMENTE.
-///     VERIFICAR QUE EXISTA UN ARCHIVO "Paquetes por Defecto.txt" Y QUE TENGA CONTENIDO.
-//POSTCONDICIÓN: Copia dentro del conjunto de Paquetes los datos almacenados en un archivo de texto.
-//PARÁMETROS
-//  Paquetes: PUNTERO A PUNTERO A la estructura Paquete (Doble puntero). Se puede pensar como un vector de Paquetes
-//DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirPaquetes(CentroLogisticoPtr datosPorDefecto);
-//OPERACIÓN: Recupera los datos de un conjunto de Vehiculos de un archivo de texto
-//PRECONDICIÓN:
-//  - La estructura debe haber sido definida previamente,
-//      y su contenido vaciado con su respectiva función destructora.
-/// - ADEMÁS, DEBEN HABERSE GUARDADO UN CONJUNTO DE VehiculoS PREVIAMENTE.
-///     VERIFICAR QUE EXISTA UN ARCHIVO "Vehiculos por Defecto.txt" Y QUE TENGA CONTENIDO.
-//POSTCONDICIÓN: Copia dentro del conjunto de Vehiculos los datos almacenados en un archivo de texto.
-//PARÁMETROS
-//  Vehiculos: PUNTERO A PUNTERO A la estructura Vehiculo (Doble puntero). Se puede pensar como un vector de Vehiculos
-//DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirVehiculos(CentroLogisticoPtr datosPorDefecto);
-//OPERACIÓN: Recupera los datos de un conjunto de Repartos de un archivo de texto
-//PRECONDICIÓN:
-//  - La estructura debe haber sido definida previamente,
-//      y su contenido vaciado con su respectiva función destructora.
-/// - ADEMÁS, DEBEN HABERSE GUARDADO UN CONJUNTO DE RepartoS PREVIAMENTE.
-///     VERIFICAR QUE EXISTA UN ARCHIVO "Reparto por Defecto.txt" Y QUE TENGA CONTENIDO.
-//POSTCONDICIÓN: Copia dentro del conjunto de Repartos los datos almacenados en un archivo de texto.
-//PARÁMETROS
-//  Repartos: PUNTERO A PUNTERO A la estructura Reparto (Doble puntero). Se puede pensar como un vector de Repartos
-//DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirRepartos(CentroLogisticoPtr datosPorDefecto,bool esRepartoAbierto);
-
-
-///---------------------------------------------------------------------------------------------------------------
-
-/// Para listas de datos - Centro Logístico
-
 
 //OPERACIÓN: Recupera una lista de Personas de un archivo de texto
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico,
@@ -184,7 +91,7 @@ bool abrirRepartos(CentroLogisticoPtr datosPorDefecto,bool esRepartoAbierto);
 //PARÁMETROS
 //  centroLogistico: puntero a la estructura CentroLogistico del que extraer la lista de Personas para guardar
 //DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirListaPersonas(CentroLogisticoPtr centroLogistico);
+bool abrirPersonas(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: Recupera una lista de Paquete de un archivo de texto
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico,
 //              y su lista de Paquetes debe estar vacía
@@ -194,7 +101,7 @@ bool abrirListaPersonas(CentroLogisticoPtr centroLogistico);
 //PARÁMETROS
 //  centroLogistico: puntero a la estructura CentroLogistico del que extraer la lista de Paquetes para guardar
 //DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirListaPaquetes(CentroLogisticoPtr centroLogistico);
+bool abrirPaquetes(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: Recupera una lista de Vehiculos de un archivo de texto
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico,
 //              y su lista de Vehiculos debe estar vacía
@@ -204,7 +111,7 @@ bool abrirListaPaquetes(CentroLogisticoPtr centroLogistico);
 //PARÁMETROS
 //  centroLogistico: puntero a la estructura CentroLogistico del que extraer la lista de Vehiculos para guardar
 //DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirListaVehiculos(CentroLogisticoPtr centroLogistico);
+bool abrirVehiculos(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: Recupera una lista de Repartos de un archivo de texto
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico,
 //              y su lista de Repartos debe estar vacía
@@ -217,18 +124,16 @@ bool abrirListaVehiculos(CentroLogisticoPtr centroLogistico);
 //      true = si se quiere abrir un reparto abierto,
 //      false = si se quiere abrir un reparto cerrado.
 //DEVUELVE: verdadero si se abrió correctamente, falso si ocurrió un error
-bool abrirListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 
 ///---------------------------------------------------------------------------------------------------------------
 
 /// Apertura general
 
-CentroLogisticoPtr abrirTodoPorDefecto();
-
 //OPERACIÓN: Crea un centro logístico a partir de los datos de un conjunto de archivos de texto.
 //PRECONDICIÓN: centroLogistico debe haber sido declarado previamente
-//POSTCONDICIÓN: Utiliza a las funciones "abrirLista" para registrar en cada lista del centro logístico
+//POSTCONDICIÓN: Utiliza a las funciones "abrir" para registrar en cada lista del centro logístico
 //               el conjunto de datos procedente de una serie de archivos de texto.
 /// - ADEMÁS, DEBE HABERSE GUARDADO UNA CENTRO LOGÍSTICO PREVIAMENTE CON GUARDAR TODO,
 ///     O UTILIZADO TODAS LAS FUNCIONES DE GUARDADO DE LISTAS.

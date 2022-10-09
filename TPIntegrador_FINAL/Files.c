@@ -377,136 +377,8 @@ void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
 
 ///                                             FUNCIONES PÚBLICAS/DE LA INTERFAZ
 
-
-//  conjuntos de datos / estructuras    -   Para guardar bases de datos de structs por defecto. Nos servirá para las funciones de creacion de datos por defecto.
-bool guardarPersonas(CentroLogisticoPtr datosPorDefecto)
-{
-    FILE *archivo = fopen("Personas por Defecto.txt","w");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        ListaPtr listaAux=getPersonas(datosPorDefecto);
-        int n=longitudLista(listaAux);
-    ///guardamos la cantidad que son, para que al abrir sepa donde parar
-        fwrite(&n,sizeof(int),1,archivo);
-
-        PersonaPtr personaAux;
-        fPersona fpersona;
-
-        for(int i=0;i<n;i++)
-        {
-            personaAux=getCabecera(listaAux);
-            fsetPersona(&fpersona,personaAux,true);
-            fwrite(&fpersona,sizeof(fPersona),1,archivo);
-            listaAux=getResto(listaAux);
-        }
-        fclose(archivo);
-        listaAux=destruirLista(listaAux,false);
-        return true;
-    }
-}
-bool guardarPaquetes(CentroLogisticoPtr datosPorDefecto)
-{
-    FILE *archivo = fopen("Paquetes por Defecto.txt","w");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        ListaPtr listaAux=getPaquetes(datosPorDefecto);
-        int n=longitudLista(listaAux);
-    ///guardamos la cantidad que son, para que al abrir sepa donde parar
-        fwrite(&n,sizeof(int),1,archivo);
-
-        PaquetePtr paqueteAux;
-        fPaquete fpaquete;
-
-        for(int i=0;i<n;i++)
-        {
-            paqueteAux=getCabecera(listaAux);
-            fsetPaquete(&fpaquete,paqueteAux,true);
-            fwrite(&fpaquete,sizeof(fPaquete),1,archivo);
-            listaAux=getResto(listaAux);
-        }
-        fclose(archivo);
-        listaAux=destruirLista(listaAux,false);
-        return true;
-    }
-}
-bool guardarVehiculos(CentroLogisticoPtr datosPorDefecto)
-{
-    FILE *archivo = fopen("Vehiculos por Defecto.txt","w");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        ListaPtr listaAux=getVehiculos(datosPorDefecto);
-        int n=longitudLista(listaAux);
-    ///guardamos la cantidad que son, para que al abrir sepa donde parar
-        fwrite(&n,sizeof(int),1,archivo);
-
-        VehiculoPtr vehiculoAux;
-        fVehiculo fvehiculo;
-
-        for(int i=0;i<n;i++)
-        {
-            vehiculoAux=getCabecera(listaAux);
-            fsetVehiculo(&fvehiculo,vehiculoAux,true);
-            fwrite(&fvehiculo,sizeof(fVehiculo),1,archivo);
-            listaAux=getResto(listaAux);
-        }
-        fclose(archivo);
-        listaAux=destruirLista(listaAux,false);
-        return true;
-    }
-}
-bool guardarRepartos(CentroLogisticoPtr datosPorDefecto,bool esRepartoAbierto)
-{
-    FILE *archivo;
-	if(esRepartoAbierto)
-		archivo = fopen("Repartos Abiertos Por Defecto.txt","w");
-	else
-		archivo = fopen("Repartos Cerrados Por Defecto.txt","w");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        int n;
-		if(esRepartoAbierto)
-			n = longitudLista(getRepartos(datosPorDefecto,true));
-		else
-			n = longitudLista(getRepartos(datosPorDefecto,false));
-
-        fwrite(&n,sizeof(int),1,archivo);
-
-        fReparto freparto;
-        ListaPtr listaAux = crearLista();
-        if(esRepartoAbierto)
-			agregarLista(listaAux,getRepartos(datosPorDefecto,true));
-		else
-			agregarLista(listaAux,getRepartos(datosPorDefecto,false));
-
-        while(!listaVacia(listaAux))
-        {
-            RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
-            fsetReparto(&freparto,repartoAux,true);
-
-            fwrite(&freparto,sizeof(fReparto),1,archivo);
-
-            listaAux=getResto(listaAux);
-        }
-        listaAux=destruirLista(listaAux,false);
-
-        fclose(archivo);
-        return true;
-    }
-}
 //  listas de datos / estructuras
-bool guardarListaPersonas(CentroLogisticoPtr centroLogistico)
+bool guardarPersonas(CentroLogisticoPtr centroLogistico)
 {
     FILE *archivo = fopen("Lista de Personas.txt","w");
 
@@ -537,7 +409,7 @@ bool guardarListaPersonas(CentroLogisticoPtr centroLogistico)
         return true;
     }
 }
-bool guardarListaPaquetes(CentroLogisticoPtr centroLogistico)
+bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
 {
     FILE *archivo = fopen("Lista de Paquetes.txt","w");
 
@@ -568,7 +440,7 @@ bool guardarListaPaquetes(CentroLogisticoPtr centroLogistico)
         return true;
     }
 }
-bool guardarListaVehiculos(CentroLogisticoPtr centroLogistico)
+bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
 {
     FILE *archivo = fopen("Lista de Vehiculos.txt","w");
 
@@ -599,7 +471,7 @@ bool guardarListaVehiculos(CentroLogisticoPtr centroLogistico)
         return true;
     }
 }
-bool guardarListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     FILE *archivo;
 	if(esRepartoAbierto)
@@ -643,32 +515,6 @@ bool guardarListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbie
     }
 }
 //  general
-bool guardarTodoPorDefecto(CentroLogisticoPtr datosPorDefecto)
-{
-    FILE *archivo = fopen("Nombre Ctro. Log. Por Defecto.txt","w");
-    bool res = true;
-    if(archivo==NULL)
-        res=false;
-    else
-    {
-        char *temp = getNombreCentroLogistico(datosPorDefecto);
-        int longStr = strlen(temp) + 2;
-
-        char nombreCtroLog[longStr];
-        strcpy(nombreCtroLog,temp);
-        nombreCtroLog[longStr-1]='\n';
-
-        fwrite(nombreCtroLog,sizeof(char),longStr,archivo);
-        fclose(archivo);
-    }
-    res = res && guardarPaquetes(datosPorDefecto);
-    res = res && guardarPersonas(datosPorDefecto);
-    res = res && guardarVehiculos(datosPorDefecto);
-    res = res && guardarRepartos(datosPorDefecto,true);
-    res = res && guardarRepartos(datosPorDefecto,false);
-
-    return res;
-}
 bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a las otras funciones de guardado
 {
     FILE *archivo = fopen("Nombre del Centro Logistico.txt","w");
@@ -687,128 +533,19 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
         fwrite(nombreCtroLog,sizeof(char),longStr,archivo);
         fclose(archivo);
     }
-    res = res && guardarListaPaquetes(centroLogistico);
-    res = res && guardarListaPersonas(centroLogistico);
-    res = res && guardarListaVehiculos(centroLogistico);
-    res = res && guardarListaRepartos(centroLogistico,true);
-    res = res && guardarListaRepartos(centroLogistico,false);
+    res = res && guardarPaquetes(centroLogistico);
+    res = res && guardarPersonas(centroLogistico);
+    res = res && guardarVehiculos(centroLogistico);
+    res = res && guardarRepartos(centroLogistico,true);
+    res = res && guardarRepartos(centroLogistico,false);
 ///Un booleano almacenará el valor de verdad de los resultados de todas las funciones.
 ///De esta manera, si alguno falla, el conjugado será falso, lo retornará, y nos daremos cuenta.
     return res;
 }
 
 
-//  conjuntos de datos / estructuras    -   Para abrir bases de datos de structs por defecto. Nos servirá para las funciones de creacion de datos por defecto.
-///Parámetros
-bool abrirPersonas(CentroLogisticoPtr datosPorDefecto)
-{
-    FILE *archivo = fopen("Personas por Defecto.txt","r");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        int n;
-
-        fread(&n,sizeof(int),1,archivo);
-
-        fPersona fpersona;
-        PersonaPtr personaAux;
-
-        for(int i=0;i<n;i++)
-        {
-            fread(&fpersona,sizeof(fPersona),1,archivo);
-            fsetPersona(&fpersona,personaAux,false);
-            agregarPersona(datosPorDefecto,personaAux);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirPaquetes(CentroLogisticoPtr datosPorDefecto)
-{
-    FILE *archivo = fopen("Paquetes por Defecto.txt","r");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        int n;
-
-        fread(&n,sizeof(int),1,archivo);
-
-        fPaquete fpaquete;
-        PaquetePtr paqueteAux;
-
-        for(int i=0;i<n;i++)
-        {
-            fread(&fpaquete,sizeof(fPaquete),1,archivo);
-            fsetPaquete(&fpaquete,paqueteAux,false);
-            agregarPaquete(datosPorDefecto,paqueteAux);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirVehiculos(CentroLogisticoPtr datosPorDefecto)
-{
-    FILE *archivo = fopen("Vehiculos por Defecto.txt","r");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        int n;
-
-        fread(&n,sizeof(int),1,archivo);
-
-        fVehiculo fvehiculo;
-        VehiculoPtr vehiculoAux;
-
-        for(int i=0;i<n;i++)
-        {
-            fread(&fvehiculo,sizeof(fVehiculo),1,archivo);
-            fsetVehiculo(&fvehiculo,vehiculoAux,false);
-            agregarVehiculo(datosPorDefecto,vehiculoAux);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
-bool abrirRepartos(CentroLogisticoPtr datosPorDefecto, bool esRepartoAbierto)
-{
-    FILE *archivo;
-	if(esRepartoAbierto)
-		archivo = fopen("Lista de Repartos Abiertos.txt","r");
-	else
-		archivo = fopen("Lista de Repartos Cerrados.txt","r");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-        int n;
-        fread(&n,sizeof(int),1,archivo);
-
-        fReparto freparto;
-        RepartoPtr repartoAux;
-
-        for(int i=0;i<n;i++)
-        {
-            fread(&freparto,sizeof(fReparto),1,archivo);
-            fsetReparto(&freparto,repartoAux,false);
-
-            if(esRepartoAbierto)
-                agregarReparto(datosPorDefecto,repartoAux,true);
-            else
-                agregarReparto(datosPorDefecto,repartoAux,false);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
-//  conjuntos de datos / estructuras
-bool abrirListaPersonas(CentroLogisticoPtr centroLogistico)
+//  listas de datos (CentroLogistico)
+bool abrirPersonas(CentroLogisticoPtr centroLogistico)
 {
     FILE *archivo = fopen("Lista de Personas.txt","r");
 
@@ -834,7 +571,7 @@ bool abrirListaPersonas(CentroLogisticoPtr centroLogistico)
         return true;
     }
 }
-bool abrirListaPaquetes(CentroLogisticoPtr centroLogistico)
+bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
 {
     FILE *archivo = fopen("Lista de Paquetes.txt","r");
 
@@ -863,7 +600,7 @@ bool abrirListaPaquetes(CentroLogisticoPtr centroLogistico)
         return true;
     }
 }
-bool abrirListaVehiculos(CentroLogisticoPtr centroLogistico)
+bool abrirVehiculos(CentroLogisticoPtr centroLogistico)
 {
     FILE *archivo = fopen("Lista de Vehiculos.txt","r");
 
@@ -889,7 +626,7 @@ bool abrirListaVehiculos(CentroLogisticoPtr centroLogistico)
         return true;
     }
 }
-bool abrirListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     FILE *archivo;
 	if(esRepartoAbierto)
@@ -925,32 +662,6 @@ bool abrirListaRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbiert
 }
 //  general
 
-CentroLogisticoPtr abrirTodoPorDefecto()
-{
-    FILE *archivo = fopen("Nombre Ctro. Log. Por Defecto.txt","r");
-    bool res = true;
-    char *nombreCtroLog;
-    if(archivo==NULL)
-        res=false;
-    else
-    {
-        if(LeerString(archivo,nombreCtroLog,100,'\n')==EOF)
-            res=false; ///volvemos a poner false si el archivo abre, pero está vacío por alguna razón.
-    }
-    CentroLogisticoPtr datosPorDefecto = crearCentroLogisticoRapido(nombreCtroLog);
-
-    res = res && abrirPaquetes(datosPorDefecto);
-    res = res && abrirPersonas(datosPorDefecto);
-    res = res && abrirVehiculos(datosPorDefecto);
-    res = res && abrirRepartos(datosPorDefecto,true);
-    res = res && abrirRepartos(datosPorDefecto,false);
-
-    if(res)
-        return datosPorDefecto;
-    else
-        return NULL; //retornamos null si hubo algún error.
-}
-
 CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo llenará de datos. Llamará a las otras funciones de apertura
 {
     //Primero, recuperamos el nombre del centro logistico.
@@ -969,11 +680,11 @@ CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo
 
     CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido(nombreCtroLog);
 
-    res = res && abrirListaPaquetes(centroLogistico);
-    res = res && abrirListaPersonas(centroLogistico);
-    res = res && abrirListaVehiculos(centroLogistico);
-    res = res && abrirListaRepartos(centroLogistico,true);
-    res = res && abrirListaRepartos(centroLogistico,false);
+    res = res && abrirPaquetes(centroLogistico);
+    res = res && abrirPersonas(centroLogistico);
+    res = res && abrirVehiculos(centroLogistico);
+    res = res && abrirRepartos(centroLogistico,true);
+    res = res && abrirRepartos(centroLogistico,false);
 ///Un booleano almacenará el valor de verdad de los resultados de todas las funciones.
 ///De esta manera, si alguna funcion falla, la booleana será falso, y nos daremos cuenta.
     if(res)
