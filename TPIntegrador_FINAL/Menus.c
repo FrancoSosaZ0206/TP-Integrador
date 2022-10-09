@@ -438,6 +438,18 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico){
 }
 
 
+bool numeroValido(int numero){
+    if(numero<0){
+        return true;
+    }else{
+        printf("Numero incorrecto\n");
+        printf("No existe la posibilidad de contar negativamente\n");
+        printf("Vuelva a ingresar al menu nuevamente\n");
+        system("pause");
+        return false;
+    }
+}
+
 int seleccionarCantidad(){
     int eleccion=0;
     fflush(stdin);
