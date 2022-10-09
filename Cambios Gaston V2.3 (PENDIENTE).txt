@@ -568,6 +568,8 @@ DEVUELVE -1 SI NO ENCONTRO UNA EQUIVALENCIA
 DEVUELVE LA POSICION DE LA ESTRUCTURA SI LO ENCONTRO
 ( BUSCA SOLO EN LISTA REPARTOS ABIERTOS ) 
 
+///LINEA 233 a 380
+
 
 ///---------------------------------------------------------------------------///
 ///---------------------------------------------------------------------------///
@@ -686,6 +688,44 @@ int buscarReparto(CentroLogisticoPtr centroLogistico, int posicionSolicitada){
     return posicionEncontrado;
 }
 
+int menuBusquedaPaqueteReparto(){
+    int eleccion=0;
+    limpiarBufferTeclado();
+    printf("Buscar paquete mediante\n");
+    printf("1. El indice\n");
+    printf("2. El id\n");
+    printf("Opcion: ");
+    scanf("%d",&eleccion);
+    limpiarBufferTeclado();
+    return eleccion;
+}
+
+int menuBuscarPaqueteReparto(CentroLogisticoPtr centroLogistico, RepartoPtr reparto){
+    int posicionEncontrado=-1,eleccion=0,ID=0,posicionSolicitada=0;
+    eleccion=menuBusquedaPaqueteReparto(reparto);
+    printf("Menu de busqueda de paquete\n");
+    switch(eleccion){
+    case 1:
+        printf("Ingrese el indice para buscar: ");
+        scanf("%d",&posicionSolicitada);
+        if(posicionSolicitada>=0 && posicionSolicitada<longitudLista(getPaquetes(centroLogistico)))
+            return posicionSolicitada;
+        else
+            return -1;
+        break;
+    case 2:
+        printf("Ingrese ID para buscar:");
+        scanf("%d",&ID);
+        posicionEncontrado=buscarPaquete(centroLogistico,ID);
+        return posicionEncontrado;
+        break;
+    default:
+        printf("Seleccione una opcion valida\n");
+        return -1;
+        break;
+    }
+}
+
 
 ///---------------------------------------------------------------------------///
 ///---------------------------------------------------------------------------///
@@ -697,6 +737,8 @@ FUNCION DE BUSQUEDA DE PAQUETES POR ATRIBUTO
 BUSCA MEDIANTE:
 ID, ALTO, ANCHO, LARGO, PESO, ESTADO, DIRECCION DE ENTREGA, DIRECCION DE RETIRO,
 FECHA DE ENTREGA, CUIL DEL CLIENTE
+
+///LINEA 957 a 1250
 
 ///---------------------------------------------------------------------------///
 ///---------------------------------------------------------------------------///
