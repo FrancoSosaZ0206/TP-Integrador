@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "TDACentroLogistico.h"
+#include "TDADomicilio.h"
+#include "TDAFechaYHora.h"
+#include "TDAPersona.h"
 
 /**************************************************************************************************************************
 

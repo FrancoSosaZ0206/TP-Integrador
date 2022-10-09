@@ -75,28 +75,13 @@ int main(){
     ListaPtr listaChoferes=crearListaChoferesGenerico();
     ListaPtr listaPaquetes=crearListaPaquetesGenerico();
     ListaPtr listaRepartosCerrados=crearLista();
-    ///GuardarListaVehiculosNuevo(listaVehiculos);
-    ///LeerListaVehiculosNuevo();
-    ///GuardarListaClientesNuevo(listaClientes);
-    ///LeerListaClientesNuevo();
-    ///PaquetePtr PD=crearPaqueteDirect(1,1,1,1,1,"1",1,"1","1",1,"1",1,1,2022,1,1,1,"1","1","1",1,"1","1",false);
-    ///mostrarPaquete(PD);
-    ///PersonaPtr PDD=crearPersonaDirect("1","1","1",1,"1","1",false);
-    ///mostrarPersona(PDD);
-    //pruebaPasajePaquete();
-    ///GuardarListaPaquetesNuevo(listaPaquetes);
-    ///LeerListaPaquetesNuevo();
-    ///GuardarListaRepartosNuevo(listaRepartos);
-    ///LeerListaRepartosNuevo();
-    pruebaPasajeReparto();
-    //pruebaPasajePersona();
     int START_OP=0;
     do{
         START_OP=menuPrincipal();
         system("cls");
         switch(START_OP){
             case 1:
-                //centroLogistico=crearCentroLogistico("Distribuidora",listaPaquetes,listaClientes,listaChoferes,listaVehiculos,listaRepartos,listaRepartosCerrados);
+                centroLogistico=crearCentroLogistico("Distribuidora",listaPaquetes,listaClientes,listaChoferes,listaVehiculos,listaRepartos,listaRepartosCerrados);
                 START_OP = MAIN_MENU(centroLogistico);
                 centroLogistico=destruirCentroLogistico(centroLogistico);
             break;

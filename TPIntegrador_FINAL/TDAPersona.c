@@ -28,7 +28,7 @@ PersonaPtr crearPersonaDirect(char *nombre,char *apellido,char *calle,int altura
     PersonaPtr persona=(PersonaPtr)obtenerMemoria(sizeof(Persona));
     persona->nombre=crearStringDinamico(nombre);
     persona->apellido=crearStringDinamico(apellido);
-    persona->domicilio=crearDomicilioDirect(calle,altura,localidad);
+    persona->domicilio=crearDomicilio(calle,altura,localidad);
     persona->cuil=crearCuil(cuilStr);
     persona->esChofer=esChofer;
     return persona;
@@ -39,7 +39,7 @@ PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PE)
     PersonaPtr persona=(PersonaPtr)obtenerMemoria(sizeof(Persona));
     persona->nombre=crearStringDinamico(PE->nombre);
     persona->apellido=crearStringDinamico(PE->apellido);
-    persona->domicilio=crearDomicilioDirect(PE->domicilio.calle,PE->domicilio.altura,PE->domicilio.localidad);
+    persona->domicilio=crearDomicilio(PE->domicilio.calle,PE->domicilio.altura,PE->domicilio.localidad);
     persona->cuil=crearCuil(PE->cuil);
     persona->esChofer=PE->esChofer;
     return persona;

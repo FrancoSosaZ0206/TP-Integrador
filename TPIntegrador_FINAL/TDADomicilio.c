@@ -3,6 +3,7 @@
 #include <string.h>
 #include "TDADomicilio.h"
 #include "util.h"
+#include "Files.h"
 
 DomicilioPtr crearDomicilio(char *calle,int altura,char *localidad)
 {
@@ -13,11 +14,12 @@ DomicilioPtr crearDomicilio(char *calle,int altura,char *localidad)
     return domicilio;
 }
 
-DomicilioPtr crearDomicilioDirect(char* calle, int altura, char* localidad){
+
+DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DE){
     DomicilioPtr domicilio = (DomicilioPtr)obtenerMemoria(sizeof(Domicilio));
-    domicilio->calle=crearStringDinamico(calle);
-    domicilio->altura=altura;
-    domicilio->localidad=crearStringDinamico(localidad);
+    domicilio->calle=crearStringDinamico(DE->calle);
+    domicilio->altura=DE->altura;
+    domicilio->localidad=crearStringDinamico(DE->localidad);
     return domicilio;
 }
 

@@ -19,7 +19,7 @@ typedef struct Reparto
     PilaPtr paquetes;
     ListaPtr listaPaquetes;
 } Reparto;
-typedef Reparto * RepartoPtr;
+typedef Reparto *RepartoPtr;
 
 //Operación: Creacion del TDArepartos.
 //Precondición: Repartos no debe estar creado.
@@ -184,5 +184,6 @@ ListaPtr getListaPaquetesReparto(RepartoPtr reparto);
 // reparto: puntero a la estructura a mostrar
 //Devuelve vacio
 void mostrarPaquetesListaReparto(RepartoPtr reparto);
+
 
 #endif // TDAREPARTOS_H_INCLUDED

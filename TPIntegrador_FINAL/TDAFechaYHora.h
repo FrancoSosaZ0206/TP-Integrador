@@ -5,6 +5,7 @@
 #include <stdbool.h>
 
 
+
 ///Interfaz del TDA FECHA
 
 
@@ -27,7 +28,6 @@ typedef Fecha * FechaPtr;
 
 ///Operaciones
 
-
 ///creacion y destruccion
 //Operación: Crea fecha.
 //Precondición: Fecha no debe estar creada.
@@ -40,6 +40,7 @@ typedef Fecha * FechaPtr;
 // minuto: entero representando los minutos.
 //Devuelve un puntero a la estructura.
 FechaPtr crearFecha(int dia,int mes,int anio,int hora,int minuto);
+
 ///NUEVA: Orientada a crear fecha a partir de otra fecha (o si se parte de d. julianos) (utilizada en Files).
 //Operación: Crea fecha a partir de dia juliano en lugar de dia, mes y anio.
 //Precondición: Fecha no debe estar creada.
@@ -50,6 +51,15 @@ FechaPtr crearFecha(int dia,int mes,int anio,int hora,int minuto);
 // minuto: entero representando los minutos.
 //Devuelve un puntero a la estructura.
 FechaPtr crearFechaDirect(int diaJuliano,int hora,int minuto);
+
+//Operación: Crea fecha a partir de dia mes anio, hora y minutos
+//Precondición: Fecha no debe estar creada.
+//Postcondición: Se crea fecha con dia, mes, anio, minuto y hora.
+//Parámetros:
+// diaJuliano: dia mes anio, hora y minutos en enteros
+//Devuelve un puntero a la estructura.
+FechaPtr crearFechaDirectN(int dia,int mes,int anio,int hora,int minuto);
+
 //Operación: Destruir fecha.
 //Precondición: Que fecha este creada.
 //Postcondición: Destruye fecha y libera la memoria.
@@ -276,5 +286,43 @@ int calcularDiferenciaFechasHora(FechaPtr fecha1,FechaPtr fecha2);
 // fecha: puntero a la fecha a válidar.
 //Devuelve la diferencia en minutos
 int calcularDiferenciaFechasMinutos(FechaPtr fecha1,FechaPtr fecha2);
+
+
+//Operación: Obtiene el dia.
+//Precondición: fecha debe haberse creado
+//Postcondición: se obtiene el dia de fecha
+//Parámetros:
+//  fecha: Fecha del que es obtiene el dia.
+// Devuelve un entero representando el día del mes
+int getDiaNatural(FechaPtr fecha);
+//Operación: Obtiene el mes.
+//Precondición: fecha debe haberse creado
+//Postcondición: se obtiene el mes de fecha
+//Parámetros:
+//  fecha: Fecha del que es obtiene el mes.
+// Devuelve un entero representando el mes
+int getMesNatural(FechaPtr fecha);
+//Operación: Obtiene el anio.
+//Precondición: fecha debe haberse creado
+//Postcondición: se obtiene el anio de fecha
+//Parámetros:
+//  fecha: Fecha del que es obtiene el anio.
+// Devuelve un entero representando el anio
+int getAnioNatural(FechaPtr fecha);
+//Operación: Obtiene el hora.
+//Precondición: fecha debe haberse creado
+//Postcondición: se obtiene el hora de fecha
+//Parámetros:
+//  fecha: Fecha del que es obtiene el hora.
+// Devuelve un entero representando el hora del mes
+int getHoraNatural(FechaPtr fecha);
+//Operación: Obtiene el minutos.
+//Precondición: fecha debe haberse creado
+//Postcondición: se obtiene el minutos de fecha
+//Parámetros:
+//  fecha: Fecha del que es obtiene el minutos.
+// Devuelve un entero representando el minutos
+int getMinutoNatural(FechaPtr fecha);
+
 
 #endif //TDAFECHAYHORA_H_INCLUDED

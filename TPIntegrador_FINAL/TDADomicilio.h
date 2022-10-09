@@ -12,8 +12,18 @@ typedef struct Domicilio
 } Domicilio;
 typedef Domicilio* DomicilioPtr;
 
-
+//operacion creacion
+//precondicion: Domicilio debe haber sido creado en memoria dinamica
+//postcondicion: crea un domicilio en memoria dinamica
+//patametros: calle, altura, localidad
+//devuelve puntero a domicilio
 DomicilioPtr crearDomicilio(char *calle,int altura,char *localidad);
+
+//operacion creacion
+//precondicion: Domicilio debe haber sido creado en memoria dinamica
+//postcondicion: libera la memoria dinamica de domicilio
+//patametros: puntero a domicilio
+//devuelve nulo
 DomicilioPtr destruirDomicilio(DomicilioPtr domicilio);
 
 void setCalle(DomicilioPtr domicilio,char *calle);

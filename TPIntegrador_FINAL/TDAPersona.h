@@ -152,4 +152,6 @@ void mostrarPersona(PersonaPtr persona);
 //
 //Devuelve: todos los datos de Persona
 
+
+
 #endif // TDAPERSONA_H_INCLUDED

@@ -6,6 +6,7 @@
 #include "TDAFechaYHora.h"
 #include "TDADomicilio.h"
 #include "TDAPersona.h"
+#include "Pila.h"
 
 typedef struct Paquete{
     int ID;
@@ -57,6 +58,8 @@ PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPt
 // estado: entero que represeta el estado del paquete.
 //Devuelve un puntero a la estructura creada.
 //PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado,PersonaPtr cliente);
+PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleR,int alturaR,char *localidadR,char *calleE,int alturaE,char *localidadE,int dia,int mes,int anio,int hora,int minuto,int estado,PersonaPtr cliente);
+
 
 //Operación: Destruye el TDApaquete
 //Precondición: Paquete debe estar creado.
@@ -240,5 +243,7 @@ void helpEstadoPaquete(); //muestra que relacion hay entre cada numero y cada es
 // paquete: puntero a la estructura a imprimir.
 //Devuelve nada
 void mostrarEstadopaquete(PaquetePtr paquete); //muestra solo el estado actual del paquete recibido.
+
+
 
 #endif // TDAPAQUETES_H_INCLUDED

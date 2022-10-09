@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 typedef struct Vehiculo
 {
     int tipo; ///1: Moto, 2: Auto, 3: Camión.
@@ -115,5 +116,7 @@ void helpTipoVehiculo(); ///muestra al usuario que significa cada numero de tipo
 //PARAMETROS: puntero al vehiculo del que se quiere saber su tipo
 //DEVUELVE: nada.
 void mostrarTipoVehiculo(VehiculoPtr vehiculo); ///informa al usuario de que tipo es el vehículo que ingresa.
+
+
 
 #endif // TDAVEHICULO_H_INCLUDED

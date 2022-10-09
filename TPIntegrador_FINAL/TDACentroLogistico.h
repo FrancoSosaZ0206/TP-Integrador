@@ -1,12 +1,7 @@
 #ifndef TDACENTROLOGISTICO_H_INCLUDED
 #define TDACENTROLOGISTICO_H_INCLUDED
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include "Lista.h"
 #include "TDAPaquetes.h"
-#include "TDAPersona.h"
 #include "TDAVehiculo.h"
 #include "TDARepartos.h"
 
@@ -209,7 +204,7 @@ int buscarPaquete(CentroLogisticoPtr centroLogistico,int ID);
 // cuil: string que representa el cuil de la persona.
 // esChofer: booleano que aclara al buscador si se trata de un chofer (true) o un cliente (false).
 //Devuelve true si se encontró una coincidencia, false de lo contrario.
-int buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer);
+int buscarPersona(CentroLogisticoPtr centroLogistico,char* cuil,bool esChofer);
 //Operación: Muestra los vehiculos con la patente que le haya pasado.
 //Precondición: Centro logistico debe haberse creado y llenado con una lista de vehiculos
 //Postcondición: De encontrarse, imprime el vehiculo buscado.

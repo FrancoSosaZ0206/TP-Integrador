@@ -31,8 +31,8 @@ PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char 
     paquete->largo=largo;
     paquete->peso=peso;
     paquete->estado=estado;
-    paquete->dirRetiro=crearDomicilioDirect(calleR,alturaR,localidadR);
-    paquete->dirEntrega=crearDomicilioDirect(calleE,alturaE,localidadE);
+    paquete->dirRetiro=crearDomicilio(calleR,alturaR,localidadR);
+    paquete->dirEntrega=crearDomicilio(calleE,alturaE,localidadE);
     paquete->fechaEntrega=crearFechaDirectN(dia,mes,anio,hora,minuto);
     paquete->cliente=cliente;
     return paquete;
@@ -51,9 +51,9 @@ PaquetePtr crearPaqueteDirect1(int ID,int ancho,int alto,int largo,int peso,
     paquete->largo=largo;
     paquete->peso=peso;
     paquete->estado=estado;
-    paquete->dirRetiro=crearDomicilioDirect(calleR,alturaR,localidadR);
-    paquete->dirEntrega=crearDomicilioDirect(calleE,alturaE,localidadE);
-    paquete->fechaEntrega=crearFechaDirectNuevo(dia,mes,anio,hora,minuto);
+    paquete->dirRetiro=crearDomicilio(calleR,alturaR,localidadR);
+    paquete->dirEntrega=crearDomicilio(calleE,alturaE,localidadE);
+    paquete->fechaEntrega=crearFechaDirectN(dia,mes,anio,hora,minuto);
     paquete->cliente=crearPersonaDirect(nom,ap,calleP,alturaP,localidadP,cuilStr,esChofer);
     return paquete;
 }
@@ -66,10 +66,10 @@ PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE){
     paquete->largo=PE->largo;
     paquete->peso=PE->peso;
     paquete->estado=PE->estado;
-    paquete->dirRetiro=crearDomicilioDirect(PE->dirRetiro.calle,PE->dirRetiro.altura,PE->dirRetiro.localidad);
-    paquete->dirEntrega=crearDomicilioDirect(PE->dirEntrega.calle,PE->dirEntrega.altura,PE->dirEntrega.localidad);
-    paquete->fechaEntrega=crearFechaDirectNuevo(PE->fechaEntrega.dia,PE->fechaEntrega.mes,PE->fechaEntrega.anio,PE->fechaEntrega.hora,PE->fechaEntrega.minuto);
-    paquete->cliente=crearPersonaDirect(PE->cliente.nombre,PE->cliente.apellido,PE->cliente.domicilio.calle,PE->cliente.domicilio.altura,PE->cliente.domicilio.localidad,PE->cliente.cuil,PE->cliente.esChofer);
+    paquete->dirRetiro=crearDomicilioNuevo(&PE->dirRetiro);
+    paquete->dirEntrega=crearDomicilioNuevo(&PE->dirEntrega);
+    paquete->fechaEntrega=crearFechaDirectNuevo(&PE->fechaEntrega);
+    paquete->cliente=crearPersonaDirectNuevo(&PE->cliente);
     return paquete;
 }
 

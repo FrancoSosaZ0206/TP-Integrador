@@ -7,6 +7,7 @@
 #include "TDACentroLogistico.h"
 #include "test.h"
 #include "util.h"
+#include "Files.h"
 
 VehiculoPtr crearVehiculoPorDefecto() ///Crea un vehículo de forma rápida con datos predeterminados.
 {
@@ -185,9 +186,9 @@ ListaPtr crearListaRepartosPorDefecto(){
     DomicilioPtr domicilioChofer1=crearDomicilio("Vieytes",2000,"Lomas de zamora");
     DomicilioPtr dirRetiro1=crearDomicilio("Deposito",5000,"Sector industrial"); /// (*)
     DomicilioPtr dirEntrega1=crearDomicilio("Santa fe",1500,"Banfield"); /// (**)
-    FechaPtr fechaSalida1=crearFechaDirectN(2459610,16,45); //Para el reparto
-    FechaPtr fechaRetorno1=crearFechaDirectN(2459610,17,45); //Para el reparto
-    FechaPtr fechaEntrega1=crearFechaDirectN(2459610,18,45);
+    FechaPtr fechaSalida1=crearFechaDirectN(10,12,2022,16,45); //Para el reparto
+    FechaPtr fechaRetorno1=crearFechaDirectN(10,12,2022,17,45); //Para el reparto
+    FechaPtr fechaEntrega1=crearFechaDirectN(10,12,2022,18,45);
     CuilPtr cuil1=crearCuil("20346547546");
     PersonaPtr chofer1=crearPersona("Roberto","Garcia",domicilioChofer1,cuil1,true);
     PaquetePtr paquete1=crearPaquete(1,4,5,2,65,dirRetiro1,dirEntrega1,fechaEntrega1,chofer1,0);
@@ -199,9 +200,9 @@ ListaPtr crearListaRepartosPorDefecto(){
     DomicilioPtr domicilioChofer2=crearDomicilio("Boqueron",1500,"Villa Fiorito");
     DomicilioPtr dirRetiro2=crearDomicilio("Repositorio Intel",5000,"Sector industrial");
     DomicilioPtr dirEntrega2=crearDomicilio("Italia",3000,"Palermo");
-    FechaPtr fechaSalida2=crearFechaDirectN(2459300,8,30);
-    FechaPtr fechaRetorno2=crearFechaDirectN(2459610,9,30);
-    FechaPtr fechaEntrega2=crearFechaDirectN(2459610,10,30);
+    FechaPtr fechaSalida2=crearFechaDirectN(10,12,2022,8,30);
+    FechaPtr fechaRetorno2=crearFechaDirectN(10,12,2022,9,30);
+    FechaPtr fechaEntrega2=crearFechaDirectN(10,12,2022,10,30);
     CuilPtr cuil2=crearCuil("27245764567");
     PersonaPtr chofer2=crearPersona("Maria","Gonzalez",domicilioChofer2,cuil2,true);
     PaquetePtr paquete2=crearPaquete(2,2,5,3,120,dirRetiro2,dirEntrega2,fechaEntrega2,chofer2,0);
@@ -213,9 +214,9 @@ ListaPtr crearListaRepartosPorDefecto(){
     DomicilioPtr domicilioChofer3=crearDomicilio("Espania",1500,"Puerto Madero");
     DomicilioPtr dirRetiro3=crearDomicilio("Tesla Industry",10000,"Washington DC");
     DomicilioPtr dirEntrega3=crearDomicilio("24 de mayo",3000,"Capital Federal");
-    FechaPtr fechaSalida3=crearFechaDirectN(2378300,19,15);
-    FechaPtr fechaRetorno3=crearFechaDirectN(2378300,21,15);
-    FechaPtr fechaEntrega3=crearFechaDirectN(2378300,22,15);
+    FechaPtr fechaSalida3=crearFechaDirectN(10,12,2022,19,15);
+    FechaPtr fechaRetorno3=crearFechaDirectN(10,12,2022,21,15);
+    FechaPtr fechaEntrega3=crearFechaDirectN(10,12,2022,22,15);
     CuilPtr cuil3=crearCuil("30234565431");
     PersonaPtr chofer3=crearPersona("Gonzalo","Gutierrez",domicilioChofer3,cuil3,true);
     PaquetePtr paquete3=crearPaquete(3,8,8,10,800,dirRetiro3,dirEntrega3,fechaEntrega3,chofer3,0);
@@ -357,10 +358,205 @@ void MetodoDistintoDeMostrado(){
 }
 
 
+void ProbarFuncionesArchivos(){
+    ListaPtr listaClientes=crearListaClientesGenerico();
+    ListaPtr listaVehiculos=crearListaVehiculosGenerico();
+    ListaPtr listaRepartos=crearListaRepartosPorDefecto();
+    ListaPtr listaChoferes=crearListaChoferesGenerico();
+    ListaPtr listaPaquetes=crearListaPaquetesGenerico();
+    //ListaPtr listaRepartosCerrados=crearLista();
+    GuardarListaChoferesNuevo(listaChoferes);
+    GuardarListaClientesNuevo(listaClientes);
+    GuardarListaPaquetesNuevo(listaPaquetes);
+    GuardarListaRepartosNuevo(listaRepartos);
+    GuardarListaVehiculosNuevo(listaVehiculos);
+    LeerListaChoferesNuevo();
+    LeerListaClientesNuevo();
+    LeerListaPaquetesNuevo();
+    LeerListaRepartosNuevo();
+    LeerListaVehiculosNuevo();
+}
+
+
+///--------------------------------------------------------------------------///
+
+///--------------------------------------------------------------------------///
+
+///--------------------------------------------------------------------------///
+
+                ///SECCION DE PRUEBAS DE FILES.C///
+
+
+///--------------------------------------------------------------------------///
+
+///--------------------------------------------------------------------------///
+
+///--------------------------------------------------------------------------///
 
 
 
 
+/*
+void pruebaPasajeReparto(){
+    fReparto RE;
+    RepartoPtr RD=crearRepartoGenerico();
+    ListaPtr LP=getListaPaquetesReparto(RD);
+    ///mostrarPaquetesListaReparto(RD);
+    fPaquete P[10];
+    PasajeRepartoDinamico(&RE,RD,false);
+    RepartoPtr RDP=PasajeRepartoDinamico(&RE,RDP,true);
+    mostrarReparto(RDP);
+    ///PaquetePtr PD=crearPaqueteGenerico();
+    ///PasajePaqueteDinamico(&P[0],PD,false);
+    ///PaquetePtr PDP=PasajePaqueteDinamico(&P[0],PDP,true);
+    ///mostrarPaquete(PDP);
+    //PasajePaqueteDinamico(&P[0],PD,false);
+    //PasajeArrayPaquetesAestatico(&P[0],PD);
+    //PaquetePtr PDP=PasajeArrayPaquetesAdinamico(P[0]);
+    //ListaPtr LA=PROBANDO(P);
+    //PaquetePtr PDP=getCabecera(LA);
+    //printf("%d %d %d\n", PDP->alto,PDP->ancho,PDP->peso);
+    system("pause");
+
+    /// printf("%d\n", sizeof(fReparto));
+    ///printf("%d\n",sizeof(paquetes));
+    ///printf("%d\n",sizeof(fPaquete));
+    for(int i=0;i<10;i++){
+        PasajePaqueteDinamico(&paquetes[i],PD,false);
+    }*/
+    ///pasajePaquetePrueba(&paquetes,PD);
+    /*for(int i=0;i<10;i++){
+        printf("\n\n");
+        printf("%d\n", paquetes[0].alto);
+        printf("%d\n", paquetes[0].ancho);
+    }*/
+    //PDP=PasajePaqueteDinamico(&paquetes[0],PDP,true);
+    ///pasajePaquetePrueba(&paquetes,PD);
+    ///int valor=paquetes[0].alto;
+    ///PDP->alto=valor;
+    ///printf("%d\n", PDP->alto);
+    ///printf("%d\n", valor);
+    ///printf("%d\n", paquetes[0].alto);
+    ///mostrarReparto(RD);
+    /*PasajeRepartoDinamico(&RE,RD,false);
+    printf("REPARTO ESTATICO\n\n");
+    printf("%s \n", RE.chofer.nombre);
+    system("pause");
+    RepartoPtr RDP=PasajeRepartoDinamico(&RE,RDP,true);*/
+    ///mostrarPersona(RDP->chofer);
+    ///mostrarVehiculo(RDP->vehiculo);
+    ///mostrarFecha(RDP->fechaSalida);
+    ///mostrarFecha(RDP->fechaRetorno);
+    ///mostrarReparto(RDP);
+//}
+
+
+
+
+
+///-----------------------------------------------------------------------///
+
+/*
+void pruebaPasajePaquete(){
+    fPaquete PE;
+    DomicilioPtr domicilio1 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
+    CuilPtr cuil_1 = crearCuil("20654342349");
+    PersonaPtr cliente1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,false);
+    PaquetePtr PD=crearPaqueteDirect1(1,1,1,1,1,"1",1,"1","1",1,"1",1,1,2022,1,1,1,"1","1","1",1,"1","1","1","1","1",1,"1","1",false);
+    ///mostrarPaquete(PD);
+    PasajePaqueteDinamico(&PE,PD,false);
+    PaquetePtr PDP=PasajePaqueteDinamico(&PE,PDP,true);
+    system("cls");
+    mostrarPaquete(PDP);
+    printf("%d\n", PE.alto);
+    printf("%d\n", PE.fechaEntrega.dia);
+    printf("%d\n", PE.dirEntrega.altura);
+    printf("%d\n", PE.dirRetiro.altura);
+    printf("%s\n", PE.cliente.nombre);
+}*/
+
+
+/*
+
+void pruebaPasaje(ListaPtr listaVehiculos){
+    fVehiculo VE;///Vehiculo en memoria estatica
+    fVehiculo VEP;///Vehiculo en memoria estatica de prueba
+    VehiculoPtr VD;///Vehiculo en memoria dinamica
+    VehiculoPtr VDP;///Vehiculo en memoria dinamica de prueba
+    VehiculoPtr VDPV2;///Vehiculo en memoria dinamica de prueba version 2
+
+    printf("Nueva prueba: \n\n");
+    ///printf("%s\n", getMarca(&VE));///BROKEN
+    ///mostrarVehiculo(&VE);
+    VD=crearVehiculo(3,"Mercedes Benz","Actros","19JKU89");
+    PasajeVehiculoDinamico(&VE,VD,false);
+    VD=destruirVehiculo(VD);
+    VDP=PasajeVehiculoDinamico(&VE,VDP,true);
+    ///mostrarVehiculo(VDP);
+
+    FILE* a;
+    a=fopen("PROBANDO.bin","wb");
+    fwrite(&VE,sizeof(fVehiculo),1,a);
+    fclose(a);
+    a=fopen("PROBANDO.bin","rb");
+    fread(&VEP,sizeof(fVehiculo),1,a);
+    fclose(a);
+    VDPV2=PasajeVehiculoDinamico(&VEP,VDPV2,true);
+    mostrarVehiculo(VDPV2);
+    system("pause");
+}
+*/
+
+    /*VD=crearVehiculo(3,"Mercedes Benz","Actros","19JKU89");
+    DinamicoEstatico(VD,&VE);
+    printf("Prueba inicial de pasaje dinamico-estatico\n");
+    printf("%d\n", VE.tipo);
+    printf("%s\n", VE.marca);
+    printf("%s\n", VE.modelo);
+    printf("%s\n", VE.patente);
+    fVehiculoPtr VED;///Vehiculo en memoria dinamico con tamanio campos en memoria estatica
+    FILE *a;
+    a=fopen("probando.bin","wb");
+    fwrite(&VE,sizeof(fVehiculo),1,a);
+    fclose(a);
+    a=fopen("probando.bin","rb");
+    fread(&VEP,sizeof(fVehiculo),1,a);
+    fclose(a);
+    printf("Prueba inicial de lectura\n");
+    printf("%d\n", VEP.tipo);
+    printf("%s\n", VEP.marca);
+    printf("%s\n", VEP.modelo);
+    printf("%s\n", VEP.patente);*/
+
+    /*
+void pruebaDePasajes(){
+    fCuil CE;
+    CuilPtr CD=crearCuil("20458730955");
+    fDomicilio DE;
+    DomicilioPtr DD=crearDomicilio("Sixto",1200,"Lomas");
+    fFecha FE;
+    FechaPtr FD=crearFecha(10,12,2022,16,45);
+    PasajeCuilDinamico(&CE,CD,false);
+    PasajeDomicilioDinamico(&DE,DD,false);
+    PasajeFechaDinamico(&FE,FD,false);
+    printf("Evaluacion de las pruebas: \n\n");
+    printf("Cuil: %s\n", CE.cuil);
+    printf("Domicilio: %s - %d - %s \n", DE.calle,DE.altura,DE.localidad);
+    printf("Fecha: %d / %d / %d -- %d : %d \n", FE.dia,FE.mes,FE.anio,FE.hora,FE.minuto);
+    system("pause");
+}*/
+
+/*
+void pruebaPasajePersona(){
+    fPersona PE;
+    PersonaPtr PD=crearPersonaDirect("GASTON","ROMERO","SIXTO",1200,"LOMAS","20458730955",false);
+    mostrarPersona(PD);
+    PasajePersonaDinamico(&PE,PD,false);
+    printf("Probando Resultados:\n\n");
+    printf("%s - %s - %s - %d - %s - %s \n", PE.nombre,PE.apellido,PE.domicilio.calle,PE.domicilio.altura,PE.domicilio.localidad,PE.cuil);
+    system("pause");
+}
+*/
 
 
 
