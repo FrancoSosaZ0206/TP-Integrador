@@ -743,3 +743,71 @@ void ordenarPorChoferRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoA
     for(int i=0; i<n; i++)
         agregarReparto(centroLogistico,repartos[i],esRepartoAbierto);
 }
+
+
+void menuBuscarRepartoPorFechaSalida(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
+    int diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutoBuscar,cantidadEncontrados=0,posicionEncontrado=0,i=0,cantidad;
+    cantidad=seleccionarCantidad();
+    for(int i=0;i<cantidad;i++){
+        system("cls");
+        fflush(stdin);
+        printf("Seleccione la fecha de salida a buscar [D/M/A H:M]: ");
+        scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutoBuscar);
+        fflush(stdin);
+        ListaPtr listaRepartos=getRepartos(centroLogistico,esRepartoAbierto);
+        ListaPtr listaAuxiliar=listaRepartos;
+        RepartoPtr repartoAuxiliar;
+        while(!listaVacia(listaAuxiliar)){
+            repartoAuxiliar=getCabecera(listaAuxiliar);
+            if(diaBuscar==getDia(getFechaSalida(repartoAuxiliar)))
+                cantidadEncontrados++;
+            if(mesBuscar==getMes(getFechaSalida(repartoAuxiliar)))
+                cantidadEncontrados++;
+            if(anioBuscar==getAnio(getFechaSalida(repartoAuxiliar)))
+                cantidadEncontrados++;
+            if(horaBuscar==getHora(getFechaSalida(repartoAuxiliar)))
+                cantidadEncontrados++;
+            if(minutoBuscar==getMinuto(getFechaSalida(repartoAuxiliar)))
+                cantidadEncontrados++;
+            if(cantidadEncontrados==5)
+                posicionEncontrado=i;
+            mostrarReparto(getDatoLista(listaRepartos,posicionEncontrado));
+            listaAuxiliar=getResto(listaAuxiliar);
+            i++;
+        }
+    }
+}
+
+void menuBuscarRepartoPorFechaRetorno(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
+    int diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutoBuscar,cantidadEncontrados=0,posicionEncontrado=0,i=0,cantidad;
+    cantidad=seleccionarCantidad();
+    for(int i=0;i<cantidad;i++){
+        system("cls");
+        fflush(stdin);
+        printf("Seleccione la fecha de retorno a buscar [D/M/A H:M]: ");
+        scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutoBuscar);
+        fflush(stdin);
+        ListaPtr listaRepartos=getRepartos(centroLogistico,esRepartoAbierto);
+        ListaPtr listaAuxiliar=listaRepartos;
+        RepartoPtr repartoAuxiliar;
+        while(!listaVacia(listaAuxiliar)){
+            repartoAuxiliar=getCabecera(listaAuxiliar);
+            if(diaBuscar==getDia(getFechaRetorno(repartoAuxiliar)))
+                cantidadEncontrados++;
+            if(mesBuscar==getMes(getFechaRetorno(repartoAuxiliar)))
+                cantidadEncontrados++;
+            if(anioBuscar==getAnio(getFechaRetorno(repartoAuxiliar)))
+                cantidadEncontrados++;
+            if(horaBuscar==getHora(getFechaRetorno(repartoAuxiliar)))
+                cantidadEncontrados++;
+            if(minutoBuscar==getMinuto(getFechaRetorno(repartoAuxiliar)))
+                cantidadEncontrados++;
+            if(cantidadEncontrados==5)
+                posicionEncontrado=i;
+            mostrarReparto(getDatoLista(listaRepartos,posicionEncontrado));
+            listaAuxiliar=getResto(listaAuxiliar);
+            i++;
+        }
+    }
+}
+

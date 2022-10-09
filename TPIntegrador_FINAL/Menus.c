@@ -437,6 +437,7 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico){
     }while(op!=0);
 }
 
+
 int seleccionarCantidad(){
     int eleccion=0;
     fflush(stdin);
@@ -609,7 +610,6 @@ void menuEliminarChofer(CentroLogisticoPtr centroLogistico){
         printf("No existen choferes para remover\n");
     }
 }
-
 
 void menuEliminarChoferNuevo(CentroLogisticoPtr centroLogistico){
     int posicionEliminar,posicionInicial,posicionFinal,cantidad,Main;
