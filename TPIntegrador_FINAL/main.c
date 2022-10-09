@@ -84,7 +84,7 @@ int main(){
                 centroLogistico=destruirCentroLogistico(centroLogistico);
             break;
             case 2:
-                centroLogistico = abrirTodo();
+                centroLogistico = AbrirTodoNuevo();
                 if(centroLogistico==NULL){
                     printf("ERROR AL ABRIR.\n\n");
                     exit(1);
@@ -376,10 +376,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico){
                             }
                     break;
                     case 5:
-                            resultadoGuardadoGeneral=guardarTodo(centroLogistico);
-                            if(resultadoGuardadoGeneral==false)
-                                printf("No se han podido guardar los datos\n");
-                            system("pause");
+                            GuardarTodoNuevo(centroLogistico);
                     break;
                 } while(op2!=0);
                 break;
@@ -389,7 +386,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico){
                         op1=menuGuardadoRespaldo();
                             switch(op1){
                             case 1:
-                                    guardarTodo(centroLogistico);
+                                    GuardarTodoNuevo(centroLogistico);
                                 break;
                             case 2:
                                     presionarEnterYLimpiarPantalla();
@@ -656,16 +653,14 @@ int menuGuardadoRespaldo(){
 
 int deseaGuardarAntesDeSalir(){
     int eleccion=0;
-    do{
-        system("cls");
-        fflush(stdin);
-        printf("Seccion seguro ACTIVADA\n");
-        printf("Desea guardar antes de salir?\n");
-        printf("1. Guardar cambios y salir\n");
-        printf("2. Salir sin guardar cambios\n");
-        printf("Eleccion: ");
-        scanf("%d",&eleccion);
-        fflush(stdin);
-    }while(eleccion<1 && eleccion>2);
+    system("cls");
+    fflush(stdin);
+    printf("Seccion seguro ACTIVADA\n");
+    printf("Desea guardar cambios antes de salir?\n");
+    printf("1. Guardar cambios y salir\n");
+    printf("2. Salir sin guardar cambios\n");
+    printf("Eleccion: ");
+    scanf("%d",&eleccion);
+    fflush(stdin);
     return eleccion;
 }

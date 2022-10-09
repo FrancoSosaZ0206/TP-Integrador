@@ -1,6 +1,6 @@
 #include "Files.h"
 
-const bool mostradoActivado=true;
+const bool mostradoActivado=false;
 
 ///*************************************************************************************************************
 
@@ -1297,8 +1297,6 @@ int LeerString(FILE *archivo,char buffer[], int longitudMax,char terminador){
 ///---------------------------------------------------------------------------///
 ///---------------------------------------------------------------------------///
 ///---------------------------------------------------------------------------///
-
-
 FechaPtr PasajeFechaDinamico(fFechaPtr FE, FechaPtr FD, bool ADinamico){
     if(ADinamico){
         FD=crearFechaDirectNuevo(FE);
@@ -1311,7 +1309,6 @@ FechaPtr PasajeFechaDinamico(fFechaPtr FE, FechaPtr FD, bool ADinamico){
     }
     return FD;
 }
-
 DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DE, DomicilioPtr DD, bool ADinamico){
     if(ADinamico){
         DD=crearDomicilio(DE->calle,DE->altura,DE->localidad);
@@ -1322,7 +1319,6 @@ DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DE, DomicilioPtr DD, bool ADi
     }
     return DD;
 }
-
 CuilPtr PasajeCuilDinamico(fCuilPtr CE, CuilPtr CD, bool ADinamico){
     if(ADinamico){
         CD=crearCuil(CE->cuil);
@@ -1383,9 +1379,7 @@ ListaPtr LeerListaVehiculosNuevo(){
     }
     return LV;
 }
-
 ///-----------------------------------------------------------------------///
-
 PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico){
     if(ADinamico){
         PD=crearPersonaDirectNuevo(PE);
@@ -1397,13 +1391,11 @@ PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico){
     }
     return PD;
 }
-
-void GuardarListaClientesNuevo(ListaPtr listaClientes){
+void GuardarListaClientesYChoferesNuevo(ListaPtr listaClientes, bool esChoferes){
     FILE* arch;
     fPersona PE;
     PersonaPtr PD;
     ListaPtr LA=listaClientes;
-    /*
     if(esChoferes){
         arch=fopen("ChoferesPrueba.bin","wb");
         fclose(arch);
@@ -1413,7 +1405,6 @@ void GuardarListaClientesNuevo(ListaPtr listaClientes){
         fclose(arch);
         arch=fopen("ClientesPrueba.bin","ab");
     }
-    */
     arch=fopen("ClientesPrueba.bin","wb");
     fclose(arch);
     arch=fopen("ClientesPrueba.bin","ab");
@@ -1425,19 +1416,16 @@ void GuardarListaClientesNuevo(ListaPtr listaClientes){
     }
     fclose(arch);
 }
-
-ListaPtr LeerListaClientesNuevo(){
+ListaPtr LeerListaClientesYChoferesNuevo(bool esChoferes){
     FILE* arch;
     fPersona PE;
     PersonaPtr PD;
     ListaPtr LC=crearLista();
-    /*
     if(esChoferes){
         arch=fopen("ChoferesPrueba.bin","rb");
     }else{
         arch=fopen("ClientesPrueba.bin","rb");
     }
-    */
     arch=fopen("ClientesPrueba.bin","rb");
     fread(&PE,sizeof(fPersona),1,arch);
     while(!feof(arch)){
@@ -1457,53 +1445,7 @@ ListaPtr LeerListaClientesNuevo(){
     }
     return LC;
 }
-
-
-
-void GuardarListaChoferesNuevo(ListaPtr listaChoferes){
-    FILE* arch;
-    fPersona PE;
-    PersonaPtr PD;
-    ListaPtr LA=listaChoferes;
-    arch=fopen("ChoferesPrueba.bin","wb");
-    fclose(arch);
-    arch=fopen("ChoferesPrueba.bin","ab");
-    while(!listaVacia(LA)){
-        PD=getCabecera(LA);
-        PasajePersonaDinamico(&PE,PD,false);
-        fwrite(&PE,sizeof(fPersona),1,arch);
-        LA=getResto(LA);
-    }
-    fclose(arch);
-}
-
-ListaPtr LeerListaChoferesNuevo(){
-    FILE* arch;
-    fPersona PE;
-    PersonaPtr PD;
-    ListaPtr LC=crearLista();
-    arch=fopen("ChoferesPrueba.bin","rb");
-    fread(&PE,sizeof(fPersona),1,arch);
-    while(!feof(arch)){
-        PD=PasajePersonaDinamico(&PE,PD,true);
-        agregarDatoLista(LC,(PersonaPtr)PD);
-        fread(&PE,sizeof(fPersona),1,arch);
-    }
-    fclose(arch);
-    if(mostradoActivado){
-        ListaPtr LA=LC;
-        while(!listaVacia(LA)){
-            PD=getCabecera(LA);
-            mostrarPersona(PD);
-            LA=getResto(LA);
-        }
-        system("pause");
-    }
-    return LC;
-}
 ///-----------------------------------------------------------------------///
-
-
 PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico){
     if(ADinamico){
         PD=crearPaqueteDirectNuevo(PE);
@@ -1521,8 +1463,6 @@ PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico){
     }
     return PD;
 }
-
-
 void GuardarListaPaquetesNuevo(ListaPtr listaPaquetes){
     FILE* arch;
     fPaquete PE;
@@ -1539,7 +1479,6 @@ void GuardarListaPaquetesNuevo(ListaPtr listaPaquetes){
     }
     fclose(arch);
 }
-
 ListaPtr LeerListaPaquetesNuevo(){
     FILE* arch;
     fPaquete PE;
@@ -1564,10 +1503,7 @@ ListaPtr LeerListaPaquetesNuevo(){
     }
     return LP;
 }
-
 ///-----------------------------------------------------------------------///
-
-
 RepartoPtr PasajeRepartoDinamico(fRepartoPtr RE, RepartoPtr RD, bool ADinamico){
     if(ADinamico){
         RD=crearRepartoDirectoNuevo(RE);
@@ -1590,15 +1526,20 @@ RepartoPtr PasajeRepartoDinamico(fRepartoPtr RE, RepartoPtr RD, bool ADinamico){
     }
     return RD;
 }
-
-void GuardarListaRepartosNuevo(ListaPtr listaRepartos){
+void GuardarListaRepartosNuevo(ListaPtr listaRepartos, bool esRepartoAbierto){
     FILE* arch;
     fReparto RE;
     RepartoPtr RD;
     ListaPtr LA=listaRepartos;
-    arch=fopen("RepartosPrueba.bin","wb");
-    fclose(arch);
-    arch=fopen("RepartosPrueba.bin","ab");
+    if(esRepartoAbierto){
+        arch=fopen("RepartosAbiertosPrueba.bin","wb");
+        fclose(arch);
+        arch=fopen("RepartosAbiertosPrueba.bin","ab");
+    }else{
+        arch=fopen("RepartosCerradosPrueba.bin","wb");
+        fclose(arch);
+        arch=fopen("RepartosCerradosPrueba.bin","ab");
+    }
     while(!listaVacia(LA)){
         RD=getCabecera(LA);
         PasajeRepartoDinamico(&RE,RD,false);
@@ -1607,13 +1548,16 @@ void GuardarListaRepartosNuevo(ListaPtr listaRepartos){
     }
     fclose(arch);
 }
-
-ListaPtr LeerListaRepartosNuevo(){
+ListaPtr LeerListaRepartosNuevo(bool esRepartoAbierto){
     FILE* arch;
     fReparto RE;
     RepartoPtr RD;
     ListaPtr LR=crearLista();
-    arch=fopen("RepartosPrueba.bin","rb");
+    if(esRepartoAbierto){
+        arch=fopen("RepartosCerradosPrueba.bin","rb");
+    }else{
+        arch=fopen("RepartosAbiertosPrueba.bin","rb");
+    }
     fread(&RE,sizeof(fReparto),1,arch);
     while(!feof(arch)){
         RD=PasajeRepartoDinamico(&RE,RD,true);
@@ -1631,4 +1575,34 @@ ListaPtr LeerListaRepartosNuevo(){
         system("pause");
     }
     return LR;
+}
+///------------------------------------------------------------///
+void GuardarTodoNuevo(CentroLogisticoPtr centroLogistico){
+    FILE* arch;
+    char nombreCentroLog[100];
+    strcpy(nombreCentroLog,getNombreCentroLogistico(centroLogistico));
+    arch=fopen("NombreCentroLogistico.bin","wb");
+    fwrite(&nombreCentroLog,sizeof(100),1,arch);
+    fclose(arch);
+    GuardarListaClientesYChoferesNuevo(getClientes(centroLogistico),false);
+    GuardarListaClientesYChoferesNuevo(getChoferes(centroLogistico),true);
+    GuardarListaPaquetesNuevo(getPaquetes(centroLogistico));
+    GuardarListaVehiculosNuevo(getVehiculos(centroLogistico));
+    GuardarListaRepartosNuevo(getRepartos(centroLogistico,true),true);
+    GuardarListaRepartosNuevo(getRepartos(centroLogistico,false),false);
+}
+CentroLogisticoPtr AbrirTodoNuevo(){
+    CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido("");
+    FILE* arch;
+    char nombreCentroLog[100];
+    arch=fopen("NombreCentroLogistico.bin","rb");
+    fread(&nombreCentroLog,sizeof(100),1,arch);
+    fclose(arch);
+    setRepartos(centroLogistico,LeerListaRepartosNuevo(true),true);
+    setRepartos(centroLogistico,LeerListaRepartosNuevo(false),false);
+    setVehiculos(centroLogistico,LeerListaVehiculosNuevo());
+    setPaquetes(centroLogistico,LeerListaPaquetesNuevo());
+    setClientes(centroLogistico,LeerListaClientesYChoferesNuevo(false));
+    setChoferes(centroLogistico,LeerListaClientesYChoferesNuevo(true));
+    return centroLogistico;
 }

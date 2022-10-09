@@ -365,16 +365,23 @@ void ProbarFuncionesArchivos(){
     ListaPtr listaChoferes=crearListaChoferesGenerico();
     ListaPtr listaPaquetes=crearListaPaquetesGenerico();
     //ListaPtr listaRepartosCerrados=crearLista();
-    GuardarListaChoferesNuevo(listaChoferes);
-    GuardarListaClientesNuevo(listaClientes);
+    GuardarListaClientesYChoferesNuevo(listaChoferes,false);
+    GuardarListaClientesYChoferesNuevo(listaClientes,true);
     GuardarListaPaquetesNuevo(listaPaquetes);
-    GuardarListaRepartosNuevo(listaRepartos);
+    GuardarListaRepartosNuevo(listaRepartos,true);
     GuardarListaVehiculosNuevo(listaVehiculos);
-    LeerListaChoferesNuevo();
-    LeerListaClientesNuevo();
+    LeerListaClientesYChoferesNuevo(false);
+    LeerListaClientesYChoferesNuevo(true);
     LeerListaPaquetesNuevo();
-    LeerListaRepartosNuevo();
+    LeerListaRepartosNuevo(true);
     LeerListaVehiculosNuevo();
+
+
+
+    ///CentroLogisticoPtr centroLogistico=crearCentroLogistico("Distribuidora",listaPaquetes,listaClientes,listaChoferes,listaVehiculos,listaRepartos,listaRepartosCerrados);
+    ///GuardarTodoNuevo(centroLogistico);
+    ///CentroLogisticoPtr cntroLog;
+    ///cntroLog=AbrirTodoNuevo();
 }
 
 

@@ -33,6 +33,14 @@ void limpiarBufferTeclado()
     while((c=getchar())!='\n' && c!=EOF){};
 }
 
+void p(){
+    fflush(stdin);
+    system("pause");
+    fflush(stdin);
+    system("cls");
+    fflush(stdin);
+}
+
 void presionarEnterYLimpiarPantalla()
 {
     printf("\n\nPresione enter para continuar...");
