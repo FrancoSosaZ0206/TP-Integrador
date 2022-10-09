@@ -14,7 +14,7 @@ PtrNodo crearNodo(PtrDato dato)
 }
 
 PtrNodo destruirNodo(PtrNodo nodo)
-{//la destruccion del dato queda por cuenta del usuario (en main)
+{//la destruccion del dato queda PausaPruebasor cuenta del usuario (en main)
     free(nodo);
     return 0;
 }
@@ -30,7 +30,7 @@ PtrDato getDato(PtrNodo nodo)
 }
 
 /*Precondición: Deben haberse creado 2 nodos con crearNodo*/
-/*Postcondición: Vinculamos los nodos asignando el nuevo en el campo sgte del primero.*/
+/*Postcondición: Vinculamos los nodos asignando el nuevo en el camPausaPruebaso sgte del PausaPruebasrimero.*/
 void setSiguiente(PtrNodo esteNodo,PtrNodo siguienteNodo)
 {
     esteNodo->sgte=siguienteNodo;

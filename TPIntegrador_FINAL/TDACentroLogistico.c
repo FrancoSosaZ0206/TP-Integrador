@@ -343,13 +343,13 @@ int buscarReparto(CentroLogisticoPtr centroLogistico, int posicionSolicitada){
 
 int menuBusquedaPaqueteReparto(){
     int eleccion=0;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("Buscar paquete mediante\n");
     printf("1. El indice\n");
     printf("2. El id\n");
     printf("Opcion: ");
     scanf("%d",&eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
@@ -750,10 +750,10 @@ void menuBuscarRepartoPorFechaSalida(CentroLogisticoPtr centroLogistico, bool es
     cantidad=seleccionarCantidad();
     for(int i=0;i<cantidad;i++){
         system("cls");
-        fflush(stdin);
+        limpiarBufferTeclado();
         printf("Seleccione la fecha de salida a buscar [D/M/A H:M]: ");
         scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutoBuscar);
-        fflush(stdin);
+        limpiarBufferTeclado();
         ListaPtr listaRepartos=getRepartos(centroLogistico,esRepartoAbierto);
         ListaPtr listaAuxiliar=listaRepartos;
         RepartoPtr repartoAuxiliar;
@@ -783,10 +783,10 @@ void menuBuscarRepartoPorFechaRetorno(CentroLogisticoPtr centroLogistico, bool e
     cantidad=seleccionarCantidad();
     for(int i=0;i<cantidad;i++){
         system("cls");
-        fflush(stdin);
+        limpiarBufferTeclado();
         printf("Seleccione la fecha de retorno a buscar [D/M/A H:M]: ");
         scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutoBuscar);
-        fflush(stdin);
+        limpiarBufferTeclado();
         ListaPtr listaRepartos=getRepartos(centroLogistico,esRepartoAbierto);
         ListaPtr listaAuxiliar=listaRepartos;
         RepartoPtr repartoAuxiliar;

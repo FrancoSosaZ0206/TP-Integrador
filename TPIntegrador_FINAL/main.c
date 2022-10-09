@@ -73,6 +73,10 @@ int main(){
     ListaPtr listaChoferes=crearListaChoferesGenerico();
     ListaPtr listaPaquetes=crearListaPaquetesGenerico();
     ListaPtr listaRepartosCerrados=crearLista();
+    int E = 0;
+    E = SeleccionarNumero();
+    printf("%d\n", E);
+    p();
     int START_OP=0;
     do{
         START_OP=menuPrincipal();
@@ -421,14 +425,14 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico){
 
 int menuPrincipal(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("START MENU - BIENVENIDO\n\n");
     printf("\t1. INICIAR DE CERO\n");
     printf("\t2. ABRIR ARCHIVOS\n");
     printf("\t0. SALIR\n\n");
     printf("Seleccione una opcion: ");
     scanf("%d",&eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
@@ -442,7 +446,7 @@ int menuPrincipal(){
 
 int menuCentroLogistico(CentroLogisticoPtr centroLogistico){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("CENTRO LOGISTICO '%s' - MENU PRINCIPAL\n\n",getNombreCentroLogistico(centroLogistico));
     printf("1. BASE DE DATOS\n");
     printf("2. REPARTOS\n");
@@ -453,13 +457,13 @@ int menuCentroLogistico(CentroLogisticoPtr centroLogistico){
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
     scanf("%d", &eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
 int menuBaseDatos(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("BASE DE DATOS\n\n");
     printf("1. Cargar Datos\n");
     printf("2. Eliminar Datos\n");
@@ -469,13 +473,13 @@ int menuBaseDatos(){
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
     scanf("%d", &eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
 int menuCargadoDatos(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("CARGAR DATOS\n\n");
     printf("1. Cargar paquete\n");
     printf("2. Cargar cliente\n");
@@ -486,13 +490,13 @@ int menuCargadoDatos(){
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
     scanf("%d", &eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
 int menuEliminarDatos(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("ELIMINAR DATOS\n\n");
     printf("1. Eliminar Paquete\n");
     printf("2. Eliminar Cliente\n");
@@ -503,7 +507,7 @@ int menuEliminarDatos(){
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
     scanf("%d",&eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
@@ -517,16 +521,16 @@ int menuModificarDatos(){
     printf("0. Volver\n");
     printf("-1. MENU PRINCIPAL\n");
     printf("\n-----------------------------------------\n\n");
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("Elija una opcion: ");
     scanf("%d",&eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
 int menuBusquedaDatos(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("BUSCAR DATOS\n\n");
     printf("1. Buscar paquete\n"); //buscamos por ID
     printf("2. Buscar cliente\n"); //buscamos por
@@ -537,13 +541,13 @@ int menuBusquedaDatos(){
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
     scanf("%d", &eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
 int menuSeleccionTipoRepartos(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("Seccion de repartos\n\n");
     printf("1. Repartos abiertos\n");
     printf("2. Repartos cerrados\n");
@@ -552,13 +556,13 @@ int menuSeleccionTipoRepartos(){
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
     scanf("%d", &eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
 int menuRepartos(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("Repartos abiertos\n");
     printf("1. Armar reparto\n");
     printf("2. Eliminar reparto\n"); //Borramos su existencia (cerrados y abiertos)
@@ -570,13 +574,13 @@ int menuRepartos(){
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
     scanf("%d", &eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
 int menuRepartosCerrados(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("Repartos cerrados\n");
     printf("1. Eliminar reparto\n"); //Borramos su existencia (cerrados y abiertos)
     printf("2. Mostrar repartos\n"); //Plural
@@ -586,13 +590,13 @@ int menuRepartosCerrados(){
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
     scanf("%d", &eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
 int menuListados(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("EMITIR LISTADOS DE:\n\n");
     printf("1. Paquetes\n");
     printf("2. Clientes\n");
@@ -602,25 +606,25 @@ int menuListados(){
     printf("6. Repartos - CERRADOS\n");
     printf("0. Volver\n");
     printf("\n-----------------------------------------\n\n");
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("Elija una opcion: ");
     scanf("%d",&eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
 int menuTipoListadoPaquete(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("Mostrar paquetes como:\n\n");
     printf("1. Universal\n");
     printf("2. En curso\n");
     printf("0. Volver\n");
     printf("\n-----------------------------------------\n\n");
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("Elija una opcion: ");
     scanf("%d",&eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
@@ -633,20 +637,20 @@ int menuTipoListado(){
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
     scanf("%d",&eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
 int menuGuardadoRespaldo(){
     int eleccion;
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("Tiene cambios sin guardar. Seguro que quiere salir?\n\n");
     printf("1. Guardar cambios y salir\n");
     printf("2. Salir sin guardar\n");
     printf("0. Volver\n\n");
     printf("Seleccione una opcion: ");
     scanf("%d",&eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }
 
@@ -654,13 +658,13 @@ int menuGuardadoRespaldo(){
 int deseaGuardarAntesDeSalir(){
     int eleccion=0;
     system("cls");
-    fflush(stdin);
+    limpiarBufferTeclado();
     printf("Seccion seguro ACTIVADA\n");
     printf("Desea guardar cambios antes de salir?\n");
     printf("1. Guardar cambios y salir\n");
     printf("2. Salir sin guardar cambios\n");
     printf("Eleccion: ");
     scanf("%d",&eleccion);
-    fflush(stdin);
+    limpiarBufferTeclado();
     return eleccion;
 }

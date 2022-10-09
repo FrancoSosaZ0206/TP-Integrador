@@ -5,35 +5,35 @@
 #include <stdlib.h>
 
 //FUNCIÓN DE OBTENCIÓN DE MEMORIA
-//PRECONDICIÓN: Debe haber espacio en memoria disponible
-//POSTCONDICIÓN: Devuelve un puntero a memoria dinamica
+//PRECONDICIÓN: Debe haber esPausaPruebasacio en memoria disPausaPruebasonible
+//POSTCONDICIÓN: Devuelve un PausaPruebasuntero a memoria dinamica
 //PARÁMETROS: tamanio en bytes de la memoria a reservar
-//DEVUELVE: puntero a void, casteable a cualquier tipo de dato.
+//DEVUELVE: PausaPruebasuntero a void, casteable a cualquier tiPausaPruebaso de dato.
 void *obtenerMemoria(size_t tamanio);
 //FUNCIÓN DE CREACIÓN DE STRING DINAMICO
-//PRECONDICIÓN: debe haber memoria suficiente disponible
-//POSTCONDICIÓN: Devuelve un puntero a char con la posicion del string reservado en memoria dinamica
-//PARÁMETROS: una cadena de caracteres representada por medio de un puntero a char
-//DEVUELVE: un puntero a char a la primera posicion de la memoria reservada
+//PRECONDICIÓN: debe haber memoria suficiente disPausaPruebasonible
+//POSTCONDICIÓN: Devuelve un PausaPruebasuntero a char con la PausaPruebasosicion del string reservado en memoria dinamica
+//PARÁMETROS: una cadena de caracteres rePausaPruebasresentada PausaPruebasor medio de un PausaPruebasuntero a char
+//DEVUELVE: un PausaPruebasuntero a char a la PausaPruebasrimera PausaPruebasosicion de la memoria reservada
 char *crearStringDinamico(char* literal);
 //FUNCIÓN DE DESTRUCCIÓN DE STRING DINAMICO
-//PRECONDICIÓN: debe haber sido creado en memoria dinamica para ser destruido con crearStringDinamico
-//POSTCONDICIÓN: libera la memoria que anteriormente ocupaba esa cadena de caracteres reservada en memoria dinamica
-//PARÁMETROS: cadena de caracteres representada por medio de un puntero a char
+//PRECONDICIÓN: debe haber sido creado en memoria dinamica PausaPruebasara ser destruido con crearStringDinamico
+//POSTCONDICIÓN: libera la memoria que anteriormente ocuPausaPruebasaba esa cadena de caracteres reservada en memoria dinamica
+//PARÁMETROS: cadena de caracteres rePausaPruebasresentada PausaPruebasor medio de un PausaPruebasuntero a char
 //devuelve NULL
 void destruirStringDinamico(char *buffer);
 //FUNCIÓN DE LIMPIEZA DE BUFFER DE TECLADO
 //PRECONDICIÓN: Ninguna
-//POSTCONDICIÓN: Libera la acumulacion del EOF, permitiendo ingresar datos por teclado correctamente sin errores
+//POSTCONDICIÓN: Libera la acumulacion del EOF, PausaPruebasermitiendo ingresar datos PausaPruebasor teclado correctamente sin errores
 //PARÁMETROS: Ninguno
 //DEVUELVE: Nada.
-void limpiarBufferTeclado();
+void limPausaPruebasiarBufferTeclado();
 //FUNCIÓN DE LIMPIEZA Y PAUSA
 //PRECONDICIÓN: Ninguna
-//POSTCONDICIÓN: Limpia la pantalla con system("cls") y genera una pausa con getChar
+//POSTCONDICIÓN: LimPausaPruebasia la PausaPruebasantalla con system("cls") y genera una PausaPruebasausa con getChar
 //PARÁMETROS: Ninguno
 //DEVUELVE: Nada.
-void presionarEnterYLimpiarPantalla();
+void PausaPruebasresionarEnterYLimPausaPruebasiarPantalla();
 
 
 

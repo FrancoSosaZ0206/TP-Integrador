@@ -565,7 +565,107 @@ void pruebaPasajePersona(){
 }
 */
 
+/*
+void GuardarListaClientesNuevo(ListaPtr listaClientes){
+    FILE* arch;
+    fPersona PE;
+    PersonaPtr PD;
+    ListaPtr LA=listaClientes;
+    if(esChoferes){
+        arch=fopen("ChoferesPrueba.bin","wb");
+        fclose(arch);
+        arch=fopen("ChoferesPrueba.bin","ab");
+    }else{
+        arch=fopen("ClientesPrueba.bin","wb");
+        fclose(arch);
+        arch=fopen("ClientesPrueba.bin","ab");
+    }
+    arch=fopen("ClientesPrueba.bin","wb");
+    fclose(arch);
+    arch=fopen("ClientesPrueba.bin","ab");
+    while(!listaVacia(LA)){
+        PD=getCabecera(LA);
+        PasajePersonaDinamico(&PE,PD,false);
+        fwrite(&PE,sizeof(fPersona),1,arch);
+        LA=getResto(LA);
+    }
+    fclose(arch);
+}
 
+ListaPtr LeerListaClientesNuevo(){
+    FILE* arch;
+    fPersona PE;
+    PersonaPtr PD;
+    ListaPtr LC=crearLista();
+    if(esChoferes){
+        arch=fopen("ChoferesPrueba.bin","rb");
+    }else{
+        arch=fopen("ClientesPrueba.bin","rb");
+    }
+    arch=fopen("ClientesPrueba.bin","rb");
+    fread(&PE,sizeof(fPersona),1,arch);
+    while(!feof(arch)){
+        PD=PasajePersonaDinamico(&PE,PD,true);
+        agregarDatoLista(LC,(PersonaPtr)PD);
+        fread(&PE,sizeof(fPersona),1,arch);
+    }
+    fclose(arch);
+    if(mostradoActivado){
+        ListaPtr LA=LC;
+        while(!listaVacia(LA)){
+            PD=getCabecera(LA);
+            mostrarPersona(PD);
+            LA=getResto(LA);
+        }
+        system("pause");
+    }
+    return LC;
+}
+
+
+
+void GuardarListaChoferesNuevo(ListaPtr listaChoferes){
+    FILE* arch;
+    fPersona PE;
+    PersonaPtr PD;
+    ListaPtr LA=listaChoferes;
+    arch=fopen("ChoferesPrueba.bin","wb");
+    fclose(arch);
+    arch=fopen("ChoferesPrueba.bin","ab");
+    while(!listaVacia(LA)){
+        PD=getCabecera(LA);
+        PasajePersonaDinamico(&PE,PD,false);
+        fwrite(&PE,sizeof(fPersona),1,arch);
+        LA=getResto(LA);
+    }
+    fclose(arch);
+}
+
+ListaPtr LeerListaChoferesNuevo(){
+    FILE* arch;
+    fPersona PE;
+    PersonaPtr PD;
+    ListaPtr LC=crearLista();
+    arch=fopen("ChoferesPrueba.bin","rb");
+    fread(&PE,sizeof(fPersona),1,arch);
+    while(!feof(arch)){
+        PD=PasajePersonaDinamico(&PE,PD,true);
+        agregarDatoLista(LC,(PersonaPtr)PD);
+        fread(&PE,sizeof(fPersona),1,arch);
+    }
+    fclose(arch);
+    if(mostradoActivado){
+        ListaPtr LA=LC;
+        while(!listaVacia(LA)){
+            PD=getCabecera(LA);
+            mostrarPersona(PD);
+            LA=getResto(LA);
+        }
+        system("pause");
+    }
+    return LC;
+}
+*/
 
 
 
