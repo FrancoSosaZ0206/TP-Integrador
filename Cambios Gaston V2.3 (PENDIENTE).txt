@@ -118,6 +118,7 @@ void menuBuscarRepartoPorFechaSalida(CentroLogisticoPtr centroLogistico, bool es
         ListaPtr listaAuxiliar=listaRepartos;
         RepartoPtr repartoAuxiliar;
         while(!listaVacia(listaAuxiliar)){
+	    cantidadEncontrados=0;
             repartoAuxiliar=getCabecera(listaAuxiliar);
             if(diaBuscar==getDia(getFechaSalida(repartoAuxiliar)))
                 cantidadEncontrados++;
@@ -151,6 +152,7 @@ void menuBuscarRepartoPorFechaRetorno(CentroLogisticoPtr centroLogistico, bool e
         ListaPtr listaAuxiliar=listaRepartos;
         RepartoPtr repartoAuxiliar;
         while(!listaVacia(listaAuxiliar)){
+	    cantidadEncontrados=0;
             repartoAuxiliar=getCabecera(listaAuxiliar);
             if(diaBuscar==getDia(getFechaRetorno(repartoAuxiliar)))
                 cantidadEncontrados++;
