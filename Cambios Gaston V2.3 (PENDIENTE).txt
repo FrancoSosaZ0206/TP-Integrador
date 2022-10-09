@@ -549,6 +549,329 @@ void menuMostrarEntregasRepartoNuevo(CentroLogisticoPtr centroLogistico, bool es
         printf("No hay repartos para mostrar\n");
 }
 
+
+
+
+
+
+
+void menuBuscarPaquetePorAtributo()
+{
+	int eleccion = 0;
+	limpiarBufferTeclado();
+	printf("Seleccione una de las siguientes opciones \n");
+	printf("Buscar mediante: \n");
+	printf("----------------------------------------- \n");
+	printf("1. ID \n");
+	printf("2. Altura \n");
+	printf("3. Ancho \n");
+	printf("4. Largo \n");
+	printf("5. Peso \n");
+	printf("6. Estado de entrega \n");
+	printf("7. Direccion de retiro \n");
+	printf("8. Direccion de entrega \n");
+	printf("9. Fecha de entrega \n");
+	printf("10. Cuil del destinatario \n");
+	printf("----------------------------------------- \n");
+	printf("Eleccion: ");
+	scanf("%d", &eleccion);
+	printf("----------------------------------------- \n");
+	limpiarBufferTeclado();
+	return eleccion;
+}
+
+
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+
+FUNCION DE BUSQUEDA DE PAQUETES POR ATRIBUTO
+BUSCA MEDIANTE:
+ID, ALTO, ANCHO, LARGO, PESO, ESTADO, DIRECCION DE ENTREGA, DIRECCION DE RETIRO,
+FECHA DE ENTREGA, CUIL DEL CLIENTE
+
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+
+
+
+void menuBuscarPaqueteNuevo(CentroLogisticoPtr centroLogistico)
+{
+	int MainMenu = 0;
+	int CantidadElegida = 0;
+	int DatoBuscarEntero = 0;
+	char DatoBuscarString_1[100];
+	char DatoBuscarString_2[100];
+	bool Encontrado = false;
+	///Datos a buscar de fecha 
+	int dia = 0;
+	int mes = 0;
+	int anio = 0;
+	int hora = 0;
+	int minutos = 0;
+	FechaPtr FechaBuscar;
+	///En caso de que se desee buscar por dia juliano
+	int DiaJulianoBuscar = 0;
+	FechaPtr FechaBuscarAuxiliar;
+	///Para otorgar mayor legibilidad al codigo en la seccion de busqueda por fecha de entrega
+	int contador = 0;
+	ListaPtr ListaPaquetes = getPaquetes(centroLogistico);
+	ListaPtr ListaAuxiliar;
+	PaquetePtr PaqueteAuxiliar;
+	PersonaPtr ClienteAuxiliar;
+	CuilPtr CuilAuxiliar;
+	DomicilioPtr DireccionAuxiliar;
+	CantidadElegida = seleccionarNumero();
+	for( int i = 0 ; i < CantidadElegida ; i++ )
+	{
+		ListaAuxiliar = ListaPaquetes;
+		system("cls");
+		MainMenu = menuBuscarPaquetePorAtributo();
+		switch(MainMenu)
+		{
+			case 1: 
+				system("cls");
+				printf("Seleccione el ID para buscar: ");
+				DatoBuscarEntero = seleccionarNumero();
+				while(!listaVacia(ListaAuxiliar))
+				{
+					PaqueteAuxiliar = getCabecera(ListaAuxiliar);
+					if(DatoBuscarEntero == getID(PaqueteAuxiliar)) 
+					{
+						Encontrado = true;
+						///return PaqueteAuxiliar;
+						///mostrarPaquetes(PaqueteAuxiliar);
+					}
+					ListaAuxiliar = getResto(ListaAuxiliar);
+				}
+			break;
+			case 2:
+				system("cls");
+				printf("Seleccione la altura para buscar: ");
+				DatoBuscarEntero = seleccionarNumero();
+				while(!listaVacia(ListaAuxiliar))
+				{
+					PaqueteAuxiliar = getCabecera(ListaAuxiliar);
+					if(DatoBuscarEntero == getAlto(PaqueteAuxiliar)) 
+					{
+						Encontrado = true;
+						///return PaqueteAuxiliar;
+						///mostrarPaquetes(PaqueteAuxiliar);
+					}
+					ListaAuxiliar = getResto(ListaAuxiliar);
+				}
+			break;
+			case 3:
+			system("cls");
+			printf("Seleccione el ancho para buscar: ");
+			DatoBuscarEntero = seleccionarNumero();
+			while(!listaVacia(ListaAuxiliar))
+			{
+				PaqueteAuxiliar = getCabecera(ListaAuxiliar);
+				if(DatoBuscarEntero == getAncho(PaqueteAuxiliar)) 
+				{
+					Encontrado = true;
+					///return PaqueteAuxiliar;
+					///mostrarPaquetes(PaqueteAuxiliar);
+				}
+				ListaAuxiliar = getResto(ListaAuxiliar);
+			}
+			break;
+			case 4:
+				system("cls");
+				printf("Seleccione el largo");
+				DatoBuscarEntero = seleccionarNumero();
+				while(!listaVacia(ListaAuxiliar))
+				{
+					PaqueteAuxiliar = getCabecera(ListaAuxiliar);
+					if(DatoBuscarEntero == getLargo(PaqueteAuxiliar)) 
+					{
+						Encontrado = true;
+						///return PaqueteAuxiliar;
+						///mostrarPaquetes(PaqueteAuxiliar);
+					}
+					ListaAuxiliar = getResto(ListaAuxiliar);
+				}
+			break;
+			case 5:
+				system("cls");
+				printf("Seleccione el peso para buscar: ");
+				DatoBuscarEntero = seleccionarNumero();
+				while(!listaVacia(ListaAuxiliar))
+				{
+					PaqueteAuxiliar = getCabecera(ListaAuxiliar);
+					if(DatoBuscarEntero == getPeso(PaqueteAuxiliar)) 
+					{
+						Encontrado = true;
+						///return PaqueteAuxiliar;
+						///mostrarPaquetes(PaqueteAuxiliar);
+					}
+					ListaAuxiliar = getResto(ListaAuxiliar);
+				}
+			break;
+			case 6:
+				system("cls");
+				printf("Seleccione las identidades de la direccion de retiro \n");
+				printf("Seleccione la calle de retiro: ");
+				SeleccionarStringEstatico(DatoBuscarString_1);
+				printf("Seleccione la altura de retiro: ");
+				DatoBuscarEntero = seleccionarNumero();
+				printf("Seleccione la localidad de retiro: ");
+				SeleccionarStringEstatico(DatoBuscarString_2);
+				while(!listaVacia(ListaAuxiliar))
+				{
+					contador = 0;
+					PaqueteAuxiliar = getCabecera(ListaAuxiliar);
+					DireccionAuxiliar = getDirRetiro(PaqueteAuxiliar);
+					if( strcmp(  DatoBuscarString_1, getCalle(DireccionAuxiliar) ) == 0 ) 
+					{
+						contador++;
+					}
+					if( DatoBuscarEntero == getAltura(DireccionAuxiliar) )
+					{ 
+						contador++;
+					}
+					if( strcmp( DatoBuscarString_2, getLocalidad(DireccionAuxiliar)) == 0 ) 
+					{ 
+						contador++;
+					}
+					if( contador == 3 ) 
+					{ 
+						Encontrado = true;
+						///return PaqueteAuxiliar;
+						///mostrarPaquete(PaqueteAuxiliar);
+					}
+					ListaAuxiliar = getResto(ListaAuxiliar);
+				}
+			break;
+			case 7:
+				system("cls");
+				printf("Seleccione las identidades de la direccion de entrega \n");
+				printf("Seleccione la calle de entrega: ");
+				SeleccionarStringEstatico(DatoBuscarString_1);
+				printf("Seleccione la altura de entrega: ");
+				DatoBuscarEntero = seleccionarNumero();
+				printf("Seleccione la localidad de entrega: ");
+				SeleccionarStringEstatico(DatoBuscarString_2);
+				while(!listaVacia(ListaAuxiliar))
+				{
+					contador = 0;
+					PaqueteAuxiliar = getCabecera(ListaAuxiliar);
+					DireccionAuxiliar = getDirEntrega(PaqueteAuxiliar);
+					if( strcmp(  DatoBuscarString_1, getCalle(DireccionAuxiliar) ) == 0 ) 
+					{
+						contador++;
+					}
+					if( DatoBuscarEntero == getAltura(DireccionAuxiliar) )
+					{ 
+						contador++;
+					}
+					if( strcmp( DatoBuscarString_2, getLocalidad(DireccionAuxiliar)) == 0 ) 
+					{ 
+						contador++;
+					}
+					if( contador == 3 ) 
+					{ 
+						Encontrado = true;
+						///return PaqueteAuxiliar;
+						///mostrarPaquete(PaqueteAuxiliar);
+					}
+					ListaAuxiliar = getResto(ListaAuxiliar);
+				}
+			break;
+			case 8:
+				system("cls");
+			break;
+			case 9:
+				system("cls");
+				printf("Seleccione una fecha para buscar \n");
+				printf("(FORMATO DE INGRESO) = [ DD / MM / AA  ||  HH : MM] : ");
+				limpiarBufferTeclado();
+				scanf("%d" "%d" "%d" "%d" "%d", &dia, &mes, &anio, &hora, &minutos);
+				///FechaBuscar = crearFecha(dia, mes, anio, hora, minutos);
+				limpiarBufferTeclado();
+				while(!listaVacia(ListaAuxiliar))
+				{
+					contador = 0;
+					PaqueteAuxiliar = getCabecera(ListaAuxiliar);
+					FechaBuscar = getFechaEntrega(PaqueteAuxiliar);
+					if( dia == getDia(FechaBuscar) ) 
+					{
+						contador++;
+					}
+					if( mes == getMes(FechaBuscar) )
+					{ 
+						contador++;
+					}
+					if( anio == getAnio(FechaBuscar) )
+					{
+						contador++;
+					}
+					/*
+					DiaJulianoBuscar = calcularDiaJuliano();
+					if( getDiaJuliano(FechaBuscarAuxiliar) == getDiaJuliano(FechaBuscar) )
+					{
+						contador++;
+					}
+					*/
+					if( hora == getHora(FechaBuscar) )
+					{
+						contador++;
+					}
+					if( minutos == getMinuto(FechaBuscar) )
+					{ 
+						contador++;
+					}
+					if( contador == 5 ) 
+					{
+						Encontrado = true;
+						///return PaqueteAuxiliar;
+						///mostrarPaquete(PaqueteAuxiliar);
+					}
+					ListaAuxiliar = getResto(ListaAuxiliar);
+				}
+			break;
+			case 10:
+				system("cls");
+				printf("Seleccione un cuil para buscar: ");
+				SeleccionarStringEstatico(DatoBuscarString_1);
+				while(!listaVacia(ListaAuxiliar))
+				{
+					PaqueteAuxiliar = getCabecera(ListaAuxiliar);
+					ClienteAuxiliar = getClientePaquete(PaqueteAuxiliar);
+					CuilAuxiliar = getCuilPersona(ClienteAuxiliar);
+					if( strcmp(DatoBuscarString_1, getCuil(ClienteAuxiliar) ) == 0 ) 
+					{
+						Encontrado = true;
+						///return PaqueteAuxiliar;
+						///mostrarPaquetes(PaqueteAuxiliar);
+					}
+					ListaAuxiliar = getResto(ListaAuxiliar);
+				}
+			break;
+			default:
+				printf("Eleccion equivocada \n");
+				presionarEnterYLimpiarPantalla();
+			break;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 ///---------------------------------------------------------------------------///
 ///---------------------------------------------------------------------------///
 ///---------------------------------------------------------------------------///

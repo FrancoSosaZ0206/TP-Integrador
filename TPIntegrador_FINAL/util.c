@@ -66,7 +66,7 @@ bool numeroValido(int numero){
 int seleccionarCantidad(){
     int eleccion=0;
     limpiarBufferTeclado();
-    printf("Seleccione una cantidad:");
+    printf("Seleccione una cantidad: ");
     scanf("%d",&eleccion);
     limpiarBufferTeclado();
     return eleccion;
@@ -75,8 +75,11 @@ int seleccionarCantidad(){
 int solicitarEnteroPorConsola()
 {
     int eleccion = 0;
-    printf("Seleccione un numero\n");
-    printf("Formato adecuado [ Numero elegido > 0 ] : ");
+    if(ShowHelp)
+    {
+        printf("Seleccione un numero\n");
+        printf("Formato adecuado [ Numero elegido > 0 ] : ");
+    }
     limpiarBufferTeclado();
     scanf("%d", &eleccion);
     limpiarBufferTeclado();
@@ -168,7 +171,9 @@ void SeleccionarStringEstatico(char* String){
 
 void presionarEnterYLimpiarPantalla()
 {
-    printf("\n\nPresione enter para continuar...");
+    printf("\n\n Presione [ ENTER ] para continuar ...");
+    limpiarBufferTeclado();
+    getchar();
     limpiarBufferTeclado();
     system("cls");
 }
