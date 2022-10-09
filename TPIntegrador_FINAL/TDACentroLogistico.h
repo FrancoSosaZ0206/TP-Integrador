@@ -208,6 +208,22 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer
 // patente: char que representa la patente del vehiculo.
 //Devuelve true si se encontró una coincidencia, false de lo contrario.
 bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente);
+//Operacion: Muestra si ya existe la misma persona con el mismo cuil/cuit.
+//Precondicion: Centro logistico debe estar creado.
+//Postcondicion: Se sabe si es repetido.
+//Parametros:
+// centroLogistico: puntero a la estructura a sacar los repartos.
+// persona: puntero a la estructura a verificar si es repetido.
+//Devuelve bool. true si exite, false si no existe
+bool cuilExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona);
+//Operacion: Muestra si ya existe el mismo reparto en centro logistico.
+//Precondicion: Centro logistico debe estar creado.
+//Postcondicion: Se sabe si es repetido.
+//Parametros:
+// centroLogistico: puntero a la estructura a sacar los repartos.
+// reparto: puntero a la estructura a verificar si es repetido.
+//Devuelve bool. true si exite, false si no existe
+bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto);
 //---------------------------------------Funciones de agregado a la lista----------------------------------------------
 //Operación: Agrega un nuevo paquete.
 //Precondición: Centro logistico debe haberse creado.
