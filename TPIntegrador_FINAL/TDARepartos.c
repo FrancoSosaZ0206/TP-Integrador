@@ -9,6 +9,7 @@
 #include "Pila.h"
 #include "TDARepartos.h"
 #include "TDACentroLogistico.h"
+#include "Files.h"
 
 RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr listaPaquetes)
 {
@@ -22,6 +23,25 @@ RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
     reparto->listaPaquetes=listaAux;
     return reparto;
 }
+
+RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RE){
+    RepartoPtr reparto=(RepartoPtr)obtenerMemoria(sizeof(Reparto));
+    reparto->chofer=crearPersonaDirectNuevo(&RE->chofer);
+    reparto->vehiculo=crearVehiculoDirectNuevo(&RE->vehiculo);
+    reparto->fechaSalida=crearFechaDirectNuevo(&RE->fechaSalida);
+    reparto->fechaRetorno=crearFechaDirectNuevo(&RE->fechaRetorno);
+    ListaPtr paquetes=crearLista();
+    PaquetePtr PD;
+    for(int i=0;i<RE->totalPaquetes;i++){
+        PD=PasajePaqueteDinamico(&RE->paquetes[i],PD,true);
+        agregarDatoLista(paquetes,(PaquetePtr)PD);
+    }
+    reparto->listaPaquetes=paquetes;
+    return reparto;
+}
+
+
+
 RepartoPtr destruirReparto(RepartoPtr reparto)
 { //liberamos la memoria de todos los campos que hayan sido reservados dinamicamente con sus respectivas funciones. En este caso, son todos los campos.
 /**Como el chofer y vehiculo se los pasamos como punteros, destruirlos acá ocasionaría que se eliminen tambien del centro logistico.

@@ -22,11 +22,7 @@ PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPt
     return paquete;
 }
 
-PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,
-                              char *calleR,int alturaR,char *localidadR,
-                              char *calleE,int alturaE,char *localidadE,
-                              int dia,int mes,int anio,int hora,int minuto,int estado,
-                              PersonaPtr cliente)
+PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleR,int alturaR,char *localidadR,char *calleE,int alturaE,char *localidadE,int dia,int mes,int anio,int hora,int minuto,int estado,PersonaPtr cliente)
 {
     PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
     paquete->ID=ID;
@@ -37,8 +33,7 @@ PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,
     paquete->estado=estado;
     paquete->dirRetiro=crearDomicilioDirect(calleR,alturaR,localidadR);
     paquete->dirEntrega=crearDomicilioDirect(calleE,alturaE,localidadE);
-    paquete->fechaEntrega=crearFechaDirectNuevo(dia,mes,anio,hora,minuto);
-    paquete->cliente=(PersonaPtr)obtenerMemoria(sizeof(Persona));
+    paquete->fechaEntrega=crearFechaDirectN(dia,mes,anio,hora,minuto);
     paquete->cliente=cliente;
     return paquete;
 }

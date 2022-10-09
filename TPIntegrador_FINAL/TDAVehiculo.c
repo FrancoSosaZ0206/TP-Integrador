@@ -4,6 +4,7 @@
 #include <time.h>
 #include "TDAVehiculo.h"
 #include "util.h"
+#include "Files.h"
 
 
 VehiculoPtr crearVehiculo(int tipo,char *marca,char *modelo,char *patente){
@@ -14,6 +15,16 @@ VehiculoPtr crearVehiculo(int tipo,char *marca,char *modelo,char *patente){
     vehiculo->patente=crearStringDinamico(patente);
     return vehiculo;
 }
+
+VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VE){
+    VehiculoPtr vehiculo = (VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));
+    vehiculo->tipo=VE->tipo;
+    vehiculo->marca=crearStringDinamico(VE->marca);
+    vehiculo->modelo=crearStringDinamico(VE->modelo);
+    vehiculo->patente=crearStringDinamico(VE->patente);
+    return vehiculo;
+}
+
 VehiculoPtr destruirVehiculo(VehiculoPtr vehiculo)
 {
     destruirStringDinamico(vehiculo->marca);

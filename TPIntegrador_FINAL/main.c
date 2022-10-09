@@ -84,9 +84,11 @@ int main(){
     ///PersonaPtr PDD=crearPersonaDirect("1","1","1",1,"1","1",false);
     ///mostrarPersona(PDD);
     //pruebaPasajePaquete();
-    GuardarListaPaquetesNuevo(listaPaquetes);
-    LeerListaPaquetesNuevo();
-    system("pause");
+    ///GuardarListaPaquetesNuevo(listaPaquetes);
+    ///LeerListaPaquetesNuevo();
+    ///GuardarListaRepartosNuevo(listaRepartos);
+    ///LeerListaRepartosNuevo();
+    pruebaPasajeReparto();
     //pruebaPasajePersona();
     int START_OP=0;
     do{
@@ -94,7 +96,7 @@ int main(){
         system("cls");
         switch(START_OP){
             case 1:
-                centroLogistico=crearCentroLogistico("Distribuidora",listaPaquetes,listaClientes,listaChoferes,listaVehiculos,listaRepartos,listaRepartosCerrados);
+                //centroLogistico=crearCentroLogistico("Distribuidora",listaPaquetes,listaClientes,listaChoferes,listaVehiculos,listaRepartos,listaRepartosCerrados);
                 START_OP = MAIN_MENU(centroLogistico);
                 centroLogistico=destruirCentroLogistico(centroLogistico);
             break;

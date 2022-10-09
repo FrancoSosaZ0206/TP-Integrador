@@ -71,8 +71,8 @@ typedef struct fReparto
     fVehiculo vehiculo;
     fFecha fechaSalida;
     fFecha fechaRetorno;
-    int tamanioPilaPaq; ///la dimension del array...
-    fPaquete paquetes[]; ///depende de la longitud de la pila que me pasan
+    int totalPaquetes; ///la dimension del array...
+    fPaquete paquetes[20]; ///depende de la longitud de la pila que me pasan
 } fReparto;
 typedef fReparto* fRepartoPtr;
 

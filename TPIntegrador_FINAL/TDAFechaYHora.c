@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "TDAFechaYHora.h"
 #include "util.h"
+#include "Files.h"
 
 int calcularDiaJuliano(int dia, int mes, int anio)
 {
@@ -32,7 +33,7 @@ FechaPtr crearFechaDirect(int diaJuliano,int hora,int minuto)
     return f;
 }
 
-FechaPtr crearFechaDirectNuevo(int dia,int mes,int anio,int hora,int minuto){
+FechaPtr crearFechaDirectN(int dia,int mes,int anio,int hora,int minuto){
     FechaPtr f=(FechaPtr)obtenerMemoria(sizeof(Fecha));
     f->dia=dia;
     f->mes=mes;
@@ -41,6 +42,17 @@ FechaPtr crearFechaDirectNuevo(int dia,int mes,int anio,int hora,int minuto){
     f->minuto=minuto;
     return f;
 }
+
+FechaPtr crearFechaDirectNuevo(fFechaPtr FE){
+    FechaPtr fecha =(FechaPtr)obtenerMemoria(sizeof(Fecha));
+    fecha->dia=FE->dia;
+    fecha->mes=FE->mes;
+    fecha->anio=FE->anio;
+    fecha->hora=FE->hora;
+    fecha->minuto=FE->minuto;
+    return fecha;
+}
+
 
 FechaPtr destruirFecha(FechaPtr fecha) ///Esta no cambia.
 {
