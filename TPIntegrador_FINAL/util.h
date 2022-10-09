@@ -36,4 +36,7 @@ void limpiarBufferTeclado();
 void presionarEnterYLimpiarPantalla();
 
 
+
+void mensajeError();
+
 #endif // UTIL_H_INCLUDED

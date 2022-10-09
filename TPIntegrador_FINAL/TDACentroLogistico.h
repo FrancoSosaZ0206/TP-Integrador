@@ -341,6 +341,10 @@ VehiculoPtr removerVehiculo(CentroLogisticoPtr centroLogistico,int posicion);
 //Devuelve un puntero a la estructura.
 RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto);
 
+PersonaPtr removerCliente(CentroLogisticoPtr centroLogistico, int posicion);
+
+PersonaPtr removerChofer(CentroLogisticoPtr centroLogistico, int posicion);
+
 //Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
 //Postcondicion: remueve de la lista de repartosAbiertos de centroLogistico un reparto
 //               seleccionado por el usuario, desplazando el reparto a listaRepartosCerrados

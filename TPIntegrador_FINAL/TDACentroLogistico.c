@@ -445,6 +445,14 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
         return (RepartoPtr)removerDeLista(centroLogistico->listaRepartosCerrados,posicion);
 }
 
+PersonaPtr removerCliente(CentroLogisticoPtr centroLogistico, int posicion){
+    return (PersonaPtr)removerDeLista(getClientes(centroLogistico),posicion);
+}
+
+PersonaPtr removerChofer(CentroLogisticoPtr centroLogistico, int posicion){
+    return (PersonaPtr)removerDeLista(getChoferes(centroLogistico), posicion);
+}
+
 //Funciones para resetear listas
 ///Precondición: debe existir una funcion de destruccion para cada tipo de dato.
 void resetearPaquetes(CentroLogisticoPtr centroLogistico)

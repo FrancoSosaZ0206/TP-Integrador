@@ -65,8 +65,6 @@ int deseaGuardarAntesDeSalir();
 ///--------------------------------------------------------------------------------------------------------------///
 ///--------------------------------------------------------------------------------------------------------------///
 
-
-
 int main(){
     CentroLogisticoPtr centroLogistico;
     ListaPtr listaClientes=crearListaClientesGenerico();

@@ -437,21 +437,92 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico){
     }while(op!=0);
 }
 
-
-
-void menuEliminarPaquete(CentroLogisticoPtr centroLogistico){
-    int iElim=0;
-    system("cls");
+int seleccionarCantidad(){
+    int eleccion=0;
     fflush(stdin);
-    if(longitudLista(getPaquetes(centroLogistico))!=0){
-        printf("ELIMINAR PAQUETE\n\n");
-        mostrarPaquetes(centroLogistico);
-        printf("\n\nSeleccione indice del paquete a eliminar: ");
-        scanf("%d",&iElim);
-        if(iElim>=0 && iElim<longitudLista(getPaquetes(centroLogistico)))
-            removerPaquete(centroLogistico,iElim);
+    printf("Seleccione una cantidad:");
+    scanf("%d",&eleccion);
+    fflush(stdin);
+    return eleccion;
+}
+
+int seleccionarNumero(){
+    int eleccion=0;
+    fflush(stdin);
+    printf("Seleccione una numero:");
+    scanf("%d",&eleccion);
+    fflush(stdin);
+    return eleccion;
+}
+
+bool verificarLimiteLista(ListaPtr lista, int eleccion){
+    fflush(stdin);
+    system("cls");
+    bool valido;
+    int tamanioLista=longitudLista(lista);
+    if(tamanioLista!=0){
+        if(eleccion>=0 && eleccion<tamanioLista){
+            valido=true;
+        }else{
+            printf("Eleccion invalida\n");
+            printf("La lista que ha seleccionado no posee ese indice\n");
+            valido=false;
+        }
     }else{
-        printf("Agregue paquetes para poder eliminarlos\n");
+        printf("La lista que desea visualizar no posee elementos\n");
+        valido=false;
+    }
+    fflush(stdin);
+    return valido;
+}
+
+int menuSeleccionEliminar(){
+    int eleccion;
+    fflush(stdin);
+    printf("1. Seleccionar indice unico\n");
+    printf("2. Seleccionar indice a indice (4 - 7)\n");
+    printf("Opcion: ");
+    scanf("%d",&eleccion);
+    fflush(stdin);
+    return eleccion;
+}
+
+void menuEliminarPaqueteNuevo(CentroLogisticoPtr centroLogistico){
+    int iElim,cantidad,Main,posicionInicial,posicionFinal;
+    ListaPtr listaPaquetes=getPaquetes(centroLogistico);
+    Main=menuSeleccionEliminar();
+    switch(Main){
+    case 1:
+        cantidad=seleccionarCantidad();
+        for(int i=0;i<cantidad;i++){
+            system("cls");
+            mostrarPaquetes(centroLogistico);
+            iElim=seleccionarNumero();
+            if(verificarLimiteLista(getPaquetes(centroLogistico),iElim)){
+                removerPaquete(centroLogistico,iElim);
+            }
+        }
+        break;
+    case 2:
+        cantidad=seleccionarCantidad();
+        for(int i=0;i<cantidad;i++){
+            system("cls");
+            mostrarPaquetes(centroLogistico);
+            printf("Seleccionar primer y segundo indice {1 - 3}\n");
+            posicionInicial=seleccionarNumero();
+            posicionFinal=seleccionarNumero();
+            if(verificarLimiteLista(listaPaquetes,posicionInicial)){
+                if(verificarLimiteLista(listaPaquetes,posicionFinal)){
+                    for(int i=0;i<posicionFinal-posicionInicial+1;i++){
+                        removerPaquete(centroLogistico,posicionInicial);
+                    }
+                }
+            }
+        }
+        break;
+    default:
+        mensajeError();
+        break;
     }
 }
 
@@ -470,6 +541,60 @@ void menuEliminarCliente(CentroLogisticoPtr centroLogistico){
     }
 }
 
+void menuEliminarClienteNuevo(CentroLogisticoPtr centroLogistico){
+    int posicionEliminar,cantidad,Main,posicionInicial,posicionFinal;
+    ListaPtr listaClientes=getClientes(centroLogistico);
+    Main=menuSeleccionEliminar();
+    switch(Main){
+    case 1:
+        cantidad=seleccionarCantidad();
+        for(int i=0;i<cantidad;i++){
+            system("cls");
+            mostrarClientes(centroLogistico);
+            posicionEliminar=seleccionarNumero();
+            if(verificarLimiteLista(listaClientes,posicionEliminar)){
+                removerCliente(centroLogistico,posicionEliminar);
+            }
+        }
+        break;
+    case 2:
+        cantidad=seleccionarCantidad();
+        for(int i=0;i<cantidad;i++){
+            system("cls");
+            mostrarClientes(centroLogistico);
+            printf("Seleccionar indice a indice [1 - 3]\n");
+            posicionInicial=seleccionarNumero();
+            posicionFinal=seleccionarNumero();
+            if(verificarLimiteLista(listaClientes,posicionInicial)){
+                if(verificarLimiteLista(listaClientes,posicionFinal)){
+                    for(int i=0;i<posicionFinal-posicionInicial+1;i++){
+                        removerCliente(centroLogistico,posicionInicial);
+                    }
+                }
+            }
+        }
+        break;
+    default:
+        mensajeError();
+        break;
+    }
+}
+
+void menuEliminarPaquete(CentroLogisticoPtr centroLogistico){
+    int iElim=0;
+    system("cls");
+    if(longitudLista(getPaquetes(centroLogistico))!=0){
+        printf("ELIMINAR CLIENTE\n\n");
+        mostrarPaquetes(centroLogistico);
+        printf("\n\nSeleccione indice del paquete a eliminar: ");
+        scanf("%d",&iElim);
+        if(iElim>=0 && iElim<longitudLista(getClientes(centroLogistico)))
+            removerDeLista(getPaquetes(centroLogistico),iElim);
+    }else{
+        printf("No existen paquetes para remover\n");
+    }
+}
+
 void menuEliminarChofer(CentroLogisticoPtr centroLogistico){
     int iElim=0;
     system("cls");
@@ -482,6 +607,42 @@ void menuEliminarChofer(CentroLogisticoPtr centroLogistico){
             removerDeLista(getChoferes(centroLogistico),iElim);
     }else{
         printf("No existen choferes para remover\n");
+    }
+}
+
+
+void menuEliminarChoferNuevo(CentroLogisticoPtr centroLogistico){
+    int posicionEliminar,posicionInicial,posicionFinal,cantidad,Main;
+    ListaPtr listaChoferes=getChoferes(centroLogistico);
+    Main=menuSeleccionEliminar();
+    switch(Main){
+    case 1:
+        cantidad=seleccionarCantidad();
+        for(int i=0;i<cantidad;i++){
+            posicionEliminar=seleccionarNumero();
+            if(verificarLimiteLista(listaChoferes,posicionEliminar)){
+                removerChofer(centroLogistico,posicionEliminar);
+            }
+        }
+        break;
+    case 2:
+        cantidad=seleccionarCantidad();
+        for(int i=0;i<cantidad;i++){
+            printf("Seleccionar de indice a indice [1 - 3]\n");
+            posicionInicial=seleccionarNumero();
+            posicionFinal=seleccionarNumero();
+            if(verificarLimiteLista(listaChoferes,posicionInicial)){
+                if(verificarLimiteLista(listaChoferes,posicionFinal)){
+                    for(int i=0;i<posicionFinal-posicionInicial+1;i++){
+                        removerChofer(centroLogistico,posicionInicial);
+                    }
+                }
+            }
+        }
+        break;
+    default:
+        mensajeError();
+        break;
     }
 }
 
@@ -500,6 +661,51 @@ void menuEliminarVehiculo(CentroLogisticoPtr centroLogistico){
     }
 }
 
+void mensajeError(){
+    system("cls");
+    fflush(stdin);
+    printf("No ha seguido las instrucciones indicadas\n");
+    printf("El servicio procedera a realizar la ejecucion de salida\n");
+    printf("Volviendo al menu seleccionado\n");
+    fflush(stdin);
+    system("pause");
+    system("cls");
+}
+
+void menuEliminarVehiculoNuevo(CentroLogisticoPtr centroLogistico){
+    int posicionEliminar,posicionInicial,posicionFinal,cantidad,Main;
+    ListaPtr listaVehiculos=getVehiculos(centroLogistico);
+    Main=menuSeleccionEliminar();
+    switch(Main){
+        case 1:
+            cantidad=seleccionarCantidad();
+            for(int i=0;i<cantidad;i++){
+                posicionEliminar=seleccionarNumero();
+                if(verificarLimiteLista(listaVehiculos,posicionEliminar)){
+                    removerVehiculo(centroLogistico,posicionEliminar);
+                }
+            }
+            break;
+        case 2:
+            cantidad=seleccionarCantidad();
+            for(int i=0;i<cantidad;i++){
+                printf("Selecione el primer y segundo indice [1 - 3]\n");
+                posicionInicial=seleccionarNumero();
+                posicionFinal=seleccionarNumero();
+                if(verificarLimiteLista(listaVehiculos,posicionInicial)){
+                    if(verificarLimiteLista(listaVehiculos,posicionFinal)){
+                        for(int i=0;i<posicionFinal-posicionInicial+1;i++){
+                            removerVehiculo(centroLogistico,posicionInicial);
+                        }
+                    }
+                }
+            }
+            break;
+        default:
+            mensajeError();
+            break;
+    }
+}
 
 
 void menuModificarPaquete(CentroLogisticoPtr centroLogistico){
@@ -981,6 +1187,41 @@ RepartoPtr menuEliminarReparto(CentroLogisticoPtr centroLogistico, bool esRepart
     }
 }
 
+void menuEliminarRepartoNuevo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
+    int Main,posicionEliminar,posicionInicial,posicionFinal,cantidad;
+    ListaPtr listaRepartos=getRepartos(centroLogistico,esRepartoAbierto);
+    Main=menuSeleccionEliminar();
+    switch(Main){
+    case 1:
+        cantidad=seleccionarCantidad();
+        for(int i=0;i<cantidad;i++){
+            posicionEliminar=seleccionarNumero();
+            if(verificarLimiteLista(listaRepartos,posicionEliminar)){
+                removerReparto(centroLogistico,posicionEliminar,esRepartoAbierto);
+            }
+        }
+        break;
+    case 2:
+        cantidad=seleccionarCantidad();
+        for(int i=0;i<cantidad;i++){
+            printf("Seleccione en formato indice a indice [1 - 3]\n");
+            posicionInicial=seleccionarNumero();
+            posicionFinal=seleccionarNumero();
+            if(verificarLimiteLista(listaRepartos,posicionInicial)){
+                if(verificarLimiteLista(listaRepartos,posicionFinal)){
+                    for(int i=0;i<posicionFinal-posicionInicial+1;i++){
+                        removerReparto(centroLogistico,posicionInicial,esRepartoAbierto);
+                    }
+                }
+            }
+        }
+        break;
+    default:
+        mensajeError();
+        break;
+    }
+}
+
 void menuCerrarReparto(CentroLogisticoPtr centroLogistico){
     int eleccion=0;
     mostrarRepartos(centroLogistico,true);
@@ -991,6 +1232,44 @@ void menuCerrarReparto(CentroLogisticoPtr centroLogistico){
     }while(eleccion<0 && eleccion>longitudLista(getRepartos(centroLogistico,true)));
     RepartoPtr repartoCerrado=removerDeLista(getRepartos(centroLogistico,true),eleccion);
     agregarDatoLista(getRepartos(centroLogistico,false),(RepartoPtr)repartoCerrado);
+}
+
+void menuCerrarRepartoNuevo(CentroLogisticoPtr centroLogistico){
+    int cantidad,Main,posicionInicial,posicionFinal,posicionEliminar;
+    ListaPtr listaRepartos=getRepartos(centroLogistico,true);
+    RepartoPtr repartoAuxiliar;
+    Main=menuSeleccionEliminar();
+    switch(Main){
+    case 1:
+        cantidad=seleccionarNumero();
+        for(int i=0;i<cantidad;i++){
+            posicionEliminar=seleccionarNumero();
+            if(verificarLimiteLista(listaRepartos,posicionEliminar)){
+                repartoAuxiliar=removerReparto(centroLogistico,posicionEliminar,true);
+                agregarReparto(centroLogistico,repartoAuxiliar,false);
+            }
+        }
+        break;
+    case 2:
+        cantidad=seleccionarCantidad();
+        for(int i=0;i<cantidad;i++){
+            printf("Selecciona indice a indice [1 - 3]\n");
+            posicionInicial=seleccionarNumero();
+            posicionFinal=seleccionarNumero();
+            if(verificarLimiteLista(listaRepartos,posicionInicial)){
+                if(verificarLimiteLista(listaRepartos,posicionFinal)){
+                    for(int i=0;i<posicionFinal-posicionInicial+1;i++){
+                        repartoAuxiliar=removerReparto(centroLogistico,posicionInicial,true);
+                        agregarReparto(centroLogistico,repartoAuxiliar,false);
+                    }
+                }
+            }
+        }
+        break;
+    default:
+        mensajeError();
+        break;
+    }
 }
 
 int menuBuscadoReparto(){
