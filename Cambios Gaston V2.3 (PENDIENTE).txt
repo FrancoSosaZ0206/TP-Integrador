@@ -551,11 +551,161 @@ void menuMostrarEntregasRepartoNuevo(CentroLogisticoPtr centroLogistico, bool es
 
 
 
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+
+FUNCION DE BUSQUEDA DE TODAS LAS ESTRUCTURAS
+COMPARA MEDIANTE UN CAMPO TODAS LAS ESTRUCTURAS DEL SISTEMA
+DEVUELVE -1 SI NO LO ENCONTRO
+DEVUELVE LA POSICION SI ENCONTRO LA ESTRUCTURA SOLICITADA ( MEDIANTE EL CAMPO INGRESADO )
+( BUSCA SOLO POR LISTAS DE CENTRO LOGISTICO COMO [ LISTA PAQUETES, LISTA CLIENTES, LISTA CHOFERES, LISTA VEHICULOS ]  )
+TAMBIEN SE REALIZO UNA FUNCION APARTE PARA BUSCAR EN LOS REPARTOS ( PARA CHOFER Y VEHICULOS )
+[ MISMO PROCEDIMIENTO ]
+DEVUELVE -1 SI NO ENCONTRO UNA EQUIVALENCIA
+DEVUELVE LA POSICION DE LA ESTRUCTURA SI LO ENCONTRO
+( BUSCA SOLO EN LISTA REPARTOS ABIERTOS ) 
+
+
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+
+
+int buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuil){
+    int i=0,posicionEncontrado=-1;
+    PersonaPtr choferAuxiliar;
+    char cuilAuxiliar[100];
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getRepartos(centroLogistico,true));
+    while(!listaVacia(listaAuxiliar)){
+        choferAuxiliar=getChofer(getCabecera(listaAuxiliar));
+        strcpy(cuilAuxiliar,getCuil(getCuilPersona(choferAuxiliar)));
+        if(strcmp(cuil, cuilAuxiliar) == 0)
+            posicionEncontrado = i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
+    return posicionEncontrado;
+}
+
+int buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente){
+    int i=0,posicionEncontrado=-1;
+    VehiculoPtr vehiculoAuxiliar;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getRepartos(centroLogistico,true));
+    while(!listaVacia(listaAuxiliar)){
+        vehiculoAuxiliar=getVehiculo(getCabecera(listaAuxiliar));
+        if(strcmp(patente, getPatente(vehiculoAuxiliar)) == 0)
+            posicionEncontrado=i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
+    return posicionEncontrado;
+}
+
+int buscarVehiculo(CentroLogisticoPtr centroLogistico, char* patente){
+    int i=0,posicionEncontrado=-1;
+    VehiculoPtr vehiculoAuxiliar;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getVehiculos(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        vehiculoAuxiliar=getCabecera(listaAuxiliar);
+        if(strcmp(patente, getPatente(vehiculoAuxiliar)) == 0)
+            posicionEncontrado=i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
+    return posicionEncontrado;
+}
+
+int buscarCliente(CentroLogisticoPtr centroLogistico, char* cuil){
+    int i=0,posicionEncontrado=-1;
+    PersonaPtr clienteAuxiliar;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getClientes(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        clienteAuxiliar=getCabecera(listaAuxiliar);
+        if(strcmp(cuil, getCuil(getCuilPersona(clienteAuxiliar))) == 0)
+            posicionEncontrado=i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
+    return posicionEncontrado;
+}
+
+int buscarChofer(CentroLogisticoPtr centroLogistico, char* cuil){
+    int i=0,posicionEncontrado=-1;
+    PersonaPtr choferAuxiliar;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getChoferes(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        choferAuxiliar=getCabecera(listaAuxiliar);
+        if(strcmp(cuil, getCuil(getCuilPersona(choferAuxiliar))) == 0)
+            posicionEncontrado=i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
+    return posicionEncontrado;
+}
+
+int buscarPaquete(CentroLogisticoPtr centroLogistico, int codigo){
+    int i=0,posicionEncontrado=-1;
+    PaquetePtr paqueteAuxiliar;
+    ListaPtr listaAuxiliar=crearLista();
+    agregarLista(listaAuxiliar,getPaquetes(centroLogistico));
+    while(!listaVacia(listaAuxiliar)){
+        paqueteAuxiliar=getCabecera(listaAuxiliar);
+        if(codigo==getID(paqueteAuxiliar))
+            posicionEncontrado=i;
+        listaAuxiliar=getResto(listaAuxiliar);
+        i++;
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
+    return posicionEncontrado;
+}
+
+int buscarReparto(CentroLogisticoPtr centroLogistico, int posicionSolicitada){
+    int posicionEncontrado=-1;
+        if(posicionSolicitada>=0 && posicionSolicitada<longitudLista(getRepartos(centroLogistico,true)))
+            return posicionSolicitada;
+    return posicionEncontrado;
+}
+
+
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+
+FUNCION DE BUSQUEDA DE PAQUETES POR ATRIBUTO
+BUSCA MEDIANTE:
+ID, ALTO, ANCHO, LARGO, PESO, ESTADO, DIRECCION DE ENTREGA, DIRECCION DE RETIRO,
+FECHA DE ENTREGA, CUIL DEL CLIENTE
+
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
+///---------------------------------------------------------------------------///
 
 
 
-
-void menuBuscarPaquetePorAtributo()
+int menuBuscarPaquetePorAtributo()
 {
 	int eleccion = 0;
 	limpiarBufferTeclado();
@@ -580,22 +730,6 @@ void menuBuscarPaquetePorAtributo()
 	return eleccion;
 }
 
-
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-
-FUNCION DE BUSQUEDA DE PAQUETES POR ATRIBUTO
-BUSCA MEDIANTE:
-ID, ALTO, ANCHO, LARGO, PESO, ESTADO, DIRECCION DE ENTREGA, DIRECCION DE RETIRO,
-FECHA DE ENTREGA, CUIL DEL CLIENTE
-
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
 
 
 
