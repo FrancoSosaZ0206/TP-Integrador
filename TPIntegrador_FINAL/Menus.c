@@ -20,6 +20,8 @@ int MenuTipoSeleccion()
     printf("3. Mediante seleccion de 2 indices [Posicion 1 - 4 (1,2,3,4)] \n");
     printf("Opcion: ");
     scanf("%d", &eleccion);
+
+    return eleccion;
 }
 
 int MenuDeseaContinuar()
