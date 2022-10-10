@@ -179,24 +179,42 @@ PersonaPtr actualizarCliente(PersonaPtr cliente){
 }
 
 
+int MenuSeleccion()
+{
+    int eleccion = 0;
+    system("cls");
+    limpiarBufferTeclado();
+    printf("Menu de seleccion \n");
+    printf("1. Mediante indice unico [Posicion 1] \n");
+    printf("2. Mediante conjunto de indices [Posicion 1,4,5,7,6] \n");
+    printf("3. Mediante seleccion de 2 indices [Posicion 1 - 4 (1,2,3,4)] \n");
+    printf("Opcion: ");
+    scanf("%d", &eleccion);
+}
+
+int MenuDeseaContinuar()
+{
+    int eleccion = 0;
+    system("cls");
+    limpiarBufferTeclado();
+    printf(" Menu desea continuar ? \n");
+    printf("0. NO \n");
+    printf("1. SI \n");
+    printf("Opcion: ");
+    scanf("%d", &eleccion);
+    limpiarBufferTeclado();
+    return eleccion;
+}
+
 
 void menuCargarPaquete(CentroLogisticoPtr centroLogistico){
     int n=0,ID=0,ancho=0,alto=0,largo=0,peso=0;
+    int DeseaContinuar = 0;
     PaquetePtr paquete;
     FechaPtr fechaEntrega;
     DomicilioPtr dirRetiro;
     DomicilioPtr dirEntrega;
     do{
-        limpiarBufferTeclado();
-        system("cls");
-        printf("CARGAR PAQUETE\n\n");
-        printf("Ingrese cantidad de paquetes a cargar: ");
-        scanf("%d",&n);
-        limpiarBufferTeclado();
-        if(n<1)
-            printf("\nCantidad incorrecta.\n");
-    }while(n<1);
-    for(int i=0;i<n;i++){
         system("cls");
         printf("\n\nPAQUETE %d\n\n",i+1);
         limpiarBufferTeclado();
@@ -228,11 +246,13 @@ void menuCargarPaquete(CentroLogisticoPtr centroLogistico){
         paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,cliente,0);
         agregarPaquete(centroLogistico,paquete);
         printf("\n\nPaquete #%d cargado exitosamente.\n\n",ID);
-    }
+        DeseaContinuar = MenuDeseaContinuar();
+    }while(DeseaContinuar!=0);
 }
 
-PersonaPtr menuCargarCliente(CentroLogisticoPtr centroLogistico){
+void menuCargarCliente(CentroLogisticoPtr centroLogistico){
     int n=0,posicionEncontrado=0;
+    int DeseaContinuar = 0;
     char nombre[100];
     char apellido[100];
     PersonaPtr cliente;
@@ -240,15 +260,6 @@ PersonaPtr menuCargarCliente(CentroLogisticoPtr centroLogistico){
     CuilPtr cuil;
     do{
         system("cls");
-        limpiarBufferTeclado();
-        printf("CARGAR CLIENTE Y/O DESTINATARIOS \n\n");
-        printf("Ingrese cantidad de clientes a cargar: ");
-        scanf("%d",&n);
-        if(n<1)
-            printf("\nCantidad incorrecta.\n");
-        system("cls");
-    }while(n<1);
-    for(int i=0;i<n;i++){
         printf("CLIENTE %d\n\n",i+1);
         limpiarBufferTeclado();
         printf("\n\n\tNombre: ");
@@ -270,8 +281,7 @@ PersonaPtr menuCargarCliente(CentroLogisticoPtr centroLogistico){
             printf("No se pudo agregar debido a que ya existe\n");
             system("pause");
         }
-    }
-    return cliente;
+    }while(DeseaContinuar!=0);
 }
 
 void menuCargarChofer(CentroLogisticoPtr centroLogistico){
