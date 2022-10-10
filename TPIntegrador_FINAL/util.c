@@ -63,15 +63,6 @@ bool numeroValido(int numero){
     }
 }
 
-int seleccionarCantidad(){
-    int eleccion=0;
-    limpiarBufferTeclado();
-    printf("Seleccione una cantidad: ");
-    scanf("%d",&eleccion);
-    limpiarBufferTeclado();
-    return eleccion;
-}
-
 int solicitarEnteroPorConsola()
 {
     int eleccion = 0;
@@ -87,21 +78,6 @@ int solicitarEnteroPorConsola()
 }
 
 int seleccionarNumero()
-{
-    int eleccion = 0;
-    bool valido = false;
-    while(!valido)
-    {
-        eleccion = solicitarEnteroPorConsola();
-        valido = numeroValido(eleccion);
-    }
-    return eleccion;
-}
-
-
-
-
-int SeleccionarNumero()
 {
     int eleccion = 0;
     bool valido = false;
