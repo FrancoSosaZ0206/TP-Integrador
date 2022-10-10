@@ -245,23 +245,29 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico)
     listaAux=destruirLista(listaAux,false);
     printf("\n");
 }
-void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico)
+void filtrarPorDiaSalida(CentroLogisticoPtr centroLogistico,FechaPtr fecha)
 {
+
     ordenarPorFechaDeSalidaRepartos(centroLogistico);
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico));
 
+
     int i=0;
 
-    printf("\n LISTA DE REPARTOS POR FECHA DE SALIDA: \n\n");
+    printf("\n LISTA DE REPARTOS POR FECHA DE SALIDA DEL DIA %d: \n\n",getDia(fecha));
     while(!listaVacia(listaAux))
     {
         printf("%d. ",i+1);
 
-        mostrarRepartoSinPaquetes((RepartoPtr)getCabecera(listaAux));
-        ListaPtr listaADestruir=listaAux;
+        int diaDeReparto=getDia(getFechaSalida((RepartoPtr)getCabecera(listaAux));
+
+        bool condicion=getDia(fecha)==diaDeReparto;
+
+        if(condicion)
+            mostrarRepartoSinPaquetes((RepartoPtr)getCabecera(listaAux));
+
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
 
         i++;
     }
