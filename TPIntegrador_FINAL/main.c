@@ -73,10 +73,6 @@ int main(){
     ListaPtr listaChoferes=crearListaChoferesGenerico();
     ListaPtr listaPaquetes=crearListaPaquetesGenerico();
     ListaPtr listaRepartosCerrados=crearLista();
-    int E = 0;
-    E = SeleccionarNumero();
-    printf("%d\n", E);
-    p();
     int START_OP=0;
     do{
         START_OP=menuPrincipal();
@@ -84,11 +80,11 @@ int main(){
         switch(START_OP){
             case 1:
                 centroLogistico=crearCentroLogistico("Distribuidora",listaPaquetes,listaClientes,listaChoferes,listaVehiculos,listaRepartos,listaRepartosCerrados);
-                START_OP = MAIN_MENU(centroLogistico);
+                START_OP=MAIN_MENU(centroLogistico);
                 centroLogistico=destruirCentroLogistico(centroLogistico);
             break;
             case 2:
-                centroLogistico = AbrirTodoNuevo();
+                centroLogistico=AbrirTodoNuevo();
                 if(centroLogistico==NULL){
                     printf("ERROR AL ABRIR.\n\n");
                     exit(1);
