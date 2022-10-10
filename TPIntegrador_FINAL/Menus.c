@@ -1572,19 +1572,41 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
     }
     return cambiosGuardados;
 }
-bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int opMenuAnterior) ///PENDIENTE - REVISAR
-{ ///PENDIENTES: AGREGAR LA DETECCION DE CAMBIOS Y LA DETECCION DE GUARDADO DE CAMBIOS EN LAS MARCAS ESPECIALES (/// //////////////...)
+bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int opMenuAnterior)
+{
     ListaPtr listaAux=getRepartos(centroLogistico,esRepartoAbierto);
 
     bool cambioDetectado=false;
-    bool cambiosGuardados=true;
+    bool cambiosGuardados=false;
 
     if(listaVacia(listaAux))
         printf("ERROR: Lista vacía. Debe agregar repartos para poder modificarlos.\n\n");
     else
     {
+    ///Creamos una lista "original" para ver si hay cambios,
+    ///y una "auxiliar" para obtener y recorrer la lista.
+        ListaPtr listaOriginal=crearLista();
 
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
+        ListaPtr listaAux=crearLista();
+        agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
+    //Hacemos lo mismo pero para cada elemento de la lista
+        RepartoPtr repartoOriginal;
+
+        RepartoPtr repartoAux;
+        while(!listaVacia(listaAux))
+        {
+            repartoAux=getCabecera(listaAux);
+        ///Copiamos el contenido de cada elemento
+            repartoOriginal=armarReparto(getChofer(repartoAux),
+                                         getVehiculo(repartoAux),
+                                         getFechaSalida(repartoAux),
+                                         getFechaRetorno(repartoAux),
+                                         getPaquetesReparto(repartoAux));
+         ///Agregamos el dato original a la lista
+            agregarDatoLista(listaOriginal,(RepartoPtr)repartoOriginal);
+            listaAux=getResto(listaAux);
+        }
+        listaAux=destruirLista(listaAux,false);
 
         int iMod=0;
         int n=longitudLista(listaAux);
@@ -1659,17 +1681,11 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                 printf("MODIFICAR FECHA SALIDA\n");
                 printf("\n-----------------------------------------\n\n");
                 actualizarFecha(getFechaSalida(repartoAModificar));
-
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
-
                 break;
             case 4:
                 printf("MODIFICAR FECHA RETORNO\n");
                 printf("\n-----------------------------------------\n\n");
                 actualizarFecha(getFechaRetorno(repartoAModificar));
-
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
-
                 break;
             }
         ///Hacemos un tajo en medio del switch para hacer cosas que de otra forma no podríamos.
@@ -1680,15 +1696,9 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
             {
             case 1:
                 setChofer(repartoAModificar,(PersonaPtr)getDatoLista(getPersonas(centroLogistico),iMod-1));
-
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
-
                 break;
             case 2:
                 setVehiculo(repartoAModificar,(VehiculoPtr)getDatoLista(getVehiculos(centroLogistico),iMod-1));
-
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
-
                 break;
             case 5:
                 pilaAux=getPaquetesReparto(repartoAModificar);
@@ -1738,28 +1748,15 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                         {
                         case 1:
                             setEstado(paquetesAModificar[iMod],2);
-
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
-
                             break;
                         case 2:
                             setEstado(paquetesAModificar[iMod],3);
-
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
-
-
                             break;
                         case 3:
                             setEstado(paquetesAModificar[iMod],4);
-
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
-
                             break;
                         case 4:
                             setEstado(paquetesAModificar[iMod],5);
-
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
-
                             break;
                         case 0:
                             break;
@@ -1771,9 +1768,6 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                             break;
                         }
                     } while(!(op3==0 && op3==-1));
-
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
-
                 }
                 break;
             case 0:
@@ -1786,7 +1780,22 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
             }
         }while(!(op2==0 && op2==-1));
 
-    /// ///////////////////////////////////////////////////////////////////////////////// ///
+        listaAux=crearLista();
+        agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
+    ///Recorremos la lista: antes y después de hacer el cambio
+        while(!listaVacia(listaAux))
+        {
+            repartoAux=getCabecera(listaAux);
+            repartoOriginal=getCabecera(listaOriginal);
+        ///Revisamos, elemento por elemento, si son iguales o cambiaron (puede ser que se haya ordenado de la misma forma que estaba)
+            if(!repartosIguales(repartoOriginal,repartoAux))
+                cambioDetectado=true;
+
+            listaAux=getResto(listaAux);
+            listaOriginal=getResto(listaOriginal);
+        }
+        listaAux=destruirLista(listaAux,false); //Destruimos ambas listas, ya no las necesitamos más
+        listaOriginal=destruirLista(listaOriginal,true); //Como en esta copiamos los contenidos, ponemos true para removerlos.
 
         if(cambioDetectado)
         {
@@ -1830,17 +1839,21 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
     int i=0;
     int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
     RepartoPtr repartoBuscar;
-    if(n!=0){
+
+    if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
+        printf("ERROR: Lista vacia. No hay repartos para buscar\n");
+    if(n!=0)
+    {
         presionarEnterYLimpiarPantalla();
         printf("Seleccione un reparto para buscar mediante su indice: ");
         scanf("%d",&i);
-        if(i>=0 && i<n){
-            repartoBuscar=getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i);
+        if(i>=0 && i<n)
+        {
+            repartoBuscar=getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i-1);
             mostrarReparto(repartoBuscar);
         }else
             printf("Reparto inexistente\n");
-    }else
-        printf("No hay repartos para buscar\n");
+    }
     return repartoBuscar;
 }
 
@@ -1967,25 +1980,6 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                     printf("Opcion incorrecta.\n\n");
                     break;
                 }
-                if(op3>=1 && op3<=6) //Si se ordenó la lista
-                {
-                    listaAux=crearLista();
-                    agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
-                ///Recorremos la lista: antes y después de hacer el cambio
-                    while(!listaVacia(listaAux))
-                    {
-                        repartoAux=getCabecera(listaAux);
-                        repartoOriginal=getCabecera(listaOriginal);
-                    ///Revisamos, elemento por elemento, si son iguales o cambiaron (puede ser que se haya ordenado de la misma forma que estaba)
-                        if(repartosIguales(repartoOriginal,repartoAux))
-                            cambioDetectado=true;
-
-                        listaAux=getResto(listaAux);
-                        listaOriginal=getResto(listaOriginal);
-                    }
-                    listaAux=destruirLista(listaAux,false); //Destruimos ambas listas, ya no las necesitamos más
-                    listaOriginal=destruirLista(listaOriginal,true); //Como en esta copiamos los contenidos, ponemos true para removerlos.
-                }
                 if(op3>=1 && op3<=6) //si se eligio volver o una opcion invalida,
                     mostrarRepartos(centroLogistico,esRepartoAbierto); //no mostramos nada.
                 presionarEnterYLimpiarPantalla();
@@ -2001,6 +1995,23 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
             break;
         }
     } while(!(op2==0 && op2==-1));
+
+    listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
+///Recorremos la lista: antes y después de hacer el cambio
+    while(!listaVacia(listaAux))
+    {
+        repartoAux=getCabecera(listaAux);
+        repartoOriginal=getCabecera(listaOriginal);
+    ///Revisamos, elemento por elemento, si son iguales o cambiaron (puede ser que se haya ordenado de la misma forma que estaba)
+        if(!repartosIguales(repartoOriginal,repartoAux))
+            cambioDetectado=true;
+
+        listaAux=getResto(listaAux);
+        listaOriginal=getResto(listaOriginal);
+    }
+    listaAux=destruirLista(listaAux,false); //Destruimos ambas listas, ya no las necesitamos más
+    listaOriginal=destruirLista(listaOriginal,true); //Como en esta copiamos los contenidos, ponemos true para removerlos.
 
     if(cambioDetectado)
     {

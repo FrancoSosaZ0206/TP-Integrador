@@ -410,6 +410,7 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo);
 //               los modos de ordenamiento son:
 //                  1. Por marca.
 //                  2. Por marca y modelo.
+//                  3. Por tipo, marca y modelo.
 //Parametros:
 //  centroLogistico: puntero a la estructura centro logistico
 //  modo: entero representando el modo de ordenamiento elegido

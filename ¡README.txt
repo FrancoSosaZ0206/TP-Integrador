@@ -15,9 +15,9 @@ VERSION 2.0.0 - NOVEDADES
 
 BUG FIXES
 
+- Se arregló el error que hacía que PLIM PLIM PLIM
 
 ---------------------------------------------------------------------------------------------------------------------
-
 
 BUGS
 
@@ -33,36 +33,66 @@ MEJORAS
 
 PENDIENTES
 
-- Crear funciones de menu de guardado usando las funciones nuevas de los archivos Files. Agregarlas a los menues de main.c.
+- Menus: 
+	- Agregar un submenu donde puedas elegir si queres tomar accion sobre un solo dato o un grupo de datos a la vez, para evitar tener que entrar al menu varias veces (sería tedioso). Dentro de la segunda opcion (habria una 3ra, volver), podemos elegir si queremos tomar accion de un rango de indices, o bien si queremos tomar accion sobre varios indices especificos.
+	1. Al final, siempre preguntar: "Desea continuar?"
+	2. Tomar accion en un rango de datos (de este indice a este)
+	3. Tomar accion en un solo dato (indice tal)
+	4. Tomar accion en una serie de indices especificos (PARA ELIMINAR NO)
+	
+	IMPLEMENTACION:
+		1. Do ... while (desee continuar)
+		2. Pedimos indice minimo y maximo, sacamos la diferencia y la metemos como límite en un for. Ejecutamos la accion siempre en el iMin hasta que se llegue a esa diferencia.
+		3. Ya está, por defecto.
+		4. Preguntamos la cantidad de indices a almacenar, almacenamos los indices en un vector, y tomamos accion en c/u de los indices.
 
-- (SECUNDARIO) MOTIVO POR EL QUE NO SE PUDO ENTREGAR. Una de dos:
-  1. O bien nos quedamos con lo que tenemos, la variable int estado del paquete,
-  2. O bien agregamos un string aparte. Tip: hay un motivo de entrega solo si hay un problema con dicha entrega, lo que quiere decir que sería un dato circunstancial. Entonces, es posible que no haga falta meterlo en una estructura, sino que los tengamos aparte.
+		- Falta implementar en:
+			- Funciones de modificacion de datos: 4.
+			- Funciones de carga de datos: NINGUNA
+			- Funciones de eliminacion de datos: NINGUNA.
+			- Funciones de ordenamiento: 1.
+			- Funciones de busqueda: NINGUNA
+			- Funciones de muestra: 1.
 
-	- Posible implementacion: Creamos el paquete con el campo "motivo de entrega" vacío. Luego, tendríamos que tener una funcion "agregarMotivo", recibe el string del motivo por el cual no se pudo entregar, y en el campo de la estrctura paquete, crea el string dinamicamente y le copia el contenido.
 
-- Agregar llamado a las funciones de repartos.
+- TDA Centro Logistico.c:
 
-- (IMPORTANTE) Agregar lo que decia en las consignas del TP "El sistema debe/no debe permitir...". Tip: es posible que necesitemos hacer más funciones de búsqueda.
-	FALTAN:
-		   debe permitir:
-			- 6 (desarrollar)
-			-  7 (llamar a la funcion "filtrarPaquetesPorEstado")
-		    no debe permitir: 
-			- 1, 2: las hizo Franquete, revisar.
-			- 5: la estan haciendo Franquete y Santiti.
+	- Funcion "cerrarReparto": ahora la funcion debe obtener el dato, copiarlo con la funcion armarReparto, y agregarlo a la lista de cerrados, en lugar de simplemente moverlo.
 
-- (OPCIONAL) Menus: agregar un submenu donde puedas elegir si queres tomar accion sobre un solo dato o un grupo de datos a la vez, para evitar tener que entrar al menu varias veces (sería tedioso). Dentro de la segunda opcion (habria una 3ra, volver), podemos elegir si queremos tomar accion de un rango de indices, o bien si queremos tomar accion sobre varios indices especificos.
+	- Funcion "mostrarRepartosPorFechaSalida" :
+		- agregar parámetro "fecha" con el día para filtrar.
+		- de esa fecha, tomar el día y en el while, en lugar de mostrar todos los repartos, que muestre solo los que coincidan con el día de la fecha recibida (filtrar por día).
+		- cambiar nombre de la funcion a "filtrarPorFechaSalida" EN TODO LUGAR DONDE SE HAYA USADO LA FUNCION EN EL PROYECTO.
 
-- (OPCIONAL) Agregar getters y setters adicionales para las subestructuras de cada estructura (domicilio, cuil o fecha). Por ejemplo, agregar getters y setters a sus campos específicos).
+	- Funcion "mostrarRepartos": cuando esRepartoAbierto == FALSE, agregar un mensaje previo (o luego) a mostrar la lista de repartos, que avise que los repartos que están ahí son un registro, que ahora pueden estar cambiados, y que para ver como están ahora, ir a la opcion "mostrar lista de repartos abiertos" o alguna de las funciones de emitir listados de los datos de los repartos (paquetes, vehiculos...) del centro logistico.
 
-- (IMPORTANTE) TDACentroLogistico - Funcion "esPaqueteExistente" y TDARepartos - Funcion "esPaqueteCargado": Justo el ID es raro que coincida. Además, eso se genera automáticamente, y no lo pone el usuario, así que realmente no sirve. Una forma útil de verificar coincidencias de paquetes, sería chequeando si todos los datos del paquete coinciden, o al menos, las dimensiones, el peso y las direcciones de retiro y entrega.
 
-- (IMPORTANTE) GLOBAL: agregar familia de funciones "... Idéntico(s)" - funcion que retorna un booleano dependiendo de si las dos estructuras recibidas son idénticas o no.
-	- Hechas:
-		- paquetesIguales.
 
-- ARREGLAR POSIBLES BUGS :(
+
+- TESTEAR PROYECTO - ENCONTRAR, REPORTAR Y ARREGLAR POSIBLES BUGS.
+	- PROCEDIMIENTO: 
+		1. Probamos todas las funciones del proyecto.
+		2. Si detectamos un error, lo primero que hacemos es reportarlo. En la seccion "bugs" de este README, para cada bug agregamos:
+			a. Una breve descripcion del error, qué pasó.
+			b. Como se produjo, y/o como reproducir el error, con el mayor detalle posible.
+			c. En qué línea (aprox) estabamos cuando el error se produjo
+			d. El nombre de la rama de la persona que encontró el error.
+			e. (OPCIONAL) Si se tiene sospechas del posible origen del error, agregarlas, pero para evitar confusiones, ACLARAR SIEMPRE QUE SON SOSPECHAS.
+
+		3. Los errores reportados pueden ser revisados y arreglados por todos.
+		4. Cuando un error se arregla,
+			a. Se quita del apartado "BUGS".
+			b. Se agrega al apartado "BUG FIXES"
+			c. Solo se conserva el punto 2. a. (descripcion del error) y una breve descripcion de por qué sucedía.
+			d. La persona que arreglo este error notifica a todas las demás de ello, para que nadie siga trabajando en el.
+		5. ACLARACIONES:
+			a. CADA UNO TENDRÁ SU PROPIA RAMA, PARTIENDO DE LA VERSION FINAL DEL PROYECTO, CON UN README DONDE IRÁ REPORTANDO LOS ERRORES QUE ENCUENTRE.
+			b. A MEDIDA QUE EL PROCESO AVANCE, CADA UNO TENDRÁ QUE IR ACTUALIZANDO SU README Y EL CÓDIGO DE SU RAMA CON LOS BUGS Y BUG FIXES DE LOS DEMÁS.
+			c. SI UN BUG QUE SE HABÍA ARREGLADO PREVIAMENTE SE VUELVE A GENERAR, EL PROCESO ANTES MENCIONADO SE REPITE (REPORTAMOS, ARREGLAMOS, NOTIFICAMOS A LOS DEMÁS Y C/U ACTUALIZA SU README Y CÓDIGO) HASTA QUE EL ERROR NO VUELVA A SURGIR.
+
+		6. EL PROCESO FINALIZARÁ CUANDO SE HAYAN PROBADO TODAS LAS FUNCIONES DEL PROYECTO Y NINGUNA PRESENTE BUGS. CUANDO ESTO SUCEDA:
+			a. Todos los bug fixes deben quedar escritos y el apartado BUGS debe estar vacío.
+			b. TODOS MERGEAMOS NUESTRAS RAMAS A UNA SOLA, FINAL.
 
 
 ---------------------------------------------------------------------------------------------------------------------

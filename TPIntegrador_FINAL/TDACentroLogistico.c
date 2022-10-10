@@ -408,15 +408,56 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
 ///Obtenemos cada paquete de la pila y le cambiamos el estado a 3: "entregado"
     PaquetePtr *paquetesAux;
     int n=cantidadPaquetes(repartoACerrar);
+
+    int estadoPaquetes[6];
     for(int i=0;i<n;i++)
     {
         paquetesAux[i] = descargarPaquete(repartoACerrar);
-        setEstado(paquetesAux[i],3);
+        switch(getEstado(paquetesAux[i]))
+        {
+        case 0:
+            estadoPaquetes[0]=1;
+            break;
+        case 1:
+            estadoPaquetes[1]=1;
+            break;
+        case 2:
+            estadoPaquetes[2]=1;
+            break;
+        case 3:
+            estadoPaquetes[3]=1;
+            break;
+        case 4:
+            estadoPaquetes[4]=1;
+            break;
+        case 5:
+            estadoPaquetes[5]=1;
+            break;
+        }
     }
     for(int i=n;i>0;i--)
         cargarPaquete(repartoACerrar,paquetesAux[i]);
 ///Agregamos el reparto a la lista de cerrados
     agregarReparto(centroLogistico,repartoACerrar,false);
+
+    printf("\n\Cerrando reparto...\n\n");
+    bool condicion = estadoPaquetes[0]==0;
+    condicion = condicion && estadoPaquetes[1]==0;
+    condicion = condicion && estadoPaquetes[2]==0;
+    condicion = condicion && estadoPaquetes[3]==1;
+    condicion = condicion && estadoPaquetes[4]==0;
+    condicion = condicion && estadoPaquetes[5]==0;
+
+    if(condicion)
+        printf("Todos los paquetes fueron entregados con exito.\n\n");
+    else if(estadoPaquetes[0]==1)
+        printf("ADVERTENCIA: Quedaron paquetes marcados como 'EN DEPOSITO'.\n\n");
+    else if(estadoPaquetes[1]==1 || estadoPaquetes[2]==1)
+        printf("Quedaron paquetes sin entregar. Revisarlos y reasignarlos a un nuevo reparto.\n\n");
+    else if(estadoPaquetes[4]==1)
+        printf("Algunos paquetes estan demorados. Revisarlos y reasignarlos a un nuevo reparto.\n\n");
+    else if(estadoPaquetes[5]==1)
+        printf("Se suspendieron algunos paquetes. Revisarlos y reasignarlos a un nuevo reparto.\n\n");
 }
 
 ///////////////////////////////////////////////////FUNCIONES DE VALIDACION//////////////////////////////////////////////////////////////////////////
@@ -568,6 +609,12 @@ void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo)
                 condicion = strcmp(getMarca(vehiculos[j]),getMarca(vehiculos[j+1])) >= 0;
                 condicion = condicion && strcmp(getModelo(vehiculos[j]),getModelo(vehiculos[j+1])) > 0;
             //condición: "Si la marca Y modelo de vehiculos[j] son posteriores a los de vehiculos[j+1]..."
+                break;
+            case 3:
+                condicion = getTipoVehiculo(vehiculos[j]) >= getTipoVehiculo(vehiculos[j+1]);
+                condicion = condicion && strcmp(getMarca(vehiculos[j]),getMarca(vehiculos[j+1])) >= 0;
+                condicion = condicion && strcmp(getModelo(vehiculos[j]),getModelo(vehiculos[j+1])) > 0;
+            //condición: "Si el tipo, la marca Y el modelo de vehiculos[j] son posteriores a los de vehiculos[j+1]..."
                 break;
             }
             if(condicion)
