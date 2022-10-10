@@ -9,6 +9,7 @@
 ///--------------------------------------------------------------------------------------------///
 ///--------------------------------------------------------------------------------------------///
 
+const bool ShowHelp=false;
 
 int seleccionarCantidad(){
     int eleccion=0;
@@ -19,12 +20,30 @@ int seleccionarCantidad(){
     return eleccion;
 }
 
-int seleccionarNumero(){
-    int eleccion=0;
-    fflush(stdin);
-    printf("Seleccione una numero:");
-    scanf("%d",&eleccion);
-    fflush(stdin);
+
+int solicitarEnteroPorConsola()
+{
+    int eleccion = 0;
+    if(ShowHelp)
+    {
+        printf("Seleccione un numero\n");
+        printf("Formato adecuado [ Numero elegido > 0 ] : ");
+    }
+    limpiarBufferTeclado();
+    scanf("%d", &eleccion);
+    limpiarBufferTeclado();
+    return eleccion;
+}
+
+int seleccionarNumero()
+{
+    int eleccion = 0;
+    bool valido = false;
+    while(!valido)
+    {
+        eleccion = solicitarEnteroPorConsola();
+        valido = numeroValido(eleccion);
+    }
     return eleccion;
 }
 
@@ -67,6 +86,18 @@ void mensajeError(){
     fflush(stdin);
     system("pause");
     system("cls");
+}
+
+void SeleccionarStringEstatico(char* String){
+    limpiarBufferTeclado();
+    if(ShowHelp)
+    {
+        printf("Ingrese una cadena de caracteres correspondiente \n");
+        printf("Ejemplo: Gaston Romero [ ENTER ] \n");
+        printf(" [ Ingrese el String ] : ");
+    }
+    scanf("%[^\n]%*c",String);
+    limpiarBufferTeclado();
 }
 
 
