@@ -1,7 +1,7 @@
 ////////////////////////////////
 
 FUNCIONES ASISTENTES
-ESTAN EN UTIL.C
+ESTAN EN MENUS.C
 
 ///////////////////////////////
 
@@ -35,6 +35,12 @@ int MenuDeseaContinuar()
 
 
 
+////////////////////////////////
+
+FUNCIONES ASISTENTES
+ESTAN EN MENUS.C
+
+///////////////////////////////
 
 bool numeroValido(int numero){
     if(numero>0){
