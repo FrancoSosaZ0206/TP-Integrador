@@ -1893,6 +1893,8 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 	int i=0;
 	int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
 
+    FechaPtr fechaSalida;
+
     do
     {
         if(esRepartoAbierto)
@@ -1931,8 +1933,42 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
             presionarEnterYLimpiarPantalla();
             break;
         case 2:
-            mostrarRepartos(centroLogistico, esRepartoAbierto);
-            presionarEnterYLimpiarPantalla();
+            do
+            {
+                printf("MOSTRAR LISTA DE REPARTOS:\n");
+
+                printf("1. Filtrados por fecha de salida\n");
+                printf("2. Sin filtrar\n");
+                printf("0. Volver\n");
+                printf("-1. MENU PRINCIPAL");
+                printf("\n-----------------------------------------\n\n");
+                printf("Seleccione una opcion: ");
+                scanf("%d",&op3);
+
+                system("cls");
+                switch(op3)
+                {
+                case 1:
+                    printf("MOSTRAR LISTA DE REPARTOS FILTRADOS POR FECHA DE SALIDA\n\n");
+
+                    printf("Fecha para filtrar\n");
+                    cargarFecha(fechaSalida);
+                    filtrarPorFechaSalida(centroLogistico,esRepartoAbierto,fechaSalida);
+                    break;
+                case 2:
+                    mostrarRepartos(centroLogistico, esRepartoAbierto);
+                    break;
+                case 0:
+                    break;
+                case -1:
+                    op2=-1;
+                    break;
+                default:
+                    break;
+                }
+                if(!(op3==0 && op3==-1))
+                    presionarEnterYLimpiarPantalla();
+            } while(!(op3==0 && op3==-1));
             break;
         case 3:
             do

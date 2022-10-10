@@ -28,11 +28,6 @@ PENDIENTES
 
 	- Funcion "cerrarReparto": ahora la funcion debe obtener el dato, copiarlo con la funcion armarReparto, y agregarlo a la lista de cerrados, en lugar de simplemente moverlo.
 
-	- Funcion "mostrarRepartosPorFechaSalida" :
-		- agregar parámetro "fecha" con el día para filtrar.
-		- de esa fecha, tomar el día y en el while, en lugar de mostrar todos los repartos, que muestre solo los que coincidan con el día de la fecha recibida (filtrar por día).
-		- cambiar nombre de la funcion a "filtrarPorFechaSalida" EN TODO LUGAR DONDE SE HAYA USADO LA FUNCION EN EL PROYECTO.
-
 	- Funcion "mostrarRepartos": cuando esRepartoAbierto == FALSE, agregar un mensaje previo (o luego) a mostrar la lista de repartos, que avise que los repartos que están ahí son un registro, que ahora pueden estar cambiados, y que para ver como están ahora, ir a la opcion "mostrar lista de repartos abiertos" o alguna de las funciones de emitir listados de los datos de los repartos (paquetes, vehiculos...) del centro logistico.
 
 

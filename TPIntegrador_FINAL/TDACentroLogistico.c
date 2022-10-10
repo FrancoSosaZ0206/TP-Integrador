@@ -206,26 +206,43 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 		listaAux = getRepartos(centroLogistico,false);
         printf("\nLISTA DE REPARTOS CERRADOS: \n\n");
     }
+    agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
+    int i=0;
+    while(!listaVacia(listaAux))
+    {
+        printf("%d. ",i+1);
 
-    mostrarRepartosPorFechaDeSalida(centroLogistico,esRepartoAbierto);
+        RepartoPtr repartoAux = (RepartoPtr) getCabecera(listaAux);
+        mostrarRepartoSinPaquetes(repartoAux);
+        listaAux=getResto(listaAux);
+        i++;
+    }
+    listaAux=destruirLista(listaAux,false);
+    printf("\n");
 }
-void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto) ///Solo funciona con repartos abiertos
+void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,FechaPtr fechaSalida)
 {
     ordenarRepartos(centroLogistico,esRepartoAbierto,1);
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
 
-    int i=0;
-
-    printf("\nLISTA DE REPARTOS ORDENADOS POR FECHA DE SALIDA: \n\n");
+    printf("\n LISTA DE REPARTOS ");
+    if(esRepartoAbierto)
+        printf("ABIERTOS ");
+    else
+        printf("CERRADOS ");
+    char *buffer;
+    traerFechaCorta(fechaSalida,buffer);
+    printf("FILTRADOS POR DIA DE SALIDA - %s: \n\n",buffer);
     while(!listaVacia(listaAux))
     {
-        printf("%d. ",i+1);
-
-        mostrarRepartoSinPaquetes((RepartoPtr)getCabecera(listaAux));
+        RepartoPtr repartoAux=getCabecera(listaAux);
+        int *diaDeReparto=calcularDiferenciaFechas(getFechaSalida(repartoAux),fechaSalida); /**getDia(getFechaSalida((RepartoPtr)getCabecera(listaAux))*/
+        bool condicion=diaDeReparto[0]==0;
+    ///CONDICION: "si SOLAMENTE el día JULIANO del reparto (dia, mes y año) coincide con el de la fecha recibida..."
+        if(condicion)
+            mostrarRepartoSinPaquetes(repartoAux);
         listaAux=getResto(listaAux);
-
-        i++;
     }
     listaAux=destruirLista(listaAux,false);
     printf("\n");
@@ -264,11 +281,9 @@ void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los
     while(!listaVacia(listaAux))
     {
         PaquetePtr paqueteAux=(PaquetePtr)getCabecera(listaAux);
-        if(paqueteAux->estado==estado)
+        if(getEstado(paqueteAux)==estado)
             mostrarPaquete(paqueteAux);
-        ListaPtr listaADestruir=listaAux;
         listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
     }
     listaAux=destruirLista(listaAux,false);
     printf("\n");
@@ -406,8 +421,8 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
 { ///extraemos el reparto de la lista de abiertos
     RepartoPtr repartoACerrar = removerReparto(centroLogistico,posicion,true);
 ///Obtenemos cada paquete de la pila y le cambiamos el estado a 3: "entregado"
-    PaquetePtr *paquetesAux;
     int n=cantidadPaquetes(repartoACerrar);
+    PaquetePtr paquetesAux[n];
 
     int estadoPaquetes[6];
     for(int i=0;i<n;i++)
@@ -440,7 +455,7 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
 ///Agregamos el reparto a la lista de cerrados
     agregarReparto(centroLogistico,repartoACerrar,false);
 
-    printf("\n\Cerrando reparto...\n\n");
+    printf("\n\nCerrando reparto...\n\n");
     bool condicion = estadoPaquetes[0]==0;
     condicion = condicion && estadoPaquetes[1]==0;
     condicion = condicion && estadoPaquetes[2]==0;
@@ -629,7 +644,7 @@ void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo)
     for(int i=0; i<n; i++)
         agregarVehiculo(centroLogistico,vehiculos[i]);
 }
-void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modoOrden)
+void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
 {
     int n=longitudLista(getPaquetes(centroLogistico));
 
@@ -647,7 +662,7 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modoOrden)
     {
         for(int j=i; j<n-1; j++)
         {
-            switch(modoOrden)
+            switch(modo)
             {
             case 1:
                 condicion = getID(paquetes[j]) > getID(paquetes[j+1]);

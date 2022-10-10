@@ -171,11 +171,14 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 //Operacion: Muestra lista de repartos ordenados por fecha de salida.
 ///          De cada reparto de la lista, solo se muestran fecha, vehiculo y chofer
 //Precondicion: La lista debe estar creada.
-//Postcondicion: Se ordena la lista por fecha de salida y se muestra por pantalla.
+//Postcondicion: Se ordena la lista por fecha de salida y se muestra por pantalla los repartos
+//               del día especificado.
 //Parametros:
-// centroLogistico: puntero al Centro Logistico del que se quiere mostrar los repartos.
+//  centroLogistico: puntero al Centro Logistico del que se quiere mostrar los repartos.
+//  esRepartoAbierto: booleano indicando si la lista es de repartos abiertos (true) o cerrados (false).
+//  fechaSalida: puntero a la estructura fecha que se usará para filtrar.
 //Devuelve: nada.
-void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto); ///NUEVA
+void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,FechaPtr fechaSalida); ///NUEVA
 //Operación: Muestra los paquetes con el estado que le haya pasado.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: Imprime los paquetes con la condicion que se les haya pasado.
@@ -389,9 +392,9 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
 //Postcondicion: reinserta dentro de centro logistico todos los paquetes ordenados segun el parámetro elegido.
 //Parametros:
 //  centroLogistico: puntero a la estructura centro logistico
-//  modoOrden: entero representando el parámetro con el que se quiere ordenar la lista
+//  modo: entero representando el parámetro con el que se quiere ordenar la lista
 //Devuelve: nada
-void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modoOrden);
+void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo);
 //Operación: ordena una lista de personas alfabéticamente.
 //Precondicion: centroLogistico debe haber sido creado anteriormente  y cargado con, al menos, 2 personas.
 //Postcondicion: reinserta dentro de centro logistico todas las personas ordenadas segun su apellido y nombre.
