@@ -103,90 +103,103 @@ void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esR
 
 void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
 {
+    int DeseaContinuar = 0;
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPaquetes(centroLogistico));
-
     int i=0;
-
-    printf("\nLISTA DE PAQUETES: \n\n");
-    while(!listaVacia(listaAux))
+    do
     {
-        printf("%d. ",i+1);
-        mostrarPaquete((PaquetePtr)getCabecera(listaAux));
-        listaAux=getResto(listaAux);
+        printf("\nLISTA DE PAQUETES: \n\n");
+        while(!listaVacia(listaAux))
+        {
+            printf("%d. ",i+1);
+            mostrarPaquete((PaquetePtr)getCabecera(listaAux));
+            listaAux=getResto(listaAux);
 
-        i++;
-    }
-    listaAux=destruirLista(listaAux,false);
-    printf("\n");
+            i++;
+        }
+        listaAux=destruirLista(listaAux,false);
+        printf("\n");
+        DeseaContinuar = MenuDeseaContinuar();
+    }while(DeseaContinuar!=0);
 }
 
 void mostrarPersonas(CentroLogisticoPtr centroLogistico)
 {
+    int DeseaContinuar = 0;
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPersonas(centroLogistico));
-
     int i=0;
-
-    printf("\nLISTA DE PERSONAS: \n\n");
-    while(!listaVacia(listaAux))
+    do
     {
-        printf("%d. ",i+1);
-        mostrarPersona((PersonaPtr)getCabecera(listaAux));
-        listaAux=getResto(listaAux);
+        system("cls");
+        printf("\nLISTA DE PERSONAS: \n\n");
+        while(!listaVacia(listaAux))
+        {
+            printf("%d. ",i+1);
+            mostrarPersona((PersonaPtr)getCabecera(listaAux));
+            listaAux=getResto(listaAux);
 
-        i++;
-    }
-    listaAux=destruirLista(listaAux,false);
-    printf("\n");
+            i++;
+        }
+        listaAux=destruirLista(listaAux,false);
+        printf("\n");
+        DeseaContinuar = MenuDeseaContinuar();
+    }while(DeseaContinuar!=0);
 }
 void mostrarClientes(CentroLogisticoPtr centroLogistico) //busca y muestra solo las personas cuyo esChofer==false.
 {
+    int DeseaContinuar = 0;
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPersonas(centroLogistico));
-
     int i=0;
-
-    printf("\nLISTA DE CLIENTES: \n\n");
-    while(!listaVacia(listaAux))
+    do
     {
-        PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
-        if(getEsChofer(personaAux)==false)
+        printf("\nLISTA DE CLIENTES: \n\n");
+        while(!listaVacia(listaAux))
         {
-            printf("%d. ",i+1);
+            PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
+            if(getEsChofer(personaAux)==false)
+            {
+                printf("%d. ",i+1);
 
-            mostrarPersona(personaAux);
+                mostrarPersona(personaAux);
+            }
+            listaAux=getResto(listaAux);
+
+            i++;
         }
-        listaAux=getResto(listaAux);
-
-        i++;
-    }
-    listaAux=destruirLista(listaAux,false);
-    printf("\n");
+        listaAux=destruirLista(listaAux,false);
+        printf("\n");
+        DeseaContinuar = MenuDeseaContinuar();
+    }while(DeseaContinuar!=0);
 }
 void mostrarChoferes(CentroLogisticoPtr centroLogistico) //busca y muestra solo las personas cuyo esChofer==true.
 {
+    int DeseaContinuar = 0;
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPersonas(centroLogistico));
-
     int i=0;
-
-    printf("\nLISTA DE CHOFERES: \n\n");
-    while(!listaVacia(listaAux))
+    do
     {
-        PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
-        if(getEsChofer(personaAux))
+        printf("\nLISTA DE CHOFERES: \n\n");
+        while(!listaVacia(listaAux))
         {
-            printf("%d. ",i+1);
+            PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
+            if(getEsChofer(personaAux))
+            {
+                printf("%d. ",i+1);
 
-            mostrarPersona(personaAux);
+                mostrarPersona(personaAux);
+            }
+            listaAux=getResto(listaAux);
+
+            i++;
         }
-        listaAux=getResto(listaAux);
-
-        i++;
-    }
-    listaAux=destruirLista(listaAux,false);
-    printf("\n");
+        listaAux=destruirLista(listaAux,false);
+        printf("\n");
+        DeseaContinuar = MenuDeseaContinuar();
+    }while(DeseaContinuar!=0);
 }
 
 void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
@@ -212,55 +225,67 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
 
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
+    int DeseaContinuar = 0;
     ListaPtr listaAux=crearLista();
-	if(esRepartoAbierto)
+    do
     {
-		listaAux = getRepartos(centroLogistico,true);
-        printf("\nLISTA DE REPARTOS ABIERTOS: \n\n");
-    }
-	else
-    {
-		listaAux = getRepartos(centroLogistico,false);
-        printf("\nLISTA DE REPARTOS CERRADOS: \n\n");
-    }
+        system("cls");
+        if(esRepartoAbierto)
+        {
+            listaAux = getRepartos(centroLogistico,true);
+            printf("\nLISTA DE REPARTOS ABIERTOS: \n\n");
+        }
+        else
+        {
+            listaAux = getRepartos(centroLogistico,false);
+            printf("\nLISTA DE REPARTOS CERRADOS: \n\n");
+            printf("--- ADVERTENCIA PARA EL USUARIO --- \n");
+            printf("Los elementos que vera a continuacion (Repartos cerrados) \n");
+            printf("Son un registro de los repartos abiertos, son solo una \n");
+            printf("Ilustracion del contenido que poseian estos repartos \n");
+            printf("[Estan sujetos a posibles modificaciones en el transcurso del reparto] \n\n\n");
+        }
 
-    int i=0;
+        int i=0;
+        while(!listaVacia(listaAux))
+        {
+            printf("%d. ",i+1);
 
-    while(!listaVacia(listaAux))
-    {
-        printf("%d. ",i+1);
+            mostrarReparto((RepartoPtr)getCabecera(listaAux));
+            ListaPtr listaADestruir=listaAux;
+            listaAux=getResto(listaAux);
+            listaADestruir=destruirLista(listaADestruir,false);
 
-        mostrarReparto((RepartoPtr)getCabecera(listaAux));
-        ListaPtr listaADestruir=listaAux;
-        listaAux=getResto(listaAux);
-        listaADestruir=destruirLista(listaADestruir,false);
-
-        i++;
-    }
-    listaAux=destruirLista(listaAux,false);
-    printf("\n");
+            i++;
+        }
+        listaAux=destruirLista(listaAux,false);
+        printf("\n");
+        DeseaContinuar = MenuDeseaContinuar();
+    }while(DeseaContinuar!=0);
 }
 void mostrarRepartosPorFechaDeSalida(CentroLogisticoPtr centroLogistico) ///Solo funciona con repartos abiertos
 {
+    int DeseaContinuar = 0;
     ordenarPorFechaSalida(centroLogistico,true);
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico,true));
-
     int i=0;
-
-    printf("\nLISTA DE REPARTOS POR FECHA DE SALIDA: \n\n");
-    while(!listaVacia(listaAux))
+    do
     {
-        printf("%d. ",i+1);
+        printf("\nLISTA DE REPARTOS POR FECHA DE SALIDA: \n\n");
+        while(!listaVacia(listaAux))
+        {
+            printf("%d. ",i+1);
 
-        mostrarRepartoSinPaquetes((RepartoPtr)getCabecera(listaAux));
-        listaAux=getResto(listaAux);
+            mostrarRepartoSinPaquetes((RepartoPtr)getCabecera(listaAux));
+            listaAux=getResto(listaAux);
 
-        i++;
-    }
-    listaAux=destruirLista(listaAux,false);
-    printf("\n");
-
+            i++;
+        }
+        listaAux=destruirLista(listaAux,false);
+        printf("\n");
+        DeseaContinuar = MenuDeseaContinuar();
+    }while(DeseaContinuar!=0);
 }
 
 
