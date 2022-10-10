@@ -9,6 +9,34 @@
 #include "util.h"
 #include "Menus.h"
 
+int MenuTipoSeleccion()
+{
+    int eleccion = 0;
+    system("cls");
+    limpiarBufferTeclado();
+    printf("Menu de seleccion \n");
+    printf("1. Mediante indice unico [Posicion 1] \n");
+    printf("2. Mediante conjunto de indices [Posicion 1,4,5,7,6] \n");
+    printf("3. Mediante seleccion de 2 indices [Posicion 1 - 4 (1,2,3,4)] \n");
+    printf("Opcion: ");
+    scanf("%d", &eleccion);
+}
+
+int MenuDeseaContinuar()
+{
+    int eleccion = 0;
+    system("cls");
+    limpiarBufferTeclado();
+    printf(" Menu desea continuar ? \n");
+    printf("0. NO \n");
+    printf("1. SI \n");
+    printf("Opcion: ");
+    scanf("%d", &eleccion);
+    limpiarBufferTeclado();
+    return eleccion;
+}
+
+
 void cargarCuil(CuilPtr cuil)
 {
     char strCuil[100];
@@ -433,6 +461,46 @@ void menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
 
     paqueteRemovido=destruirPaquete(paqueteRemovido);
 }
+
+void menuEliminarPaqueteNuevo(CentroLogisticoPtr centroLogistico)
+{
+    int MainMenu = 0;
+    int iElim = 0;
+    int DeseaContinuar = 0;
+
+    do
+    {
+        system("cls");
+        printf("ELIMINAR PAQUETE\n\n");
+        MainMenu = MenuTipoSeleccion();
+        switch(MainMenu)
+        {
+            case 1:
+
+            break;
+            case 2:
+            break;
+            case 3:
+            break;
+        }
+
+
+
+        mostrarPaquetes(centroLogistico);
+        printf("\n\nSeleccione indice del paquete a eliminar: ");
+        scanf("%d",&iElim);
+        PaquetePtr paqueteRemovido=removerPaquete(centroLogistico,iElim);
+        if(paqueteRemovido!=NULL)
+            printf("\n\nPaquete #%d eliminado exitosamente.\n\n",getID(paqueteRemovido));
+        else
+            printf("\n\nEl paquete %d no se pudo eliminar.\n\n",iElim);
+        paqueteRemovido=destruirPaquete(paqueteRemovido);
+
+
+    }while(DeseaContinuar!=0);
+}
+
+
 void menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
     int iElim=0;
@@ -493,104 +561,110 @@ void menuModificarPaquete(CentroLogisticoPtr centroLogistico)
     int nLargo=0;
     int nPeso=0;
 
+    int DeseaContinuar = 0;
+
     DomicilioPtr nuevaDirRetiro;
     DomicilioPtr nuevaDirEntrega;
     FechaPtr nuevaFechaEntrega;
 
     int nEstado=0;
-    printf("MODIFICAR PAQUETE\n\n");
-
-    mostrarPaquetes(centroLogistico);
-
-    printf("\n\nIngrese indice del paquete a modificar: ");
-    scanf("%d",&iMod);
-
-    PaquetePtr paqueteAModificar=(PaquetePtr)getDatoLista(getPaquetes(centroLogistico),iMod-1); //-1 porque muestra con i+1 dentro de la funcion.
-
     do
     {
-        system("cls");
-        printf("Ha elegido el ");
-        mostrarPaquete(paqueteAModificar);
+        printf("MODIFICAR PAQUETE\n\n");
 
-        printf("\n\nQué desea modificar?\n\n");
+        mostrarPaquetes(centroLogistico);
 
-        printf("1. Ancho\n");
-        printf("2. Alto\n");
-        printf("3. Largo\n");
-        printf("4. Peso\n");
-        printf("5. Direccion de Retiro\n");
-        printf("6. Direccion de Entrega\n");
-        printf("7. Fecha de Entrega\n");
-        printf("8. Estado\n");
+        printf("\n\nIngrese indice del paquete a modificar: ");
+        scanf("%d",&iMod);
+         //-1 porque muestra con i+1 dentro de la funcion.
+        PaquetePtr paqueteAModificar=(PaquetePtr)getDatoLista(getPaquetes(centroLogistico),iMod-1);
 
-        printf("Seleccione una opcion: ");
-        scanf("%d",&op);
-
-        switch(op)
+        do
         {
-        case 1:
-            printf("\n\nIngrese el nuevo ancho: ");
-            scanf("%d",&nAncho);
+            system("cls");
+            printf("Ha elegido el ");
+            mostrarPaquete(paqueteAModificar);
 
-            setAncho(paqueteAModificar,nAncho);
-            break;
-        case 2:
-            printf("\n\nIngrese el nuevo alto: ");
-            scanf("%d",&nAlto);
+            printf("\n\nQué desea modificar?\n\n");
 
-            setAlto(paqueteAModificar,nAlto);
-            break;
-        case 3:
-            printf("\n\nIngrese el nuevo largo: ");
-            scanf("%d",&nLargo);
+            printf("1. Ancho\n");
+            printf("2. Alto\n");
+            printf("3. Largo\n");
+            printf("4. Peso\n");
+            printf("5. Direccion de Retiro\n");
+            printf("6. Direccion de Entrega\n");
+            printf("7. Fecha de Entrega\n");
+            printf("8. Estado\n");
 
-            setLargo(paqueteAModificar,nLargo);
-            break;
-        case 4:
-            printf("\n\nIngrese el nuevo peso: ");
-            scanf("%d",&nPeso);
+            printf("Seleccione una opcion: ");
+            scanf("%d",&op);
 
-            setPeso(paqueteAModificar,nPeso);
-            break;
-        case 5:
-            printf("\n\nIngrese la nueva direccion de retiro:");
-            actualizarDomicilio(nuevaDirRetiro);
-            setDirRetiro(paqueteAModificar,nuevaDirRetiro);
-            break;
-        case 6:
-            printf("\n\nIngrese la nueva direccion de entrega:");
-            actualizarDomicilio(nuevaDirEntrega);
-            setDirEntrega(paqueteAModificar,nuevaDirEntrega);
-            break;
-        case 7:
-            printf("\n\nIngrese la nueva fecha y horario de entrega: ");
-            actualizarFecha(nuevaFechaEntrega);
-            setFechaEntrega(paqueteAModificar,nuevaFechaEntrega);
-            break;
-        case 8:
-            helpEstadoPaquete();
+            switch(op)
+            {
+            case 1:
+                printf("\n\nIngrese el nuevo ancho: ");
+                scanf("%d",&nAncho);
 
-            printf("\n\nIngrese el nuevo estado: ");
-            scanf("%d",&nEstado);
+                setAncho(paqueteAModificar,nAncho);
+                break;
+            case 2:
+                printf("\n\nIngrese el nuevo alto: ");
+                scanf("%d",&nAlto);
 
-            setEstado(paqueteAModificar,nEstado);
-            break;
-        default:
-            printf("\nOpcion incorrecta.\n\n");
-            presionarEnterYLimpiarPantalla();
-            break;
-        }
+                setAlto(paqueteAModificar,nAlto);
+                break;
+            case 3:
+                printf("\n\nIngrese el nuevo largo: ");
+                scanf("%d",&nLargo);
 
-        printf("\n\nDatos modificados exitosamente.\n\n");
+                setLargo(paqueteAModificar,nLargo);
+                break;
+            case 4:
+                printf("\n\nIngrese el nuevo peso: ");
+                scanf("%d",&nPeso);
 
-        printf("Desea seguir modificando este paquete?\n\n");
-        printf("\t1. SI\n\t");
-        printf("0. NO\n\n");
+                setPeso(paqueteAModificar,nPeso);
+                break;
+            case 5:
+                printf("\n\nIngrese la nueva direccion de retiro:");
+                actualizarDomicilio(nuevaDirRetiro);
+                setDirRetiro(paqueteAModificar,nuevaDirRetiro);
+                break;
+            case 6:
+                printf("\n\nIngrese la nueva direccion de entrega:");
+                actualizarDomicilio(nuevaDirEntrega);
+                setDirEntrega(paqueteAModificar,nuevaDirEntrega);
+                break;
+            case 7:
+                printf("\n\nIngrese la nueva fecha y horario de entrega: ");
+                actualizarFecha(nuevaFechaEntrega);
+                setFechaEntrega(paqueteAModificar,nuevaFechaEntrega);
+                break;
+            case 8:
+                helpEstadoPaquete();
 
-        printf("Seleccione una opcion: ");
-        scanf("%d",&seguirMod);
-    } while(seguirMod!=0);
+                printf("\n\nIngrese el nuevo estado: ");
+                scanf("%d",&nEstado);
+
+                setEstado(paqueteAModificar,nEstado);
+                break;
+            default:
+                printf("\nOpcion incorrecta.\n\n");
+                presionarEnterYLimpiarPantalla();
+                break;
+            }
+
+            printf("\n\nDatos modificados exitosamente.\n\n");
+
+            printf("Desea seguir modificando este paquete?\n\n");
+            printf("\t1. SI\n\t");
+            printf("0. NO\n\n");
+
+            printf("Seleccione una opcion: ");
+            scanf("%d",&seguirMod);
+        } while(seguirMod!=0);
+        DeseaContinuar = MenuDeseaContinuar();
+    }while(DeseaContinuar!=0);
 }
 void menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
@@ -601,89 +675,94 @@ void menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     char nNombre[100];
     char nApellido[100];
 
+    int DeseaContinuar = 0;
+
     DomicilioPtr nuevoDomicilio;
     CuilPtr nuevoCuil;
 
 //esChofer se puede modificar sin crear una variable
-
-    if(esChofer)
-    {
-        printf("MODIFICAR CHOFER\n\n");
-        mostrarChoferes(centroLogistico);
-        printf("\n\nIngrese indice del chofer a modificar: ");
-    }
-    else
-    {
-        printf("MODIFICAR CLIENTE\n\n");
-        mostrarClientes(centroLogistico);
-        printf("\n\nIngrese indice del cliente a modificar: ");
-    }
-
-    scanf("%d",&iMod);
-//Obtenemos la persona del índice de la lista de personas que se eligió (-1 porque la funcion siempre obtiene el siguiente al pedido. CORROBORAR)
-    PersonaPtr personaAModificar=(PersonaPtr)getDatoLista(getPersonas(centroLogistico),iMod-1);
-
     do
     {
-        system("cls");
-        printf("Ha elegido - ");
-        mostrarPersona(personaAModificar);
-
-        printf("\n\nQué desea modificar?\n\n");
-
-        printf("1. Nombre y Apellido\n");
-        printf("2. Domicilio\n");
-        printf("3. CUIL\n");
-
         if(esChofer)
-            printf("4. Cambiar persona a: CLIENTE\n");
-        else
-            printf("4. Cambiar persona a: CHOFER\n");
-
-        printf("Seleccione una opcion: ");
-        scanf("%d",&op);
-
-
-        switch(op)
         {
-        case 1:
-            printf("\n\nIngrese el nuevo nombre y apellido de esta manera:");
-            printf("\n\t[Nombre];[Apellido]\n\t");
-            scanf("%[^;]%*c;%[^\n]%*c",nNombre,nApellido);
-
-            setNombre(personaAModificar,nNombre);
-            setApellido(personaAModificar,nApellido);
-            break;
-        case 2:
-            printf("\n\nIngrese el nuevo domicilio:");
-            actualizarDomicilio(nuevoDomicilio);
-            setDomicilio(personaAModificar,nuevoDomicilio);
-            break;
-        case 3:
-            actualizarCuil(nuevoCuil);
-            setCuilPersona(personaAModificar,nuevoCuil);
-            break;
-        case 4:
-            if(esChofer)
-                setEsChofer(personaAModificar,false);
-            else
-                setEsChofer(personaAModificar,true);
-            break;
-        default:
-            printf("\nOpcion incorrecta.\n\n");
-            presionarEnterYLimpiarPantalla();
-            break;
+            printf("MODIFICAR CHOFER\n\n");
+            mostrarChoferes(centroLogistico);
+            printf("\n\nIngrese indice del chofer a modificar: ");
+        }
+        else
+        {
+            printf("MODIFICAR CLIENTE\n\n");
+            mostrarClientes(centroLogistico);
+            printf("\n\nIngrese indice del cliente a modificar: ");
         }
 
-        printf("\n\nDatos modificados exitosamente.\n\n");
+        scanf("%d",&iMod);
+    //Obtenemos la persona del índice de la lista de personas que se eligió (-1 porque la funcion siempre obtiene el siguiente al pedido. CORROBORAR)
+        PersonaPtr personaAModificar=(PersonaPtr)getDatoLista(getPersonas(centroLogistico),iMod-1);
 
-        printf("Desea seguir modificando esta persona?\n\n");
-        printf("\t1. SI\n\t");
-        printf("0. NO\n\n");
+        do
+        {
+            system("cls");
+            printf("Ha elegido - ");
+            mostrarPersona(personaAModificar);
 
-        printf("Seleccione una opcion: ");
-        scanf("%d",&seguirMod);
-    } while(seguirMod!=0);
+            printf("\n\nQué desea modificar?\n\n");
+
+            printf("1. Nombre y Apellido\n");
+            printf("2. Domicilio\n");
+            printf("3. CUIL\n");
+
+            if(esChofer)
+                printf("4. Cambiar persona a: CLIENTE\n");
+            else
+                printf("4. Cambiar persona a: CHOFER\n");
+
+            printf("Seleccione una opcion: ");
+            scanf("%d",&op);
+
+
+            switch(op)
+            {
+            case 1:
+                printf("\n\nIngrese el nuevo nombre y apellido de esta manera:");
+                printf("\n\t[Nombre];[Apellido]\n\t");
+                scanf("%[^;]%*c;%[^\n]%*c",nNombre,nApellido);
+
+                setNombre(personaAModificar,nNombre);
+                setApellido(personaAModificar,nApellido);
+                break;
+            case 2:
+                printf("\n\nIngrese el nuevo domicilio:");
+                actualizarDomicilio(nuevoDomicilio);
+                setDomicilio(personaAModificar,nuevoDomicilio);
+                break;
+            case 3:
+                actualizarCuil(nuevoCuil);
+                setCuilPersona(personaAModificar,nuevoCuil);
+                break;
+            case 4:
+                if(esChofer)
+                    setEsChofer(personaAModificar,false);
+                else
+                    setEsChofer(personaAModificar,true);
+                break;
+            default:
+                printf("\nOpcion incorrecta.\n\n");
+                presionarEnterYLimpiarPantalla();
+                break;
+            }
+
+            printf("\n\nDatos modificados exitosamente.\n\n");
+
+            printf("Desea seguir modificando esta persona?\n\n");
+            printf("\t1. SI\n\t");
+            printf("0. NO\n\n");
+
+            printf("Seleccione una opcion: ");
+            scanf("%d",&seguirMod);
+        } while(seguirMod!=0);
+        DeseaContinuar = MenuDeseaContinuar();
+    }while(DeseaContinuar!=0);
 }
 void menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
 {
@@ -696,89 +775,96 @@ void menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
     char nModelo[100];
     char nPatente[100];
 
-    printf("MODIFICAR VEHICULO\n\n");
-
-    mostrarVehiculos(centroLogistico);
-
-    printf("\n\nIngrese indice del vehiculo a modificar: ");
-    scanf("%d",&iMod);
-
-    VehiculoPtr vehiculoAModificar=(VehiculoPtr)getDatoLista(getVehiculos(centroLogistico),iMod-1);
+    int DeseaContinuar = 0;
 
     do
     {
-        system("cls");
-        printf("Ha elegido - ");
-        mostrarVehiculo(vehiculoAModificar);
 
-        printf("\n\nQué desea modificar?\n\n");
+        printf("MODIFICAR VEHICULO\n\n");
 
-        printf("1. Tipo de vehiculo\n");
-        printf("2. Marca\n");
-        printf("3. Modelo\n");
-        printf("4. Patente\n");
+        mostrarVehiculos(centroLogistico);
 
-        printf("Seleccione una opcion: ");
-        scanf("%d",&op);
+        printf("\n\nIngrese indice del vehiculo a modificar: ");
+        scanf("%d",&iMod);
 
-        switch(op)
+        VehiculoPtr vehiculoAModificar=(VehiculoPtr)getDatoLista(getVehiculos(centroLogistico),iMod-1);
+
+        do
         {
-        case 1:
-            printf("\n\n");
-            helpTipoVehiculo();
+            system("cls");
+            printf("Ha elegido - ");
+            mostrarVehiculo(vehiculoAModificar);
 
-            printf("\n\nSeleccione una opcion: ");
-            scanf("%d",&nTipo);
+            printf("\n\nQué desea modificar?\n\n");
 
-            switch(nTipo)
+            printf("1. Tipo de vehiculo\n");
+            printf("2. Marca\n");
+            printf("3. Modelo\n");
+            printf("4. Patente\n");
+
+            printf("Seleccione una opcion: ");
+            scanf("%d",&op);
+
+            switch(op)
             {
             case 1:
-                setTipoVehiculo(vehiculoAModificar,1);
+                printf("\n\n");
+                helpTipoVehiculo();
+
+                printf("\n\nSeleccione una opcion: ");
+                scanf("%d",&nTipo);
+
+                switch(nTipo)
+                {
+                case 1:
+                    setTipoVehiculo(vehiculoAModificar,1);
+                    break;
+                case 2:
+                    setTipoVehiculo(vehiculoAModificar,2);
+                    break;
+                case 3:
+                    setTipoVehiculo(vehiculoAModificar,3);
+                    break;
+                default:
+                    printf("\nERROR: esa opcion no existe.\n\n");
+                    presionarEnterYLimpiarPantalla();
+                    break;
+                }
                 break;
             case 2:
-                setTipoVehiculo(vehiculoAModificar,2);
+                printf("\n\nIngrese la nueva marca:");
+                scanf("%[^\n]%*c",nMarca);
+
+                setMarca(vehiculoAModificar,nMarca);
                 break;
             case 3:
-                setTipoVehiculo(vehiculoAModificar,3);
+                printf("\n\nIngrese el nuevo modelo:");
+                scanf("%[^\n]%*c",nModelo);
+
+                setModelo(vehiculoAModificar,nModelo);
+                break;
+            case 5:
+                printf("\n\nIngrese la nueva patente (AA 111 AA):\n\t");
+                scanf("%[^\n]%*c",nPatente);
+                setPatente(vehiculoAModificar,nPatente);
                 break;
             default:
-                printf("\nERROR: esa opcion no existe.\n\n");
+                printf("\nOpcion incorrecta.\n\n");
                 presionarEnterYLimpiarPantalla();
                 break;
             }
-            break;
-        case 2:
-            printf("\n\nIngrese la nueva marca:");
-            scanf("%[^\n]%*c",nMarca);
 
-            setMarca(vehiculoAModificar,nMarca);
-            break;
-        case 3:
-            printf("\n\nIngrese el nuevo modelo:");
-            scanf("%[^\n]%*c",nModelo);
+            printf("\n\nDatos modificados exitosamente.\n\n");
 
-            setModelo(vehiculoAModificar,nModelo);
-            break;
-        case 5:
-            printf("\n\nIngrese la nueva patente (AA 111 AA):\n\t");
-            scanf("%[^\n]%*c",nPatente);
-            setPatente(vehiculoAModificar,nPatente);
-            break;
-        default:
-            printf("\nOpcion incorrecta.\n\n");
-            presionarEnterYLimpiarPantalla();
-            break;
-        }
+            printf("Desea seguir modificando este vehiculo?\n\n");
+            printf("\t1. SI\n\t");
+            printf("0. NO\n\n");
 
-        printf("\n\nDatos modificados exitosamente.\n\n");
-
-        printf("Desea seguir modificando este vehiculo?\n\n");
-        printf("\t1. SI\n\t");
-        printf("0. NO\n\n");
-
-        printf("Seleccione una opcion: ");
-        scanf("%d",&seguirMod);
-    } while(seguirMod!=0);
+            printf("Seleccione una opcion: ");
+            scanf("%d",&seguirMod);
+        } while(seguirMod!=0);
+        DeseaContinuar = MenuDeseaContinuar();
+    }while(DeseaContinuar!=0);
 }
 
 
