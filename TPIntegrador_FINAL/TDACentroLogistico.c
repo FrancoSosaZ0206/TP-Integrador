@@ -244,7 +244,7 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
         printf("CERRADOS ");
     char *buffer;
     traerFechaCorta(fechaSalida,buffer);
-    printf("FILTRADOS POR DIA DE SALIDA - %s: \n\n",buffer);
+    printf("FILTRADOS POR DIA DE SALIDA - %s \n\n",buffer);
     while(!listaVacia(listaAux))
     {
         RepartoPtr repartoAux=getCabecera(listaAux);
@@ -432,8 +432,6 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
 { ///extraemos el reparto de la lista de abiertos
     RepartoPtr repartoACerrar = removerReparto(centroLogistico,posicion,true);
 ///Copiamos el contenido del reparto en uno nuevo.
-    RepartoPtr copiaReparto=(RepartoPtr)obtenerMemoria(sizeof(Reparto));
-
     PersonaPtr copiaChofer = crearPersonaDirect(getNombre(getChofer(repartoACerrar)),
                                                 getApellido(getChofer(repartoACerrar)),
                                                 getCalle(getDomicilio(getChofer(repartoACerrar))),
@@ -447,11 +445,11 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
                                               getModelo(getVehiculo(repartoACerrar)),
                                               getPatente(getVehiculo(repartoACerrar)));
 
-    FechaPtr copiaFechaSalida = crearFechaDirect(getDiaJuliano(getFechaSalida(repartoACerrar))
+    FechaPtr copiaFechaSalida = crearFechaDirect(getDiaJuliano(getFechaSalida(repartoACerrar)),
                                                  getHora(getFechaSalida(repartoACerrar)),
                                                  getMinuto(getFechaSalida(repartoACerrar)));
 
-    FechaPtr copiaFechaRetorno = crearFechaDirect(getDiaJuliano(getFechaRetorno(repartoACerrar))
+    FechaPtr copiaFechaRetorno = crearFechaDirect(getDiaJuliano(getFechaRetorno(repartoACerrar)),
                                                  getHora(getFechaRetorno(repartoACerrar)),
                                                  getMinuto(getFechaRetorno(repartoACerrar)));
 
@@ -460,6 +458,7 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
     PaquetePtr paquetesAux[n];
 
     PaquetePtr copiaPaquetes[n];
+    PilaPtr copiaPilaPaquetes=crearPila();
 
     int estadoPaquetes[6];
     for(int i=0;i<n;i++)
@@ -509,8 +508,14 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
     for(int i=n;i>0;i--)
     {
         cargarPaquete(repartoACerrar,paquetesAux[i]);
-        cargarPaquete(copiaReparto,copiaPaquetes[i]);
+        apilar(copiaPilaPaquetes,(PaquetePtr)copiaPaquetes[i]);
     }
+
+    RepartoPtr copiaReparto=armarReparto(copiaChofer,
+                                         copiaVehiculo,
+                                         copiaFechaSalida,
+                                         copiaFechaRetorno,
+                                         copiaPilaPaquetes);
 
 ///Agregamos la copia del reparto cerrado a la lista de cerrados
     agregarReparto(centroLogistico,copiaReparto,false);

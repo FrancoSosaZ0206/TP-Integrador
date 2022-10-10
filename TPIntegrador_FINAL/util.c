@@ -29,6 +29,11 @@ void destruirStringDinamico(char *buffer)
 
 void limpiarBufferTeclado()
 {
+    fflush(stdin);
+    fflush(stdin);
+}
+void limpiarBufferTecladoPresionandoEnter()
+{
     char c;
     while((c=getchar())!='\n' && c!=EOF){};
 }
