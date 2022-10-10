@@ -204,7 +204,7 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 	else
     {
 		listaAux = getRepartos(centroLogistico,false);
-        printf("\nLISTA DE REPARTOS CERRADOS: \n\n");
+        printf("\nLISTA DE REPARTOS CERRADOS (*): \n\n");
     }
     agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
     int i=0;
@@ -219,6 +219,17 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
     }
     listaAux=destruirLista(listaAux,false);
     printf("\n");
+    if(!esRepartoAbierto)
+    {
+        printf("\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n\n");
+        printf("(*) ADVERTENCIA: \n");
+        printf("\tEsta lista es un registro de los repartos abiertos cuando fueron cerrados,\n");
+        printf("\tlo que implica que puede que hayan cambiado con el tiempo.\n\n");
+        printf("\tPara ver el estado actual de los datos de los repartos, ir a:\n");
+        printf("\t\t\tMENU PRINCIPAL > EMITIR LISTADOS\n");
+        printf("\tY seleccione el listado que desee ver.\n");
+        printf("\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n\n");
+    }
 }
 void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,FechaPtr fechaSalida)
 {
@@ -420,14 +431,59 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
 void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
 { ///extraemos el reparto de la lista de abiertos
     RepartoPtr repartoACerrar = removerReparto(centroLogistico,posicion,true);
+///Copiamos el contenido del reparto en uno nuevo.
+    RepartoPtr copiaReparto=(RepartoPtr)obtenerMemoria(sizeof(Reparto));
+
+    PersonaPtr copiaChofer = crearPersonaDirect(getNombre(getChofer(repartoACerrar)),
+                                                getApellido(getChofer(repartoACerrar)),
+                                                getCalle(getDomicilio(getChofer(repartoACerrar))),
+                                                getAltura(getDomicilio(getChofer(repartoACerrar))),
+                                                getLocalidad(getDomicilio(getChofer(repartoACerrar))),
+                                                getCuil(getCuilPersona(getChofer(repartoACerrar))),
+                                                getEsChofer(getChofer(repartoACerrar)));
+
+    VehiculoPtr copiaVehiculo = crearVehiculo(getTipoVehiculo(getVehiculo(repartoACerrar)),
+                                              getMarca(getVehiculo(repartoACerrar)),
+                                              getModelo(getVehiculo(repartoACerrar)),
+                                              getPatente(getVehiculo(repartoACerrar)));
+
+    FechaPtr copiaFechaSalida = crearFechaDirect(getDiaJuliano(getFechaSalida(repartoACerrar))
+                                                 getHora(getFechaSalida(repartoACerrar)),
+                                                 getMinuto(getFechaSalida(repartoACerrar)));
+
+    FechaPtr copiaFechaRetorno = crearFechaDirect(getDiaJuliano(getFechaRetorno(repartoACerrar))
+                                                 getHora(getFechaRetorno(repartoACerrar)),
+                                                 getMinuto(getFechaRetorno(repartoACerrar)));
+
 ///Obtenemos cada paquete de la pila y le cambiamos el estado a 3: "entregado"
     int n=cantidadPaquetes(repartoACerrar);
     PaquetePtr paquetesAux[n];
+
+    PaquetePtr copiaPaquetes[n];
 
     int estadoPaquetes[6];
     for(int i=0;i<n;i++)
     {
         paquetesAux[i] = descargarPaquete(repartoACerrar);
+    ///Hacemos una copia de cada paquete
+        copiaPaquetes[i]  = crearPaqueteDirect(getID(paquetesAux[i]),
+                                               getAncho(paquetesAux[i]),
+                                               getAlto(paquetesAux[i]),
+                                               getLargo(paquetesAux[i]),
+                                               getPeso(paquetesAux[i]),
+                                               getCalle(getDirRetiro(paquetesAux[i])),
+                                               getAltura(getDirRetiro(paquetesAux[i])),
+                                               getLocalidad(getDirRetiro(paquetesAux[i])),
+                                               getCalle(getDirEntrega(paquetesAux[i])),
+                                               getAltura(getDirEntrega(paquetesAux[i])),
+                                               getLocalidad(getDirEntrega(paquetesAux[i])),
+                                               getDia(getFechaEntrega(paquetesAux[i])),
+                                               getMes(getFechaEntrega(paquetesAux[i])),
+                                               getAnio(getFechaEntrega(paquetesAux[i])),
+                                               getHora(getFechaEntrega(paquetesAux[i])),
+                                               getMinuto(getFechaEntrega(paquetesAux[i])),
+                                               getEstado(paquetesAux[i]));
+    ///Salvamos el conjunto de estados de los paquetes de la pila como valores de verdad en un vector de enteros
         switch(getEstado(paquetesAux[i]))
         {
         case 0:
@@ -451,9 +507,15 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
         }
     }
     for(int i=n;i>0;i--)
+    {
         cargarPaquete(repartoACerrar,paquetesAux[i]);
-///Agregamos el reparto a la lista de cerrados
-    agregarReparto(centroLogistico,repartoACerrar,false);
+        cargarPaquete(copiaReparto,copiaPaquetes[i]);
+    }
+
+///Agregamos la copia del reparto cerrado a la lista de cerrados
+    agregarReparto(centroLogistico,copiaReparto,false);
+///Destruimos el reparto original
+    repartoACerrar=destruirReparto(repartoACerrar);
 
     printf("\n\nCerrando reparto...\n\n");
     bool condicion = estadoPaquetes[0]==0;
@@ -462,7 +524,7 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
     condicion = condicion && estadoPaquetes[3]==1;
     condicion = condicion && estadoPaquetes[4]==0;
     condicion = condicion && estadoPaquetes[5]==0;
-
+///Imprimimos un mensaje informativo acerca del estado de los paquetes
     if(condicion)
         printf("Todos los paquetes fueron entregados con exito.\n\n");
     else if(estadoPaquetes[0]==1)

@@ -24,13 +24,6 @@ PENDIENTES
 			- Funciones de muestra: 1.
 
 
-- TDA Centro Logistico.c:
-
-	- Funcion "cerrarReparto": ahora la funcion debe obtener el dato, copiarlo con la funcion armarReparto, y agregarlo a la lista de cerrados, en lugar de simplemente moverlo.
-
-	- Funcion "mostrarRepartos": cuando esRepartoAbierto == FALSE, agregar un mensaje previo (o luego) a mostrar la lista de repartos, que avise que los repartos que están ahí son un registro, que ahora pueden estar cambiados, y que para ver como están ahora, ir a la opcion "mostrar lista de repartos abiertos" o alguna de las funciones de emitir listados de los datos de los repartos (paquetes, vehiculos...) del centro logistico.
-
-
 
 
 - TESTEAR PROYECTO - ENCONTRAR, REPORTAR Y ARREGLAR POSIBLES BUGS.

@@ -159,7 +159,9 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo);
 void mostrarVehiculos(CentroLogisticoPtr centroLogistico);
 //Operación: Muestra los repartos.
 //Precondición: Centro logistico debe haberse creado y cargado con, al menos, un reparto
-//Postcondición: Imprime la lista de repartos.
+//Postcondición: Imprime la lista de repartos. Si es una lista de repartos cerrados,
+//               al final se imprime por pantalla un mensaje de advertencia para el usuario
+//               (ver implementación en TDACentroLogistico.c).
 //Parámetros:
 // centroLogistico: puntero a estructura que representa al centro logistico.
 //  esRepartoAbierto: valor booleano:
@@ -333,8 +335,11 @@ VehiculoPtr removerVehiculo(CentroLogisticoPtr centroLogistico,int posicion);
 RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto);
 
 //Precondicion: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
-//Postcondicion: remueve de la lista de repartosAbiertos de centroLogistico un reparto
-//               seleccionado por el usuario, desplazando el reparto a listaRepartosCerrados
+//Postcondicion:
+//      1. Remueve un reparto seleccionado seleccionado por el usuario de la lista de repartos abiertos.
+//      2. Realiza una copia de los contenidos del reparto y la agrega a la lista de repartos cerrados.
+//      3. Imprime por pantalla un mensaje informando acerca del estado de
+//         los paquetes del reparto al momento de cerrar.
 //Parámetros:
 //  centroLogistico: puntero a estructura que representa al centro logistico.
 //  posicion: entero representando la posicion del reparto a cerrar.
