@@ -151,7 +151,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 //               Hasta que el usuario desee encerrado en un do while
 //PARÁMETROS: CentroLogisticoPtr donde se generara la modificacion del vehiculo procedente
 //DEVUELVE: Nada.
-bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico);
+bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico, int opMenuAnterior);
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
@@ -220,7 +220,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico);
 //PARÁMETROS:
 //  centroLogistico: puntero a la estructura del Centro Logistico
 //DEVUELVE: nada.
-bool menuCerrarReparto(CentroLogisticoPtr centroLogistico);
+bool menuCerrarReparto(CentroLogisticoPtr centroLogistico, int menuAnterior);
 //OPERACION: menu de busqueda de repartos
 //PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
 //POSTCONDICION: se muestra el reparto buscado, o se muestra un mensaje de error de lo contrario.
@@ -236,7 +236,7 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 //      - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
 //      - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
 //DEVUELVE: nada.
-bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
+bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto, int opMenuAnterior);
 //OPERACION: menu de actualizacion de datos de un reparto
 //PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
 //POSTCONDICION: se ingresan los nuevos datos del reparto y se aplican los cambios,

@@ -3,6 +3,7 @@
 #include <string.h>
 #include "TDACuil.h"
 #include "util.h"
+#include <math.h>
 
 
 CuilPtr crearCuil(char *cuilStr)
@@ -121,9 +122,12 @@ int getNVerificador(CuilPtr cuil)
     int tipo=0;
     int dni=0;
     int nVerif=0;
+    char cuilStr[100];
+    strcpy(cuilStr,getCuil(cuil));
+    nVerif = (int)cuilStr[12]-48;
 
     //Dividimos el string en 3 variables int
-    sscanf(cuil->cuil,"%d %d %d",&tipo,&dni,&nVerif);
+    ///sscanf(cuil->cuil,"%d %d %d",&tipo,&dni,&nVerif);
     //retornamos el que queríamos
     return nVerif;
 }
@@ -178,30 +182,29 @@ Y * 4
     c) Caso contrario, XY pasa a ser (11 - Resto).
 */
 
-    char *cuilStr = getCuil(cuil);
+    char cuilStr[100];
+    strcpy(cuilStr,getCuil(cuil));
 
 //1. Obtenemos cada numero y hacemos las multiplicaciones
-    int x=(int)cuilStr[0] * 5;
-    int y=(int)cuilStr[1] * 4;
+    int x=((int)cuilStr[0]-48) * 5;
+    int y=((int)cuilStr[1]-48) * 4;
 //cuilStr[2] = " " <<< un espacio
-    int n1=(int)cuilStr[3] * 3;
-    int n2=(int)cuilStr[4] * 2;
-    int n3=(int)cuilStr[5] * 7;
-    int n4=(int)cuilStr[6] * 6;
-    int n5=(int)cuilStr[7] * 5;
-    int n6=(int)cuilStr[8] * 4;
-    int n7=(int)cuilStr[9] * 3;
-    int n8=(int)cuilStr[10] * 2;
+    int n1=((int)cuilStr[3]-48) * 3;
+    int n2=((int)cuilStr[4]-48) * 2;
+    int n3=((int)cuilStr[5]-48) * 7;
+    int n4=((int)cuilStr[6]-48) * 6;
+    int n5=((int)cuilStr[7]-48) * 5;
+    int n6=((int)cuilStr[8]-48) * 4;
+    int n7=((int)cuilStr[9]-48) * 3;
+    int n8=((int)cuilStr[10]-48) * 2;
 //obtenemos el Z actual
     int z=getNVerificador(cuil);
-
-    int sumatoria = x+y+n1+n2+n3+n4+n5+n6+n7+n8;
-    int division = sumatoria / 11;
-    int resto = sumatoria % 11;
-
-    int tipo=getTipo(cuil);
-
     int zRes = 0;
+    int sumatoria = x+y+n1+n2+n3+n4+n5+n6+n7+n8;
+    int division = round(sumatoria / 11);
+    int resto = sumatoria - (division*11);
+    zRes = 11 - resto;
+    int tipo=getTipo(cuil);
 
     switch(resto)
     {

@@ -6,6 +6,11 @@
 #include "util.h"
 
 
+VehiculoPtr armarVehiculo(int tipo,char* marca,char* modelo,char* patente)
+{
+    return crearVehiculo(tipo,marca,modelo,patente);
+}
+
 VehiculoPtr crearVehiculo(int tipo,char *marca,char *modelo,char *patente)
 {
     VehiculoPtr vehiculo=(VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));

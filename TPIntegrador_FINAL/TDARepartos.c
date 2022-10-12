@@ -109,33 +109,27 @@ void mostrarReparto(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
-    char *strFecha;
-    traerFechaYHora(getFechaSalida(reparto),strFecha);
-    printf("Fecha de Salida: %s\n",strFecha);
-    traerFechaYHora(getFechaRetorno(reparto),strFecha);
-    printf("Fecha de Retorno: %s\n",strFecha);
-
+    mostrarFecha(getFechaSalida(reparto));
+    mostrarFecha(getFechaRetorno(reparto));
     int cantPaq=longitudPila(getPaquetesReparto(reparto));
     PaquetePtr paquetes[cantPaq];
-
+    PilaPtr pilaPaquetes = crearPila();
+    pilaPaquetes = getPaquetesReparto(reparto);
     for(int i=0;i<cantPaq;i++)
     {
         printf("%d. ",i+1);
-        paquetes[i]=(PaquetePtr)desapilar(getPaquetesReparto(reparto));
+        paquetes[i]=(PaquetePtr)desapilar(pilaPaquetes);
         mostrarPaquete(paquetes[i]);
     }
     for(int i=0;i<cantPaq;i++)
-        apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[cantPaq-i]);
+        apilar(pilaPaquetes,(PaquetePtr)paquetes[cantPaq-i]);
 }
 void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
-    char *strFecha;
-    traerFechaYHora(getFechaSalida(reparto),strFecha);
-    printf("Fecha de Salida: %s\n",strFecha);
-    traerFechaYHora(getFechaRetorno(reparto),strFecha);
-    printf("Fecha de Retorno: %s\n",strFecha);
+    mostrarFecha(getFechaSalida(reparto));
+    mostrarFecha(getFechaRetorno(reparto));
 }
 
 ///---------------------------------------Funciones de validación------------------------------------------------

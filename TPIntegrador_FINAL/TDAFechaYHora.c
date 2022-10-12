@@ -264,3 +264,9 @@ bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
     int *diferencia = calcularDiferenciaFechas(fecha1,fecha2);
     return diferencia[0]==0 && diferencia[1]==0 && diferencia[2]==0;
 }
+
+void mostrarFecha(FechaPtr fecha)
+{
+    printf("%d / %d / %d \n", getDia(fecha),getMes(fecha),getAnio(fecha));
+    printf("%d : %d \n", getHora(fecha),getMinuto(fecha));
+}

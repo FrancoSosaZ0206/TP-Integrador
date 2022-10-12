@@ -79,6 +79,192 @@ CentroLogisticoPtr crearTodoPorDefecto() //Crea un centro logistico llamando a l
 }
 
 
+ListaPtr crearListaRepartosPorDefecto(){
+    ListaPtr listaRepartos=crearLista();
+    DomicilioPtr domicilioChofer1=crearDomicilio("Vieytes",2000,"Lomas de zamora");
+    DomicilioPtr dirRetiro1=crearDomicilio("Deposito",5000,"Sector industrial"); /// (*)
+    DomicilioPtr dirEntrega1=crearDomicilio("Santa fe",1500,"Banfield"); /// (**)
+    FechaPtr fechaSalida1=crearFechaDirect(2500000,16,45); //Para el reparto
+    FechaPtr fechaRetorno1=crearFechaDirect(2500000,17,45); //Para el reparto
+    FechaPtr fechaEntrega1=crearFechaDirect(2500000,18,45);
+    CuilPtr cuil1=crearCuil("20346547546");
+    PersonaPtr chofer1=crearPersona("Roberto","Garcia",domicilioChofer1,cuil1,true);
+    PaquetePtr paquete1=crearPaquete(1,4,5,2,65,dirRetiro1,dirEntrega1,fechaEntrega1,0);
+    ListaPtr listaPaquetes1 = crearLista();
+    insertarDatoLista(listaPaquetes1,(PaquetePtr)paquete1,0);
+    VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","17 UJI 30");
+    PilaPtr pilaPaquetes = crearPila();
+    apilar(pilaPaquetes,(PaquetePtr)paquete1);
+    RepartoPtr reparto1=crearReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,pilaPaquetes);
+
+    DomicilioPtr domicilioChofer2=crearDomicilio("Boqueron",1500,"Villa Fiorito");
+    DomicilioPtr dirRetiro2=crearDomicilio("Repositorio Intel",5000,"Sector industrial");
+    DomicilioPtr dirEntrega2=crearDomicilio("Italia",3000,"Palermo");
+    FechaPtr fechaSalida2=crearFechaDirect(2500000,8,30);
+    FechaPtr fechaRetorno2=crearFechaDirect(2500000,9,30);
+    FechaPtr fechaEntrega2=crearFechaDirect(2500000,10,30);
+    CuilPtr cuil2=crearCuil("27245764567");
+    PersonaPtr chofer2=crearPersona("Maria","Gonzalez",domicilioChofer2,cuil2,true);
+    PaquetePtr paquete2=crearPaquete(2,2,5,3,120,dirRetiro2,dirEntrega2,fechaEntrega2,0);
+    PilaPtr pilaPaquetes2 = crearPila();
+    apilar(pilaPaquetes2,(PaquetePtr)paquete1);
+    VehiculoPtr vehiculo2=crearVehiculo(3,"Mercedes Benz","Actros","81 NMB 30");
+    RepartoPtr reparto2=crearReparto(chofer2,vehiculo2,fechaSalida2,fechaRetorno2,pilaPaquetes2);
+
+    DomicilioPtr domicilioChofer3=crearDomicilio("Espania",1500,"Puerto Madero");
+    DomicilioPtr dirRetiro3=crearDomicilio("Tesla Industry",10000,"Washington DC");
+    DomicilioPtr dirEntrega3=crearDomicilio("24 de mayo",3000,"Capital Federal");
+    FechaPtr fechaSalida3=crearFechaDirect(2500000,19,15);
+    FechaPtr fechaRetorno3=crearFechaDirect(2500000,21,15);
+    FechaPtr fechaEntrega3=crearFechaDirect(2500000,22,15);
+    CuilPtr cuil3=crearCuil("30234565431");
+    PersonaPtr chofer3=crearPersona("Gonzalo","Gutierrez",domicilioChofer3,cuil3,true);
+    PaquetePtr paquete3=crearPaquete(3,8,8,10,800,dirRetiro3,dirEntrega3,fechaEntrega3,0);
+    PilaPtr pilaPaquetes3 = crearPila();
+    apilar(pilaPaquetes3,(PaquetePtr)paquete1);
+    VehiculoPtr vehiculo3=crearVehiculo(3,"Mercedes Benz","Actros","19 JUY 78");
+    RepartoPtr reparto3=crearReparto(chofer3,vehiculo3,fechaSalida3,fechaRetorno3,pilaPaquetes3);
+
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto1);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto2);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto3);
+    return listaRepartos;
+}
+
+ListaPtr crearListaPaquetesGenerico(){
+    ListaPtr listaPaquetes = crearLista();
+    DomicilioPtr domicilio1 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
+    CuilPtr cuil_1 = crearCuil("20654342349");
+    PersonaPtr cliente1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,false);
+    PaquetePtr paquete1 = crearPaqueteDirect(rand(),4,2,5,150,"Sixto Fernandez",1800,"Lomas de Zamora","Calle Morazan",2100,"Villa fiorito",10,12,2022,16,45,0);
+    PaquetePtr paquete2 = crearPaqueteDirect(rand(),20,7,3,200,"Sixto Fernandez",1700,"Lomas de Zamora","Calle Morazan",2020,"Villa fiorito",10,12,2022,17,45,0);
+    PaquetePtr paquete3 = crearPaqueteDirect(rand(),15,5,9,75,"Sixto Fernandez",1220,"Lomas de Zamora","Calle Morazan",2310,"Villa fiorito",10,12,2022,18,45,0);
+    PaquetePtr paquete4 = crearPaqueteDirect(rand(),25,14,15,54,"Sixto Fernandez",5000,"Lomas de Zamora","Calle Morazan",250,"Villa fiorito",10,12,2022,19,45,0);
+    PaquetePtr paquete5 = crearPaqueteDirect(rand(),12,11,23,54,"Sixto Fernandez",1000,"Lomas de Zamora","Calle Morazan",650,"Villa fiorito",10,12,2022,20,45,0);
+    PaquetePtr paquete6 = crearPaqueteDirect(rand(),14,16,31,54,"Sixto Fernandez",2000,"Lomas de Zamora","Calle Morazan",550,"Villa fiorito",10,12,2022,21,45,0);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete1);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete2);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete3);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete4);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete5);
+    agregarDatoLista(listaPaquetes,(PaquetePtr)paquete6);
+    return listaPaquetes;
+}
+
+PaquetePtr crearPaqueteGenerico(){
+    DomicilioPtr domicilio1 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
+    CuilPtr cuil_1 = crearCuil("20654342349");
+    PersonaPtr cliente1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,false);
+    PaquetePtr paquete1 = crearPaqueteDirect(rand(),4,2,5,150,"Sixto Fernandez",1800,"Lomas de Zamora","Calle Morazan",2100,"Villa fiorito",10,12,2022,16,45,0);
+    return paquete1;
+}
+
+ListaPtr crearListaClientesGenerico(){
+    ListaPtr listaClientes = crearLista();
+    DomicilioPtr domicilio1 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
+    CuilPtr cuil_1 = crearCuil("20654342349");
+    PersonaPtr cliente1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,false);
+    DomicilioPtr domicilio2 = crearDomicilio("Italia",1000,"Lomas de zamora");
+    CuilPtr cuil_2 = crearCuil("20655612339");
+    PersonaPtr cliente2 = crearPersona("Gonzalo","Gutierrez",domicilio2,cuil_2,false);
+    DomicilioPtr domicilio3 = crearDomicilio("Espania",3000,"Lomas de zamora");
+    CuilPtr cuil_3 = crearCuil("20245432349");
+    PersonaPtr cliente3 = crearPersona("Gabriel","Alonzo",domicilio3,cuil_3,false);
+    DomicilioPtr domicilio4 = crearDomicilio("9 de mayo",2000,"Lomas de zamora");
+    CuilPtr cuil_4 = crearCuil("20126543212");
+    PersonaPtr cliente4 = crearPersona("Alfonso","Romero",domicilio4,cuil_4,false);
+    agregarDatoLista(listaClientes,(PersonaPtr)cliente1);
+    agregarDatoLista(listaClientes,(PersonaPtr)cliente2);
+    agregarDatoLista(listaClientes,(PersonaPtr)cliente3);
+    agregarDatoLista(listaClientes,(PersonaPtr)cliente4);
+    return listaClientes;
+}
+
+
+ListaPtr crearListaPersonasGenerica()
+{
+    ListaPtr personas = crearLista();
+    DomicilioPtr domicilio1 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
+    CuilPtr cuil_1 = crearCuil("20654342349");
+    PersonaPtr cliente1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,false);
+
+    DomicilioPtr domicilio2 = crearDomicilio("Italia",1000,"Lomas de zamora");
+    CuilPtr cuil_2 = crearCuil("20655612339");
+    PersonaPtr cliente2 = crearPersona("Gonzalo","Gutierrez",domicilio2,cuil_2,false);
+
+    DomicilioPtr domicilio3 = crearDomicilio("Espania",3000,"Lomas de zamora");
+    CuilPtr cuil_3 = crearCuil("20245432349");
+    PersonaPtr cliente3 = crearPersona("Gabriel","Alonzo",domicilio3,cuil_3,false);
+
+    DomicilioPtr domicilio4 = crearDomicilio("9 de mayo",2000,"Lomas de zamora");
+    CuilPtr cuil_4 = crearCuil("20126543212");
+    PersonaPtr cliente4 = crearPersona("Alfonso","Romero",domicilio4,cuil_4,false);
+
+    DomicilioPtr domicilio5 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
+    CuilPtr cuil_5 = crearCuil("20654342349");
+    PersonaPtr chofer1 = crearPersona("Javier","Gonzalez",domicilio5,cuil_5,true);
+
+    DomicilioPtr domicilio6 = crearDomicilio("Italia",1000,"Lomas de zamora");
+    CuilPtr cuil_6 = crearCuil("20655612339");
+    PersonaPtr chofer2 = crearPersona("Gonzalo","Gutierrez",domicilio6,cuil_6,true);
+
+    DomicilioPtr domicilio7 = crearDomicilio("Espania",3000,"Lomas de zamora");
+    CuilPtr cuil_7 = crearCuil("20245432349");
+    PersonaPtr chofer3 = crearPersona("Gabriel","Alonzo",domicilio7,cuil_7,true);
+
+    DomicilioPtr domicilio8 = crearDomicilio("9 de mayo",2000,"Lomas de zamora");
+    CuilPtr cuil_8 = crearCuil("20126543212");
+    PersonaPtr chofer4 = crearPersona("Alfonso","Romero",domicilio8,cuil_8,true);
+
+    agregarDatoLista(personas,(PersonaPtr)chofer1);
+    agregarDatoLista(personas,(PersonaPtr)chofer2);
+    agregarDatoLista(personas,(PersonaPtr)chofer3);
+    agregarDatoLista(personas,(PersonaPtr)chofer4);
+
+    agregarDatoLista(personas,(PersonaPtr)cliente1);
+    agregarDatoLista(personas,(PersonaPtr)cliente2);
+    agregarDatoLista(personas,(PersonaPtr)cliente3);
+    agregarDatoLista(personas,(PersonaPtr)cliente4);
+
+    return personas;
+}
+
+ListaPtr crearListaChoferesGenerico(){
+    ListaPtr listaChoferes = crearLista();
+    DomicilioPtr domicilio1 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
+    CuilPtr cuil_1 = crearCuil("20654342349");
+    PersonaPtr chofer1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,true);
+    DomicilioPtr domicilio2 = crearDomicilio("Italia",1000,"Lomas de zamora");
+    CuilPtr cuil_2 = crearCuil("20655612339");
+    PersonaPtr chofer2 = crearPersona("Gonzalo","Gutierrez",domicilio2,cuil_2,true);
+    DomicilioPtr domicilio3 = crearDomicilio("Espania",3000,"Lomas de zamora");
+    CuilPtr cuil_3 = crearCuil("20245432349");
+    PersonaPtr chofer3 = crearPersona("Gabriel","Alonzo",domicilio3,cuil_3,true);
+    DomicilioPtr domicilio4 = crearDomicilio("9 de mayo",2000,"Lomas de zamora");
+    CuilPtr cuil_4 = crearCuil("20126543212");
+    PersonaPtr chofer4 = crearPersona("Alfonso","Romero",domicilio4,cuil_4,true);
+    agregarDatoLista(listaChoferes,(PersonaPtr)chofer1);
+    agregarDatoLista(listaChoferes,(PersonaPtr)chofer2);
+    agregarDatoLista(listaChoferes,(PersonaPtr)chofer3);
+    agregarDatoLista(listaChoferes,(PersonaPtr)chofer4);
+    return listaChoferes;
+}
+
+ListaPtr crearListaVehiculosGenerico(){
+    ListaPtr listaVehiculos = crearLista();
+    VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","99 UJI 99");
+    VehiculoPtr vehiculo2=crearVehiculo(3,"Ferrari","Benne","65MNJ91");
+    VehiculoPtr vehiculo3=crearVehiculo(3,"Volkswagen","17720","98 UYT 98");
+    VehiculoPtr vehiculo4=crearVehiculo(3,"Ford","C916","97 JUI 97");
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo1);
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo2);
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo3);
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo4);
+    return listaVehiculos;
+}
+
+
+
 
 VehiculoPtr crearVehiculoGenerico() ///Crea un vehículo de forma rápida con datos aleatorios. BROKEN
 {
@@ -250,13 +436,13 @@ ListaPtr crearListaRepartosGenerica(bool esRepartoAbierto)
     PersonaPtr chofer=crearPersona("Roberto","Garcia",domicilioChofer,cuil,true);
 //Creamos un paquete con (*) y (**)
     PaquetePtr paquete=crearPaquete(1,4,5,2,65,dirRetiro,dirEntrega,fechaEntrega,1);
-    if(!esRepartoAbierto)
+    if(esRepartoAbierto==false)
         setEstado(paquete,3); //si es para un reparto cerrado, lo seteamos a "entregado"
 //Creamos una pila de paquetes para el reparto
     PilaPtr pilaPaquetes=crearPila();
     apilar(pilaPaquetes,(PaquetePtr)paquete); /// Pila de 1 paquete
 //Creamos un vehículo genérico aprovechando que tenemos hecha la funcion
-    VehiculoPtr vehiculo=crearVehiculoGenerico();
+    VehiculoPtr vehiculo=crearVehiculo(3,"Mercedes Benz","Actros","99 UJI 99");
 ///Creamos un reparto con los datos creados previamente
     RepartoPtr reparto=crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,pilaPaquetes);
 
@@ -280,7 +466,7 @@ ListaPtr crearListaRepartosGenerica(bool esRepartoAbierto)
     PilaPtr pilaPaquetes1=crearPila();
     apilar(pilaPaquetes1,(PaquetePtr)paquete1);
 
-    VehiculoPtr vehiculo1=crearVehiculoGenerico();
+    VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","99 UJI 99");
 
     RepartoPtr reparto1=crearReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,pilaPaquetes1);
 
@@ -304,7 +490,7 @@ ListaPtr crearListaRepartosGenerica(bool esRepartoAbierto)
     PilaPtr pilaPaquetes2=crearPila();
     apilar(pilaPaquetes2,(PaquetePtr)paquete);
 
-    VehiculoPtr vehiculo2=crearVehiculoGenerico();
+    VehiculoPtr vehiculo2=crearVehiculo(3,"Mercedes Benz","Actros","99 UJI 99");
 
     RepartoPtr reparto2=crearReparto(chofer2,vehiculo2,fechaSalida2,fechaRetorno2,pilaPaquetes2);
 

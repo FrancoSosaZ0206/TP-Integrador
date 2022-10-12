@@ -167,9 +167,7 @@ void mostrarPaquete(PaquetePtr paquete)
     printf("\tDireccion de Entrega: ");
     mostrarDomicilio(getDirEntrega(paquete));
 
-    char *bufferFecha;
-    traerFechaYHora(getFechaEntrega(paquete),bufferFecha);
-    printf("\tFecha y Hora de Entrega: %s\n",bufferFecha);
+    mostrarFecha(getFechaEntrega(paquete));
 }
 void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
 {

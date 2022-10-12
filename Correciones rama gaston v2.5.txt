@@ -1,0 +1,50 @@
+Correccion de crearStringDinamico
+Esta funcion originalmente creaba un string con tamanio de 8 bytes, no del tamanio enviado por el usuario en el string
+Si enviamos Fulanito de Tal, necesitamos 16 bytes para almacenarlo, en cambio, en la funcion solo se reservan 8 bytes 
+con obtenerMemoria(sizeof(char*)) = sizeof(char*) == 8 bytes
+[	generaria varios bugs a la hora de guardar datos en strings o de representarlos en funciones de mostrado 	] 
+
+
+Correcion de mostrar APELLIDO de persona (tanto chofer como cliente)
+Funcion mostrar persona
+Por alguna casualidad de la vida, al mostrar dos cadenas de strings pegadas entre si generan conflicto a la hora de mostrar
+tanto el nombre y el apellido(	Muestran los caracteres en codigo ascii	), para solucionarlo mostramos el nombre y el apellido
+en lineas separadas, por la representacion del %s que entra en conflicto con el otro %s
+
+Correcion de cargado de datos, a modo de prevencion, se utiliza un limpiar buffer de teclado antes y despues de cualquier
+ingreso por teclado, ya sea numerico o string
+En caso de representar una cadena de string en formato [%[^\n]%*c] tener cuidado al utilizar el recibimiento de 2 variables
+scanf("%[^\n]%*c,%d"), entra en conflicto al no reconocer cual es el verdadero fin del dato, espera un enter para finalizar
+el string, y tambien solicita un enter para finalizar el entero, y asi entra en un bucle saturando el buffer de teclado
+Correccion de escritura, estaba escrito %[^,]%*c --> %[^\n]%*c
+(	Deteccion de error en : SECCION CARGADO DE DOMICILIO 	)
+
+
+Correccion de mostrar fecha
+El utilizar punteros para mostrar la fecha es un arma de doble filo, en nuestro caso el puntero que devuelve obstruye el camino 
+de mostrado de paquetes utilizando una variable puntero en memoria dinamica sin reservar ni tampoco liberar, alterando la
+secuencia de ejecucio, entrando en conflicto con los punteros de memoria de los paquetes, crasheando el programa
+Se realizo una funcion a void que llama a los getters correspondientes para mostrar fecha....
+
+
+Correcion de verificacion de cuil y de calcular el numero verificador
+Corregi las aplicaciones de las cadenas de caracteres pasandolas a codigo ascii reduciendolos 48 caracteres para obtener finalmente el numero deseado
+modifique las operaciones de resolucion porque utilizaban variables que no servian, que no se asignaban, que no eran las correctas, y se aplicaban
+operaciones matematicas que no correspondian
+
+
+Correccion de los menus de main
+Existe un problema con las interacciones de los menues, reducir la cantidad de presionar enter y continuar para mayor fluidez y comodidad,
+reduccion de los parametros de los while debido que entran en bucles dentro de los submenues de los que no se puede salir, 
+modifique las opciones para que funcione adecuadamente, while(op2!=0), si elige -1 --> op=0,op1=0, automaticamente lo devuelve al menu principal
+
+
+Correcion de los menues de eliminacion(Los puli un poco)
+Agregue mayor generalidad a los menues para simplificar drasticamente el codigo y la logica de los mismos
+Las 3 posibilidades asignan el resultado en un vector de enteros los cuales se pasan en la funcion correspondiente
+y luego se destruye con la estructura correspondiente, requiriendo solamante recorrer el vector hasta destruir todas
+las eliminaciones del usuario
+
+
+
+
