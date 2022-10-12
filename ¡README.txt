@@ -1,6 +1,20 @@
 Franco-v2.5 - NOVEDADES
 
+- Menus: Cambios y mejoras finales agregadas
+	- Se agregó una funcionalidad en forma de menú que pregunta al usuario si desea o no continuar, y en base a eso se sigue en dentro del menú o se vuelve al anterior.
+	- Se agregó un sistema que detecta los cambios al usuario. Esta funcionalidad hace una copia de los datos previo a los cambios, y la conserva hasta luego que el usuario termina de realizar los cambios, momento en que se compara la lista original con la nueva, y si hubo algún cambio, se le preguntará al usuario si desea guardarlos. 
+	Este sistema es capaz de discernir cuando hay o no cambios, incluso en los casos que el usuario hace una modificacion que resulta tener los mismos datos que antes de realizarla, lo que no se consideraría como cambio (ej.: ordenar una lista que ya estaba ordenada, modificar un dato e ingresar los mismos datos que tenía antes, etc.).
+	- Se agregó una serie de "menús de acción", previo al ingreso de varios menúes, que dictaminan la forma en que se ejecutarán. Son 3 "modos de acción":
+		- 1 - Individual: se pide un indice de la lista al usuario (ej.: 2).
+		- 2 - Selección (*) : se pide al usuario una seleccion de índices particulares en la lista (ej.: 2, 6, 31, etc.). 
+		- 3 - Rango: se pide al usuario un indice mínimo y uno máximo en la lista, para operar con todos los datos dentro del rango definido por estos índices (ej.: del 14 al 37).
+	Todos estos menúes de acción tienen sus propias barreras de seguridad, que chequean que los índices que se elijan estén dentro de los límites de la lista correspondiente.
+	(*) : Este modo permite seleccionar los índices desordenadamente. Estos serán ordenados posteriormente.
 
+ - TDACentroLogistico: 
+	- Funcion cerrarReparto: ahora cada vez que se cierre un reparto, se realizará una copia del mismo, en lugar de simplemente moverlo a la lista de cerrados, lo que permitirá mantener un registro del estado de los repartos cuando se cerraron, y a su vez poder modificar los recursos (el chofer, vehículo o la pila de paquetes) sin afectar al mismo.
+	- Funcion mostrarRepartos: ahora muestra los repartos sin los paquetes. Si se quieren ver, utilizar la funcion mostrarRepartos.
+	- Funcion filtrarPorFechaSalida: antes simplemente ordenaba y mostraba la lista cronológicamente. Ahora la ordena y muestra solo los repartos que coincidan con un DÍA, MES Y AÑO determinados (implementacion: utiliza el día juliano).
 
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -18,82 +32,11 @@ BUGS
 MEJORAS
 
 
----------------------------------------------------------------------------------------------------------------------
-
-PENDIENTES
-
-- Menus: 
-	- Agregar un submenu donde puedas elegir si queres tomar accion sobre un solo dato o un grupo de datos a la vez, para evitar tener que entrar al menu varias veces (sería tedioso). Dentro de la segunda opcion (habria una 3ra, volver), podemos elegir si queremos tomar accion de un rango de indices, o bien si queremos tomar accion sobre varios indices especificos.
-	1. Al final, siempre preguntar: "Desea continuar?"
-	2. Tomar accion en un rango de datos (de este indice a este)
-	3. Tomar accion en un solo dato (indice tal)
-	4. Tomar accion en una serie de indices especificos (PARA ELIMINAR NO)
-	
-	IMPLEMENTACION:
-		1. Do ... while (desee continuar)
-		2. Pedimos indice minimo y maximo, sacamos la diferencia y la metemos como límite en un for. Ejecutamos la accion siempre en el iMin hasta que se llegue a esa diferencia.
-		3. Ya está, por defecto.
-		4. Preguntamos la cantidad de indices a almacenar, almacenamos los indices en un vector, y tomamos accion en c/u de los indices.
-
-		- Falta implementar en:
-			- Funciones de modificacion de datos: 4.
-			- Funciones de carga de datos: NINGUNA
-			- Funciones de eliminacion de datos: NINGUNA.
-			- Funciones de ordenamiento: 1.
-			- Funciones de busqueda: NINGUNA
-			- Funciones de muestra: 1.
-
-
-- TDA Centro Logistico.c:
-
-	- Funcion "cerrarReparto": ahora la funcion debe obtener el dato, copiarlo con la funcion armarReparto, y agregarlo a la lista de cerrados, en lugar de simplemente moverlo.
-
-	- Funcion "mostrarRepartosPorFechaSalida" :
-		- agregar parámetro "fecha" con el día para filtrar.
-		- de esa fecha, tomar el día y en el while, en lugar de mostrar todos los repartos, que muestre solo los que coincidan con el día de la fecha recibida (filtrar por día).
-		- cambiar nombre de la funcion a "filtrarPorFechaSalida" EN TODO LUGAR DONDE SE HAYA USADO LA FUNCION EN EL PROYECTO.
-
-	- Funcion "mostrarRepartos": cuando esRepartoAbierto == FALSE, agregar un mensaje previo (o luego) a mostrar la lista de repartos, que avise que los repartos que están ahí son un registro, que ahora pueden estar cambiados, y que para ver como están ahora, ir a la opcion "mostrar lista de repartos abiertos" o alguna de las funciones de emitir listados de los datos de los repartos (paquetes, vehiculos...) del centro logistico.
-
-
-
-
-- TESTEAR PROYECTO - ENCONTRAR, REPORTAR Y ARREGLAR POSIBLES BUGS.
-	- PROCEDIMIENTO: 
-		1. Probamos todas las funciones del proyecto.
-		2. Si detectamos un error, lo primero que hacemos es reportarlo. En la seccion "bugs" de este README, para cada bug agregamos:
-			a. Una breve descripcion del error, qué pasó.
-			b. Como se produjo, y/o como reproducir el error, con el mayor detalle posible.
-			c. En qué línea (aprox) estabamos cuando el error se produjo
-			d. El nombre de la rama de la persona que encontró el error.
-			e. (OPCIONAL) Si se tiene sospechas del posible origen del error, agregarlas, pero para evitar confusiones, ACLARAR SIEMPRE QUE SON SOSPECHAS.
-
-		3. Los errores reportados pueden ser revisados y arreglados por todos.
-		4. Cuando un error se arregla,
-			a. Se quita del apartado "BUGS".
-			b. Se agrega al apartado "BUG FIXES"
-			c. Solo se conserva el punto 2. a. (descripcion del error) y una breve descripcion de por qué sucedía.
-			d. La persona que arreglo este error notifica a todas las demás de ello, para que nadie siga trabajando en el.
-		5. ACLARACIONES:
-			a. CADA UNO TENDRÁ SU PROPIA RAMA, PARTIENDO DE LA VERSION FINAL DEL PROYECTO, CON UN README DONDE IRÁ REPORTANDO LOS ERRORES QUE ENCUENTRE.
-			b. A MEDIDA QUE EL PROCESO AVANCE, CADA UNO TENDRÁ QUE IR ACTUALIZANDO SU README Y EL CÓDIGO DE SU RAMA CON LOS BUGS Y BUG FIXES DE LOS DEMÁS.
-			c. SI UN BUG QUE SE HABÍA ARREGLADO PREVIAMENTE SE VUELVE A GENERAR, EL PROCESO ANTES MENCIONADO SE REPITE (REPORTAMOS, ARREGLAMOS, NOTIFICAMOS A LOS DEMÁS Y C/U ACTUALIZA SU README Y CÓDIGO) HASTA QUE EL ERROR NO VUELVA A SURGIR.
-
-		6. EL PROCESO FINALIZARÁ CUANDO SE HAYAN PROBADO TODAS LAS FUNCIONES DEL PROYECTO Y NINGUNA PRESENTE BUGS. CUANDO ESTO SUCEDA:
-			a. Todos los bug fixes deben quedar escritos y el apartado BUGS debe estar vacío.
-			b. TODOS MERGEAMOS NUESTRAS RAMAS A UNA SOLA, FINAL.
-
 
 ---------------------------------------------------------------------------------------------------------------------
 
 CORRECCIONES
 
 
-
----------------------------------------------------------------------------------------------------------------------
-
-IDEAS
-
-- Guardado de datos en archivos: Todo lo que sea strings se puede guardar con un '\n' al final del string, de modo que no se guarde "basura" y sea más legible a la hora de ver lo que hay adentro del archivo.
 
 ---------------------------------------------------------------------------------------------------------------------

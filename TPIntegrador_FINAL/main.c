@@ -87,7 +87,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
 
         printf("1. BASE DE DATOS\n");
         printf("2. REPARTOS\n");
-        printf("3. VER RESULTADOS DE ENTREGAS\n");
+        //printf("3. VER RESULTADOS DE ENTREGAS\n");
         printf("4. EMITIR LISTADOS\n");
         printf("5. GUARDAR CAMBIOS\n"); ///NUEVO
         printf("0. SALIR\n");
@@ -182,16 +182,16 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         switch(op2)
                         {
                         case 1:
-                            cambiosGuardados = menuEliminarPaquete(centroLogistico);
+                            cambiosGuardados = menuEliminarPaquete(centroLogistico,op2);
                             break;
                         case 2:
-                            cambiosGuardados = menuEliminarPersona(centroLogistico,false);
+                            cambiosGuardados = menuEliminarPersona(centroLogistico,false,op2);
                             break;
                         case 3:
-                            cambiosGuardados = menuEliminarPersona(centroLogistico,true);
+                            cambiosGuardados = menuEliminarPersona(centroLogistico,true,op2);
                             break;
                         case 4:
-                            cambiosGuardados = menuEliminarVehiculo(centroLogistico);
+                            cambiosGuardados = menuEliminarVehiculo(centroLogistico,op2);
                             break;
                         case 0:
                             break;
@@ -227,16 +227,16 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         switch(op2)
                         {
                         case 1:
-                            cambiosGuardados = menuModificarPaquete(centroLogistico);
+                            cambiosGuardados = menuModificarPaquete(centroLogistico,op2);
                             break;
                         case 2:
-                            cambiosGuardados = menuModificarPersona(centroLogistico,false);
+                            cambiosGuardados = menuModificarPersona(centroLogistico,false,op2);
                             break;
                         case 3:
-                            cambiosGuardados = menuModificarPersona(centroLogistico,true);
+                            cambiosGuardados = menuModificarPersona(centroLogistico,true,op2);
                             break;
                         case 4:
-                            cambiosGuardados = menuModificarVehiculo(centroLogistico);
+                            cambiosGuardados = menuModificarVehiculo(centroLogistico,op2);
                             break;
                         case 0:
                             break;
@@ -328,7 +328,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     cambiosGuardados = menuArmarReparto(centroLogistico);
                     break;
                 case 2:
-                    cambiosGuardados = menuCerrarReparto(centroLogistico);
+                    cambiosGuardados = menuCerrarReparto(centroLogistico,op1);
                     break;
                 case 3:
                     do
@@ -346,10 +346,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         switch(op2)
                         {
                         case 1:
-                            cambiosGuardados = menuEliminarReparto(centroLogistico,true);
+                            cambiosGuardados = menuEliminarReparto(centroLogistico,true,op2);
                             break;
                         case 2:
-                            cambiosGuardados = menuEliminarReparto(centroLogistico,false);
+                            cambiosGuardados = menuEliminarReparto(centroLogistico,false,op2);
                             break;
                         case 0:
                             break;
@@ -441,11 +441,29 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 presionarEnterYLimpiarPantalla();
             } while(op1!=0);
             break;
-        case 3:
-    /**Idea: se puede generar un estado al azar entre "entregado" (3) y "suspendido" (5)
-        Luego, se muestra los resultados de las entregas de los repartos
-    */
-            break;
+        /**case 3:
+            printf("VER RESULTADOS DE ENTREGAS");
+            printf("\n-----------------------------------------\n\n");
+            printf("1. Ver en Lista de Paquetes\n");
+            printf("2. Ver en Repartos ABIERTOS\n");
+            printf("3. Ver en Repartos CERRADOS\n");
+            printf("0. Volver\n");
+            printf("\n-----------------------------------------\n\n");
+            printf("Elija una opcion: ");
+            scanf("%d",&op1);
+            limpiarBufferTeclado();
+
+            system("cls");
+            switch(op1)
+            {
+            case 1:
+                break;
+            case 2:
+                printf("Ingrese el día de la fecha que desea filtrar: ");
+                filtrarPorFechaSalida();
+                break;
+            }
+            break;*/
         case 4:
             do
             {

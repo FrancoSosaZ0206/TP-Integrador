@@ -2,29 +2,6 @@
 
 PENDIENTES
 
-- Menus: 
-	- Agregar un submenu donde puedas elegir si queres tomar accion sobre un solo dato o un grupo de datos a la vez, para evitar tener que entrar al menu varias veces (sería tedioso). Dentro de la segunda opcion (habria una 3ra, volver), podemos elegir si queremos tomar accion de un rango de indices, o bien si queremos tomar accion sobre varios indices especificos.
-	1. Al final, siempre preguntar: "Desea continuar?"
-	2. Tomar accion en un rango de datos (de este indice a este)
-	3. Tomar accion en un solo dato (indice tal)
-	4. Tomar accion en una serie de indices especificos (PARA ELIMINAR NO)
-	
-	IMPLEMENTACION:
-		1. Do ... while (desee continuar)
-		2. Pedimos indice minimo y maximo, sacamos la diferencia y la metemos como límite en un for. Ejecutamos la accion siempre en el iMin hasta que se llegue a esa diferencia.
-		3. Ya está, por defecto.
-		4. Preguntamos la cantidad de indices a almacenar, almacenamos los indices en un vector, y tomamos accion en c/u de los indices.
-
-		- Falta implementar en:
-			- Funciones de modificacion de datos: 4.
-			- Funciones de carga de datos: NINGUNA
-			- Funciones de eliminacion de datos: NINGUNA.
-			- Funciones de ordenamiento: 1.
-			- Funciones de busqueda: NINGUNA
-			- Funciones de muestra: 1.
-
-
-
 
 - TESTEAR PROYECTO - ENCONTRAR, REPORTAR Y ARREGLAR POSIBLES BUGS.
 	- PROCEDIMIENTO: 
