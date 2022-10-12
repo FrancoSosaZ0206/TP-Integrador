@@ -284,4 +284,119 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//OPERACIÓN: actualiza los datos de una fecha
+//PRECONDICIÓN: fecha debe haberse creado
+//POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
+//PARÁMETROS:
+//  puntero a la estructura a actualizar
+//DEVUELVE: Nada
+void actualizarFecha(FechaPtr fecha);
+
+//OPERACIÓN: actualiza los datos de un domicilio
+//PRECONDICIÓN: domicilio debe haberse creado
+//POSTCONDICION: se piden datos por pantalla y se actualiza la estructura
+//PARÁMETROS:
+//  puntero a la estructura a actualizar
+//DEVUELVE: Nada
+void actualizarDomicilio(DomicilioPtr domicilio);
+
+//OPERACIÓN: actualiza los datos de un cuil
+//PRECONDICIÓN: cuil debe haberse creado
+//POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
+//PARÁMETROS:
+//  puntero a la estructura a actualizar
+//DEVUELVE: Nada
+void actualizarCuil(CuilPtr cuil);
+
+//OPERACIÓN: carga de fecha con datos
+//PRECONDICIÓN: fecha debe haber sido DECLARADA
+//POSTCONDICION: se piden datos por pantalla y se crea una fecha con datos válidos
+//PARÁMETROS:
+// puntero a la estructura fecha que se quiere cargar
+//DEVUELVE: Nada
+///ADVERTENCIA: No debe crearse la fecha con su constructora, causará memory leaks.
+FechaPtr cargarFecha(FechaPtr fecha);
+
+//OPERACIÓN: carga de domicilio con datos
+//PRECONDICIÓN: domicilio debe haber sido DECLARADO
+//POSTCONDICION: se piden datos por pantalla y se crea un domicilio en memoria dinamica
+//PARÁMETROS:
+// puntero a la estructura domicilio que se quiere cargar
+//DEVUELVE: Nada
+///ADVERTENCIA: No debe crearse el domicilio con su constructora, causará memory leaks.
+DomicilioPtr cargarDomicilio(DomicilioPtr domicilio);
+
+
+//OPERACIÓN: carga de cuil con datos
+//PRECONDICIÓN: cuil debe haber sido DECLARADO
+//POSTCONDICION: se piden datos por pantalla y se crea un cuil en memoria dinamica con datos válidos
+//PARÁMETROS:
+// puntero a la estructura cuil que se quiere cargar
+//DEVUELVE: Nada
+///ADVERTENCIA: No debe crearse el cuil con su constructora, causará memory leaks.
+CuilPtr cargarCuil(CuilPtr cuil);
+
+
+//OPERACIÓN: menu para continuar en un menú
+//PRECONDICIÓN: ninguna
+//POSTCONDICION: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
+//PARÁMETROS: ninguno
+//DEVUELVE: booleano representando la opcion elegida:
+//              true = SI, DESEA CONTINUAR
+//              false = NO, DESEA SALIR
+bool menuContinuar();
+
+//OPERACIÓN: menu de modo de accion
+//PRECONDICIÓN: haber usado menuModoAccion
+//POSTCONDICION: se ejecuta el modo de accion 3 - se toma un rango de índices por pantalla.
+//PARÁMETROS:
+//  lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
+//  desde: entero representando la variable donde se cargará el índice mínimo.
+//  hasta: entero representando la variable donde se cargará el índice máximo.
+//DEVUELVE: nada.
+void menuModoAccion3(ListaPtr lista,int* vec);
+
+//OPERACIÓN: menu de modo de accion
+//PRECONDICIÓN: haber usado menuModoAccion
+//POSTCONDICION: se ejecuta el modo de accion 2 - se toma un conjunto de índices por pantalla.
+//PARÁMETROS:
+//  lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
+//  cantIndices: entero representando la variable que se cargará con la cantidad de indices seleccionados
+//DEVUELVE: vector de enteros representando la seleccion de índices elegidos.
+///ADVERTENCIA: No usar con menus o funciones que modifiquen la longitud de la lista (ej: menuEliminar).
+void menuModoAccion2(ListaPtr lista,int cantIndices,int* indices);
+
+
+//OPERACIÓN: menu de modo de accion
+//PRECONDICIÓN: haber usado menuModoAccion
+//POSTCONDICION: se ejecuta el modo de accion 1 - se toma un indice por pantalla.
+//PARÁMETROS:
+//  lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
+//DEVUELVE: entero representando el índice elegido.
+int menuModoAccion1(ListaPtr lista);
+
+
+//OPERACIÓN: menu de modo de accion
+//PRECONDICIÓN: ninguna
+//POSTCONDICION: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
+//PARÁMETROS:
+//  opMenuAnterior: entero representando la opcion del menu anterior
+//DEVUELVE: entero representando la opcion elegida.
+int menuModoAccion(int opMenuAnterior);
+
 #endif // MENUS_H_INCLUDED

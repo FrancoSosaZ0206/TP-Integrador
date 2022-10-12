@@ -46,10 +46,11 @@ int main()
     ListaPtr repartosA = crearListaRepartosPorDefecto();
     ListaPtr repartosC = crearLista();
     centroLogistico = crearCentroLogistico("Distribuidora",paquetes,personas,vehiculos,repartosA,repartosC);
-    menuCargarPaquete(centroLogistico);
+    /*menuCargarPaquete(centroLogistico);
     menuCargarPersona(centroLogistico,true);
     menuCargarVehiculo(centroLogistico);
-    probandoGenericas(centroLogistico);
+    probandoGenericas(centroLogistico);*/
+    ///menuEliminarPersona(centroLogistico,true,0);
     system("pause");
     do
     {

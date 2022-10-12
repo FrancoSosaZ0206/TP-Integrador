@@ -20,7 +20,6 @@
 int menuGuardarCambios()
 {
     int opGuardar=0;
-    system("cls");
     printf("Guardar cambios? 1=SI , 0=NO | ");
     limpiarBufferTeclado();
     scanf("%d",&opGuardar);
@@ -29,12 +28,6 @@ int menuGuardarCambios()
     return opGuardar;
 }
 
-//OPERACIÓN: menu de modo de accion
-//PRECONDICIÓN: ninguna
-//POSTCONDICION: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
-//PARÁMETROS:
-//  opMenuAnterior: entero representando la opcion del menu anterior
-//DEVUELVE: entero representando la opcion elegida.
 int menuModoAccion(int opMenuAnterior)
 {
     system("cls");
@@ -65,12 +58,7 @@ int menuModoAccion(int opMenuAnterior)
     system("cls");
     return eleccion;
 }
-//OPERACIÓN: menu de modo de accion
-//PRECONDICIÓN: haber usado menuModoAccion
-//POSTCONDICION: se ejecuta el modo de accion 1 - se toma un indice por pantalla.
-//PARÁMETROS:
-//  lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
-//DEVUELVE: entero representando el índice elegido.
+
 int menuModoAccion1(ListaPtr lista)
 {
     int eleccion = 0;
@@ -94,14 +82,6 @@ int menuModoAccion1(ListaPtr lista)
     return eleccion;
 }
 
-//OPERACIÓN: menu de modo de accion
-//PRECONDICIÓN: haber usado menuModoAccion
-//POSTCONDICION: se ejecuta el modo de accion 2 - se toma un conjunto de índices por pantalla.
-//PARÁMETROS:
-//  lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
-//  cantIndices: entero representando la variable que se cargará con la cantidad de indices seleccionados
-//DEVUELVE: vector de enteros representando la seleccion de índices elegidos.
-///ADVERTENCIA: No usar con menus o funciones que modifiquen la longitud de la lista (ej: menuEliminar).
 void menuModoAccion2(ListaPtr lista,int cantIndices,int* indices)
 {
     int n=longitudLista(lista);
@@ -140,15 +120,6 @@ void menuModoAccion2(ListaPtr lista,int cantIndices,int* indices)
     }
 }
 
-//OPERACIÓN: menu de modo de accion
-//PRECONDICIÓN: haber usado menuModoAccion
-//POSTCONDICION: se ejecuta el modo de accion 3 - se toma un rango de índices por pantalla.
-//PARÁMETROS:
-//  lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
-//  desde: entero representando la variable donde se cargará el índice mínimo.
-//  hasta: entero representando la variable donde se cargará el índice máximo.
-//DEVUELVE: nada.
-
 void menuModoAccion3(ListaPtr lista,int* vec)
 {
     int desde = 0;
@@ -181,30 +152,22 @@ void menuModoAccion3(ListaPtr lista,int* vec)
 //El sistema permite que desde y hasta sean iguales si la lista tiene solo 1 elemento.
 }
 
-//OPERACIÓN: menu para continuar en un menú
-//PRECONDICIÓN: ninguna
-//POSTCONDICION: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
-//PARÁMETROS: ninguno
-//DEVUELVE: booleano representando la opcion elegida:
-//              true = SI, DESEA CONTINUAR
-//              false = NO, DESEA SALIR
 bool menuContinuar()
 {
-    system("cls");
     int eleccion;
     do
     {
-        printf("Desea continuar?\n");
+        printf("\n\n\tDesea continuar?\n");
         printf("1. SI \n");
         printf("0. NO \n");
         printf("Opcion: ");
         limpiarBufferTeclado();
         scanf("%d", &eleccion);
         limpiarBufferTeclado();
-        system("cls");
     } while(eleccion<0 || eleccion>1);
     if(eleccion==1)
     {
+        system("cls");
         return true;
     }
     else
@@ -251,13 +214,6 @@ void tipoPersona(bool esChofer)
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
-//OPERACIÓN: carga de cuil con datos
-//PRECONDICIÓN: cuil debe haber sido DECLARADO
-//POSTCONDICION: se piden datos por pantalla y se crea un cuil en memoria dinamica con datos válidos
-//PARÁMETROS:
-// puntero a la estructura cuil que se quiere cargar
-//DEVUELVE: Nada
-///ADVERTENCIA: No debe crearse el cuil con su constructora, causará memory leaks.
 CuilPtr cargarCuil(CuilPtr cuil)
 {
     cuil=crearCuil("0000000000000");
@@ -276,13 +232,7 @@ CuilPtr cargarCuil(CuilPtr cuil)
     } while(!esCuilValido(cuil));
     return cuil;
 }
-//OPERACIÓN: carga de domicilio con datos
-//PRECONDICIÓN: domicilio debe haber sido DECLARADO
-//POSTCONDICION: se piden datos por pantalla y se crea un domicilio en memoria dinamica
-//PARÁMETROS:
-// puntero a la estructura domicilio que se quiere cargar
-//DEVUELVE: Nada
-///ADVERTENCIA: No debe crearse el domicilio con su constructora, causará memory leaks.
+
 DomicilioPtr cargarDomicilio(DomicilioPtr domicilio)
 {
     char calle[100];
@@ -301,13 +251,7 @@ DomicilioPtr cargarDomicilio(DomicilioPtr domicilio)
     domicilio=crearDomicilio(calle,altura,localidad);
     return domicilio;
 }
-//OPERACIÓN: carga de fecha con datos
-//PRECONDICIÓN: fecha debe haber sido DECLARADA
-//POSTCONDICION: se piden datos por pantalla y se crea una fecha con datos válidos
-//PARÁMETROS:
-// puntero a la estructura fecha que se quiere cargar
-//DEVUELVE: Nada
-///ADVERTENCIA: No debe crearse la fecha con su constructora, causará memory leaks.
+
 FechaPtr cargarFecha(FechaPtr fecha)
 {
     int dia=0,mes=0,anio=0,hora=0,minuto=0;
@@ -328,70 +272,44 @@ FechaPtr cargarFecha(FechaPtr fecha)
     return fecha;
 }
 
-//OPERACIÓN: actualiza los datos de un cuil
-//PRECONDICIÓN: cuil debe haberse creado
-//POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
-//PARÁMETROS:
-//  puntero a la estructura a actualizar
-//DEVUELVE: Nada
 void actualizarCuil(CuilPtr cuil)
 {
     char strCuil[100];
-    int i=0;
     do
     {
         helpCuil();
         printf("\n\tNuevo CUIL:");
+        limpiarBufferTeclado();
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
-        if(i<4)
-            setCuil(cuil,strCuil);
-        else    //if(i==4)
-            printf("\n\nIntentos agotados.\n\n");
-        i++;
-        if(i>1)
-            system("cls");
+        setCuil(cuil,strCuil);
+        system("cls");
     } while(!esCuilValido(cuil));
 }
-//OPERACIÓN: actualiza los datos de un domicilio
-//PRECONDICIÓN: domicilio debe haberse creado
-//POSTCONDICION: se piden datos por pantalla y se actualiza la estructura
-//PARÁMETROS:
-//  puntero a la estructura a actualizar
-//DEVUELVE: Nada
+
 void actualizarDomicilio(DomicilioPtr domicilio)
 {
     char calle[100];
     int altura;
     char localidad[100];
-
-    printf("\n\t\tCalle y Altura [CALLE, ALTURA]: ");
-    scanf("%[^,]%*c, %d",calle,&altura);
+    limpiarBufferTeclado();
+    printf("\n\t\t[CALLE]: ");
+    scanf("%[^\n]%*c",calle);
+    limpiarBufferTeclado();
+    printf("\n\t\tAltura: ");
+    scanf("%d",&altura);
     limpiarBufferTeclado();
     printf("\n\t\tLocalidad: ");
     scanf("%[^\n]%*c",localidad);
     limpiarBufferTeclado();
-
     setCalle(domicilio,calle);
     setAltura(domicilio,altura);
     setLocalidad(domicilio,localidad);
 }
-//OPERACIÓN: actualiza los datos de una fecha
-//PRECONDICIÓN: fecha debe haberse creado
-//POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
-//PARÁMETROS:
-//  puntero a la estructura a actualizar
-//DEVUELVE: Nada
+
 void actualizarFecha(FechaPtr fecha)
 {
-    int dia=0;
-    int mes=0;
-    int anio=0;
-    int hora=0;
-    int minuto=0;
-
-    int i=0;
-
+    int dia=0,mes=0,anio=0,hora=0,minuto=0,i=0;
     do
     {
         printf("\n\t\tFecha (DD MM AAAA): ");
@@ -400,25 +318,18 @@ void actualizarFecha(FechaPtr fecha)
         printf("\n\t\tHorario (HH MM): ");
         scanf("%d %d",&hora,&minuto);
         limpiarBufferTeclado();
-
         setDia(fecha,dia);
         setMes(fecha,mes);
         setAnio(fecha,anio);
         setHora(fecha,hora);
         setMinuto(fecha,minuto);
-        if(!esFechaValida(fecha) && i<4)
-        {
-            printf("\n\nFecha invalida. Reingrese la fecha.\n\n");
-            presionarEnterYLimpiarPantalla();
-        }
-        else if(i==4)
-        {
-            printf("\n\nSe agotaron los intentos.\n\n");
-            presionarEnterYLimpiarPantalla();
-            break;
-        }
-    } while (!esFechaValida(fecha));
+        system("cls");
+    }while(!esFechaValida(fecha));
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE CARGADO///
+///-----------------------------------------------------------------------------------------------------------///
 
 bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 {
@@ -538,6 +449,10 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
     return cambiosGuardados;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE BUSQUEDA///
+///-----------------------------------------------------------------------------------------------------------///
+
 void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
 {
     bool continuar;
@@ -628,6 +543,11 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
     }
 }
 
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE ELIMINACION///
+///-----------------------------------------------------------------------------------------------------------///
+
 bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
 {
     int opcion=0;
@@ -687,22 +607,21 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
 }
 bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int opMenuAnterior)
 {
-    int opcion=0;
-    bool cambiosGuardados=false;
-    int EleccionMenuModoAccion = 0;
-    int EleccionAccion = 0;
-    int cantidadCorrectas = 0;
+    bool cambiosGuardados=false, continuar;
+    int EleccionMenuModoAccion=0, EleccionAccion=0, cantidadCorrectas=0, cantIndices=0, opcion=0;
     int indices[100];
-    int cantIndices=0;
     PersonaPtr personaRemovida = (PersonaPtr)obtenerMemoria(sizeof(Persona));
-    bool continuar;
     ListaPtr listaAuxiliar = getPersonas(centroLogistico);
     if(listaVacia(listaAuxiliar))
     {
         if(esChofer)
+        {
             printf("ERROR: Lista vacía. Debe agregar choferes para poder eliminarlos.\n\n");
+        }
         else
+        {
             printf("ERROR: Lista vacía. Debe agregar clientes para poder eliminarlos.\n\n");
+        }
     }
     else
     {
@@ -720,7 +639,6 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
                 mostrarPersonas(centroLogistico,2);
                 printf("ELIMINAR CLIENTE \n\n");
             }
-            printf("ELIMINAR ");
             switch(EleccionMenuModoAccion)
             {
             case 1:
@@ -730,14 +648,9 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
                     personaRemovida = removerPersona(centroLogistico, EleccionAccion);
                     personaRemovida = destruirPersona(personaRemovida);
                 }
-                else
-                {
-                    printf("Indice erroneo, usted intenta eliminar un ");
-                    tipoPersona(esChofer);
-                    printf("\n\n");
-                }
                 break;
             case 2:
+                cantidadCorrectas=0;
                 cantIndices = calcularCantidad();
                 menuModoAccion2(listaAuxiliar,cantIndices,&indices);
                 for(int i=0;i<cantIndices;i++)
@@ -745,12 +658,6 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
                     if(getEsChofer(getDatoLista(listaAuxiliar,indices[i]))==esChofer)
                     {
                         cantidadCorrectas++;
-                    }
-                    else
-                    {
-                        printf("Indice erroneo, usted intenta eliminar un ");
-                        tipoPersona(esChofer);
-                        printf("\n\n");
                     }
                 }
                 if(cantidadCorrectas == cantIndices)
@@ -763,15 +670,27 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
                 }
                 break;
             case 3:
-                ///INHABILITADA PARA PERSONAS, PROBLEMA DE LOGICA
-                ///NO SE PUEDE SELECCIONAR UN CONJUNTO DE INDICES TENIENDO EN CUENTA
-                ///QUE LOS CLIENTES Y LOS CHOFERES ESTAN EN UNA MISMA LISTA
-                /*menuModoAccion3(listaAuxiliar,&indices);
-                for(int i=0;i<indices[1]-indices[0]+1;i++)
+                cantidadCorrectas=0;
+                menuModoAccion3(listaAuxiliar,&indices);
+                for(int i=indices[0];i<indices[1]+1;i++)
                 {
-                    personaRemovida = removerPersona(centroLogistico,indices[0]);
-                    personaRemovida = destruirPersona(personaRemovida);
-                }*/
+                    if(getEsChofer(getDatoLista(listaAuxiliar,i))==esChofer)
+                    {
+                        cantidadCorrectas++;
+                    }
+                }
+                if(cantidadCorrectas==indices[1]-indices[0]+1)
+                {
+                    for(int i=indices[0];i<indices[1]+1;i++)
+                    {
+                        personaRemovida = removerPersona(centroLogistico,indices[0]);
+                        personaRemovida = destruirPersona(personaRemovida);
+                    }
+                }
+                else
+                {
+                    printf("ERROR: No ha elegido correctamente \n");
+                }
                 break;
             default:
                 printf("Eleccion equivocada \n");
@@ -782,7 +701,9 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
     }
     opcion=menuGuardarCambios();
     if(opcion==1)
+    {
         cambiosGuardados=guardarPersonas(centroLogistico);
+    }
     return cambiosGuardados;
 }
 bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
@@ -1039,8 +960,232 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior
 ///PERSONAS
 
 
+void cambiarPersona(PersonaPtr personaAModificar, bool esChofer)
+{
+    int seguirMod=0,op=0;
+    char nNombre[100];
+    char nApellido[100];
+    DomicilioPtr nuevoDomicilio;
+    CuilPtr nuevoCuil;
+    do
+    {
+        system("cls");
+        printf("Ha elegido - \n\n");
+        mostrarPersona(personaAModificar);
+        printf("\n\nQué desea modificar?\n\n");
+        printf("1. Nombre y Apellido\n");
+        printf("2. Domicilio\n");
+        printf("3. CUIL\n");
+        if(esChofer)
+        {
+            printf("4. Cambiar persona a: CLIENTE\n");
+        }
+        else
+        {
+            printf("4. Cambiar persona a: CHOFER\n");
+        }
+        printf("Seleccione una opcion: ");
+        scanf("%d",&op);
+        switch(op)
+        {
+            case 1:
+                printf("\n\nIngrese el nuevo nombre y apellido de esta manera:");
+                printf("\n\t[Nombre]: ");
+                limpiarBufferTeclado();
+                scanf("%[^\n]%*c",nNombre);
+                limpiarBufferTeclado();
+                printf("\n\t[Apellido]: ");
+                limpiarBufferTeclado();
+                scanf("%[^\n]%*c",nApellido);
+                limpiarBufferTeclado();
+                setNombre(personaAModificar,nNombre);
+                setApellido(personaAModificar,nApellido);
+            break;
+            case 2:
+                printf("\n\nIngrese el nuevo domicilio:");
+                actualizarDomicilio(nuevoDomicilio);
+                setDomicilio(personaAModificar,nuevoDomicilio);
+            break;
+            case 3:
+                actualizarCuil(nuevoCuil);
+                setCuilPersona(personaAModificar,nuevoCuil);
+            break;
+            case 4:
+                if(esChofer)
+                {
+                    setEsChofer(personaAModificar,false);
+                }
+                else
+                {
+                    setEsChofer(personaAModificar,true);
+                }
+            break;
+            default:
+                printf("\nOpcion incorrecta.\n\n");
+                presionarEnterYLimpiarPantalla();
+            break;
+        }
+        printf("\n\nDatos modificados exitosamente.\n\n");
+        printf("Desea seguir modificando esta persona?\n\n");
+        printf("\t1. SI\n\t");
+        printf("0. NO\n\n");
+        printf("Seleccione una opcion: ");
+        scanf("%d",&seguirMod);
+    } while(seguirMod!=0);
+}
+
+ListaPtr OriginalPersonas(CentroLogisticoPtr centroLogistico)
+{
+    ///Creamos una lista "original" para ver si hay cambios,
+    ///y una "auxiliar" para obtener y recorrer la lista.
+    ListaPtr listaOriginal=crearLista();
+    ListaPtr listaAux2=crearLista();
+    agregarLista(listaAux2,getPersonas(centroLogistico));
+    ///Hacemos lo mismo pero para cada elemento de la lista
+    PersonaPtr personaOriginal;
+    PersonaPtr personaAux;
+    while(!listaVacia(listaAux2))
+    {
+        personaAux=getCabecera(listaAux2);
+        ///Copiamos el contenido de cada elemento
+        personaOriginal=crearPersona(getNombre(personaAux),getApellido(personaAux),getDomicilio(personaAux),getCuilPersona(personaAux),getEsChofer(personaAux));
+        ///Agregamos el dato original a la lista
+        agregarDatoLista(listaOriginal,(PersonaPtr)personaOriginal);
+        listaAux2=getResto(listaAux2);
+    }
+    listaAux2=destruirLista(listaAux2,false);
+    return listaOriginal;
+}
+
+bool CambiosPersonas(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal)
+{
+    bool cambioDetectado=false;
+    ListaPtr listaAux2=crearLista();
+    PersonaPtr personaAux;
+    PersonaPtr personaOriginal;
+    agregarLista(listaAux2,getPersonas(centroLogistico));
+    ///Recorremos la lista: antes y después de hacer el cambio
+    while(!listaVacia(listaAux2))
+    {
+        personaAux=getCabecera(listaAux2);
+        personaOriginal=getCabecera(listaOriginal);
+        ///Revisamos, elemento por elemento, si son iguales o cambiaron (puede ser que se haya ordenado de la misma forma que estaba)
+        if(!personasIguales(personaOriginal,personaAux))
+        {
+            cambioDetectado=true;
+        }
+        listaAux2=getResto(listaAux2);
+        listaOriginal=getResto(listaOriginal);
+    }
+    ///Destruimos ambas listas, ya no las necesitamos más
+    listaAux2=destruirLista(listaAux2,false);
+    ///Como en esta copiamos los contenidos, ponemos true para removerlos.
+    listaOriginal=destruirLista(listaOriginal,true);
+    return cambioDetectado;
+}
+
+bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int opMenuAnterior)
+{
+    ListaPtr listaAuxiliar=getPersonas(centroLogistico);
+    ListaPtr listaOriginal;
+    int resultado=0,modoAccion=0,Eleccion=0,Cantidad=0,cantidadCorrectas=0;
+    int Elecciones[10];
+    PersonaPtr personaModificar;
+    bool cambiosGuardados=false, cambioDetectado=false, continuar;
+    if(listaVacia(listaAuxiliar))
+    {
+        if(esChofer)
+        {
+            printf("ERROR: Lista vacía. Debe agregar choferes para poder modificarlos.\n\n");
+        }
+        else
+        {
+            printf("ERROR: Lista vacía. Debe agregar clientes para poder modificarlos.\n\n");
+        }
+    }
+    else
+    {
+    ///---------------------------------------------------------------------///
+        listaOriginal = OriginalPersonas(centroLogistico);
+    ///---------------------------------------------------------------------///
+        do
+        {
+            modoAccion=menuModoAccion(opMenuAnterior);
+            if(esChofer)
+            {
+                mostrarPersonas(centroLogistico,1);
+            }
+            else
+            {
+                mostrarPersonas(centroLogistico,2);
+            }
+            switch(modoAccion)
+            {
+            case 1:
+                Eleccion=menuModoAccion1(listaAuxiliar);
+                personaModificar=getDatoLista(listaAuxiliar,Eleccion);
+                cambiarPersona(personaModificar,esChofer);
+                break;
+            case 2:
+                Cantidad=calcularCantidad();
+                menuModoAccion2(listaAuxiliar,Cantidad,&Elecciones);
+                for(int i=0;i<Cantidad;i++)
+                {
+                    personaModificar=getDatoLista(listaAuxiliar,Elecciones[i]);
+                    cambiarPersona(personaModificar,esChofer);
+                }
+                break;
+            case 3:
+                cantidadCorrectas=0;
+                menuModoAccion3(listaAuxiliar,&Elecciones);
+                for(int i=Elecciones[0];i<Elecciones[1]+1;i++)
+                {
+                    if(getEsChofer(getDatoLista(listaAuxiliar,i))==esChofer)
+                    {
+                        cantidadCorrectas++;
+                    }
+                }
+                if(cantidadCorrectas==Elecciones[1]-Elecciones[0]+1)
+                {
+                    for(int i=Elecciones[0];i<Elecciones[1]+1;i++)
+                    {
+                        personaModificar = getDatoLista(listaAuxiliar,i);
+                        cambiarPersona(personaModificar,esChofer);
+                    }
+                }
+                else
+                {
+                    printf("ERROR: No ha elegido correctamente \n");
+                }
+                break;
+            default:
+                printf("Eleccion equivocada \n");
+                break;
+            }
+            continuar=menuContinuar();
+        } while(continuar);
+
+    ///---------------------------------------------------------------------///
+        cambioDetectado = CambiosPersonas(centroLogistico, listaOriginal);
+    ///---------------------------------------------------------------------///
+    }
+    if(cambioDetectado)
+    {
+        resultado=menuGuardarCambios();
+        if(resultado==1)
+        {
+            cambiosGuardados=guardarPersonas(centroLogistico);
+        }
+    }
+    return cambiosGuardados;
+}
+
+///PAQUETES
 
 
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE MOSTRAR///
 ///-----------------------------------------------------------------------------------------------------------///
 
 
@@ -1490,6 +1635,10 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
     return cambiosGuardados;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE REPARTOS///
+///-----------------------------------------------------------------------------------------------------------///
+
 bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 {
     RepartoPtr reparto;
@@ -1655,6 +1804,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
     return cambiosGuardados;
 }
+
 bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
 {
     int vec[10];
@@ -1802,7 +1952,6 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
 
     return cambiosGuardados;
 }
-
 
 bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int opMenuAnterior)
 {
@@ -1952,7 +2101,9 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
     }
 }
 
-
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE CENTRO LOGISTICO///
+///-----------------------------------------------------------------------------------------------------------///
 
 CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog)
 {
