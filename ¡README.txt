@@ -20,6 +20,7 @@ Franco-v2.5 - NOVEDADES
 
 BUG FIXES
 
+- Se arregló el error que crasheaba el programa al escanear un string largo cualquiera (util.c - Funcion crearStringDinámico).
 
 ---------------------------------------------------------------------------------------------------------------------
 

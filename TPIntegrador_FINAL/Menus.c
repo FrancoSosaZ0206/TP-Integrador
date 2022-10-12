@@ -35,7 +35,7 @@ int menuModoAccion(int opMenuAnterior)
         printf("3. Sobre rango de indices [Ej: Posiciones 1 - 4 (1,2,3,4)]\n");
         printf("0. Volver\n");
         printf("-1. MENU PRINCIPAL");
-        printf("\n-------------------------------------------------------------\n");
+        printf("\n\n-------------------------------------------------------------\n");
         printf("Opcion: ");
         scanf("%d", &eleccion);
         limpiarBufferTeclado();
@@ -828,7 +828,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
             {
                 printf("ELIMINAR PAQUETE\n");
                 mostrarPaquetes(centroLogistico);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Paquete a remover: ");
                 indice=menuModoAccion1(listaAux);
             //Obtenemos y destruimos el elemento seleccionado
@@ -838,7 +838,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
             {
                 printf("ELIMINAR PAQUETES\n");
                 mostrarPaquetes(centroLogistico);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Paquetes a remover: ");
                 indices = menuModoAccion2(listaAux,nIndices);
             //Obtenemos y destruimos los elementos en los indices seleccionados
@@ -849,7 +849,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
             {
                 printf("ELIMINAR PAQUETES\n");
                 mostrarPaquetes(centroLogistico);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Paquetes a remover: ");
                 menuModoAccion3(listaAux,desde,hasta);
             //Obtenemos y destruimos los elementos en el rango de indices
@@ -933,7 +933,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
                     printf("ELIMINAR CLIENTE\n");
                     mostrarPersonas(centroLogistico,2);
                 }
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Persona a remover: ");
                 indice=menuModoAccion1(listaAux);
             //Obtenemos y destruimos el elemento seleccionado
@@ -951,7 +951,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
                     printf("ELIMINAR CLIENTES\n");
                     mostrarPersonas(centroLogistico,2);
                 }
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Personas a remover: ");
                 indices = menuModoAccion2(listaAux,nIndices);
             //Obtenemos y destruimos los elementos seleccionados
@@ -970,7 +970,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
                     printf("ELIMINAR CLIENTES\n");
                     mostrarPersonas(centroLogistico,2);
                 }
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Personas a remover: ");
                 menuModoAccion3(listaAux,desde,hasta);
             //Obtenemos y destruimos los elementos en el rango de indices
@@ -1041,7 +1041,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
             {
                 printf("ELIMINAR VEHICULO\n");
                 mostrarVehiculos(centroLogistico);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Vehiculo a remover: ");
                 indice=menuModoAccion1(listaAux);
             //Obtenemos y destruimos el elemento seleccionado
@@ -1051,7 +1051,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
             {
                 printf("ELIMINAR VEHICULOS\n");
                 mostrarVehiculos(centroLogistico);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Vehiculos a remover: ");
                 indices = menuModoAccion2(listaAux,nIndices);
             //Obtenemos y destruimos los elementos en los indices seleccionados
@@ -1062,7 +1062,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
             {
                 printf("ELIMINAR VEHICULOS\n");
                 mostrarVehiculos(centroLogistico);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Vehiculos a remover: ");
                 menuModoAccion3(listaAux,desde,hasta);
             //Obtenemos y destruimos los elementos en el rango de indices
@@ -1226,7 +1226,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
                 printf("8. Estado\n");
                 printf("0. Volver\n");
                 printf("-1. MENU PRINCIPAL");
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Seleccione una opcion: ");
                 scanf("%d",&op);
 
@@ -1602,7 +1602,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int o
                     printf("5. Cambiar persona a: CHOFER\n");
                 printf("0. Volver\n");
                 printf("-1. MENU PRINCIPAL");
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Seleccione una opcion: ");
                 scanf("%d",&op);
 
@@ -1859,7 +1859,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior
                 printf("4. Patente\n");
                 printf("0. Volver\n");
                 printf("-1. MENU PRINCIPAL");
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Seleccione una opcion: ");
                 scanf("%d",&op);
 
@@ -2027,130 +2027,141 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
 
     ListaPtr listaAux2=crearLista();
     agregarLista(listaAux2,getPaquetes(centroLogistico));
-//Hacemos lo mismo pero para cada elemento de la lista
-    PaquetePtr paqueteOriginal;
 
-    PaquetePtr paqueteAux;
-    while(!listaVacia(listaAux2))
+    if(listaVacia(listaAux2))
     {
-        paqueteAux=getCabecera(listaAux2);
-    ///Copiamos el contenido de cada elemento
-        paqueteOriginal=crearPaquete(getID(paqueteAux),
-                                     getAncho(paqueteAux),
-                                     getAlto(paqueteAux),
-                                     getLargo(paqueteAux),
-                                     getPeso(paqueteAux),
-                                     getDirRetiro(paqueteAux),
-                                     getDirEntrega(paqueteAux),
-                                     getFechaEntrega(paqueteAux),
-                                     getEstado(paqueteAux));
-     ///Agregamos el dato original a la lista
-        agregarDatoLista(listaOriginal,(PaquetePtr)paqueteOriginal);
-        listaAux2=getResto(listaAux2);
+        printf("ERROR: La lista que se desea mostrar está vacía.\n\n");
+        presionarEnterYLimpiarPantalla();
     }
-    listaAux2=destruirLista(listaAux2,false);
-
-    do
+    else
     {
-        printf("EMITIR LISTADO DE PAQUETES\n");
-        printf("\n-----------------------------------------\n\n");
-        printf("1. Ordenados por ID\n");
-        printf("2. Ordenados por Fecha de Entrega\n");
-        printf("3. Ordenados por Estado\n");
-        printf("4. SIN ORDENAR\n");
-        printf("0. Volver\n");
-        printf("-1. MENU PRINCIPAL");
-        printf("\n-----------------------------------------\n\n");
-        printf("Elija una opcion: ");
-        scanf("%d",&op);
-        limpiarBufferTeclado();
-        system("cls");
-        switch(op)
-        {
-        case 1:
-            printf("LISTADO DE PAQUETES (ORDENADOS POR ID)");
-            ordenarPaquetes(centroLogistico,1);
-            break;
-        case 2:
-            printf("LISTADO DE PAQUETES (ORDENADOS POR FECHA DE SALIDA)");
-            ordenarPaquetes(centroLogistico,2);
-            break;
-        case 3:
-            printf("LISTADO DE PAQUETES (ORDENADOS POR ESTADO)");
-            ordenarPaquetes(centroLogistico,3);
-            break;
-        case 4:
-            printf("LISTADO DE PAQUETES (SIN ORDENAR)");
-            break;
-        case 0:
-            break;
-        case -1:
-            opMenuAnterior=0;
-            break;
-        default:
-            printf("\nOpcion incorrecta.\n\n");
-            break;
-        }
-        if(op>=1 && op<=3) //Si se ordenó la lista
-        {
-            listaAux2=crearLista();
-            agregarLista(listaAux2,getPaquetes(centroLogistico));
-        ///Recorremos la lista: antes y después de hacer el cambio
-            while(!listaVacia(listaAux2))
-            {
-                paqueteAux=getCabecera(listaAux2);
-                paqueteOriginal=getCabecera(listaOriginal);
-            ///Revisamos, elemento por elemento, si son iguales o cambiaron (puede ser que se haya ordenado de la misma forma que estaba)
-                if(!paquetesIguales(paqueteOriginal,paqueteAux))
-                    cambioDetectado=true;
+    //Hacemos lo mismo pero para cada elemento de la lista
+        PaquetePtr paqueteOriginal;
 
-                listaAux2=getResto(listaAux2);
-                listaOriginal=getResto(listaOriginal);
-            }
-            listaAux2=destruirLista(listaAux2,false); //Destruimos ambas listas, ya no las necesitamos más
-            listaOriginal=destruirLista(listaOriginal,true); //Como en esta copiamos los contenidos, ponemos true para removerlos.
-        }
-        if(!(op==0 && op==-1))
+        PaquetePtr paqueteAux;
+        while(!listaVacia(listaAux2))
         {
-            printf("\n-----------------------------------------------------\n\n");
-            mostrarPaquetes(centroLogistico);
-            printf("\n-----------------------------------------------------\n\n");
-            presionarEnterYLimpiarPantalla();
+            paqueteAux=getCabecera(listaAux2);
+        ///Copiamos el contenido de cada elemento
+            paqueteOriginal=crearPaquete(getID(paqueteAux),
+                                         getAncho(paqueteAux),
+                                         getAlto(paqueteAux),
+                                         getLargo(paqueteAux),
+                                         getPeso(paqueteAux),
+                                         getDirRetiro(paqueteAux),
+                                         getDirEntrega(paqueteAux),
+                                         getFechaEntrega(paqueteAux),
+                                         getEstado(paqueteAux));
+         ///Agregamos el dato original a la lista
+            agregarDatoLista(listaOriginal,(PaquetePtr)paqueteOriginal);
+            listaAux2=getResto(listaAux2);
         }
-    } while(!(op==0 && op==-1));
+        listaAux2=destruirLista(listaAux2,false);
 
-    if(cambioDetectado)
-    {
-        int opGuardar=0;
         do
         {
-            printf("Guardar cambios? 1=SI , 0=NO | ");
+            printf("EMITIR LISTADO DE PAQUETES");
+            printf("\n\n-----------------------------------------\n\n");
+            printf("1. Ordenados por ID\n");
+            printf("2. Ordenados por Fecha de Entrega\n");
+            printf("3. Ordenados por Estado\n");
+            printf("4. SIN ORDENAR\n");
+            printf("0. Volver\n");
+            printf("-1. MENU PRINCIPAL");
+            printf("\n\n-----------------------------------------\n\n");
+            printf("Elija una opcion: ");
             scanf("%d",&op);
             limpiarBufferTeclado();
             system("cls");
-            switch(opGuardar)
+            switch(op)
             {
             case 1:
-                if(guardarPaquetes(centroLogistico))
-                {
-                    cambiosGuardados=true;
-                    printf("Cambios guardados exitosamente.\n\n");
-                }
-                else
-                {
-                    printf("ERROR AL GUARDAR\n\n");
-                    exit(1);
-                }
+                printf("LISTADO DE PAQUETES (ORDENADOS POR ID)");
+                ordenarPaquetes(centroLogistico,1);
+                break;
+            case 2:
+                printf("LISTADO DE PAQUETES (ORDENADOS POR FECHA DE SALIDA)");
+                ordenarPaquetes(centroLogistico,2);
+                break;
+            case 3:
+                printf("LISTADO DE PAQUETES (ORDENADOS POR ESTADO)");
+                ordenarPaquetes(centroLogistico,3);
+                break;
+            case 4:
+                printf("LISTADO DE PAQUETES (SIN ORDENAR)");
                 break;
             case 0:
                 break;
+            case -1:
+                opMenuAnterior=0;
+                break;
             default:
-                printf("Opcion incorrecta.\n\n");
+                printf("\nOpcion incorrecta.\n\n");
                 break;
             }
-            if(op!=0)
+            if(!(op==0 && op==-1))
+                mostrarPaquetes(centroLogistico);
+            if(op>=1 && op<=3) //Si se ordenó la lista
+            {
+                listaAux2=crearLista();
+                agregarLista(listaAux2,getPaquetes(centroLogistico));
+            ///Recorremos la lista: antes y después de hacer el cambio
+                while(!listaVacia(listaAux2))
+                {
+                    paqueteAux=getCabecera(listaAux2);
+                    paqueteOriginal=getCabecera(listaOriginal);
+                ///Revisamos, elemento por elemento, si son iguales o cambiaron (puede ser que se haya ordenado de la misma forma que estaba)
+                    if(!paquetesIguales(paqueteOriginal,paqueteAux))
+                        cambioDetectado=true;
+
+                    listaAux2=getResto(listaAux2);
+                    listaOriginal=getResto(listaOriginal);
+                }
+                listaAux2=destruirLista(listaAux2,false); //Destruimos ambas listas, ya no las necesitamos más
+                listaOriginal=destruirLista(listaOriginal,true); //Como en esta copiamos los contenidos, ponemos true para removerlos.
+            }
+            if(!(op==0 && op==-1))
+            {
+                printf("\n\n-----------------------------------------------------\n\n");
+                mostrarPaquetes(centroLogistico);
+                printf("\n\n-----------------------------------------------------\n\n");
                 presionarEnterYLimpiarPantalla();
-        } while(opGuardar!=0);
+            }
+        } while(!(op==0 && op==-1));
+
+        if(cambioDetectado)
+        {
+            int opGuardar=0;
+            do
+            {
+                printf("Guardar cambios? 1=SI , 0=NO | ");
+                scanf("%d",&op);
+                limpiarBufferTeclado();
+                system("cls");
+                switch(opGuardar)
+                {
+                case 1:
+                    if(guardarPaquetes(centroLogistico))
+                    {
+                        cambiosGuardados=true;
+                        printf("Cambios guardados exitosamente.\n\n");
+                    }
+                    else
+                    {
+                        printf("ERROR AL GUARDAR\n\n");
+                        exit(1);
+                    }
+                    break;
+                case 0:
+                    break;
+                default:
+                    printf("Opcion incorrecta.\n\n");
+                    break;
+                }
+                if(op!=0)
+                    presionarEnterYLimpiarPantalla();
+            } while(opGuardar!=0);
+        }
     }
 
     return cambiosGuardados;
@@ -2201,14 +2212,14 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int opMenuA
             printf("EMITIR LISTADO DE PERSONAS\n");
             break;
         }
-        printf("\n-----------------------------------------\n\n");
+        printf("\n\n-----------------------------------------\n\n");
         printf("1. Ordenados por Nombre\n");
         printf("2. Ordenados por Apellido\n");
         printf("3. Ordenados por Nombre y Apellido\n");
         printf("4. SIN ORDENAR\n");
         printf("0. Volver\n");
         printf("-1. MENU PRINCIPAL");
-        printf("\n-----------------------------------------\n\n");
+        printf("\n\n-----------------------------------------\n\n");
         printf("Elija una opcion: ");
         scanf("%d",&op);
         limpiarBufferTeclado();
@@ -2274,7 +2285,7 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int opMenuA
         }
         if(!(op==0 && op==-1))
         {
-            printf("\n-----------------------------------------------------\n\n");
+            printf("\n\n-----------------------------------------------------\n\n");
             switch(tipo)
             {
             case 1:
@@ -2287,7 +2298,7 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int opMenuA
                 mostrarPersonas(centroLogistico,3);
                 break;
             }
-            printf("\n-----------------------------------------------------\n\n");
+            printf("\n\n-----------------------------------------------------\n\n");
             presionarEnterYLimpiarPantalla();
         }
     } while(!(op==0 && op==-1));
@@ -2362,13 +2373,13 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
     do
     {
         printf("EMITIR LISTADO DE VEHICULOS\n");
-        printf("\n-----------------------------------------\n\n");
+        printf("\n\n-----------------------------------------\n\n");
         printf("1. Ordenados por Marca\n");
         printf("2. Ordenados por Marca y Modelo\n");
         printf("3. SIN ORDENAR\n");
         printf("0. Volver\n");
         printf("-1. MENU PRINCIPAL");
-        printf("\n-----------------------------------------\n\n");
+        printf("\n\n-----------------------------------------\n\n");
         printf("Elija una opcion: ");
         scanf("%d",&op);
         limpiarBufferTeclado();
@@ -2416,9 +2427,9 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
         }
         if(!(op==0 && op==-1))
         {
-            printf("\n-----------------------------------------------------\n\n");
+            printf("\n\n-----------------------------------------------------\n\n");
             mostrarVehiculos(centroLogistico);
-            printf("\n-----------------------------------------------------\n\n");
+            printf("\n\n-----------------------------------------------------\n\n");
             presionarEnterYLimpiarPantalla();
         }
     } while(!(op==0 && op==-1));
@@ -2656,7 +2667,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
                 if(modoAccion==1)
                 {
                     printf("CERRAR REPARTO\n");
-                    printf("\n-----------------------------------------\n\n");
+                    printf("\n\n-----------------------------------------\n\n");
                     printf("Reparto a cerrar:");
                     indice = menuModoAccion1(listaAux);
 
@@ -2672,7 +2683,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
                 else if(modoAccion==2)
                 {
                     printf("CERRAR REPARTOS\n");
-                    printf("\n-----------------------------------------\n\n");
+                    printf("\n\n-----------------------------------------\n\n");
                     printf("Repartos a cerrar:");
                     indices = menuModoAccion2(listaAux,nIndices);
                     int i=0;
@@ -2692,7 +2703,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
                 else
                 {
                     printf("CERRAR REPARTOS\n");
-                    printf("\n-----------------------------------------\n\n");
+                    printf("\n\n-----------------------------------------\n\n");
                     printf("Repartos a cerrar:");
                     menuModoAccion3(listaAux,desde,hasta);
                     int i=desde;
@@ -2715,7 +2726,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
             if(modoAccion==1)
             {
                 cerrarReparto(centroLogistico,indice);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Reparto cerrado exitosamente.\n\n");
             }
 /// //////////////////////////////////////////////////////////////////////////////////////////// ///
@@ -2723,14 +2734,14 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
             {
                 for(int i=0,j=0;i<nIndices;i++,j++)
                     cerrarReparto(centroLogistico,indices[i]-j);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Repartos cerrados exitosamente.\n\n");
             }
             else
             {
                 for(int i=desde;i<=hasta;i++)
                     cerrarReparto(centroLogistico,desde);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Repartos cerrados exitosamente.\n\n");
             }
             continuar=menuContinuar();
@@ -2801,7 +2812,7 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 else
                     printf("ELIMINAR REPARTO CERRADO\n");
                 mostrarRepartos(centroLogistico,esRepartoAbierto);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Reparto a remover: ");
                 indice=menuModoAccion1(listaAux);
             //Obtenemos y destruimos el elemento seleccionado
@@ -2814,7 +2825,7 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 else
                     printf("ELIMINAR REPARTOS CERRADOS\n");
                 mostrarRepartos(centroLogistico,esRepartoAbierto);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Repartos a remover: ");
                 indices = menuModoAccion2(listaAux,nIndices);
             //Obtenemos y destruimos los elementos seleccionados
@@ -2845,7 +2856,7 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 else
                     printf("ELIMINAR REPARTOS CERRADOS\n");
                 mostrarRepartos(centroLogistico,esRepartoAbierto);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Repartos a remover: ");
                 menuModoAccion3(listaAux,desde,hasta);
             //Obtenemos y destruimos los elementos en el rango de indices
@@ -2938,9 +2949,9 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                     printf("MODIFICAR REPARTO ABIERTO\n");
                 else
                     printf("MODIFICAR REPARTO CERRADO\n");
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 mostrarRepartos(centroLogistico,esRepartoAbierto);
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
 /// ////////////////////////////////////////////////////////////////////////////////// ///
             //para el modo de accion 1,
                 int indice;
@@ -3009,7 +3020,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                     }
                 }
 /// ////////////////////////////////////////////////////////////////////////////////// ///
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Qué desea modificar?\n\n");
 
                 printf("1. Cambiar Chofer\n");
@@ -3019,7 +3030,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                 printf("5. Paquetes Cargados\n");
                 printf("0. Volver\n");
                 printf("-1. MENU PRINCIPAL\n\n");
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Ingrese una opcion: ");
                 scanf("%d",&op2);
                 limpiarBufferTeclado();
@@ -3029,21 +3040,21 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                 {
                 case 1:
                     printf("CAMBIAR CHOFER\n");
-                    printf("\n-----------------------------------------\n\n");
+                    printf("\n\n-----------------------------------------\n\n");
                     mostrarPersonas(centroLogistico,1);
-                    printf("\n-----------------------------------------\n\n");
+                    printf("\n\n-----------------------------------------\n\n");
                     printf("Seleccione el indice del nuevo chofer: ");
                     break;
                 case 2:
                     printf("CAMBIAR VEHICULO\n");
-                    printf("\n-----------------------------------------\n\n");
+                    printf("\n\n-----------------------------------------\n\n");
                     mostrarVehiculos(centroLogistico);
-                    printf("\n-----------------------------------------\n\n");
+                    printf("\n\n-----------------------------------------\n\n");
                     printf("Seleccione el indice del nuevo vehiculo: ");
                     break;
                 case 3:
                     printf("MODIFICAR FECHA SALIDA\n");
-                    printf("\n-----------------------------------------\n\n");
+                    printf("\n\n-----------------------------------------\n\n");
 /// ////////////////////////////////////////////////////////////////////////////////// ///
                     actualizarFecha(fechaAModificar);
                     if(modoAccion==1)
@@ -3058,7 +3069,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                     break;
                 case 4:
                     printf("MODIFICAR FECHA RETORNO\n");
-                    printf("\n-----------------------------------------\n\n");
+                    printf("\n\n-----------------------------------------\n\n");
 /// ////////////////////////////////////////////////////////////////////////////////// ///
                     actualizarFecha(fechaAModificar);
                     if(modoAccion==1)
@@ -3118,10 +3129,10 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                         do
                         {
                             printf("MODIFICAR PAQUETES DEL REPARTO\n");
-                            printf("\n-----------------------------------------\n\n");
+                            printf("\n\n-----------------------------------------\n\n");
                             for(int i=0;i<nPaquetes;i++)
                                 mostrarPaquete(paquetesAModificar[i]);
-                            printf("\n-----------------------------------------\n\n");
+                            printf("\n\n-----------------------------------------\n\n");
                             printf("\n\nIngrese indice del paquete a modificar: ");
                             scanf("%d",&indice);
                             limpiarBufferTeclado();
@@ -3140,7 +3151,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
 /// ////////////////////////////////////////////////////////////////////////////////// ///
                     do
                     {
-                        printf("\n-----------------------------------------\n\n");
+                        printf("\n\n-----------------------------------------\n\n");
                         printf("Qué desea modificar?\n\n");
 
                         printf("1. ESTADO - Marcar como Retirado\n");
@@ -3149,7 +3160,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                         printf("4. ESTADO - Marcar como Suspendido\n");
                         printf("0. Volver\n");
                         printf("-1. MENU PRINCIPAL\n\n");
-                        printf("\n-----------------------------------------\n\n");
+                        printf("\n\n-----------------------------------------\n\n");
                         printf("Ingrese una opcion: ");
                         scanf("%d",&op3);
                         limpiarBufferTeclado();
@@ -3355,13 +3366,13 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
             printf("EMITIR LISTADO DE REPARTOS ABIERTOS\n");
         else
             printf("EMITIR LISTADO DE REPARTOS CERRADOS\n");
-        printf("\n-----------------------------------------\n\n");
+        printf("\n\n-----------------------------------------\n\n");
         printf("1. Mostrar un reparto\n");
         printf("2. Mostrar lista de repartos\n");
         printf("3. Ordenar lista y mostrar...\n");
         printf("0. Volver\n");
         printf("-1. MENU PRINCIPAL");
-        printf("\n-----------------------------------------\n\n");
+        printf("\n\n-----------------------------------------\n\n");
         printf("Elija una opcion:");
         scanf("%d",&op2);
         limpiarBufferTeclado();
@@ -3395,7 +3406,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 printf("2. Sin filtrar\n");
                 printf("0. Volver\n");
                 printf("-1. MENU PRINCIPAL");
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Seleccione una opcion: ");
                 scanf("%d",&op3);
 
@@ -3437,7 +3448,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 printf("6. Nombre y apellido del chofer\n");
                 printf("0. Volver\n\n");
                 printf("-1. MENU PRINCIPAL");
-                printf("\n-----------------------------------------\n\n");
+                printf("\n\n-----------------------------------------\n\n");
                 printf("Elija una opcion: ");
                 scanf("%d",&op3);
 
@@ -3547,6 +3558,7 @@ CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog)
 
     printf("INGRESE EL NOMBRE DEL CENTRO LOGISTICO: ");
     scanf("%[^\n]%*c",nuevoNombre);
+    limpiarBufferTeclado();
 
     ctroLog=crearCentroLogisticoRapido(nuevoNombre);
 
