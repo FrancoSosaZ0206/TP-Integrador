@@ -176,8 +176,9 @@ void menuModoAccion3(ListaPtr lista,int desde,int hasta)
 //El sistema permite que desde y hasta sean iguales si la lista tiene solo 1 elemento.
 }
 
-void* menuModoAccion1Nuevo(ListaPtr lista)
+int menuModoAccion1Nuevo(ListaPtr lista)
 {
+    int eleccion = 0;
     int n=longitudLista(lista);
     int i;
     do
@@ -194,9 +195,8 @@ void* menuModoAccion1Nuevo(ListaPtr lista)
         else
             system("cls");
     } while(i<=0 || i>n);
-
-    printf("REMOVIDO EXITOSAMENTE!!! \n\n");
-    return removerDeLista(lista, i-1);
+    eleccion = i-1;
+    return eleccion;
 }
 
 int calcularCantidad()
@@ -217,10 +217,9 @@ int calcularCantidad()
     return cantIndices;
 }
 
-void menuModoAccion2Nuevo(ListaPtr lista,int cantIndices,int* vec)
+void menuModoAccion2Nuevo(ListaPtr lista,int cantIndices,int* indices)
 {
     int n=longitudLista(lista);
-    int *indices[cantIndices];
 //Elegimos los indices
     for(int i=0;i<cantIndices;i++)
     {
@@ -237,51 +236,29 @@ void menuModoAccion2Nuevo(ListaPtr lista,int cantIndices,int* vec)
         } while(indices[i]<1 && indices[i]>n);
     }
     system("cls");
-///NUEVO: ordenamos los índices de menor a mayor, lo que simplificará varias funciones
-    int salto=n/2;
-    int temp=0;
-    /*while(salto>0)
-    {
-        bool hayCambio=false;
-        for(int i=0;i<n-salto;i++)
-        {
-            if(indices[i]>indices[i+salto])
-            {
-                hayCambio=true;
-                temp=indices[i];
-                indices[i]=indices[i+salto];
-                indices[i+salto]=temp;
-            }
-        }
-        if(!hayCambio)
-            salto=salto/2;
-    }*/
     for(int i=0;i<cantIndices-1;i++)
     {
-        for(int j=i;j<cantIndices;j++)
+        for(int j=i+1;j<cantIndices;j++)
         {
-            if(indices[j]>indices[j+1])
+            if(indices[i]>indices[j])
             {
                 int aux=0;
-                aux=indices[j];
-                indices[j]=indices[j+1];
-                indices[j+1]=aux;
+                aux=indices[i];
+                indices[i]=indices[j];
+                indices[j]=aux;
             }
         }
     }
     for(int i=0;i<cantIndices;i++)
     {
-        vec[i] = indices[i];
+        indices[i] = indices[i]-1-i;
     }
-
-    /*for(int i=0;i<cantIndices;i++)
-    {
-        dato=removerDeLista(lista,indices[i]-i);
-    }*/
 }
 
-void menuModoAccion3Nuevo(ListaPtr lista,int desde,int hasta,int* vec)
+void menuModoAccion3Nuevo(ListaPtr lista,int* vec)
 {
+    int desde = 0;
+    int hasta = 0;
     int n=longitudLista(lista);
     do
     {
@@ -305,8 +282,8 @@ void menuModoAccion3Nuevo(ListaPtr lista,int desde,int hasta,int* vec)
             presionarEnterYLimpiarPantalla();
         }
     } while(hasta<desde || hasta>n);
-    vec[0]=desde;
-    vec[1]=hasta;
+    vec[0]=desde-1;
+    vec[1]=hasta-1;
 //El sistema permite que desde y hasta sean iguales si la lista tiene solo 1 elemento.
 }
 
@@ -795,71 +772,176 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
     } while(op!=0);
 }
 
+void tipoPersona(bool esChofer)
+{
+    if(esChofer)
+    {
+        printf("CHOFER");
+    }
+    else
+    {
+        printf("CLIENTE");
+    }
+}
+
 bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
 {
+    int EleccionMenuModoAccion = 0;
+    int EleccionAccion = 0;
+    int indices[100];
     int cantIndices=0;
-    ListaPtr paquetesLista = getPaquetes(centroLogistico);
-    PaquetePtr paqueteRemovido;
-    printf("ELIMINAR PAQUETE\n\n");
-    /*mostrarPaquetes(centroLogistico);
-    paqueteRemovido = (PaquetePtr)menuModoAccion1Nuevo(getPaquetes(centroLogistico));
-    paqueteRemovido=destruirPaquete(paqueteRemovido);*/
+    ListaPtr listaAuxiliar = getPaquetes(centroLogistico);
+    PaquetePtr paqueteRemovido=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
+    EleccionMenuModoAccion = menuModoAccion(0);
     mostrarPaquetes(centroLogistico);
-    cantIndices=calcularCantidad();
-    int vec[cantIndices];
-    menuModoAccion2Nuevo(paquetesLista,cantIndices,vec);
-    for(int i=0;i<cantIndices;i++)
+    printf("ELIMINAR PAQUETE\n\n");
+    switch(EleccionMenuModoAccion)
     {
-
+    case 1:
+        EleccionAccion = menuModoAccion1Nuevo(listaAuxiliar);
+        paqueteRemovido = removerPaquete(centroLogistico, EleccionAccion);
+        paqueteRemovido = destruirPaquete(paqueteRemovido);
+        break;
+    case 2:
+        cantIndices = calcularCantidad();
+        menuModoAccion2Nuevo(listaAuxiliar,cantIndices,&indices);
+        for(int i=0;i<cantIndices;i++)
+        {
+            paqueteRemovido = removerPaquete(centroLogistico,indices[i]);
+            paqueteRemovido = destruirPaquete(paqueteRemovido);
+        }
+        break;
+    case 3:
+        menuModoAccion3Nuevo(listaAuxiliar,&indices);
+        for(int i=0;i<indices[1]-indices[0]+1;i++)
+        {
+            paqueteRemovido = removerPaquete(centroLogistico,indices[0]);
+            paqueteRemovido = destruirPaquete(paqueteRemovido);
+        }
+        break;
+    default:
+        printf("Eleccion equivocada \n");
+        break;
     }
 }
 bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
-    int iElim=0;
+    int EleccionMenuModoAccion = 0;
+    int EleccionAccion = 0;
+    int cantidadCorrectas = 0;
+    int indices[100];
+    int cantIndices=0;
+    ListaPtr listaAuxiliar = getPersonas(centroLogistico);
+    PersonaPtr personaRemovida = (PersonaPtr)obtenerMemoria(sizeof(Persona));
+    printf("ADVERTENCIA: La opcion 3 no funciona en este tipo de lista \n\n");
+    EleccionMenuModoAccion = menuModoAccion(0);
     if(esChofer)
     {
-        printf("ELIMINAR CHOFER\n\n");
-
         mostrarPersonas(centroLogistico,1);
-
-        printf("\n\nSeleccione indice del chofer a eliminar: ");
-        scanf("%d",&iElim);
+        printf("ELIMINAR CHOFR \n\n");
     }
     else
     {
-        printf("ELIMINAR CLIENTE\n\n");
-
         mostrarPersonas(centroLogistico,2);
-
-        printf("\n\nSeleccione indice del cliente a eliminar: ");
-        scanf("%d",&iElim);
+        printf("ELIMINAR CLIENTE \n\n");
     }
-
-    PersonaPtr personaRemovida=removerPersona(centroLogistico,iElim);
-    if(personaRemovida!=NULL)
-        printf("\n\nCliente %d eliminado exitosamente.\n\n",iElim);
-    else
-        printf("\n\nEl cliente %d no se pudo eliminar.\n\n",iElim);
-
-    personaRemovida=destruirPersona(personaRemovida);
+    printf("ELIMINAR ");
+    switch(EleccionMenuModoAccion)
+    {
+    case 1:
+        EleccionAccion = menuModoAccion1Nuevo(listaAuxiliar);
+        if(getEsChofer(getDatoLista(listaAuxiliar,EleccionAccion))==esChofer)
+        {
+            personaRemovida = removerPersona(centroLogistico, EleccionAccion);
+            personaRemovida = destruirPersona(personaRemovida);
+        }
+        else
+        {
+            printf("Indice erroneo, usted intenta eliminar un ");
+            tipoPersona(esChofer);
+            printf("\n\n");
+        }
+        break;
+    case 2:
+        cantIndices = calcularCantidad();
+        menuModoAccion2Nuevo(listaAuxiliar,cantIndices,&indices);
+        for(int i=0;i<cantIndices;i++)
+        {
+            if(getEsChofer(getDatoLista(listaAuxiliar,indices[i]))==esChofer)
+            {
+                cantidadCorrectas++;
+            }
+            else
+            {
+                printf("Indice erroneo, usted intenta eliminar un ");
+                tipoPersona(esChofer);
+                printf("\n\n");
+            }
+        }
+        if(cantidadCorrectas == cantIndices)
+        {
+            for(int i=0;i<cantIndices;i++)
+            {
+                personaRemovida = removerPersona(centroLogistico,indices[i]);
+                personaRemovida = destruirPersona(personaRemovida);
+            }
+        }
+        break;
+    case 3:
+        ///INHABILITADA PARA PERSONAS, PROBLEMA DE LOGICA
+        ///NO SE PUEDE SELECCIONAR UN CONJUNTO DE INDICES TENIENDO EN CUENTA
+        ///QUE LOS CLIENTES Y LOS CHOFERES ESTAN EN UNA MISMA LISTA
+        /*menuModoAccion3Nuevo(listaAuxiliar,&indices);
+        for(int i=0;i<indices[1]-indices[0]+1;i++)
+        {
+            personaRemovida = removerPersona(centroLogistico,indices[0]);
+            personaRemovida = destruirPersona(personaRemovida);
+        }*/
+        break;
+    default:
+        printf("Eleccion equivocada \n");
+        break;
+    }
 }
 bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
 {
-    int iElim=0;
-    printf("ELIMINAR VEHICULO\n\n");
-
+    int EleccionMenuModoAccion = 0;
+    int EleccionAccion = 0;
+    int indices[100];
+    int cantIndices=0;
+    ListaPtr listaAuxiliar = getVehiculos(centroLogistico);
+    VehiculoPtr vehiculoRemovido = (VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));
+    EleccionMenuModoAccion = menuModoAccion(0);
     mostrarVehiculos(centroLogistico);
-
-    printf("\n\nSeleccione indice del vehiculo a eliminar: ");
-    scanf("%d",&iElim);
-
-    VehiculoPtr vehiculoRemovido=removerVehiculo(centroLogistico,iElim);
-    if(vehiculoRemovido!=NULL)
-        printf("\n\nVehiculo %d eliminado exitosamente.\n\n",iElim);
-    else
-        printf("\n\nEl vehiculo %d no se pudo eliminar.\n\n",iElim);
-
-    vehiculoRemovido=destruirVehiculo(vehiculoRemovido);
+    printf("ELIMINAR VEHICULO \n\n");
+    switch(EleccionMenuModoAccion)
+    {
+    case 1:
+        EleccionAccion = menuModoAccion1Nuevo(listaAuxiliar);
+        vehiculoRemovido = removerVehiculo(centroLogistico, EleccionAccion);
+        vehiculoRemovido = destruirVehiculo(vehiculoRemovido);
+        break;
+    case 2:
+        cantIndices = calcularCantidad();
+        menuModoAccion2Nuevo(listaAuxiliar,cantIndices,&indices);
+        for(int i=0;i<cantIndices;i++)
+        {
+            vehiculoRemovido = removerPaquete(centroLogistico,indices[i]);
+            vehiculoRemovido = destruirVehiculo(vehiculoRemovido);
+        }
+        break;
+    case 3:
+        menuModoAccion3Nuevo(listaAuxiliar,&indices);
+        for(int i=0;i<indices[1]-indices[0]+1;i++)
+        {
+            vehiculoRemovido = removerPaquete(centroLogistico,indices[0]);
+            vehiculoRemovido = destruirVehiculo(vehiculoRemovido);
+        }
+        break;
+    default:
+        printf("Eleccion equivocada \n");
+        break;
+    }
 }
 
 bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
