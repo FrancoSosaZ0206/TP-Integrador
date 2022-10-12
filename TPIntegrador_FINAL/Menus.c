@@ -256,8 +256,12 @@ void cargarDomicilio(DomicilioPtr domicilio)
     int altura;
     char localidad[100];
 
-    printf("\n\t\tCalle y Altura [CALLE, ALTURA]: ");
-    scanf("%[^,]%*c, %d",calle,&altura);
+    limpiarBufferTeclado();
+    printf("\n\t\tCalle: ");
+    scanf("%[^\n]%*c",calle);
+    limpiarBufferTeclado();
+    printf("\n\t\tAltura: ");
+    scanf("%d",&altura);
     limpiarBufferTeclado();
     printf("\n\t\tLocalidad: ");
     scanf("%[^\n]%*c",localidad);
