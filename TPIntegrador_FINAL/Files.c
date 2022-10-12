@@ -668,7 +668,7 @@ CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo
     FILE *archivo = fopen("Nombre del Centro Logistico.txt","r");
     bool res=true;
 
-    char *nombreCtroLog;
+    char nombreCtroLog[100];
 
     if(archivo==NULL)
         res=false;

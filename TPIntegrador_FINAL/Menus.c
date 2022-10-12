@@ -2016,25 +2016,22 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior
 
 bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
 {
-    int op=0;
-
-    bool cambioDetectado=false;
     bool cambiosGuardados=false;
 
-///Creamos una lista "original" para ver si hay cambios,
-///y una "auxiliar" para obtener y recorrer la lista.
-    ListaPtr listaOriginal=crearLista();
-
-    ListaPtr listaAux2=crearLista();
-    agregarLista(listaAux2,getPaquetes(centroLogistico));
-
-    if(listaVacia(listaAux2))
-    {
-        printf("ERROR: La lista que se desea mostrar está vacía.\n\n");
-        presionarEnterYLimpiarPantalla();
-    }
+    if(listaVacia(getPaquetes(centroLogistico)))
+        printf("ERROR: La lista esta vacia.\n\n");
     else
     {
+        int op=0;
+
+        bool cambioDetectado=false;
+
+    ///Creamos una lista "original" para ver si hay cambios,
+    ///y una "auxiliar" para obtener y recorrer la lista.
+        ListaPtr listaOriginal=crearLista();
+
+        ListaPtr listaAux2=crearLista();
+        agregarLista(listaAux2,getPaquetes(centroLogistico));
     //Hacemos lo mismo pero para cada elemento de la lista
         PaquetePtr paqueteOriginal;
 

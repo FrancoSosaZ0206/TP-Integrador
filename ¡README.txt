@@ -22,11 +22,16 @@ BUG FIXES
 
 - Se arregló el error que crasheaba el programa al escanear un string largo cualquiera (util.c - Funcion crearStringDinámico).
 
+- Ahora la funcion "menuMostrarPaquetes" muestra los paquetes correctamente, sólo si la lista de paquetes den centro logístico tiene contenidos.
+
+- Files - Funcion abrirTodo: se solucionó el problema generado por tratar de recibir el nombre del centro logistico del archivo definiendo una variable tipo char * (se cambio a char [] y ahora funciona correctamente).
+
+- Funcion presionarEnterYLimpiarPantalla: ahora funciona correctamente.
+
 ---------------------------------------------------------------------------------------------------------------------
 
 BUGS
 
-- (Pendiente) main.c - START MENU - Opcion "ABRIR ARCHIVOS": a veces, cuando hay archivos creados pero están vacíos, el programa crashea.
 
 ---------------------------------------------------------------------------------------------------------------------
 

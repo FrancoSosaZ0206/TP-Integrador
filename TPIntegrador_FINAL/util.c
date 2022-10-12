@@ -40,7 +40,7 @@ void limpiarBufferTecladoPresionandoEnter()
 void presionarEnterYLimpiarPantalla()
 {
     printf("\n\nPresione enter para continuar...");
-    limpiarBufferTeclado();
+    limpiarBufferTecladoPresionandoEnter();
     system("cls");
 }
 

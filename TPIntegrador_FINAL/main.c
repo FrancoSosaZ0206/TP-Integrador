@@ -643,9 +643,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         break;
                     default:
                         printf("Opcion incorrecta.\n\n");
-                        presionarEnterYLimpiarPantalla();
                         break;
                     }
+                    if(op1!=2)
+                        presionarEnterYLimpiarPantalla();
                 } while(op1<0 || op1>2);
             }
             break;
@@ -653,7 +654,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             printf("Opcion incorrecta.\n\n");
             break;
         }
-        presionarEnterYLimpiarPantalla();
     } while(MAIN_OP!=0);
 
     return MAIN_OP; //salimos de todo el programa
