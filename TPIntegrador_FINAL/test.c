@@ -78,8 +78,6 @@ CentroLogisticoPtr crearTodoPorDefecto() //Crea un centro logistico llamando a l
     return crearCentroLogistico("CENTRO LOGISTICO POR DEFECTO",paquetes,personas,vehiculos,repartosAbiertos,repartosCerrados);
 }
 
-
-
 VehiculoPtr crearVehiculoGenerico() ///Crea un vehículo de forma rápida con datos aleatorios. BROKEN
 {
 /*
@@ -438,3 +436,33 @@ ListaPtr crearListaPersonasGenerica()
     return personas;
 }
 
+ListaPtr crearListaVehiculosGenerico(){
+    ListaPtr listaVehiculos = crearLista();
+    VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","99 UJI 99");
+    VehiculoPtr vehiculo2=crearVehiculo(3,"Ferrari","Benne","65MNJ91");
+    VehiculoPtr vehiculo3=crearVehiculo(3,"Volkswagen","17720","98 UYT 98");
+    VehiculoPtr vehiculo4=crearVehiculo(3,"Ford","C916","97 JUI 97");
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo1);
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo2);
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo3);
+    agregarDatoLista(listaVehiculos,(VehiculoPtr)vehiculo4);
+    return listaVehiculos;
+}
+
+
+void probandoGenericas(CentroLogisticoPtr cl)
+{
+    system("cls");
+    mostrarRepartos(cl,true);
+    system("pause");
+    system("cls");
+    mostrarPaquetes(cl);
+    system("pause");
+    system("cls");
+    mostrarVehiculos(cl);
+    system("pause");
+    system("cls");
+    mostrarPersonas(cl,3);
+    system("pause");
+    system("cls");
+}
