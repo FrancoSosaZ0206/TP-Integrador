@@ -22,12 +22,19 @@ char *crearStringDinamico(char* literal);
 //PARÁMETROS: cadena de caracteres representada por medio de un puntero a char
 //devuelve NULL
 void destruirStringDinamico(char *buffer);
-//FUNCIÓN DE LIMPIEZA DE BUFFER DE TECLADO
+//FUNCIÓN DE LIMPIEZA DE BUFFER DE TECLADO (UTILIZA FFLUSH(STDIN))
 //PRECONDICIÓN: Ninguna
 //POSTCONDICIÓN: Libera la acumulacion del EOF, permitiendo ingresar datos por teclado correctamente sin errores
 //PARÁMETROS: Ninguno
 //DEVUELVE: Nada.
 void limpiarBufferTeclado();
+//FUNCIÓN DE LIMPIEZA DE BUFFER DE TECLADO (UTILIZA GETCHAR())
+//PRECONDICIÓN: Ninguna
+//POSTCONDICIÓN: Libera la acumulacion del EOF, permitiendo ingresar datos por teclado correctamente sin errores
+//PARÁMETROS: Ninguno
+//DEVUELVE: Nada.
+void limpiarBufferTecladoPresionandoEnter();
+
 //FUNCIÓN DE LIMPIEZA Y PAUSA
 //PRECONDICIÓN: Ninguna
 //POSTCONDICIÓN: Limpia la pantalla con system("cls") y genera una pausa con getChar

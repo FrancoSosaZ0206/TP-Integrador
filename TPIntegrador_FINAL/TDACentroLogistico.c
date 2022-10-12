@@ -197,16 +197,12 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     ListaPtr listaAux=crearLista();
 	if(esRepartoAbierto)
-    {
-		listaAux = getRepartos(centroLogistico,true);
         printf("\nLISTA DE REPARTOS ABIERTOS: \n\n");
-    }
 	else
-    {
-		listaAux = getRepartos(centroLogistico,false);
         printf("\nLISTA DE REPARTOS CERRADOS (*): \n\n");
-    }
+
     agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
+
     int i=0;
     while(!listaVacia(listaAux))
     {

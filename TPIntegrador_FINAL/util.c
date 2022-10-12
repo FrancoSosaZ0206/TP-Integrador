@@ -30,7 +30,6 @@ void destruirStringDinamico(char *buffer)
 void limpiarBufferTeclado()
 {
     fflush(stdin);
-    fflush(stdin);
 }
 void limpiarBufferTecladoPresionandoEnter()
 {
@@ -44,3 +43,4 @@ void presionarEnterYLimpiarPantalla()
     limpiarBufferTeclado();
     system("cls");
 }
+
