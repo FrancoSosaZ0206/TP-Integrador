@@ -643,7 +643,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         presionarEnterYLimpiarPantalla();
                         break;
                     }
-                } while(!(op1>0 && op1<2));
+                } while(op1<0 || op1>2);
             }
             break;
         default:

@@ -713,12 +713,9 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 
 void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
 {
-    int i=0;
-    int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
-    RepartoPtr repartoBuscar;
     bool continuar;
 
-    if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
+    if(listaVacia(getPaquetes(centroLogistico)))
         printf("ERROR: Lista vacia. No hay paquetes para buscar\n");
     else
     {
@@ -741,12 +738,9 @@ void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
 }
 void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
-    int i=0;
-    int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
-    RepartoPtr repartoBuscar;
     bool continuar;
 
-    if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
+    if(listaVacia(getPersonas(centroLogistico)))
     {
         if(esChofer)
             printf("ERROR: Lista vacia. No hay choferes para buscar\n");
@@ -785,12 +779,9 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 }
 void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
 {
-    int i=0;
-    int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
-    RepartoPtr repartoBuscar;
     bool continuar;
 
-    if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
+    if(listaVacia(getVehiculos(centroLogistico)))
         printf("ERROR: Lista vacia. No hay vehiculos para buscar\n");
     else
     {
@@ -815,92 +806,90 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
     bool cambiosGuardados=false;
     bool continuar;
 
-    int i=0;
     ListaPtr listaAux = getPaquetes(centroLogistico);
 
     if(listaVacia(listaAux))
         printf("ERROR: Lista vacía. Debe agregar paquetes para poder eliminarlos.\n\n");
     else
     {
+/// ////////////////////////////////////////////////////////////////////////////////// ///
+        int modoAccion = menuModoAccion(opMenuAnterior);
+        if(!(modoAccion==0 && modoAccion==-1))
+        {
+        //para el modo de accion 1,
+            int indice;
+        //para el modo de accion 2,
+            int nIndices;
+            int *indices;
+        //para el modo de accion 3,
+            int desde=0,hasta=0;
+/// ////////////////////////////////////////////////////////////////////////////////// ///
+            if(modoAccion==1)
+            {
+                printf("ELIMINAR PAQUETE\n");
+                mostrarPaquetes(centroLogistico);
+                printf("\n-----------------------------------------\n\n");
+                printf("Paquete a remover: ");
+                indice=menuModoAccion1(listaAux);
+            //Obtenemos y destruimos el elemento seleccionado
+                destruirPaquete(removerPaquete(centroLogistico,indice));
+            }
+            else if(modoAccion==2)
+            {
+                printf("ELIMINAR PAQUETES\n");
+                mostrarPaquetes(centroLogistico);
+                printf("\n-----------------------------------------\n\n");
+                printf("Paquetes a remover: ");
+                indices = menuModoAccion2(listaAux,nIndices);
+            //Obtenemos y destruimos los elementos en los indices seleccionados
+                for(int i=0,j=0;i<nIndices;i++,j++)
+                    destruirPaquete(removerPaquete(centroLogistico,indices[i]-j));
+            }
+            else
+            {
+                printf("ELIMINAR PAQUETES\n");
+                mostrarPaquetes(centroLogistico);
+                printf("\n-----------------------------------------\n\n");
+                printf("Paquetes a remover: ");
+                menuModoAccion3(listaAux,desde,hasta);
+            //Obtenemos y destruimos los elementos en el rango de indices
+                for(int i=desde;i<=hasta;i++)
+                    destruirPaquete(removerPaquete(centroLogistico,desde));
+            }
+
+            continuar=menuContinuar();
+        } while(continuar);
+
+        int opGuardar=0;
         do
         {
-/// ////////////////////////////////////////////////////////////////////////////////// ///
-            int modoAccion = menuModoAccion(opMenuAnterior);
-            if(!(modoAccion==0 && modoAccion==-1))
+            printf("Guardar cambios? 1=SI , 0=NO | ");
+            scanf("%d",&opGuardar);
+            limpiarBufferTeclado();
+            system("cls");
+            switch(opGuardar)
             {
-            //para el modo de accion 1,
-                int indice;
-            //para el modo de accion 2,
-                int nIndices;
-                int *indices;
-            //para el modo de accion 3,
-                int desde=0,hasta=0;
-/// ////////////////////////////////////////////////////////////////////////////////// ///
-                if(modoAccion==1)
+            case 1:
+                if(guardarPaquetes(centroLogistico))
                 {
-                    printf("ELIMINAR PAQUETE\n");
-                    mostrarPaquetes(centroLogistico);
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Paquete a remover: ");
-                    indice=menuModoAccion1(listaAux);
-                //Obtenemos y destruimos el elemento seleccionado
-                    destruirPaquete(removerPaquete(centroLogistico,indice));
+                    cambiosGuardados=true;
+                    printf("Cambios guardados exitosamente.\n\n");
                 }
-                else if(modoAccion==2)
-                    printf("ELIMINAR PAQUETES\n");
-                    mostrarPaquetes(centroLogistico);
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Paquetes a remover: ");
-                    indices = menuModoAccion2(listaAux,nIndices);
-                //Obtenemos y destruimos los elementos en los indices seleccionados
-                    for(int i=0,int j=0;i<nIndices;i++,j++)
-                        destruirPaquete(removerPaquete(centroLogistico,indices[i]-j));
                 else
                 {
-                    printf("ELIMINAR PAQUETES\n");
-                    mostrarPaquetes(centroLogistico);
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Paquetes a remover: ");
-                    menuModoAccion3(listaAux,desde,hasta);
-                //Obtenemos y destruimos los elementos en el rango de indices
-                    for(int i=desde;i<=hasta;i++)
-                        destruirPaquete(removerPaquete(centroLogistico,desde));
+                    printf("ERROR AL GUARDAR\n\n");
+                    exit(1);
                 }
-
-                continuar=menuContinuar();
-            } while(continuar);
-
-            int opGuardar=0;
-            do
-            {
-                printf("Guardar cambios? 1=SI , 0=NO | ");
-                scanf("%d",&opGuardar);
-                limpiarBufferTeclado();
-                system("cls");
-                switch(opGuardar)
-                {
-                case 1:
-                    if(guardarPaquetes(centroLogistico))
-                    {
-                        cambiosGuardados=true;
-                        printf("Cambios guardados exitosamente.\n\n");
-                    }
-                    else
-                    {
-                        printf("ERROR AL GUARDAR\n\n");
-                        exit(1);
-                    }
-                    break;
-                case 0:
-                    break;
-                default:
-                    printf("Opcion incorrecta.\n\n");
-                    break;
-                }
-                if(opGuardar!=0)
-                    presionarEnterYLimpiarPantalla();
-            } while(opGuardar!=0);
-        }
+                break;
+            case 0:
+                break;
+            default:
+                printf("Opcion incorrecta.\n\n");
+                break;
+            }
+            if(opGuardar!=0)
+                presionarEnterYLimpiarPantalla();
+        } while(opGuardar!=0);
     }
     return cambiosGuardados;
 }
@@ -909,8 +898,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
     bool cambiosGuardados=false;
     bool continuar;
 
-    int i=0;
-    ListaPtr listaAux = getPersonas(centroLogistico,esChofer);
+    ListaPtr listaAux = getPersonas(centroLogistico);
 
     if(listaVacia(listaAux))
     {
@@ -921,109 +909,108 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
     }
     else
     {
-        do
+/// ////////////////////////////////////////////////////////////////////////////////// ///
+        int modoAccion = menuModoAccion(opMenuAnterior);
+        if(!(modoAccion==0 && modoAccion==-1))
         {
+        //para el modo de accion 1,
+            int indice;
+        //para el modo de accion 2,
+            int nIndices;
+            int *indices;
+        //para el modo de accion 3,
+            int desde=0,hasta=0;
 /// ////////////////////////////////////////////////////////////////////////////////// ///
-            int modoAccion = menuModoAccion(opMenuAnterior);
-            if(!(modoAccion==0 && modoAccion==-1))
+            if(modoAccion==1)
             {
-            //para el modo de accion 1,
-                int indice;
-            //para el modo de accion 2,
-                int nIndices;
-                int *indices;
-            //para el modo de accion 3,
-                int desde=0,hasta=0;
-/// ////////////////////////////////////////////////////////////////////////////////// ///
-                if(modoAccion==1)
+                if(esChofer)
                 {
-                    if(esChofer)
-                    {
-                        printf("ELIMINAR CHOFER\n");
-                        mostrarPersonas(centroLogistico,1);
-                    }
-                    else
-                    {
-                        printf("ELIMINAR CLIENTE\n");
-                        mostrarPersonas(centroLogistico,2);
-                    }
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Persona a remover: ");
-                    indice=menuModoAccion1(listaAux);
-                //Obtenemos y destruimos el elemento seleccionado
-                    destruirPersona(removerPersona(centroLogistico,indice));
+                    printf("ELIMINAR CHOFER\n");
+                    mostrarPersonas(centroLogistico,1);
                 }
-                else if(modoAccion==2)
-                    if(esChofer)
-                    {
-                        printf("ELIMINAR CHOFERES\n");
-                        mostrarPersonas(centroLogistico,1);
-                    }
-                    else
-                    {
-                        printf("ELIMINAR CLIENTES\n");
-                        mostrarPersonas(centroLogistico,2);
-                    }
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Personas a remover: ");
-                    indices = menuModoAccion2(listaAux,nIndices);
-                //Obtenemos y destruimos los elementos seleccionados
-                    for(int i=0,int j=0;i<nIndices;i++,j++)
-                        destruirPersona(removerPersona(centroLogistico,indices[i]-j));
                 else
                 {
-                    if(esChofer)
-                    {
-                        printf("ELIMINAR CHOFERES\n");
-                        mostrarPersonas(centroLogistico,1);
-                    }
-                    else
-                    {
-                        printf("ELIMINAR CLIENTES\n");
-                        mostrarPersonas(centroLogistico,2);
-                    }
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Personas a remover: ");
-                    menuModoAccion3(listaAux,desde,hasta);
-                //Obtenemos y destruimos los elementos en el rango de indices
-                    for(int i=desde;i<=hasta;i++)
-                        destruirPersona(removerPersona(centroLogistico,desde));
+                    printf("ELIMINAR CLIENTE\n");
+                    mostrarPersonas(centroLogistico,2);
                 }
-
-                continuar=menuContinuar();
-            } while(continuar);
-
-            int opGuardar=0;
-            do
+                printf("\n-----------------------------------------\n\n");
+                printf("Persona a remover: ");
+                indice=menuModoAccion1(listaAux);
+            //Obtenemos y destruimos el elemento seleccionado
+                destruirPersona(removerPersona(centroLogistico,indice));
+            }
+            else if(modoAccion==2)
             {
-                printf("Guardar cambios? 1=SI , 0=NO | ");
-                scanf("%d",&opGuardar);
-                limpiarBufferTeclado();
-                system("cls");
-                switch(opGuardar)
+                if(esChofer)
                 {
-                case 1:
-                    if(guardarPersonas(centroLogistico))
-                    {
-                        cambiosGuardados=true;
-                        printf("Cambios guardados exitosamente.\n\n");
-                    }
-                    else
-                    {
-                        printf("ERROR AL GUARDAR\n\n");
-                        exit(1);
-                    }
-                    break;
-                case 0:
-                    break;
-                default:
-                    printf("Opcion incorrecta.\n\n");
-                    break;
+                    printf("ELIMINAR CHOFERES\n");
+                    mostrarPersonas(centroLogistico,1);
                 }
-                if(opGuardar!=0)
-                    presionarEnterYLimpiarPantalla();
-            } while(opGuardar!=0);
-        }
+                else
+                {
+                    printf("ELIMINAR CLIENTES\n");
+                    mostrarPersonas(centroLogistico,2);
+                }
+                printf("\n-----------------------------------------\n\n");
+                printf("Personas a remover: ");
+                indices = menuModoAccion2(listaAux,nIndices);
+            //Obtenemos y destruimos los elementos seleccionados
+                for(int i=0,j=0;i<nIndices;i++,j++)
+                    destruirPersona(removerPersona(centroLogistico,indices[i]-j));
+            }
+            else
+            {
+                if(esChofer)
+                {
+                    printf("ELIMINAR CHOFERES\n");
+                    mostrarPersonas(centroLogistico,1);
+                }
+                else
+                {
+                    printf("ELIMINAR CLIENTES\n");
+                    mostrarPersonas(centroLogistico,2);
+                }
+                printf("\n-----------------------------------------\n\n");
+                printf("Personas a remover: ");
+                menuModoAccion3(listaAux,desde,hasta);
+            //Obtenemos y destruimos los elementos en el rango de indices
+                for(int i=desde;i<=hasta;i++)
+                    destruirPersona(removerPersona(centroLogistico,desde));
+            }
+
+            continuar=menuContinuar();
+        } while(continuar);
+
+        int opGuardar=0;
+        do
+        {
+            printf("Guardar cambios? 1=SI , 0=NO | ");
+            scanf("%d",&opGuardar);
+            limpiarBufferTeclado();
+            system("cls");
+            switch(opGuardar)
+            {
+            case 1:
+                if(guardarPersonas(centroLogistico))
+                {
+                    cambiosGuardados=true;
+                    printf("Cambios guardados exitosamente.\n\n");
+                }
+                else
+                {
+                    printf("ERROR AL GUARDAR\n\n");
+                    exit(1);
+                }
+                break;
+            case 0:
+                break;
+            default:
+                printf("Opcion incorrecta.\n\n");
+                break;
+            }
+            if(opGuardar!=0)
+                presionarEnterYLimpiarPantalla();
+        } while(opGuardar!=0);
     }
     return cambiosGuardados;
 }
@@ -1032,92 +1019,90 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
     bool cambiosGuardados=false;
     bool continuar;
 
-    int i=0;
     ListaPtr listaAux = getVehiculos(centroLogistico);
 
     if(listaVacia(listaAux))
         printf("ERROR: Lista vacía. Debe agregar vehiculos para poder eliminarlos.\n\n");
     else
     {
+/// ////////////////////////////////////////////////////////////////////////////////// ///
+        int modoAccion = menuModoAccion(opMenuAnterior);
+        if(!(modoAccion==0 && modoAccion==-1))
+        {
+        //para el modo de accion 1,
+            int indice;
+        //para el modo de accion 2,
+            int nIndices;
+            int *indices;
+        //para el modo de accion 3,
+            int desde=0,hasta=0;
+/// ////////////////////////////////////////////////////////////////////////////////// ///
+            if(modoAccion==1)
+            {
+                printf("ELIMINAR VEHICULO\n");
+                mostrarVehiculos(centroLogistico);
+                printf("\n-----------------------------------------\n\n");
+                printf("Vehiculo a remover: ");
+                indice=menuModoAccion1(listaAux);
+            //Obtenemos y destruimos el elemento seleccionado
+                destruirVehiculo(removerVehiculo(centroLogistico,indice));
+            }
+            else if(modoAccion==2)
+            {
+                printf("ELIMINAR VEHICULOS\n");
+                mostrarVehiculos(centroLogistico);
+                printf("\n-----------------------------------------\n\n");
+                printf("Vehiculos a remover: ");
+                indices = menuModoAccion2(listaAux,nIndices);
+            //Obtenemos y destruimos los elementos en los indices seleccionados
+                for(int i=0,j=0;i<nIndices;i++,j++)
+                    destruirVehiculo(removerVehiculo(centroLogistico,indices[i]-j));
+            }
+            else
+            {
+                printf("ELIMINAR VEHICULOS\n");
+                mostrarVehiculos(centroLogistico);
+                printf("\n-----------------------------------------\n\n");
+                printf("Vehiculos a remover: ");
+                menuModoAccion3(listaAux,desde,hasta);
+            //Obtenemos y destruimos los elementos en el rango de indices
+                for(int i=desde;i<=hasta;i++)
+                    destruirVehiculo(removerVehiculo(centroLogistico,desde));
+            }
+
+            continuar=menuContinuar();
+        } while(continuar);
+
+        int opGuardar=0;
         do
         {
-/// ////////////////////////////////////////////////////////////////////////////////// ///
-            int modoAccion = menuModoAccion(opMenuAnterior);
-            if(!(modoAccion==0 && modoAccion==-1))
+            printf("Guardar cambios? 1=SI , 0=NO | ");
+            scanf("%d",&opGuardar);
+            limpiarBufferTeclado();
+            system("cls");
+            switch(opGuardar)
             {
-            //para el modo de accion 1,
-                int indice;
-            //para el modo de accion 2,
-                int nIndices;
-                int *indices;
-            //para el modo de accion 3,
-                int desde=0,hasta=0;
-/// ////////////////////////////////////////////////////////////////////////////////// ///
-                if(modoAccion==1)
+            case 1:
+                if(guardarVehiculos(centroLogistico))
                 {
-                    printf("ELIMINAR VEHICULO\n");
-                    mostrarVehiculos(centroLogistico);
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Vehiculo a remover: ");
-                    indice=menuModoAccion1(listaAux);
-                //Obtenemos y destruimos el elemento seleccionado
-                    destruirVehiculo(removerVehiculo(centroLogistico,indice));
+                    cambiosGuardados=true;
+                    printf("Cambios guardados exitosamente.\n\n");
                 }
-                else if(modoAccion==2)
-                    printf("ELIMINAR VEHICULOS\n");
-                    mostrarVehiculos(centroLogistico);
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Vehiculos a remover: ");
-                    indices = menuModoAccion2(listaAux,nIndices);
-                //Obtenemos y destruimos los elementos en los indices seleccionados
-                    for(int i=0,int j=0;i<nIndices;i++,j++)
-                        destruirVehiculo(removerVehiculo(centroLogistico,indices[i]-j));
                 else
                 {
-                    printf("ELIMINAR VEHICULOS\n");
-                    mostrarVehiculos(centroLogistico);
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Vehiculos a remover: ");
-                    menuModoAccion3(listaAux,desde,hasta);
-                //Obtenemos y destruimos los elementos en el rango de indices
-                    for(int i=desde;i<=hasta;i++)
-                        destruirVehiculo(removerVehiculo(centroLogistico,desde));
+                    printf("ERROR AL GUARDAR\n\n");
+                    exit(1);
                 }
-
-                continuar=menuContinuar();
-            } while(continuar);
-
-            int opGuardar=0;
-            do
-            {
-                printf("Guardar cambios? 1=SI , 0=NO | ");
-                scanf("%d",&opGuardar);
-                limpiarBufferTeclado();
-                system("cls");
-                switch(opGuardar)
-                {
-                case 1:
-                    if(guardarVehiculos(centroLogistico))
-                    {
-                        cambiosGuardados=true;
-                        printf("Cambios guardados exitosamente.\n\n");
-                    }
-                    else
-                    {
-                        printf("ERROR AL GUARDAR\n\n");
-                        exit(1);
-                    }
-                    break;
-                case 0:
-                    break;
-                default:
-                    printf("Opcion incorrecta.\n\n");
-                    break;
-                }
-                if(opGuardar!=0)
-                    presionarEnterYLimpiarPantalla();
-            } while(opGuardar!=0);
-        }
+                break;
+            case 0:
+                break;
+            default:
+                printf("Opcion incorrecta.\n\n");
+                break;
+            }
+            if(opGuardar!=0)
+                presionarEnterYLimpiarPantalla();
+        } while(opGuardar!=0);
     }
     return cambiosGuardados;
 }
@@ -1166,6 +1151,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
         if(!modoAccion == 0 && modoAccion == -1)
         {
             bool continuar;
+            int op=0;
             do
             {
                 mostrarPaquetes(centroLogistico);
@@ -1212,7 +1198,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
                     for(int i=desde;i<=hasta;i++)
 
                     printf("Ha elegido Paquetes {%d - %d}\n",desde,hasta);
-                    for(int i=0,int j=desde;i<=(hasta-desde);i++,j++)
+                    for(int i=0,j=desde;i<=(hasta-desde);i++,j++)
                     { //Obtenemos los elementos en el rango de indices y los mostramos
                         paquetesAModificar[i]=(PaquetePtr)getDatoLista(listaAux,i-1);
 
@@ -1221,9 +1207,6 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
                     }
                 }
 /// ////////////////////////////////////////////////////////////////////////////////// ///
-
-                int op=0;
-                int opEstado=0;
 
                 int nDimension=0; //vale para ancho, alto, largo y peso.
                 DomicilioPtr nDireccion; //vale para retiro y entrega
@@ -1374,16 +1357,16 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
                     break;
                 case 7:
                     printf("Nueva Fecha de Entrega: ");
-                    actualizarDomicilio(nFecha);
+                    actualizarFecha(nFechaEntrega);
 
                     if(modoAccion==1)
-                        setFechaEntrega(paqueteAModificar,nFecha);
+                        setFechaEntrega(paqueteAModificar,nFechaEntrega);
                     else if(modoAccion==2)
                         for(int i=0;i<nIndices;i++)
-                            setFechaEntrega(paquetesAModificar[i],nFecha);
+                            setFechaEntrega(paquetesAModificar[i],nFechaEntrega);
                     else
                         for(int i=0;i<=(hasta-desde);i++)
-                            setFechaEntrega(paquetesAModificar[i],nFecha);
+                            setFechaEntrega(paquetesAModificar[i],nFechaEntrega);
                     break;
                 case 8:
                     do
@@ -1526,6 +1509,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int o
         if(!modoAccion == 0 && modoAccion == -1)
         {
             bool continuar;
+            int op=0;
             do
             {
                 if(esChofer)
@@ -1590,7 +1574,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int o
                         printf("Ha elegido Choferes {%d - %d}\n",desde,hasta);
                     else
                         printf("Ha elegido Clientes {%d - %d}\n",desde,hasta);
-                    for(int i=0,int j=desde;i<=(hasta-desde);i++,j++)
+                    for(int i=0,j=desde;i<=(hasta-desde);i++,j++)
                     { //Obtenemos los elementos en el rango de indices y los mostramos
                         personasAModificar[i]=(PersonaPtr)getDatoLista(listaAux,i-1);
 
@@ -1599,10 +1583,6 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int o
                     }
                 }
 /// ////////////////////////////////////////////////////////////////////////////////// ///
-
-                int op=0;
-                int opNTipo;
-
                 char nNombre[100];
                 char nApellido[100];
                 DomicilioPtr nDomicilio;
@@ -1673,13 +1653,13 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int o
                     actualizarCuil(nCuil);
 
                     if(modoAccion==1)
-                        setCuil(personaAModificar,nCuil);
+                        setCuilPersona(personaAModificar,nCuil);
                     else if(modoAccion==2)
                         for(int i=0;i<nIndices;i++)
-                            setCuil(personasAModificar[i],nCuil);
+                            setCuilPersona(personasAModificar[i],nCuil);
                     else
                         for(int i=0;i<=(hasta-desde);i++)
-                            setCuil(personasAModificar[i],nCuil);
+                            setCuilPersona(personasAModificar[i],nCuil);
                     break;
                 case 5:
                     if(esChofer)
@@ -1806,6 +1786,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior
         if(!modoAccion == 0 && modoAccion == -1)
         {
             bool continuar;
+            int op=0;
             do
             {
                 mostrarVehiculos(centroLogistico);
@@ -1852,7 +1833,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior
                     for(int i=desde;i<=hasta;i++)
 
                     printf("Ha elegido Vehiculos {%d - %d}\n",desde,hasta);
-                    for(int i=0,int j=desde;i<=(hasta-desde);i++,j++)
+                    for(int i=0,j=desde;i<=(hasta-desde);i++,j++)
                     { //Obtenemos los elementos en el rango de indices y los mostramos
                         vehiculosAModificar[i]=(VehiculoPtr)getDatoLista(listaAux,i-1);
 
@@ -1862,7 +1843,6 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior
                 }
 /// ////////////////////////////////////////////////////////////////////////////////// ///
 
-                int op=0;
                 int opNTipo;
 
                 int nTipo=0;
@@ -2734,14 +2714,14 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
 
             if(modoAccion==1)
             {
-                cerrarReparto(centroLogistico,i);
+                cerrarReparto(centroLogistico,indice);
                 printf("\n-----------------------------------------\n\n");
                 printf("Reparto cerrado exitosamente.\n\n");
             }
 /// //////////////////////////////////////////////////////////////////////////////////////////// ///
             else if(modoAccion==2)
             {
-                for(int i=0,int j=0;i<nIndices;i++,j++)
+                for(int i=0,j=0;i<nIndices;i++,j++)
                     cerrarReparto(centroLogistico,indices[i]-j);
                 printf("\n-----------------------------------------\n\n");
                 printf("Repartos cerrados exitosamente.\n\n");
@@ -2796,118 +2776,116 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
     bool cambiosGuardados=false;
     bool continuar;
 
-    int i=0;
     ListaPtr listaAux = getRepartos(centroLogistico,esRepartoAbierto);
 
     if(listaVacia(listaAux))
         printf("ERROR: Lista vacía. Debe agregar repartos para poder eliminarlos.\n\n");
     else
     {
+/// ////////////////////////////////////////////////////////////////////////////////// ///
+        int modoAccion = menuModoAccion(opMenuAnterior);
+        if(!(modoAccion==0 && modoAccion==-1))
+        {
+        //para el modo de accion 1,
+            int indice;
+        //para el modo de accion 2,
+            int nIndices;
+            int *indices;
+        //para el modo de accion 3,
+            int desde=0,hasta=0;
+/// ////////////////////////////////////////////////////////////////////////////////// ///
+            if(modoAccion==1)
+            {
+                if(esRepartoAbierto)
+                    printf("ELIMINAR REPARTO ABIERTO\n");
+                else
+                    printf("ELIMINAR REPARTO CERRADO\n");
+                mostrarRepartos(centroLogistico,esRepartoAbierto);
+                printf("\n-----------------------------------------\n\n");
+                printf("Reparto a remover: ");
+                indice=menuModoAccion1(listaAux);
+            //Obtenemos y destruimos el elemento seleccionado
+                destruirReparto(removerReparto(centroLogistico,indice,esRepartoAbierto));
+            }
+            else if(modoAccion==2)
+            {
+                if(esRepartoAbierto)
+                    printf("ELIMINAR REPARTOS ABIERTOS\n");
+                else
+                    printf("ELIMINAR REPARTOS CERRADOS\n");
+                mostrarRepartos(centroLogistico,esRepartoAbierto);
+                printf("\n-----------------------------------------\n\n");
+                printf("Repartos a remover: ");
+                indices = menuModoAccion2(listaAux,nIndices);
+            //Obtenemos y destruimos los elementos seleccionados
+                /* Funcionamiento
+                1 2 5 9 12
+                elimino 1
+                2 5 9 12 => 1 4 8 11
+                elimino 1
+                4 8 11 => 3 7 10
+                elimino 3
+                7 10 => 6 9
+                elimino 6
+                9 => 8
+                elimino 8
+
+                *************************
+
+                llegamos al límite del vector, termino de iterar.
+                */
+
+                for(int i=0,j=0;i<nIndices;i++,j++)
+                    destruirReparto(removerReparto(centroLogistico,indices[i]-j,esRepartoAbierto));
+            }
+            else
+            {
+                if(esRepartoAbierto)
+                    printf("ELIMINAR REPARTOS ABIERTOS\n");
+                else
+                    printf("ELIMINAR REPARTOS CERRADOS\n");
+                mostrarRepartos(centroLogistico,esRepartoAbierto);
+                printf("\n-----------------------------------------\n\n");
+                printf("Repartos a remover: ");
+                menuModoAccion3(listaAux,desde,hasta);
+            //Obtenemos y destruimos los elementos en el rango de indices
+                for(int i=desde;i<=hasta;i++)
+                    destruirReparto(removerReparto(centroLogistico,desde,esRepartoAbierto));
+            }
+
+            continuar=menuContinuar();
+        } while(continuar);
+
+        int opGuardar=0;
         do
         {
-/// ////////////////////////////////////////////////////////////////////////////////// ///
-            int modoAccion = menuModoAccion(opMenuAnterior);
-            if(!(modoAccion==0 && modoAccion==-1))
+            printf("Guardar cambios? 1=SI , 0=NO | ");
+            scanf("%d",&opGuardar);
+            limpiarBufferTeclado();
+            system("cls");
+            switch(opGuardar)
             {
-            //para el modo de accion 1,
-                int indice;
-            //para el modo de accion 2,
-                int nIndices;
-                int *indices;
-            //para el modo de accion 3,
-                int desde=0,hasta=0;
-/// ////////////////////////////////////////////////////////////////////////////////// ///
-                if(modoAccion==1)
+            case 1:
+                if(guardarRepartos(centroLogistico,esRepartoAbierto))
                 {
-                    if(esRepartoAbierto)
-                        printf("ELIMINAR REPARTO ABIERTO\n");
-                    else
-                        printf("ELIMINAR REPARTO CERRADO\n");
-                    mostrarRepartos(centroLogistico,esRepartoAbierto);
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Reparto a remover: ");
-                    indice=menuModoAccion1(listaAux);
-                //Obtenemos y destruimos el elemento seleccionado
-                    destruirReparto(removerReparto(centroLogistico,indice,esRepartoAbierto));
+                    cambiosGuardados=true;
+                    printf("Cambios guardados exitosamente.\n\n");
                 }
-                else if(modoAccion==2)
-                    if(esRepartoAbierto)
-                        printf("ELIMINAR REPARTOS ABIERTOS\n");
-                    else
-                        printf("ELIMINAR REPARTOS CERRADOS\n");
-                    mostrarRepartos(centroLogistico,esRepartoAbierto);
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Repartos a remover: ");
-                    indices = menuModoAccion2(listaAux,nIndices);
-                //Obtenemos y destruimos los elementos seleccionados
-                    /* Funcionamiento
-                    1 2 5 9 12
-                    elimino 1
-                    2 5 9 12 => 1 4 8 11
-                    elimino 1
-                    4 8 11 => 3 7 10
-                    elimino 3
-                    7 10 => 6 9
-                    elimino 6
-                    9 => 8
-                    elimino 8
-
-                    *************************
-
-                    llegamos al límite del vector, termino de iterar.
-                    */
-
-                    for(int i=0,int j=0;i<nIndices;i++,j++)
-                        destruirReparto(removerReparto(centroLogistico,indices[i]-j,esRepartoAbierto));
                 else
                 {
-                    if(esRepartoAbierto)
-                        printf("ELIMINAR REPARTOS ABIERTOS\n");
-                    else
-                        printf("ELIMINAR REPARTOS CERRADOS\n");
-                    mostrarRepartos(centroLogistico,esRepartoAbierto);
-                    printf("\n-----------------------------------------\n\n");
-                    printf("Repartos a remover: ");
-                    menuModoAccion3(listaAux,desde,hasta);
-                //Obtenemos y destruimos los elementos en el rango de indices
-                    for(int i=desde;i<=hasta;i++)
-                        destruirReparto(removerReparto(centroLogistico,desde,esRepartoAbierto));
+                    printf("ERROR AL GUARDAR\n\n");
+                    exit(1);
                 }
-
-                continuar=menuContinuar();
-            } while(continuar);
-
-            int opGuardar=0;
-            do
-            {
-                printf("Guardar cambios? 1=SI , 0=NO | ");
-                scanf("%d",&opGuardar);
-                limpiarBufferTeclado();
-                system("cls");
-                switch(opGuardar)
-                {
-                case 1:
-                    if(guardarRepartos(centroLogistico,esRepartoAbierto))
-                    {
-                        cambiosGuardados=true;
-                        printf("Cambios guardados exitosamente.\n\n");
-                    }
-                    else
-                    {
-                        printf("ERROR AL GUARDAR\n\n");
-                        exit(1);
-                    }
-                    break;
-                case 0:
-                    break;
-                default:
-                    printf("Opcion incorrecta.\n\n");
-                    break;
-                }
-                if(opGuardar!=0)
-                    presionarEnterYLimpiarPantalla();
-            } while(opGuardar!=0);
-        }
+                break;
+            case 0:
+                break;
+            default:
+                printf("Opcion incorrecta.\n\n");
+                break;
+            }
+            if(opGuardar!=0)
+                presionarEnterYLimpiarPantalla();
+        } while(opGuardar!=0);
     }
     return cambiosGuardados;
 }
@@ -3024,7 +3002,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                 else
                 {
                     printf("Ha elegido Repartos {%d - %d}\n",desde,hasta);
-                    for(int i=0,int j=desde;i<=(hasta-desde);i++,j++)
+                    for(int i=0,j=desde;i<=(hasta-desde);i++,j++)
                     {
                         printf("%d. ",j);
                         mostrarRepartoSinPaquetes(repartosAModificar[i]);
