@@ -1,6 +1,120 @@
 ///PASAJE DE ARCHIVOS
 
 
+int menuModoAccion1Nuevo(ListaPtr lista)
+{
+    int eleccion = 0;
+    int n=longitudLista(lista);
+    int i;
+    do
+    {
+        limpiarBufferTeclado();
+        printf("\n\nIngrese indice donde tomar accion: ");
+        scanf("%d",&i);
+        limpiarBufferTeclado();
+        if(i<=0 || i>n)
+        {
+            printf("\n\nERROR: indice inexistente. Vuelva a elegir.\n\n");
+            presionarEnterYLimpiarPantalla();
+        }
+        else
+            system("cls");
+    } while(i<=0 || i>n);
+    eleccion = i-1;
+    return eleccion;
+}
+
+int calcularCantidad()
+{
+    int cantIndices=0;
+    //Ingresamos la cantidad de indices a seleccionar
+    do
+    {
+        limpiarBufferTeclado();
+        printf("Ingrese cantidad de indices a seleccionar: ");
+        scanf("%d",&cantIndices);
+        limpiarBufferTeclado();
+        if(cantIndices<=0)
+        {
+            printf("\n\nCantidad incorrecta.\n\n");
+        }
+    } while(cantIndices<=0);
+    return cantIndices;
+}
+
+void menuModoAccion2Nuevo(ListaPtr lista,int cantIndices,int* indices)
+{
+    int n=longitudLista(lista);
+//Elegimos los indices
+    for(int i=0;i<cantIndices;i++)
+    {
+        do
+        {
+            printf("\n\nIngrese indice %d: ",i+1);
+            scanf("%d",&indices[i]);
+            limpiarBufferTeclado();
+            if(indices[i]<1 && indices[i]>n)
+            {
+                printf("\n\nIndice inexistente. Vuelva a ingresar.\n\n");
+                presionarEnterYLimpiarPantalla();
+            }
+        } while(indices[i]<1 && indices[i]>n);
+    }
+    system("cls");
+    for(int i=0;i<cantIndices-1;i++)
+    {
+        for(int j=i+1;j<cantIndices;j++)
+        {
+            if(indices[i]>indices[j])
+            {
+                int aux=0;
+                aux=indices[i];
+                indices[i]=indices[j];
+                indices[j]=aux;
+            }
+        }
+    }
+    for(int i=0;i<cantIndices;i++)
+    {
+        indices[i] = indices[i]-1-i;
+    }
+}
+
+void menuModoAccion3Nuevo(ListaPtr lista,int* vec)
+{
+    int desde = 0;
+    int hasta = 0;
+    int n=longitudLista(lista);
+    do
+    {
+        printf("Ingrese el indice minimo: ");
+        scanf("%d",&desde);
+        limpiarBufferTeclado();
+        if(desde<1 || desde>n)
+        {
+            printf("\n\nIndice incorrecto. Vuelva a ingresar.\n\n");
+            presionarEnterYLimpiarPantalla();
+        }
+    } while(desde<1 || desde>n);
+    do
+    {
+        printf("Ingrese el indice maximo: ");
+        scanf("%d",&hasta);
+        limpiarBufferTeclado();
+        if(hasta<desde || hasta>n)
+        {
+            printf("\n\nIndice incorrecto. Vuelva a ingresar.\n\n");
+            presionarEnterYLimpiarPantalla();
+        }
+    } while(hasta<desde || hasta>n);
+    vec[0]=desde-1;
+    vec[1]=hasta-1;
+//El sistema permite que desde y hasta sean iguales si la lista tiene solo 1 elemento.
+}
+
+
+
+
 bool esCuilValido(CuilPtr cuil) ///NUEVA
 {
     char cuilStr[100];
