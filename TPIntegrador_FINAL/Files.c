@@ -410,7 +410,6 @@ bool abrirCarpeta()
                            ///para liberar la memoria utilizada para abrirla.
         return true;
     }
-
 }
 /// ///////////////////////////////////////////////////////////////////////////////////////////////// ///
 

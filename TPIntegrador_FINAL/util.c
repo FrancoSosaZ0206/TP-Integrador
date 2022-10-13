@@ -39,8 +39,7 @@ void limpiarBufferTecladoPresionandoEnter()
 
 void presionarEnterYLimpiarPantalla()
 {
-    printf("\n\nPresione enter para continuar...");
-    limpiarBufferTecladoPresionandoEnter();
+    printf("\n\n");
+    system("pause");
     system("cls");
 }
-

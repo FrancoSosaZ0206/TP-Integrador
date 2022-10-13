@@ -90,7 +90,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
         printf("\n\n-----------------------------------------\n\n");
         printf("1. BASE DE DATOS\n");
         printf("2. REPARTOS\n");
-        //printf("3. VER RESULTADOS DE ENTREGAS\n");
+        printf("3. INDICAR RESULTADOS DE ENTREGAS\n");
         printf("4. EMITIR LISTADOS\n");
         printf("5. GUARDAR CAMBIOS\n"); ///NUEVO
         printf("0. SALIR");
@@ -158,10 +158,9 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                             break;
                         default:
                             printf("Opcion incorrecta.");
+                            presionarEnterYLimpiarPantalla();
                             break;
                         }
-                        if(!(op2==0 || op2==-1)) //A menos que elija volver,
-                            presionarEnterYLimpiarPantalla(); //hacemos esto
                     } while(!(op2==0 || op2==-1));
                     break;
                 case 2:
@@ -447,29 +446,12 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     presionarEnterYLimpiarPantalla();
             } while(op1!=0);
             break;
-        /**case 3:
-            printf("VER RESULTADOS DE ENTREGAS");
+        case 3:
+            printf("INDICAR RESULTADOS DE ENTREGAS");
             printf("\n\n-----------------------------------------\n\n");
-            printf("1. Ver en Lista de Paquetes\n");
-            printf("2. Ver en Repartos ABIERTOS\n");
-            printf("3. Ver en Repartos CERRADOS\n");
-            printf("0. Volver");
-            printf("\n\n-----------------------------------------\n\n");
-            printf("Elija una opcion: ");
-            scanf("%d",&op1);
-            limpiarBufferTeclado();
 
-            system("cls");
-            switch(op1)
-            {
-            case 1:
-                break;
-            case 2:
-                printf("Ingrese el día de la fecha que desea filtrar: ");
-                filtrarPorFechaSalida();
-                break;
-            }
-            break;*/
+            cambiosGuardados = menuActualizarReparto(centroLogistico);
+            break;
         case 4:
             do
             {
