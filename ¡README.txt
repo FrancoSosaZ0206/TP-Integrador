@@ -1,4 +1,8 @@
-Franco-v2.5 - NOVEDADES
+main-v3.0.0-FINAL - NOVEDADES
+
+- Files:
+	- Agregadas funciones privadas "crearCarpeta"  y "abrirCarpeta". crearCarpeta crea una carpeta dentro del archivo del proyecto con el nombre de "Archivos", y abrirCarpeta la abre (si existe). Ambas funciones son invocadas en algunas de las funciones de abrir y guardar datos.
+	- Ahora los archivos se guardan y abren desde la carpeta "Archivos" para mayor comodidad.
 
 - Menus: Cambios y mejoras finales agregadas
 	- Se agregó una funcionalidad en forma de menú que pregunta al usuario si desea o no continuar, y en base a eso se sigue en dentro del menú o se vuelve al anterior.
@@ -27,6 +31,10 @@ BUG FIXES
 - Files - Funcion abrirTodo: se solucionó el problema generado por tratar de recibir el nombre del centro logistico del archivo definiendo una variable tipo char * (se cambio a char [] y ahora funciona correctamente).
 
 - Funcion presionarEnterYLimpiarPantalla: ahora funciona correctamente.
+
+- Se arregló un error d e lógica en el diseño de los menúes que impedía volver al menú anterior o ir al menú principal.
+
+- Menus: ahora todas las funciones (excepto las de creacion de datos) no hacen nada si la lista correspondiente está vacía, lo que evita posibles errores si, por ejemplo, se quiere modificar un dato en una lista vacía.
 
 ---------------------------------------------------------------------------------------------------------------------
 

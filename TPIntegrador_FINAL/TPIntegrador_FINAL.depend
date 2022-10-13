@@ -326,13 +326,13 @@
 	"TDAVehiculo.h"
 	"util.h"
 
-1665606449 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\util.c
+1665617543 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\util.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"util.h"
 
-1665607435 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\files.c
+1665616073 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\files.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -349,6 +349,8 @@
 	"TDARepartos.h"
 	"TDAVehiculo.h"
 	"Files.h"
+	<sys/stat.h>
+	<dirent.h>
 
 1665604610 e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdacentrologistico.h
 	<stdio.h>
@@ -365,7 +367,7 @@
 	<stdlib.h>
 	"TDACentroLogistico.h"
 
-1665606864 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\main.c
+1665619732 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -419,7 +421,7 @@
 	"TDAPersona.h"
 	"util.h"
 
-1665607843 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\menus.c
+1665619240 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\menus.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

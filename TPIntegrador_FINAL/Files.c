@@ -15,6 +15,9 @@
 #include "TDAVehiculo.h"
 #include "Files.h"
 
+#include <sys/stat.h>
+#include <dirent.h> ///NUEVOS: para crear carpetas
+
 ///*************************************************************************************************************
 
 ///                  Estructuras Especiales (PRIVADAS, solo usar en las funciones de este archivo)
@@ -372,6 +375,45 @@ void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
     paqueteAux = NULL;
 }
 
+/// ///////////////////////////////////////////////////////////////////////////////////////////////// ///
+
+///                                         FUNICIONES DE CARPETAS
+
+/** OPERACIÓN: crea una carpeta.
+PRECONDICIÓN: ninguna
+POSTCONDICIÓN: se crea una carpeta de nombre "Archivos" que almacenará los archivos del proyecto.
+PARÁMETROS: ninguno
+DEVUELVE: true si se pudo crear, false de lo contrario.
+*/
+bool crearCarpeta()
+{
+    int resultado = mkdir("Archivos");
+    if(resultado == -1)
+        return false;
+    else
+        return true;
+}
+/** OPERACIÓN: busca y abre una carpeta.
+PRECONDICIÓN: ninguna
+POSTCONDICIÓN: se busca una carpeta con el nombre "Archivos".
+PARÁMETROS: ninguno
+DEVUELVE: true si se pudo encontrar y abrir, false de lo contrario.
+*/
+bool abrirCarpeta()
+{
+    DIR *carpeta = opendir("Archivos"); ///Chequeamos si existe la carpeta
+    if(carpeta==NULL)
+        return false;
+    else
+    {
+        closedir(carpeta); ///Como con archivos, cerramos la carpeta
+                           ///para liberar la memoria utilizada para abrirla.
+        return true;
+    }
+
+}
+/// ///////////////////////////////////////////////////////////////////////////////////////////////// ///
+
 
 ///*************************************************************************************************************
 
@@ -380,7 +422,10 @@ void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
 //  listas de datos / estructuras
 bool guardarPersonas(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Lista de Personas.txt","w");
+    if(!abrirCarpeta())
+        crearCarpeta();
+
+    FILE *archivo = fopen("Archivos/Lista de Personas.txt","w");
 
     if(archivo==NULL)
         return false;
@@ -411,7 +456,10 @@ bool guardarPersonas(CentroLogisticoPtr centroLogistico)
 }
 bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Lista de Paquetes.txt","w");
+    if(!abrirCarpeta())
+        crearCarpeta();
+
+    FILE *archivo = fopen("Archivos/Lista de Paquetes.txt","w");
 
     if(archivo==NULL)
         return false;
@@ -442,7 +490,10 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
 }
 bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Lista de Vehiculos.txt","w");
+    if(!abrirCarpeta())
+        crearCarpeta();
+
+    FILE *archivo = fopen("Archivos/Lista de Vehiculos.txt","w");
 
     if(archivo==NULL)
         return false;
@@ -473,11 +524,14 @@ bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
 }
 bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
+    if(!abrirCarpeta())
+        crearCarpeta();
+
     FILE *archivo;
 	if(esRepartoAbierto)
-		archivo = fopen("Lista de Repartos Abiertos.txt","w");
+		archivo = fopen("Archivos/Lista de Repartos Abiertos.txt","w");
 	else
-		archivo = fopen("Lista de Repartos Cerrados.txt","w");
+		archivo = fopen("Archivos/Lista de Repartos Cerrados.txt","w");
 
     if(archivo==NULL)
         return false;
@@ -517,7 +571,10 @@ bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 //  general
 bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a las otras funciones de guardado
 {
-    FILE *archivo = fopen("Nombre del Centro Logistico.txt","w");
+    if(!abrirCarpeta())
+        crearCarpeta();
+
+    FILE *archivo = fopen("Archivos/Nombre del Centro Logistico.txt","w");
     bool res = true; //a diferencia de las funciones anteriores, usamos una bandera para juntar al conjugado.
     if(archivo==NULL)
         res=false;
@@ -547,7 +604,7 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
 //  listas de datos (CentroLogistico)
 bool abrirPersonas(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Lista de Personas.txt","r");
+    FILE *archivo = fopen("Archivos/Lista de Personas.txt","r");
 
     if(archivo==NULL)
         return false;
@@ -573,7 +630,7 @@ bool abrirPersonas(CentroLogisticoPtr centroLogistico)
 }
 bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Lista de Paquetes.txt","r");
+    FILE *archivo = fopen("Archivos/Lista de Paquetes.txt","r");
 
     if(archivo==NULL)
     {
@@ -602,7 +659,7 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
 }
 bool abrirVehiculos(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Lista de Vehiculos.txt","r");
+    FILE *archivo = fopen("Archivos/Lista de Vehiculos.txt","r");
 
     if(archivo==NULL)
         return false;
@@ -630,9 +687,9 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     FILE *archivo;
 	if(esRepartoAbierto)
-		archivo = fopen("Lista de Repartos Abiertos.txt","r");
+		archivo = fopen("Archivos/Lista de Repartos Abiertos.txt","r");
 	else
-		archivo = fopen("Lista de Repartos Cerrados.txt","r");
+		archivo = fopen("Archivos/Lista de Repartos Cerrados.txt","r");
 
 
     if(archivo==NULL)
@@ -664,9 +721,10 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 
 CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo llenará de datos. Llamará a las otras funciones de apertura
 {
-    //Primero, recuperamos el nombre del centro logistico.
-    FILE *archivo = fopen("Nombre del Centro Logistico.txt","r");
-    bool res=true;
+    bool res=abrirCarpeta(); //Primero, chequeamos que la carpeta exista.
+
+    //Luego, recuperamos el nombre del centro logistico.
+    FILE *archivo = fopen("Archivos/Nombre del Centro Logistico.txt","r");
 
     char nombreCtroLog[100];
 
