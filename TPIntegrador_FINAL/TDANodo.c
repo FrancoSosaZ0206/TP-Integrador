@@ -9,14 +9,14 @@ PtrNodo crearNodo(PtrDato dato)
 {
     PtrNodo nodo=(PtrNodo)obtenerMemoria(sizeof(Nodo));
     nodo->dato=dato;
-    nodo->sgte=SinNodoSgte;
+    nodo->sgte=0;
     return nodo;
 }
 
 PtrNodo destruirNodo(PtrNodo nodo)
 {//la destruccion del dato queda por cuenta del usuario (en main)
     free(nodo);
-    return SinNodoSgte;
+    return 0;
 }
 
 

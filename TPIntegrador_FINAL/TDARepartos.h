@@ -21,6 +21,8 @@ typedef struct Reparto
 } Reparto;
 typedef Reparto * RepartoPtr;
 
+
+RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes);
 //Operación: Creacion del TDArepartos.
 //Precondición: Repartos no debe estar creado.
 //Postcondición: Se crea un nuevo reparto.

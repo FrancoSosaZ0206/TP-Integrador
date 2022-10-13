@@ -303,14 +303,11 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
         printf("ABIERTOS ");
     else
         printf("CERRADOS ");
-    char *buffer;
-    traerFechaCorta(fechaSalida,buffer);
-    printf("FILTRADOS POR DIA DE SALIDA - %s \n\n",buffer);
     while(!listaVacia(listaAux))
     {
         RepartoPtr repartoAux=getCabecera(listaAux);
         int diaDeReparto[3];
-        calcularDiferenciaFechas(getFechaSalida(repartoAux),fechaSalida,&diaDeReparto); /**getDia(getFechaSalida((RepartoPtr)getCabecera(listaAux))*/
+        calcularDiferenciaFechas(getFechaSalida(repartoAux),fechaSalida,diaDeReparto); /**getDia(getFechaSalida((RepartoPtr)getCabecera(listaAux))*/
         bool condicion=diaDeReparto[0]==0;
     ///CONDICION: "si SOLAMENTE el día JULIANO del reparto (dia, mes y año) coincide con el de la fecha recibida..."
         if(condicion)
@@ -748,7 +745,6 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
     while(!listaVacia(listaAux))
     {
         RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
-
         bool condicion = fechasIguales(getFechaSalida(repartoAux),getFechaSalida(reparto));
         condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto));
 ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
@@ -905,7 +901,7 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
                 ///condicion de la bandera: "Si el ID de paquetes[j] es mayor al de paquetes[j+1]..."
                 break;
             case 2:
-                calcularDiferenciaFechas(getFechaEntrega(paquetes[j]),getFechaEntrega(paquetes[j]),&diferenciaFechas);
+                calcularDiferenciaFechas(getFechaEntrega(paquetes[j]),getFechaEntrega(paquetes[j]),diferenciaFechas);
                 condicion = diferenciaFechas[0]>=0 || diferenciaFechas[1]>=0 || diferenciaFechas[2]>0;
                 ///condicion de la bandera: "Si la fecha de entrega de paquetes[j] es mayor a la de paquetes[j+1]..."
                 break;
@@ -936,7 +932,78 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
 
 
 
-
+void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo)
+{
+    int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
+    RepartoPtr repartos[n];
+    RepartoPtr repartoAux;
+    bool condicion;
+    int diferenciaFechaSalida[3];
+    int diferenciaFechaRetorno[3];
+    int diferenciaNombres=0;
+    int diferenciaApellidos=0;
+    ListaPtr listaAuxiliar=getRepartos(centroLogistico,esRepartoAbierto);
+    ///Primero, vaciamos la lista en el vector
+    for(int i=0;i<n;i++)
+    {
+        repartos[i]=getDatoLista(listaAuxiliar,i);
+    }
+    ///Luego, ordenamos el vector (m. burbuja)
+    for(int i=0; i<n-1 ; i++)
+    {
+        for(int j=i+1; j<n; j++)
+        {
+            switch(modo)
+            {
+            case 1:
+                calcularDiferenciaFechas(getFechaSalida(repartos[i]),getFechaSalida(repartos[j]),diferenciaFechaSalida);
+                condicion = diferenciaFechaSalida[0]>0 || diferenciaFechaSalida[1]>0 || diferenciaFechaSalida[2]>0;
+                ///condicion: "Ya sea en dias, horas o minutos, si fechaDeSalida de reparto[j] es posterior a la de repartos[j+1]..."
+                break;
+            case 2:
+                calcularDiferenciaFechas(getFechaRetorno(repartos[i]),getFechaRetorno(repartos[j]),diferenciaFechaRetorno);
+                condicion = diferenciaFechaRetorno[0]>0 || diferenciaFechaRetorno[1]>0 || diferenciaFechaRetorno[2]>0;
+                ///condicion: "Ya sea en dias, horas o minutos, si fechaDeRetorno de reparto[j] es posterior a la de repartos[j+1]..."
+                break;
+            case 3:
+                calcularDiferenciaFechas(getFechaSalida(repartos[i]),getFechaSalida(repartos[j]),diferenciaFechaSalida);
+                condicion = diferenciaFechaSalida[0]>0 || diferenciaFechaSalida[1]>0 || diferenciaFechaSalida[2]>0; //agrego la condicion de fechaSalida
+                calcularDiferenciaFechas(getFechaRetorno(repartos[i]),getFechaRetorno(repartos[j]),diferenciaFechaRetorno);
+                condicion = condicion && (diferenciaFechaRetorno[0]>0 || diferenciaFechaRetorno[1]>0 || diferenciaFechaRetorno[2]>0); //sumo la condicion de fechaRetorno
+                ///condicion: "Ya sea en dias, horas o minutos, si fechaDeSalida *Y* fechaDeRetorno de reparto[j] son posteriores a las de repartos[j+1]..."
+                break;
+            case 4:
+                condicion = strcmp(getNombre(getChofer(repartos[i])),getNombre(getChofer(repartos[j]))) > 0;
+                ///condicion de la bandera: "Si el nombre del chofer del reparto en j va después del del reparto en j+1..."
+                break;
+            case 5:
+                condicion = strcmp(getApellido(getChofer(repartos[i])),getApellido(getChofer(repartos[j]))) > 0;
+                ///condicion de la bandera: "Si el nombre del chofer del reparto en j va después del del reparto en j+1..."
+                break;
+            case 6:
+                diferenciaApellidos = strcmp(getApellido(getChofer(repartos[i])),getApellido(getChofer(repartos[j])));
+                condicion = diferenciaApellidos >= 0;
+                diferenciaNombres = strcmp(getNombre(getChofer(repartos[i])),getNombre(getChofer(repartos[j])));
+                condicion = condicion && diferenciaNombres > 0;
+                ///condicion de la bandera: "Si el APELLIDO Y NOMBRE del chofer del reparto en j van después de los del chofer del reparto en j+1..."
+                break;
+                if(condicion)
+                {
+                    ///Hago un swap
+                    repartoAux=repartos[i];
+                    repartos[i]=repartos[j];
+                    repartos[j]=repartoAux;
+                }
+            }
+        }
+    }
+    ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
+    for(int i=0; i<n; i++)
+    {
+        mostrarRepartoSinPaquetes(repartos[i]);
+    }
+    system("pause");
+}
 
 
 

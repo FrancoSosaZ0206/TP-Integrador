@@ -3,6 +3,7 @@
 #include <string.h>
 #include "TDACuil.h"
 #include "util.h"
+#include <math.h>
 
 
 CuilPtr crearCuil(char *cuilStr)
@@ -16,12 +17,12 @@ CuilPtr crearCuil(char *cuilStr)
 
 CuilPtr crearCuilNumeros(int tipoPersona,int dni,int nVerificador)
 {
-    char *temp;
+    char *temp=(char*)obtenerMemoria(sizeof(char)*12+1);
     sprintf(temp,"%d %d %d",tipoPersona,dni,nVerificador);
     int longitudString=strlen(temp)+1;
     temp[longitudString]=0;
 
-    char sCuil=crearStringDinamico(temp);
+    char* sCuil=crearStringDinamico(temp);
 
     CuilPtr cuil=(CuilPtr)obtenerMemoria(sizeof(Cuil));
 

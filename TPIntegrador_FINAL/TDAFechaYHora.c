@@ -258,7 +258,7 @@ bool esFechaValida(FechaPtr fecha)
 bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
 {
     int diferencia[3];
-    calcularDiferenciaFechas(fecha1,fecha2,&diferencia);
+    calcularDiferenciaFechas(fecha1,fecha2,diferencia);
     return diferencia[0]==0 && diferencia[1]==0 && diferencia[2]==0;
 }
 

@@ -254,5 +254,5 @@ bool esFechaValida(FechaPtr fecha);
 //Devuelve: true si son idénticas, false de lo contrario.
 bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2); ///NUEVA
 
-
+void mostrarFecha(FechaPtr fecha);
 #endif //TDAFECHAYHORA_H_INCLUDED

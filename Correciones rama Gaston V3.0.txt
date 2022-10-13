@@ -66,4 +66,22 @@ el desea continuar?, posteriormente simplificamos si quiere guardar el usuario l
 
 
 
+Correcion de los ordenamientos de paquetes
+Pude arreglar el ordenamiento, los muestra por pantalla y todo funciona perfectamente, el problema es que no encontre una manera de trasladarla a la lista original
+Quiero decir que los muestra ordenados por pantalla pero no los ordena en el centro logistico, dejandolos desordenados, generan conflictos de crasheos a la hora
+de querer trasladar los paquetes ordenados a la lista de paquetes de centro logistico, si alguien puede solucionarlo buenisimo, sino lo dejamos asi, 
+que muestre todos los parametros ordenados pero no los ordene en centro logistico
+
+Correcion de los ordenamientos de vehiculos
+Mismo problema que el de los paqutes, funciona correctamente pero no los traslada al centro logistico, tampoco se como evaluar el ordenamiento de varios campos de un vehiculo
+es un caos hacer la cuenta, pero funciona
+
+
+Correcion de repartoss
+Solucionado el problema de armar reparto, ahora tiene en cuenta si estan disponibles todos los caampos sino no lo crea, tambien se creo una seccion de modificacion
+de repartos, que reutiliza los caambiaar de otras estructuras, tambien se creeo la de cerrar reparto, mediante los 3 metodos genera un desplazamiento de los
+repartos abiertoos a los cerraados, y tambien eel de busqueeda de reparto esta ffinalizado, tambien la de ordenamientos de repartos, tanto la de por fecha
+de salida de retorno y por noombre y apellido del chofer y por ambas de ambas
+
+
 

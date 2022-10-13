@@ -235,7 +235,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int opMenuAnterior);
 //      - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
 //      - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
 //DEVUELVE: nada.
-void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
+RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 //OPERACION: menu de eliminacion de repartos
 //PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
 //POSTCONDICION: se destruye el reparto seleccionado.
@@ -284,19 +284,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+void menuActualizarReparto(CentroLogisticoPtr centroLogistico);
 
 
 //OPERACIÓN: actualiza los datos de una fecha

@@ -141,6 +141,7 @@ void mostrarPaquete(PaquetePtr paquete)
     mostrarDomicilio(getDirRetiro(paquete));
     printf("\tDireccion de Entrega: ");
     mostrarDomicilio(getDirEntrega(paquete));
+    printf("FECHA DE ENTREGA: \n");
     mostrarFecha(getFechaEntrega(paquete));
 }
 void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
@@ -209,7 +210,7 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
     FechaPtr fechaEntrega1 = getFechaEntrega(paquete1);
     FechaPtr fechaEntrega2 = getFechaEntrega(paquete2);
     int difFechas[3];
-    calcularDiferenciaFechas(fechaEntrega1,fechaEntrega2,&difFechas);
+    calcularDiferenciaFechas(fechaEntrega1,fechaEntrega2,difFechas);
 
 //primero, se verifica si el ID de paquete1 es igual al del paquete2
     matchID = getID(paquete1) == getID(paquete2);

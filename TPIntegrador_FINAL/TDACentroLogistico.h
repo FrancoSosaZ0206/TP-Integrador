@@ -449,5 +449,9 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
 
 
 bool buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuilBuscar);
+void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico);
+void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico);
+bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
+void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico);
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

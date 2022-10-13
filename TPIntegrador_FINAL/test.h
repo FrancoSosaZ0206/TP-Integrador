@@ -37,6 +37,10 @@ VehiculoPtr crearVehiculoGenerico(); //Crea un vehículo de forma rápida con dato
 RepartoPtr crearRepartoGenerico(); //solo se crean repartos abiertos.
 
 ListaPtr crearListaRepartosGenerica(bool esRepartoAbierto); //Hecha por Gastón
-
+ListaPtr crearListaVehiculosGenerico();
+ListaPtr crearListaPaquetesGenerico();
+ListaPtr crearListaPersonasGenerica();
+ListaPtr crearListaRepartosPorDefecto();
+void verificacion(bool resultado);
 
 #endif // TEST_H_INCLUDED

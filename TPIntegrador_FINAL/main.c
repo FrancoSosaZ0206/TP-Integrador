@@ -33,6 +33,7 @@ int menuCargaDeDatos();
 int menuBaseDeDatos();
 int menuPrincipal();
 int menuMainMenu();
+int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
 ///-------------------------------------------------------//////---------------------------------------------------------------///
 
@@ -46,8 +47,6 @@ int main()
     ListaPtr repartosA = crearListaRepartosPorDefecto();
     ListaPtr repartosC = crearLista();
     centroLogistico = crearCentroLogistico("Distribuidora",paquetes1,personas,vehiculos,repartosA,repartosC);
-    menuArmarReparto(centroLogistico);
-    system("pause");
     do
     {
         START_OP = menuMainMenu();
@@ -57,7 +56,7 @@ int main()
             ///centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             system("cls");
             START_OP = MAIN_MENU(centroLogistico);
-            ///centroLogistico=destruirCentroLogistico(centroLogistico);
+            centroLogistico=destruirCentroLogistico(centroLogistico);
             break;
         case 2:
             centroLogistico = abrirTodo();
@@ -69,7 +68,7 @@ int main()
             else
             {
                 START_OP = MAIN_MENU(centroLogistico);
-                ///centroLogistico=destruirCentroLogistico(centroLogistico);
+                centroLogistico=destruirCentroLogistico(centroLogistico);
             }
             break;
         case 0:
@@ -170,16 +169,16 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         switch(op2)
                         {
                         case 1:
-                            ///cambiosGuardados = menuModificarPaquete(centroLogistico,op2);
+                            cambiosGuardados = menuModificarPaquete(centroLogistico,op2);
                             break;
                         case 2:
-                            ///cambiosGuardados = menuModificarPersona(centroLogistico,false,op2);
+                            cambiosGuardados = menuModificarPersona(centroLogistico,false,op2);
                             break;
                         case 3:
-                            ///cambiosGuardados = menuModificarPersona(centroLogistico,true,op2);
+                            cambiosGuardados = menuModificarPersona(centroLogistico,true,op2);
                             break;
                         case 4:
-                            ///cambiosGuardados = menuModificarVehiculo(centroLogistico,op2);
+                            cambiosGuardados = menuModificarVehiculo(centroLogistico,op2);
                             break;
                         case 0:
                             break;
@@ -274,10 +273,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         switch(op2)
                         {
                         case 1:
-                            ///cambiosGuardados = menuModificarReparto(centroLogistico,true,op2);
+                            cambiosGuardados = menuModificarReparto(centroLogistico,true,op2);
                             break;
                         case 2:
-                            ///cambiosGuardados = menuModificarReparto(centroLogistico,false,op2);
+                            cambiosGuardados = menuModificarReparto(centroLogistico,false,op2);
                             break;
                         case 0:
                             break;
@@ -323,18 +322,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             }
         } while(op1!=0);
             break;
-        /**case 3:
-            op1=menuActualizarRepartoCompleto();
-            switch(op1)
-            {
-            case 1:
-                break;
-            case 2:
-                printf("Ingrese el día de la fecha que desea filtrar: ");
-                filtrarPorFechaSalida();
-                break;
-            }
-            break;*/
+        case 3:
+            ///op1=menuActualizarRepartoCompleto();
+            menuActualizarReparto(centroLogistico);
+            break;
         case 4:
             do
             {
@@ -342,25 +333,25 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 switch(op1)
                 {
                 case 1:
-                    ///cambiosGuardados = menuMostrarPaquetes(centroLogistico,op1);
+                    cambiosGuardados = menuMostrarPaquetes(centroLogistico,op1);
                     break;
                 case 2:
-                    ///cambiosGuardados = menuMostrarPersonas(centroLogistico,2,op1);
+                    cambiosGuardados = menuMostrarPersonas(centroLogistico,2,op1);
                     break;
                 case 3:
-                    ///cambiosGuardados = menuMostrarPersonas(centroLogistico,1,op1);
+                    cambiosGuardados = menuMostrarPersonas(centroLogistico,1,op1);
                     break;
                 case 4:
-                    ///cambiosGuardados = menuMostrarPersonas(centroLogistico,3,op1);
+                    cambiosGuardados = menuMostrarPersonas(centroLogistico,3,op1);
                     break;
                 case 5:
-                    ///cambiosGuardados = menuMostrarVehiculos(centroLogistico,op1);
+                    cambiosGuardados = menuMostrarVehiculos(centroLogistico,op1);
                     break;
                 case 6:
-                    ///cambiosGuardados = menuMostrarRepartos(centroLogistico,true,op1);
+                    cambiosGuardados = menuMostrarRepartos(centroLogistico,true,op1);
                     break;
                 case 7:
-                    ///cambiosGuardados = menuMostrarRepartos(centroLogistico,false,op1);
+                    cambiosGuardados = menuMostrarRepartos(centroLogistico,false,op1);
                     break;
                 case 0:
                     break;
