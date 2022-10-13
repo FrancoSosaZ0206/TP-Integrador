@@ -131,7 +131,6 @@ void setEstado(PaquetePtr paquete,int estado)
 
 void mostrarPaquete(PaquetePtr paquete)
 {
-    printf("Paquete #%d\n",getID(paquete));
     mostrarEstadopaquete(paquete);
     printf("\tAncho: %d\n",getAncho(paquete));
     printf("\tAlto: %d\n",getAlto(paquete));

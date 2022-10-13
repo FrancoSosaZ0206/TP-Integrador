@@ -246,10 +246,10 @@ void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
     PaquetePtr paqueteAux;
     while(!listaVacia(listaAux))
     {
+        printf("\n%d. ",i+1);
         paqueteAux=(PaquetePtr)getCabecera(listaAux);
         if(!buscarPaquete(centroLogistico,getID(paqueteAux)))
         {
-            printf("\n%d. ",i+1);
             mostrarPaquete(paqueteAux);
         }
         listaAux=getResto(listaAux);
@@ -934,14 +934,16 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
 
 void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo)
 {
+    limpiarBufferTeclado();
     int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
     RepartoPtr repartos[n];
     RepartoPtr repartoAux;
-    bool condicion;
+    bool condicion=false;
     int diferenciaFechaSalida[3];
     int diferenciaFechaRetorno[3];
     int diferenciaNombres=0;
     int diferenciaApellidos=0;
+
     ListaPtr listaAuxiliar=getRepartos(centroLogistico,esRepartoAbierto);
     ///Primero, vaciamos la lista en el vector
     for(int i=0;i<n;i++)
@@ -957,7 +959,7 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
             {
             case 1:
                 calcularDiferenciaFechas(getFechaSalida(repartos[i]),getFechaSalida(repartos[j]),diferenciaFechaSalida);
-                condicion = diferenciaFechaSalida[0]>0 || diferenciaFechaSalida[1]>0 || diferenciaFechaSalida[2]>0;
+                condicion = (diferenciaFechaSalida[0]>=0 && (diferenciaFechaSalida[1]>=0 || diferenciaFechaSalida[2]>0));
                 ///condicion: "Ya sea en dias, horas o minutos, si fechaDeSalida de reparto[j] es posterior a la de repartos[j+1]..."
                 break;
             case 2:
@@ -967,9 +969,9 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
                 break;
             case 3:
                 calcularDiferenciaFechas(getFechaSalida(repartos[i]),getFechaSalida(repartos[j]),diferenciaFechaSalida);
-                condicion = diferenciaFechaSalida[0]>0 || diferenciaFechaSalida[1]>0 || diferenciaFechaSalida[2]>0; //agrego la condicion de fechaSalida
+                condicion = (diferenciaFechaSalida[0]>0 && (diferenciaFechaSalida[1]>0 || diferenciaFechaSalida[2]>0)); //agrego la condicion de fechaSalida
                 calcularDiferenciaFechas(getFechaRetorno(repartos[i]),getFechaRetorno(repartos[j]),diferenciaFechaRetorno);
-                condicion = condicion && (diferenciaFechaRetorno[0]>0 || diferenciaFechaRetorno[1]>0 || diferenciaFechaRetorno[2]>0); //sumo la condicion de fechaRetorno
+                condicion = condicion && (diferenciaFechaRetorno[0]>0 && (diferenciaFechaRetorno[1]>0 || diferenciaFechaRetorno[2]>0)); //sumo la condicion de fechaRetorno
                 ///condicion: "Ya sea en dias, horas o minutos, si fechaDeSalida *Y* fechaDeRetorno de reparto[j] son posteriores a las de repartos[j+1]..."
                 break;
             case 4:
@@ -987,17 +989,18 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
                 condicion = condicion && diferenciaNombres > 0;
                 ///condicion de la bandera: "Si el APELLIDO Y NOMBRE del chofer del reparto en j van después de los del chofer del reparto en j+1..."
                 break;
-                if(condicion)
-                {
-                    ///Hago un swap
-                    repartoAux=repartos[i];
-                    repartos[i]=repartos[j];
-                    repartos[j]=repartoAux;
-                }
+            }
+            if(condicion)
+            {
+                ///Hago un swap
+                repartoAux=repartos[i];
+                repartos[i]=repartos[j];
+                repartos[j]=repartoAux;
             }
         }
     }
     ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
+    printf("\n\n\n\t LISTA DE REPARTOS ORDENADA \n\n");
     for(int i=0; i<n; i++)
     {
         mostrarRepartoSinPaquetes(repartos[i]);

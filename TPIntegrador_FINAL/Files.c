@@ -337,14 +337,13 @@ void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
         fsetFecha(fgetFechaSalida(pfreparto),getFechaSalida(reparto),true);
         fsetFecha(fgetFechaRetorno(pfreparto),getFechaRetorno(reparto),true);
 
-        n = cantidadPaquetes(reparto);
-        pfreparto->tamanioPilaPaq = n;
-
-        for(int i=0;i<n;i++)
+        while(!pilaVacia(getPaquetesReparto(reparto)))
         {
             paqueteAux = descargarPaquete(reparto);
-            fsetPaquete(&pfreparto->paquetes[i],paqueteAux,true);
+            fsetPaquete(&pfreparto->paquetes[n],paqueteAux,true);
+            n++;
         }
+        pfreparto->tamanioPilaPaq = n;
     }
     else ///asumimos que la estructura está vacía y la creamos.
     {
@@ -366,9 +365,8 @@ void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
             fsetPaquete(&pfreparto->paquetes[i],paqueteAux,false);
             apilar(paquetes,(PaquetePtr)paqueteAux);
         }
-        reparto = armarReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
+        reparto = crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
     }
-
     paqueteAux = NULL;
 }
 
@@ -715,3 +713,48 @@ int LeerString(FILE *archivo,char buffer[], int longitudMax,char terminador){
     else
         return k;
 }
+
+
+
+///-----------------------------------------------------------------------------------///
+
+void mostrarRepartoEstatico(fReparto RE)
+{
+    printf("NOMBRE: %s\n", RE.chofer.nombre);
+    printf("TIPO: %d\n", RE.vehiculo.tipo);
+    printf("DIA1: %d\n", RE.fechaSalida.hora);
+    printf("DIA2: %d\n", RE.fechaRetorno.hora);
+    printf("ALTO: %d\n", RE.paquetes[0].alto);
+}
+
+void funcionDinamicoEstaticoReparto()
+{
+    fReparto repartoEstatico;
+    RepartoPtr repartoDinamico;
+    DomicilioPtr domicilioChofer1=crearDomicilio("Vieytes",2000,"Lomas de zamora");
+    DomicilioPtr dirRetiro1=crearDomicilio("Deposito",5000,"Sector industrial"); /// (*)
+    DomicilioPtr dirEntrega1=crearDomicilio("Santa fe",1500,"Banfield"); /// (**)
+    FechaPtr fechaSalida1=crearFechaDirect(2500000,16,45); //Para el reparto
+    FechaPtr fechaRetorno1=crearFechaDirect(2500000,17,45); //Para el reparto
+    FechaPtr fechaEntrega1=crearFechaDirect(2500000,18,45);
+    CuilPtr cuil1=crearCuil("20346547546");
+    PersonaPtr chofer1=crearPersona("Roberto","Garcia",domicilioChofer1,cuil1,true);
+    PaquetePtr paquete1=crearPaquete(1,4,5,2,65,dirRetiro1,dirEntrega1,fechaEntrega1,0);
+    VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","17 UJI 30");
+    PilaPtr pilaPaquetes = crearPila();
+    apilar(pilaPaquetes,(PaquetePtr)paquete1);
+    repartoDinamico=crearReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,pilaPaquetes);
+    fsetReparto(&repartoEstatico,repartoDinamico,true);
+    mostrarRepartoEstatico(repartoEstatico);
+    FILE* a;
+    a=fopen("PROBANDO.bin","wb");
+    fwrite(&repartoEstatico,sizeof(fReparto),1,a);
+    fclose(a);
+    fReparto repartoEstaticoRespaldo;
+    a=fopen("PROBANDO.bin","rb");
+    fread(&repartoEstaticoRespaldo,sizeof(fReparto),1,a);
+    fclose(a);
+    mostrarRepartoEstatico(repartoEstaticoRespaldo);
+    system("pause");
+}
+

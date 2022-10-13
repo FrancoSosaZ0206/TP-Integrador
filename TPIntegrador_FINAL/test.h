@@ -36,7 +36,6 @@ PersonaPtr crearPersonaGenerica(bool esChofer);
 VehiculoPtr crearVehiculoGenerico(); //Crea un vehículo de forma rápida con datos predeterminados.
 RepartoPtr crearRepartoGenerico(); //solo se crean repartos abiertos.
 
-ListaPtr crearListaRepartosGenerica(bool esRepartoAbierto); //Hecha por Gastón
 ListaPtr crearListaVehiculosGenerico();
 ListaPtr crearListaPaquetesGenerico();
 ListaPtr crearListaPersonasGenerica();

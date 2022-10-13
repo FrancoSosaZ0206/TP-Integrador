@@ -35,6 +35,52 @@ int menuPrincipal();
 int menuMainMenu();
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
+
+void funcionRecuperarPaquetes()
+{
+    PilaPtr pilaPaquetes=crearPila();
+    PaquetePtr paquete6 = crearPaqueteDirect(rand(),14,16,31,54,"Sixto Fernandez",2000,"Lomas de Zamora","Calle Morazan",550,"Villa fiorito",10,12,2022,21,45,0);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    ///PaquetePtr paqueteAux;
+    ///paqueteAux=paquete6;
+    ///mostrarPaquete(paqueteAux);
+
+    int totalPaquetes=0;
+    PaquetePtr arrayPaquetes[100];
+    printf("REMOCION DE PAQUETES EN PILA\n");
+    while(!pilaVacia(pilaPaquetes))
+    {
+        arrayPaquetes[totalPaquetes]=(PaquetePtr)desapilar(pilaPaquetes);
+        totalPaquetes++;
+    }
+    for(int i=0;i<totalPaquetes;i++)
+    {
+        printf("\n\nPaquete NRO: %d. ", i+1);
+        ///mostrarPaquete(arrayPaquetes[i]);
+    }
+    printf("\n\n");
+    system("pause");
+    printf("RECUPERACION PAQUETES EN PILA\n");
+    for(int i=totalPaquetes;i>0;i--)
+    {
+        apilar(pilaPaquetes,(PaquetePtr)arrayPaquetes[i]);
+    }
+    system("pause");
+}
+
+void probandoGuardadoRepartos()
+{
+    ListaPtr LA=crearListaRepartosPorDefecto();
+    ListaPtr LA2=crearLista();
+
+}
+
+
 ///-------------------------------------------------------//////---------------------------------------------------------------///
 
 int main()
@@ -47,6 +93,13 @@ int main()
     ListaPtr repartosA = crearListaRepartosPorDefecto();
     ListaPtr repartosC = crearLista();
     centroLogistico = crearCentroLogistico("Distribuidora",paquetes1,personas,vehiculos,repartosA,repartosC);
+    bool res=guardarRepartos(centroLogistico,true);
+    bool res2;
+    CentroLogisticoPtr CL=crearCentroLogisticoRapido("1");
+    if(res)
+        res2=abrirRepartos(CL,true);
+    ///mostrarRepartos(CL,true);
+    system("pause");
     do
     {
         START_OP = menuMainMenu();
