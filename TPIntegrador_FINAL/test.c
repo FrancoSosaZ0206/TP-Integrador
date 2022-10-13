@@ -466,3 +466,34 @@ void probandoGenericas(CentroLogisticoPtr cl)
     system("pause");
     system("cls");
 }
+
+void verificacion(bool resultado)
+{
+    if(resultado)
+    {
+        printf("FUNCIONA CORRECTAMETE!!!\n");
+    }
+    else
+    {
+        printf("NO FUNCIONA ADECUADAMENTE!!!\n");
+    }
+}
+
+    /*menuCargarPaquete(centroLogistico);
+    menuCargarPersona(centroLogistico,true);
+    menuCargarVehiculo(centroLogistico);
+    probandoGenericas(centroLogistico);*/
+    ///menuEliminarPersona(centroLogistico,true,0);
+    ///menuModificarPersona(centroLogistico,true,0);
+    ///menuModificarPaquete(centroLogistico,0);
+    //menuMostrarPaquetes(centroLogistico,0);
+    ///PaquetePtr paqueteACopiar = getDatoLista(paquetes,0);
+    ///PaquetePtr paqueteCopiado;
+    ///paqueteCopiado = copiaPaquete(paqueteACopiar);
+    ///removerDeLista(paquetes,0);
+    ///mostrarPaquete(paqueteCopiado);
+    /*FechaPtr f1=crearFecha(1,1,2022,1,1);
+    FechaPtr f2=crearFecha(1,1,2023,1,1);
+    int vec[3];
+    calcularDiferenciaFechas(f1,f2,&vec);
+    printf("%d %d %d \n", vec[0],vec[1],vec[2]);*/

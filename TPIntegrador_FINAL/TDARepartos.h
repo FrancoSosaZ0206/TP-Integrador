@@ -17,6 +17,7 @@ typedef struct Reparto
     FechaPtr fechaSalida;
     FechaPtr fechaRetorno;
     PilaPtr paquetes;
+    ListaPtr listaPaquetes;
 } Reparto;
 typedef Reparto * RepartoPtr;
 

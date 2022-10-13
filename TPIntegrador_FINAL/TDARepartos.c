@@ -109,55 +109,51 @@ void mostrarReparto(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
-    char *strFecha;
-    traerFechaYHora(getFechaSalida(reparto),strFecha);
-    printf("Fecha de Salida: %s\n",strFecha);
-    traerFechaYHora(getFechaRetorno(reparto),strFecha);
-    printf("Fecha de Retorno: %s\n",strFecha);
-
-    int cantPaq=longitudPila(getPaquetesReparto(reparto));
-    PaquetePtr paquetes[cantPaq];
-
-    for(int i=0;i<cantPaq;i++)
+    mostrarFecha(getFechaSalida(reparto));
+    mostrarFecha(getFechaRetorno(reparto));
+    int cant=0;
+    PaquetePtr paquetes[20];
+    PilaPtr pila=crearPila();
+    pila=getPaquetesReparto(reparto);
+    while(!pilaVacia(pila))
     {
-        printf("%d. ",i+1);
-        paquetes[i]=(PaquetePtr)desapilar(getPaquetesReparto(reparto));
-        mostrarPaquete(paquetes[i]);
+        paquetes[cant]=(PaquetePtr)desapilar(pila);
+        mostrarPaquete(paquetes[cant]);
+        cant++;
     }
-    for(int i=0;i<cantPaq;i++)
-        apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[cantPaq-i]);
+    for(int i=cant;i>0;i--)
+    {
+        apilar(pila,(PaquetePtr)paquetes[i]);
+    }
 }
 void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
-    char *strFecha;
-    traerFechaYHora(getFechaSalida(reparto),strFecha);
-    printf("Fecha de Salida: %s\n",strFecha);
-    traerFechaYHora(getFechaRetorno(reparto),strFecha);
-    printf("Fecha de Retorno: %s\n",strFecha);
+    mostrarFecha(getFechaSalida(reparto));
+    mostrarFecha(getFechaRetorno(reparto));
 }
 
 ///---------------------------------------Funciones de validación------------------------------------------------
-
-bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete) ///NUEVA
+///NUEVA
+bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete)
 {
     bool match = false;
-
     int n=cantidadPaquetes(reparto);
-    PaquetePtr paquetes[n]; ///Acá definieron una lista, lo cual era erróneo puesto que los paquetes de un reparto se almacenan en una pila.
-///Además, manejar las verificaciones con un vector es más fácil.
-
+    PaquetePtr paquetes[n];
+    ///Acá definieron una lista, lo cual era erróneo puesto que los paquetes de un reparto se almacenan en una pila.
+    ///Además, manejar las verificaciones con un vector es más fácil.
     for(int i=0;i<n;i++)
-    { ///paquetes obtiene los paquetes del reparto, almacenandolos en c/u de sus posiciones.
+    {
+        ///paquetes obtiene los paquetes del reparto, almacenandolos en c/u de sus posiciones.
         paquetes[i]=descargarPaquete(reparto);
-
         if(paquetesIguales(paquetes[i],paquete))
             match = true;
     }
-    for(int i=n;i>0;i--) ///Antes de obtener el siguiente reparto, reinsertamos los paquetes en el reparto.
-        cargarPaquete(reparto,paquetes[i]); ///El for va de n hasta 0 para mantener el orden original de los paquetes como estaban en la pila.
-
+    ///Antes de obtener el siguiente reparto, reinsertamos los paquetes en el reparto
+    for(int i=n;i>0;i--)
+        cargarPaquete(reparto,paquetes[i]);
+    ///El for va de n hasta 0 para mantener el orden original de los paquetes como estaban en la pila.
     return match;
 }
 

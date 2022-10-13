@@ -41,16 +41,12 @@ int main()
     CentroLogisticoPtr centroLogistico;
     int START_OP=0;
     ListaPtr vehiculos = crearListaVehiculosGenerico();
-    ListaPtr paquetes = crearListaPaquetesGenerico();
+    ListaPtr paquetes1 = crearListaPaquetesGenerico();
     ListaPtr personas = crearListaPersonasGenerica();
     ListaPtr repartosA = crearListaRepartosPorDefecto();
     ListaPtr repartosC = crearLista();
-    centroLogistico = crearCentroLogistico("Distribuidora",paquetes,personas,vehiculos,repartosA,repartosC);
-    /*menuCargarPaquete(centroLogistico);
-    menuCargarPersona(centroLogistico,true);
-    menuCargarVehiculo(centroLogistico);
-    probandoGenericas(centroLogistico);*/
-    ///menuEliminarPersona(centroLogistico,true,0);
+    centroLogistico = crearCentroLogistico("Distribuidora",paquetes1,personas,vehiculos,repartosA,repartosC);
+    menuArmarReparto(centroLogistico);
     system("pause");
     do
     {

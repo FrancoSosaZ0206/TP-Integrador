@@ -5,6 +5,7 @@
 #include "TDADomicilio.h"
 #include "TDAPaquetes.h"
 #include "util.h"
+#include "Pila.h"
 
 PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,int estado)
 {
@@ -131,42 +132,15 @@ void setEstado(PaquetePtr paquete,int estado)
 void mostrarPaquete(PaquetePtr paquete)
 {
     printf("Paquete #%d\n",getID(paquete));
-
-    switch(getEstado(paquete))
-    {
-    case 0:
-        printf("\tEstado: En Deposito\n");
-        break;
-    case 1:
-        printf("\tEstado: En Curso\n");
-        break;
-    case 2:
-        printf("\tEstado: Retirado\n");
-        break;
-    case 3:
-        printf("\tEstado: Entregado\n");
-        break;
-    case 4:
-        printf("\tEstado: Demorado\n");
-        break;
-    case 5:
-        printf("\tEstado: Suspendido\n");
-        break;
-    default:
-        printf("\tEstado: ERROR\n");
-        break;
-    }
-
+    mostrarEstadopaquete(paquete);
     printf("\tAncho: %d\n",getAncho(paquete));
     printf("\tAlto: %d\n",getAlto(paquete));
     printf("\tLargo: %d\n",getLargo(paquete));
     printf("\tPeso: %d\n",getPeso(paquete));
-
     printf("\tDireccion de Retiro: ");
     mostrarDomicilio(getDirRetiro(paquete));
     printf("\tDireccion de Entrega: ");
     mostrarDomicilio(getDirEntrega(paquete));
-
     mostrarFecha(getFechaEntrega(paquete));
 }
 void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
@@ -207,6 +181,22 @@ void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual de
     }
 }
 
+int cantidadPaquetesPila(PilaPtr pila)
+{
+    int cant=0;
+    PaquetePtr paquetes[20];
+    while(!pilaVacia(pila))
+    {
+        paquetes[cant]=(PaquetePtr)desapilar(pila);
+        cant++;
+    }
+    for(int i=cant;i>0;i--)
+    {
+        apilar(pila,(PaquetePtr)paquetes[i]);
+    }
+    return cant;
+}
+
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 {
     bool matchID,matchResto;
@@ -218,7 +208,8 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 
     FechaPtr fechaEntrega1 = getFechaEntrega(paquete1);
     FechaPtr fechaEntrega2 = getFechaEntrega(paquete2);
-    int *difFechas = calcularDiferenciaFechas(fechaEntrega1,fechaEntrega2);
+    int difFechas[3];
+    calcularDiferenciaFechas(fechaEntrega1,fechaEntrega2,&difFechas);
 
 //primero, se verifica si el ID de paquete1 es igual al del paquete2
     matchID = getID(paquete1) == getID(paquete2);

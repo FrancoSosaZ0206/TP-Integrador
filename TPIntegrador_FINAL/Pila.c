@@ -32,7 +32,7 @@ bool pilaVacia(PilaPtr pila){
 
 int longitudPila(PilaPtr pila){
     // la longitud es cuantos nodos hay en la pila. Para saberlo, hay que recorrerla
-    int longitud=0;
+    int longitud=1;
     PtrNodo nodo=pila->primero;
     while(nodo!=FinPila){
         nodo=getSiguiente(nodo);

@@ -212,7 +212,7 @@ bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID);
 // cuil: string que representa el cuil de la persona.
 // esChofer: booleano que aclara al buscador si se trata de un chofer (true) o un cliente (false).
 //Devuelve true si se encontró una coincidencia, false de lo contrario.
-bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer);
+bool buscarPersona(CentroLogisticoPtr centroLogistico,char* cuilBuscar,bool esChofer);
 //Operación: Muestra los vehiculos con la patente que le haya pasado.
 //Precondición: Centro logistico debe haberse creado y llenado con una lista de vehiculos
 //Postcondición: De encontrarse, imprime el vehiculo buscado.
@@ -445,5 +445,9 @@ void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo);
 //Devuelve: nada
 void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo);
 
+
+
+
+bool buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuilBuscar);
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

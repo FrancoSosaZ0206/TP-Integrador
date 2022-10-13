@@ -165,7 +165,7 @@ void setMinuto(FechaPtr fecha,int minuto);
 
 ///     *** Si diferencia==0 EN TODAS SUS POSICIONES, entonces las fechas son totalmente idénticas.
 ///     ADVERTENCIA: manejar con cuidado, chequeando siempre con lo explicado acá.
-int *calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2); ///Nueva implementación
+void calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2, int* diferencias); ///Nueva implementación
 // Operación de conversión a string
 // Precondición: fecha debe haberse creado
 // Postcondición: se obtiene la representación "dd/mm/aaaa" de la fecha
