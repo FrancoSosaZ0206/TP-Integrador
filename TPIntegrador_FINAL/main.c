@@ -93,12 +93,9 @@ int main()
     ListaPtr repartosA = crearListaRepartosPorDefecto();
     ListaPtr repartosC = crearLista();
     centroLogistico = crearCentroLogistico("Distribuidora",paquetes1,personas,vehiculos,repartosA,repartosC);
-    bool res=guardarRepartos(centroLogistico,true);
-    bool res2;
-    CentroLogisticoPtr CL=crearCentroLogisticoRapido("1");
-    if(res)
-        res2=abrirRepartos(CL,true);
-    ///mostrarRepartos(CL,true);
+    CentroLogisticoPtr CL;
+    GuardarTodoNuevo(centroLogistico);
+    CL=AbrirTodoNuevo();
     system("pause");
     do
     {
