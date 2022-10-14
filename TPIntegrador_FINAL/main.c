@@ -73,6 +73,10 @@ int main(){
     ListaPtr listaChoferes=crearListaChoferesGenerico();
     ListaPtr listaPaquetes=crearListaPaquetesGenerico();
     ListaPtr listaRepartosCerrados=crearLista();
+    GuardarListaRepartosNuevo(listaRepartos,true);
+    ListaPtr L=LeerListaRepartosNuevo(true);
+    mostrarReparto(getCabecera(L));
+    system("pause");
     int START_OP=0;
     do{
         START_OP=menuPrincipal();
