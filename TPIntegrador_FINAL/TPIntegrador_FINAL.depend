@@ -698,7 +698,7 @@
 	<string.h>
 	"util.h"
 
-1665708487 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\files.c
+1665708925 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\files.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -799,7 +799,7 @@
 	"TDANodo.h"
 	"Lista.h"
 
-1665708292 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\main.c
+1665708936 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -889,7 +889,7 @@
 	"TDAPersona.h"
 	"util.h"
 
-1665708191 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdarepartos.c
+1665708786 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdarepartos.c
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
