@@ -77,6 +77,16 @@ ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 		return centroLogistico->listaRepartosCerrados;
 }
 
+ListaPtr getClientes(CentroLogisticoPtr centroLogistico)
+{
+    return centroLogistico->listaClientes;
+}
+
+ListaPtr getChoferes(CentroLogisticoPtr centroLogistico)
+{
+    return centroLogistico->listaChoferes;
+}
+
 void setNombreCentroLogistico(CentroLogisticoPtr centroLogistico,char *nombre)
 {
     strcpy(centroLogistico->nombre,nombre);
@@ -99,6 +109,14 @@ void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esR
 		centroLogistico->listaRepartosAbiertos = repartos;
 	else
 		centroLogistico->listaRepartosCerrados = repartos;
+}
+void setClientes(CentroLogisticoPtr centroLogistico,ListaPtr clientes)
+{
+    centroLogistico->listaClientes=clientes;
+}
+void setChoferes(CentroLogisticoPtr centroLogistico,ListaPtr choferes)
+{
+    centroLogistico->listaChoferes=choferes;
 }
 
 void mostrarPaquetes(CentroLogisticoPtr centroLogistico)

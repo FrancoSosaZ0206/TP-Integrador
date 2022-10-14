@@ -5,6 +5,93 @@
 #include <stdlib.h>
 #include "TDACentroLogistico.h"
 
+typedef struct fCuil //a este ya lo definimos como nos dijo el profe. Despues cambio el que utilizamos siempre.
+{
+    char cuil[15]; //un CUIL con espacios entre cada campo ocuparía 13 espacios, pero le damos un poco de
+} fCuil; //espacio extra por las dudas.
+typedef fCuil* fCuilPtr;
+
+typedef struct fDomicilio
+{
+    char calle[50];
+    int altura;
+    char localidad[50];
+} fDomicilio;
+typedef fDomicilio* fDomicilioPtr;
+
+typedef struct fFecha
+{
+    int diaJuliano;
+    int hora;
+    int minuto;
+} fFecha;
+typedef fFecha* fFechaPtr;
+
+
+typedef struct fPersona
+{
+    char nombre[50];
+    char apellido[50];
+    fDomicilio domicilio; ///Ojo:
+    fCuil cuil; ///las estructuras tampoco pueden ser punteros!!!
+    bool esChofer;
+} fPersona; //Lo único que pasamos como puntero es la estructura dentro del campo de fwrite o fread
+typedef fPersona* fPersonaPtr;
+
+typedef struct fPaquete
+{
+    int ID;
+    int ancho;
+    int alto;
+    int largo;
+    int peso;
+    fDomicilio dirRetiro;
+    fDomicilio dirEntrega;
+    fFecha fechaEntrega;
+    int estado; ///0=En depósito,1=En curso,2=Retirado,3=Entregado,4=Demorado,5=Suspendido
+} fPaquete;
+typedef fPaquete* fPaquetePtr;
+
+typedef struct fVehiculo
+{
+    int tipo;
+    char marca[50];
+    char modelo[50];
+    char patente[15];
+} fVehiculo;
+typedef fVehiculo* fVehiculoPtr;
+
+
+typedef struct fReparto
+{
+    fPersona chofer;
+    fVehiculo vehiculo;
+    fFecha fechaSalida;
+    fFecha fechaRetorno;
+    int tamanioPilaPaq; ///la dimension del array...
+    fPaquete paquetes[20]; ///depende de la longitud de la pila que me pasan
+} fReparto;
+typedef fReparto* fRepartoPtr;
+
+
+
+FechaPtr crearFechaDirectNuevo(fFechaPtr FE);
+DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DE);
+PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE);
+PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PE);
+VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VE);
+RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RE);
+FechaPtr PasajeFechaDinamico(fFechaPtr FE, FechaPtr FD, bool ADinamico);
+DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DE, DomicilioPtr DD, bool ADinamico);
+CuilPtr PasajeCuilDinamico(fCuilPtr CE, CuilPtr CD, bool ADinamico);
+VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VE, VehiculoPtr VD, bool ADinamico);
+PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico);
+PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico);
+RepartoPtr PasajeRepartoDinamico(fRepartoPtr RE, RepartoPtr RD, bool ADinamico);
+ListaPtr LeerListaClientesYChoferesNuevo(bool esChoferes);
+void GuardarListaClientesYChoferesNuevo(ListaPtr listaClientes, bool esChoferes);
+
+
 /**
 ****************************************************************************************************************
                                                 INTERFAZ DE ARCHIVOS
@@ -167,6 +254,8 @@ CentroLogisticoPtr abrirTodo();
 //DEVUELVE: entero representando la cantidad de caracteres leídos,
 //          o EOF si se llegó al final del archivo antes de llegar a leer la longitudMax.
 int LeerString(FILE *archivo,char *buffer, int longitudMax, char terminador);
+
+
 
 
 #endif // FILES_H_INCLUDED

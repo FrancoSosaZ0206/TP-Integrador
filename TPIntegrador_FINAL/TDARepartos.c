@@ -21,6 +21,18 @@ RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
 
     return reparto;
 }
+
+RepartoPtr crearRepartoNuevo(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes)
+{
+    RepartoPtr reparto=(RepartoPtr)obtenerMemoria(sizeof(Reparto));
+    reparto->chofer=chofer;
+    reparto->vehiculo=vehiculo;
+    reparto->fechaSalida=fechaSalida;
+    reparto->fechaRetorno=fechaRetorno;
+    reparto->listaPaquetes=paquetes;
+    return reparto;
+}
+
 RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes)
 {
     RepartoPtr reparto=crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
@@ -58,6 +70,10 @@ FechaPtr getFechaRetorno(RepartoPtr reparto)
 PilaPtr getPaquetesReparto(RepartoPtr reparto)
 {
     return reparto->paquetes;
+}
+ListaPtr getListaPaquetesReparto(RepartoPtr reparto)
+{
+    return reparto->listaPaquetes;
 }
 
 void setChofer(RepartoPtr reparto,PersonaPtr chofer)
@@ -128,6 +144,17 @@ void mostrarReparto(RepartoPtr reparto)
         apilar(pila,(PaquetePtr)paquetes[i]);
     }
 }
+
+void mostrarRepartoNuevo(RepartoPtr reparto)
+{
+    mostrarPersona(getChofer(reparto));
+    mostrarVehiculo(getVehiculo(reparto));
+    printf("FECHA DE SALIDA: \n");
+    mostrarFecha(getFechaSalida(reparto));
+    printf("FECHA DE RETORNO: \n");
+    mostrarFecha(getFechaRetorno(reparto));
+}
+
 void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));

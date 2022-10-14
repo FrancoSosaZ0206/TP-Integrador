@@ -78,6 +78,7 @@ FechaPtr getFechaRetorno(RepartoPtr reparto);
 //Devuelve un puntero a la estructura.
 PilaPtr getPaquetesReparto(RepartoPtr reparto);
 
+
 //Operación: Asignacion de chofer.
 //Precondición: Repartos debe estar creado.
 //Postcondición: El reparto cambia con el nuevo valor de chofer.
@@ -169,5 +170,8 @@ bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete); ///NUEVA
 //Devuelve: true si son idénticos todos sus cambios, false de lo contrario.
 bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2); ///NUEVA
 
+
+
+ListaPtr getListaPaquetesReparto(RepartoPtr reparto);;
 
 #endif // TDAREPARTOS_H_INCLUDED

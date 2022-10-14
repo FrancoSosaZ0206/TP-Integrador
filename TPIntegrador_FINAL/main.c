@@ -7,6 +7,7 @@
 #include "test.h"
 #include "util.h"
 
+
 /**
 DIRECTORIOS (FRANCO S.)
 
@@ -49,7 +50,6 @@ void funcionRecuperarPaquetes()
     ///PaquetePtr paqueteAux;
     ///paqueteAux=paquete6;
     ///mostrarPaquete(paqueteAux);
-
     int totalPaquetes=0;
     PaquetePtr arrayPaquetes[100];
     printf("REMOCION DE PAQUETES EN PILA\n");
@@ -75,11 +75,38 @@ void funcionRecuperarPaquetes()
 
 void probandoGuardadoRepartos()
 {
-    ListaPtr LA=crearListaRepartosPorDefecto();
-    ListaPtr LA2=crearLista();
+    ///ListaPtr LA=crearListaRepartosPorDefecto();
+    ///ListaPtr LA2=crearLista();
 
 }
 
+void probandoFuncionesArchivosNuevo()
+{
+    ListaPtr L;
+    ListaPtr vehiculos = crearListaVehiculosGenerico();
+    ListaPtr paquetes1 = crearListaPaquetesGenerico();
+    ListaPtr repartosNuevo=crearListaRepartosPorDefectoConLista();
+    ListaPtr personas = crearListaPersonasGenerica();
+    ListaPtr repartosA = crearListaRepartosPorDefecto();
+    ListaPtr repartosC = crearLista();
+    ListaPtr clientes=clientesGenericos();
+    ListaPtr choferes=choferesGenericos();
+    /*GuardarListaClientesYChoferesNuevo(clientes,true);
+    L=LeerListaClientesYChoferesNuevo(true);
+    mostrarPersona(getCabecera(L));*/
+    /*GuardarListaPaquetesNuevo(paquetes1);
+    L=LeerListaPaquetesNuevo();
+    mostrarPaquete(getCabecera(L));*/
+    /*GuardarListaVehiculosNuevo(vehiculos);
+    L=LeerListaVehiculosNuevo();
+    mostrarVehiculo(getCabecera(L));*/
+    /*GuardarListaClientesYChoferesNuevo(choferes,false);
+    L=LeerListaClientesYChoferesNuevo(false);
+    mostrarPersona(getCabecera(L));*/
+    GuardarListaRepartosNuevo(repartosNuevo,true);
+    L=LeerListaRepartosNuevo(true);
+    mostrarRepartoNuevo(getCabecera(L));
+}
 
 ///-------------------------------------------------------//////---------------------------------------------------------------///
 
@@ -92,10 +119,11 @@ int main()
     ListaPtr personas = crearListaPersonasGenerica();
     ListaPtr repartosA = crearListaRepartosPorDefecto();
     ListaPtr repartosC = crearLista();
+    ListaPtr clientes=clientesGenericos();
+    ListaPtr choferes=choferesGenericos();
     centroLogistico = crearCentroLogistico("Distribuidora",paquetes1,personas,vehiculos,repartosA,repartosC);
-    CentroLogisticoPtr CL;
-    GuardarTodoNuevo(centroLogistico);
-    CL=AbrirTodoNuevo();
+    ListaPtr repartosNuevo=crearListaRepartosPorDefectoConLista();
+    probandoFuncionesArchivosNuevo();
     system("pause");
     do
     {

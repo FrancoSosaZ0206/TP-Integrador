@@ -41,5 +41,7 @@ ListaPtr crearListaPaquetesGenerico();
 ListaPtr crearListaPersonasGenerica();
 ListaPtr crearListaRepartosPorDefecto();
 void verificacion(bool resultado);
+ListaPtr choferesGenericos();
+ListaPtr clientesGenericos();
 
 #endif // TEST_H_INCLUDED

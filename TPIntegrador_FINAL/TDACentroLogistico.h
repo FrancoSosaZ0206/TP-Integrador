@@ -16,6 +16,8 @@ typedef struct CentroLogistico
     ListaPtr listaPaquetes;
     ListaPtr listaPersonas;
     ListaPtr listaVehiculos;
+    ListaPtr listaClientes;
+    ListaPtr listaChoferes;
     ListaPtr listaRepartosAbiertos; ///Nueva implementacion: Ahora los repartos que se cierran
     ListaPtr listaRepartosCerrados; ///se pasan a esta lista en lugar de ser eliminados.
 } CentroLogistico;
@@ -447,11 +449,16 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
 
 
 
-
+void setChoferes(CentroLogisticoPtr centroLogistico,ListaPtr choferes);
+void setClientes(CentroLogisticoPtr centroLogistico,ListaPtr clientes);
+ListaPtr getChoferes(CentroLogisticoPtr centroLogistico);
+ListaPtr getClientes(CentroLogisticoPtr centroLogistico);
 bool buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuilBuscar);
 void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico);
 void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico);
 bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
 void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico);
+CentroLogisticoPtr AbrirTodoNuevo();
+void GuardarTodoNuevo(CentroLogisticoPtr centroLogistico);
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED
