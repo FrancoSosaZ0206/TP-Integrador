@@ -121,6 +121,7 @@ int cantidadPaquetes(RepartoPtr reparto) //devuelve cantidad de paquetes que con
     return longitudPila(getPaquetesReparto(reparto));
 }
 
+/*
 void mostrarReparto(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
@@ -144,8 +145,9 @@ void mostrarReparto(RepartoPtr reparto)
         apilar(pila,(PaquetePtr)paquetes[i]);
     }
 }
+*/
 
-void mostrarRepartoNuevo(RepartoPtr reparto)
+void mostrarReparto(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
@@ -153,6 +155,13 @@ void mostrarRepartoNuevo(RepartoPtr reparto)
     mostrarFecha(getFechaSalida(reparto));
     printf("FECHA DE RETORNO: \n");
     mostrarFecha(getFechaRetorno(reparto));
+    ListaPtr l=getListaPaquetesReparto(reparto);
+    PaquetePtr p;
+    while(!listaVacia(l)){
+        p=getCabecera(l);
+        mostrarPaquete(p);
+        l=getResto(l);
+    }
 }
 
 void mostrarRepartoSinPaquetes(RepartoPtr reparto)
@@ -167,6 +176,7 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 
 ///---------------------------------------Funciones de validación------------------------------------------------
 ///NUEVA
+/*
 bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete)
 {
     bool match = false;
@@ -187,7 +197,8 @@ bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete)
     ///El for va de n hasta 0 para mantener el orden original de los paquetes como estaban en la pila.
     return match;
 }
-
+*/
+/*
 bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
 {
     PilaPtr pilaAux1=crearPila();
@@ -221,5 +232,34 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
         cargarPaquete(reparto2,(PaquetePtr)desapilar(pilaAux2));
     } ///Las pilas no las destruimos.
 
+    return condicion && pilasIguales;
+}
+*/
+
+
+bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
+{
+    bool condicion = personasIguales(getChofer(reparto1),getChofer(reparto2));
+    condicion = condicion && vehiculosIguales(getVehiculo(reparto1),getVehiculo(reparto2));
+    condicion = condicion && fechasIguales(getFechaSalida(reparto1),getFechaSalida(reparto2));
+    condicion = condicion && fechasIguales(getFechaRetorno(reparto1),getFechaRetorno(reparto2));
+
+    bool pilasIguales=false; //para los paquetes;
+    int n=longitudLista(getListaPaquetesReparto(reparto1))-longitudLista(getListaPaquetesReparto(reparto2));
+    if(n<0)
+        n=longitudLista(getListaPaquetesReparto(reparto2));
+    else if(n==0) //si tienen la misma cantidad de paquetes, usamos cualquiera de las dos
+        n=longitudLista(getListaPaquetesReparto(reparto1));
+    else //if(n>0)
+        n=longitudLista(getListaPaquetesReparto(reparto1));
+    PaquetePtr paqueteAux1;
+    PaquetePtr paqueteAux2;
+    for(int i=0;i<n;i++)
+    {
+        paqueteAux1=getDatoLista(getListaPaquetesReparto(reparto1),i);
+        paqueteAux2=getDatoLista(getListaPaquetesReparto(reparto2),i);
+        if(paquetesIguales(paqueteAux1,paqueteAux2))
+            pilasIguales=true;
+    }
     return condicion && pilasIguales;
 }

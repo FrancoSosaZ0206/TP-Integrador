@@ -43,5 +43,5 @@ ListaPtr crearListaRepartosPorDefecto();
 void verificacion(bool resultado);
 ListaPtr choferesGenericos();
 ListaPtr clientesGenericos();
-
+ListaPtr crearListaRepartosPorDefectoConLista();
 #endif // TEST_H_INCLUDED

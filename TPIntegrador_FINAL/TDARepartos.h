@@ -170,8 +170,8 @@ bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete); ///NUEVA
 //Devuelve: true si son idénticos todos sus cambios, false de lo contrario.
 bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2); ///NUEVA
 
-
-
+RepartoPtr crearRepartoNuevo(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes);
+void mostrarRepartoNuevo(RepartoPtr reparto);
 ListaPtr getListaPaquetesReparto(RepartoPtr reparto);;
 
 #endif // TDAREPARTOS_H_INCLUDED

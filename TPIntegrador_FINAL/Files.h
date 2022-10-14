@@ -90,7 +90,8 @@ PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico);
 RepartoPtr PasajeRepartoDinamico(fRepartoPtr RE, RepartoPtr RD, bool ADinamico);
 ListaPtr LeerListaClientesYChoferesNuevo(bool esChoferes);
 void GuardarListaClientesYChoferesNuevo(ListaPtr listaClientes, bool esChoferes);
-
+bool GuardarRepartosNuevo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+bool LeerRepartosNuevo(CentroLogisticoPtr centroLigistico, bool esRepartoAbierto);
 
 /**
 ****************************************************************************************************************

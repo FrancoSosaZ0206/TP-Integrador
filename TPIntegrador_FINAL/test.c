@@ -8,6 +8,7 @@
 #include "test.h"
 #include "util.h"
 #include "TDARepartos.h"
+#include "Files.h"
 
 ListaPtr crearListaRepartosPorDefectoConLista(){
     ListaPtr listaRepartos=crearLista();
@@ -274,4 +275,99 @@ void verificacion(bool resultado)
     {
         printf("NO FUNCIONA ADECUADAMENTE!!!\n");
     }
+}
+void funcionRecuperarPaquetes()
+{
+    PilaPtr pilaPaquetes=crearPila();
+    PaquetePtr paquete6 = crearPaqueteDirect(rand(),14,16,31,54,"Sixto Fernandez",2000,"Lomas de Zamora","Calle Morazan",550,"Villa fiorito",10,12,2022,21,45,0);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    apilar(pilaPaquetes,(PaquetePtr)paquete6);
+    ///PaquetePtr paqueteAux;
+    ///paqueteAux=paquete6;
+    ///mostrarPaquete(paqueteAux);
+    int totalPaquetes=0;
+    PaquetePtr arrayPaquetes[100];
+    printf("REMOCION DE PAQUETES EN PILA\n");
+    while(!pilaVacia(pilaPaquetes))
+    {
+        arrayPaquetes[totalPaquetes]=(PaquetePtr)desapilar(pilaPaquetes);
+        totalPaquetes++;
+    }
+    for(int i=0;i<totalPaquetes;i++)
+    {
+        printf("\n\nPaquete NRO: %d. ", i+1);
+        ///mostrarPaquete(arrayPaquetes[i]);
+    }
+    printf("\n\n");
+    system("pause");
+    printf("RECUPERACION PAQUETES EN PILA\n");
+    for(int i=totalPaquetes;i>0;i--)
+    {
+        apilar(pilaPaquetes,(PaquetePtr)arrayPaquetes[i]);
+    }
+    system("pause");
+}
+
+void probandoGuardadoRepartos()
+{
+    ///ListaPtr LA=crearListaRepartosPorDefecto();
+    ///ListaPtr LA2=crearLista();
+
+}
+
+void probandoFuncionesArchivosNuevo()
+{
+    ///ListaPtr L;
+    /*ListaPtr vehiculos = crearListaVehiculosGenerico();
+    ListaPtr paquetes1 = crearListaPaquetesGenerico();
+    ListaPtr repartosNuevo=crearListaRepartosPorDefectoConLista();
+    ListaPtr personas = crearListaPersonasGenerica();
+    ListaPtr repartosA = crearListaRepartosPorDefecto();
+    ListaPtr repartosC = crearLista();
+    ListaPtr clientes=clientesGenericos();
+    ListaPtr choferes=choferesGenericos();
+    CentroLogisticoPtr centroLogistico = crearCentroLogistico("Distribuidora",paquetes1,personas,vehiculos,repartosA,repartosC);*/
+    /*GuardarListaClientesYChoferesNuevo(clientes,true);
+    L=LeerListaClientesYChoferesNuevo(true);
+    mostrarPersona(getCabecera(L));*/
+    /*GuardarListaPaquetesNuevo(paquetes1);
+    L=LeerListaPaquetesNuevo();
+    mostrarPaquete(getCabecera(L));*/
+    /*GuardarListaVehiculosNuevo(vehiculos);
+    L=LeerListaVehiculosNuevo();
+    mostrarVehiculo(getCabecera(L));*/
+    /*GuardarListaClientesYChoferesNuevo(choferes,false);
+    L=LeerListaClientesYChoferesNuevo(false);
+    mostrarPersona(getCabecera(L));*/
+
+
+    /*fReparto RE;
+    RepartoPtr RD=getCabecera(repartosNuevo);
+    PasajeRepartoDinamico(&RE,RD,false);
+    printf("%s\n", RE.chofer.nombre);
+    printf("%d\n",RE.paquetes[0].alto);
+    printf("%d\n", RE.tamanioPilaPaq);
+    RepartoPtr RD2;
+    RD2=PasajeRepartoDinamico(&RE,RD2,true);
+    mostrarRepartoNuevo(RD2);*/
+
+    /*fReparto RE2;
+    RepartoPtr RD3;
+    FILE* arch;
+    arch=fopen("PPP.bin","wb");
+    fwrite(&RE,sizeof(fReparto),1,arch);
+    fclose(arch);
+    arch=fopen("PPP.bin","rb");
+    fread(&RE2,sizeof(fReparto),1,arch);
+    fclose(arch);
+    printf("PASAJE ESTATICO DE ARCHIVO A DINAMICO\n");
+    RD3=PasajeRepartoDinamico(&RE2,RD3,true);
+    mostrarRepartoNuevo(RD3);
+    system("cls");*/
+    ///GuardarListaRepartosNuevo(repartosNuevo,true);
+    ///L=LeerListaRepartosNuevo(true);
 }

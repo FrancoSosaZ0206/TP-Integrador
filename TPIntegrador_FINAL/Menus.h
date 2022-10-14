@@ -93,7 +93,7 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico);
 //  puntero al centro logistico
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.
-bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior);
+bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico);
 //OPERACION: menu de eliminacion de un persona de la lista
 //PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de personas.
 //POSTCONDICION: Se muestra la lista de personas, y el usuario elige el indice de la persona a eliminar.
@@ -103,7 +103,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior);
 //  puntero al centro logistico, booleano para determinar si es un chofer o un cliente
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.
-bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int opMenuAnterior);
+bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 //OPERACION: menu de eliminacion de un vehiculo de la lista
 //PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de vehiculos.
 //POSTCONDICION: Se muestra la lista de vehiculos, y el usuario elige el indice del vehiculo a eliminar.
@@ -113,7 +113,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int op
 //  puntero al centro logistico
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.
-bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior);
+bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
@@ -133,7 +133,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
 //PARÁMETROS: CentroLogisticoPtr donde se generara la modificacion del paquete procedente
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.
-bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior);
+bool menuModificarPaquete(CentroLogisticoPtr centroLogistico);
 //FUNCIÓN DE MODIFICACIÓN DE CLIENTE DE CENTRO LOGISTICO
 //PRECONDICIÓN:
 //              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
@@ -145,7 +145,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int opMenuAnterior)
 //PARÁMETROS: CentroLogisticoPtr donde se generara la modificacion del cliente o chofer procedente
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.
-bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int opMenuAnterior);
+bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 //FUNCIÓN DE MODIFICACIÓN DE VEHICULO DE CENTRO LOGISTICO
 //PRECONDICIÓN:
 //              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
@@ -157,7 +157,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int o
 //PARÁMETROS: CentroLogisticoPtr donde se generara la modificacion del vehiculo procedente
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.
-bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior);
+bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
@@ -175,7 +175,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int opMenuAnterior
 //      - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario.
-bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int opMenuAnterior);
+bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico);
 //OPERACIÓN: menú de muestra de personas
 //PRECONDICIÓN:
 //              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
@@ -186,7 +186,7 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int opMenuAnterior);
 //      - tipo: entero que indica si se quiere mostrar un chofer (1), un cliente (2), o todas las personas (3).
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario.
-bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int opMenuAnterior);
+bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo);
 //OPERACIÓN: menú de muestra de vehiculos
 //PRECONDICIÓN:
 //              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
@@ -196,7 +196,7 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int opMenuA
 //      - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario.
-bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico,int opMenuAnterior);
+bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
@@ -227,7 +227,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico);
 //      - centroLogistico: puntero a la estructura del Centro Logistico
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.
-bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int opMenuAnterior);
+bool menuCerrarReparto(CentroLogisticoPtr centroLogistico);
 //OPERACION: menu de busqueda de repartos
 //PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
 //POSTCONDICION: se muestra el reparto buscado, o se muestra un mensaje de error de lo contrario.
@@ -244,7 +244,7 @@ RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAb
 //      - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.
-bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int opMenuAnterior);
+bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 //OPERACION: menu de actualizacion de datos de un reparto
 //PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
 //POSTCONDICION: se ingresan los nuevos datos del reparto y se aplican los cambios,
@@ -254,7 +254,7 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 //      - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.
-bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int opMenuAnterior);
+bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 
 //OPERACION: menú de muestra de repartos
 //PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente, y se debe haber armado al menos un reparto.
@@ -265,7 +265,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
 //      - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario.
-bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int opMenuAnterior);
+bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 
 
 ///--------------------------------------------------------------------------------------------------------------------------
@@ -385,6 +385,6 @@ int menuModoAccion1(ListaPtr lista);
 //PARÁMETROS:
 //  opMenuAnterior: entero representando la opcion del menu anterior
 //DEVUELVE: entero representando la opcion elegida.
-int menuModoAccion(int opMenuAnterior);
+int menuModoAccion();
 
 #endif // MENUS_H_INCLUDED

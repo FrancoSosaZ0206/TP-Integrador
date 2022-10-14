@@ -15,41 +15,57 @@ CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,List
 {
     CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
     centroLogistico->nombre=crearStringDinamico(nombre);
-
     centroLogistico->listaPaquetes=listaPaquetes;
     centroLogistico->listaPersonas=listaPersonas;
     centroLogistico->listaVehiculos=listaVehiculos;
     centroLogistico->listaRepartosAbiertos=listaRepartosAbiertos;
     centroLogistico->listaRepartosCerrados=listaRepartosCerrados;
-
+    return centroLogistico;
+}
+CentroLogisticoPtr crearCentroLogisticoNuevo(char *nombre,ListaPtr listaPaquetes,ListaPtr listaClientes,ListaPtr listaChoferes,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados)
+{
+    CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
+    centroLogistico->nombre=crearStringDinamico(nombre);
+    centroLogistico->listaPaquetes=listaPaquetes;
+    centroLogistico->listaChoferes=listaChoferes;
+    centroLogistico->listaClientes=listaClientes;
+    centroLogistico->listaVehiculos=listaVehiculos;
+    centroLogistico->listaRepartosAbiertos=listaRepartosAbiertos;
+    centroLogistico->listaRepartosCerrados=listaRepartosCerrados;
     return centroLogistico;
 }
 CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre) ///Crea un centro logístico con un nombre y listas vacías.
 {
     CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
-
     centroLogistico->nombre=crearStringDinamico(nombre);
-
     centroLogistico->listaPaquetes=crearLista();
     centroLogistico->listaPersonas=crearLista();
     centroLogistico->listaVehiculos=crearLista();
     centroLogistico->listaRepartosAbiertos=crearLista();
     centroLogistico->listaRepartosCerrados=crearLista();
-
+    return centroLogistico;
+}
+CentroLogisticoPtr crearCentroLogisticoRapidoNuevo(char *nombre) ///Crea un centro logístico con un nombre y listas vacías.
+{
+    CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
+    centroLogistico->nombre=crearStringDinamico(nombre);
+    centroLogistico->listaPaquetes=crearLista();
+    centroLogistico->listaClientes=crearLista();
+    centroLogistico->listaChoferes=crearLista();
+    centroLogistico->listaVehiculos=crearLista();
+    centroLogistico->listaRepartosAbiertos=crearLista();
+    centroLogistico->listaRepartosCerrados=crearLista();
     return centroLogistico;
 }
 CentroLogisticoPtr destruirCentroLogistico(CentroLogisticoPtr centroLogistico)
 {
     destruirStringDinamico(centroLogistico->nombre);
-
     centroLogistico->listaPaquetes=destruirLista(centroLogistico->listaPaquetes,true);
     centroLogistico->listaPersonas=destruirLista(centroLogistico->listaPersonas,true);
     centroLogistico->listaVehiculos=destruirLista(centroLogistico->listaVehiculos,true);
     centroLogistico->listaRepartosAbiertos=destruirLista(centroLogistico->listaRepartosAbiertos,true);
     centroLogistico->listaRepartosCerrados=destruirLista(centroLogistico->listaRepartosCerrados,true);
-
     free(centroLogistico);
-
     return NULL;
 }
 
@@ -69,21 +85,23 @@ ListaPtr getVehiculos(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->listaVehiculos;
 }
-ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
-{
+ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
 	if(esRepartoAbierto)
 		return centroLogistico->listaRepartosAbiertos;
 	else
 		return centroLogistico->listaRepartosCerrados;
 }
-
-ListaPtr getClientes(CentroLogisticoPtr centroLogistico)
-{
-    return centroLogistico->listaClientes;
+ListaPtr getRepartosAbiertos(CentroLogisticoPtr centroLogistico){
+    return centroLogistico->listaRepartosAbiertos;
+}
+ListaPtr getRepartosCerrados(CentroLogisticoPtr centroLogistico){
+    return centroLogistico->listaRepartosCerrados;
 }
 
-ListaPtr getChoferes(CentroLogisticoPtr centroLogistico)
-{
+ListaPtr getClientes(CentroLogisticoPtr centroLogistico){
+    return centroLogistico->listaClientes;
+}
+ListaPtr getChoferes(CentroLogisticoPtr centroLogistico){
     return centroLogistico->listaChoferes;
 }
 
@@ -110,12 +128,10 @@ void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esR
 	else
 		centroLogistico->listaRepartosCerrados = repartos;
 }
-void setClientes(CentroLogisticoPtr centroLogistico,ListaPtr clientes)
-{
+void setClientes(CentroLogisticoPtr centroLogistico,ListaPtr clientes){
     centroLogistico->listaClientes=clientes;
 }
-void setChoferes(CentroLogisticoPtr centroLogistico,ListaPtr choferes)
-{
+void setChoferes(CentroLogisticoPtr centroLogistico,ListaPtr choferes){
     centroLogistico->listaChoferes=choferes;
 }
 
@@ -134,6 +150,32 @@ void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
     }
     listaAux=destruirLista(listaAux,false);
     printf("\n");
+}
+
+void mostrarChoferes(CentroLogisticoPtr centroLogistico){
+    ListaPtr listaAux=crearLista();
+    ListaPtr choferes=getChoferes(centroLogistico);
+    PersonaPtr personaAux;
+    agregarLista(listaAux,choferes);
+    while(!listaVacia(listaAux)){
+        personaAux=getCabecera(listaAux);
+        mostrarPersona(personaAux);
+        listaAux=getResto(listaAux);
+    }
+    listaAux=destruirLista(listaAux,false);
+}
+
+void mostrarClientes(CentroLogisticoPtr centroLogistico){
+    ListaPtr listaAux=crearLista();
+    ListaPtr clientes=getClientes(centroLogistico);
+    PersonaPtr personaAux;
+    agregarLista(listaAux,clientes);
+    while(!listaVacia(listaAux)){
+        personaAux=getCabecera(listaAux);
+        mostrarPersona(personaAux);
+        listaAux=getResto(listaAux);
+    }
+    listaAux=destruirLista(listaAux,false);
 }
 
 void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
@@ -275,6 +317,7 @@ void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
     listaAux=destruirLista(listaAux,false);
     printf("\n\n");
 }
+
 
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
@@ -572,7 +615,6 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
         return (RepartoPtr)removerDeLista(centroLogistico->listaRepartosCerrados,posicion);
 }
 
-
 PaquetePtr copiaPaquete(PaquetePtr PC)
 {
     PaquetePtr paqueteCopiado;
@@ -583,6 +625,39 @@ PaquetePtr copiaPaquete(PaquetePtr PC)
     getHora(getFechaEntrega(PC)),getMinuto(getFechaEntrega(PC)),getEstado(PC));
     ///---------------------------------------------------------------------------///
     return paqueteCopiado;
+}
+
+
+void mostrarRepartosAbiertos(CentroLogisticoPtr centroLogistico)
+{
+    ListaPtr listaAuxiliar=crearLista();
+    ListaPtr repartosAbiertos=getRepartosAbiertos(centroLogistico);
+    RepartoPtr repartoAuxiliar;
+    agregarLista(listaAuxiliar,repartosAbiertos);
+    while(!listaVacia(listaAuxiliar))
+    {
+        repartoAuxiliar=(RepartoPtr)getCabecera(listaAuxiliar);
+        mostrarReparto(repartoAuxiliar);
+        listaAuxiliar=getResto(listaAuxiliar);
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
+}
+
+void mostrarRepartosCerrados(CentroLogisticoPtr centroLogistico)
+{
+    ListaPtr listaAuxiliar=crearLista();
+    ListaPtr repartosCerrados=getRepartosCerrados(centroLogistico);
+    RepartoPtr repartoAuxiliar;
+    agregarLista(listaAuxiliar,repartosCerrados);
+    while(!listaVacia(listaAuxiliar))
+    {
+        repartoAuxiliar=(RepartoPtr)getCabecera(listaAuxiliar);
+        mostrarReparto(repartoAuxiliar);
+        listaAuxiliar=getResto(listaAuxiliar);
+    }
+    listaAuxiliar=destruirLista(listaAuxiliar,false);
+    printf("\n\n");
 }
 
 
@@ -948,8 +1023,6 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
     system("pause");
 }
 
-
-
 void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo)
 {
     limpiarBufferTeclado();
@@ -1025,15 +1098,3 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
     }
     system("pause");
 }
-
-
-
-
-
-
-
-
-
-
-
-
