@@ -76,6 +76,5 @@ PtrDato desapilar(PilaPtr pila);
 // Devuelve puntero al primer dato de la pila sin desapilar.
 PtrDato primeroPila(PilaPtr pila);
 
-int cantidadPaquetesPila(PilaPtr pila);
 
 #endif // PILA_H_INCLUDED

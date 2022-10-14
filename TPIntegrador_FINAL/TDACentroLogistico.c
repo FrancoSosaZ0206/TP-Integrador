@@ -22,36 +22,12 @@ CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,List
     centroLogistico->listaRepartosCerrados=listaRepartosCerrados;
     return centroLogistico;
 }
-CentroLogisticoPtr crearCentroLogisticoNuevo(char *nombre,ListaPtr listaPaquetes,ListaPtr listaClientes,ListaPtr listaChoferes,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados)
-{
-    CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
-    centroLogistico->nombre=crearStringDinamico(nombre);
-    centroLogistico->listaPaquetes=listaPaquetes;
-    centroLogistico->listaChoferes=listaChoferes;
-    centroLogistico->listaClientes=listaClientes;
-    centroLogistico->listaVehiculos=listaVehiculos;
-    centroLogistico->listaRepartosAbiertos=listaRepartosAbiertos;
-    centroLogistico->listaRepartosCerrados=listaRepartosCerrados;
-    return centroLogistico;
-}
 CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre) ///Crea un centro logístico con un nombre y listas vacías.
 {
     CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
     centroLogistico->nombre=crearStringDinamico(nombre);
     centroLogistico->listaPaquetes=crearLista();
     centroLogistico->listaPersonas=crearLista();
-    centroLogistico->listaVehiculos=crearLista();
-    centroLogistico->listaRepartosAbiertos=crearLista();
-    centroLogistico->listaRepartosCerrados=crearLista();
-    return centroLogistico;
-}
-CentroLogisticoPtr crearCentroLogisticoRapidoNuevo(char *nombre) ///Crea un centro logístico con un nombre y listas vacías.
-{
-    CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
-    centroLogistico->nombre=crearStringDinamico(nombre);
-    centroLogistico->listaPaquetes=crearLista();
-    centroLogistico->listaClientes=crearLista();
-    centroLogistico->listaChoferes=crearLista();
     centroLogistico->listaVehiculos=crearLista();
     centroLogistico->listaRepartosAbiertos=crearLista();
     centroLogistico->listaRepartosCerrados=crearLista();
@@ -85,25 +61,22 @@ ListaPtr getVehiculos(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->listaVehiculos;
 }
-ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
+ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+{
 	if(esRepartoAbierto)
 		return centroLogistico->listaRepartosAbiertos;
 	else
 		return centroLogistico->listaRepartosCerrados;
 }
-ListaPtr getRepartosAbiertos(CentroLogisticoPtr centroLogistico){
+ListaPtr getRepartosAbiertos(CentroLogisticoPtr centroLogistico)
+{
     return centroLogistico->listaRepartosAbiertos;
 }
-ListaPtr getRepartosCerrados(CentroLogisticoPtr centroLogistico){
+ListaPtr getRepartosCerrados(CentroLogisticoPtr centroLogistico)
+{
     return centroLogistico->listaRepartosCerrados;
 }
 
-ListaPtr getClientes(CentroLogisticoPtr centroLogistico){
-    return centroLogistico->listaClientes;
-}
-ListaPtr getChoferes(CentroLogisticoPtr centroLogistico){
-    return centroLogistico->listaChoferes;
-}
 
 void setNombreCentroLogistico(CentroLogisticoPtr centroLogistico,char *nombre)
 {
@@ -128,12 +101,6 @@ void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esR
 	else
 		centroLogistico->listaRepartosCerrados = repartos;
 }
-void setClientes(CentroLogisticoPtr centroLogistico,ListaPtr clientes){
-    centroLogistico->listaClientes=clientes;
-}
-void setChoferes(CentroLogisticoPtr centroLogistico,ListaPtr choferes){
-    centroLogistico->listaChoferes=choferes;
-}
 
 void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
 {
@@ -150,32 +117,6 @@ void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
     }
     listaAux=destruirLista(listaAux,false);
     printf("\n");
-}
-
-void mostrarChoferes(CentroLogisticoPtr centroLogistico){
-    ListaPtr listaAux=crearLista();
-    ListaPtr choferes=getChoferes(centroLogistico);
-    PersonaPtr personaAux;
-    agregarLista(listaAux,choferes);
-    while(!listaVacia(listaAux)){
-        personaAux=getCabecera(listaAux);
-        mostrarPersona(personaAux);
-        listaAux=getResto(listaAux);
-    }
-    listaAux=destruirLista(listaAux,false);
-}
-
-void mostrarClientes(CentroLogisticoPtr centroLogistico){
-    ListaPtr listaAux=crearLista();
-    ListaPtr clientes=getClientes(centroLogistico);
-    PersonaPtr personaAux;
-    agregarLista(listaAux,clientes);
-    while(!listaVacia(listaAux)){
-        personaAux=getCabecera(listaAux);
-        mostrarPersona(personaAux);
-        listaAux=getResto(listaAux);
-    }
-    listaAux=destruirLista(listaAux,false);
 }
 
 void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
@@ -522,40 +463,6 @@ bool buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuilBuscar)
     return match;
 }
 
-bool buscarPaqueteRepartos(CentroLogisticoPtr centroLogistico, int ID)
-{
-    bool match=false;
-    int longitud=0;
-    PaquetePtr paquetes[20];
-    PilaPtr pilaPaquetes=crearPila();
-    ListaPtr listaAux=crearLista();
-    RepartoPtr repartoAux;
-    agregarLista(listaAux,getRepartos(centroLogistico,true));
-    while(!listaVacia(listaAux))
-    {
-        repartoAux=(RepartoPtr)getCabecera(listaAux);
-        pilaPaquetes=getPaquetesReparto(repartoAux);
-        while(!pilaVacia(pilaPaquetes))
-        {
-            paquetes[longitud]=(PaquetePtr)desapilar(pilaPaquetes);
-            longitud++;
-        }
-        for(int  i=0;i<longitud;i++)
-        {
-            if(getID(paquetes[i])==ID)
-                match=true;
-        }
-        for(int i=longitud;i>0;i--)
-        {
-            apilar(pilaPaquetes,(PaquetePtr)paquetes[i]);
-        }
-        listaAux=getResto(listaAux);
-    }
-    listaAux=destruirLista(listaAux,false);
-    if(match)
-        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
-    return match;
-}
 
 //Funciones de agregado a la lista
 void agregarPaquete(CentroLogisticoPtr centroLogistico,PaquetePtr paquete)
@@ -615,166 +522,6 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
         return (RepartoPtr)removerDeLista(centroLogistico->listaRepartosCerrados,posicion);
 }
 
-PaquetePtr copiaPaquete(PaquetePtr PC)
-{
-    PaquetePtr paqueteCopiado;
-    ///---------------------------------------------------------------------------///
-    paqueteCopiado  = crearPaqueteDirect(getID(PC),getAncho(PC),getAlto(PC),getLargo(PC),getPeso(PC),getCalle(getDirRetiro(PC)),
-    getAltura(getDirRetiro(PC)),getLocalidad(getDirRetiro(PC)),getCalle(getDirEntrega(PC)),getAltura(getDirEntrega(PC)),
-    getLocalidad(getDirEntrega(PC)),getDia(getFechaEntrega(PC)),getMes(getFechaEntrega(PC)),getAnio(getFechaEntrega(PC)),
-    getHora(getFechaEntrega(PC)),getMinuto(getFechaEntrega(PC)),getEstado(PC));
-    ///---------------------------------------------------------------------------///
-    return paqueteCopiado;
-}
-
-
-void mostrarRepartosAbiertos(CentroLogisticoPtr centroLogistico)
-{
-    ListaPtr listaAuxiliar=crearLista();
-    ListaPtr repartosAbiertos=getRepartosAbiertos(centroLogistico);
-    RepartoPtr repartoAuxiliar;
-    agregarLista(listaAuxiliar,repartosAbiertos);
-    while(!listaVacia(listaAuxiliar))
-    {
-        repartoAuxiliar=(RepartoPtr)getCabecera(listaAuxiliar);
-        mostrarReparto(repartoAuxiliar);
-        listaAuxiliar=getResto(listaAuxiliar);
-    }
-    listaAuxiliar=destruirLista(listaAuxiliar,false);
-    printf("\n\n");
-}
-
-void mostrarRepartosCerrados(CentroLogisticoPtr centroLogistico)
-{
-    ListaPtr listaAuxiliar=crearLista();
-    ListaPtr repartosCerrados=getRepartosCerrados(centroLogistico);
-    RepartoPtr repartoAuxiliar;
-    agregarLista(listaAuxiliar,repartosCerrados);
-    while(!listaVacia(listaAuxiliar))
-    {
-        repartoAuxiliar=(RepartoPtr)getCabecera(listaAuxiliar);
-        mostrarReparto(repartoAuxiliar);
-        listaAuxiliar=getResto(listaAuxiliar);
-    }
-    listaAuxiliar=destruirLista(listaAuxiliar,false);
-    printf("\n\n");
-}
-
-
-///NUEVA
-void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
-{ ///extraemos el reparto de la lista de abiertos
-    RepartoPtr repartoACerrar = removerReparto(centroLogistico,posicion,true);
-///Copiamos el contenido del reparto en uno nuevo.
-    PersonaPtr copiaChofer = crearPersonaDirect(getNombre(getChofer(repartoACerrar)),
-                                                getApellido(getChofer(repartoACerrar)),
-                                                getCalle(getDomicilio(getChofer(repartoACerrar))),
-                                                getAltura(getDomicilio(getChofer(repartoACerrar))),
-                                                getLocalidad(getDomicilio(getChofer(repartoACerrar))),
-                                                getCuil(getCuilPersona(getChofer(repartoACerrar))),
-                                                getEsChofer(getChofer(repartoACerrar)));
-
-    VehiculoPtr copiaVehiculo = crearVehiculo(getTipoVehiculo(getVehiculo(repartoACerrar)),
-                                              getMarca(getVehiculo(repartoACerrar)),
-                                              getModelo(getVehiculo(repartoACerrar)),
-                                              getPatente(getVehiculo(repartoACerrar)));
-
-    FechaPtr copiaFechaSalida = crearFechaDirect(getDiaJuliano(getFechaSalida(repartoACerrar)),
-                                                 getHora(getFechaSalida(repartoACerrar)),
-                                                 getMinuto(getFechaSalida(repartoACerrar)));
-
-    FechaPtr copiaFechaRetorno = crearFechaDirect(getDiaJuliano(getFechaRetorno(repartoACerrar)),
-                                                 getHora(getFechaRetorno(repartoACerrar)),
-                                                 getMinuto(getFechaRetorno(repartoACerrar)));
-
-///Obtenemos cada paquete de la pila y le cambiamos el estado a 3: "entregado"
-    int n=cantidadPaquetes(repartoACerrar);
-    PaquetePtr paquetesAux[n];
-
-    PaquetePtr copiaPaquetes[n];
-    PilaPtr copiaPilaPaquetes=crearPila();
-
-    int estadoPaquetes[6];
-    for(int i=0;i<n;i++)
-    {
-        paquetesAux[i] = descargarPaquete(repartoACerrar);
-    ///Hacemos una copia de cada paquete
-        copiaPaquetes[i]  = crearPaqueteDirect(getID(paquetesAux[i]),
-                                               getAncho(paquetesAux[i]),
-                                               getAlto(paquetesAux[i]),
-                                               getLargo(paquetesAux[i]),
-                                               getPeso(paquetesAux[i]),
-                                               getCalle(getDirRetiro(paquetesAux[i])),
-                                               getAltura(getDirRetiro(paquetesAux[i])),
-                                               getLocalidad(getDirRetiro(paquetesAux[i])),
-                                               getCalle(getDirEntrega(paquetesAux[i])),
-                                               getAltura(getDirEntrega(paquetesAux[i])),
-                                               getLocalidad(getDirEntrega(paquetesAux[i])),
-                                               getDia(getFechaEntrega(paquetesAux[i])),
-                                               getMes(getFechaEntrega(paquetesAux[i])),
-                                               getAnio(getFechaEntrega(paquetesAux[i])),
-                                               getHora(getFechaEntrega(paquetesAux[i])),
-                                               getMinuto(getFechaEntrega(paquetesAux[i])),
-                                               getEstado(paquetesAux[i]));
-    ///Salvamos el conjunto de estados de los paquetes de la pila como valores de verdad en un vector de enteros
-        switch(getEstado(paquetesAux[i]))
-        {
-        case 0:
-            estadoPaquetes[0]=1;
-            break;
-        case 1:
-            estadoPaquetes[1]=1;
-            break;
-        case 2:
-            estadoPaquetes[2]=1;
-            break;
-        case 3:
-            estadoPaquetes[3]=1;
-            break;
-        case 4:
-            estadoPaquetes[4]=1;
-            break;
-        case 5:
-            estadoPaquetes[5]=1;
-            break;
-        }
-    }
-    for(int i=n;i>0;i--)
-    {
-        cargarPaquete(repartoACerrar,paquetesAux[i]);
-        apilar(copiaPilaPaquetes,(PaquetePtr)copiaPaquetes[i]);
-    }
-
-    RepartoPtr copiaReparto=armarReparto(copiaChofer,
-                                         copiaVehiculo,
-                                         copiaFechaSalida,
-                                         copiaFechaRetorno,
-                                         copiaPilaPaquetes);
-
-///Agregamos la copia del reparto cerrado a la lista de cerrados
-    agregarReparto(centroLogistico,copiaReparto,false);
-///Destruimos el reparto original
-    repartoACerrar=destruirReparto(repartoACerrar);
-
-    printf("\n\nCerrando reparto...\n\n");
-    bool condicion = estadoPaquetes[0]==0;
-    condicion = condicion && estadoPaquetes[1]==0;
-    condicion = condicion && estadoPaquetes[2]==0;
-    condicion = condicion && estadoPaquetes[3]==1;
-    condicion = condicion && estadoPaquetes[4]==0;
-    condicion = condicion && estadoPaquetes[5]==0;
-///Imprimimos un mensaje informativo acerca del estado de los paquetes
-    if(condicion)
-        printf("Todos los paquetes fueron entregados con exito.\n\n");
-    else if(estadoPaquetes[0]==1)
-        printf("ADVERTENCIA: Quedaron paquetes marcados como 'EN DEPOSITO'.\n\n");
-    else if(estadoPaquetes[1]==1 || estadoPaquetes[2]==1)
-        printf("Quedaron paquetes sin entregar. Revisarlos y reasignarlos a un nuevo reparto.\n\n");
-    else if(estadoPaquetes[4]==1)
-        printf("Algunos paquetes estan demorados. Revisarlos y reasignarlos a un nuevo reparto.\n\n");
-    else if(estadoPaquetes[5]==1)
-        printf("Se suspendieron algunos paquetes. Revisarlos y reasignarlos a un nuevo reparto.\n\n");
-}
 
 ///////////////////////////////////////////////////FUNCIONES DE VALIDACION//////////////////////////////////////////////////////////////////////////
 

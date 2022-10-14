@@ -75,24 +75,6 @@ typedef fReparto* fRepartoPtr;
 
 
 
-FechaPtr crearFechaDirectNuevo(fFechaPtr FE);
-DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DE);
-PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE);
-PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PE);
-VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VE);
-RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RE);
-FechaPtr PasajeFechaDinamico(fFechaPtr FE, FechaPtr FD, bool ADinamico);
-DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DE, DomicilioPtr DD, bool ADinamico);
-CuilPtr PasajeCuilDinamico(fCuilPtr CE, CuilPtr CD, bool ADinamico);
-VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VE, VehiculoPtr VD, bool ADinamico);
-PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico);
-PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico);
-RepartoPtr PasajeRepartoDinamico(fRepartoPtr RE, RepartoPtr RD, bool ADinamico);
-ListaPtr LeerListaClientesYChoferesNuevo(bool esChoferes);
-void GuardarListaClientesYChoferesNuevo(ListaPtr listaClientes, bool esChoferes);
-bool GuardarRepartosNuevo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
-bool LeerRepartosNuevo(CentroLogisticoPtr centroLigistico, bool esRepartoAbierto);
-
 /**
 ****************************************************************************************************************
                                                 INTERFAZ DE ARCHIVOS

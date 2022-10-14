@@ -45,11 +45,8 @@ int main()
     ListaPtr vehiculos = crearListaVehiculosGenerico();
     ListaPtr paquetes1 = crearListaPaquetesGenerico();
     ListaPtr personas = crearListaPersonasGenerica();
-    ///ListaPtr clientes = clientesGenericos();
-    ///ListaPtr choferes=choferesGenericos();
     ListaPtr repartosA = crearListaRepartosPorDefectoConLista();
     ListaPtr repartosC = crearLista();
-    ///centroLogistico = crearCentroLogisticoNuevo("Distribuidora",paquetes1,clientes,choferes,vehiculos,repartosA,repartosC);
     centroLogistico = crearCentroLogistico("Distribuidora",paquetes1,personas,vehiculos,repartosA,repartosC);
     do
     {

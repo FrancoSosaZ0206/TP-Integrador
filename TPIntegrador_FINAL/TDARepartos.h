@@ -16,13 +16,12 @@ typedef struct Reparto
     VehiculoPtr vehiculo;
     FechaPtr fechaSalida;
     FechaPtr fechaRetorno;
-    PilaPtr paquetes;
-    ListaPtr listaPaquetes;
+    ListaPtr paquetes;
 } Reparto;
 typedef Reparto * RepartoPtr;
 
 
-RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes);
+RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes);
 //Operación: Creacion del TDArepartos.
 //Precondición: Repartos no debe estar creado.
 //Postcondición: Se crea un nuevo reparto.
@@ -33,7 +32,7 @@ RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
 // fechaRetorno: un puntero a la estructura fecha representando la fecha de retorno.
 // paquetes: un puntero a la estructura pila que contiene los paquetes del reparto.
 //Devuelve un puntero a la nueva estructura.
-RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes);
+RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes);
 //Operación: Destruccion del TDArepartos.
 //Precondición: Repartos debe estar creado.
 //Postcondición: Se elimina el reparto y se libera la memoria.
@@ -76,7 +75,7 @@ FechaPtr getFechaRetorno(RepartoPtr reparto);
 //Parámetros:
 // reparto: puntero a la estructura para sacar el dato.
 //Devuelve un puntero a la estructura.
-PilaPtr getPaquetesReparto(RepartoPtr reparto);
+ListaPtr getPaquetesReparto(RepartoPtr reparto);
 
 
 //Operación: Asignacion de chofer.
@@ -111,28 +110,7 @@ void setFechaSalida(RepartoPtr reparto,FechaPtr fechaSalida);
 // fechaRetorno: puntero a la estructura del nuevo valor.
 //Devuelve nada
 void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno);
-//Operación: Agrega un nuevo paquete a la pila de paquetes.
-//Precondición: La pila debe haberse creado
-//Postcondición: La pila tiene un nuevo paquete
-//Parámetros:
-// reparto: puntero a la estructura a asignar el nuevo valor.
-// paquete: puntero a la estructura del nuevo valor.
-//Devuelve nada
-void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete);
-//Operación: Elimina el ultimo paquete agregado en la pila.(LIFO)
-//Precondición: La pila debe haberse creado
-//Postcondición: La pila tiene un paquete menos.
-//Parámetros:
-// reparto: puntero a la estructura a eliminar el valor.
-//Devuelve un puntero a la estrutura eliminada.
-PaquetePtr descargarPaquete(RepartoPtr reparto);
-//Operación: calcula la cantidad de paquetes que contiene el reparto.
-//Precondición: La pila debe haberse creado.
-//Postcondición: Se obtiene la cantidad de paquetes del reparto.
-//Parámetros:
-// reparto: puntero a la estructura a sacar la longitud.
-//Devuelve un entero representando la cantidad de paquetes.
-int cantidadPaquetes(RepartoPtr reparto);
+
 //Operación: Muestra el reparto.
 //Precondición: Reparto debe estar creado.
 //Postcondición: Imprime el reparto.
@@ -170,8 +148,5 @@ bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete); ///NUEVA
 //Devuelve: true si son idénticos todos sus cambios, false de lo contrario.
 bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2); ///NUEVA
 
-RepartoPtr crearRepartoNuevo(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes);
-void mostrarRepartoNuevo(RepartoPtr reparto);
-ListaPtr getListaPaquetesReparto(RepartoPtr reparto);;
 
 #endif // TDAREPARTOS_H_INCLUDED

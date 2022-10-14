@@ -21,20 +21,6 @@ PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPt
     return paquete;
 }
 
-PaquetePtr crearPaqueteNuevo(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,int estado,PersonaPtr cliente){
-    PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
-    paquete->ID=ID;
-    paquete->ancho=ancho;
-    paquete->alto=alto;
-    paquete->largo=largo;
-    paquete->peso=peso;
-    paquete->dirRetiro=dirRetiro;
-    paquete->dirEntrega=dirEntrega;
-    paquete->fechaEntrega=fechaEntrega;
-    paquete->estado=estado;
-    paquete->cliente=cliente;
-    return paquete;
-}
 
 PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado)
 {
@@ -60,17 +46,6 @@ PaquetePtr destruirPaquete(PaquetePtr paquete)
     paquete->dirRetiro=destruirDomicilio(paquete->dirRetiro);
     paquete->dirEntrega=destruirDomicilio(paquete->dirEntrega);
     paquete->fechaEntrega=destruirFecha(paquete->fechaEntrega);
-
-    free(paquete);
-    return NULL;
-}
-
-PaquetePtr destruirPaqueteNuevo(PaquetePtr paquete)
-{
-    paquete->dirRetiro=destruirDomicilio(paquete->dirRetiro);
-    paquete->dirEntrega=destruirDomicilio(paquete->dirEntrega);
-    paquete->fechaEntrega=destruirFecha(paquete->fechaEntrega);
-    paquete->cliente=destruirPersona(paquete->cliente);
     free(paquete);
     return NULL;
 }
@@ -111,9 +86,6 @@ int getEstado(PaquetePtr paquete)
 {
     return paquete->estado;
 }
-PersonaPtr getClientePaquete(PaquetePtr paquete){
-    return paquete->cliente;
-}
 
 
 void setID(PaquetePtr paquete,int ID)
@@ -152,9 +124,6 @@ void setEstado(PaquetePtr paquete,int estado)
 {
     paquete->estado=estado;
 }
-void setClientePaquete(PaquetePtr paquete,PersonaPtr cliente){
-    paquete->cliente=cliente;
-}
 
 void mostrarPaquete(PaquetePtr paquete)
 {
@@ -171,21 +140,6 @@ void mostrarPaquete(PaquetePtr paquete)
     mostrarFecha(getFechaEntrega(paquete));
 }
 
-void mostrarPaqueteNuevo(PaquetePtr paquete)
-{
-    mostrarEstadopaquete(paquete);
-    printf("\tAncho: %d\n",getAncho(paquete));
-    printf("\tAlto: %d\n",getAlto(paquete));
-    printf("\tLargo: %d\n",getLargo(paquete));
-    printf("\tPeso: %d\n",getPeso(paquete));
-    printf("\tDireccion de Retiro: ");
-    mostrarDomicilio(getDirRetiro(paquete));
-    printf("\tDireccion de Entrega: ");
-    mostrarDomicilio(getDirEntrega(paquete));
-    printf("FECHA DE ENTREGA: \n");
-    mostrarFecha(getFechaEntrega(paquete));
-    mostrarPersona(getClientePaquete(paquete));
-}
 
 void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
 {
@@ -225,21 +179,6 @@ void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual de
     }
 }
 
-int cantidadPaquetesPila(PilaPtr pila)
-{
-    int cant=0;
-    PaquetePtr paquetes[20];
-    while(!pilaVacia(pila))
-    {
-        paquetes[cant]=(PaquetePtr)desapilar(pila);
-        cant++;
-    }
-    for(int i=cant;i>0;i--)
-    {
-        apilar(pila,(PaquetePtr)paquetes[i]);
-    }
-    return cant;
-}
 
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 {

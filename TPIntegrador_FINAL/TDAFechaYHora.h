@@ -254,5 +254,12 @@ bool esFechaValida(FechaPtr fecha);
 //Devuelve: true si son idénticas, false de lo contrario.
 bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2); ///NUEVA
 
+//Operación: MOSTRAR
+//Precondición: fecha debe haberse creado
+//Postcondición: muestra la fecha por pantalla
+//Parámetros:
+// fecha: estructura a sacar el nombre.
+//No devuelve nada
 void mostrarFecha(FechaPtr fecha);
+
 #endif //TDAFECHAYHORA_H_INCLUDED
