@@ -27,6 +27,12 @@ void destruirStringDinamico(char *buffer)
     free(buffer);
 }
 
+/*void limpiarStringDinamico(char *strDin,int tamanioMax) ///NUEVA: Remueve todo el contenido basura despues del terminador del string
+{
+    for(int i=tamanioMax;i>strlen(strDin);i++) //Nos salteamos el /0
+        strDin[i] = 0;
+}*/
+
 void limpiarBufferTeclado()
 {
     fflush(stdin);

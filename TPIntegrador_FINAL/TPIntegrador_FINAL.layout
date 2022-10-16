@@ -2,226 +2,31 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="util.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2041" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="TDACuil.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5474" topLine="111" />
-		</Cursor>
-	</File>
-	<File name="Lista.c" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1157" topLine="32" />
-		</Cursor>
-	</File>
-	<File name="TDARepartos.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4011" topLine="41" />
-		</Cursor>
-		<Folding>
-			<Collapse line="12" />
-			<Collapse line="24" />
-			<Collapse line="29" />
-			<Collapse line="42" />
-			<Collapse line="46" />
-			<Collapse line="50" />
-			<Collapse line="54" />
-			<Collapse line="58" />
-			<Collapse line="63" />
-			<Collapse line="67" />
-			<Collapse line="71" />
-			<Collapse line="75" />
-			<Collapse line="80" />
-			<Collapse line="84" />
-			<Collapse line="91" />
-			<Collapse line="96" />
-			<Collapse line="103" />
-			<Collapse line="130" />
-			<Collapse line="143" />
-			<Collapse line="164" />
-		</Folding>
-	</File>
-	<File name="TDAPaquetes.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="8" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="218" topLine="4" />
-		</Cursor>
-	</File>
-	<File name="Menus.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="15636" topLine="220" />
-		</Cursor>
-	</File>
-	<File name="util.c" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="809" topLine="17" />
-		</Cursor>
-	</File>
-	<File name="TDAFechaYHora.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="10531" topLine="230" />
-		</Cursor>
-	</File>
-	<File name="TDADomicilio.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="178" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="TDANodo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1764" topLine="28" />
-		</Cursor>
-	</File>
-	<File name="TDANodo.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="587" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="TDAPaquetes.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4300" topLine="35" />
-		</Cursor>
-		<Folding>
-			<Collapse line="9" />
-			<Collapse line="28" />
-			<Collapse line="47" />
-			<Collapse line="57" />
-			<Collapse line="61" />
-			<Collapse line="65" />
-			<Collapse line="69" />
-			<Collapse line="73" />
-			<Collapse line="77" />
-			<Collapse line="81" />
-			<Collapse line="85" />
-			<Collapse line="89" />
-			<Collapse line="94" />
-			<Collapse line="98" />
-			<Collapse line="102" />
-			<Collapse line="106" />
-			<Collapse line="110" />
-			<Collapse line="114" />
-			<Collapse line="118" />
-			<Collapse line="122" />
-			<Collapse line="126" />
-			<Collapse line="131" />
-			<Collapse line="174" />
-			<Collapse line="184" />
-			<Collapse line="212" />
-		</Folding>
-	</File>
-	<File name="test.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2283" topLine="26" />
-		</Cursor>
-		<Folding>
-			<Collapse line="15" />
-			<Collapse line="29" />
-			<Collapse line="33" />
-			<Collapse line="37" />
-			<Collapse line="83" />
-			<Collapse line="232" />
-		</Folding>
-	</File>
-	<File name="Files.c" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="13577" topLine="18" />
-		</Cursor>
-		<Folding>
-			<Collapse line="26" />
-			<Collapse line="32" />
-			<Collapse line="40" />
-			<Collapse line="49" />
-			<Collapse line="59" />
-			<Collapse line="73" />
-			<Collapse line="83" />
-			<Collapse line="101" />
-			<Collapse line="106" />
-			<Collapse line="110" />
-			<Collapse line="114" />
-			<Collapse line="119" />
-			<Collapse line="123" />
-			<Collapse line="127" />
-			<Collapse line="132" />
-			<Collapse line="136" />
-			<Collapse line="140" />
-			<Collapse line="144" />
-			<Collapse line="149" />
-			<Collapse line="154" />
-			<Collapse line="158" />
-			<Collapse line="162" />
-			<Collapse line="166" />
-			<Collapse line="170" />
-			<Collapse line="174" />
-			<Collapse line="178" />
-			<Collapse line="182" />
-			<Collapse line="186" />
-			<Collapse line="191" />
-			<Collapse line="195" />
-			<Collapse line="199" />
-			<Collapse line="203" />
-			<Collapse line="208" />
-			<Collapse line="212" />
-			<Collapse line="216" />
-			<Collapse line="220" />
-			<Collapse line="226" />
-			<Collapse line="239" />
-			<Collapse line="246" />
-			<Collapse line="257" />
-			<Collapse line="268" />
-			<Collapse line="289" />
-			<Collapse line="318" />
-			<Collapse line="331" />
-			<Collapse line="388" />
-			<Collapse line="402" />
-			<Collapse line="422" />
-			<Collapse line="490" />
-			<Collapse line="524" />
-			<Collapse line="571" />
-			<Collapse line="604" />
-			<Collapse line="630" />
-			<Collapse line="659" />
-			<Collapse line="685" />
-			<Collapse line="721" />
-			<Collapse line="758" />
-		</Folding>
-	</File>
 	<File name="Pila.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="103" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Lista.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="TDAVehiculo.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5420" topLine="105" />
-		</Cursor>
-	</File>
-	<File name="Files.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="685" topLine="23" />
-		</Cursor>
-	</File>
-	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4682" topLine="78" />
+			<Cursor1 position="2915" topLine="11" />
 		</Cursor>
 		<Folding>
-			<Collapse line="23" />
-			<Collapse line="167" />
-			<Collapse line="212" />
-			<Collapse line="257" />
-			<Collapse line="312" />
-			<Collapse line="406" />
-			<Collapse line="456" />
-			<Collapse line="509" />
-			<Collapse line="596" />
+			<Collapse line="9" />
+			<Collapse line="20" />
+			<Collapse line="29" />
+			<Collapse line="33" />
+			<Collapse line="37" />
+			<Collapse line="41" />
+			<Collapse line="46" />
+			<Collapse line="50" />
+			<Collapse line="54" />
+			<Collapse line="58" />
+			<Collapse line="63" />
+			<Collapse line="78" />
+			<Collapse line="84" />
+			<Collapse line="100" />
 		</Folding>
-	</File>
-	<File name="TDACentroLogistico.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11885" topLine="199" />
-		</Cursor>
 	</File>
 	<File name="TDAFechaYHora.c" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
 		<Cursor>
@@ -256,66 +61,25 @@
 			<Collapse line="231" />
 		</Folding>
 	</File>
-	<File name="Pila.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="TDADomicilio.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2382" topLine="50" />
-		</Cursor>
-	</File>
-	<File name="test.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1061" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="TDACuil.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3914" topLine="82" />
+			<Cursor1 position="122" topLine="0" />
 		</Cursor>
 		<Folding>
-			<Collapse line="8" />
-			<Collapse line="17" />
-			<Collapse line="33" />
-			<Collapse line="43" />
-			<Collapse line="48" />
-			<Collapse line="62" />
-			<Collapse line="75" />
-			<Collapse line="90" />
-			<Collapse line="95" />
-			<Collapse line="107" />
-			<Collapse line="119" />
-			<Collapse line="236" />
-			<Collapse line="252" />
-			<Collapse line="257" />
-		</Folding>
-	</File>
-	<File name="TDARepartos.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5796" topLine="123" />
-		</Cursor>
-	</File>
-	<File name="TDAPersona.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2660" topLine="44" />
-		</Cursor>
-		<Folding>
-			<Collapse line="12" />
-			<Collapse line="26" />
-			<Collapse line="34" />
+			<Collapse line="20" />
+			<Collapse line="30" />
+			<Collapse line="35" />
+			<Collapse line="40" />
 			<Collapse line="47" />
 			<Collapse line="52" />
 			<Collapse line="57" />
 			<Collapse line="62" />
 			<Collapse line="67" />
-			<Collapse line="74" />
-			<Collapse line="79" />
-			<Collapse line="84" />
-			<Collapse line="89" />
-			<Collapse line="94" />
-			<Collapse line="116" />
 		</Folding>
 	</File>
 	<File name="TDACentroLogistico.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1199" topLine="8" />
+			<Cursor1 position="1163" topLine="8" />
 		</Cursor>
 		<Folding>
 			<Collapse line="14" />
@@ -360,12 +124,83 @@
 			<Collapse line="778" />
 		</Folding>
 	</File>
-	<File name="Menus.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="1130" zoom_1="5" zoom_2="3">
+	<File name="TDAPersona.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="76927" topLine="604" />
+			<Cursor1 position="2660" topLine="44" />
 		</Cursor>
 		<Folding>
+			<Collapse line="12" />
 			<Collapse line="26" />
+			<Collapse line="34" />
+			<Collapse line="47" />
+			<Collapse line="52" />
+			<Collapse line="57" />
+			<Collapse line="62" />
+			<Collapse line="67" />
+			<Collapse line="74" />
+			<Collapse line="79" />
+			<Collapse line="84" />
+			<Collapse line="89" />
+			<Collapse line="94" />
+			<Collapse line="116" />
+		</Folding>
+	</File>
+	<File name="TDACentroLogistico.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11885" topLine="199" />
+		</Cursor>
+	</File>
+	<File name="TDADomicilio.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="178" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="TDANodo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1764" topLine="28" />
+		</Cursor>
+	</File>
+	<File name="Lista.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5420" topLine="105" />
+		</Cursor>
+	</File>
+	<File name="test.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1061" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="Lista.c" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1157" topLine="32" />
+		</Cursor>
+	</File>
+	<File name="TDACuil.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3914" topLine="82" />
+		</Cursor>
+		<Folding>
+			<Collapse line="8" />
+			<Collapse line="17" />
+			<Collapse line="33" />
+			<Collapse line="43" />
+			<Collapse line="48" />
+			<Collapse line="62" />
+			<Collapse line="75" />
+			<Collapse line="90" />
+			<Collapse line="95" />
+			<Collapse line="107" />
+			<Collapse line="119" />
+			<Collapse line="236" />
+			<Collapse line="252" />
+			<Collapse line="257" />
+		</Folding>
+	</File>
+	<File name="Menus.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="1177" zoom_1="0" zoom_2="5">
+		<Cursor>
+			<Cursor1 position="102560" topLine="695" />
+		</Cursor>
+		<Folding>
 			<Collapse line="61" />
 			<Collapse line="89" />
 			<Collapse line="151" />
@@ -376,63 +211,225 @@
 			<Collapse line="327" />
 			<Collapse line="352" />
 			<Collapse line="378" />
+			<Collapse line="416" />
 			<Collapse line="516" />
 			<Collapse line="622" />
-			<Collapse line="713" />
-			<Collapse line="738" />
-			<Collapse line="779" />
-			<Collapse line="803" />
-			<Collapse line="895" />
-			<Collapse line="1016" />
-			<Collapse line="1109" />
-			<Collapse line="1466" />
-			<Collapse line="2161" />
-			<Collapse line="2338" />
-			<Collapse line="2474" />
-			<Collapse line="2634" />
-			<Collapse line="2786" />
-			<Collapse line="2904" />
-			<Collapse line="3300" />
-			<Collapse line="3337" />
-			<Collapse line="3514" />
-			<Collapse line="3754" />
+			<Collapse line="714" />
+			<Collapse line="739" />
+			<Collapse line="780" />
+			<Collapse line="804" />
+			<Collapse line="898" />
+			<Collapse line="1021" />
+			<Collapse line="1473" />
+			<Collapse line="1756" />
+			<Collapse line="2023" />
+			<Collapse line="2345" />
+			<Collapse line="2482" />
+			<Collapse line="2642" />
+			<Collapse line="2912" />
+			<Collapse line="3308" />
+			<Collapse line="3345" />
+			<Collapse line="3522" />
+			<Collapse line="3762" />
 		</Folding>
 	</File>
-	<File name="TDADomicilio.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+	<File name="TDARepartos.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="122" topLine="0" />
+			<Cursor1 position="4011" topLine="41" />
 		</Cursor>
 		<Folding>
-			<Collapse line="20" />
-			<Collapse line="30" />
-			<Collapse line="35" />
-			<Collapse line="40" />
-			<Collapse line="47" />
-			<Collapse line="52" />
-			<Collapse line="57" />
-			<Collapse line="62" />
-			<Collapse line="67" />
-		</Folding>
-	</File>
-	<File name="TDAVehiculo.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2915" topLine="11" />
-		</Cursor>
-		<Folding>
-			<Collapse line="9" />
-			<Collapse line="20" />
+			<Collapse line="12" />
+			<Collapse line="24" />
 			<Collapse line="29" />
-			<Collapse line="33" />
-			<Collapse line="37" />
-			<Collapse line="41" />
+			<Collapse line="42" />
 			<Collapse line="46" />
 			<Collapse line="50" />
 			<Collapse line="54" />
 			<Collapse line="58" />
 			<Collapse line="63" />
-			<Collapse line="78" />
+			<Collapse line="67" />
+			<Collapse line="71" />
+			<Collapse line="75" />
+			<Collapse line="80" />
 			<Collapse line="84" />
-			<Collapse line="100" />
+			<Collapse line="91" />
+			<Collapse line="96" />
+			<Collapse line="103" />
+			<Collapse line="130" />
+			<Collapse line="143" />
+			<Collapse line="164" />
 		</Folding>
+	</File>
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2537" topLine="107" />
+		</Cursor>
+		<Folding>
+			<Collapse line="106" />
+			<Collapse line="124" />
+			<Collapse line="167" />
+			<Collapse line="212" />
+			<Collapse line="257" />
+			<Collapse line="312" />
+			<Collapse line="338" />
+			<Collapse line="372" />
+			<Collapse line="406" />
+			<Collapse line="456" />
+			<Collapse line="509" />
+			<Collapse line="596" />
+		</Folding>
+	</File>
+	<File name="TDACuil.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5474" topLine="111" />
+		</Cursor>
+	</File>
+	<File name="Files.c" open="1" top="1" tabpos="2" split="2" active="1" splitpos="1107" zoom_1="5" zoom_2="5">
+		<Cursor>
+			<Cursor1 position="21243" topLine="253" />
+			<Cursor2 position="569" topLine="56" />
+		</Cursor>
+		<Folding>
+			<Collapse line="16" />
+			<Collapse line="22" />
+			<Collapse line="30" />
+			<Collapse line="39" />
+			<Collapse line="49" />
+			<Collapse line="63" />
+			<Collapse line="73" />
+			<Collapse line="91" />
+			<Collapse line="96" />
+			<Collapse line="100" />
+			<Collapse line="104" />
+			<Collapse line="109" />
+			<Collapse line="113" />
+			<Collapse line="117" />
+			<Collapse line="122" />
+			<Collapse line="126" />
+			<Collapse line="130" />
+			<Collapse line="134" />
+			<Collapse line="139" />
+			<Collapse line="144" />
+			<Collapse line="148" />
+			<Collapse line="152" />
+			<Collapse line="156" />
+			<Collapse line="160" />
+			<Collapse line="164" />
+			<Collapse line="168" />
+			<Collapse line="172" />
+			<Collapse line="176" />
+			<Collapse line="181" />
+			<Collapse line="185" />
+			<Collapse line="189" />
+			<Collapse line="193" />
+			<Collapse line="198" />
+			<Collapse line="202" />
+			<Collapse line="206" />
+			<Collapse line="210" />
+			<Collapse line="216" />
+			<Collapse line="385" />
+			<Collapse line="392" />
+			<Collapse line="399" />
+			<Collapse line="406" />
+			<Collapse line="413" />
+			<Collapse line="420" />
+			<Collapse line="436" />
+			<Collapse line="472" />
+			<Collapse line="545" />
+			<Collapse line="594" />
+			<Collapse line="629" />
+			<Collapse line="658" />
+			<Collapse line="787" />
+		</Folding>
+	</File>
+	<File name="util.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1247" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Menus.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4774" topLine="19" />
+		</Cursor>
+	</File>
+	<File name="TDAFechaYHora.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10531" topLine="230" />
+		</Cursor>
+	</File>
+	<File name="util.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="712" topLine="13" />
+		</Cursor>
+	</File>
+	<File name="TDAPaquetes.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="8" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="323" topLine="4" />
+		</Cursor>
+	</File>
+	<File name="TDAPaquetes.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4300" topLine="35" />
+		</Cursor>
+		<Folding>
+			<Collapse line="9" />
+			<Collapse line="28" />
+			<Collapse line="47" />
+			<Collapse line="57" />
+			<Collapse line="61" />
+			<Collapse line="65" />
+			<Collapse line="69" />
+			<Collapse line="73" />
+			<Collapse line="77" />
+			<Collapse line="81" />
+			<Collapse line="85" />
+			<Collapse line="89" />
+			<Collapse line="94" />
+			<Collapse line="98" />
+			<Collapse line="102" />
+			<Collapse line="106" />
+			<Collapse line="110" />
+			<Collapse line="114" />
+			<Collapse line="118" />
+			<Collapse line="122" />
+			<Collapse line="126" />
+			<Collapse line="131" />
+			<Collapse line="174" />
+			<Collapse line="184" />
+			<Collapse line="212" />
+		</Folding>
+	</File>
+	<File name="TDANodo.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="587" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="TDARepartos.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5796" topLine="123" />
+		</Cursor>
+	</File>
+	<File name="Files.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8920" topLine="135" />
+		</Cursor>
+	</File>
+	<File name="test.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2283" topLine="26" />
+		</Cursor>
+		<Folding>
+			<Collapse line="15" />
+			<Collapse line="29" />
+			<Collapse line="33" />
+			<Collapse line="37" />
+			<Collapse line="83" />
+			<Collapse line="232" />
+		</Folding>
+	</File>
+	<File name="Pila.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2382" topLine="50" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

@@ -22,6 +22,9 @@ char *crearStringDinamico(char* literal);
 //PARÁMETROS: cadena de caracteres representada por medio de un puntero a char
 //devuelve NULL
 void destruirStringDinamico(char *buffer);
+
+//void limpiarStringDinamico(char *strDin,int tamanioMax); ///NUEVA: Remueve todo el contenido basura despues del terminador del string
+
 //FUNCIÓN DE LIMPIEZA DE BUFFER DE TECLADO (UTILIZA FFLUSH(STDIN))
 //PRECONDICIÓN: Ninguna
 //POSTCONDICIÓN: Libera la acumulacion del EOF, permitiendo ingresar datos por teclado correctamente sin errores

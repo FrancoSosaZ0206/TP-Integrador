@@ -2,17 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "Lista.h"
-#include "Pila.h"
 #include "TDACentroLogistico.h"
-#include "TDACuil.h"
-#include "TDADomicilio.h"
-#include "TDAFechaYHora.h"
-#include "TDANodo.h"
-#include "TDAPaquetes.h"
-#include "TDAPersona.h"
-#include "TDARepartos.h"
-#include "TDAVehiculo.h"
 #include "Files.h"
 
 #include <sys/stat.h>
@@ -229,21 +219,20 @@ fPaquete *fgetPaquetesReparto(fRepartoPtr pfreparto)
 }
 
 
-
 ///Setters
 /**
 Se puede setear toda la estructura de una.
 Postcondición: si setParaGuardar == true, setea cuil en fCuil.
                De lo contrario, hace el proceso inverso (ayuda a la hora de abrir un archivo).
 */
-void fsetCuil(fCuilPtr fcuil,CuilPtr cuil,bool setParaGuardar)
+CuilPtr fsetCuil(fCuilPtr fcuil,CuilPtr cuil,bool setParaGuardar)
 {
     if(setParaGuardar)
         strcpy(fcuil->cuil,getCuil(cuil));
     else ///asumimos que la estructura está vacía y la creamos.
-        cuil=crearCuil(fgetCuil(fcuil));
+        return crearCuil(fgetCuil(fcuil));
 }
-void fsetDomicilio(fDomicilioPtr pfdomicilio,DomicilioPtr domicilio,bool setParaGuardar)
+DomicilioPtr fsetDomicilio(fDomicilioPtr pfdomicilio,DomicilioPtr domicilio,bool setParaGuardar)
 {
     if(setParaGuardar)
     {
@@ -252,9 +241,9 @@ void fsetDomicilio(fDomicilioPtr pfdomicilio,DomicilioPtr domicilio,bool setPara
         strcpy(pfdomicilio->localidad,getLocalidad(domicilio));
     }
     else ///asumimos que la estructura está vacía y la creamos.
-        domicilio=crearDomicilio(fgetCalle(pfdomicilio),fgetAltura(pfdomicilio),fgetLocalidad(pfdomicilio));
+        return crearDomicilio(fgetCalle(pfdomicilio),fgetAltura(pfdomicilio),fgetLocalidad(pfdomicilio));
 }
-void fsetFecha(fFechaPtr pffecha,FechaPtr fecha,bool setParaGuardar)
+FechaPtr fsetFecha(fFechaPtr pffecha,FechaPtr fecha,bool setParaGuardar)
 {
     if(setParaGuardar)
     {
@@ -263,30 +252,9 @@ void fsetFecha(fFechaPtr pffecha,FechaPtr fecha,bool setParaGuardar)
         pffecha->minuto=getMinuto(fecha);
     }
     else ///asumimos que la estructura está vacía y la creamos.
-        fecha = crearFechaDirect(fgetDiaJuliano(pffecha),fgetHora(pffecha),fgetMinuto(pffecha));
+        return crearFechaDirect(fgetDiaJuliano(pffecha),fgetHora(pffecha),fgetMinuto(pffecha));
 }
-void fsetPersona(fPersonaPtr pfpersona,PersonaPtr persona,bool setParaGuardar)
-{
-    if(setParaGuardar)
-    {
-        strcpy(pfpersona->nombre,getNombre(persona));
-        strcpy(pfpersona->apellido,getApellido(persona));
-
-        fsetDomicilio(fgetDomicilio(pfpersona),getDomicilio(persona),true);
-        fsetCuil(fgetCuilPersona(pfpersona),getCuilPersona(persona),true); ///MUCHO OJO: TODAVIA NO SE CAMBIO EL NOMBRE ORIGINAL, SE DEBE HACER ESO PARA QUE FUNCIONE.
-
-        pfpersona->esChofer=getEsChofer(persona);
-    }
-    else ///asumimos que la estructura está vacía y la creamos.
-    {
-        DomicilioPtr domicilio;
-        CuilPtr cuil;
-        fsetDomicilio(fgetDomicilio(pfpersona),domicilio,false);
-        fsetCuil(fgetCuilPersona(pfpersona),cuil,false);
-        persona=crearPersona(fgetNombre(pfpersona),fgetApellido(pfpersona),domicilio,cuil,fgetEsChofer(pfpersona));
-    }
-}
-void fsetPaquete(fPaquetePtr pfpaquete,PaquetePtr paquete,bool setParaGuardar)
+PaquetePtr fsetPaquete(fPaquetePtr pfpaquete,PaquetePtr paquete,bool setParaGuardar)
 {
     if(setParaGuardar)
     {
@@ -304,18 +272,47 @@ void fsetPaquete(fPaquetePtr pfpaquete,PaquetePtr paquete,bool setParaGuardar)
     }
     else ///asumimos que la estructura está vacía y la creamos.
     {
-        DomicilioPtr dirRetiro;
-        DomicilioPtr dirEntrega;
-        FechaPtr fechaEntrega;
+        DomicilioPtr dirRetiro = fsetDomicilio(fgetDirRetiro(pfpaquete),dirRetiro,false);
+        DomicilioPtr dirEntrega = fsetDomicilio(fgetDirEntrega(pfpaquete),dirEntrega,false);
+        FechaPtr fechaEntrega = fsetFecha(fgetFechaEntrega(pfpaquete),fechaEntrega,false);
 
-        fsetDomicilio(fgetDirRetiro(pfpaquete),dirRetiro,false);
-        fsetDomicilio(fgetDirEntrega(pfpaquete),dirEntrega,false);
-        fsetFecha(fgetFechaEntrega(pfpaquete),fechaEntrega,false);
-
-        paquete=crearPaquete(fgetID(pfpaquete),fgetAncho(pfpaquete),fgetAlto(pfpaquete),fgetLargo(pfpaquete),fgetPeso(pfpaquete),dirRetiro,dirEntrega,fechaEntrega,fgetEstado(pfpaquete));
+        return crearPaquete(fgetID(pfpaquete),
+                               fgetAncho(pfpaquete),
+                               fgetAlto(pfpaquete),
+                               fgetLargo(pfpaquete),
+                               fgetPeso(pfpaquete),
+                               dirRetiro,
+                               dirEntrega,
+                               fechaEntrega,
+                               fgetEstado(pfpaquete));
+        return paquete;
     }
 }
-void fsetVehiculo(fVehiculoPtr pfvehiculo,VehiculoPtr vehiculo,bool setParaGuardar)
+PersonaPtr fsetPersona(fPersonaPtr pfpersona,PersonaPtr persona,bool setParaGuardar)
+{
+    if(setParaGuardar)
+    {
+        strcpy(pfpersona->nombre,getNombre(persona));
+        strcpy(pfpersona->apellido,getApellido(persona));
+
+        fsetDomicilio(fgetDomicilio(pfpersona),getDomicilio(persona),true);
+        fsetCuil(fgetCuilPersona(pfpersona),getCuilPersona(persona),true); ///MUCHO OJO: TODAVIA NO SE CAMBIO EL NOMBRE ORIGINAL, SE DEBE HACER ESO PARA QUE FUNCIONE.
+
+        pfpersona->esChofer=getEsChofer(persona);
+    }
+    else ///asumimos que la estructura está vacía y la creamos.
+    {
+        DomicilioPtr domicilio = fsetDomicilio(fgetDomicilio(pfpersona),domicilio,false);
+        CuilPtr cuil = fsetCuil(fgetCuilPersona(pfpersona),cuil,false);
+
+        return crearPersona(fgetNombre(pfpersona),
+                             fgetApellido(pfpersona),
+                             domicilio,
+                             cuil,
+                             fgetEsChofer(pfpersona));
+    }
+}
+VehiculoPtr fsetVehiculo(fVehiculoPtr pfvehiculo,VehiculoPtr vehiculo,bool setParaGuardar) ///AHORA RETORNA PUNTERO A LA ESTRUCTURA SETEADA
 {
     if(setParaGuardar)
     {
@@ -326,9 +323,12 @@ void fsetVehiculo(fVehiculoPtr pfvehiculo,VehiculoPtr vehiculo,bool setParaGuard
         strcpy(pfvehiculo->patente,getPatente(vehiculo));
     }
     else ///asumimos que la estructura está vacía y la creamos.
-        vehiculo=crearVehiculo(fgetTipoVehiculo(pfvehiculo),fgetMarca(pfvehiculo),fgetModelo(pfvehiculo),fgetPatente(pfvehiculo));
+        return crearVehiculo(fgetTipoVehiculo(pfvehiculo),
+                             fgetMarca(pfvehiculo),
+                             fgetModelo(pfvehiculo),
+                             fgetPatente(pfvehiculo));
 }
-void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
+RepartoPtr fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
 {
     int n=0;
     PaquetePtr paqueteAux;
@@ -351,28 +351,21 @@ void fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
     }
     else ///asumimos que la estructura está vacía y la creamos.
     {
-        PersonaPtr chofer;
-        VehiculoPtr vehiculo;
-        FechaPtr fechaSalida;
-        FechaPtr fechaRetorno;
-
-        fsetPersona(fgetChofer(pfreparto),chofer,false);
-        fsetVehiculo(fgetVehiculo(pfreparto),vehiculo,false);
-        fsetFecha(fgetFechaSalida(pfreparto),fechaSalida,false);
-        fsetFecha(fgetFechaRetorno(pfreparto),fechaRetorno,false);
+        PersonaPtr chofer = fsetPersona(fgetChofer(pfreparto),chofer,false);
+        VehiculoPtr vehiculo = fsetVehiculo(fgetVehiculo(pfreparto),vehiculo,false);
+        FechaPtr fechaSalida = fsetFecha(fgetFechaSalida(pfreparto),fechaSalida,false);
+        FechaPtr fechaRetorno = fsetFecha(fgetFechaRetorno(pfreparto),fechaRetorno,false);
 
         PilaPtr paquetes = crearPila();
         n=pfreparto->tamanioPilaPaq;
 
         for(int i=n;i>0;i--) ///lo hacemos al revés para mantener el orden original de la pila.
         {
-            fsetPaquete(&pfreparto->paquetes[i],paqueteAux,false);
+            paqueteAux = fsetPaquete(&pfreparto->paquetes[i],paqueteAux,false);
             apilar(paquetes,(PaquetePtr)paqueteAux);
         }
-        reparto = armarReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
+        return armarReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
     }
-
-    paqueteAux = NULL;
 }
 
 /// ///////////////////////////////////////////////////////////////////////////////////////////////// ///
@@ -396,20 +389,30 @@ bool crearCarpeta()
 /** OPERACIÓN: busca y abre una carpeta.
 PRECONDICIÓN: ninguna
 POSTCONDICIÓN: se busca una carpeta con el nombre "Archivos".
-PARÁMETROS: ninguno
+PARÁMETROS: puntero a la variable DIR (directorio) a usar
 DEVUELVE: true si se pudo encontrar y abrir, false de lo contrario.
 */
-bool abrirCarpeta()
+bool abrirCarpeta(DIR *carpeta)
 {
-    DIR *carpeta = opendir("Archivos"); ///Chequeamos si existe la carpeta
+    carpeta = opendir("Archivos"); ///Chequeamos si existe la carpeta
     if(carpeta==NULL)
         return false;
     else
-    {
-        closedir(carpeta); ///Como con archivos, cerramos la carpeta
-                           ///para liberar la memoria utilizada para abrirla.
         return true;
-    }
+}
+/** OPERACIÓN: cierra una carpeta.
+PRECONDICIÓN: debe haber una carpeta "Archivos" creada y abierta en el proyecto
+POSTCONDICIÓN: se terminan de utilizar los recursos para mantener abierta la carpeta
+PARÁMETROS: puntero a la variable DIR (directorio) a usar
+DEVUELVE: true si se pudo cerrar, false de lo contrario.
+*/
+bool cerrarCarpeta(DIR *carpeta)
+{
+    int resultado = closedir(carpeta);
+    if(-1==resultado)
+        return false;
+    else
+        return true;
 }
 /// ///////////////////////////////////////////////////////////////////////////////////////////////// ///
 
@@ -419,43 +422,10 @@ bool abrirCarpeta()
 ///                                             FUNCIONES PÚBLICAS/DE LA INTERFAZ
 
 //  listas de datos / estructuras
-bool guardarPersonas(CentroLogisticoPtr centroLogistico)
-{
-    if(!abrirCarpeta())
-        crearCarpeta();
-
-    FILE *archivo = fopen("Archivos/Lista de Personas.txt","w");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-    ///Como hicimos en funciones anteriores, guardamos primero la cantidad de elementos de la lista
-        int n = longitudLista(getPersonas(centroLogistico));
-        fwrite(&n,sizeof(int),1,archivo);
-
-        fPersona fpersona;
-        ListaPtr listaAux = crearLista();
-        agregarLista(listaAux , getPersonas(centroLogistico));
-
-        while(!listaVacia(listaAux))
-        {
-            PersonaPtr personaAux = (PersonaPtr)getCabecera(listaAux);
-            fsetPersona(&fpersona,personaAux,true);
-
-            fwrite(&fpersona,sizeof(fPersona),1,archivo);
-
-            listaAux=getResto(listaAux);
-        }
-        listaAux=destruirLista(listaAux,false);
-
-        fclose(archivo);
-        return true;
-    }
-}
 bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
 {
-    if(!abrirCarpeta())
+    DIR *carpeta;
+    if(!abrirCarpeta(carpeta))
         crearCarpeta();
 
     FILE *archivo = fopen("Archivos/Lista de Paquetes.txt","w");
@@ -484,12 +454,50 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
         listaAux=destruirLista(listaAux,false);
 
         fclose(archivo);
+        cerrarCarpeta(carpeta);
+        return true;
+    }
+}
+bool guardarPersonas(CentroLogisticoPtr centroLogistico)
+{
+    DIR *carpeta;
+    if(!abrirCarpeta(carpeta))
+        crearCarpeta();
+
+    FILE *archivo = fopen("Archivos/Lista de Personas.txt","w");
+
+    if(archivo==NULL)
+        return false;
+    else
+    {
+    ///Como hicimos en funciones anteriores, guardamos primero la cantidad de elementos de la lista
+        int n = longitudLista(getPersonas(centroLogistico));
+        fwrite(&n,sizeof(int),1,archivo);
+
+        fPersona fpersona;
+        ListaPtr listaAux = crearLista();
+        agregarLista(listaAux , getPersonas(centroLogistico));
+
+        while(!listaVacia(listaAux))
+        {
+            PersonaPtr personaAux = (PersonaPtr)getCabecera(listaAux);
+            fsetPersona(&fpersona,personaAux,true);
+
+            fwrite(&fpersona,sizeof(fPersona),1,archivo);
+
+            listaAux=getResto(listaAux);
+        }
+        listaAux=destruirLista(listaAux,false);
+
+        fclose(archivo);
+        cerrarCarpeta(carpeta);
         return true;
     }
 }
 bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
 {
-    if(!abrirCarpeta())
+    DIR *carpeta;
+    if(!abrirCarpeta(carpeta))
         crearCarpeta();
 
     FILE *archivo = fopen("Archivos/Lista de Vehiculos.txt","w");
@@ -502,14 +510,17 @@ bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
         int n = longitudLista(getVehiculos(centroLogistico));
         fwrite(&n,sizeof(int),1,archivo);
 
-        fVehiculo fvehiculo;
+        //fVehiculo fvehiculo;
         ListaPtr listaAux = crearLista();
         agregarLista(listaAux , getVehiculos(centroLogistico));
 
         while(!listaVacia(listaAux))
         {
             VehiculoPtr vehiculoAux = (VehiculoPtr)getCabecera(listaAux);
-            fsetVehiculo(&fvehiculo,vehiculoAux,true);
+
+            fVehiculo fvehiculo;
+
+            fsetVehiculo(&fvehiculo,vehiculoAux,true); ///NUEVO MÉTODO
 
             fwrite(&fvehiculo,sizeof(fVehiculo),1,archivo);
 
@@ -518,12 +529,14 @@ bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
         listaAux=destruirLista(listaAux,false);
 
         fclose(archivo);
+        cerrarCarpeta(carpeta);
         return true;
     }
 }
 bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
-    if(!abrirCarpeta())
+    DIR *carpeta;
+    if(!abrirCarpeta(carpeta))
         crearCarpeta();
 
     FILE *archivo;
@@ -564,13 +577,15 @@ bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         listaAux=destruirLista(listaAux,false);
 
         fclose(archivo);
+        cerrarCarpeta(carpeta);
         return true;
     }
 }
 //  general
 bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a las otras funciones de guardado
 {
-    if(!abrirCarpeta())
+    DIR *carpeta;
+    if(!abrirCarpeta(carpeta))
         crearCarpeta();
 
     FILE *archivo = fopen("Archivos/Nombre del Centro Logistico.txt","w");
@@ -588,6 +603,7 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
     ///Guardamos el nombre del centro logistico en un archivo aparte
         fwrite(nombreCtroLog,sizeof(char),longStr,archivo);
         fclose(archivo);
+        cerrarCarpeta(carpeta);
     }
     res = res && guardarPaquetes(centroLogistico);
     res = res && guardarPersonas(centroLogistico);
@@ -601,32 +617,6 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
 
 
 //  listas de datos (CentroLogistico)
-bool abrirPersonas(CentroLogisticoPtr centroLogistico)
-{
-    FILE *archivo = fopen("Archivos/Lista de Personas.txt","r");
-
-    if(archivo==NULL)
-        return false;
-    else
-    {
-    ///Como hicimos en funciones anteriores, recuperamos primero la cantidad de elementos de la lista
-        int n = 0;
-        fread(&n,sizeof(int),1,archivo);
-
-        fPersona fpersona;
-        PersonaPtr personaAux;
-
-        for(int i=0;i<n;i++)
-        {
-            fread(&fpersona,sizeof(fPersona),1,archivo);
-
-            fsetPersona(&fpersona,personaAux,false);
-            agregarPersona(centroLogistico,personaAux);
-        }
-        fclose(archivo);
-        return true;
-    }
-}
 bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
 {
     FILE *archivo = fopen("Archivos/Lista de Paquetes.txt","r");
@@ -643,14 +633,37 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
         fread(&n,sizeof(int),1,archivo);
 
         fPaquete fpaquete;
-        PaquetePtr paqueteAux;
 
         for(int i=0;i<n;i++)
         {
             fread(&fpaquete,sizeof(fPaquete),1,archivo);
 
-            fsetPaquete(&fpaquete,paqueteAux,false);
+            PaquetePtr paqueteAux = fsetPaquete(&fpaquete,paqueteAux,false);
             agregarPaquete(centroLogistico,paqueteAux);
+        }
+        fclose(archivo);
+        return true;
+    }
+}
+bool abrirPersonas(CentroLogisticoPtr centroLogistico)
+{
+    FILE *archivo = fopen("Archivos/Lista de Personas.txt","r");
+
+    if(archivo==NULL)
+        return false;
+    else
+    {
+    ///Como hicimos en funciones anteriores, recuperamos primero la cantidad de elementos de la lista
+        int n = 0;
+        fread(&n,sizeof(int),1,archivo);
+        fPersona fpersona;
+
+        for(int i=0;i<n;i++)
+        {
+            fread(&fpersona,sizeof(fPersona),1,archivo);
+
+            PersonaPtr personaAux = fsetPersona(&fpersona,personaAux,false);
+            agregarPersona(centroLogistico,personaAux);
         }
         fclose(archivo);
         return true;
@@ -669,13 +682,12 @@ bool abrirVehiculos(CentroLogisticoPtr centroLogistico)
         fread(&n,sizeof(int),1,archivo);
 
         fVehiculo fvehiculo;
-        VehiculoPtr vehiculoAux;
 
         for(int i=0;i<n;i++)
         {
             fread(&fvehiculo,sizeof(fVehiculo),1,archivo);
 
-            fsetVehiculo(&fvehiculo,vehiculoAux,false);
+            VehiculoPtr vehiculoAux = fsetVehiculo(&fvehiculo,vehiculoAux,false);
             agregarVehiculo(centroLogistico,vehiculoAux);
         }
         fclose(archivo);
@@ -685,11 +697,10 @@ bool abrirVehiculos(CentroLogisticoPtr centroLogistico)
 bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     FILE *archivo;
-	if(esRepartoAbierto)
-		archivo = fopen("Archivos/Lista de Repartos Abiertos.txt","r");
-	else
-		archivo = fopen("Archivos/Lista de Repartos Cerrados.txt","r");
-
+    if(esRepartoAbierto)
+        archivo = fopen("Archivos/Lista de Repartos Abiertos.txt","r");
+    else
+        archivo = fopen("Archivos/Lista de Repartos Cerrados.txt","r");
 
     if(archivo==NULL)
         return false;
@@ -700,13 +711,12 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         fread(&n,sizeof(int),1,archivo);
 
         fReparto freparto;
-        RepartoPtr repartoAux;
 
         for(int i=0;i<n;i++)
         {
             fread(&freparto,sizeof(fReparto),1,archivo);
 
-            fsetReparto(&freparto,repartoAux,false);
+            RepartoPtr repartoAux = fsetReparto(&freparto,repartoAux,false);
             if(esRepartoAbierto)
                 agregarReparto(centroLogistico,repartoAux,true);
             else
@@ -720,32 +730,38 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 
 CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo llenará de datos. Llamará a las otras funciones de apertura
 {
-    bool res=abrirCarpeta(); //Primero, chequeamos que la carpeta exista.
-
-    //Luego, recuperamos el nombre del centro logistico.
-    FILE *archivo = fopen("Archivos/Nombre del Centro Logistico.txt","r");
-
-    char nombreCtroLog[100];
-
-    if(archivo==NULL)
-        res=false;
-    else
+    DIR *carpeta;
+    bool res = abrirCarpeta(carpeta); //Primero, chequeamos que la carpeta exista.
+    if(res) //Si existe, hacemos lo demás
     {
-        if(LeerString(archivo,nombreCtroLog,100,'\n')==EOF)
-            res=false; ///volvemos a poner false si el archivo abre, pero está vacío por alguna razón.
+    //Luego, recuperamos el nombre del centro logistico.
+        FILE *archivo = fopen("Archivos/Nombre del Centro Logistico.txt","r");
+
+        char nombreCtroLog[100];
+
+        if(archivo==NULL)
+            res=false;
+        else
+        {
+            if(LeerString(archivo,nombreCtroLog,100,'\n')==EOF)
+                res=false; ///volvemos a poner false si el archivo abre, pero está vacío por alguna razón.
+        }
+
+        CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido(nombreCtroLog);
+
+        res = res && abrirPaquetes(centroLogistico);
+        res = res && abrirPersonas(centroLogistico);
+        res = res && abrirVehiculos(centroLogistico);
+        res = res && abrirRepartos(centroLogistico,true);
+        res = res && abrirRepartos(centroLogistico,false);
+    ///Un booleano almacenará el valor de verdad de los resultados de todas las funciones.
+    ///De esta manera, si alguna funcion falla, la booleana será falso, y nos daremos cuenta.
+        cerrarCarpeta(carpeta);
+        if(res)
+            return centroLogistico;
+        else
+            return NULL;
     }
-
-    CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido(nombreCtroLog);
-
-    res = res && abrirPaquetes(centroLogistico);
-    res = res && abrirPersonas(centroLogistico);
-    res = res && abrirVehiculos(centroLogistico);
-    res = res && abrirRepartos(centroLogistico,true);
-    res = res && abrirRepartos(centroLogistico,false);
-///Un booleano almacenará el valor de verdad de los resultados de todas las funciones.
-///De esta manera, si alguna funcion falla, la booleana será falso, y nos daremos cuenta.
-    if(res)
-        return centroLogistico;
     else
         return NULL; //retornamos null si hubo algún error.
 }
