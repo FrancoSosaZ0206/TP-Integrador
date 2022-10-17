@@ -109,19 +109,26 @@ void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno)
 
 void mostrarReparto(RepartoPtr reparto)
 {
+    int i = 0;
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
     printf("FECHA DE SALIDA: \n");
     mostrarFecha(getFechaSalida(reparto));
     printf("FECHA DE RETORNO: \n");
     mostrarFecha(getFechaRetorno(reparto));
-    ListaPtr l=getPaquetesReparto(reparto);
-    PaquetePtr p;
-    while(!listaVacia(l)){
-        p=getCabecera(l);
-        mostrarPaquete(p);
-        l=getResto(l);
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPaquetesReparto(reparto));
+    PaquetePtr PaqueteAuxiliar;
+    while(!listaVacia(ListaAuxiliar))
+    {
+        printf("\n %d. ", i+1);
+        PaqueteAuxiliar = getCabecera(ListaAuxiliar);
+        mostrarPaquete(PaqueteAuxiliar);
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        i++;
     }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    printf("\n");
 }
 
 void mostrarRepartoSinPaquetes(RepartoPtr reparto)
@@ -132,6 +139,26 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
     mostrarFecha(getFechaSalida(reparto));
     printf("FECHA DE RETORNO: \n");
     mostrarFecha(getFechaRetorno(reparto));
+}
+
+void mostrarPaquetesReparto(RepartoPtr reparto)
+{
+    int i = 0;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPaquetesReparto(reparto));
+    PaquetePtr PaqueteAuxiliar;
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PaqueteAuxiliar = (PaquetePtr)getCabecera(ListaAuxiliar);
+        printf("\n %d. ", i+1);
+        mostrarPaquete(PaqueteAuxiliar);
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+        i++;
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    printf("\n");
 }
 
 bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
@@ -159,4 +186,26 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
             pilasIguales=true;
     }
     return condicion && pilasIguales;
+}
+
+void verificacionPaquetesCurso(ListaPtr ListaPaquetes)
+{
+    int EstadoPaquete = 0;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, ListaPaquetes);
+    PaquetePtr PaqueteAuxiliar;
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PaqueteAuxiliar = (PaquetePtr)getCabecera(ListaAuxiliar);
+        EstadoPaquete = getEstado(PaqueteAuxiliar);
+        if(EstadoPaquete != 3)
+        {
+            ///LOS DEVOLVEMOS AL DEPOSITO
+            setEstado(PaqueteAuxiliar, 0);
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        destruirLista(ListaDestruir, false);
+    }
+    destruirLista(ListaAuxiliar, false);
 }

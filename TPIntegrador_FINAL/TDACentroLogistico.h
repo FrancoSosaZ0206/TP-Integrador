@@ -409,9 +409,10 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo);
 //                  3. Por ambos.
 //Parametros:
 //  centroLogistico: puntero a la estructura centro logistico
-//  modo: entero representando el modo de ordenamiento elegido
+//  modoOrdenamiento: entero representando el modo de ordenamiento elegido
+//  modoMostrado: entero representando el modo de mostrado (clientes, chofer, ambos)
 //Devuelve: nada
-void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo);
+void ordenarPersonas(CentroLogisticoPtr centroLogistico, int modoOrdenamiento, int modoMostrado);
 //Operación: ordena una lista de vehículos alfabéticamente
 //Precondicion: centroLogistico debe haber sido creado anteriormente y cargado con, al menos, 2 vehículos.
 //Postcondicion: setea dentro de centro logistico todos los vehículos ordenados alfabéticamente.
