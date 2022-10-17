@@ -900,7 +900,6 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
     PaquetePtr paqueteAux;
     bool condicion;
     int diferenciaFechas[3];
-    ///Primero, vaciamos la lista en el vector
     for(int i=0;i<n;i++)
     {
         paquetes[i]=getDatoLista(getPaquetes(centroLogistico),i);
