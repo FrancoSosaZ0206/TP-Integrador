@@ -58,6 +58,7 @@ PaquetePtr destruirPaquete(PaquetePtr paquete)
     paquete->dirRetiro=destruirDomicilio(paquete->dirRetiro);
     paquete->dirEntrega=destruirDomicilio(paquete->dirEntrega);
     paquete->fechaEntrega=destruirFecha(paquete->fechaEntrega);
+    paquete->cliente=destruirPersona(paquete->cliente);
     free(paquete);
     return NULL;
 }

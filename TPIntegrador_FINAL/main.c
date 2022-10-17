@@ -424,7 +424,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         MAIN_OP=0;
                         break;
                     case 0:
-                        MAIN_OP=0;
                         break;
                     default:
                         printf("Opcion incorrecta.\n\n");
