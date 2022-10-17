@@ -37,8 +37,6 @@ int menuModoAccion()
         printf("1. Sobre un indice unico [Ej: Posicion 1]\n");
         printf("2. Sobre conjunto de indices [Ej: Posiciones 1,18,4,25,7,6] (*)\n");
         printf("3. Sobre rango de indices [Ej: Posiciones 1 - 4 (1,2,3,4)]\n");
-        printf("0. Volver\n");
-        printf("-1. MENU PRINCIPAL");
         printf("\n-------------------------------------------------------------\n");
         printf("Opcion: ");
         limpiarBufferTeclado();
@@ -65,6 +63,7 @@ int menuModoAccion1(ListaPtr lista)
         printf("\n\nIngrese indice donde tomar accion: ");
         scanf("%d",&i);
         limpiarBufferTeclado();
+        printf("Limite lista: %d\n", n);
         if(i<=0 || i>n)
         {
             printf("\n\nERROR: indice inexistente. Vuelva a elegir.\n\n");
@@ -305,11 +304,9 @@ void actualizarFecha(FechaPtr fecha)
     int dia=0,mes=0,anio=0,hora=0,minuto=0;
     do
     {
-        printf("\n\t\tFecha (DD MM AAAA): ");
-        scanf("%d %d %d",&dia,&mes,&anio);
         limpiarBufferTeclado();
-        printf("\n\t\tHorario (HH MM): ");
-        scanf("%d %d",&hora,&minuto);
+        printf("\n\t\tFecha (DD MM AAAA) --- Horario (HH MM): ");
+        scanf("%d %d %d %d %d",&dia,&mes,&anio,&hora,&minuto);
         limpiarBufferTeclado();
         setDia(fecha,dia);
         setMes(fecha,mes);
@@ -645,7 +642,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             {
             case 1:
                 EleccionAccion = menuModoAccion1(listaAuxiliar);
-                if(getEsChofer(getDatoLista(listaAuxiliar,EleccionAccion))==esChofer)
+                if(getEsChofer(getDatoLista(listaAuxiliar,EleccionAccion)) == esChofer)
                 {
                     personaRemovida = removerPersona(centroLogistico, EleccionAccion);
                     personaRemovida = destruirPersona(personaRemovida);
@@ -657,7 +654,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 menuModoAccion2(listaAuxiliar,cantIndices,indices);
                 for(int i=0;i<cantIndices;i++)
                 {
-                    if(getEsChofer(getDatoLista(listaAuxiliar,indices[i]))==esChofer)
+                    if(getEsChofer(getDatoLista(listaAuxiliar,indices[i])) == esChofer)
                     {
                         cantidadCorrectas++;
                     }
@@ -676,7 +673,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 menuModoAccion3(listaAuxiliar,indices);
                 for(int i=indices[0];i<indices[1]+1;i++)
                 {
-                    if(getEsChofer(getDatoLista(listaAuxiliar,i))==esChofer)
+                    if(getEsChofer(getDatoLista(listaAuxiliar,i)) == esChofer)
                     {
                         cantidadCorrectas++;
                     }
@@ -968,8 +965,6 @@ void cambiarPersona(PersonaPtr personaAModificar, bool esChofer)
     int seguirMod=0,op=0;
     char nNombre[100];
     char nApellido[100];
-    DomicilioPtr nuevoDomicilio=0;
-    CuilPtr nuevoCuil=0;
     do
     {
         system("cls");
@@ -1006,12 +1001,10 @@ void cambiarPersona(PersonaPtr personaAModificar, bool esChofer)
             break;
             case 2:
                 printf("\n\nIngrese el nuevo domicilio:");
-                actualizarDomicilio(nuevoDomicilio);
-                setDomicilio(personaAModificar,nuevoDomicilio);
+                actualizarDomicilio(getDomicilio(personaAModificar));
             break;
             case 3:
-                actualizarCuil(nuevoCuil);
-                setCuilPersona(personaAModificar,nuevoCuil);
+                actualizarCuil(getCuilPersona(personaAModificar));
             break;
             case 4:
                 if(esChofer)
@@ -1025,7 +1018,6 @@ void cambiarPersona(PersonaPtr personaAModificar, bool esChofer)
             break;
             default:
                 printf("\nOpcion incorrecta.\n\n");
-                presionarEnterYLimpiarPantalla();
             break;
         }
         printf("\n\nDatos modificados exitosamente.\n\n");
@@ -1126,7 +1118,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             {
             case 1:
                 Eleccion=menuModoAccion1(listaAuxiliar);
-                if(getEsChofer(getDatoLista(listaAuxiliar,Eleccion)))
+                if(getEsChofer(getDatoLista(listaAuxiliar,Eleccion)) == esChofer)
                 {
                     personaModificar=getDatoLista(listaAuxiliar,Eleccion);
                     cambiarPersona(personaModificar,esChofer);
@@ -1142,7 +1134,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 menuModoAccion2(listaAuxiliar,Cantidad,Elecciones);
                 for(int i=0;i<Cantidad;i++)
                 {
-                    if(getEsChofer(getDatoLista(listaAuxiliar,Elecciones[i])))
+                    if(getEsChofer(getDatoLista(listaAuxiliar,Elecciones[i])) == esChofer)
                     {
                         cantidadCorrectas++;
                     }
@@ -1165,7 +1157,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 menuModoAccion3(listaAuxiliar,Elecciones);
                 for(int i=Elecciones[0];i<Elecciones[1]+1;i++)
                 {
-                    if(getEsChofer(getDatoLista(listaAuxiliar,i))==esChofer)
+                    if(getEsChofer(getDatoLista(listaAuxiliar,i)) == esChofer)
                     {
                         cantidadCorrectas++;
                     }
@@ -1210,9 +1202,6 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 void cambiarPaquete(PaquetePtr paqueteAModificar)
 {
     int nAncho,nAlto,nLargo,nPeso,nEstado,seguirMod,op;
-    DomicilioPtr nuevaDirRetiro=0;
-    DomicilioPtr nuevaDirEntrega=0;
-    FechaPtr nuevaFechaEntrega=0;
     do
     {
         system("cls");
@@ -1259,18 +1248,15 @@ void cambiarPaquete(PaquetePtr paqueteAModificar)
             break;
         case 5:
             printf("\n\nIngrese la nueva direccion de retiro:");
-            actualizarDomicilio(nuevaDirRetiro);
-            setDirRetiro(paqueteAModificar,nuevaDirRetiro);
+            actualizarDomicilio(getDirRetiro(paqueteAModificar));
             break;
         case 6:
             printf("\n\nIngrese la nueva direccion de entrega:");
-            actualizarDomicilio(nuevaDirEntrega);
-            setDirEntrega(paqueteAModificar,nuevaDirEntrega);
+            actualizarDomicilio(getDirEntrega(paqueteAModificar));
             break;
         case 7:
             printf("\n\nIngrese la nueva fecha y horario de entrega: ");
-            actualizarFecha(nuevaFechaEntrega);
-            setFechaEntrega(paqueteAModificar,nuevaFechaEntrega);
+            actualizarFecha(getFechaEntrega(paqueteAModificar));
             break;
         case 8:
             helpEstadoPaquete();

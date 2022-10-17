@@ -176,27 +176,25 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
         case 1: //Filtra por chofer
             if(getEsChofer(personaAux))
             {
-                printf("%d. ",i+1);
+                printf("%d. ",i++);
                 mostrarPersona(personaAux);
             }
             break;
         case 2: //Filtra por cliente
             if(!getEsChofer(personaAux))
             {
-                printf("%d. ",i+1);
+                printf("%d. ",i++);
                 mostrarPersona(personaAux);
             }
             break;
         case 3: //Sin filtro - Muestra todas las personas
-            printf("%d. ",i+1);
+            printf("%d. ",i++);
             mostrarPersona(personaAux);
             break;
         }
         ListaPtr ListaDestruir = listaAux;
         listaAux = getResto(listaAux);
         ListaDestruir = destruirLista(ListaDestruir, false);
-        i++;
-        i++;
     }
     listaAux=destruirLista(listaAux,false);
     printf("\n");
@@ -218,7 +216,6 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
     ListaPtr ListaDestruir = listaAux;
     listaAux = getResto(listaAux);
     ListaDestruir = destruirLista(ListaDestruir, false);
-    i++;
     printf("\n");
 }
 
@@ -243,7 +240,6 @@ void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico)
     ListaPtr ListaDestruir = listaAux;
     listaAux = getResto(listaAux);
     ListaDestruir = destruirLista(ListaDestruir, false);
-    i++;
     printf("\n");
 }
 
@@ -982,14 +978,14 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
                 break;
             case 2:
                 calcularDiferenciaFechas(getFechaRetorno(repartos[i]),getFechaRetorno(repartos[j]),diferenciaFechaRetorno);
-                condicion = diferenciaFechaRetorno[0]>0 || diferenciaFechaRetorno[1]>0 || diferenciaFechaRetorno[2]>0;
+                condicion = diferenciaFechaRetorno[0]>=0 && (diferenciaFechaRetorno[1]>=0 || diferenciaFechaRetorno[2]>0);
                 ///condicion: "Ya sea en dias, horas o minutos, si fechaDeRetorno de reparto[j] es posterior a la de repartos[j+1]..."
                 break;
             case 3:
                 calcularDiferenciaFechas(getFechaSalida(repartos[i]),getFechaSalida(repartos[j]),diferenciaFechaSalida);
-                condicion = (diferenciaFechaSalida[0]>0 && (diferenciaFechaSalida[1]>0 || diferenciaFechaSalida[2]>0)); //agrego la condicion de fechaSalida
+                condicion = diferenciaFechaSalida[0]>=0 && (diferenciaFechaSalida[1]>=0 || diferenciaFechaSalida[2]>0); //agrego la condicion de fechaSalida
                 calcularDiferenciaFechas(getFechaRetorno(repartos[i]),getFechaRetorno(repartos[j]),diferenciaFechaRetorno);
-                condicion = condicion && (diferenciaFechaRetorno[0]>0 && (diferenciaFechaRetorno[1]>0 || diferenciaFechaRetorno[2]>0)); //sumo la condicion de fechaRetorno
+                condicion = condicion && (diferenciaFechaRetorno[0]>=0 && (diferenciaFechaRetorno[1]>=0 || diferenciaFechaRetorno[2]>0)); //sumo la condicion de fechaRetorno
                 ///condicion: "Ya sea en dias, horas o minutos, si fechaDeSalida *Y* fechaDeRetorno de reparto[j] son posteriores a las de repartos[j+1]..."
                 break;
             case 4:
