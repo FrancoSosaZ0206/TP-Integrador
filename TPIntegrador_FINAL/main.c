@@ -430,7 +430,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         printf("Opcion incorrecta.\n\n");
                         break;
                     }
-                } while(op1!=1 && op1!=2);
+                } while(op1!=1 && op1!=2 && op1!=0);
             }
             break;
         default:
