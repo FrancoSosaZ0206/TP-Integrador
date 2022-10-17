@@ -560,8 +560,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
     int indices[100];
     int cantIndices=0;
     PaquetePtr paqueteRemovido=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
-    ListaPtr listaAuxiliar = crearLista();
-    listaAuxiliar = getPaquetes(centroLogistico);
+    ListaPtr listaAuxiliar = getPaquetes(centroLogistico);
     if(listaVacia(listaAuxiliar))
         printf("ERROR: Lista vacía. Debe agregar paquetes para poder eliminarlos.\n\n");
     else
@@ -605,7 +604,6 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
         if(opcion==1)
             cambiosGuardados=guardarPersonas(centroLogistico);
     }
-    listaAuxiliar = destruirLista(listaAuxiliar, false);
     return cambiosGuardados;
 }
 
@@ -615,8 +613,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     int EleccionMenuModoAccion=0, EleccionAccion=0, cantidadCorrectas=0, cantIndices=0, opcion=0;
     int indices[100];
     PersonaPtr personaRemovida = (PersonaPtr)obtenerMemoria(sizeof(Persona));
-    ListaPtr listaAuxiliar = crearLista();
-    listaAuxiliar = getPersonas(centroLogistico);
+    ListaPtr listaAuxiliar = getPersonas(centroLogistico);
     if(listaVacia(listaAuxiliar))
     {
         if(esChofer)
@@ -709,7 +706,6 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             cambiosGuardados=guardarPersonas(centroLogistico);
         }
     }
-    listaAuxiliar = destruirLista(listaAuxiliar, false);
     return cambiosGuardados;
 }
 
@@ -723,8 +719,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
     int indices[100];
     int cantIndices=0;
     VehiculoPtr vehiculoRemovido = (VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));
-    ListaPtr listaAuxiliar = crearLista();
-    listaAuxiliar = getVehiculos(centroLogistico);
+    ListaPtr listaAuxiliar = getVehiculos(centroLogistico);
     if(listaVacia(listaAuxiliar))
         printf("ERROR: Lista vacía. Debe agregar vehiculos para poder eliminarlos.\n\n");
     else
@@ -768,7 +763,6 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
             cambiosGuardados=guardarPersonas(centroLogistico);
         }while(continuar);
     }
-    listaAuxiliar = destruirLista(listaAuxiliar, false);
     return cambiosGuardados;
 }
 
