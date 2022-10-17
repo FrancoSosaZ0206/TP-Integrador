@@ -7,18 +7,21 @@
 #include "TDAPersona.h"
 #include "util.h"
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
 
-//Precondición: domicilio y cuil debieron haber sido creados con sus respectivas funciones de creacion.
 PersonaPtr crearPersona(char *nombre,char *apellido,DomicilioPtr domicilio,CuilPtr cuil,bool esChofer)
 {
+    //Precondición: domicilio y cuil debieron haber sido creados con sus respectivas funciones de creacion.
     PersonaPtr persona=(PersonaPtr)obtenerMemoria(sizeof(Persona));
-
     persona->nombre=crearStringDinamico(nombre);
     persona->apellido=crearStringDinamico(apellido);
     persona->domicilio=domicilio;
     persona->cuil=cuil;
-    persona->esChofer=esChofer; //en VSCode vimos que se puede asignar valores entre variables de tipo bool.
-//esChofer valdría NULL por defecto, pero ahora vale o bien true, o bien false.
+    persona->esChofer=esChofer;
+    //en VSCode vimos que se puede asignar valores entre variables de tipo bool.
+    //esChofer valdría NULL por defecto, pero ahora vale o bien true, o bien false.
     return persona;
 }
 
@@ -31,8 +34,13 @@ PersonaPtr crearPersonaDirect(char *nombre,char *apellido,char *calle,int altura
     return crearPersona(nombre,apellido,domicilio,cuil,esChofer);
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE DESTRUCCION///
+///-----------------------------------------------------------------------------------------------------------///
+
 PersonaPtr destruirPersona(PersonaPtr persona)
-{ //destruimos TODOS los campos, incluyendo los que no reservamos dinámicamente en crearPersona
+{
+    //destruimos TODOS los campos, incluyendo los que no reservamos dinámicamente en crearPersona
     destruirStringDinamico(persona->nombre);
     destruirStringDinamico(persona->apellido);
     persona->domicilio=destruirDomicilio(persona->domicilio);
@@ -42,7 +50,9 @@ PersonaPtr destruirPersona(PersonaPtr persona)
     return NULL;
 }
 
-
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE SETTERS///
+///-----------------------------------------------------------------------------------------------------------///
 
 void setNombre(PersonaPtr persona,char *nombre)
 {
@@ -69,7 +79,9 @@ void setEsChofer(PersonaPtr persona,bool esChofer)
     persona->esChofer=esChofer; //de nuevo, esto se puede hacer sin drama.
 }
 
-
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE GETTERS///
+///-----------------------------------------------------------------------------------------------------------///
 
 char *getNombre(PersonaPtr persona)
 {
@@ -96,7 +108,9 @@ bool getEsChofer(PersonaPtr persona)
     return persona->esChofer;
 }
 
-
+///-----------------------------------------------------------------------------------------------------------///
+                            ///SECCION DE FUNCIONES DE OPERACIONES CON PERSONA///
+///-----------------------------------------------------------------------------------------------------------///
 
 void mostrarPersona(PersonaPtr persona)
 {

@@ -9,6 +9,10 @@
 #include "Pila.h"
 #include "TDARepartos.h"
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
+
 RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes)
 {
     RepartoPtr reparto=(RepartoPtr)obtenerMemoria(sizeof(Reparto));
@@ -27,8 +31,14 @@ RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
     RepartoPtr reparto=crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
     return reparto;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE DESTRUCCION///
+///-----------------------------------------------------------------------------------------------------------///
+
 RepartoPtr destruirReparto(RepartoPtr reparto)
-{ //liberamos la memoria de todos los campos que hayan sido reservados dinamicamente con sus respectivas funciones. En este caso, son todos los campos.
+{
+//liberamos la memoria de todos los campos que hayan sido reservados dinamicamente con sus respectivas funciones. En este caso, son todos los campos.
 /**Como el chofer y vehiculo se los pasamos como punteros, destruirlos acá ocasionaría que se eliminen tambien del centro logistico.
 No queremos eso, así que simplemente no las destruimos.*/
     reparto->fechaSalida=destruirFecha(reparto->fechaSalida);
@@ -40,44 +50,62 @@ No queremos eso, así que simplemente no las destruimos.*/
     return NULL;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE GETTERS///
+///-----------------------------------------------------------------------------------------------------------///
+
 PersonaPtr getChofer(RepartoPtr reparto)
 {
     return reparto->chofer;
 }
+
 VehiculoPtr getVehiculo(RepartoPtr reparto)
 {
     return reparto->vehiculo;
 }
+
 FechaPtr getFechaSalida(RepartoPtr reparto)
 {
     return reparto->fechaSalida;
 }
+
 FechaPtr getFechaRetorno(RepartoPtr reparto)
 {
     return reparto->fechaRetorno;
 }
+
 ListaPtr getPaquetesReparto(RepartoPtr reparto)
 {
     return reparto->paquetes;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE SETTERS///
+///-----------------------------------------------------------------------------------------------------------///
+
 void setChofer(RepartoPtr reparto,PersonaPtr chofer)
 {
     reparto->chofer=chofer;
 }
+
 void setVehiculo(RepartoPtr reparto,VehiculoPtr vehiculo)
 {
     reparto->vehiculo=vehiculo;
 }
+
 void setFechaSalida(RepartoPtr reparto,FechaPtr fechaSalida)
 {
     reparto->fechaSalida=fechaSalida;
 }
+
 void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno)
 {
     reparto->fechaRetorno=fechaRetorno;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE OPERACIONES CON REPARTO///
+///-----------------------------------------------------------------------------------------------------------///
 
 void mostrarReparto(RepartoPtr reparto)
 {
@@ -105,8 +133,6 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
     printf("FECHA DE RETORNO: \n");
     mostrarFecha(getFechaRetorno(reparto));
 }
-
-///---------------------------------------Funciones de validación------------------------------------------------
 
 bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
 {

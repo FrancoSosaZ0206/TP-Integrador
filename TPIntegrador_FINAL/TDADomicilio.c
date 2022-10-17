@@ -4,6 +4,10 @@
 #include "TDADomicilio.h"
 #include "util.h"
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
+
 DomicilioPtr crearDomicilio(char *calle,int altura,char *localidad)
 {
     DomicilioPtr domicilio=(DomicilioPtr)obtenerMemoria(sizeof(Domicilio));
@@ -17,6 +21,10 @@ DomicilioPtr crearDomicilio(char *calle,int altura,char *localidad)
     return domicilio;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE DESTRUCCION///
+///-----------------------------------------------------------------------------------------------------------///
+
 DomicilioPtr destruirDomicilio(DomicilioPtr domicilio)
 {
     destruirStringDinamico(getCalle(domicilio)); //no probé esta funcion con estructuras, así que si sale mal,
@@ -25,7 +33,9 @@ DomicilioPtr destruirDomicilio(DomicilioPtr domicilio)
     return NULL;
 }
 
-
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE SETTERS///
+///-----------------------------------------------------------------------------------------------------------///
 
 void setCalle(DomicilioPtr domicilio,char *calle)
 {
@@ -42,7 +52,9 @@ void setLocalidad(DomicilioPtr domicilio,char *localidad)
     strcpy(domicilio->localidad,localidad);
 }
 
-
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE GETTERS///
+///-----------------------------------------------------------------------------------------------------------///
 
 char *getCalle(DomicilioPtr domicilio)
 {
@@ -58,6 +70,10 @@ char *getLocalidad(DomicilioPtr domicilio)
 {
     return domicilio->localidad;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE OPERACIONES CON DOMICILIO///
+///-----------------------------------------------------------------------------------------------------------///
 
 void mostrarDomicilio(DomicilioPtr domicilio)
 {

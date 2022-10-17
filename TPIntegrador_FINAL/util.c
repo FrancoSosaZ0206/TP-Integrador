@@ -3,6 +3,10 @@
 #include <string.h>
 #include "util.h"
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE UTILIDADES///
+///-----------------------------------------------------------------------------------------------------------///
+
 void *obtenerMemoria(size_t tamanio)
 {
     void *p=malloc(tamanio);
@@ -31,6 +35,7 @@ void limpiarBufferTeclado()
 {
     fflush(stdin);
 }
+
 void limpiarBufferTecladoPresionandoEnter()
 {
     char c;

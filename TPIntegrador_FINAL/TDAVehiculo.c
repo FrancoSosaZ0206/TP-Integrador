@@ -5,6 +5,9 @@
 #include "TDAVehiculo.h"
 #include "util.h"
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
 
 VehiculoPtr crearVehiculo(int tipo,char *marca,char *modelo,char *patente)
 {
@@ -17,6 +20,11 @@ VehiculoPtr crearVehiculo(int tipo,char *marca,char *modelo,char *patente)
 
     return vehiculo;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE DESTRUCCION///
+///-----------------------------------------------------------------------------------------------------------///
+
 VehiculoPtr destruirVehiculo(VehiculoPtr vehiculo)
 {
     destruirStringDinamico(vehiculo->marca);
@@ -26,39 +34,57 @@ VehiculoPtr destruirVehiculo(VehiculoPtr vehiculo)
     return NULL;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE GETTERS///
+///-----------------------------------------------------------------------------------------------------------///
+
 int getTipoVehiculo(VehiculoPtr vehiculo)
 {
     return vehiculo->tipo;
 }
+
 char *getMarca(VehiculoPtr vehiculo)
 {
     return vehiculo->marca;
 }
+
 char *getModelo(VehiculoPtr vehiculo)
 {
     return vehiculo->modelo;
 }
+
 char *getPatente(VehiculoPtr vehiculo)
 {
     return vehiculo->patente;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE SETTERS///
+///-----------------------------------------------------------------------------------------------------------///
+
 void setTipoVehiculo(VehiculoPtr vehiculo,int tipo)
 {
     vehiculo->tipo=tipo;
 }
+
 void setMarca(VehiculoPtr vehiculo,char *marca)
 {
     strcpy(vehiculo->marca,marca);
 }
+
 void setModelo(VehiculoPtr vehiculo,char *modelo)
 {
     strcpy(vehiculo->modelo,modelo);
 }
+
 void setPatente(VehiculoPtr vehiculo,char *patente)
 {
     strcpy(vehiculo->patente,patente);
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                        ///SECCION DE FUNCIONES DE OPERACION CON VEHICULO///
+///-----------------------------------------------------------------------------------------------------------///
 
 void mostrarVehiculo(VehiculoPtr vehiculo)
 {
@@ -75,13 +101,18 @@ void mostrarVehiculo(VehiculoPtr vehiculo)
     printf("\tModelo: %s\n",getModelo(vehiculo));
     printf("\tPatente: %s\n",getPatente(vehiculo));
 }
-void helpTipoVehiculo() ///muestra al usuario que significa cada numero de tipo de vehiculo.
-{   //1: Moto, 2: Auto, 3: Camión.
+
+///muestra al usuario que significa cada numero de tipo de vehiculo.
+void helpTipoVehiculo()
+{
+    //1: Moto, 2: Auto, 3: Camión.
     printf("Tipo 1 = MOTO\n");
     printf("Tipo 2 = AUTO\n");
     printf("Tipo 3 = CAMION\n");
 }
-void mostrarTipoVehiculo(VehiculoPtr vehiculo) ///informa al usuario de que tipo es el vehículo que ingresa.
+
+///informa al usuario de que tipo es el vehículo que ingresa.
+void mostrarTipoVehiculo(VehiculoPtr vehiculo)
 {
     if(getTipoVehiculo(vehiculo)==1)
         printf("El vehiculo recibido es de tipo MOTO.\n\n");

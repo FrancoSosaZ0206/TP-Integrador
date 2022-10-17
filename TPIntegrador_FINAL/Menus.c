@@ -13,9 +13,7 @@
 
 
 ///--------------------------------------------------------------------------------------------------------------------------
-
-///                                                  FUNCIONES AYUDANTES
-
+                                            ///FUNCIONES DE MENUES AYUDANTES///
 ///--------------------------------------------------------------------------------------------------------------------------
 
 int menuGuardarCambios()
@@ -202,9 +200,7 @@ void tipoPersona(bool esChofer)
 
 
 ///--------------------------------------------------------------------------------------------------------------------------
-
-///                             FUNCIONES DE CARGA, VALIDACIÓN Y ACTUALIZACIÓN DE SUBESTRUCTURAS
-
+                                ///FUNCIONES DE CARGA DE DATOS BASICOS///
 ///--------------------------------------------------------------------------------------------------------------------------
 
 CuilPtr cargarCuil(CuilPtr cuil)
@@ -265,6 +261,10 @@ FechaPtr cargarFecha(FechaPtr fecha)
     return fecha;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE ACTUALIZACION///
+///-----------------------------------------------------------------------------------------------------------///
+
 void actualizarCuil(CuilPtr cuil)
 {
     char strCuil[100];
@@ -321,7 +321,7 @@ void actualizarFecha(FechaPtr fecha)
 }
 
 ///-----------------------------------------------------------------------------------------------------------///
-                                ///SECCION DE CARGADO///
+                                ///SECCION DE CARGADO DE DATOS COMPLEJOS///
 ///-----------------------------------------------------------------------------------------------------------///
 
 bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
@@ -383,16 +383,16 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     do
     {
         system("cls");
-        printf(" %d \n\n", i++);
+        printf("\n %d", i++);
         tipoPersona(esChofer);
         limpiarBufferTeclado();
-        printf("\tNombre: ");
+        printf("\n\t Nombre: ");
         scanf("%[^\n]%*c",nombre);
         limpiarBufferTeclado();
-        printf("\n\tApellido: ");
+        printf("\n\t Apellido: ");
         scanf("%[^\n]%*c",apellido);
         limpiarBufferTeclado();
-        printf("\n\tDomicilio");
+        printf("\n\t Domicilio");
         domicilio=cargarDomicilio(domicilio);
         cuil=cargarCuil(cuil);
         persona=crearPersona(nombre,apellido,domicilio,cuil,false);
@@ -406,8 +406,6 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     }
     return cambiosGuardados;
 }
-
-
 
 bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 {
@@ -2265,3 +2263,299 @@ CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog)
 
     return ctroLog;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE MENUES DEL MAIN///
+///-----------------------------------------------------------------------------------------------------------///
+
+int menuMainMenu()
+{
+    int START_OP=0;
+    system("cls");
+    printf("MENU DE INICIO - BIENVENIDO\n\n");
+    printf("\t1. REGISTRARSE\n");
+    printf("\t2. INICIAR SESION\n");
+    printf("\t0. SALIR\n\n");
+    printf("Seleccione una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&START_OP);
+    limpiarBufferTeclado();
+    system("cls");
+    return START_OP;
+}
+
+int menuPrincipal(CentroLogisticoPtr centroLogistico)
+{
+    int MAIN_OP=0;
+    system("cls");
+    printf("CENTRO LOGISTICO '%s' - MENU PRINCIPAL\n\n",getNombreCentroLogistico(centroLogistico));
+    printf("1. BASE DE DATOS\n");
+    printf("2. REPARTOS\n");
+    printf("3. INDICAR RESULTADOS DE ENTREGAS\n");
+    printf("4. EMITIR LISTADOS\n");
+    printf("5. GUARDAR CAMBIOS\n"); ///NUEVO
+    printf("0. SALIR\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d", &MAIN_OP);
+    limpiarBufferTeclado();
+    system("cls");
+    return MAIN_OP;
+}
+
+int menuBaseDeDatos()
+{
+    int op1=0;
+    system("cls");
+    printf("BASE DE DATOS\n\n");
+    printf("1. Cargar Datos\n");
+    printf("2. Eliminar Datos\n");
+    printf("3. Modificar Datos\n");
+    printf("4. Buscar Datos\n");
+    printf("0. Volver\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d", &op1);
+    limpiarBufferTeclado();
+    system("cls");
+    return op1;
+}
+
+int menuCargaDeDatos()
+{
+    int op2=0;
+    system("cls");
+    printf("CARGAR DATOS\n\n");
+    printf("1. Cargar paquete\n");
+    printf("2. Cargar cliente\n");
+    printf("3. Cargar chofer\n");
+    printf("4. Cargar vehiculo\n");
+    printf("0. Volver\n");
+    printf("-1. MENU PRINCIPAL\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d", &op2);
+    limpiarBufferTeclado();
+    system("cls");
+    return op2;
+}
+
+int menuEliminarDatos()
+{
+    int op2=0;
+    system("cls");
+    printf("ELIMINAR DATOS\n\n");
+    printf("1. Eliminar Paquete\n");
+    printf("2. Eliminar Cliente\n");
+    printf("3. Eliminar Chofer\n");
+    printf("4. Eliminar Vehiculo\n");
+    printf("0. Volver\n");
+    printf("-1. MENU PRINCIPAL\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op2);
+    limpiarBufferTeclado();
+    system("cls");
+    return op2;
+}
+
+int menuModificacionDatos()
+{
+    int op2=0;
+    system("cls");
+    printf("MODIFICAR DATOS\n\n");
+    printf("1. Modificar Paquete\n");
+    printf("2. Modificar Cliente\n");
+    printf("3. Modificar Chofer\n");
+    printf("4. Modificar Vehiculo\n");
+    printf("0. Volver\n");
+    printf("-1. MENU PRINCIPAL\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op2);
+    limpiarBufferTeclado();
+    system("cls");
+    return op2;
+}
+
+int menuBusquedaDatos()
+{
+    int op2=0;
+    system("cls");
+    printf("BUSCAR DATOS\n\n");
+    printf("1. Buscar paquete\n"); //buscamos por ID
+    printf("2. Buscar cliente\n"); //buscamos por
+    printf("3. Buscar chofer\n"); //cuil
+    printf("4. Buscar vehiculo\n"); //buscamos por patente
+    printf("0. Volver\n");
+    printf("-1. MENU PRINCIPAL\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d", &op2);
+    limpiarBufferTeclado();
+    system("cls");
+    return op2;
+}
+
+int menuOperacionesReparto()
+{
+    int op1=0;
+    system("cls");
+    printf("MENU DE REPARTOS\n\n");
+    ///Son solo para repartos abiertos:
+    printf("1. Armar reparto\n"); //Este
+    printf("2. Cerrar reparto\n"); //Y este
+    printf("3. Eliminar reparto\n");
+    printf("4. Modificar reparto\n");
+    printf("5. Buscar reparto\n");
+    printf("0. Volver\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op1);
+    limpiarBufferTeclado();
+    system("cls");
+    return op1;
+}
+
+int menuEliminarRepartoCompleto()
+{
+    int op2=0;
+    system("cls");
+    printf("ELIMINAR REPARTO:\n\n");
+    printf("1. Abierto\n");
+    printf("2. Cerrado\n");
+    printf("0. Volver");
+    printf("-1. MENU PRINCIPAL");
+    printf("\n-----------------------------------------\n\n");
+    printf("Seleccione una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op2);
+    limpiarBufferTeclado();
+    system("cls");
+    return op2;
+}
+
+int menuModificarRepartoCompleto()
+{
+    int op2=0;
+    system("cls");
+    printf("MODIFICAR REPARTO:\n\n");
+    printf("1. Abierto\n");
+    printf("2. Cerrado\n");
+    printf("0. Volver");
+    printf("-1. MENU PRINCIPAL");
+    printf("\n-----------------------------------------\n\n");
+    printf("Seleccione una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op2);
+    limpiarBufferTeclado();
+    system("cls");
+    return op2;
+}
+
+int menuBuscadoReparto()
+{
+    int op2=0;
+    system("cls");
+    printf("BUSCAR REPARTO:\n\n");
+    printf("1. Abierto\n");
+    printf("2. Cerrado\n");
+    printf("0. Volver");
+    printf("-1. MENU PRINCIPAL");
+    printf("\n-----------------------------------------\n\n");
+    printf("Seleccione una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op2);
+    limpiarBufferTeclado();
+    system("cls");
+    return op2;
+}
+
+int menuActualizarRepartoCompleto()
+{
+    int op1=0;
+    system("cls");
+    printf("VER RESULTADOS DE ENTREGAS");
+    printf("\n-----------------------------------------\n\n");
+    printf("1. Ver en Lista de Paquetes\n");
+    printf("2. Ver en Repartos ABIERTOS\n");
+    printf("3. Ver en Repartos CERRADOS\n");
+    printf("0. Volver\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op1);
+    limpiarBufferTeclado();
+    system("cls");
+    return op1;
+}
+
+int menuListados()
+{
+    int op1=0;
+    system("cls");
+    printf("EMITIR LISTADOS DE:\n\n");
+    printf("1. Paquetes\n");
+    printf("2. Clientes\n");
+    printf("3. Choferes\n");
+    printf("4. Clientes y Choferes\n");
+    printf("5. Vehiculos\n");
+    printf("6. Repartos - ABIERTOS\n");
+    printf("7. Repartos - CERRADOS\n");
+    printf("0. Volver\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op1);
+    limpiarBufferTeclado();
+    system("cls");
+    return op1;
+}
+
+int menuGuardarCambiosMain()
+{
+    int op1=0;
+    system("cls");
+    printf("GUARDAR CAMBIOS\n\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("1. Lista de Paquetes\n");
+    printf("2. Lista de Personas\n");
+    printf("3. Lista de Vehiculos\n");
+    printf("4. Lista de Repartos Abiertos\n");
+    printf("5. Lista de Repartos Cerrados\n");
+    printf("6. TODAS LAS LISTAS\n");
+    printf("0. Volver\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op1);
+    limpiarBufferTeclado();
+    system("cls");
+    return op1;
+}
+
+int menuGuardadoRespaldo()
+{
+    int op1=0;
+    system("cls");
+    printf("Tiene cambios sin guardar. Seguro que quiere salir?\n");
+    printf("\n----------------------------------------------------\n\n");
+    printf("1. Guardar y salir\n");
+    printf("2. Salir sin guardar\n");
+    printf("0. Volver\n\n");
+    printf("\n----------------------------------------------------\n\n");
+    printf("Seleccione una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op1);
+    limpiarBufferTeclado();
+    system("cls");
+    return op1;
+}
+

@@ -5,6 +5,9 @@
 #include "util.h"
 #include <math.h>
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
 
 CuilPtr crearCuil(char *cuilStr)
 {
@@ -31,6 +34,10 @@ CuilPtr crearCuilNumeros(int tipoPersona,int dni,int nVerificador)
     return cuil;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE DESTRUCCION///
+///-----------------------------------------------------------------------------------------------------------///
+
 CuilPtr destruirCuil(CuilPtr cuil)
 {
     destruirStringDinamico(cuil->cuil);
@@ -40,6 +47,9 @@ CuilPtr destruirCuil(CuilPtr cuil)
     return NULL;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE SETTERS///
+///-----------------------------------------------------------------------------------------------------------///
 
 void setCuil(CuilPtr cuil,char *cuilStr) ///NUEVA
 {
@@ -87,6 +97,9 @@ void setNVerificador(CuilPtr cuil,int nVerificador)
     sprintf(cuil->cuil,"%d %d %d",oldTipo,oldDni,nVerificador);
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE GETTERS///
+///-----------------------------------------------------------------------------------------------------------///
 
 char *getCuil(CuilPtr cuil) ///NUEVA
 {
@@ -129,6 +142,9 @@ int getNVerificador(CuilPtr cuil)
     return nVerif;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE OPERACIONES CON EL CUIL///
+///-----------------------------------------------------------------------------------------------------------///
 
 ///NO APTA PARA TIPO EMPRESA
 bool esCuilValido(CuilPtr cuil) ///NUEVA
@@ -227,8 +243,6 @@ Y * 4
 //Si son iguales, es un cuil valido (retornará true), caso contrario es invalido (false).
     return (z==zRes);
 }
-
-
 
 void helpCuil()
 {

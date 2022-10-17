@@ -8,13 +8,23 @@ const void* FinPila=NULL;
 
 int longitudPilaAyudante(PtrNodo nodo, int longitud);
 
-PilaPtr crearPila(){
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
+
+PilaPtr crearPila()
+{
     PilaPtr pila=(PilaPtr)obtenerMemoria(sizeof(Pila));
     pila->primero=0;
     return pila;
 }
 
-PilaPtr destruirPila(PilaPtr pila){
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE DESTRUCCION///
+///-----------------------------------------------------------------------------------------------------------///
+
+PilaPtr destruirPila(PilaPtr pila)
+{
     // desapilamos cada uno de los nodos para eliminarlos. Si habian datos a eliminar,
     // eso es responsabilidad del usuario
     while(!pilaVacia(pila)){
@@ -26,11 +36,17 @@ PilaPtr destruirPila(PilaPtr pila){
     return NULL;
 }
 
-bool pilaVacia(PilaPtr pila){
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE OPERACIONES CON PILAS///
+///-----------------------------------------------------------------------------------------------------------///
+
+bool pilaVacia(PilaPtr pila)
+{
     return (pila->primero==0);
 }
 
-int longitudPila(PilaPtr pila){
+int longitudPila(PilaPtr pila)
+{
     // la longitud es cuantos nodos hay en la pila. Para saberlo, hay que recorrerla
     int longitud=1;
     PtrNodo nodo=pila->primero;
@@ -42,12 +58,14 @@ int longitudPila(PilaPtr pila){
 }
 
 // Otra versión, recursiva
-int longitudPilaRecur(PilaPtr pila){
+int longitudPilaRecur(PilaPtr pila)
+{
     int longitud=longitudPilaAyudante(pila->primero,0);
     return longitud;
 }
 
-int longitudPilaAyudante(PtrNodo nodo, int longitud){
+int longitudPilaAyudante(PtrNodo nodo, int longitud)
+{
     // la longitud es cuantos nodos hay en la pila. Para saberlo, hay que recorrerla
 
     if(nodo==0){
@@ -58,7 +76,8 @@ int longitudPilaAyudante(PtrNodo nodo, int longitud){
     return longitud;
 }
 
-void apilar(PilaPtr pila, PtrDato dato){
+void apilar(PilaPtr pila, PtrDato dato)
+{
     // creamos un nodo, le asignamos el dato y lo ponemos al frente de la pila
     if(pila!=NULL){
         PtrNodo nodo=crearNodo(dato);
@@ -68,7 +87,8 @@ void apilar(PilaPtr pila, PtrDato dato){
     }
 }
 
-PtrDato desapilar(PilaPtr pila){
+PtrDato desapilar(PilaPtr pila)
+{
     PtrDato dato=NULL;
     if(!pilaVacia(pila)){
         PtrNodo nodo=pila->primero;
@@ -79,7 +99,8 @@ PtrDato desapilar(PilaPtr pila){
     return dato;
 }
 
-PtrDato primeroPila(PilaPtr pila){
+PtrDato primeroPila(PilaPtr pila)
+{
     // devuelve el dato de la primera posición de la pila
     // pero sin desapilarlo
     PtrDato dato=NULL;
@@ -89,3 +110,5 @@ PtrDato primeroPila(PilaPtr pila){
     }
     return dato;
 }
+
+

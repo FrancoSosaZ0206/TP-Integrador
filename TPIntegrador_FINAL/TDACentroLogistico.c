@@ -10,6 +10,9 @@
 #include "TDACentroLogistico.h"
 #include "util.h"
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
 
 CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,ListaPtr listaPersonas,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados)
 {
@@ -22,6 +25,7 @@ CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,List
     centroLogistico->listaRepartosCerrados=listaRepartosCerrados;
     return centroLogistico;
 }
+
 CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre) ///Crea un centro logístico con un nombre y listas vacías.
 {
     CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
@@ -33,6 +37,11 @@ CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre) ///Crea un centro lo
     centroLogistico->listaRepartosCerrados=crearLista();
     return centroLogistico;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE DESTRUCCION///
+///-----------------------------------------------------------------------------------------------------------///
+
 CentroLogisticoPtr destruirCentroLogistico(CentroLogisticoPtr centroLogistico)
 {
     destruirStringDinamico(centroLogistico->nombre);
@@ -45,22 +54,30 @@ CentroLogisticoPtr destruirCentroLogistico(CentroLogisticoPtr centroLogistico)
     return NULL;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE GETTERS///
+///-----------------------------------------------------------------------------------------------------------///
+
 char *getNombreCentroLogistico(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->nombre;
 }
+
 ListaPtr getPaquetes(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->listaPaquetes;
 }
+
 ListaPtr getPersonas(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->listaPersonas;
 }
+
 ListaPtr getVehiculos(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->listaVehiculos;
 }
+
 ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
 	if(esRepartoAbierto)
@@ -68,32 +85,41 @@ ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 	else
 		return centroLogistico->listaRepartosCerrados;
 }
+
 ListaPtr getRepartosAbiertos(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->listaRepartosAbiertos;
 }
+
 ListaPtr getRepartosCerrados(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->listaRepartosCerrados;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE SETTERS///
+///-----------------------------------------------------------------------------------------------------------///
 
 void setNombreCentroLogistico(CentroLogisticoPtr centroLogistico,char *nombre)
 {
     strcpy(centroLogistico->nombre,nombre);
 }
+
 void setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes)
 {
     centroLogistico->listaPaquetes=listaPaquetes;
 }
+
 void setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr listaPersonas)
 {
     centroLogistico->listaPersonas=listaPersonas;
 }
+
 void setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos)
 {
     centroLogistico->listaVehiculos=listaVehiculos;
 }
+
 void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esRepartoAbierto)
 {
 	if(esRepartoAbierto)
@@ -101,6 +127,10 @@ void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esR
 	else
 		centroLogistico->listaRepartosCerrados = repartos;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE MOSTRADO POR PANTALLA///
+///-----------------------------------------------------------------------------------------------------------///
 
 void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
 {
@@ -259,7 +289,6 @@ void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
     printf("\n\n");
 }
 
-
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     ListaPtr listaAux=crearLista();
@@ -294,6 +323,7 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         printf("\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n\n");
     }
 }
+
 void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,FechaPtr fechaSalida)
 {
     ///ordenarRepartos(centroLogistico,esRepartoAbierto,1);
@@ -320,8 +350,8 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
     printf("\n");
 }
 
-
-void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
+///filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
+void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado)
 {
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPaquetes(centroLogistico));
@@ -360,7 +390,12 @@ void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los
     listaAux=destruirLista(listaAux,false);
     printf("\n");
 }
-///NUEVO: Funciones de búsqueda de datos en la lista
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE BUSQUEDA DE DATOS EN LAS LISTAS///
+///-----------------------------------------------------------------------------------------------------------///
+
+
 bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID)
 {
     bool match=false;
@@ -382,6 +417,7 @@ bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID)
         printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
     return match;
 }
+
 bool buscarPersona(CentroLogisticoPtr centroLogistico,char* cuilBuscar,bool esChofer)
 {
     bool match=false;
@@ -403,6 +439,7 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,char* cuilBuscar,bool esCh
 
     return match;
 }
+
 bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente)
 {
     bool match=false;
@@ -463,20 +500,26 @@ bool buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuilBuscar)
     return match;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE AGREGADO A LAS LISTAS///
+///-----------------------------------------------------------------------------------------------------------///
 
-//Funciones de agregado a la lista
+
 void agregarPaquete(CentroLogisticoPtr centroLogistico,PaquetePtr paquete)
 {
     agregarDatoLista(centroLogistico->listaPaquetes,(PaquetePtr)paquete);
 }
+
 void agregarPersona(CentroLogisticoPtr centroLogistico,PersonaPtr persona)
 {
     agregarDatoLista(centroLogistico->listaPersonas,(PersonaPtr)persona);
 }
+
 void agregarVehiculo(CentroLogisticoPtr centroLogistico,VehiculoPtr vehiculo)
 {
     agregarDatoLista(centroLogistico->listaVehiculos,(VehiculoPtr)vehiculo);
 }
+
 void agregarReparto(CentroLogisticoPtr centroLogistico,RepartoPtr reparto, bool esRepartoAbierto)
 {
 	if(esRepartoAbierto)
@@ -484,36 +527,52 @@ void agregarReparto(CentroLogisticoPtr centroLogistico,RepartoPtr reparto, bool 
 	else
 		agregarDatoLista(getRepartos(centroLogistico,false), reparto);
 }
-//Funciones de inserción a la lista
+
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE INSERCION DE LAS LISTAS///
+///-----------------------------------------------------------------------------------------------------------///
+
 bool insertarPaqueteLista(CentroLogisticoPtr centroLogistico,PaquetePtr paquete,int posicion)
 {
     return insertarDatoLista(centroLogistico->listaPaquetes,(PaquetePtr)paquete,posicion);
 }
+
 bool insertarPersonaLista(CentroLogisticoPtr centroLogistico,PersonaPtr persona,int posicion)
 {
     return insertarDatoLista(centroLogistico->listaPersonas,(PersonaPtr)persona,posicion);
 }
+
 bool insertarVehiculoLista(CentroLogisticoPtr centroLogistico,VehiculoPtr vehiculo,int posicion)
 {
     return insertarDatoLista(centroLogistico->listaVehiculos,(VehiculoPtr)vehiculo,posicion);
 }
-bool insertarRepartoLista(CentroLogisticoPtr centroLogistico,RepartoPtr reparto,int posicion) ///SOLO PARA REPARTOS ABIERTOS
+
+///SOLO PARA REPARTOS ABIERTOS
+bool insertarRepartoLista(CentroLogisticoPtr centroLogistico,RepartoPtr reparto,int posicion)
 {
     return insertarDatoLista(centroLogistico->listaRepartosAbiertos,(RepartoPtr)reparto,posicion);
 }
-//Funciones para eliminar de la lista
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE ELIMINACION DE LAS LISTAS///
+///-----------------------------------------------------------------------------------------------------------///
+
 PaquetePtr removerPaquete(CentroLogisticoPtr centroLogistico,int posicion)
 {
     return (PaquetePtr)removerDeLista(centroLogistico->listaPaquetes,posicion);
 }
+
 PersonaPtr removerPersona(CentroLogisticoPtr centroLogistico,int posicion)
 {
     return (PersonaPtr)removerDeLista(centroLogistico->listaPersonas,posicion);
 }
+
 VehiculoPtr removerVehiculo(CentroLogisticoPtr centroLogistico,int posicion)
 {
     return (VehiculoPtr)removerDeLista(centroLogistico->listaVehiculos,posicion);
 }
+
 RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto)
 {
     if(esRepartoAbierto)
@@ -522,8 +581,9 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
         return (RepartoPtr)removerDeLista(centroLogistico->listaRepartosCerrados,posicion);
 }
 
-
-///////////////////////////////////////////////////FUNCIONES DE VALIDACION//////////////////////////////////////////////////////////////////////////
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE VALIDACION///
+///-----------------------------------------------------------------------------------------------------------///
 
 bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
 {
@@ -542,7 +602,9 @@ bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
 
     return match;
 }
-bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) // devuelve true si la persona que le ingresamos tiene el mismo cuil que una de las personas, false si no
+
+///devuelve true si la persona que le ingresamos tiene el mismo cuil que una de las personas, false si no
+bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona)
 {
     bool match=false;
 
@@ -559,6 +621,7 @@ bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) 
 
     return match;
 }
+
 bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo)
 {
     bool match=false;
@@ -576,6 +639,7 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
 
     return match;
 }
+
 bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,bool esRepartoAbierto)
 {
     bool match=false;
@@ -598,7 +662,11 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
     return match;
 }
 
-///FUNCIONES DE ORDENAMIENTO
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE ORDENAMIENTO///
+///-----------------------------------------------------------------------------------------------------------///
+
 void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo)
 {
     int n=longitudLista(getPersonas(centroLogistico));
@@ -666,6 +734,7 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo)
     }
     system("pause");
 }
+
 void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo)
 {
     int n=longitudLista(getVehiculos(centroLogistico));
@@ -764,7 +833,7 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
     ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
     for(int i=0;i<n;i++)
     {
-        printf("%d. ", i+1);
+        printf("\n %d. ", i+1);
         mostrarPaquete(paquetes[i]);
     }
     system("pause");

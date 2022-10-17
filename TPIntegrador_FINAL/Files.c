@@ -15,37 +15,12 @@
 #include "TDAVehiculo.h"
 #include "Files.h"
 
-///PRINCIPALMENTE
-///PASAJES DE MEMORIA ESTATICA A MEMORIA DINAMICA
-///PASAJES DE MEMORIA DINAMICA A MEMORIA ESTATICA
-FechaPtr crearFechaDirectNuevo(fFechaPtr FE);
-DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DE);
-PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE);
-PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PE);
-VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VE);
-RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RE);
-FechaPtr PasajeFechaDinamico(fFechaPtr FE, FechaPtr FD, bool ADinamico);
-DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DE, DomicilioPtr DD, bool ADinamico);
-CuilPtr PasajeCuilDinamico(fCuilPtr CE, CuilPtr CD, bool ADinamico);
-VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VE, VehiculoPtr VD, bool ADinamico);
-PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico);
-PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico);
-RepartoPtr PasajeRepartoDinamico(fRepartoPtr RE, RepartoPtr RD, bool ADinamico);
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
 
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-
-            ///SECCION DE UTILIZACION DE ARCHIVOS///
-
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
-
-FechaPtr crearFechaDirectNuevo(fFechaPtr FE){
+FechaPtr crearFechaDirectNuevo(fFechaPtr FE)
+{
     FechaPtr f = (FechaPtr)obtenerMemoria(sizeof(Fecha));
     f->diaJuliano=FE->diaJuliano;
     f->hora=FE->hora;
@@ -53,7 +28,8 @@ FechaPtr crearFechaDirectNuevo(fFechaPtr FE){
     return f;
 }
 
-DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DE){
+DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DE)
+{
     DomicilioPtr domicilio = (DomicilioPtr)obtenerMemoria(sizeof(Domicilio));
     domicilio->calle=crearStringDinamico(DE->calle);
     domicilio->altura=DE->altura;
@@ -61,7 +37,8 @@ DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DE){
     return domicilio;
 }
 
-PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE){
+PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE)
+{
     PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
     paquete->ID=PE->ID;
     paquete->ancho=PE->ancho;
@@ -76,7 +53,8 @@ PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE){
     return paquete;
 }
 
-PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PE){
+PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PE)
+{
     PersonaPtr persona=(PersonaPtr)obtenerMemoria(sizeof(Persona));
     persona->nombre=crearStringDinamico(PE->nombre);
     persona->apellido=crearStringDinamico(PE->apellido);
@@ -86,7 +64,8 @@ PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PE){
     return persona;
 }
 
-VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VE){
+VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VE)
+{
     VehiculoPtr vehiculo = (VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));
     vehiculo->tipo=VE->tipo;
     vehiculo->marca=crearStringDinamico(VE->marca);
@@ -95,7 +74,8 @@ VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VE){
     return vehiculo;
 }
 
-RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RE){
+RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RE)
+{
     RepartoPtr reparto=(RepartoPtr)obtenerMemoria(sizeof(Reparto));
     reparto->chofer=crearPersonaDirectNuevo(&RE->chofer);
     reparto->vehiculo=crearVehiculoDirectNuevo(&RE->vehiculo);
@@ -111,10 +91,12 @@ RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RE){
     return reparto;
 }
 
-///---------------------------------------------------------------------------///
-///---------------------------------------------------------------------------///
+///-----------------------------------------------------------------------------------------------------------///
+            ///SECCION DE FUNCIONES DE CONVERSION [ ESTATICA - DINAMICA ] [ DINAMICA - ESTATICA ]///
+///-----------------------------------------------------------------------------------------------------------///
 
-FechaPtr PasajeFechaDinamico(fFechaPtr FE, FechaPtr FD, bool ADinamico){
+FechaPtr PasajeFechaDinamico(fFechaPtr FE, FechaPtr FD, bool ADinamico)
+{
     if(ADinamico){
         FD=crearFechaDirectNuevo(FE);
     }else{
@@ -125,7 +107,8 @@ FechaPtr PasajeFechaDinamico(fFechaPtr FE, FechaPtr FD, bool ADinamico){
     return FD;
 }
 
-DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DE, DomicilioPtr DD, bool ADinamico){
+DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DE, DomicilioPtr DD, bool ADinamico)
+{
     if(ADinamico){
         DD=crearDomicilio(DE->calle,DE->altura,DE->localidad);
     }else{
@@ -136,7 +119,8 @@ DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DE, DomicilioPtr DD, bool ADi
     return DD;
 }
 
-CuilPtr PasajeCuilDinamico(fCuilPtr CE, CuilPtr CD, bool ADinamico){
+CuilPtr PasajeCuilDinamico(fCuilPtr CE, CuilPtr CD, bool ADinamico)
+{
     if(ADinamico){
         CD=crearCuil(CE->cuil);
     }else{
@@ -145,7 +129,8 @@ CuilPtr PasajeCuilDinamico(fCuilPtr CE, CuilPtr CD, bool ADinamico){
     return CD;
 }
 
-VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VE, VehiculoPtr VD, bool ADinamico){
+VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VE, VehiculoPtr VD, bool ADinamico)
+{
     if(ADinamico){
         VD=crearVehiculoDirectNuevo(VE);
     }else{
@@ -157,7 +142,8 @@ VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VE, VehiculoPtr VD, bool ADinami
     return VD;
 }
 
-PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico){
+PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico)
+{
     if(ADinamico){
         PD=crearPersonaDirectNuevo(PE);
     }else{
@@ -169,7 +155,8 @@ PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico){
     return PD;
 }
 
-PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico){
+PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico)
+{
     if(ADinamico){
         PD=crearPaqueteDirectNuevo(PE);
     }else{
@@ -187,7 +174,8 @@ PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico){
     return PD;
 }
 
-RepartoPtr PasajeRepartoDinamico(fRepartoPtr RE, RepartoPtr RD, bool ADinamico){
+RepartoPtr PasajeRepartoDinamico(fRepartoPtr RE, RepartoPtr RD, bool ADinamico)
+{
     if(ADinamico){
         RD=crearRepartoDirectoNuevo(RE);
     }else{
@@ -212,9 +200,12 @@ RepartoPtr PasajeRepartoDinamico(fRepartoPtr RE, RepartoPtr RD, bool ADinamico){
 }
 
 
-///---------------------------------------------------------------------------///
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE ESCRITURA///
+///-----------------------------------------------------------------------------------------------------------///
 
-bool guardarVehiculos(CentroLogisticoPtr centroLogistico){
+bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
+{
     FILE* arch;
     bool guardado=false;
     arch=fopen("VehiculosPrueba.bin","wb");
@@ -237,7 +228,8 @@ bool guardarVehiculos(CentroLogisticoPtr centroLogistico){
     return guardado;
 }
 
-bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
+bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+{
     FILE* arch;
     bool guardado=false;
     fReparto RE;
@@ -272,7 +264,8 @@ bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto){
     return guardado;
 }
 
-bool guardarPersonas(CentroLogisticoPtr centroLogistico){
+bool guardarPersonas(CentroLogisticoPtr centroLogistico)
+{
     FILE* arch;
     bool guardado=false;
     fPersona PE;
@@ -295,7 +288,8 @@ bool guardarPersonas(CentroLogisticoPtr centroLogistico){
     return guardado;
 }
 
-bool guardarPaquetes(CentroLogisticoPtr centroLogistico){
+bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
+{
     FILE* arch;
     bool guardado=false;
     fPaquete PE;
@@ -318,9 +312,12 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico){
     return guardado;
 }
 
-///-----------------------------------------------------------------------///
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE LECTURA///
+///-----------------------------------------------------------------------------------------------------------///
 
-bool abrirVehiculos(CentroLogisticoPtr centroLogistico){
+bool abrirVehiculos(CentroLogisticoPtr centroLogistico)
+{
     FILE* arch;
     bool guardado=false;
     fVehiculo VE;
@@ -340,7 +337,8 @@ bool abrirVehiculos(CentroLogisticoPtr centroLogistico){
     return guardado;
 }
 
-bool abrirPersonas(CentroLogisticoPtr centroLogistico){
+bool abrirPersonas(CentroLogisticoPtr centroLogistico)
+{
     FILE* arch;
     bool guardado=false;
     fPersona PE;
@@ -360,7 +358,8 @@ bool abrirPersonas(CentroLogisticoPtr centroLogistico){
     return guardado;
 }
 
-bool abrirPaquetes(CentroLogisticoPtr centroLogistico){
+bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
+{
     FILE* arch;
     bool guardado=false;
     fPaquete PE;
@@ -380,7 +379,8 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico){
     return guardado;
 }
 
-bool abrirRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto){
+bool abrirRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
+{
     FILE* arch;
     fReparto RE;
     RepartoPtr RD;
@@ -408,9 +408,12 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto){
     return guardado;
 }
 
-///------------------------------------------------------------///
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE GENERALES///
+///-----------------------------------------------------------------------------------------------------------///
 
-bool guardarTodo(CentroLogisticoPtr centroLogistico){
+bool guardarTodo(CentroLogisticoPtr centroLogistico)
+{
     FILE* arch;
     bool guardado=false;
     char nombreCentroLog[100];
@@ -426,7 +429,8 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico){
     return guardado;
 }
 
-CentroLogisticoPtr abrirTodo(){
+CentroLogisticoPtr abrirTodo()
+{
     CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido("");
     FILE* arch;
     bool guardado=false;

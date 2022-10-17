@@ -7,41 +7,58 @@
 #include "TDACentroLogistico.h"
 
 
-
-/// ///////////////////////////////CREACIÓN DE DATOS POR DEFECTO///////////////////////////////////// ///
-/*                          Se crea en base a un único dato por defecto                                */
-
-/*---------------------------------------------------------------------------------------------------*/
-CuilPtr crearCuilPorDefecto(); ///NO BORRAR: Ya no se guardarán en archivos aparte,
-DomicilioPtr crearDomicilioPorDefecto(); ///pero es posible que sigan teniendo utilidad.
-FechaPtr crearFechaPorDefecto();
-/*---------------------------------------------------------------------------------------------------*/
-PaquetePtr crearPaquetePorDefecto();
-PersonaPtr crearPersonaPorDefecto(bool esChofer);
-VehiculoPtr crearVehiculoPorDefecto(); //Crea un vehículo de forma rápida con datos predeterminados.
-RepartoPtr crearRepartoPorDefecto(bool esRepartoAbierto);
-
-CentroLogisticoPtr crearTodoPorDefecto(); //Crea un centro logistico llamando a las otras funciones
-
 /// ///////////////////////////////CREACIÓN DE DATOS GENÉRICOS///////////////////////////////////// ///
-/*              Se crea aleatoriamente en base a una mini-base de datos por defecto                  */
 
-/*---------------------------------------------------------------------------------------------------*/
-CuilPtr crearCuilGenerico(); ///NO BORRAR: Ya no se guardarán en archivos aparte,
-DomicilioPtr crearDomicilioGenerico(); ///pero es posible que sigan teniendo utilidad.
-FechaPtr crearFechaGenerica();
-/*---------------------------------------------------------------------------------------------------*/
-PaquetePtr crearPaqueteGenerico();
-PersonaPtr crearPersonaGenerica(bool esChofer);
-VehiculoPtr crearVehiculoGenerico(); //Crea un vehículo de forma rápida con datos predeterminados.
-RepartoPtr crearRepartoGenerico(); //solo se crean repartos abiertos.
-
+///OPERACION: CREACION
+///PRECONDICION: LOS ELEMENTOS DEBEN SER CREADOS EN MEMORIA DINAMICA
+///POSTCONDICION: CREA UNA LISTA CON LA ESTRUCTURA VEHICULO EN MEMORIA DINAMICA
+///PARAMETROS: NINGUNO [SE CREAN Y DECLARAN DENTRO DE LA FUNCION]
+///DEVUELVE: PUNTERO A LA LISTA CREADA CON DATOS GENERICOS DE VEHICULOS
 ListaPtr crearListaVehiculosGenerico();
+
+///OPERACION: CREACION
+///PRECONDICION: LOS ELEMENTOS DEBEN SER CREADOS EN MEMORIA DINAMICA
+///POSTCONDICION: CREA UNA LISTA CON LA ESTRUCTURA PAQUETE EN MEMORIA DINAMICA
+///PARAMETROS: NINGUNO [SE CREAN Y DECLARAN DENTRO DE LA FUNCION]
+///DEVUELVE: PUNTERO A LA LISTA CREADA CON DATOS GENERICOS DE PAQUETES
 ListaPtr crearListaPaquetesGenerico();
+
+///OPERACION: CREACION
+///PRECONDICION: LOS ELEMENTOS DEBEN SER CREADOS EN MEMORIA DINAMICA
+///POSTCONDICION: CREA UNA LISTA CON LA ESTRUCTURA PERSONA EN MEMORIA DINAMICA
+///PARAMETROS: NINGUNO [SE CREAN Y DECLARAN DENTRO DE LA FUNCION]
+///DEVUELVE: PUNTERO A LA LISTA CREADA CON DATOS GENERICOS DE PERSONAS
 ListaPtr crearListaPersonasGenerica();
-ListaPtr crearListaRepartosPorDefecto();
-void verificacion(bool resultado);
+
+///OPERACION: CREACION
+///PRECONDICION: LOS ELEMENTOS DEBEN SER CREADOS EN MEMORIA DINAMICA
+///POSTCONDICION: CREA UNA LISTA CON LA ESTRUCTURA PERSONAS [ACLARANDO QUE SON CHOFERES] EN MEMORIA DINAMICA
+///PARAMETROS: NINGUNO [SE CREAN Y DECLARAN DENTRO DE LA FUNCION]
+///DEVUELVE: PUNTERO A LA LISTA CREADA CON DATOS GENERICOS DE PERSONAS [ACALRANDO QUE SON CHOFERES]
 ListaPtr choferesGenericos();
+
+///OPERACION: CREACION
+///PRECONDICION: LOS ELEMENTOS DEBEN SER CREADOS EN MEMORIA DINAMICA
+///POSTCONDICION: CREA UNA LISTA CON LA ESTRUCTURA PERSONAS [ACLARANDO QUE SON CLIENTES] EN MEMORIA DINAMICA
+///PARAMETROS: NINGUNO [SE CREAN Y DECLARAN DENTRO DE LA FUNCION]
+///DEVUELVE: PUNTERO A LA LISTA CREADA CON DATOS GENERICOS DE PERSONAS [ACLARANDO QUE SON CLIENTES]
 ListaPtr clientesGenericos();
+
+///OPERACION: CREACION
+///PRECONDICION: LOS ELEMENTOS DEBEN SER CREADOS EN MEMORIA DINAMICA
+///POSTCONDICION: CREA UNA LISTA CON LA ESTRUCTURA REPARTO EN MEMORIA DINAMICA
+///PARAMETROS: NINGUNO [SE CREAN Y DECLARAN DENTRO DE LA FUNCION]
+///DEVUELVE: PUNTERO A LA LISTA CREADA CON DATOS GENERICOS DE REPARTOS
 ListaPtr crearListaRepartosPorDefectoConLista();
+
+///OPERACION: VERIFICACION
+///PRECONDICION: EL RESULTADO DEBE SER DEFINIDO COMO BOOLEANO
+///POSTCONDICION: ENVIA NOTIFIACIONES POR PANTALLA INDICANDO EL
+/// EL VALOR BOOLEANO DEL MISMO, EXPRESANDO QUE:
+/// TRUE = QUE FUNCIONA CORRECTAMENTE
+/// FALSE = QUE NO FUNCION CORRECTAMENTE
+///PARAMETROS: VALOR BOOLEANO REPRESENTANDO EL RESULTADO DE LA OPERACION
+///DEVUELVE: VACIO [MUESTRA INTERNAMENTE POR PANTALLA EL RESULTADO]
+void verificacion(bool resultado);
+
 #endif // TEST_H_INCLUDED

@@ -8,12 +8,20 @@ const void* FinLista=NULL;
 //declarada acá porque no es parte de la interfaz
 PtrNodo getNodoLista(ListaPtr lista, int posicion);
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
+
 ListaPtr crearLista()
 {
     ListaPtr lista=(ListaPtr)obtenerMemoria(sizeof(Lista));
     lista->primero=0;
     return lista;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE DESTRUCCION///
+///-----------------------------------------------------------------------------------------------------------///
 
 ListaPtr destruirLista(ListaPtr lista,bool remover)
 {
@@ -25,15 +33,13 @@ ListaPtr destruirLista(ListaPtr lista,bool remover)
     return 0; //no estaba en la implementacion del profe. Supongo que va, pero si no funca probamos sacandola
 }
 
-bool listaVacia(ListaPtr lista)
-{
-    return (lista->primero==0);
-}
-
-
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE GETTERS///
+///-----------------------------------------------------------------------------------------------------------///
 
 PtrNodo getNodoLista(ListaPtr lista, int posicion)
-{//funcion auxiliar para getDatoLista, no está en la interfaz de Lista.h
+{
+    ///funcion auxiliar para getDatoLista, no está en la interfaz de Lista.h
     PtrNodo nodo=lista->primero;
     int posicionActual=0;
     if(nodo!=0)
@@ -78,7 +84,9 @@ ListaPtr getResto(ListaPtr lista)
     return resto;
 }
 
-
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE OPERACIONES CON LISTAS///
+///-----------------------------------------------------------------------------------------------------------///
 
 int longitudLista(ListaPtr lista)
 {
@@ -106,33 +114,40 @@ void agregarDatoAlFinalDeLista(ListaPtr lista,PtrDato dato)
     setSiguiente(ultNodo,nuevoNodo); //ponemos el nuevo nodo como siguiente del último
 }
 
-
-
 bool insertarDatoLista(ListaPtr lista,PtrDato dato,int posicion)
-{ //recordamos: inserta el dato DESPUES de la posicion. NOTA: Lo hace 2 posiciones después.
-    PtrNodo nodo=getNodoLista(lista,posicion); //obtiene el nodo DE LA POSICION PEDIDA
+{
+    ///recordamos: inserta el dato DESPUES de la posicion. NOTA: Lo hace 2 posiciones después.
+    ///obtiene el nodo DE LA POSICION PEDIDA
+    PtrNodo nodo=getNodoLista(lista,posicion);
     bool resultado=false;
     if(nodo!=0)
     {
-        PtrNodo nuevoNodo=crearNodo(dato); //el nuevo dato precisa un nodo para ser insertado a la lista
-        setSiguiente(nuevoNodo,getSiguiente(nodo)); //el nodo siguiente a nodo (siguiente del siguiente) es ahora el siguiente al nuevo
-        setSiguiente(nodo,nuevoNodo); //el nuevo nodo es ahora el siguiente al nodo en la posicion indicada (otra vez: DESPUES de la posicion).
+        ///el nuevo dato precisa un nodo para ser insertado a la lista
+        PtrNodo nuevoNodo=crearNodo(dato);
+        ///el nodo siguiente a nodo (siguiente del siguiente) es ahora el siguiente al nuevo
+        setSiguiente(nuevoNodo,getSiguiente(nodo));
+        ///el nuevo nodo es ahora el siguiente al nodo en la posicion indicada (otra vez: DESPUES de la posicion).
+        setSiguiente(nodo,nuevoNodo);
         resultado=true;
     }
     return resultado;
+
+
+    /*
+    En otras palabras, lo que se hace es:
+    1. Obtener el nodo en la posicion que se pide.
+    2. Crear un nuevo nodo, y linkearlo con el siguiente a ese.
+    3. Linkear el nodo en la posicion que se pide con el nuevo, que está en la siguiente.
+    De esta manera, vemos que se termina insertando el dato en la posicion siguiente a la que se pide.
+    Q: ¿Por qué? ¿Por qué no simplemente en la posicion que se pide?
+    R: Porque no tenemos funciones que nos permitan hacer eso. Para ello, deberíamos hacer algo que nos permita
+    obtener el nodo ANTERIOR al de la posicion que se pide, y dado que los nodos de una lista simplemente enlazada como esta
+    solo apuntan a su SIGUIENTE, obtener el ANTERIOR simplemente no es posible. Para hacer eso, deberíamos implementar una
+    lista DOBLEMENTE ENLAZADA, en la cual cada nodo TAMBIEN APÚNTA AL ANTERIOR. Tendríamos una funcion getAnterior(nodo) y sería
+    más intuitivo y fácil de insertar. Pero en una lista como esta, se puede hacer solo de esta manera.
+    */
 }
-/*En otras palabras, lo que se hace es:
-1. Obtener el nodo en la posicion que se pide.
-2. Crear un nuevo nodo, y linkearlo con el siguiente a ese.
-3. Linkear el nodo en la posicion que se pide con el nuevo, que está en la siguiente.
-De esta manera, vemos que se termina insertando el dato en la posicion siguiente a la que se pide.
-Q: ¿Por qué? ¿Por qué no simplemente en la posicion que se pide?
-R: Porque no tenemos funciones que nos permitan hacer eso. Para ello, deberíamos hacer algo que nos permita
-obtener el nodo ANTERIOR al de la posicion que se pide, y dado que los nodos de una lista simplemente enlazada como esta
-solo apuntan a su SIGUIENTE, obtener el ANTERIOR simplemente no es posible. Para hacer eso, deberíamos implementar una
-lista DOBLEMENTE ENLAZADA, en la cual cada nodo TAMBIEN APÚNTA AL ANTERIOR. Tendríamos una funcion getAnterior(nodo) y sería
-más intuitivo y fácil de insertar. Pero en una lista como esta, se puede hacer solo de esta manera.
-*/
+
 void agregarLista(ListaPtr estaLista,ListaPtr otraLista)
 {
     if(estaLista->primero==0)
@@ -145,8 +160,6 @@ void agregarLista(ListaPtr estaLista,ListaPtr otraLista)
         setSiguiente(nodo,otraLista->primero);
     }
 }
-
-
 
 PtrDato removerDeLista(ListaPtr lista, int posicion)
 {
@@ -177,4 +190,9 @@ PtrDato removerDeLista(ListaPtr lista, int posicion)
         }
     }
     return dato;
+}
+
+bool listaVacia(ListaPtr lista)
+{
+    return (lista->primero==0);
 }

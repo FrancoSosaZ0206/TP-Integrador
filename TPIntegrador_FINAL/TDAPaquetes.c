@@ -7,7 +7,12 @@
 #include "util.h"
 #include "Pila.h"
 
-PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,int estado){
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
+
+PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,int estado)
+{
     PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
     paquete->ID=ID;
     paquete->ancho=ancho;
@@ -20,7 +25,6 @@ PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPt
     paquete->estado=estado;
     return paquete;
 }
-
 
 PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado)
 {
@@ -41,6 +45,10 @@ PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char 
     return paquete;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE DESTRUCCION///
+///-----------------------------------------------------------------------------------------------------------///
+
 PaquetePtr destruirPaquete(PaquetePtr paquete)
 {
     paquete->dirRetiro=destruirDomicilio(paquete->dirRetiro);
@@ -50,80 +58,108 @@ PaquetePtr destruirPaquete(PaquetePtr paquete)
     return NULL;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE GETTERS///
+///-----------------------------------------------------------------------------------------------------------///
+
 int getID(PaquetePtr paquete)
 {
     return paquete->ID;
 }
+
 int getAncho(PaquetePtr paquete)
 {
     return paquete->ancho;
 }
+
 int getAlto(PaquetePtr paquete)
 {
     return paquete->alto;
 }
+
 int getLargo(PaquetePtr paquete)
 {
     return paquete->largo;
 }
+
 int getPeso(PaquetePtr paquete)
 {
     return paquete->peso;
 }
+
 DomicilioPtr getDirRetiro(PaquetePtr paquete)
 {
     return paquete->dirRetiro;
 }
+
 DomicilioPtr getDirEntrega(PaquetePtr paquete)
 {
     return paquete->dirEntrega;
 }
+
 FechaPtr getFechaEntrega(PaquetePtr paquete)
 {
     return paquete->fechaEntrega;
 }
+
 int getEstado(PaquetePtr paquete)
 {
     return paquete->estado;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE SETTERS///
+///-----------------------------------------------------------------------------------------------------------///
 
 void setID(PaquetePtr paquete,int ID)
 {
     paquete->ID=ID;
 }
+
 void setAncho(PaquetePtr paquete,int ancho)
 {
     paquete->ancho=ancho;
 }
+
 void setAlto(PaquetePtr paquete,int alto)
 {
     paquete->alto=alto;
 }
+
 void setLargo(PaquetePtr paquete,int largo)
 {
     paquete->largo=largo;
 }
+
 void setPeso(PaquetePtr paquete,int peso)
 {
     paquete->peso=peso;
 }
+
 void setDirRetiro(PaquetePtr paquete,DomicilioPtr dirRetiro)
 {
     paquete->dirRetiro=dirRetiro;
 }
+
 void setDirEntrega(PaquetePtr paquete,DomicilioPtr dirEntrega)
 {
     paquete->dirEntrega=dirEntrega;
 }
+
 void setFechaEntrega(PaquetePtr paquete,FechaPtr fechaEntrega)
 {
     paquete->fechaEntrega=fechaEntrega;
 }
+
 void setEstado(PaquetePtr paquete,int estado)
 {
     paquete->estado=estado;
 }
+
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE OPERACIONES CON PAQUETE///
+///-----------------------------------------------------------------------------------------------------------///
 
 void mostrarPaquete(PaquetePtr paquete)
 {
@@ -140,8 +176,8 @@ void mostrarPaquete(PaquetePtr paquete)
     mostrarFecha(getFechaEntrega(paquete));
 }
 
-
-void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
+///muestra que relacion hay entre cada numero y cada estado posible del paquete.
+void helpEstadoPaquete()
 {
     printf("Codigo de estados: \n");
     printf("\t0 = En Deposito\n");
@@ -151,7 +187,9 @@ void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada est
     printf("\t4 = Demorado\n");
     printf("\t5 = Suspendido\n\n");
 }
-void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual del paquete recibido.
+
+///muestra solo el estado actual del paquete recibido.
+void mostrarEstadopaquete(PaquetePtr paquete)
 {
     switch(getEstado(paquete))
     {
@@ -178,7 +216,6 @@ void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual de
         break;
     }
 }
-
 
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 {

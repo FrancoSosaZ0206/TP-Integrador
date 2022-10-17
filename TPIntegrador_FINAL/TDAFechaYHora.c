@@ -5,13 +5,10 @@
 #include "TDAFechaYHora.h"
 #include "util.h"
 
-int calcularDiaJuliano(int dia, int mes, int anio)
-{
-    return (1461 * (anio + 4800 + (mes - 14)/12))/4
-           + (367 * (mes - 2 - 12 * ((mes - 14)/12)))/12
-           - (3 * ((anio + 4900 + (mes - 14)/12)/100))/4 + dia - 32075;
-}
-//creacion y destruccion:
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE CREACION///
+///-----------------------------------------------------------------------------------------------------------///
+
 FechaPtr crearFecha(int dia,int mes,int anio,int hora,int minuto)
 {
     FechaPtr f=(FechaPtr)obtenerMemoria(sizeof(Fecha));
@@ -22,6 +19,7 @@ FechaPtr crearFecha(int dia,int mes,int anio,int hora,int minuto)
 
     return f;
 }
+
 ///NUEVA: Orientada a crear fecha a partir de otra fecha (o si se parte de d. julianos) (utilizada en Files).
 FechaPtr crearFechaDirect(int diaJuliano,int hora,int minuto)
 {
@@ -32,17 +30,26 @@ FechaPtr crearFechaDirect(int diaJuliano,int hora,int minuto)
 
     return f;
 }
-FechaPtr destruirFecha(FechaPtr fecha) ///Esta no cambia.
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE DESTRUCCION///
+///-----------------------------------------------------------------------------------------------------------///
+
+FechaPtr destruirFecha(FechaPtr fecha)
 {
     free(fecha);
     return NULL;
 }
-//getters:
-///NUEVA
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE GETTERS///
+///-----------------------------------------------------------------------------------------------------------///
+
 int getDiaJuliano(FechaPtr fecha)
 {
     return fecha->diaJuliano;
 }
+
 int getDia(FechaPtr fecha)
 {
     int j = fecha->diaJuliano;
@@ -52,6 +59,7 @@ int getDia(FechaPtr fecha)
     int h = 5 * g + 2;
     return ((h % 153) / 5) + 1;
 }
+
 int getMes(FechaPtr fecha)
 {
     int j = fecha->diaJuliano;
@@ -61,6 +69,7 @@ int getMes(FechaPtr fecha)
     int h = 5 * g + 2;
     return ((h / 153 + 2) % 12) + 1;
 }
+
 int getAnio(FechaPtr fecha)
 {
     int j = fecha->diaJuliano;
@@ -71,20 +80,26 @@ int getAnio(FechaPtr fecha)
     int mes =((h / 153 + 2) % 12) + 1;
     return (e / 1461) - 4716 + (12 + 2 - mes) / 12;
 }
+
 int getHora(FechaPtr fecha) ///NUEVA
 {
     return fecha->hora;
 }
+
 int getMinuto(FechaPtr fecha) ///NUEVA
 {
     return fecha->minuto;
 }
-///setters
-///NUEVA
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE SETTERS///
+///-----------------------------------------------------------------------------------------------------------///
+
 void setDiaJuliano(FechaPtr fecha,int diaJuliano)
 {
     fecha->diaJuliano=diaJuliano;
 }
+
 void setDia(FechaPtr fecha,int dia)
 {
     int d=getDia(fecha); //convertimos el dia juliano a dia gregoriano
@@ -94,8 +109,10 @@ void setDia(FechaPtr fecha,int dia)
     int newDay=calcularDiaJuliano(d,m,a); //calculamos el nuevo día juliano llamando a la funcion
     fecha->diaJuliano=newDay; //seteamos el nuevo día calculado
 }
+
 void setMes(FechaPtr fecha,int mes)
-{ //para el resto de setters es la misma logica
+{
+    //para el resto de setters es la misma logica
     int m=getMes(fecha);
     m=mes;
     int d=getDia(fecha);
@@ -103,6 +120,7 @@ void setMes(FechaPtr fecha,int mes)
     int newMonth=calcularDiaJuliano(d,m,a);
     fecha->diaJuliano=newMonth;
 }
+
 void setAnio(FechaPtr fecha,int anio)
 {
     int a=getAnio(fecha);
@@ -112,23 +130,31 @@ void setAnio(FechaPtr fecha,int anio)
     int newYear=calcularDiaJuliano(d,m,a);
     fecha->diaJuliano=newYear;
 }
+
 void setHora(FechaPtr fecha,int hora) ///NUEVA
 {
     fecha->hora=hora;
 }
+
 void setMinuto(FechaPtr fecha,int minuto) ///NUEVA
 {
     fecha->minuto=minuto;
 }
-//Operaciones
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE OPERACIONES CON FECHA///
+///-----------------------------------------------------------------------------------------------------------///
+
 void calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2,int* diferencias) ///Nueva implementación
 {
     diferencias[0] = getDiaJuliano(fecha1) - getDiaJuliano(fecha2);
     diferencias[1] = getHora(fecha1) - getHora(fecha2);
     diferencias[2] = getMinuto(fecha1) - getMinuto(fecha2);
 }
+
 void traerFechaCorta(FechaPtr fecha,char *buffer)
-{ /**OPTIMIZACION DE LA FUNCIÓN:
+{
+/**OPTIMIZACION DE LA FUNCIÓN:
 En lugar de calcular donde poner las barras haciendo una cadena de ifs
 que contemplen la cantidad de dígitos posibles del día y mes de la fecha,
 Usamos la funcion strcat, con lo que concatenamos la barra al final del
@@ -142,12 +168,14 @@ los meses y días de la fecha.
     strcat(buffer,"/");
     sprintf(buffer+strlen(buffer),"%d",getAnio(fecha));
 }
+
 char *traerFechaCortaDinamica(FechaPtr fecha)
 {
     char *buffer=(char *)obtenerMemoria(sizeof(char)*11);
     traerFechaCorta(fecha,buffer);
     return buffer;
 }
+
 bool esBiciesto(FechaPtr fecha)
 {
     int anio=getAnio(fecha);
@@ -156,23 +184,28 @@ bool esBiciesto(FechaPtr fecha)
     else
         return false;
 }
+
 FechaPtr sumarAFecha(FechaPtr fecha,int dias)
 {
     fecha->diaJuliano+=dias;
     return fecha;
 }
+
 int diaSemana(FechaPtr fecha)
 {
     return (fecha->diaJuliano+1) % 7;
 }
+
 void diaSemanaStr(FechaPtr fecha,char *buffer)
 {
     int res=diaSemana(fecha);
     char *dias[]={"Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
     strcpy(buffer,dias[res]);
 }
+
 void traerFechaLarga(FechaPtr fecha, char* buffer)
-{ /* PROCESO:
+{
+    /* PROCESO:
     1. Almacenamos el día de la semana.
     2. Ponemos la coma, el espacio y metemos el día.
     3. Ponemos " de " y el mes.
@@ -208,6 +241,7 @@ void traerFechaLarga(FechaPtr fecha, char* buffer)
     free(diaSemana);
     diaSemana=NULL;
 }
+
 void traerFechaYHora(FechaPtr fecha,char *buffer)
 {
     traerFechaCorta(fecha,buffer);
@@ -216,6 +250,7 @@ void traerFechaYHora(FechaPtr fecha,char *buffer)
     strcat(buffer,":");
     sprintf(buffer+strlen(buffer),"%d",getMinuto(fecha));
 }/// Nota: cuando usamos buffer+strlen(buffer), realmente no hace falta restar nada. Así como está, está bien.
+
 char *traerFechaYHoraDinamica(FechaPtr fecha)
 {
     char *buffer=(char*)obtenerMemoria(sizeof(char)*18);
@@ -266,4 +301,11 @@ void mostrarFecha(FechaPtr fecha)
 {
     printf("%d / %d / %d \n", getDia(fecha),getMes(fecha),getAnio(fecha));
     printf("%d : %d \n", getHora(fecha),getMinuto(fecha));
+}
+
+int calcularDiaJuliano(int dia, int mes, int anio)
+{
+    return (1461 * (anio + 4800 + (mes - 14)/12))/4
+           + (367 * (mes - 2 - 12 * ((mes - 14)/12)))/12
+           - (3 * ((anio + 4900 + (mes - 14)/12)/100))/4 + dia - 32075;
 }

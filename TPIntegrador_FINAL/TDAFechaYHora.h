@@ -252,7 +252,7 @@ bool esFechaValida(FechaPtr fecha);
 //  fecha1: puntero a la estructura a verificar.
 //  fecha2: puntero a la estructura a verificar.
 //Devuelve: true si son idénticas, false de lo contrario.
-bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2); ///NUEVA
+bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2);
 
 //Operación: MOSTRAR
 //Precondición: fecha debe haberse creado
@@ -261,5 +261,16 @@ bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2); ///NUEVA
 // fecha: estructura a sacar el nombre.
 //No devuelve nada
 void mostrarFecha(FechaPtr fecha);
+
+///OPERACION: CALCULO
+///PRECONDICION: DIA, MES, ANIO DEBEN SER DECLARADOS COMO ENTEROS
+///POSTCONDICION: DEVUELVE UN ENTERO REPRESENTANDO LA
+/// FECHA ENTREGADA EN FORMATO DE DIAS JULIANOS
+///PARAMETROS:
+///1. ENTERO REPRESENTANDO EL DIA
+///2. ENTERO REPRESENTANDO EL MES
+///3. ENTERO REPRESENTANDO EL ANIO
+///DEVUELVE: UN ENTERO CON EL CALCULO YA REALIZADO
+int calcularDiaJuliano(int dia, int mes, int anio);
 
 #endif //TDAFECHAYHORA_H_INCLUDED
