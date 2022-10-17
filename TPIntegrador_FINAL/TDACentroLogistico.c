@@ -510,6 +510,97 @@ bool buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuilBuscar)
     return match;
 }
 
+///1. FECHA DE SALIDA
+///2. FECHA DE RETORNO
+bool buscarFechaRepartos(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, int modo)
+{
+    int diaJuliano = 0;
+    int hora = 0;
+    int minutos = 0;
+    int diaJulianoBuscar=0;
+    int i = 0;
+    int cantidadCorrectas = 0;
+    int horaBuscar = 0;
+    int minutosBuscar = 0;
+    ///int posicionEncontrado=0
+    bool encontrado=false;
+    ListaPtr ListaAuxiliar = crearLista();
+    ListaPtr ListaRepartos = getRepartos(centroLogistico, true);
+    agregarLista(ListaAuxiliar, ListaRepartos);
+    FechaPtr fechaActual;
+    RepartoPtr repartoActual;
+    while(!listaVacia(ListaAuxiliar))
+    {
+        cantidadCorrectas = 0;
+        repartoActual = (RepartoPtr)getCabecera(ListaAuxiliar);
+        if(modo == 1)
+        {
+            fechaActual = getFechaSalida(repartoActual);
+        }
+        else
+        {
+            fechaActual = getFechaRetorno(repartoActual);
+        }
+        diaJulianoBuscar = getDiaJuliano(fechaBuscar);
+        horaBuscar = getHora(fechaBuscar);
+        minutosBuscar = getMinuto(fechaBuscar);
+        diaJuliano = getDiaJuliano(fechaActual);
+        hora = getHora(fechaActual);
+        minutos = getMinuto(fechaActual);
+        if(diaJuliano != diaJulianoBuscar)
+        {
+            cantidadCorrectas++;
+        }
+        if(hora != horaBuscar)
+        {
+            cantidadCorrectas++;
+        }
+        if(minutos != minutosBuscar)
+        {
+            cantidadCorrectas++;
+        }
+        if(cantidadCorrectas == 3)
+        {
+            encontrado = true;
+            ///posicionEncontrado = i;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+        i++;
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return encontrado;
+}
+
+bool buscarPaqueteRepartos(RepartoPtr reparto, int ID)
+{
+    ListaPtr ListaAuxiliar = crearLista();
+    ListaPtr ListaPaquetes = getPaquetesReparto(reparto);
+    agregarLista(ListaAuxiliar, ListaPaquetes);
+    PaquetePtr PaqueteActual;
+    int EstadoPaquete = 0;
+    ///int posicionEncontrado = 0;
+    int i = 0;
+    bool encontrado = false;
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PaqueteActual = (PaquetePtr)getCabecera(ListaAuxiliar);
+        EstadoPaquete = getEstado(PaqueteActual);
+        if(EstadoPaquete == ID)
+        {
+            ///posicionEncontrado = i;
+            encontrado = true;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+        i++;
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return encontrado;
+}
+
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE FUNCIONES DE AGREGADO A LAS LISTAS///
 ///-----------------------------------------------------------------------------------------------------------///
@@ -725,6 +816,7 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modoOrdenamiento, in
             }
         }
     }
+
     ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
     for(int i=0; i<n; i++)
     {
