@@ -17,6 +17,7 @@ typedef struct Paquete
     DomicilioPtr dirRetiro;
     DomicilioPtr dirEntrega;
     FechaPtr fechaEntrega;
+    PersonaPtr cliente;
     int estado; ///0=En depósito,1=En curso,2=Retirado,3=Entregado,4=Demorado,5=Suspendido
 } Paquete;
 typedef Paquete * PaquetePtr;
@@ -35,7 +36,7 @@ typedef Paquete * PaquetePtr;
 // fechaEntrega: puntero a la estructura que representa la fecha de entrega.
 // estado: entero que represeta el estado del paquete.
 //Devuelve un puntero a la estructura creada.
-PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,int estado);
+PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,PersonaPtr cliente,int estado);
 
 
 //Operación: crea un paquete de forma directa, sin recibir estructuras
@@ -56,7 +57,7 @@ PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPt
 // fechaEntrega: 5 enteros representando el dia, mes, año, hora y minuto de entrega.
 // estado: entero que represeta el estado del paquete.
 //Devuelve un puntero a la estructura creada.
-PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado);
+PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,char* nombre,char* apellido, char* calleCliente, int alturaCliente,char* localidadCliente, char* strCuil,int estado);
 
 //Operación: Destruye el TDApaquete
 //Precondición: Paquete debe estar creado.
@@ -122,6 +123,15 @@ DomicilioPtr getDirEntrega(PaquetePtr paquete);
 // paquete: puntero a la estructura a sacar el dato.
 //Devuelve un puntero a la estructura que es la fecha de entrega.
 FechaPtr getFechaEntrega(PaquetePtr paquete);
+
+//Operación: Obtencion de cliente.
+//Precondición: Paquete debe estar creado.
+//Postcondición: Se obtiene el cliente destinatario.
+//Parámetros:
+// paquete: puntero a la estructura a sacar el dato.
+//Devuelve un entero que representa el cliente del paquete en forma de puntero a persona.
+PersonaPtr getCliente(PaquetePtr paquete);
+
 //Operación: Obtencion de estado.
 //Precondición: Paquete debe estar creado.
 //Postcondición: Se obtiene el estado.
@@ -194,6 +204,16 @@ void setDirEntrega(PaquetePtr paquete,DomicilioPtr dirEntrega);
 // fechaEntrega: puntero a la estructura que representa la nueva fecha de entrega.
 //Devuelve nada
 void setFechaEntrega(PaquetePtr paquete,FechaPtr fechaEntrega);
+
+//Operación: Asignar el cliente destinatario.
+//Precondición: Paquete debe estar creado.
+//Postcondición: Paquete tiene una nuevo cliente de entrega.
+//Parámetros:
+// paquete: puntero a la estructura a asignar el  nuevo dato.
+// fechaEntrega: puntero a la estructura que representa el nueva cliente de entrega.
+//Devuelve nada
+void setCliente(PaquetePtr paquete, PersonaPtr cliente);
+
 //Operación: Asignar estado.
 //Precondición: Paquete debe estar creado.
 //Postcondición: Paquete tiene un nuevo estado.
@@ -232,6 +252,5 @@ void mostrarEstadopaquete(PaquetePtr paquete); //muestra solo el estado actual d
 //  paquete2: puntero a la estructura a verificar.
 //Devuelve: true si son idénticos en ID O en el resto de campos, false de lo contrario.
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2);
-
 
 #endif // TDAPAQUETES_H_INCLUDED

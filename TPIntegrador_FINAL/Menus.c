@@ -63,7 +63,6 @@ int menuModoAccion1(ListaPtr lista)
         printf("\n\nIngrese indice donde tomar accion: ");
         scanf("%d",&i);
         limpiarBufferTeclado();
-        printf("Limite lista: %d\n", n);
         if(i<=0 || i>n)
         {
             printf("\n\nERROR: indice inexistente. Vuelva a elegir.\n\n");
@@ -325,13 +324,18 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 {
     PaquetePtr paquete;
     ///el ID del paquete se genera automáticamente, no lo tiene que ingresar el usuario.
-    int ID=0,ancho=0,alto=0,largo=0,peso=0,i=1,resultado=0;
+    int ID=0,ancho=0,alto=0,largo=0,peso=0,i=1,resultado=0,Eleccion=0;
     FechaPtr fechaEntrega;
     DomicilioPtr dirRetiro;
     DomicilioPtr dirEntrega;
+    PersonaPtr persona;
     ///por defecto, los paquetes se cargan con el estado 0: 'en depósito'.
     srand(time(NULL));
     bool cambiosGuardados=false, continuar;
+    if(listaVacia(getPersonas(centroLogistico)))
+    {
+        printf("No hay destinatarios para elegir\n");
+    }
     do
     {
         system("cls");
@@ -356,7 +360,15 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
         dirEntrega=cargarDomicilio(dirEntrega);
         printf("\n\tFecha de entrega:");
         fechaEntrega=cargarFecha(fechaEntrega);
-        paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,0);
+        system("cls");
+        printf("Elegir destinatario\n");
+        mostrarPersonas(centroLogistico,2);
+        limpiarBufferTeclado();
+        printf("Eleccion: ");
+        Eleccion = menuModoAccion1(getPersonas(centroLogistico));
+        persona = getDatoLista(getPersonas(centroLogistico), Eleccion);
+        limpiarBufferTeclado();
+        paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,persona,0);
         agregarPaquete(centroLogistico,paquete);
         continuar=menuContinuar();
     } while(continuar);
@@ -1216,6 +1228,7 @@ void cambiarPaquete(PaquetePtr paqueteAModificar)
         printf("6. Direccion de Entrega\n");
         printf("7. Fecha de Entrega\n");
         printf("8. Estado\n");
+        printf("9. Destinatario\n");
         printf("Seleccione una opcion: ");
         limpiarBufferTeclado();
         scanf("%d",&op);
@@ -1265,6 +1278,9 @@ void cambiarPaquete(PaquetePtr paqueteAModificar)
             scanf("%d",&nEstado);
             setEstado(paqueteAModificar,nEstado);
             break;
+        case 9:
+            cambiarPersona(getCliente(paqueteAModificar),getEsChofer(getCliente(paqueteAModificar)));
+            break;
         default:
             printf("\nOpcion incorrecta.\n\n");
             presionarEnterYLimpiarPantalla();
@@ -1295,7 +1311,7 @@ ListaPtr OriginalPaquetes(CentroLogisticoPtr centroLogistico)
             paqueteAux=getCabecera(listaAux2);
             ///Copiamos el contenido de cada elemento
             paqueteOriginal=crearPaquete(getID(paqueteAux),getAncho(paqueteAux),getAlto(paqueteAux),getLargo(paqueteAux),getPeso(paqueteAux),
-                                         getDirRetiro(paqueteAux),getDirEntrega(paqueteAux),getFechaEntrega(paqueteAux),getEstado(paqueteAux));
+                                         getDirRetiro(paqueteAux),getDirEntrega(paqueteAux),getFechaEntrega(paqueteAux),getCliente(paqueteAux),getEstado(paqueteAux));
             ///Agregamos el dato original a la lista
             agregarDatoLista(listaOriginal,(PaquetePtr)paqueteOriginal);
             listaAux2=getResto(listaAux2);

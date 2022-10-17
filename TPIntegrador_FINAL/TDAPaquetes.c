@@ -11,7 +11,7 @@
                                 ///SECCION DE FUNCIONES DE CREACION///
 ///-----------------------------------------------------------------------------------------------------------///
 
-PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,int estado)
+PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPtr dirRetiro,DomicilioPtr dirEntrega,FechaPtr fechaEntrega,PersonaPtr cliente,int estado)
 {
     PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
     paquete->ID=ID;
@@ -22,14 +22,14 @@ PaquetePtr crearPaquete(int ID,int ancho,int alto,int largo,int peso,DomicilioPt
     paquete->dirRetiro=dirRetiro;
     paquete->dirEntrega=dirEntrega;
     paquete->fechaEntrega=fechaEntrega;
+    paquete->cliente=cliente;
     paquete->estado=estado;
     return paquete;
 }
 
-PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,int estado)
+PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char *calleRetiro,int alturaRetiro,char *localidadRetiro,char *calleEntrega,int alturaEntrega,char *localidadEntrega,int dia,int mes,int anio,int hora,int minuto,char* nombre,char* apellido, char* calleCliente, int alturaCliente,char* localidadCliente, char* strCuil, int estado)
 {
     PaquetePtr paquete = (PaquetePtr) obtenerMemoria(sizeof(Paquete));
-
     paquete->ID=ID;
     paquete->ancho=ancho;
     paquete->alto=alto;
@@ -39,6 +39,10 @@ PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char 
     paquete->dirRetiro=crearDomicilio(calleRetiro,alturaRetiro,localidadRetiro);
     paquete->dirEntrega=crearDomicilio(calleEntrega,alturaEntrega,localidadEntrega);
     paquete->fechaEntrega=crearFecha(dia,mes,anio,hora,minuto);
+
+    DomicilioPtr domicilio=crearDomicilio(calleCliente,alturaCliente,localidadCliente);
+    CuilPtr cuil=crearCuil(strCuil);
+    paquete->cliente=crearPersona(nombre,apellido,domicilio,cuil,false);
 
     paquete->estado=estado;
 
@@ -102,6 +106,11 @@ FechaPtr getFechaEntrega(PaquetePtr paquete)
     return paquete->fechaEntrega;
 }
 
+PersonaPtr getCliente(PaquetePtr paquete)
+{
+    return paquete->cliente;
+}
+
 int getEstado(PaquetePtr paquete)
 {
     return paquete->estado;
@@ -151,6 +160,11 @@ void setFechaEntrega(PaquetePtr paquete,FechaPtr fechaEntrega)
     paquete->fechaEntrega=fechaEntrega;
 }
 
+void setCliente(PaquetePtr paquete, PersonaPtr cliente)
+{
+    paquete->cliente = cliente;
+}
+
 void setEstado(PaquetePtr paquete,int estado)
 {
     paquete->estado=estado;
@@ -174,6 +188,8 @@ void mostrarPaquete(PaquetePtr paquete)
     mostrarDomicilio(getDirEntrega(paquete));
     printf("FECHA DE ENTREGA: \n");
     mostrarFecha(getFechaEntrega(paquete));
+    printf("\tDestinatario: \n");
+    mostrarPersona(getCliente(paquete));
 }
 
 ///muestra que relacion hay entre cada numero y cada estado posible del paquete.

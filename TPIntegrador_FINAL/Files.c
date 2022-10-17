@@ -49,7 +49,7 @@ PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE)
     paquete->dirRetiro=crearDomicilioNuevo(&PE->dirRetiro);
     paquete->dirEntrega=crearDomicilioNuevo(&PE->dirEntrega);
     paquete->fechaEntrega=crearFechaDirectNuevo(&PE->fechaEntrega);
-    ///paquete->cliente=crearPersonaDirectNuevo(&PE->cliente);
+    paquete->cliente=crearPersonaDirectNuevo(&PE->cliente);
     return paquete;
 }
 
@@ -169,7 +169,7 @@ PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico)
         PasajeDomicilioDinamico(&PE->dirRetiro,PD->dirRetiro,false);
         PasajeDomicilioDinamico(&PE->dirEntrega,PD->dirEntrega,false);
         PasajeFechaDinamico(&PE->fechaEntrega,PD->fechaEntrega,false);
-        ///PasajePersonaDinamico(&PE->cliente,PD->cliente,false);
+        PasajePersonaDinamico(&PE->cliente,PD->cliente,false);
     }
     return PD;
 }

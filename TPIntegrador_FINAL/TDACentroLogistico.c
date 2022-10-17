@@ -155,7 +155,7 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
 {
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPersonas(centroLogistico));
-    int i=0;
+    int i=1;
     switch(modo)
     {
     case 1:

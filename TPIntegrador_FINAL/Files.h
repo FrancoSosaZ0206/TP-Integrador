@@ -48,6 +48,7 @@ typedef struct fPaquete
     fDomicilio dirRetiro;
     fDomicilio dirEntrega;
     fFecha fechaEntrega;
+    fPersona cliente;
     int estado; ///0=En depósito,1=En curso,2=Retirado,3=Entregado,4=Demorado,5=Suspendido
 } fPaquete;
 typedef fPaquete* fPaquetePtr;
