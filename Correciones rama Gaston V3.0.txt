@@ -1,0 +1,171 @@
+
+			[CAMBIOS REALIZADOS A PARTIR DE LA RAMA DE GASTON V 3.0]
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. Correccion de crearStringDinamico
+Esta funcion originalmente creaba un string con tamanio de 8 bytes, no del tamanio enviado por el usuario en el string
+Si enviamos Fulanito de Tal, necesitamos 16 bytes para almacenarlo, en cambio, en la funcion solo se reservan 8 bytes 
+con obtenerMemoria(sizeof(char*)) = sizeof(char*) == 8 bytes
+[	generaria varios bugs a la hora de guardar datos en strings o de representarlos en funciones de mostrado 	] 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2. Correcion de mostrar APELLIDO de persona (tanto chofer como cliente)
+Funcion mostrar persona
+Por alguna casualidad de la vida, al mostrar dos cadenas de strings pegadas entre si generan conflicto a la hora de mostrar
+tanto el nombre y el apellido(	Muestran los caracteres en codigo ascii	), para solucionarlo mostramos el nombre y el apellido
+en lineas separadas, por la representacion del %s que entra en conflicto con el otro %s
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3. Correcion de cargado de datos, a modo de prevencion, se utiliza un limpiar buffer de teclado antes y despues de cualquier
+ingreso por teclado, ya sea numerico o string
+En caso de representar una cadena de string en formato [%[^\n]%*c] tener cuidado al utilizar el recibimiento de 2 variables
+scanf("%[^\n]%*c,%d"), entra en conflicto al no reconocer cual es el verdadero fin del dato, espera un enter para finalizar
+el string, y tambien solicita un enter para finalizar el entero, y asi entra en un bucle saturando el buffer de teclado
+Correccion de escritura, estaba escrito %[^,]%*c --> %[^\n]%*c
+(	Deteccion de error en : SECCION CARGADO DE DOMICILIO 	)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4. Correccion de mostrar fecha
+El utilizar punteros para mostrar la fecha es un arma de doble filo, en nuestro caso el puntero que devuelve obstruye el camino 
+de mostrado de paquetes utilizando una variable puntero en memoria dinamica sin reservar ni tampoco liberar, alterando la
+secuencia de ejecucio, entrando en conflicto con los punteros de memoria de los paquetes, crasheando el programa
+Se realizo una funcion a void que llama a los getters correspondientes para mostrar fecha....
+(ERRORES DETECTADOS = MOSTRAR REPARTO Y MOSTRAR PAQUETE)
+[Altera el valor de todos los campos y genera un absoluto caos] , solucionado
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5. Correcion de verificacion de cuil y de calcular el numero verificador
+Corregi las aplicaciones de las cadenas de caracteres pasandolas a codigo ascii reduciendolos 48 caracteres para obtener finalmente el numero deseado
+modifique las operaciones de resolucion porque utilizaban variables que no servian, que no se asignaban, que no eran las correctas, y se aplicaban
+operaciones matematicas que no correspondian
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+6. Correccion de los menus de main
+Existe un problema con las interacciones de los menues, reducir la cantidad de presionar enter y continuar para mayor fluidez y comodidad,
+reduccion de los parametros de los while debido que entran en bucles dentro de los submenues de los que no se puede salir, 
+modifique las opciones para que funcione adecuadamente, while(op2!=0), si elige -1 --> op=0,op1=0, automaticamente lo devuelve al menu principal
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+7. Correcion de los menues de eliminacion(Los puli un poco)
+Agregue mayor generalidad a los menues para simplificar drasticamente el codigo y la logica de los mismos
+Las 3 posibilidades asignan el resultado en un vector de enteros los cuales se pasan en la funcion correspondiente
+y luego se destruye con la estructura correspondiente, requiriendo solamante recorrer el vector hasta destruir todas
+las eliminaciones del usuario
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+8. Correccion de los menues de eliminacion
+Ya arregle y perfeccione todos los menues de eliminacion, estan simplificados de manera tal que solo tenemos que alterar 6 lineas de codigo para
+alterar el funcionamiento, se pueden elegir las 3 opciones y funcionan correctamente, cambie el metodo de ordenamiento porQue originaba
+crasheos (lo cambie por seleccion) para ahorrarnos mas problemas, es completamente funcional y esta basado en los menues de franco sosa
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+9. Correcion de eliminacion de personas
+Al tener a los cliente y a los choferes en la misma lista, se nos hace imposible poder seleccionar un conjunto de indices para eliminar
+debido a que siempre encontraremos un cliente en la seccion de eliminacion de choferes, y viceversa, por lo tanto se deberia modificar en
+todo el proyecto y separar a los clientes de los choferes en listas separadas, (lo cual llevaria demasiado trabajo), por ende, daremos
+como inhabilitada la opcion de conjunto de indices para personas
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10. Correcion de cargado de menues
+Se empleo la metodologia de devolver la estructura creada para asegurar el pase dela misma, se hicieron unas remodelaciones como mayor cantidad
+de limpiarBufferTeclado a modo preventivo, simplificacion de codigo, quitando la cantidad de elementos que cargara siendo reemplazada por 
+el desea continuar?, posteriormente simplificamos si quiere guardar el usuario llamando a una funcion (Completamente funcional, no se preocupen)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11. Correcion de los ordenamientos de paquetes
+Pude arreglar el ordenamiento, los muestra por pantalla y todo funciona perfectamente, el problema es que no encontre una manera de trasladarla a la lista original
+Quiero decir que los muestra ordenados por pantalla pero no los ordena en el centro logistico, dejandolos desordenados, generan conflictos de crasheos a la hora
+de querer trasladar los paquetes ordenados a la lista de paquetes de centro logistico, si alguien puede solucionarlo buenisimo, sino lo dejamos asi, 
+que muestre todos los parametros ordenados pero no los ordene en centro logistico
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+12. Correcion de los ordenamientos
+Mismo problema que el de los paqutes, funciona correctamente pero no los traslada al centro logistico, tampoco se como evaluar el ordenamiento de varios campos de un vehiculo
+es un caos hacer la cuenta, pero funciona
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13. Correcion de repartoss
+Solucionado el problema de armar reparto, ahora tiene en cuenta si estan disponibles todos los caampos sino no lo crea, tambien se creo una seccion de modificacion
+de repartos, que reutiliza los caambiaar de otras estructuras, tambien se creeo la de cerrar reparto, mediante los 3 metodos genera un desplazamiento de los
+repartos abiertoos a los cerraados, y tambien eel de busqueeda de reparto esta ffinalizado, tambien la de ordenamientos de repartos, tanto la de por fecha
+de salida de retorno y por noombre y apellido del chofer y por ambas de ambas
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14. Correccion de actualizar reparto
+Obtiene el ultimo paquete que no fuE entregado o suspendido, siguiendo la consigna del tp, el ultimo en cargar sera el primero en descargarse, el sistema debe 
+obligar este orden
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15. Agregado al programa
+Se agrego el formato de "cliente" a paquete, y todas las acciones que lo involucran han sido modificadas para su incorporacion, 0 bugs detectados con 
+la nueva implementacion, carpar paquete, mostrar paquete, guardar paquete, leer paquete, crear y destruir paquete
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+16. Correcion de guardado de datos
+Se implemento una lista de paquetes en reparto en lugar de una pila, "para mayor facilidad a la hora de tratarlo", y ademas para poder 
+guardarlos en archivo, existe un serio conflicto a la hora de desapilar y querer guardar los datos de una pila en un archivo,
+[Desconozco el origen de este crasheo]
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(NO ES NECESARIO EL CAMBIO)
+17. Correcion de la seccion de test
+Se modificaron en cuestion de los nuevos cambios, solucionando cualquier posible bug al crear la lista
+de datos predeterminados
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+18. Se corrigieron warnings generales
+Cuando retornan un puntero a entero, en lugar de devolverlo, lo pasamos como parametro de referencia de manera
+local para evitar warnings = diferenciaFechas(fecha1, fecha2, &diferencias)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+19. Correcion de simplificacion de codigo
+Se corrigieron muchos menues, principalmente los de main, y los de menues.c
+Como modoAccion, modoAccion1, modoAccion2, modoAccion3, modificar una estrutura
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+20. Correccion de cerrar reparto
+Simplemente lo removemos de la lista abierta a la cerrada, dejandolo a disposicion de nuevos cambios
+futuros, si se modifica un paquete devuelto al deposito, indirectamente modificaremos el reparto cerrado,
+y es justamente lo que queremos
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+21. Se implementaron funciones auxiliares de busqueda
+Para poder localizar y verificar la existencia de choferes, paquetes, y vehiculos dentro
+de los repartos, (Para armar un reparto y evitar conflictos a largo plazo)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+22. Se implementaron diversos catalogos
+Para diferenciar las secciones de las diferentes areas de codigo, se separaron en creacion, destruccion,
+busqueda, eliminacion, modificacion, repartos, setters, getters, operaciones
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+23. Correcion de files.c
+Se pasaron las estructuras estaticas a files.h para mayor comodidad y legibilidad
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+24. Forme una nueva implementacion de guardados y apertura de archivos (Por capricho mas que nada)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+25. Correccion de los menuModoAccion
+Se implementaron las medidas necesarias para validar una eleccion y poder simplificar codigo
+sin tener que repetir el mismo proceso en cada modificacion de estructura, modoAccion1, 2, 3
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+26. Correcion del main
+Se implementaron los .h de los menues de main, tambien se trasladaron a la seccion de menues.c para tener el main mas despejado
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+[WARNING](PUEDE SER SOLO MIO EL ERROR)
+27. Correcion de abrirTodo
+Al leer los archivos guardaba y leia perfectamente, el origen del problema era que estaba mal definida
+el guardado fwrite(sizeof(100)), en lugar de fwrite(sizeof(char)), lo mismo con apertura
+
+
+
+
+
