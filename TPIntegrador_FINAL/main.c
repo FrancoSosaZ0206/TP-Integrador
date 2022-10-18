@@ -22,6 +22,81 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
 int main()
 {
+/// **************************************************************************************************************
+///                                             SECCIÓN DE PRUEBAS RÁPIDAS
+/// **************************************************************************************************************
+
+    char *pruebaStr = "123456789 999 5";
+    int *digitos;
+    extraerDigitosString(pruebaStr,&digitos);
+
+    presionarEnterYLimpiarPantalla();
+
+    CuilPtr cuil;
+    CuilPtr cuil2 = NULL;
+
+    char strCuil[100];
+
+    int i=0;
+
+    do
+    {
+        helpCuil();
+        printf("\n\tCUIL: ");
+        scanf("%[^\n]%*c",strCuil);
+        limpiarBufferTeclado();
+        if(i==0)
+            cuil=crearCuil(strCuil); ///IMPLEMENTACION CAMBIADA
+        else if(i>0 && i<4)
+            setCuil(cuil,strCuil);
+        else    //if(i==4)
+            printf("\n\nIntentos agotados.\n\n");
+
+        i++;
+        if(!esCuilValido(cuil))
+        {
+            printf("Cuil invalido. Vuelva a ingresar.\n\n");
+            if(i>1)
+                presionarEnterYLimpiarPantalla();
+        }
+    } while(!esCuilValido(cuil));
+
+    FILE *prueba = fopen("Archivos/Prueba.txt","w");
+    if(NULL == prueba)
+    {
+        perror("Crear/Abrir Prueba.txt");
+        exit(1);
+    }
+    else
+    {
+        fwrite(cuil,sizeof(Cuil),1,prueba);
+        fclose(prueba);
+    }
+
+    printf("CUIL de prueba ingresado: \n\n");
+    mostrarCuil(cuil);
+
+    prueba = fopen("Archivos/Prueba.txt","w");
+    if(NULL == prueba)
+    {
+        perror("Abrir Prueba.txt");
+        exit(1);
+    }
+    else
+    {
+        fread(cuil2,sizeof(Cuil),1,prueba);
+        fclose(prueba);
+
+        printf("CUIL de prueba recuperado de archivo: \n\n");
+    }
+
+    mostrarCuil(cuil2);
+
+    cuil = destruirCuil(cuil);
+    cuil2 = destruirCuil(cuil2);
+
+/// **************************************************************************************************************
+
     CentroLogisticoPtr centroLogistico;
 
     int START_OP=0;

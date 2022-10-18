@@ -23,8 +23,6 @@ char *crearStringDinamico(char* literal);
 //devuelve NULL
 void destruirStringDinamico(char *buffer);
 
-//void limpiarStringDinamico(char *strDin,int tamanioMax); ///NUEVA: Remueve todo el contenido basura despues del terminador del string
-
 //FUNCIÓN DE LIMPIEZA DE BUFFER DE TECLADO (UTILIZA FFLUSH(STDIN))
 //PRECONDICIÓN: Ninguna
 //POSTCONDICIÓN: Libera la acumulacion del EOF, permitiendo ingresar datos por teclado correctamente sin errores
@@ -45,5 +43,14 @@ void limpiarBufferTecladoPresionandoEnter();
 //DEVUELVE: Nada.
 void presionarEnterYLimpiarPantalla();
 
+/* OPERACIÓN: Extrae todos los números de un string y los separa en dígitos individuales
+PRECONDICIÓN: el string recibido debe contener uno o más números
+              el vector de enteros recibido debe haber sido declarado
+POSTCONDICIÓN: Copia todos los números del string en un vector de enteros
+PARÁMETROS:
+    - source: string del que se extraerán los números
+    - buffer: vector de enteros que contendrá cada dígito de los números.
+DEVUELVE: nada. */
+void extraerDigitosString(char *source,int buffer[]);
 
 #endif // UTIL_H_INCLUDED

@@ -432,8 +432,12 @@ CuilPtr cargarCuil()
             printf("\n\nIntentos agotados.\n\n");
 
         i++;
-        if(i>1)
-            system("cls");
+        if(!esCuilValido(cuil))
+        {
+            printf("Cuil invalido. Vuelva a ingresar.\n\n");
+            if(i>1)
+                presionarEnterYLimpiarPantalla();
+        }
     } while(!esCuilValido(cuil));
 
     return cuil;
