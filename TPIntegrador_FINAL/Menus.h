@@ -13,9 +13,7 @@
 
 
 ///--------------------------------------------------------------------------------------------------------------------------
-
-///                                                 MENÚS DE CARGA DE DATOS
-
+                                    ///MENÚS DE CARGA DE DATOS///
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
@@ -45,9 +43,7 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
-
-///                                             MENÚS DE BÚSQUEDA DE DATOS
-
+                                        ///MENÚS DE BÚSQUEDA DE DATOS///
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
@@ -78,9 +74,7 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico);
 
 
 ///--------------------------------------------------------------------------------------------------------------------------
-
-///                                             MENÚS DE ELIMINACIÓN DE DATOS
-
+                                    ///MENÚS DE ELIMINACIÓN DE DATOS///
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
@@ -116,9 +110,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
-
-///                                             MENÚS DE MODIFICACIÓN DE DATOS
-
+                                    ///MENÚS DE MODIFICACIÓN DE DATOS///
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
@@ -160,9 +152,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
 bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
-
-///                                             MENÚS DE MUESTRA DE DATOS
-
+                                    ///MENÚS DE MUESTRA DE DATOS///
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
@@ -199,9 +189,7 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo);
 bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
-
-///                                             MENÚS DE ACCIÓN DEDICADOS A REPARTOS
-
+                                ///MENÚS DE ACCIÓN DEDICADOS A REPARTOS///
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
@@ -269,9 +257,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 
 
 ///--------------------------------------------------------------------------------------------------------------------------
-
-///                                             MENÚS DE ACCIÓN DEDICADOS A CENTROLOGISTICO
-
+                            ///MENÚS DE ACCIÓN DEDICADOS A CENTROLOGISTICO///
 ///--------------------------------------------------------------------------------------------------------------------------
 
 

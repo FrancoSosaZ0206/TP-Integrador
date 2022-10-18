@@ -6,24 +6,17 @@
 
 
 ///Interfaz del TDA FECHA
-
-
-
 ///Definicion de la estructura fecha:
-
-
 typedef struct Fecha
-{//definicion del TDA con su variante puntero
+{
+    //definicion del TDA con su variante puntero
     int diaJuliano;
     int hora;
     int minuto;
 }   Fecha;
 typedef Fecha * FechaPtr;
 
-
-
 ///Operaciones
-
 
 ///creacion y destruccion
 //Operación: Crea fecha.

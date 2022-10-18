@@ -20,7 +20,6 @@ typedef struct Reparto
 } Reparto;
 typedef Reparto * RepartoPtr;
 
-
 RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes);
 //Operación: Creacion del TDArepartos.
 //Precondición: Repartos no debe estar creado.
@@ -33,6 +32,7 @@ RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
 // paquetes: un puntero a la estructura pila que contiene los paquetes del reparto.
 //Devuelve un puntero a la nueva estructura.
 RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,ListaPtr paquetes);
+
 //Operación: Destruccion del TDArepartos.
 //Precondición: Repartos debe estar creado.
 //Postcondición: Se elimina el reparto y se libera la memoria.
@@ -48,6 +48,7 @@ RepartoPtr destruirReparto(RepartoPtr reparto);
 // reparto: puntero a la estructura para sacar el dato.
 //Devuelve un puntero a la estructura.
 PersonaPtr getChofer(RepartoPtr reparto);
+
 //Operación: Obtencion de vehiculo.
 //Precondición: Repartos debe estar creado.
 //Postcondición: Se obtiene al vehiculo.
@@ -55,6 +56,7 @@ PersonaPtr getChofer(RepartoPtr reparto);
 // reparto: puntero a la estructura para sacar el dato.
 //Devuelve un puntero a la estructura.
 VehiculoPtr getVehiculo(RepartoPtr reparto);
+
 //Operación: Obtencion de fecha de salida.
 //Precondición: Repartos debe estar creado.
 //Postcondición: Se obtiene la fecha de salida.
@@ -62,6 +64,7 @@ VehiculoPtr getVehiculo(RepartoPtr reparto);
 // reparto: puntero a la estructura para sacar el dato.
 //Devuelve un puntero a la estructura.
 FechaPtr getFechaSalida(RepartoPtr reparto);
+
 //Operación: Obtencion de fecha de retorno.
 //Precondición: Repartos debe estar creado.
 //Postcondición: Se obtiene la fecha de retorno.
@@ -69,6 +72,7 @@ FechaPtr getFechaSalida(RepartoPtr reparto);
 // reparto: puntero a la estructura para sacar el dato.
 //Devuelve un puntero a la estructura.
 FechaPtr getFechaRetorno(RepartoPtr reparto);
+
 //Operación: Obtencion de el listado de paquetes del reparto.
 //Precondición: Repartos debe estar creado.
 //Postcondición: Se obtiene la lista de paquetes.
@@ -76,7 +80,6 @@ FechaPtr getFechaRetorno(RepartoPtr reparto);
 // reparto: puntero a la estructura para sacar el dato.
 //Devuelve un puntero a la estructura.
 ListaPtr getPaquetesReparto(RepartoPtr reparto);
-
 
 //Operación: Asignacion de chofer.
 //Precondición: Repartos debe estar creado.
@@ -86,6 +89,7 @@ ListaPtr getPaquetesReparto(RepartoPtr reparto);
 // chofer: puntero a la estructura del nuevo valor.
 //Devuelve nada
 void setChofer(RepartoPtr reparto,PersonaPtr chofer);
+
 //Operación: Asignacion de vehiculo.
 //Precondición: Repartos debe estar creado.
 //Postcondición: El reparto cambia con el nuevo valor de vehiculo.
@@ -102,6 +106,7 @@ void setVehiculo(RepartoPtr reparto,VehiculoPtr vehiculo);
 // fechaSalida: puntero a la estructura del nuevo valor.
 //Devuelve nada
 void setFechaSalida(RepartoPtr reparto,FechaPtr fechaSalida);
+
 //Operación: Asignacion de fecha de retorno.
 //Precondición: Repartos debe estar creado.
 //Postcondición: El reparto cambia con el nuevo valor de fecha de retorno.
@@ -119,6 +124,7 @@ void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno);
 //Devuelve nada
 ///     Tip: también muestra los paquetes.
 void mostrarReparto(RepartoPtr reparto);
+
 //Operación: Muestra un reparto con todos sus datos, excepto por los paquetes que contiene.
 //Precondición: Reparto debe estar creado.
 //Postcondición: Imprime el reparto sin los paquetes por pantalla.

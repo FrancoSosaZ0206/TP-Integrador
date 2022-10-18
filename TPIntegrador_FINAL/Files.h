@@ -27,7 +27,6 @@ typedef struct fFecha
 } fFecha;
 typedef fFecha* fFechaPtr;
 
-
 typedef struct fPersona
 {
     char nombre[50];
@@ -62,7 +61,6 @@ typedef struct fVehiculo
 } fVehiculo;
 typedef fVehiculo* fVehiculoPtr;
 
-
 typedef struct fReparto
 {
     fPersona chofer;
@@ -73,8 +71,6 @@ typedef struct fReparto
     fPaquete paquetes[20]; ///depende de la longitud de la pila que me pasan
 } fReparto;
 typedef fReparto* fRepartoPtr;
-
-
 
 /**
 ****************************************************************************************************************

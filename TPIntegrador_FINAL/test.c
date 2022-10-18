@@ -234,3 +234,37 @@ void verificacion(bool resultado)
         printf("NO FUNCIONA ADECUADAMENTE!!!\n");
     }
 }
+
+void probarGuardado()
+{
+    bool resultado;
+    CentroLogisticoPtr centroLogistico;
+    ListaPtr vehiculos = crearListaVehiculosGenerico();
+    ListaPtr paquetes1 = crearListaPaquetesGenerico();
+    ListaPtr personas = crearListaPersonasGenerica();
+    ListaPtr repartosA = crearListaRepartosPorDefectoConLista();
+    ListaPtr repartosC = crearLista();
+    centroLogistico = crearCentroLogistico("Distribuidora",paquetes1,personas,vehiculos,repartosA,repartosC);
+    resultado=guardarPaquetes(centroLogistico);
+    resultado=resultado && guardarPersonas(centroLogistico);
+    resultado=resultado && guardarRepartos(centroLogistico,true);
+    resultado=resultado && guardarRepartos(centroLogistico,false);
+    resultado=resultado && guardarVehiculos(centroLogistico);
+    verificacion(resultado);
+    system("pause");
+}
+
+void probarApertura()
+{
+    CentroLogisticoPtr CL;
+    CL=crearCentroLogisticoRapido("");
+    bool resultado;
+    resultado=abrirPaquetes(CL);
+    resultado=resultado && abrirVehiculos(CL);
+    resultado=resultado && abrirPersonas(CL);
+    resultado=resultado && abrirRepartos(CL,true);
+    resultado=resultado && abrirRepartos(CL,false);
+    verificacion(resultado);
+    probandoGenericas(CL);
+    system("pause");
+}

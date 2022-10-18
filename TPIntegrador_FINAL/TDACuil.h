@@ -12,7 +12,8 @@
 *******************************************************************************************************/
 
 typedef struct Cuil
-{ //hombre=20,mujer=27,empresa=30
+{
+    //hombre=20,mujer=27,empresa=30
     char *cuil; ///NUEVA IMPLEMENTACION: Ahora es un solo string.
 } Cuil;
 

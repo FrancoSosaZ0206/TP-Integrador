@@ -419,7 +419,7 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico)
     char nombreCentroLog[100];
     strcpy(nombreCentroLog,getNombreCentroLogistico(centroLogistico));
     arch=fopen("NombreCentroLogistico.bin","wb");
-    fwrite(&nombreCentroLog,sizeof(100),1,arch);
+    fwrite(&nombreCentroLog,sizeof(char),100,arch);
     fclose(arch);
     guardado=guardarPaquetes(centroLogistico);
     guardado=guardado && guardarVehiculos(centroLogistico);
@@ -436,7 +436,7 @@ CentroLogisticoPtr abrirTodo()
     bool guardado=false;
     char nombreCentroLog[100];
     arch=fopen("NombreCentroLogistico.bin","rb");
-    fread(&nombreCentroLog,sizeof(100),1,arch);
+    fread(&nombreCentroLog,sizeof(char),100,arch);
     fclose(arch);
     guardado=abrirPaquetes(centroLogistico);
     guardado=guardado && abrirPersonas(centroLogistico);

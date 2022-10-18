@@ -27,19 +27,13 @@ int main()
 {
     CentroLogisticoPtr centroLogistico;
     int START_OP=0;
-    ListaPtr vehiculos = crearListaVehiculosGenerico();
-    ListaPtr paquetes1 = crearListaPaquetesGenerico();
-    ListaPtr personas = crearListaPersonasGenerica();
-    ListaPtr repartosA = crearListaRepartosPorDefectoConLista();
-    ListaPtr repartosC = crearLista();
-    centroLogistico = crearCentroLogistico("Distribuidora",paquetes1,personas,vehiculos,repartosA,repartosC);
     do
     {
         START_OP = menuMainMenu();
         switch(START_OP)
         {
         case 1:
-            ///centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
+            centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             system("cls");
             START_OP = MAIN_MENU(centroLogistico);
             centroLogistico=destruirCentroLogistico(centroLogistico);
@@ -110,7 +104,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            op1=0;
                             op2=0;
                             break;
                         default:
@@ -140,7 +135,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            op1=0;
                             op2=0;
                             break;
                         default:
@@ -170,7 +166,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            op1=0;
                             op2=0;
                             break;
                         default:
@@ -200,7 +197,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            op1=0;
                             op2=0;
                             break;
                         default:
@@ -244,7 +242,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            op1=0;
                             op2=0;
                             break;
                         default:
@@ -268,7 +267,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            op1=0;
                             op2=0;
                             break;
                         default:
@@ -292,7 +292,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         case 0:
                             break;
                         case -1:
-                            op1=0; //reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                            op1=0;
                             op2=0;
                             break;
                         default:
@@ -310,6 +311,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
         } while(op1!=0);
             break;
         case 3:
+            ///[IGNORAR]
             ///op1=menuActualizarRepartoCompleto();
             menuActualizarReparto(centroLogistico);
             break;
@@ -400,7 +402,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
             } while(op1!=0);
             break;
         case 0:
-            if(!cambiosGuardados) //"Si no se efectuaron cambios o si se efectuaron y no se guardaron"
+            ///"Si no se efectuaron cambios o si se efectuaron y no se guardaron"
+            if(!cambiosGuardados)
             {
                 do
                 {
@@ -438,7 +441,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
         }
     } while(MAIN_OP!=0);
 
-    return MAIN_OP; //salimos de todo el programa
+    ///salimos de todo el programa
+    return MAIN_OP;
 }
 
 
