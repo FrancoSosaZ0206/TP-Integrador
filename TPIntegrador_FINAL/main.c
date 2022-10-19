@@ -27,6 +27,7 @@ int main()
 {
     CentroLogisticoPtr centroLogistico;
     centroLogistico=crearCentroLogisticoDefecto();
+    menuActualizarReparto(centroLogistico);
     int START_OP=0;
     do
     {

@@ -1908,7 +1908,7 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                                 ///SECCION DE BUSQUEDA DE REPARTOS///
 ///-----------------------------------------------------------------------------------------------------------///
 
-int menuTipoMostradoRepartos()
+int menuTipoRepartos()
 {
    system("cls");
    int eleccion=0;
@@ -2051,7 +2051,7 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
         do
         {
             system("cls");
-            eleccion=menuTipoMostradoRepartos();
+            eleccion=menuTipoRepartos();
             mostrarRepartos(centroLogistico,true);
             switch(eleccion)
             {
@@ -2161,25 +2161,79 @@ void cambiarAtributoReparto(RepartoPtr repartoModificar)
     }while(seguirMod!=0);
 }
 
+RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico)
+{
+    char CuilBuscar[100];
+    char PatenteBuscar[100];
+    int ID_Buscar;
+    int diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutosBuscar;
+    FechaPtr FechaBuscar;
+    int Menu;
+    int Indice;
+    RepartoPtr RepartoElegido;
+    ListaPtr ListaRepartos = crearLista();
+    agregarLista(ListaRepartos, getRepartos(centroLogistico, true));
+    Menu = menuTipoRepartos();
+    do{
+        system("cls");
+        switch(Menu)
+        {
+        case 1:
+            mostrarRepartos(centroLogistico, true);
+            Indice = menuModoAccion1( ListaRepartos );
+            RepartoElegido = (RepartoPtr)getDatoLista( ListaRepartos , Indice );
+            break;
+        case 2:
+            printf("Ingrese el cuil: ");
+            seleccionarString(CuilBuscar);
+            RepartoElegido = devolverRepartoChofer(centroLogistico, CuilBuscar);
+            break;
+        case 3:
+            printf("Ingrese la patente: ");
+            seleccionarString(PatenteBuscar);
+            RepartoElegido = devolverRepartoVehiculo(centroLogistico, PatenteBuscar);
+            break;
+        case 4:
+            printf("Ingrese la fecha de salida [DD/MM/AA HH:MM]: ");
+            fflush(stdin);
+            scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutosBuscar);
+            fflush(stdin);
+            FechaBuscar = crearFecha(diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutosBuscar);
+            RepartoElegido = devolverRepartoFechaSalida(centroLogistico, FechaBuscar);
+            FechaBuscar = destruirFecha(FechaBuscar);
+            break;
+        case 5:
+            printf("Ingrese la fecha de retorno [DD/MM/AA HH:MM]: ");
+            fflush(stdin);
+            scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutosBuscar);
+            fflush(stdin);
+            FechaBuscar = crearFecha(diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutosBuscar);
+            RepartoElegido = devolverRepartoFechaRetorno(centroLogistico, FechaBuscar);
+            FechaBuscar = destruirFecha(FechaBuscar);
+            break;
+        case 6:
+            printf("Ingrese el ID: ");
+            ID_Buscar = seleccionarNumero();
+            RepartoElegido = devolverRepartoPaquete(centroLogistico, ID_Buscar);
+            break;
+        default:
+            printf("Opcion equivocada... \n");
+            break;
+        }
+    }while(RepartoElegido == NULL);
+    ListaRepartos = destruirLista(ListaRepartos, false);
+    return RepartoElegido;
+}
+
 void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
 {
-    int eleccion=0,totalLista=0, EstadoPaquete=0;
-    RepartoPtr repartoAuxiliar;
-    ListaPtr listaAuxiliar = crearLista();
-    listaAuxiliar = getRepartos(centroLogistico,true);
-    totalLista=longitudLista(listaAuxiliar);
-    mostrarRepartos(centroLogistico,true);
-    do{
-        printf("ACTUALIZAR PAQUETE REPARTO (SELECCIONE UN INDICE): ");
-        limpiarBufferTeclado();
-        scanf("%d",&eleccion);
-        limpiarBufferTeclado();
-    }while(eleccion<=0 && eleccion>totalLista);
-    repartoAuxiliar=getDatoLista(listaAuxiliar,eleccion-1);
-    system("cls");
+    int eleccion = 0;
+    int EstadoPaquete = 0;
     PaquetePtr paqueteActual;
     PaquetePtr PaqueteModificar;
-    ListaPtr paquetes=getPaquetesReparto(repartoAuxiliar);
+    RepartoPtr RepartoActualizar;
+    RepartoActualizar = SeleccionRepartoPorAtributo(centroLogistico);
+    ListaPtr paquetes = getPaquetesReparto(RepartoActualizar);
     ListaPtr listaRespaldo=crearLista();
     agregarLista(listaRespaldo,paquetes);
     bool encontrado=false;
@@ -2197,7 +2251,7 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
         listaRespaldo = getResto(listaRespaldo);
         ListaDestruir = destruirLista(ListaDestruir, false);
     }
-    listaRespaldo=destruirLista(listaRespaldo,false);
+    listaRespaldo = destruirLista(listaRespaldo,false);
     system("cls");
     printf("El paquete que esta modificando es: \n");
     mostrarPaquete(PaqueteModificar);

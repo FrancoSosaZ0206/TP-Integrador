@@ -455,7 +455,7 @@ PersonaPtr menuBusquedaCliente(CentroLogisticoPtr centroLogistico);
 ///PARAMETROS:
 ///         PUNTERO A CENTRO LOGISTICO
 ///DEVUELVE: VOID
-int menuTipoMostradoRepartos();
+int menuTipoRepartos();
 
 
 ///OPERACION: MENU
@@ -468,6 +468,18 @@ int menuTipoMostradoRepartos();
 ///DEVUELVE: VOID
 int menuTipoBusquedaCliente();
 
+
+
+///OPERACION: MENU
+///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA CON
+/// CREAR CENTRO LOGISTICO
+///POSTCONDICION: MUESTRA LAS POSIBLES OPCIONES DE BUSQUEDA DE UN REPARRTO
+/// 1. POR INDICE, 2. POR CHOFER, 3. POR VEHICULO, 4. POR FECHA SALIDA Y RETORNO
+/// 5. POR ID DE PAQUETE
+///PARAMETROS:
+///         PUNTERO A CENTRO LOGISTICO
+///DEVUELVE: PUNTERO A REPARTO
+RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico);
 
 
 ///-------------------------------------------------------------------------------------------///
