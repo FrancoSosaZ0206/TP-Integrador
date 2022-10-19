@@ -66,10 +66,10 @@ int menuModoAccion1(ListaPtr lista)
         if(i<=0 || i>n)
         {
             printf("\n\nERROR: indice inexistente. Vuelva a elegir.\n\n");
-            presionarEnterYLimpiarPantalla();
         }
     } while(i<=0 || i>n);
     eleccion = i-1;
+    system("cls");
     return eleccion;
 }
 
@@ -335,47 +335,52 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
     if(listaVacia(getPersonas(centroLogistico)))
     {
         printf("No hay destinatarios para elegir\n");
+        printf("Ingrese clientes para seleccionar\n");
+        system("pause");
     }
-    do
+    else
     {
-        system("cls");
-        limpiarBufferTeclado();
-        printf("PAQUETE %d\n\n",i++);
-        ID=rand(); //esto no se mostrará sino al final de la carga del paquete.
-        printf("\tAncho: ");
-        scanf("%d",&ancho);
-        limpiarBufferTeclado();
-        printf("\n\tAlto: ");
-        scanf("%d",&alto);
-        limpiarBufferTeclado();
-        printf("\n\tLargo: ");
-        scanf("%d",&largo);
-        limpiarBufferTeclado();
-        printf("\n\tPeso: ");
-        scanf("%d",&peso);
-        limpiarBufferTeclado();
-        printf("\n\tDireccion de retiro:");
-        dirRetiro=cargarDomicilio(dirRetiro);
-        printf("\n\tDireccion de entrega:");
-        dirEntrega=cargarDomicilio(dirEntrega);
-        printf("\n\tFecha de entrega:");
-        fechaEntrega=cargarFecha(fechaEntrega);
-        system("cls");
-        printf("Elegir destinatario\n");
-        mostrarPersonas(centroLogistico,2);
-        limpiarBufferTeclado();
-        printf("Eleccion: ");
-        Eleccion = menuModoAccion1(getPersonas(centroLogistico));
-        persona = getDatoLista(getPersonas(centroLogistico), Eleccion);
-        limpiarBufferTeclado();
-        paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,persona,0);
-        agregarPaquete(centroLogistico,paquete);
-        continuar=menuContinuar();
-    } while(continuar);
-    resultado=menuGuardarCambios();
-    if(resultado==1)
-    {
-        cambiosGuardados=guardarPaquetes(centroLogistico);
+        do
+        {
+            system("cls");
+            limpiarBufferTeclado();
+            printf("PAQUETE %d\n\n",i++);
+            ID=rand(); //esto no se mostrará sino al final de la carga del paquete.
+            printf("\tAncho: ");
+            scanf("%d",&ancho);
+            limpiarBufferTeclado();
+            printf("\n\tAlto: ");
+            scanf("%d",&alto);
+            limpiarBufferTeclado();
+            printf("\n\tLargo: ");
+            scanf("%d",&largo);
+            limpiarBufferTeclado();
+            printf("\n\tPeso: ");
+            scanf("%d",&peso);
+            limpiarBufferTeclado();
+            printf("\n\tDireccion de retiro:");
+            dirRetiro=cargarDomicilio(dirRetiro);
+            printf("\n\tDireccion de entrega:");
+            dirEntrega=cargarDomicilio(dirEntrega);
+            printf("\n\tFecha de entrega:");
+            fechaEntrega=cargarFecha(fechaEntrega);
+            system("cls");
+            printf("Elegir destinatario\n");
+            mostrarPersonas(centroLogistico,2);
+            limpiarBufferTeclado();
+            printf("Eleccion: ");
+            Eleccion = menuModoAccion1(getPersonas(centroLogistico));
+            persona = getDatoLista(getPersonas(centroLogistico), Eleccion);
+            limpiarBufferTeclado();
+            paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,persona,0);
+            agregarPaquete(centroLogistico,paquete);
+            continuar=menuContinuar();
+        } while(continuar);
+        resultado=menuGuardarCambios();
+        if(resultado==1)
+        {
+            cambiosGuardados=guardarPaquetes(centroLogistico);
+        }
     }
     return cambiosGuardados;
 }
@@ -1646,9 +1651,12 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                 scanf("%d",&k);
                 limpiarBufferTeclado();
                 if(k<=0 || k>=longLista)
+                {
                     printf("\n\nERROR: indice inexistente. Vuelva a elegir.\n\n");
-                else{
-                    if(!buscarVehiculoRepartos(centroLogistico,getPatente(getDatoLista(getVehiculos(centroLogistico),k-1))))
+                }
+                else
+                {
+                    if(!buscarChoferRepartos(centroLogistico,getCuil(getCuilPersona(getChofer(getDatoLista(getRepartos(centroLogistico,true), k-1))))))
                         valido=true;
                 }
                 if(valido)
@@ -1866,32 +1874,177 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
     return cambiosGuardados;
 }
 
-RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
+int menuTipoMostradoRepartos()
 {
-    int i=0;
-    int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
+   system("cls");
+   int eleccion=0;
+   fflush(stdin);
+   printf("BUSCAR POR: \n");
+   printf("1. Indice \n");
+   printf("2. Cuil chofer \n");
+   printf("3. Patente vehiculo \n");
+   printf("4. Fecha salida \n");
+   printf("5. Fecha retorno \n");
+   printf("6. ID paquete \n");
+   printf("Eleccion: ");
+   scanf("%d",&eleccion);
+   fflush(stdin);
+   return eleccion;
+}
+
+void menuBuscarPorIndiceReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+{
+    int i=0,n=0;
     RepartoPtr repartoBuscar;
+    printf("Seleccione un reparto para buscar mediante su indice: ");
+    i=seleccionarNumero();
+    if(i>=0 && i<n)
+    {
+        repartoBuscar=getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i-1);
+        mostrarReparto(repartoBuscar);
+    }
+    else
+    {
+        printf("Reparto inexistente\n");
+    }
+}
+
+void menuBuscarRepartoPorCuilChofer(CentroLogisticoPtr centroLogistico)
+{
+    char cuilBuscar[100];
+    RepartoPtr repartoMostrar;
+    printf("Ingrese el cuil a buscar: ");
+    seleccionarString(cuilBuscar);
+    repartoMostrar=devolverRepartoChofer(centroLogistico, cuilBuscar);
+    if(repartoMostrar!=NULL)
+    {
+        mostrarReparto(repartoMostrar);
+    }
+    else
+    {
+        printf("ERROR: Reparto no localizado... \n");
+    }
+}
+
+void menuBuscarRepartoPorPatenteVehiculo(CentroLogisticoPtr centroLogistico)
+{
+    RepartoPtr repartoMostrar;
+    char patenteBuscar[100];
+    printf("Ingrese la patente a buscar: ");
+    seleccionarString(patenteBuscar);
+    repartoMostrar=devolverRepartoVehiculo(centroLogistico,patenteBuscar);
+    if(repartoMostrar != NULL)
+    {
+        mostrarReparto(repartoMostrar);
+    }
+    else
+    {
+        printf("ERROR: Reparto no localizado... \n");
+    }
+}
+
+void menuBuscarRepartoPorFechaSalida(CentroLogisticoPtr centroLogistico)
+{
+    int dia,mes,anio,hora,minutos;
+    FechaPtr fechaBuscar;
+    RepartoPtr repartoMostrar;
+    fflush(stdin);
+    printf("Ingrese la fecha salida [DD/MM/AA - HH:MM]: ");
+    scanf("%d %d %d %d %d", &dia,&mes,&anio,&hora,&minutos);
+    fflush(stdin);
+    fechaBuscar=crearFecha(dia,mes,anio,hora,minutos);
+    repartoMostrar=devolverRepartoFechaSalida(centroLogistico,fechaBuscar);
+    if(repartoMostrar != NULL)
+    {
+        mostrarReparto(repartoMostrar);
+    }
+    else
+    {
+        printf("ERROR: Reparto no localizado... \n");
+    }
+    fechaBuscar=destruirFecha(fechaBuscar);
+}
+
+void menuBuscarRepartoPorFechaRetorno(CentroLogisticoPtr centroLogistico)
+{
+    int dia,mes,anio,hora,minutos;
+    FechaPtr fechaBuscar;
+    RepartoPtr repartoMostrar;
+    fflush(stdin);
+    printf("Ingrese la fecha salida [DD/MM/AA - HH:MM]: ");
+    scanf("%d %d %d %d %d", &dia,&mes,&anio,&hora,&minutos);
+    fflush(stdin);
+    fechaBuscar=crearFecha(dia,mes,anio,hora,minutos);
+    repartoMostrar=devolverRepartoFechaRetorno(centroLogistico,fechaBuscar);
+    if(repartoMostrar != NULL)
+    {
+        mostrarReparto(repartoMostrar);
+    }
+    else
+    {
+        printf("ERROR: Reparto no localizado... \n");
+    }
+    fechaBuscar=destruirFecha(fechaBuscar);
+}
+
+void menuBuscarRepartoPorIDPaquete(CentroLogisticoPtr centroLogistico)
+{
+    int ID;
+    RepartoPtr repartoMostrar;
+    printf("Ingrese ID para buscar: ");
+    ID = seleccionarNumero();
+    repartoMostrar = devolverRepartoPaquete(centroLogistico, ID);
+    if(repartoMostrar != NULL)
+    {
+        mostrarReparto(repartoMostrar);
+    }
+    else
+    {
+        printf("ERROR: Reparto no localizado... \n");
+    }
+}
+
+void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
+{
+    int eleccion=0;
     bool continuar;
     if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
+    {
         printf("ERROR: Lista vacia. No hay repartos para buscar\n");
+    }
     else
     {
         do
         {
             system("cls");
+            eleccion=menuTipoMostradoRepartos();
             mostrarRepartos(centroLogistico,true);
-            printf("Seleccione un reparto para buscar mediante su indice: ");
-            scanf("%d",&i);
-            if(i>=0 && i<n)
+            switch(eleccion)
             {
-                repartoBuscar=getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i-1);
-                mostrarReparto(repartoBuscar);
-            }else
-                printf("Reparto inexistente\n");
+            case 1:
+                menuBuscarPorIndiceReparto(centroLogistico, esRepartoAbierto);
+                break;
+            case 2:
+                menuBuscarRepartoPorCuilChofer(centroLogistico);
+                break;
+            case 3:
+                menuBuscarRepartoPorPatenteVehiculo(centroLogistico);
+                break;
+            case 4:
+                menuBuscarRepartoPorFechaSalida(centroLogistico);
+                break;
+            case 5:
+                menuBuscarRepartoPorFechaRetorno(centroLogistico);
+                break;
+            case 6:
+                menuBuscarRepartoPorIDPaquete(centroLogistico);
+                break;
+            default:
+                break;
+            }
             continuar=menuContinuar();
         }while(continuar);
     }
-    return repartoBuscar;
 }
 
 int MenuSeleccionAtributoReparto()

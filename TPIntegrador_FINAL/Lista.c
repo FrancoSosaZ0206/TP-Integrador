@@ -196,3 +196,24 @@ bool listaVacia(ListaPtr lista)
 {
     return (lista->primero==0);
 }
+
+
+bool verificarLimiteLista(ListaPtr listaEvaluar, int numeroEvaluar)
+{
+    int limiteLista=longitudLista(listaEvaluar);
+    bool validoLista=true;
+    if(numeroEvaluar < 0)
+    {
+        validoLista=false;
+    }
+    if(numeroEvaluar > limiteLista)
+    {
+        validoLista=false;
+    }
+    if(!validoLista)
+    {
+        printf("\n ERROR: No puede seleccionar un elemento fuera ");
+        printf("de los parametros de la lista \n");
+    }
+    return validoLista;
+}

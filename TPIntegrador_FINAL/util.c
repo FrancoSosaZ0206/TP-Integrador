@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "util.h"
+#include <stdbool.h>
+
+const bool mostrar=false;
 
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE FUNCIONES DE UTILIDADES///
@@ -50,3 +53,35 @@ void presionarEnterYLimpiarPantalla()
     system("cls");
 }
 
+int seleccionarNumero()
+{
+    int numeroElegido=-1;
+    while(numeroElegido < 0)
+    {
+        fflush(stdin);
+        if(mostrar)
+        {
+            printf("Seleccione un numero natural: ");
+        }
+        scanf("%d", &numeroElegido);
+        fflush(stdin);
+        if(numeroElegido < 0)
+        {
+            printf("Numero equivocado, eliga un numero");
+            printf(" comprendido entre 0 y +infinito \n");
+            presionarEnterYLimpiarPantalla();
+        }
+    }
+    return numeroElegido;
+}
+
+void seleccionarString(char* STRING)
+{
+    fflush(stdin);
+    if(mostrar)
+    {
+        printf("Ingrese una cadena: ");
+    }
+    scanf("%[^\n]%*c", STRING);
+    fflush(stdin);
+}

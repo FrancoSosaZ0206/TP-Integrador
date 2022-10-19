@@ -223,7 +223,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico);
 //      - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
 //      - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
 //DEVUELVE: nada.
-RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
+void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 //OPERACION: menu de eliminacion de repartos
 //PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
 //POSTCONDICION: se destruye el reparto seleccionado.
@@ -374,6 +374,41 @@ int menuModoAccion1(ListaPtr lista);
 int menuModoAccion();
 
 
+///OPERACION: MENU
+///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA CON
+/// CREAR CENTRO LOGISTICO
+///POSTCONDICION: MUESTRA
+///PARAMETROS:
+///         PUNTERO A CENTRO LOGISTICO
+///         BOOLEANO
+///DEVUELVE: VOID
+void menuBuscarPorIndiceReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+
+
+
+void menuBuscarRepartoPorCuilChofer(CentroLogisticoPtr centroLogistico);
+
+
+
+void menuBuscarRepartoPorPatenteVehiculo(CentroLogisticoPtr centroLogistico);
+
+
+
+void menuBuscarRepartoPorFechaSalida(CentroLogisticoPtr centroLogistico);
+
+
+
+void menuBuscarRepartoPorFechaRetorno(CentroLogisticoPtr centroLogistico);
+
+
+
+void menuBuscarRepartoPorIDPaquete(CentroLogisticoPtr centroLogistico);
+
+
+
+int menuTipoMostradoRepartos();
+
+
 
 ///-------------------------------------------------------------------------------------------///
                             ///SECCION DE MENUES DEL MAIN///
@@ -522,6 +557,7 @@ int menuMainMenu();
 ///PARAMETROS: NINGUNO
 ///DEVUELVE: ENTERO REPRESENTANDO LA OPCION ELEGIDA
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
+
 
 
 #endif // MENUS_H_INCLUDED

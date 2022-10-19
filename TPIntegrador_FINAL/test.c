@@ -20,9 +20,9 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     DomicilioPtr domicilioChofer1=crearDomicilio("Vieytes",2000,"Lomas de zamora");
     DomicilioPtr dirRetiro1=crearDomicilio("Deposito",5000,"Sector industrial"); /// (*)
     DomicilioPtr dirEntrega1=crearDomicilio("Santa fe",1500,"Banfield"); /// (**)
-    FechaPtr fechaSalida1=crearFechaDirect(2500000,16,45); //Para el reparto
-    FechaPtr fechaRetorno1=crearFechaDirect(2500000,17,45); //Para el reparto
-    FechaPtr fechaEntrega1=crearFechaDirect(2500000,18,45);
+    FechaPtr fechaSalida1=crearFecha(10,12,2022,8,30); //Para el reparto
+    FechaPtr fechaRetorno1=crearFecha(10,12,2022,8,30); //Para el reparto
+    FechaPtr fechaEntrega1=crearFecha(10,12,2022,8,30);
     CuilPtr cuil1=crearCuil("20346547546");
     PersonaPtr chofer1=crearPersona("Roberto","Garcia",domicilioChofer1,cuil1,true);
     PersonaPtr cliente1=crearPersona("Roberto","Garcia",domicilioChofer1,cuil1,false);
@@ -36,9 +36,9 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     DomicilioPtr domicilioChofer2=crearDomicilio("Boqueron",1500,"Villa Fiorito");
     DomicilioPtr dirRetiro2=crearDomicilio("Repositorio Intel",5000,"Sector industrial");
     DomicilioPtr dirEntrega2=crearDomicilio("Italia",3000,"Palermo");
-    FechaPtr fechaSalida2=crearFechaDirect(2500000,8,30);
-    FechaPtr fechaRetorno2=crearFechaDirect(2500000,9,30);
-    FechaPtr fechaEntrega2=crearFechaDirect(2500000,10,30);
+    FechaPtr fechaSalida2=crearFecha(10,12,2022,9,30);
+    FechaPtr fechaRetorno2=crearFecha(10,12,2022,9,30);
+    FechaPtr fechaEntrega2=crearFecha(10,12,2022,8,30);
     CuilPtr cuil2=crearCuil("27245764567");
     PersonaPtr chofer2=crearPersona("Maria","Gonzalez",domicilioChofer2,cuil2,true);
     PaquetePtr paquete2=crearPaquete(2,2,5,3,120,dirRetiro2,dirEntrega2,fechaEntrega2,cliente1,0);
@@ -51,9 +51,9 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     DomicilioPtr domicilioChofer3=crearDomicilio("Espania",1500,"Puerto Madero");
     DomicilioPtr dirRetiro3=crearDomicilio("Tesla Industry",10000,"Washington DC");
     DomicilioPtr dirEntrega3=crearDomicilio("24 de mayo",3000,"Capital Federal");
-    FechaPtr fechaSalida3=crearFechaDirect(2500000,19,15);
-    FechaPtr fechaRetorno3=crearFechaDirect(2500000,21,15);
-    FechaPtr fechaEntrega3=crearFechaDirect(2500000,22,15);
+    FechaPtr fechaSalida3=crearFecha(10,12,2022,10,30);
+    FechaPtr fechaRetorno3=crearFecha(10,12,2022,10,30);
+    FechaPtr fechaEntrega3=crearFecha(10,12,2022,8,30);
     CuilPtr cuil3=crearCuil("30234565431");
     PersonaPtr chofer3=crearPersona("Gonzalo","Gutierrez",domicilioChofer3,cuil3,true);
     PaquetePtr paquete3=crearPaquete(3,8,8,10,800,dirRetiro3,dirEntrega3,fechaEntrega3,cliente1,0);
@@ -202,6 +202,19 @@ ListaPtr crearListaVehiculosGenerico()
     return listaVehiculos;
 }
 
+CentroLogisticoPtr crearCentroLogisticoDefecto()
+{
+    ListaPtr repartosAbiertos=crearListaRepartosPorDefectoConLista();
+    ListaPtr repartosCerrados=crearLista();
+    ListaPtr paquetes=crearListaPaquetesGenerico();
+    ListaPtr personas=crearListaPersonasGenerica();
+    ListaPtr vehiculos=crearListaVehiculosGenerico();
+    CentroLogisticoPtr centroLogistico;
+    centroLogistico=crearCentroLogistico("Distribuidora",paquetes,personas,vehiculos,repartosAbiertos,repartosCerrados);
+    return centroLogistico;
+}
+
+
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE FUNCIONES DE TESTEO///
 ///-----------------------------------------------------------------------------------------------------------///
@@ -267,4 +280,10 @@ void probarApertura()
     verificacion(resultado);
     probandoGenericas(CL);
     system("pause");
+}
+
+void probandoAmbos()
+{
+    probarGuardado();
+    probarApertura();
 }

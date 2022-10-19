@@ -40,7 +40,7 @@ PersonaPtr crearPersonaDirect(char *nombre,char *apellido,char *calle,int altura
 
 PersonaPtr destruirPersona(PersonaPtr persona)
 {
-    //destruimos TODOS los campos, incluyendo los que no reservamos dinámicamente en crearPersona
+    ///destruimos TODOS los campos, incluyendo los que no reservamos dinámicamente en crearPersona
     destruirStringDinamico(persona->nombre);
     destruirStringDinamico(persona->apellido);
     persona->domicilio=destruirDomicilio(persona->domicilio);

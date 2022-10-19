@@ -142,5 +142,13 @@ void agregarLista(ListaPtr estaLista,ListaPtr otraLista);
 // Devuelve puntero al dato removido de la lista
 PtrDato removerDeLista(ListaPtr lista, int posicion);
 
+//FUNCIÓN De verificacion
+//PRECONDICIÓN: la lista a evaluar debe estar definida y creada en memoria dinamica
+//POSTCONDICIÓN: verifica que el numero pasado no supere los parametros de la lista
+// devuelve true si esta dentro de los parametros, false si esta fuera
+//PARÁMETROS: puntero a la lista a evaluar
+// el numero a evaluar
+//DEVUELVE: booleano.
+bool verificarLimiteLista(ListaPtr listaEvaluar, int numeroEvaluar);
 
 #endif // LISTA_H_INCLUDED

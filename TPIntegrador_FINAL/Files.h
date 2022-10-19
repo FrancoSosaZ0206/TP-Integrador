@@ -253,7 +253,7 @@ int LeerString(FILE *archivo,char *buffer, int longitudMax, char terminador);
 /// DE LA MEMORIA ESTATICA DE FECHA
 ///PARAMETROS: PUNTERO A LA ESTRUCTURA ESTATICA DE FECHA
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA FECHA CREADA EN MEMORIA DINAMICA
-FechaPtr crearFechaDirectNuevo(fFechaPtr FE);
+FechaPtr crearFechaDirectNuevo(fFechaPtr FechaEstatico);
 
 ///OPERACION: CREACION
 ///PRECONDICION: DOMICILIO EN MEMORIA ESTATICA DEBE POSEER DATOS DENTRO
@@ -261,7 +261,7 @@ FechaPtr crearFechaDirectNuevo(fFechaPtr FE);
 /// DE LA MEMORIA ESTATICA DE DOMICILIO
 ///PARAMETROS: PUNTERO A LA ESTRUCTURA ESTATICA DE DOMICILIO
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA DOMICILIO CREADA EN MEMORIA DINAMICA
-DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DE);
+DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DomicilioEstatico);
 
 ///OPERACION: CREACION
 ///PRECONDICION: PAQUETE EN MEMORIA ESTATICA DEBE POSEER DATOS DENTRO
@@ -269,7 +269,7 @@ DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DE);
 /// DE LA MEMORIA ESTATICA DE PAQUETE
 ///PARAMETROS: PUNTERO A LA ESTRUCTURA ESTATICA DE PAQUETE
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA PAQUETE CREADA EN MEMORIA DINAMICA
-PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE);
+PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PaqueteEstatico);
 
 ///OPERACION: CREACION
 ///PRECONDICION: PERSONA EN MEMORIA ESTATICA DEBE POSEER DATOS DENTRO
@@ -277,7 +277,7 @@ PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PE);
 /// DE LA MEMORIA ESTATICA DE PERSONA
 ///PARAMETROS: PUNTERO A LA ESTRUCTURA ESTATICA DE PERSONA
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA PERSONA CREADA EN MEMORIA DINAMICA
-PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PE);
+PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PersonaEstatico);
 
 ///OPERACION: CREACION
 ///PRECONDICION: VEHICULO EN MEMORIA ESTATICA DEBE POSEER DATOS DENTRO
@@ -285,7 +285,7 @@ PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PE);
 /// DE LA MEMORIA ESTATICA DE VEHICULO
 ///PARAMETROS: PUNTERO A LA ESTRUCTURA ESTATICA DE VEHICULO
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA VEHICULO CREADA EN MEMORIA DINAMICA
-VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VE);
+VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VehiculoEstatico);
 
 ///OPERACION: CREACION
 ///PRECONDICION: REPARTO EN MEMORIA ESTATICA DEBE POSEER DATOS DENTRO
@@ -293,7 +293,7 @@ VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VE);
 /// DE LA MEMORIA ESTATICA DE REPARTO
 ///PARAMETROS: PUNTERO A LA ESTRUCTURA ESTATICA DE REPARTO
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA REPARTO CREADA EN MEMORIA DINAMICA
-RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RE);
+RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RepartoEstatico);
 
 
 ///-----------------------------------------------------------------------------------------------------------///
@@ -313,7 +313,7 @@ RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RE);
 ///                 TRUE = A MEMORIA DINAMICA
 ///                 FALSE = A MEMORIA ESTATICA
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA FECHA CREADA EN MEMORIA DINAMICA
-FechaPtr PasajeFechaDinamico(fFechaPtr FE, FechaPtr FD, bool ADinamico);
+FechaPtr PasajeFechaDinamico(fFechaPtr FechaEstatico, FechaPtr FechaDinamica, bool ADinamico);
 
 ///OPERACION: COPIA DE DATOS
 ///PRECONDICION: QUE DOMICILIO EN MEMORIA ESTATICA HAYA SIDO DECLARADA
@@ -328,7 +328,7 @@ FechaPtr PasajeFechaDinamico(fFechaPtr FE, FechaPtr FD, bool ADinamico);
 ///                 TRUE = A MEMORIA DINAMICA
 ///                 FALSE = A MEMORIA ESTATICA
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA DOMICILIO CREADA EN MEMORIA DINAMICA
-DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DE, DomicilioPtr DD, bool ADinamico);
+DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DomicilioEstatico, DomicilioPtr DomicilioDinamico, bool ADinamico);
 
 ///OPERACION: COPIA DE DATOS
 ///PRECONDICION: QUE CUIL EN MEMORIA ESTATICA HAYA SIDO DECLARADA
@@ -343,7 +343,7 @@ DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DE, DomicilioPtr DD, bool ADi
 ///                 TRUE = A MEMORIA DINAMICA
 ///                 FALSE = A MEMORIA ESTATICA
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA CUIL CREADA EN MEMORIA DINAMICA
-CuilPtr PasajeCuilDinamico(fCuilPtr CE, CuilPtr CD, bool ADinamico);
+CuilPtr PasajeCuilDinamico(fCuilPtr CuilEstatico, CuilPtr CuilDinamico, bool ADinamico);
 
 ///OPERACION: COPIA DE DATOS
 ///PRECONDICION: QUE VEHICULO EN MEMORIA ESTATICA HAYA SIDO DECLARADA
@@ -358,7 +358,7 @@ CuilPtr PasajeCuilDinamico(fCuilPtr CE, CuilPtr CD, bool ADinamico);
 ///                 TRUE = A MEMORIA DINAMICA
 ///                 FALSE = A MEMORIA ESTATICA
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA VEHICULO CREADA EN MEMORIA DINAMICA
-VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VE, VehiculoPtr VD, bool ADinamico);
+VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VehiculoEstatico, VehiculoPtr VehiculoDinamico, bool ADinamico);
 
 ///OPERACION: COPIA DE DATOS
 ///PRECONDICION: QUE PERSONA EN MEMORIA ESTATICA HAYA SIDO DECLARADA
@@ -373,7 +373,7 @@ VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VE, VehiculoPtr VD, bool ADinami
 ///                 TRUE = A MEMORIA DINAMICA
 ///                 FALSE = A MEMORIA ESTATICA
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA PERSONA CREADA EN MEMORIA DINAMICA
-PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico);
+PersonaPtr PasajePersonaDinamico(fPersonaPtr PersonaEstatico, PersonaPtr PersonaDinamico, bool ADinamico);
 
 ///OPERACION: COPIA DE DATOS
 ///PRECONDICION: QUE PAQUETE EN MEMORIA ESTATICA HAYA SIDO DECLARADA
@@ -388,7 +388,7 @@ PersonaPtr PasajePersonaDinamico(fPersonaPtr PE, PersonaPtr PD, bool ADinamico);
 ///                 TRUE = A MEMORIA DINAMICA
 ///                 FALSE = A MEMORIA ESTATICA
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA PAQUETE CREADA EN MEMORIA DINAMICA
-PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico);
+PaquetePtr PasajePaqueteDinamico(fPaquetePtr PaqueteEstatico, PaquetePtr PaqueteDinamico, bool ADinamico);
 
 ///OPERACION: COPIA DE DATOS
 ///PRECONDICION: QUE REPARTO EN MEMORIA ESTATICA HAYA SIDO DECLARADA
@@ -403,7 +403,7 @@ PaquetePtr PasajePaqueteDinamico(fPaquetePtr PE, PaquetePtr PD, bool ADinamico);
 ///                 TRUE = A MEMORIA DINAMICA
 ///                 FALSE = A MEMORIA ESTATICA
 ///DEVUELVE: PUNTERO A LA ESTRUCTURA REPARTO CREADA EN MEMORIA DINAMICA
-RepartoPtr PasajeRepartoDinamico(fRepartoPtr RE, RepartoPtr RD, bool ADinamico);
+RepartoPtr PasajeRepartoDinamico(fRepartoPtr RepartoEstatico, RepartoPtr RepartoDinamico, bool ADinamico);
 
 
 #endif // FILES_H_INCLUDED

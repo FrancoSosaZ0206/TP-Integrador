@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 //FUNCIÓN DE OBTENCIÓN DE MEMORIA
 //PRECONDICIÓN: Debe haber espacio en memoria disponible
 //POSTCONDICIÓN: Devuelve un puntero a memoria dinamica
@@ -47,5 +46,18 @@ void limpiarBufferTecladoPresionandoEnter();
 //DEVUELVE: Nada.
 void presionarEnterYLimpiarPantalla();
 
+//FUNCIÓN DE SELECCION
+//PRECONDICIÓN: Ninguna
+//POSTCONDICIÓN: pide un numero natural por consola
+//PARÁMETROS: Ninguno
+//DEVUELVE: entero.
+int seleccionarNumero();
+
+//FUNCIÓN DE SELECCION
+//PRECONDICIÓN: Ninguna
+//POSTCONDICIÓN: ASIGNA EL VALOR DE UN STRING
+//PARÁMETROS: PUNTERO A CHAR
+//DEVUELVE: VOID.
+void seleccionarString(char* STRING);
 
 #endif // UTIL_H_INCLUDED

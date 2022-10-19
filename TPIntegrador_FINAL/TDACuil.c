@@ -228,9 +228,11 @@ Y * 4
         {
         case 20:
             zRes = 9;
+            setTipo(cuil,23);
             break;
         case 27:
             zRes = 4;
+            setTipo(cuil,23);
             break;
         default: ///Posiblemente salga este mensaje aunque el tipo sea empresa.
             printf("\n\nERROR: TIPO DE CUIL INEXISTENTE.\n\n");

@@ -165,7 +165,15 @@ Se implementaron los .h de los menues de main, tambien se trasladaron a la secci
 Al leer los archivos guardaba y leia perfectamente, el origen del problema era que estaba mal definida
 el guardado fwrite(sizeof(100)), en lugar de fwrite(sizeof(char)), lo mismo con apertura
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+28. Agregadas funciones ayudantes
+Funciones como verificarLimiteLista, seleccionar un numero
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+29. Correcion del menu buscar reparto
+Agregadas las opciones de buscar por cada campo del reparto
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

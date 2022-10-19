@@ -26,6 +26,7 @@ E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\Ar
 int main()
 {
     CentroLogisticoPtr centroLogistico;
+    ///centroLogistico=crearCentroLogisticoDefecto();
     int START_OP=0;
     do
     {
@@ -33,23 +34,14 @@ int main()
         switch(START_OP)
         {
         case 1:
-            centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
-            system("cls");
+            ///centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             START_OP = MAIN_MENU(centroLogistico);
             centroLogistico=destruirCentroLogistico(centroLogistico);
             break;
         case 2:
             centroLogistico = abrirTodo();
-            if(centroLogistico==NULL)
-            {
-                printf("ERROR AL ABRIR.\n\n");
-                exit(1);
-            }
-            else
-            {
-                START_OP = MAIN_MENU(centroLogistico);
-                centroLogistico=destruirCentroLogistico(centroLogistico);
-            }
+            START_OP = MAIN_MENU(centroLogistico);
+            centroLogistico=destruirCentroLogistico(centroLogistico);
             break;
         case 0:
             break;
@@ -411,16 +403,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     switch(op1)
                     {
                     case 1:
-                        if(guardarTodo(centroLogistico))
-                        {
-                            cambiosGuardados=true;
-                            printf("Cambios guardados exitosamente.\n\n");
-                        }
-                        else
-                        {
-                            printf("ERROR AL GUARDAR LOS CAMBIOS.\n\n");
-                            exit(1);
-                        }
+                        cambiosGuardados=guardarTodo(centroLogistico);
                         MAIN_OP=0;
                         break;
                     case 2:
