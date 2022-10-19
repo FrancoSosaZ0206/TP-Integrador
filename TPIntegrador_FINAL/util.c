@@ -85,3 +85,28 @@ void seleccionarString(char* STRING)
     scanf("%[^\n]%*c", STRING);
     fflush(stdin);
 }
+
+void ignorar(){
+    bool f=false;
+    f? printf("YES\n"): printf("NO\n");
+    if(f) printf("YES\n");
+    else printf("NO\n");
+    int i=-1;
+    while(i < 0)
+        i++;
+    for(int i=0;i<1;i++)
+        i++;
+    if(f){
+
+    }else{
+
+    }
+    for(int i=0;i<1;i++){
+
+    }
+    while(i<0){
+        i++;
+    }
+}
+
+
