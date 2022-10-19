@@ -976,7 +976,6 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
 
 ///PERSONAS
 
-
 void cambiarPersona(PersonaPtr personaAModificar, bool esChofer)
 {
     int seguirMod=0,op=0;
