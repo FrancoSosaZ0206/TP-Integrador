@@ -2984,7 +2984,8 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 {
     if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
     {
-        printf("ERROR: La lista esta vacia.\n\n");
+        printf("ERROR: La lista esta vacia.");
+        presionarEnterYLimpiarPantalla();
         return true;
     }
     else

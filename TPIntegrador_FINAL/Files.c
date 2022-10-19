@@ -222,41 +222,44 @@ fPaquete *fgetPaquetesReparto(fRepartoPtr pfreparto)
 ///Setters
 /**
 Se puede setear toda la estructura de una.
-Postcondición: si setParaGuardar == true, setea cuil en fCuil.
+Postcondición: si setGuardar == true, setea cuil en fCuil.
                De lo contrario, hace el proceso inverso (ayuda a la hora de abrir un archivo).
 */
-CuilPtr fsetCuil(fCuilPtr fcuil,CuilPtr cuil,bool setParaGuardar)
+CuilPtr fsetCuil(fCuilPtr fcuil,CuilPtr cuil,bool setGuardar)
 {
-    if(setParaGuardar)
+    if(setGuardar)
         strcpy(fcuil->cuil,getCuil(cuil));
     else ///asumimos que la estructura está vacía y la creamos.
-        return crearCuil(fgetCuil(fcuil));
+        cuil = crearCuil(fgetCuil(fcuil));
+    return cuil;
 }
-DomicilioPtr fsetDomicilio(fDomicilioPtr pfdomicilio,DomicilioPtr domicilio,bool setParaGuardar)
+DomicilioPtr fsetDomicilio(fDomicilioPtr pfdomicilio,DomicilioPtr domicilio,bool setGuardar)
 {
-    if(setParaGuardar)
+    if(setGuardar)
     {
         strcpy(pfdomicilio->calle,getCalle(domicilio));
         pfdomicilio->altura=getAltura(domicilio);
         strcpy(pfdomicilio->localidad,getLocalidad(domicilio));
     }
     else ///asumimos que la estructura está vacía y la creamos.
-        return crearDomicilio(fgetCalle(pfdomicilio),fgetAltura(pfdomicilio),fgetLocalidad(pfdomicilio));
+        domicilio = crearDomicilio(fgetCalle(pfdomicilio),fgetAltura(pfdomicilio),fgetLocalidad(pfdomicilio));
+    return domicilio;
 }
-FechaPtr fsetFecha(fFechaPtr pffecha,FechaPtr fecha,bool setParaGuardar)
+FechaPtr fsetFecha(fFechaPtr pffecha,FechaPtr fecha,bool setGuardar)
 {
-    if(setParaGuardar)
+    if(setGuardar)
     {
         pffecha->diaJuliano=getDiaJuliano(fecha);
         pffecha->hora=getHora(fecha);
         pffecha->minuto=getMinuto(fecha);
     }
     else ///asumimos que la estructura está vacía y la creamos.
-        return crearFechaDirect(fgetDiaJuliano(pffecha),fgetHora(pffecha),fgetMinuto(pffecha));
+        fecha = crearFechaDirect(fgetDiaJuliano(pffecha),fgetHora(pffecha),fgetMinuto(pffecha));
+    return fecha;
 }
-PaquetePtr fsetPaquete(fPaquetePtr pfpaquete,PaquetePtr paquete,bool setParaGuardar)
+PaquetePtr fsetPaquete(fPaquetePtr pfpaquete,PaquetePtr paquete,bool setGuardar)
 {
-    if(setParaGuardar)
+    if(setGuardar)
     {
         pfpaquete->ID=getID(paquete);
         pfpaquete->ancho=getAncho(paquete);
@@ -276,7 +279,7 @@ PaquetePtr fsetPaquete(fPaquetePtr pfpaquete,PaquetePtr paquete,bool setParaGuar
         DomicilioPtr dirEntrega = fsetDomicilio(fgetDirEntrega(pfpaquete),dirEntrega,false);
         FechaPtr fechaEntrega = fsetFecha(fgetFechaEntrega(pfpaquete),fechaEntrega,false);
 
-        return crearPaquete(fgetID(pfpaquete),
+        paquete = crearPaquete(fgetID(pfpaquete),
                                fgetAncho(pfpaquete),
                                fgetAlto(pfpaquete),
                                fgetLargo(pfpaquete),
@@ -285,12 +288,12 @@ PaquetePtr fsetPaquete(fPaquetePtr pfpaquete,PaquetePtr paquete,bool setParaGuar
                                dirEntrega,
                                fechaEntrega,
                                fgetEstado(pfpaquete));
-        return paquete;
     }
+    return paquete;
 }
-PersonaPtr fsetPersona(fPersonaPtr pfpersona,PersonaPtr persona,bool setParaGuardar)
+PersonaPtr fsetPersona(fPersonaPtr pfpersona,PersonaPtr persona,bool setGuardar)
 {
-    if(setParaGuardar)
+    if(setGuardar)
     {
         strcpy(pfpersona->nombre,getNombre(persona));
         strcpy(pfpersona->apellido,getApellido(persona));
@@ -305,16 +308,17 @@ PersonaPtr fsetPersona(fPersonaPtr pfpersona,PersonaPtr persona,bool setParaGuar
         DomicilioPtr domicilio = fsetDomicilio(fgetDomicilio(pfpersona),domicilio,false);
         CuilPtr cuil = fsetCuil(fgetCuilPersona(pfpersona),cuil,false);
 
-        return crearPersona(fgetNombre(pfpersona),
+        persona = crearPersona(fgetNombre(pfpersona),
                              fgetApellido(pfpersona),
                              domicilio,
                              cuil,
                              fgetEsChofer(pfpersona));
     }
+    return persona;
 }
-VehiculoPtr fsetVehiculo(fVehiculoPtr pfvehiculo,VehiculoPtr vehiculo,bool setParaGuardar) ///AHORA RETORNA PUNTERO A LA ESTRUCTURA SETEADA
+VehiculoPtr fsetVehiculo(fVehiculoPtr pfvehiculo,VehiculoPtr vehiculo,bool setGuardar) ///AHORA RETORNA PUNTERO A LA ESTRUCTURA SETEADA
 {
-    if(setParaGuardar)
+    if(setGuardar)
     {
         pfvehiculo->tipo=getTipoVehiculo(vehiculo);
 
@@ -323,17 +327,18 @@ VehiculoPtr fsetVehiculo(fVehiculoPtr pfvehiculo,VehiculoPtr vehiculo,bool setPa
         strcpy(pfvehiculo->patente,getPatente(vehiculo));
     }
     else ///asumimos que la estructura está vacía y la creamos.
-        return crearVehiculo(fgetTipoVehiculo(pfvehiculo),
+        vehiculo = crearVehiculo(fgetTipoVehiculo(pfvehiculo),
                              fgetMarca(pfvehiculo),
                              fgetModelo(pfvehiculo),
                              fgetPatente(pfvehiculo));
+    return vehiculo;
 }
-RepartoPtr fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuardar)
+RepartoPtr fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setGuardar)
 {
     int n=0;
     PaquetePtr paqueteAux;
 
-    if(setParaGuardar)
+    if(setGuardar)
     {
         fsetPersona(fgetChofer(pfreparto),getChofer(reparto),true);
         fsetVehiculo(fgetVehiculo(pfreparto),getVehiculo(reparto),true);
@@ -364,8 +369,9 @@ RepartoPtr fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setParaGuar
             paqueteAux = fsetPaquete(&pfreparto->paquetes[i],paqueteAux,false);
             apilar(paquetes,(PaquetePtr)paqueteAux);
         }
-        return armarReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
+        reparto = armarReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
     }
+    return reparto;
 }
 
 /// ///////////////////////////////////////////////////////////////////////////////////////////////// ///

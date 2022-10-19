@@ -50,7 +50,7 @@ POSTCONDICIÓN: Copia todos los números del string en un vector de enteros
 PARÁMETROS:
     - source: string del que se extraerán los números
     - buffer: vector de enteros que contendrá cada dígito de los números.
-DEVUELVE: nada. */
-void extraerDigitosString(char *source,int buffer[]);
+DEVUELVE: cantidad de dígitos extraídos. */
+int extraerDigitosString(char *source,int buffer[]);
 
 #endif // UTIL_H_INCLUDED

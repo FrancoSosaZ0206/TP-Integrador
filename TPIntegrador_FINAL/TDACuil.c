@@ -181,38 +181,17 @@ Y * 4
     char *cuilStr = getCuil(cuil);
 
 //1. Obtenemos cada numero y hacemos las multiplicaciones
-    int x,y,n1,n2,n3,n4,n5,n6,n7,n8,z;
-    ///sscanf(cuilStr,"%d %d %d",&x,&y,&n1,&n2,&n3,&n4,&n5,&n6,&n7,&n8,&z);
+    int digitosCuil[11];
+    extraerDigitosString(cuilStr,digitosCuil);
 
-    x *= 5;
-    y *= 4;
+    int multiplicador[10] = {5,4,3,2,7,6,5,4,3,2};
 
-    n1 *= 3;
-    n2 *= 2;
-    n3 *= 7;
-    n4 *= 6;
-    n5 *= 5;
-    n6 *= 4;
-    n7 *= 3;
-    n8 *= 2;
+    int sumatoria=0;
+    for(int i=0;i<10;i++)
+        sumatoria += digitosCuil[i] * multiplicador[i];
 
-/*    int x=(int)cuilStr[0] * 5;
-    int y=(int)cuilStr[1] * 4;
-//cuilStr[2] = " " <<< un espacio
-    int n1=(int)cuilStr[3] * 3;
-    int n2=(int)cuilStr[4] * 2;
-    int n3=(int)cuilStr[5] * 7;
-    int n4=(int)cuilStr[6] * 6;
-    int n5=(int)cuilStr[7] * 5;
-    int n6=(int)cuilStr[8] * 4;
-    int n7=(int)cuilStr[9] * 3;
-    int n8=(int)cuilStr[10] * 2;*/
-//obtenemos el Z actual
-    //int z=getNVerificador(cuil);
-
-    int sumatoria = x+y+n1+n2+n3+n4+n5+n6+n7+n8;
     int division = sumatoria / 11;
-    int resto = sumatoria % 11;
+    int resto = sumatoria - (division * 11);
 
     int tipo=getTipo(cuil);
 
@@ -224,34 +203,28 @@ Y * 4
 //Se deja como está.
         break;
     case 1:
-
         switch(tipo)
         {
         case 20:
             zRes = 9;
+            setTipo(cuil,23);
             break;
         case 27:
             zRes = 4;
+            setTipo(cuil,23);
             break;
         default: ///Posiblemente salga este mensaje aunque el tipo sea empresa.
             printf("\n\nERROR: TIPO DE CUIL INEXISTENTE.\n\n");
             exit(1);
         }
-
+        break;
     default:
-//zRes se deja como está.
+        zRes = 11 - resto;
         break;
     }
 
-    printf("\n\nX = %d\nY = %d\n",x,y);
-    printf("n1 = %d\nn2 = %d\nn3 = %d\nn4 = %d\nn5 = %d\nn6 = %d\nn7 = %d\nn8 = %d\n",n1,n2,n3,n4,n5,n6,n7,n8);
-    printf("Z = %d\n\n",z);
-    printf("Sumatoria = %d\n",sumatoria);
-    printf("Division = %d\n",division);
-    printf("Resto = %d\n\n",resto);
-    printf("zRes = %d\n\n",zRes);
 //Si son iguales, es un cuil valido (retornará true), caso contrario es invalido (false).
-    return (z==zRes);
+    return (digitosCuil[10] == zRes);
 }
 
 
