@@ -324,7 +324,7 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 {
     PaquetePtr paquete;
     ///el ID del paquete se genera automáticamente, no lo tiene que ingresar el usuario.
-    int ID=0,ancho=0,alto=0,largo=0,peso=0,i=1,resultado=0,Eleccion=0;
+    int ID=0,ancho=0,alto=0,largo=0,peso=0,i=1,resultado=0;
     FechaPtr fechaEntrega;
     DomicilioPtr dirRetiro;
     DomicilioPtr dirEntrega;
@@ -366,12 +366,7 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
             fechaEntrega=cargarFecha(fechaEntrega);
             system("cls");
             printf("Elegir destinatario\n");
-            mostrarPersonas(centroLogistico,2);
-            limpiarBufferTeclado();
-            printf("Eleccion: ");
-            Eleccion = menuModoAccion1(getPersonas(centroLogistico));
-            persona = getDatoLista(getPersonas(centroLogistico), Eleccion);
-            limpiarBufferTeclado();
+            persona = menuBusquedaCliente(centroLogistico);
             paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,persona,0);
             agregarPaquete(centroLogistico,paquete);
             continuar=menuContinuar();
@@ -559,6 +554,49 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
     }
 }
 
+int menuTipoBusquedaCliente()
+{
+   int eleccion = 0;
+   system("cls");
+   printf("MENU DE SELECCION DE CLIENTE DE PAQUETE \n");
+   printf("1. Seleccion mediante INDICE \n");
+   printf("2. Seleccion mediante CUIL \n");
+   printf("OPCION: ");
+   eleccion = seleccionarNumero();
+   return eleccion;
+}
+
+PersonaPtr menuBusquedaCliente(CentroLogisticoPtr centroLogistico)
+{
+    int MENU = 0;
+    int ELECCION = 0;
+    char CuilBuscar[100];
+    PersonaPtr PersonaBuscada;
+    MENU = menuTipoBusquedaCliente();
+    switch(MENU)
+    {
+    case 1:
+        do{
+            system("cls");
+            mostrarPersonas(centroLogistico, 2);
+            ELECCION = menuModoAccion1( getPersonas(centroLogistico) );
+            PersonaBuscada = getDatoLista( getPersonas(centroLogistico), ELECCION );
+        }while(getEsChofer(PersonaBuscada));
+        break;
+    case 2:
+        do{
+            system("cls");
+            printf("Ingrese el cuil a buscar: ");
+            seleccionarString(CuilBuscar);
+            PersonaBuscada = devolverPersona(centroLogistico, CuilBuscar);
+        }while(PersonaBuscada != NULL);
+        break;
+    default:
+        printf("Opcion equivocada... \n");
+        break;
+    }
+    return PersonaBuscada;
+}
 
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE ELIMINACION///
@@ -1602,7 +1640,9 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico)
 }
 
 ///-----------------------------------------------------------------------------------------------------------///
+///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE REPARTOS///
+///-----------------------------------------------------------------------------------------------------------///
 ///-----------------------------------------------------------------------------------------------------------///
 
 bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
@@ -1873,6 +1913,10 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
     return cambiosGuardados;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE BUSQUEDA DE REPARTOS///
+///-----------------------------------------------------------------------------------------------------------///
+
 int menuTipoMostradoRepartos()
 {
    system("cls");
@@ -2045,6 +2089,10 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
         }while(continuar);
     }
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE MODIFICACION DE REPARTOS///
+///-----------------------------------------------------------------------------------------------------------///
 
 int MenuSeleccionAtributoReparto()
 {
@@ -2287,6 +2335,10 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
     }
     return cambiosGuardados;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE MOSTRADO DE REPARTOS///
+///-----------------------------------------------------------------------------------------------------------///
 
 int menuListadoReparto()
 {

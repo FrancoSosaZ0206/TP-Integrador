@@ -34,7 +34,7 @@ int main()
         switch(START_OP)
         {
         case 1:
-            ///centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
+            centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             START_OP = MAIN_MENU(centroLogistico);
             centroLogistico=destruirCentroLogistico(centroLogistico);
             break;

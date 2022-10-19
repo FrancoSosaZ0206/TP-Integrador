@@ -381,9 +381,8 @@ void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado)
 }
 
 ///-----------------------------------------------------------------------------------------------------------///
-                                ///SECCION DE FUNCIONES DE BUSQUEDA DE DATOS EN LAS LISTAS///
+                                ///SECCION DE FUNCIONES DE VERIFICACION DE DATOS EN LAS LISTAS///
 ///-----------------------------------------------------------------------------------------------------------///
-
 
 bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID)
 {
@@ -480,6 +479,10 @@ bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente)
 
     return match;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE DEVOLUCION DE DATOS EN LAS LISTAS///
+///-----------------------------------------------------------------------------------------------------------///
 
 RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil)
 {
@@ -719,6 +722,44 @@ RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID)
         return NULL;
     }
 }
+
+PersonaPtr devolverPersona(CentroLogisticoPtr centroLogistico, char* cuilBuscar)
+{
+    ListaPtr ListaAux = crearLista();
+    agregarLista( ListaAux, getPersonas(centroLogistico) );
+    PersonaPtr PersonaActual;
+    PersonaPtr PersonaDevolver;
+    CuilPtr CuilActual;
+    int encontrado = 0;
+    bool match = false;
+    while(!listaVacia(ListaAux))
+    {
+        PersonaActual = (PersonaPtr)getCabecera(ListaAux);
+        CuilActual = getCuilPersona(PersonaActual);
+        encontrado = strcmp( getCuil(CuilActual), cuilBuscar );
+        if(encontrado == 0)
+        {
+            PersonaDevolver = PersonaActual;
+            match = true;
+        }
+        ListaPtr ListaDestruir = ListaAux;
+        ListaAux = getResto(ListaAux);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAux = destruirLista(ListaAux, false);
+    if(match)
+    {
+        return PersonaDevolver;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+///-----------------------------------------------------------------------------------------------------------///
+                                ///SECCION DE FUNCIONES DE VERIFICACION DE DATOS EN LOS REPARTOS///
+///-----------------------------------------------------------------------------------------------------------///
 
 bool buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuilBuscar)
 {
@@ -1042,10 +1083,13 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
     return match;
 }
 
-
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE FUNCIONES DE ORDENAMIENTO///
 ///-----------------------------------------------------------------------------------------------------------///
+
+///NINGUNA DE LAS OPERACIONES DE ORDENAMIENTO ALTERA EL ESTADO DE CENTRO LOGISTICO
+///ORDENA EN UN VECTOR APARTE Y LUEGO LOS MUESTRA, GENERANDOLOS EN MEMORIA LOCAL, SIN ALTERAR
+///EL ORDEN ORIGINAL DEL CENTRO LOGISTICO
 
 void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modoOrdenamiento, int modoMostrado)
 {
