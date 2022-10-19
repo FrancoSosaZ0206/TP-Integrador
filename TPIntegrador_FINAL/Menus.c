@@ -748,7 +748,6 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             else
                 printf("Cliente cargado exitosamente.");
             presionarEnterYLimpiarPantalla();
-            system("pause");
         }
         if(esChofer && n>1)
             printf("Choferes cargados exitosamente.\n\n");
@@ -1996,8 +1995,11 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int *opMenu
 
             if(op==-1)
                 *opMenuAnterior=0;
-            else if(op>=1 && op<=4)
+            else if(op<-1 || op>4)
+            {
                 printf("Opcion Incorrecta.");
+                presionarEnterYLimpiarPantalla();
+            }
             else if(op>=1 && op<=4)
             {
                 switch(tipo)
@@ -2012,9 +2014,6 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int *opMenu
                     printf("LISTADO DE PERSONAS ");
                     break;
                 case 0:
-                    break;
-                case -1:
-                    *opMenuAnterior = 0;
                     break;
                 }
                 switch(op)
@@ -2051,8 +2050,6 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int *opMenu
                 }
                 printf("\n\n-----------------------------------------------------");
             }
-            if(!(op==0 || op==-1))
-                presionarEnterYLimpiarPantalla();
         } while(!(op==0 || op==-1));
 
         bool cambioDetectado = detectarCambios(listaAux,copiaLista,2);
