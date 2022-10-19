@@ -71,7 +71,7 @@ int main()
             }
             break;
         case 0:
-            printf("Hasta pronto!\n\n");
+            printf("\t\tHasta pronto!\n\n");
             break;
         default:
             printf("Opcion incorrecta.");

@@ -267,6 +267,13 @@ PaquetePtr fsetPaquete(fPaquetePtr pfpaquete,PaquetePtr paquete,bool setGuardar)
         pfpaquete->largo=getLargo(paquete);
         pfpaquete->peso=getPeso(paquete);
 
+        printf("ID=%d\nancho=%d\nalto=%d\nlargo=%d\npeso=%d\n\n",pfpaquete->ID,
+                                                                 pfpaquete->ancho,
+                                                                 pfpaquete->alto,
+                                                                 pfpaquete->largo,
+                                                                 pfpaquete->peso);
+        presionarEnterYLimpiarPantalla();
+
         fsetDomicilio(fgetDirRetiro(pfpaquete),getDirRetiro(paquete),true);
         fsetDomicilio(fgetDirEntrega(pfpaquete),getDirEntrega(paquete),true);
         fsetFecha(fgetFechaEntrega(pfpaquete),getFechaEntrega(paquete),true);

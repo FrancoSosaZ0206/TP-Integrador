@@ -1928,7 +1928,7 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
             case 0:
                 break;
             case -1:
-                *opMenuAnterior=-1;
+                *opMenuAnterior=0;
                 break;
             default:
                 printf("\nOpcion incorrecta.");
@@ -2012,6 +2012,9 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int *opMenu
                     printf("LISTADO DE PERSONAS ");
                     break;
                 case 0:
+                    break;
+                case -1:
+                    *opMenuAnterior = 0;
                     break;
                 }
                 switch(op)
