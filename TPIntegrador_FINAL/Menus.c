@@ -55,21 +55,12 @@ int menuModoAccion()
 int menuModoAccion1(ListaPtr lista)
 {
     int eleccion = 0;
-    int n=longitudLista(lista);
-    int i;
-    do
-    {
-        limpiarBufferTeclado();
+    int tamanioLista = longitudLista(lista);
+    do{
         printf("\n\nIngrese indice donde tomar accion: ");
-        scanf("%d",&i);
-        limpiarBufferTeclado();
-        if(i<=0 || i>n)
-        {
-            printf("\n\nERROR: indice inexistente. Vuelva a elegir.\n\n");
-        }
-    } while(i<=0 || i>n);
-    eleccion = i-1;
-    system("cls");
+        eleccion = seleccionarNumero();
+    } while(eleccion <= 0 || eleccion > tamanioLista);
+    eleccion--;
     return eleccion;
 }
 
@@ -589,7 +580,7 @@ PersonaPtr menuBusquedaCliente(CentroLogisticoPtr centroLogistico)
             printf("Ingrese el cuil a buscar: ");
             seleccionarString(CuilBuscar);
             PersonaBuscada = devolverPersona(centroLogistico, CuilBuscar);
-        }while(PersonaBuscada != NULL);
+        }while(PersonaBuscada == NULL);
         break;
     default:
         printf("Opcion equivocada... \n");
@@ -2186,20 +2177,21 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
     }while(eleccion<=0 && eleccion>totalLista);
     repartoAuxiliar=getDatoLista(listaAuxiliar,eleccion-1);
     system("cls");
-    PaquetePtr paqueteAuxiliar;
+    PaquetePtr paqueteActual;
+    PaquetePtr PaqueteModificar;
     ListaPtr paquetes=getPaquetesReparto(repartoAuxiliar);
     ListaPtr listaRespaldo=crearLista();
     agregarLista(listaRespaldo,paquetes);
     bool encontrado=false;
     while(!encontrado && !listaVacia(listaRespaldo))
     {
-        paqueteAuxiliar=getCabecera(listaRespaldo);
-        EstadoPaquete = getEstado(paqueteAuxiliar);
+        paqueteActual=getCabecera(listaRespaldo);
+        EstadoPaquete = getEstado(paqueteActual);
         ///SI ES DISTINTO DE ENTREGADO Y SUSPENDIDO
-        if(EstadoPaquete != 3 && EstadoPaquete != 5)
+        if(EstadoPaquete != 3 && EstadoPaquete != 5 && encontrado == false)
         {
             encontrado=true;
-            break;
+            PaqueteModificar = paqueteActual;
         }
         ListaPtr ListaDestruir = listaRespaldo;
         listaRespaldo = getResto(listaRespaldo);
@@ -2208,7 +2200,7 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
     listaRespaldo=destruirLista(listaRespaldo,false);
     system("cls");
     printf("El paquete que esta modificando es: \n");
-    mostrarPaquete(paqueteAuxiliar);
+    mostrarPaquete(PaqueteModificar);
     printf("\n");
     helpEstadoPaquete();
     do
@@ -2217,8 +2209,8 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
         limpiarBufferTeclado();
         scanf("%d",&eleccion);
         limpiarBufferTeclado();
-    }while(eleccion<0 && eleccion>6);
-    setEstado(paqueteAuxiliar,eleccion);
+    }while(eleccion < 0 && eleccion > 6);
+    setEstado(PaqueteModificar,eleccion);
 }
 
 ListaPtr OriginalRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
@@ -2369,6 +2361,7 @@ int menuOrdenarRepartos()
     printf("4. Nombre del chofer\n");
     printf("5. Apellido del chofer\n");
     printf("6. Nombre y apellido del chofer\n");
+    printf("7. Sin ordenar\n");
     printf("0. Volver\n\n");
     printf("-1. MENU PRINCIPAL");
     printf("\n-----------------------------------------\n\n");
@@ -2433,6 +2426,9 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                     break;
                 case 6:
                     ordenarRepartos(centroLogistico,esRepartoAbierto,6);
+                    break;
+                case 7:
+                    ordenarRepartos(centroLogistico,esRepartoAbierto,7);
                     break;
                 case 0:
                     break;

@@ -55,23 +55,10 @@ void presionarEnterYLimpiarPantalla()
 
 int seleccionarNumero()
 {
-    int numeroElegido=-1;
-    while(numeroElegido < 0)
-    {
-        fflush(stdin);
-        if(mostrar)
-        {
-            printf("Seleccione un numero natural: ");
-        }
-        scanf("%d", &numeroElegido);
-        fflush(stdin);
-        if(numeroElegido < 0)
-        {
-            printf("Numero equivocado, eliga un numero");
-            printf(" comprendido entre 0 y +infinito \n");
-            presionarEnterYLimpiarPantalla();
-        }
-    }
+    int numeroElegido = 0;
+    fflush(stdin);
+    scanf("%d", &numeroElegido);
+    fflush(stdin);
     return numeroElegido;
 }
 

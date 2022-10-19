@@ -93,7 +93,9 @@ ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 
 void setNombreCentroLogistico(CentroLogisticoPtr centroLogistico,char *nombre)
 {
-    strcpy(centroLogistico->nombre,nombre);
+    char* nombreDinamico = (char*)obtenerMemoria(sizeof(char)*strlen(nombre)+1);
+    strcpy(nombreDinamico, nombre);
+    centroLogistico->nombre = nombreDinamico;
 }
 
 void setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes)
@@ -167,22 +169,23 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
         case 1: //Filtra por chofer
             if(getEsChofer(personaAux))
             {
-                printf("%d. ",i++);
+                printf("%d. ",i);
                 mostrarPersona(personaAux);
             }
             break;
         case 2: //Filtra por cliente
             if(!getEsChofer(personaAux))
             {
-                printf("%d. ",i++);
+                printf("%d. ",i);
                 mostrarPersona(personaAux);
             }
             break;
         case 3: //Sin filtro - Muestra todas las personas
-            printf("%d. ",i++);
+            printf("%d. ",i);
             mostrarPersona(personaAux);
             break;
         }
+        i++;
         ListaPtr ListaDestruir = listaAux;
         listaAux = getResto(listaAux);
         ListaDestruir = destruirLista(ListaDestruir, false);
@@ -1322,6 +1325,8 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
                 diferenciaNombres = strcmp(getNombre(getChofer(repartos[i])),getNombre(getChofer(repartos[j])));
                 condicion = condicion && diferenciaNombres > 0;
                 ///condicion de la bandera: "Si el APELLIDO Y NOMBRE del chofer del reparto en j van después de los del chofer del reparto en j+1..."
+                break;
+            case 7:
                 break;
             }
             if(condicion)

@@ -151,6 +151,7 @@ PersonaPtr PasajePersonaDinamico(fPersonaPtr PersonaEstatico, PersonaPtr Persona
         strcpy(PersonaEstatico->apellido,PersonaDinamica->apellido);
         PasajeDomicilioDinamico(&PersonaEstatico->domicilio,PersonaDinamica->domicilio,false);
         strcpy(PersonaEstatico->cuil.cuil,PersonaDinamica->cuil->cuil);
+        PersonaEstatico->esChofer = PersonaDinamica->esChofer;
     }
     return PersonaDinamica;
 }
@@ -443,6 +444,7 @@ CentroLogisticoPtr abrirTodo()
     guardado=guardado && abrirRepartos(centroLogistico,true);
     guardado=guardado && abrirRepartos(centroLogistico,false);
     guardado=guardado && abrirVehiculos(centroLogistico);
+    setNombreCentroLogistico(centroLogistico, nombreCentroLog);
     if(!guardado)
     {
         printf("ERROR AL ABRIR TODO!!!\n");

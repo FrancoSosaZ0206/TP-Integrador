@@ -26,7 +26,7 @@ E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\Ar
 int main()
 {
     CentroLogisticoPtr centroLogistico;
-    ///centroLogistico=crearCentroLogisticoDefecto();
+    centroLogistico=crearCentroLogisticoDefecto();
     int START_OP=0;
     do
     {
@@ -34,7 +34,7 @@ int main()
         switch(START_OP)
         {
         case 1:
-            centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
+            ///centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             START_OP = MAIN_MENU(centroLogistico);
             centroLogistico=destruirCentroLogistico(centroLogistico);
             break;
