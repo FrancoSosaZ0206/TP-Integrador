@@ -442,6 +442,7 @@ void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
     if(listaVacia(getPaquetes(centroLogistico)))
     {
         printf("ERROR: Lista vacia. No hay paquetes para buscar\n");
+        presionarEnterYLimpiarPantalla();
     }
     else
     {
@@ -472,10 +473,12 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         if(esChofer)
         {
              printf("ERROR: Lista vacia. No hay choferes para buscar\n");
+             presionarEnterYLimpiarPantalla();
         }
         else
         {
             printf("ERROR: Lista vacia. No hay clientes para buscar\n");
+            presionarEnterYLimpiarPantalla();
         }
     }
     else
@@ -517,7 +520,10 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
 {
     bool continuar;
     if(listaVacia(getVehiculos(centroLogistico)))
+    {
         printf("ERROR: Lista vacia. No hay vehiculos para buscar\n");
+        presionarEnterYLimpiarPantalla();
+    }
     else
     {
         do
@@ -553,28 +559,36 @@ PersonaPtr menuBusquedaCliente(CentroLogisticoPtr centroLogistico)
     int ELECCION = 0;
     char CuilBuscar[100];
     PersonaPtr PersonaBuscada;
-    MENU = menuTipoBusquedaCliente();
-    switch(MENU)
+    if(listaVacia(getPersonas(centroLogistico)))
     {
-    case 1:
-        do{
-            system("cls");
-            mostrarPersonas(centroLogistico, 2);
-            ELECCION = menuModoAccion1( getPersonas(centroLogistico) );
-            PersonaBuscada = getDatoLista( getPersonas(centroLogistico), ELECCION );
-        }while(getEsChofer(PersonaBuscada));
-        break;
-    case 2:
-        do{
-            system("cls");
-            printf("Ingrese el cuil a buscar: ");
-            seleccionarString(CuilBuscar);
-            PersonaBuscada = devolverPersona(centroLogistico, CuilBuscar);
-        }while(PersonaBuscada == NULL);
-        break;
-    default:
-        printf("Opcion equivocada... \n");
-        break;
+        printf("Lista vacia, no existen clientes para mostrar\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        MENU = menuTipoBusquedaCliente();
+        switch(MENU)
+        {
+        case 1:
+            do{
+                system("cls");
+                mostrarPersonas(centroLogistico, 2);
+                ELECCION = menuModoAccion1( getPersonas(centroLogistico) );
+                PersonaBuscada = getDatoLista( getPersonas(centroLogistico), ELECCION );
+            }while(getEsChofer(PersonaBuscada));
+            break;
+        case 2:
+            do{
+                system("cls");
+                printf("Ingrese el cuil a buscar: ");
+                seleccionarString(CuilBuscar);
+                PersonaBuscada = devolverPersona(centroLogistico, CuilBuscar);
+            }while(PersonaBuscada == NULL);
+            break;
+        default:
+            printf("Opcion equivocada... \n");
+            break;
+        }
     }
     return PersonaBuscada;
 }
@@ -595,7 +609,10 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
     PaquetePtr paqueteRemovido=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
     ListaPtr listaAuxiliar = getPaquetes(centroLogistico);
     if(listaVacia(listaAuxiliar))
+    {
         printf("ERROR: Lista vacía. Debe agregar paquetes para poder eliminarlos.\n\n");
+        presionarEnterYLimpiarPantalla();
+    }
     else
     {
         do
@@ -652,10 +669,12 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         if(esChofer)
         {
             printf("ERROR: Lista vacía. Debe agregar choferes para poder eliminarlos.\n\n");
+            presionarEnterYLimpiarPantalla();
         }
         else
         {
             printf("ERROR: Lista vacía. Debe agregar clientes para poder eliminarlos.\n\n");
+            presionarEnterYLimpiarPantalla();
         }
     }
     else
@@ -754,7 +773,10 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
     VehiculoPtr vehiculoRemovido = (VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));
     ListaPtr listaAuxiliar = getVehiculos(centroLogistico);
     if(listaVacia(listaAuxiliar))
+    {
         printf("ERROR: Lista vacía. Debe agregar vehiculos para poder eliminarlos.\n\n");
+        presionarEnterYLimpiarPantalla();
+    }
     else
     {
         do
@@ -938,6 +960,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
     if(listaVacia(listaAuxiliar))
     {
         printf("ERROR: Lista vacía. Debe agregar vehiculos para poder modificarlos.\n\n");
+        presionarEnterYLimpiarPantalla();
     }
     else
     {
@@ -1127,10 +1150,12 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         if(esChofer)
         {
             printf("ERROR: Lista vacía. Debe agregar choferes para poder modificarlos.\n\n");
+            presionarEnterYLimpiarPantalla();
         }
         else
         {
             printf("ERROR: Lista vacía. Debe agregar clientes para poder modificarlos.\n\n");
+            presionarEnterYLimpiarPantalla();
         }
     }
     else
@@ -1382,6 +1407,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
     if(listaVacia(listaAuxiliar))
     {
         printf("ERROR: Lista vacía. Debe agregar paquetes para poder modificarlos.\n\n");
+        presionarEnterYLimpiarPantalla();
     }
     else
     {
@@ -1447,50 +1473,58 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico)
 {
     int op=0;
     bool cambiosGuardados=false;
-    do
+    if(listaVacia(getPaquetes(centroLogistico)))
     {
-        system("cls");
-        printf("EMITIR LISTADO DE PAQUETES\n");
-        printf("\n-----------------------------------------\n\n");
-        printf("1. Ordenados por ID\n");
-        printf("2. Ordenados por Fecha de Entrega\n");
-        printf("3. Ordenados por Estado\n");
-        printf("4. SIN ORDENAR\n");
-        printf("0. Volver\n");
-        printf("-1. MENU PRINCIPAL");
-        printf("\n-----------------------------------------\n\n");
-        printf("Elija una opcion: ");
-        limpiarBufferTeclado();
-        scanf("%d",&op);
-        limpiarBufferTeclado();
-        system("cls");
-        switch(op)
+        printf("Lista de paquetes vacia, por favor, agregue elementos\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        do
         {
-        case 1:
-            printf("LISTADO DE PAQUETES (ORDENADOS POR ID)");
-            ordenarPaquetes(centroLogistico,1);
-            break;
-        case 2:
-            printf("LISTADO DE PAQUETES (ORDENADOS POR FECHA DE SALIDA)");
-            ordenarPaquetes(centroLogistico,2);
-            break;
-        case 3:
-            printf("LISTADO DE PAQUETES (ORDENADOS POR ESTADO)");
-            ordenarPaquetes(centroLogistico,3);
-            break;
-        case 4:
-            printf("LISTADO DE PAQUETES (SIN ORDENAR)");
-            ordenarPaquetes(centroLogistico,4);
-            break;
-        case 0:
-            break;
-        case -1:
-            break;
-        default:
-            printf("\nOpcion incorrecta.\n\n");
-            break;
-        }
-    } while(op!=0 && op!=-1);
+            system("cls");
+            printf("EMITIR LISTADO DE PAQUETES\n");
+            printf("\n-----------------------------------------\n\n");
+            printf("1. Ordenados por ID\n");
+            printf("2. Ordenados por Fecha de Entrega\n");
+            printf("3. Ordenados por Estado\n");
+            printf("4. SIN ORDENAR\n");
+            printf("0. Volver\n");
+            printf("-1. MENU PRINCIPAL");
+            printf("\n-----------------------------------------\n\n");
+            printf("Elija una opcion: ");
+            limpiarBufferTeclado();
+            scanf("%d",&op);
+            limpiarBufferTeclado();
+            system("cls");
+            switch(op)
+            {
+            case 1:
+                printf("LISTADO DE PAQUETES (ORDENADOS POR ID)");
+                ordenarPaquetes(centroLogistico,1);
+                break;
+            case 2:
+                printf("LISTADO DE PAQUETES (ORDENADOS POR FECHA DE SALIDA)");
+                ordenarPaquetes(centroLogistico,2);
+                break;
+            case 3:
+                printf("LISTADO DE PAQUETES (ORDENADOS POR ESTADO)");
+                ordenarPaquetes(centroLogistico,3);
+                break;
+            case 4:
+                printf("LISTADO DE PAQUETES (SIN ORDENAR)");
+                ordenarPaquetes(centroLogistico,4);
+                break;
+            case 0:
+                break;
+            case -1:
+                break;
+            default:
+                printf("\nOpcion incorrecta.\n\n");
+                break;
+            }
+        } while(op!=0 && op!=-1);
+    }
     return cambiosGuardados;
 }
 
@@ -1498,74 +1532,82 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo)
 {
     int op=0;
     bool cambiosGuardados=false;
-    do
+    if(listaVacia(getPersonas(centroLogistico)))
     {
-        system("cls");
-        switch(tipo)
+        printf("Lista vacia de personas, agregue un elemento por favor\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        do
         {
-        case 1:
-            printf("EMITIR LISTADO DE CHOFERES\n");
-            break;
-        case 2:
-            printf("EMITIR LISTADO DE CLIENTES\n");
-            break;
-        case 3:
-            printf("EMITIR LISTADO DE PERSONAS\n");
-            break;
-        }
-        printf("\n-----------------------------------------\n\n");
-        printf("1. Ordenados por Nombre\n");
-        printf("2. Ordenados por Apellido\n");
-        printf("3. Ordenados por Cuil\n");
-        printf("4. SIN ORDENAR\n");
-        printf("0. Volver\n");
-        printf("-1. MENU PRINCIPAL");
-        printf("\n-----------------------------------------\n\n");
-        printf("Elija una opcion: ");
-        scanf("%d",&op);
-        limpiarBufferTeclado();
-        system("cls");
+            system("cls");
+            switch(tipo)
+            {
+            case 1:
+                printf("EMITIR LISTADO DE CHOFERES\n");
+                break;
+            case 2:
+                printf("EMITIR LISTADO DE CLIENTES\n");
+                break;
+            case 3:
+                printf("EMITIR LISTADO DE PERSONAS\n");
+                break;
+            }
+            printf("\n-----------------------------------------\n\n");
+            printf("1. Ordenados por Nombre\n");
+            printf("2. Ordenados por Apellido\n");
+            printf("3. Ordenados por Cuil\n");
+            printf("4. SIN ORDENAR\n");
+            printf("0. Volver\n");
+            printf("-1. MENU PRINCIPAL");
+            printf("\n-----------------------------------------\n\n");
+            printf("Elija una opcion: ");
+            scanf("%d",&op);
+            limpiarBufferTeclado();
+            system("cls");
 
-        switch(tipo)
-        {
-        case 1:
-            printf("LISTADO DE CHOFERES ");
-            break;
-        case 2:
-            printf("LISTADO DE CLIENTES ");
-            break;
-        case 3:
-            printf("LISTADO DE PERSONAS ");
-            break;
-        }
+            switch(tipo)
+            {
+            case 1:
+                printf("LISTADO DE CHOFERES ");
+                break;
+            case 2:
+                printf("LISTADO DE CLIENTES ");
+                break;
+            case 3:
+                printf("LISTADO DE PERSONAS ");
+                break;
+            }
 
-        switch(op)
-        {
-        case 1:
-            printf("(ORDENADO POR NOMBRE)");
-            ordenarPersonas(centroLogistico, 1, tipo);
-            break;
-        case 2:
-            printf("(ORDENADO POR APELLIDO)");
-            ordenarPersonas(centroLogistico, 2, tipo);
-            break;
-        case 3:
-            printf("(ORDENADO POR NOMBRE Y APELLIDO)");
-            ordenarPersonas(centroLogistico, 3, tipo);
-            break;
-        case 4:
-            printf("(SIN ORDENAR)");
-            ordenarPersonas(centroLogistico, 4, tipo);
-            break;
-        case 0:
-            break;
-        case -1:
-            break;
-        default:
-            printf("\nOpcion incorrecta.\n\n");
-            break;
-        }
-    }while(op!=0 && op!=-1);
+            switch(op)
+            {
+            case 1:
+                printf("(ORDENADO POR NOMBRE)");
+                ordenarPersonas(centroLogistico, 1, tipo);
+                break;
+            case 2:
+                printf("(ORDENADO POR APELLIDO)");
+                ordenarPersonas(centroLogistico, 2, tipo);
+                break;
+            case 3:
+                printf("(ORDENADO POR NOMBRE Y APELLIDO)");
+                ordenarPersonas(centroLogistico, 3, tipo);
+                break;
+            case 4:
+                printf("(SIN ORDENAR)");
+                ordenarPersonas(centroLogistico, 4, tipo);
+                break;
+            case 0:
+                break;
+            case -1:
+                break;
+            default:
+                printf("\nOpcion incorrecta.\n\n");
+                break;
+            }
+        }while(op!=0 && op!=-1);
+    }
     return cambiosGuardados;
 }
 
@@ -1573,50 +1615,58 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico)
 {
     int op=0;
     bool cambiosGuardados=false;
-    do
+    if(listaVacia(getVehiculos(centroLogistico)))
     {
-        system("cls");
-        printf("EMITIR LISTADO DE VEHICULOS\n");
-        printf("\n-----------------------------------------\n\n");
-        printf("1. Ordenados por Marca\n");
-        printf("2. Ordenados por Modelo\n");
-        printf("3. Ordenados por tipo\n");
-        printf("4. SIN ORDENAR\n");
-        printf("0. Volver\n");
-        printf("-1. MENU PRINCIPAL");
-        printf("\n-----------------------------------------\n\n");
-        printf("Elija una opcion: ");
-        limpiarBufferTeclado();
-        scanf("%d",&op);
-        limpiarBufferTeclado();
-        system("cls");
-        switch(op)
+        printf("Lista vacia de vehiculos, agregue un elemento por favor\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        do
         {
-        case 1:
-            printf("LISTADO DE VEHICULOS (ORDENADOS POR MARCA)");
-            ordenarVehiculos(centroLogistico,1);
-            break;
-        case 2:
-            printf("LISTADO DE VEHICULOS (ORDENADOS POR MODELO)");
-            ordenarVehiculos(centroLogistico,2);
-            break;
-        case 3:
-            printf("LISTADO DE VEHICULOS (ORDENADOS TIPO)");
-            ordenarVehiculos(centroLogistico,3);
-            break;
-        case 4:
-            printf("LISTADO DE VEHICULOS (SIN ORDENAR)");
-            ordenarVehiculos(centroLogistico,4);
-            break;
-        case 0:
-            break;
-        case -1:
-            break;
-        default:
-            printf("\nOpcion incorrecta.\n\n");
-            break;
-        }
-    }while(op!=0 && op!=-1);
+            system("cls");
+            printf("EMITIR LISTADO DE VEHICULOS\n");
+            printf("\n-----------------------------------------\n\n");
+            printf("1. Ordenados por Marca\n");
+            printf("2. Ordenados por Modelo\n");
+            printf("3. Ordenados por tipo\n");
+            printf("4. SIN ORDENAR\n");
+            printf("0. Volver\n");
+            printf("-1. MENU PRINCIPAL");
+            printf("\n-----------------------------------------\n\n");
+            printf("Elija una opcion: ");
+            limpiarBufferTeclado();
+            scanf("%d",&op);
+            limpiarBufferTeclado();
+            system("cls");
+            switch(op)
+            {
+            case 1:
+                printf("LISTADO DE VEHICULOS (ORDENADOS POR MARCA)");
+                ordenarVehiculos(centroLogistico,1);
+                break;
+            case 2:
+                printf("LISTADO DE VEHICULOS (ORDENADOS POR MODELO)");
+                ordenarVehiculos(centroLogistico,2);
+                break;
+            case 3:
+                printf("LISTADO DE VEHICULOS (ORDENADOS TIPO)");
+                ordenarVehiculos(centroLogistico,3);
+                break;
+            case 4:
+                printf("LISTADO DE VEHICULOS (SIN ORDENAR)");
+                ordenarVehiculos(centroLogistico,4);
+                break;
+            case 0:
+                break;
+            case -1:
+                break;
+            default:
+                printf("\nOpcion incorrecta.\n\n");
+                break;
+            }
+        }while(op!=0 && op!=-1);
+    }
     return cambiosGuardados;
 }
 
@@ -1629,40 +1679,95 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico)
 bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 {
     RepartoPtr reparto;
-    int n=0,k=0,cantPaquetesElegidos=0,resultado=0;
+    int k=0;
+    int cantPaquetesElegidos=0;
+    int resultado=0;
     PersonaPtr choferElegido;
     VehiculoPtr vehiculoElegido;
     FechaPtr fechaSalida;
     FechaPtr fechaRetorno;
     ListaPtr paquetes=crearLista();
+    ListaPtr personas=crearLista();
     PaquetePtr paqueteElegido;
-    bool cambiosGuardados=false,continuar,valido=false;
-    do{
-        int longLista=0;
-        int i=0;
-            if(n>1)
-                printf("\n\nREPARTO %d\n\n",i+1);
-            do{
+    agregarLista(personas, getPersonas(centroLogistico));
+    bool ExistenDatos=true;
+    bool cambiosGuardados=false;
+    bool continuar;
+    bool valido=false;
+    bool HayChofer=false;
+    if(listaVacia(getVehiculos(centroLogistico)))
+    {
+        ExistenDatos=false;
+        printf("Faltan vehiculos para agregar al reparto...\n");
+    }
+    if(listaVacia(getPersonas(centroLogistico)))
+    {
+        ExistenDatos=false;
+        printf("Faltan choferes para agregar al reparto...\n");
+    }
+    else
+    {
+        while(!listaVacia(personas))
+        {
+            if(getEsChofer(getCabecera(personas)))
+            {
+                HayChofer=true;
+            }
+            ListaPtr ListaDestruir=personas;
+            personas=getResto(personas);
+            ListaDestruir=destruirLista(ListaDestruir,false);
+        }
+        personas=destruirLista(personas,false);
+    }
+    if(!HayChofer)
+    {
+        ExistenDatos=false;
+        printf("Faltan choferes para agregar al reparto...\n");
+    }
+    if(listaVacia(getPaquetes(centroLogistico)))
+    {
+        ExistenDatos=false;
+        printf("Faltan paquetes para agregar al reparto...\n");
+    }
+    if(ExistenDatos)
+    {
+        do
+        {
+            int longLista=0;
+            int i=0;
+            printf("\n\nREPARTO %d\n\n",i+1);
+            do
+            {
                 ///Cargamos el chofer
                 longLista = longitudLista(getPersonas(centroLogistico));
                 mostrarChoferesDisponibles(centroLogistico);
                 printf("\n\nSeleccione un chofer ingresando su indice: ");
                 k=seleccionarNumero();
                 k--;
-                if(k>=0 && k<longLista){
+                if(k>=0 && k<longLista)
+                {
                     choferElegido=getDatoLista(getPersonas(centroLogistico),k);
-                    if(!buscarChoferRepartos(centroLogistico, getCuil(getCuilPersona(choferElegido)))){
-                        if(getEsChofer(choferElegido)){
+                    if(!buscarChoferRepartos(centroLogistico, getCuil(getCuilPersona(choferElegido))))
+                    {
+                        if(getEsChofer(choferElegido))
+                        {
                             valido=true;
-                        }else{
+                        }
+                        else
+                        {
                             printf("El chofer elegido resulto no ser un chofer\n");
                             presionarEnterYLimpiarPantalla();
                         }
-                    }else{
+                    }
+                    else
+                    {
+
                         printf("El chofer resulto estar en otro reparto\n");
                         presionarEnterYLimpiarPantalla();
                     }
-                }else{
+                }
+                else
+                {
                     printf("\n\nERROR: Eleccion equivocada, eliga de nuevo un indice adecuado.\n\n");
                     presionarEnterYLimpiarPantalla();
                 }
@@ -1676,15 +1781,21 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                 printf("\n\nSeleccione un vehiculo ingresando su indice: ");
                 k=seleccionarNumero();
                 k--;
-                if(k>=0 && k<longLista){
-                    if(!buscarVehiculoRepartos(centroLogistico,getPatente(getDatoLista(getVehiculos(centroLogistico),k)))){
+                if(k>=0 && k<longLista)
+                {
+                    if(!buscarVehiculoRepartos(centroLogistico,getPatente(getDatoLista(getVehiculos(centroLogistico),k))))
+                    {
                         vehiculoElegido=getDatoLista(getVehiculos(centroLogistico),k);
                         valido=true;
-                    }else{
+                    }
+                    else
+                    {
                         printf("Vehiculo actualmente en un reparto\n");
                         presionarEnterYLimpiarPantalla();
                     }
-                }else{
+                }
+                else
+                {
                     printf("Indice actual equivocado, eliga un indice adecuado\n");
                     presionarEnterYLimpiarPantalla();
                 }
@@ -1697,19 +1808,24 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             fechaRetorno=cargarFecha(fechaRetorno);
             system("cls");
             valido=false;
-            do{
+            do
+            {
                 printf("Ingrese cantidad de paquetes a agregar al reparto: ");
                 cantPaquetesElegidos=seleccionarNumero();
-                if(cantPaquetesElegidos<1){
+                if(cantPaquetesElegidos<1)
+                {
                     printf("\n\nERROR: cantidad incorrecta. Vuelva a ingresar.\n\n");
                     presionarEnterYLimpiarPantalla();
                 }
-                if(cantPaquetesElegidos>0 && cantPaquetesElegidos<longitudLista(getPaquetes(centroLogistico))){
+                if(cantPaquetesElegidos>0 && cantPaquetesElegidos<longitudLista(getPaquetes(centroLogistico)))
+                {
                     valido=true;
                 }
             } while(!valido);
-            for(int j=0;j<cantPaquetesElegidos;j++){
-                do{
+            for(int j=0;j<cantPaquetesElegidos;j++)
+            {
+                do
+                {
                     valido=false;
                     system("cls");
                     longLista=longitudLista(getPaquetes(centroLogistico));
@@ -1718,14 +1834,20 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     printf("Seleccione el paquete a cargar ingresando su indice: ");
                     k=seleccionarNumero();
                     k--;
-                    if(k>=0 && k<longLista){
-                        if(getEstado(getDatoLista(getPaquetes(centroLogistico),k))==0){
+                    if(k>=0 && k<longLista)
+                    {
+                        if(getEstado(getDatoLista(getPaquetes(centroLogistico),k))==0)
+                        {
                             valido=true;
-                        }else{
+                        }
+                        else
+                        {
                             printf("Paquete actualmente en curso\n");
                             presionarEnterYLimpiarPantalla();
                         }
-                    }else{
+                    }
+                    else
+                    {
                         printf("Indice inexistente, Vuelva a elegir\n");
                         presionarEnterYLimpiarPantalla();
                     }
@@ -1738,8 +1860,9 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             agregarReparto(centroLogistico,reparto,true);
             printf("\n\nReparto armado exitosamente.\n\n");
             i++;
-        continuar=menuContinuar();
-    }while(continuar);
+            continuar=menuContinuar();
+        }while(continuar);
+    }
     resultado=menuGuardarCambios();
     if(resultado == 1)
     {
@@ -1760,6 +1883,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico)
     if(listaVacia(listaAuxiliar))
     {
         printf("Lista vacia,, no puede cerrar repartos\n");
+        presionarEnterYLimpiarPantalla();
     }
     else
     {
@@ -1828,7 +1952,10 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
     ListaPtr listaAuxiliar = crearLista();
     agregarLista(listaAuxiliar,getRepartos(centroLogistico,esRepartoAbierto));
     if(listaVacia(listaAuxiliar))
+    {
         printf("ERROR: Lista vacía. Debe agregar repartos para poder eliminarlos.\n\n");
+        presionarEnterYLimpiarPantalla();
+    }
     else
     {
         do
@@ -1846,14 +1973,16 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
             case 2:
                 cantIndices = calcularCantidad();
                 menuModoAccion2(listaAuxiliar,cantIndices,indices);
-                for(int i=0;i<cantIndices;i++){
+                for(int i=0;i<cantIndices;i++)
+                {
                     repartoRemovido = removerReparto(centroLogistico,indices[i]-i,esRepartoAbierto);
                     repartoRemovido = destruirReparto(repartoRemovido);
                 }
                 break;
             case 3:
                 menuModoAccion3(listaAuxiliar,indices);
-                for(int i=0;i<indices[1]-indices[0]+1;i++){
+                for(int i=0;i<indices[1]-indices[0]+1;i++)
+                {
                     repartoRemovido = removerReparto(centroLogistico,indices[0],esRepartoAbierto);
                     repartoRemovido = destruirReparto(repartoRemovido);
                 }
@@ -2013,34 +2142,40 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 {
     int eleccion=0;
     bool continuar=false;
-    if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto))){
+    if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
+    {
         printf("ERROR: Lista vacia. No hay repartos para buscar\n");
-    }else{
-        do{
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        do
+        {
             system("cls");
             eleccion=menuTipoRepartos();
             mostrarRepartos(centroLogistico,true);
-            switch(eleccion){
-            case 1:
-                menuBuscarPorIndiceReparto(centroLogistico, esRepartoAbierto);
-                break;
-            case 2:
-                menuBuscarRepartoPorCuilChofer(centroLogistico);
-                break;
-            case 3:
-                menuBuscarRepartoPorPatenteVehiculo(centroLogistico);
-                break;
-            case 4:
-                menuBuscarRepartoPorFechaSalida(centroLogistico);
-                break;
-            case 5:
-                menuBuscarRepartoPorFechaRetorno(centroLogistico);
-                break;
-            case 6:
-                menuBuscarRepartoPorIDPaquete(centroLogistico);
-                break;
-            default:
-                break;
+            switch(eleccion)
+            {
+                case 1:
+                    menuBuscarPorIndiceReparto(centroLogistico, esRepartoAbierto);
+                    break;
+                case 2:
+                    menuBuscarRepartoPorCuilChofer(centroLogistico);
+                    break;
+                case 3:
+                    menuBuscarRepartoPorPatenteVehiculo(centroLogistico);
+                    break;
+                case 4:
+                    menuBuscarRepartoPorFechaSalida(centroLogistico);
+                    break;
+                case 5:
+                    menuBuscarRepartoPorFechaRetorno(centroLogistico);
+                    break;
+                case 6:
+                    menuBuscarRepartoPorIDPaquete(centroLogistico);
+                    break;
+                default:
+                    break;
             }
             continuar=menuContinuar();
         }while(continuar);
@@ -2137,55 +2272,64 @@ RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico)
     RepartoPtr RepartoElegido=NULL;
     ListaPtr ListaRepartos = crearLista();
     agregarLista(ListaRepartos, getRepartos(centroLogistico, true));
-    do{
-        system("cls");
-        Menu = menuTipoRepartos();
-        switch(Menu)
+    if(listaVacia(ListaRepartos))
+    {
+        printf("Lista de repartos vacia, agregue elementos para seleccionar...\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        do
         {
-        case 1:
-            mostrarRepartos(centroLogistico, true);
-            Indice = menuModoAccion1( ListaRepartos );
-            RepartoElegido = (RepartoPtr)getDatoLista( ListaRepartos , Indice );
-            break;
-        case 2:
-            printf("Ingrese el cuil: ");
-            seleccionarString(CuilBuscar);
-            RepartoElegido = devolverRepartoChofer(centroLogistico, CuilBuscar);
-            break;
-        case 3:
-            printf("Ingrese la patente: ");
-            seleccionarString(PatenteBuscar);
-            RepartoElegido = devolverRepartoVehiculo(centroLogistico, PatenteBuscar);
-            break;
-        case 4:
-            printf("Ingrese la fecha de salida [DD/MM/AA HH:MM]: ");
-            fflush(stdin);
-            scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutosBuscar);
-            fflush(stdin);
-            FechaBuscar = crearFecha(diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutosBuscar);
-            RepartoElegido = devolverRepartoFechaSalida(centroLogistico, FechaBuscar);
-            FechaBuscar = destruirFecha(FechaBuscar);
-            break;
-        case 5:
-            printf("Ingrese la fecha de retorno [DD/MM/AA HH:MM]: ");
-            fflush(stdin);
-            scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutosBuscar);
-            fflush(stdin);
-            FechaBuscar = crearFecha(diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutosBuscar);
-            RepartoElegido = devolverRepartoFechaRetorno(centroLogistico, FechaBuscar);
-            FechaBuscar = destruirFecha(FechaBuscar);
-            break;
-        case 6:
-            printf("Ingrese el ID: ");
-            ID_Buscar = seleccionarNumero();
-            RepartoElegido = devolverRepartoPaquete(centroLogistico, ID_Buscar);
-            break;
-        default:
-            printf("Opcion equivocada... \n");
-            presionarEnterYLimpiarPantalla();
-            break;
-        }
-    }while(RepartoElegido == NULL);
+            system("cls");
+            Menu = menuTipoRepartos();
+            switch(Menu)
+            {
+                case 1:
+                    mostrarRepartos(centroLogistico, true);
+                    Indice = menuModoAccion1( ListaRepartos );
+                    RepartoElegido = (RepartoPtr)getDatoLista( ListaRepartos , Indice );
+                    break;
+                case 2:
+                    printf("Ingrese el cuil: ");
+                    seleccionarString(CuilBuscar);
+                    RepartoElegido = devolverRepartoChofer(centroLogistico, CuilBuscar);
+                    break;
+                case 3:
+                    printf("Ingrese la patente: ");
+                    seleccionarString(PatenteBuscar);
+                    RepartoElegido = devolverRepartoVehiculo(centroLogistico, PatenteBuscar);
+                    break;
+                case 4:
+                    printf("Ingrese la fecha de salida [DD/MM/AA HH:MM]: ");
+                    fflush(stdin);
+                    scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutosBuscar);
+                    fflush(stdin);
+                    FechaBuscar = crearFecha(diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutosBuscar);
+                    RepartoElegido = devolverRepartoFechaSalida(centroLogistico, FechaBuscar);
+                    FechaBuscar = destruirFecha(FechaBuscar);
+                    break;
+                case 5:
+                    printf("Ingrese la fecha de retorno [DD/MM/AA HH:MM]: ");
+                    fflush(stdin);
+                    scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutosBuscar);
+                    fflush(stdin);
+                    FechaBuscar = crearFecha(diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutosBuscar);
+                    RepartoElegido = devolverRepartoFechaRetorno(centroLogistico, FechaBuscar);
+                    FechaBuscar = destruirFecha(FechaBuscar);
+                    break;
+                case 6:
+                    printf("Ingrese el ID: ");
+                    ID_Buscar = seleccionarNumero();
+                    RepartoElegido = devolverRepartoPaquete(centroLogistico, ID_Buscar);
+                    break;
+                default:
+                    printf("Opcion equivocada... \n");
+                    presionarEnterYLimpiarPantalla();
+                    break;
+            }
+        }while(RepartoElegido == NULL);
+    }
     ListaRepartos = destruirLista(ListaRepartos, false);
     return RepartoElegido;
 }
@@ -2197,37 +2341,49 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
     PaquetePtr paqueteActual;
     PaquetePtr PaqueteModificar;
     RepartoPtr RepartoActualizar;
-    RepartoActualizar = SeleccionRepartoPorAtributo(centroLogistico);
-    ListaPtr paquetes = getPaquetesReparto(RepartoActualizar);
-    ListaPtr listaRespaldo=crearLista();
-    agregarLista(listaRespaldo,paquetes);
-    bool encontrado=false;
-    while(!encontrado && !listaVacia(listaRespaldo)){
-        paqueteActual=getCabecera(listaRespaldo);
-        EstadoPaquete = getEstado(paqueteActual);
-        ///SI ES DISTINTO DE ENTREGADO Y SUSPENDIDO
-        if(EstadoPaquete != 3 && EstadoPaquete != 5 && encontrado == false){
-            encontrado=true;
-            PaqueteModificar = paqueteActual;
-        }
-        ListaPtr ListaDestruir = listaRespaldo;
-        listaRespaldo = getResto(listaRespaldo);
-        ListaDestruir = destruirLista(ListaDestruir, false);
+    if(listaVacia(getRepartos(centroLogistico,true)))
+    {
+        printf("No existen repartos para actualizar...\n");
+        presionarEnterYLimpiarPantalla();
     }
-    listaRespaldo = destruirLista(listaRespaldo,false);
-    system("cls");
-    printf("El paquete que esta modificando es: \n");
-    mostrarPaquete(PaqueteModificar);
-    printf("\n");
-    helpEstadoPaquete();
-    do{
-        printf("SELECCIONE EL ESTADO: ");
-        eleccion=seleccionarNumero();
-        if(eleccion==0){
-            printf("Que haces seleccionando un paquete en estado 'DEPOSITO'?\n");
+    else
+    {
+        RepartoActualizar = SeleccionRepartoPorAtributo(centroLogistico);
+        ListaPtr paquetes = getPaquetesReparto(RepartoActualizar);
+        ListaPtr listaRespaldo=crearLista();
+        agregarLista(listaRespaldo,paquetes);
+        bool encontrado=false;
+        while(!encontrado && !listaVacia(listaRespaldo))
+        {
+            paqueteActual=getCabecera(listaRespaldo);
+            EstadoPaquete = getEstado(paqueteActual);
+            ///SI ES DISTINTO DE ENTREGADO Y SUSPENDIDO
+            if(EstadoPaquete != 3 && EstadoPaquete != 5 && encontrado == false)
+            {
+                encontrado=true;
+                PaqueteModificar = paqueteActual;
+            }
+            ListaPtr ListaDestruir = listaRespaldo;
+            listaRespaldo = getResto(listaRespaldo);
+            ListaDestruir = destruirLista(ListaDestruir, false);
         }
-    }while(eleccion < 1 && eleccion > 6);
-    setEstado(PaqueteModificar,eleccion);
+        listaRespaldo = destruirLista(listaRespaldo,false);
+        system("cls");
+        printf("El paquete que esta modificando es: \n");
+        mostrarPaquete(PaqueteModificar);
+        printf("\n");
+        helpEstadoPaquete();
+        do
+        {
+            printf("SELECCIONE EL ESTADO: ");
+            eleccion=seleccionarNumero();
+            if(eleccion==0)
+            {
+                printf("Que haces seleccionando un paquete en estado 'DEPOSITO'?\n");
+            }
+        }while(eleccion < 1 && eleccion > 6);
+        setEstado(PaqueteModificar,eleccion);
+    }
 }
 
 ListaPtr OriginalRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
@@ -2395,78 +2551,86 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 	int op2=0,op3=0,i=0;
     bool cambiosGuardados=false;
 	int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
-    do
+    if(listaVacia(getRepartos(centroLogistico,false)))
     {
-        system("cls");
-        if(esRepartoAbierto)
-            printf("EMITIR LISTADO DE REPARTOS ABIERTOS\n");
-        else
-            printf("EMITIR LISTADO DE REPARTOS CERRADOS\n");
-        op2=menuListadoReparto();
-        switch(op2)
+        printf("Lista de repartos vacia, por favor, agregue elementos para mostrar\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        do
         {
-        case 1:
-            do
-            {
-                mostrarRepartos(centroLogistico,esRepartoAbierto);
-                printf("\nSeleccione un reparto para mostrar:");
-                printf("ACLARACION: [-1] para salir...\n");
-                i=seleccionarNumero();
-                if(i<=0 || i>n){
-                    printf("\n\nIndice inexistente. Vuelva a ingresarlo.\n\n");
-                    presionarEnterYLimpiarPantalla();
-                }
-            } while((i<=0 || i>n) && i==-1);
             system("cls");
-            mostrarReparto(getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i-1));
-            system("pause");
-            break;
-        case 2:
-            do
+            if(esRepartoAbierto)
+                printf("EMITIR LISTADO DE REPARTOS ABIERTOS\n");
+            else
+                printf("EMITIR LISTADO DE REPARTOS CERRADOS\n");
+            op2=menuListadoReparto();
+            switch(op2)
             {
-                op3=menuOrdenarRepartos();
-                switch(op3)
+            case 1:
+                do
                 {
-                case 1:
-                    ordenarRepartos(centroLogistico,esRepartoAbierto,1);
-                    break;
-                case 2:
-                    ordenarRepartos(centroLogistico,esRepartoAbierto,2);
-                    break;
-                case 3:
-                    ordenarRepartos(centroLogistico,esRepartoAbierto,3);
-                    break;
-                case 4:
-                    ordenarRepartos(centroLogistico,esRepartoAbierto,4);
-                    break;
-                case 5:
-                    ordenarRepartos(centroLogistico,esRepartoAbierto,5);
-                    break;
-                case 6:
-                    ordenarRepartos(centroLogistico,esRepartoAbierto,6);
-                    break;
-                case 7:
-                    ordenarRepartos(centroLogistico,esRepartoAbierto,7);
-                    break;
-                case 0:
-                    break;
-                case -1:
-                    op2=0;
-                    op3=0;
-                default:
-                    printf("Opcion incorrecta.\n\n");
-                    break;
-                }
+                    mostrarRepartos(centroLogistico,esRepartoAbierto);
+                    printf("\nSeleccione un reparto para mostrar:");
+                    printf("ACLARACION: [-1] para salir...\n");
+                    i=seleccionarNumero();
+                    if(i<=0 || i>n){
+                        printf("\n\nIndice inexistente. Vuelva a ingresarlo.\n\n");
+                        presionarEnterYLimpiarPantalla();
+                    }
+                } while((i<=0 || i>n) && i==-1);
                 system("cls");
-            } while(op3!=0);
-            break;
-        case 0:
-            break;
-        default:
-            printf("Opcion incorrecta\n\n");
-            break;
-        }
-    } while(op2!=0);
+                mostrarReparto(getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i-1));
+                system("pause");
+                break;
+            case 2:
+                do
+                {
+                    op3=menuOrdenarRepartos();
+                    switch(op3)
+                    {
+                    case 1:
+                        ordenarRepartos(centroLogistico,esRepartoAbierto,1);
+                        break;
+                    case 2:
+                        ordenarRepartos(centroLogistico,esRepartoAbierto,2);
+                        break;
+                    case 3:
+                        ordenarRepartos(centroLogistico,esRepartoAbierto,3);
+                        break;
+                    case 4:
+                        ordenarRepartos(centroLogistico,esRepartoAbierto,4);
+                        break;
+                    case 5:
+                        ordenarRepartos(centroLogistico,esRepartoAbierto,5);
+                        break;
+                    case 6:
+                        ordenarRepartos(centroLogistico,esRepartoAbierto,6);
+                        break;
+                    case 7:
+                        ordenarRepartos(centroLogistico,esRepartoAbierto,7);
+                        break;
+                    case 0:
+                        break;
+                    case -1:
+                        op2=0;
+                        op3=0;
+                    default:
+                        printf("Opcion incorrecta.\n\n");
+                        break;
+                    }
+                    system("cls");
+                } while(op3!=0);
+                break;
+            case 0:
+                break;
+            default:
+                printf("Opcion incorrecta\n\n");
+                break;
+            }
+        } while(op2!=0);
+    }
     return cambiosGuardados;
 }
 

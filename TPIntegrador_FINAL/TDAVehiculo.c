@@ -134,6 +134,7 @@ void mostrarTipoVehiculo(VehiculoPtr vehiculo)
         printf("Si desconoce los tipos existentes, llame a la funcion 'helpTipoVehiculo()'.\n");
         printf("Ingrese otro invocando a la funcion 'setTipoVehiculo()'.\n");
     }
+    printf("\n\n");
 }
 
 bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2)

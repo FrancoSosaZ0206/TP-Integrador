@@ -128,7 +128,7 @@ void mostrarReparto(RepartoPtr reparto)
         i++;
     }
     ListaAuxiliar = destruirLista(ListaAuxiliar, false);
-    printf("\n");
+    printf("\n\n");
 }
 
 void mostrarRepartoSinPaquetes(RepartoPtr reparto)
@@ -139,6 +139,7 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
     mostrarFecha(getFechaSalida(reparto));
     printf("\nFECHA DE RETORNO: ");
     mostrarFecha(getFechaRetorno(reparto));
+    printf("\n\n");
 }
 
 void mostrarPaquetesReparto(RepartoPtr reparto)

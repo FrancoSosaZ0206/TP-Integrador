@@ -175,5 +175,11 @@ Funciones como verificarLimiteLista, seleccionar un numero
 Agregadas las opciones de buscar por cada campo del reparto
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+30. Correcion de verificacion de datos
+En todas las operaciones que operan con LISTAS se debe realizar una precaucion, verificar que existan datos dentro de la misma
+De esta forma evitamos que el programa eventualmente crashee por no tener datos de los que obtener el puntero, (obtenemos el puntero a una posicion de memoria
+sin datos), y cuando queremos acceder a ella como una STRUCT se colapsa por no ser de esa categoria
+Eliminacion, Modificacion, Busqueda
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

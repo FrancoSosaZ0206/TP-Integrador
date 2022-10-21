@@ -193,6 +193,7 @@ void mostrarPaquete(PaquetePtr paquete)
     mostrarFecha(getFechaEntrega(paquete));
     printf("\n\tDestinatario: \n");
     mostrarPersona(getCliente(paquete));
+    printf("\n\n");
 }
 
 ///muestra que relacion hay entre cada numero y cada estado posible del paquete.

@@ -124,6 +124,7 @@ void mostrarPersona(PersonaPtr persona)
     printf("\tDomicilio: ");
     mostrarDomicilio(getDomicilio(persona));
     mostrarCuil(getCuilPersona(persona));
+    printf("\n\n");
 }
 
 bool personasIguales(PersonaPtr persona1,PersonaPtr persona2)
