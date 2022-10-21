@@ -77,7 +77,7 @@ char *getLocalidad(DomicilioPtr domicilio)
 
 void mostrarDomicilio(DomicilioPtr domicilio)
 {
-    printf("%s %d, %s\n",getCalle(domicilio),getAltura(domicilio),getLocalidad(domicilio));
+    printf(" %s %d, %s\n",getCalle(domicilio),getAltura(domicilio),getLocalidad(domicilio));
 }
 
 bool domiciliosIguales(DomicilioPtr domicilio1,DomicilioPtr domicilio2)

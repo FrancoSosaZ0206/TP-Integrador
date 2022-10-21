@@ -3,6 +3,8 @@
 #include <string.h>
 #include "util.h"
 #include <stdbool.h>
+#include <ctype.h>
+#include <stdbool.h>
 
 const bool mostrar=false;
 
@@ -51,6 +53,7 @@ void presionarEnterYLimpiarPantalla()
     system("pause");
     limpiarBufferTeclado();
     system("cls");
+    limpiarBufferTeclado();
 }
 
 int seleccionarNumero()

@@ -298,8 +298,7 @@ bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
 
 void mostrarFecha(FechaPtr fecha)
 {
-    printf("%d / %d / %d \n", getDia(fecha),getMes(fecha),getAnio(fecha));
-    printf("%d : %d \n", getHora(fecha),getMinuto(fecha));
+    printf("%d / %d / %d - %d : %d", getDia(fecha),getMes(fecha),getAnio(fecha),getHora(fecha),getMinuto(fecha));
 }
 
 int calcularDiaJuliano(int dia, int mes, int anio)

@@ -127,4 +127,12 @@ void mostrarTipoVehiculo(VehiculoPtr vehiculo); ///informa al usuario de que tip
 bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2);
 
 
+//Operación: MUESTRA
+//Precondición: VEHICULO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
+//Postcondición: MUESTRA EL TIPO DEL VEHICULO, MOTO,AUTO,CAMION
+//Parámetros:
+//  PUNTERO A VEHICULO
+//Devuelve: VACIO
+void tipoVehiculo(VehiculoPtr vehiculo);
+
 #endif // TDAVEHICULO_H_INCLUDED

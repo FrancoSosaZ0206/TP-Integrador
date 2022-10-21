@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
+#include <math.h>
+#include <time.h>
+#include <ctype.h>
 #include "Files.h"
 #include "Lista.h"
 #include "Menus.h"
@@ -27,7 +31,6 @@ int main()
 {
     CentroLogisticoPtr centroLogistico;
     centroLogistico=crearCentroLogisticoDefecto();
-    menuActualizarReparto(centroLogistico);
     int START_OP=0;
     do
     {
@@ -226,22 +229,22 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         op2=menuEliminarRepartoCompleto();
                         switch(op2)
                         {
-                        case 1:
-                            cambiosGuardados = menuEliminarReparto(centroLogistico,true);
-                            break;
-                        case 2:
-                            cambiosGuardados = menuEliminarReparto(centroLogistico,false);
-                            break;
-                        case 0:
-                            break;
-                        case -1:
-                            ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
-                            op1=0;
-                            op2=0;
-                            break;
-                        default:
-                            printf("Opcion incorrecta.\n\n");
-                            break;
+                            case 1:
+                                cambiosGuardados = menuEliminarReparto(centroLogistico,true);
+                                break;
+                            case 2:
+                                cambiosGuardados = menuEliminarReparto(centroLogistico,false);
+                                break;
+                            case 0:
+                                break;
+                            case -1:
+                                ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                                op1=0;
+                                op2=0;
+                                break;
+                            default:
+                                printf("Opcion incorrecta.\n\n");
+                                break;
                         }
                     } while(op2!=0);
                     break;
@@ -251,47 +254,46 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         op2=menuModificarRepartoCompleto();
                         switch(op2)
                         {
-                        case 1:
-                            cambiosGuardados = menuModificarReparto(centroLogistico,true);
-                            break;
-                        case 2:
-                            cambiosGuardados = menuModificarReparto(centroLogistico,false);
-                            break;
-                        case 0:
-                            break;
-                        case -1:
-                            ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
-                            op1=0;
-                            op2=0;
-                            break;
-                        default:
-                            printf("Opcion incorrecta.\n\n");
-                            break;
+                            case 1:
+                                cambiosGuardados = menuModificarReparto(centroLogistico,true);
+                                break;
+                            case 2:
+                                cambiosGuardados = menuModificarReparto(centroLogistico,false);
+                                break;
+                            case 0:
+                                break;
+                            case -1:
+                                ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                                op1=0;
+                                op2=0;
+                                break;
+                            default:
+                                printf("Opcion incorrecta.\n\n");
+                                break;
                         }
                     } while(op2!=0);
                     break;
                 case 5:
-                    do
-                    {
+                    do{
                         op2=menuBuscadoReparto();
-                        switch(op2)
-                        {
-                        case 1:
-                            menuBuscarReparto(centroLogistico,true);
-                            break;
-                        case 2:
-                            menuBuscarReparto(centroLogistico,false);
-                            break;
-                        case 0:
-                            break;
-                        case -1:
-                            ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
-                            op1=0;
-                            op2=0;
-                            break;
-                        default:
-                            printf("Opcion incorrecta.\n\n");
-                            break;
+                        switch(op2){
+                            case 1:
+                                menuBuscarReparto(centroLogistico,true);
+                                break;
+                            case 2:
+                                menuBuscarReparto(centroLogistico,false);
+                                break;
+                            case 0:
+                                break;
+                            case -1:
+                                ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
+                                op1=0;
+                                op2=0;
+                                break;
+                            default:
+                                printf("Opcion incorrecta.\n\n");
+                                break;
+                        }
                     } while(op2!=0);
                     break;
                 case 0:
@@ -299,8 +301,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 default:
                     printf("Opcion incorrecta.\n\n");
                     break;
-                }while(op2!=0);
-            }
+                }
         } while(op1!=0);
             break;
         case 3:
@@ -386,7 +387,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     printf("Opcion incorrecta.\n\n");
                     break;
                 }
-                if(!resultadoGuardado)
+                if(!resultadoGuardado && op1!=0)
                 {
                     printf("ERROR AL GUARDAR\n\n");
                     exit(1);
@@ -411,12 +412,13 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         MAIN_OP=0;
                         break;
                     case 0:
+                        MAIN_OP=-1;
                         break;
                     default:
                         printf("Opcion incorrecta.\n\n");
                         break;
                     }
-                } while(op1!=1 && op1!=2 && op1!=0);
+                } while(MAIN_OP!=0 && MAIN_OP!=-1);
             }
             break;
         default:

@@ -222,25 +222,25 @@ void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico)
     printf("\nLISTA DE VEHICULOS: \n\n");
     while(!listaVacia(listaAux))
     {
-        printf("\n NUMERO %d. \n",i+1);
         vehiculoAux=(VehiculoPtr)getCabecera(listaAux);
-        if(!buscarVehiculo(centroLogistico,getPatente(vehiculoAux)))
+        if(!buscarVehiculoRepartos(centroLogistico,getPatente(vehiculoAux)))
         {
+            printf("\n NUMERO %d. \n",i+1);
             mostrarVehiculo(vehiculoAux);
         }
-        listaAux=getResto(listaAux);
+        ListaPtr ListaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        ListaDestruir = destruirLista(ListaDestruir, false);
         i++;
     }
-    ListaPtr ListaDestruir = listaAux;
-    listaAux = getResto(listaAux);
-    ListaDestruir = destruirLista(ListaDestruir, false);
+    listaAux=destruirLista(listaAux,false);
     printf("\n");
 }
 
 void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
 {
     ListaPtr listaAux=crearLista();
-    listaAux=getPersonas(centroLogistico);
+    agregarLista(listaAux, getPersonas(centroLogistico));
     PersonaPtr personaAux;
     CuilPtr cuilPersona;
     int i=0;
@@ -252,7 +252,7 @@ void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
         {
             if(!buscarChoferRepartos(centroLogistico,getCuil(cuilPersona)))
             {
-                printf("\n%d.",i+1);
+                printf("\n NUMERO %d. \n",i+1);
                 mostrarPersona(personaAux);
             }
         }
@@ -268,19 +268,18 @@ void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
 void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
 {
     ListaPtr listaAux=crearLista();
-    listaAux=getPaquetes(centroLogistico);
+    agregarLista(listaAux, getPaquetes(centroLogistico));
     int i=0;
     PaquetePtr paqueteAux;
-    while(!listaVacia(listaAux))
-    {
+    while(!listaVacia(listaAux)){
         paqueteAux=(PaquetePtr)getCabecera(listaAux);
-        if(!buscarPaquete(centroLogistico,getID(paqueteAux)))
-        {
-            limpiarBufferTeclado();
-            printf("\n %d. ",i+1);
+        if(getEstado(paqueteAux)!=0){
+            printf("\n NUMERO %d. \n",i+1);
             mostrarPaquete(paqueteAux);
         }
-        listaAux=getResto(listaAux);
+        ListaPtr ListaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        ListaDestruir = destruirLista(ListaDestruir, false);
         i++;
     }
     listaAux=destruirLista(listaAux,false);
@@ -482,6 +481,7 @@ bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente)
 
     return match;
 }
+
 
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE FUNCIONES DE DEVOLUCION DE DATOS EN LAS LISTAS///
@@ -1073,8 +1073,8 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
         RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
         bool condicion = fechasIguales(getFechaSalida(repartoAux),getFechaSalida(reparto));
         condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto));
-///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
-///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
+        ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
+        ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
         if(condicion)
             match=true;
         ListaPtr ListaDestruir = listaAux;

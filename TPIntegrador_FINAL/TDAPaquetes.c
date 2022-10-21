@@ -178,18 +178,20 @@ void setEstado(PaquetePtr paquete,int estado)
 
 void mostrarPaquete(PaquetePtr paquete)
 {
-    mostrarEstadopaquete(paquete);
+    printf("\tID: # %d\n",getID(paquete));
     printf("\tAncho: %d\n",getAncho(paquete));
     printf("\tAlto: %d\n",getAlto(paquete));
     printf("\tLargo: %d\n",getLargo(paquete));
     printf("\tPeso: %d\n",getPeso(paquete));
+    printf("\tEstado: ");
+    mostrarEstadopaquete(paquete);
     printf("\tDireccion de Retiro: ");
     mostrarDomicilio(getDirRetiro(paquete));
     printf("\tDireccion de Entrega: ");
     mostrarDomicilio(getDirEntrega(paquete));
-    printf("FECHA DE ENTREGA: \n");
+    printf("\tFECHA DE ENTREGA: ");
     mostrarFecha(getFechaEntrega(paquete));
-    printf("\tDestinatario: \n");
+    printf("\n\tDestinatario: \n");
     mostrarPersona(getCliente(paquete));
 }
 
@@ -211,25 +213,25 @@ void mostrarEstadopaquete(PaquetePtr paquete)
     switch(getEstado(paquete))
     {
     case 0:
-        printf("Estado del Paquete #%d = En Deposito.\n\n",getID(paquete));
+        printf("En Deposito.\n");
         break;
     case 1:
-        printf("Estado del Paquete #%d = En Curso.\n\n",getID(paquete));
+        printf("En Curso.\n");
         break;
     case 2:
-        printf("Estado del Paquete #%d = Retirado.\n\n",getID(paquete));
+        printf("Retirado.\n");
         break;
     case 3:
-        printf("Estado del Paquete #%d = Entregado.\n\n",getID(paquete));
+        printf("Entregado.\n");
         break;
     case 4:
-        printf("Estado del Paquete #%d = Demorado.\n\n",getID(paquete));
+        printf("Demorado.\n");
         break;
     case 5:
-        printf("Estado del Paquete #%d = Suspendido.\n\n",getID(paquete));
+        printf("Suspendido.\n");
         break;
     default:
-        printf("Estado del Paquete #%d = ERROR.\n",getID(paquete));
+        printf("ERROR.\n");
         break;
     }
 }
