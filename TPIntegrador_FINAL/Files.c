@@ -219,8 +219,7 @@ fPaquete *fgetPaquetesReparto(fRepartoPtr pfreparto)
 }
 
 
-///Setters
-/**
+/** Setters
 Se puede setear toda la estructura de una.
 Postcondición: si setGuardar == true, setea cuil en fCuil.
                De lo contrario, hace el proceso inverso (ayuda a la hora de abrir un archivo).

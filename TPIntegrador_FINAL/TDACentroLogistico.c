@@ -165,11 +165,12 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
             break;
         }
         listaAux=getResto(listaAux);
+        if(!listaVacia(listaAux))
+            printf("\n");
 
         i++;
     }
     listaAux=destruirLista(listaAux,false);
-    printf("\n");
 }
 
 void mostrarVehiculos(CentroLogisticoPtr centroLogistico)

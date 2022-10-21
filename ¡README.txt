@@ -32,25 +32,26 @@ BUG FIXES
 
 - Funcion presionarEnterYLimpiarPantalla: ahora funciona correctamente.
 
-- Se arregló un error d e lógica en el diseño de los menúes que impedía volver al menú anterior o ir al menú principal.
-	- while(!(op==0 && op==-1));
-usuario elige volver (op==0)
-		       true && false = true
-NO SALE AUN SI SE ELIGE VOLVER O IR AL MENU PPAL
-
-		a = op==0, b = op==-1
-
-		!a && !b = !(a || b)
-
-		!a * !b = !(a + b)
+- Se arregló un error de lógica en el diseño de los menúes que impedía volver al menú anterior o ir al menú principal. EXPLICACIÓN:
+		- while(!(op==0 && op==-1));
+	usuario elige volver (op==0)
+		     	  true && false = true
+	NO SALE AUN SI SE ELIGE VOLVER O IR AL MENU PPAL
+			a = op==0, b = op==-1
+			!a && !b = !(a || b)
+			!a * !b = !(a + b)
 
 - Menus: ahora todas las funciones (excepto las de creacion de datos) no hacen nada si la lista correspondiente está vacía, lo que evita posibles errores si, por ejemplo, se quiere modificar un dato en una lista vacía.
+
+- funcion mostrarPersona: se solucionó el error que impedía mostrar el nombre y apellido de la persona en cuestión. Había un cierre de paréntesis mal puesto en el printf.
 
 ---------------------------------------------------------------------------------------------------------------------
 
 BUGS
 
 - Files - Funcion guardarPaquetes al terminar de cargar paquetes crashea el programa.
+
+- Menus - Funcion eliminarPersona (y otras seguro que también): ahora elimina en el índice que corresponde, pero si se quiere eliminar el último elemento de la lista, no deja, dice que el indice excede el limite de la lista.
 
 ---------------------------------------------------------------------------------------------------------------------
 

@@ -957,6 +957,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                     indice=menuModoAccion1(listaAux);
                 //Obtenemos y destruimos el elemento seleccionado
                     destruirPaquete(removerPaquete(centroLogistico,indice));
+                    printf("\nPaquete eliminado exitosamente.\n\n");
                 }
                 else if(modoAccion==2)
                 {
@@ -968,6 +969,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                 //Obtenemos y destruimos los elementos en los indices seleccionados
                     for(int i=0,j=0;i<nIndices;i++,j++)
                         destruirPaquete(removerPaquete(centroLogistico,indices[i]-j));
+                    printf("\nPaquetes eliminados exitosamente.\n\n");
                 }
                 else
                 {
@@ -979,6 +981,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                 //Obtenemos y destruimos los elementos en el rango de indices
                     for(int i=desde;i<=hasta;i++)
                         destruirPaquete(removerPaquete(centroLogistico,desde));
+                    printf("\nPaquetes eliminados exitosamente.\n\n");
                 }
 
                 continuar=menuContinuar();
@@ -1034,7 +1037,11 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
                     printf("Persona a remover: ");
                     indice=menuModoAccion1(listaAux);
                 //Obtenemos y destruimos el elemento seleccionado
-                    destruirPersona(removerPersona(centroLogistico,indice));
+                    destruirPersona(removerPersona(centroLogistico,indice-1));
+                    if(esChofer)
+                        printf("\nChofer eliminado exitosamente.\n\n");
+                    else
+                        printf("\nCliente eliminado exitosamente.\n\n");
                 }
                 else if(modoAccion==2)
                 {
@@ -1053,7 +1060,11 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
                     indices = menuModoAccion2(listaAux,nIndices);
                 //Obtenemos y destruimos los elementos seleccionados
                     for(int i=0,j=0;i<nIndices;i++,j++)
-                        destruirPersona(removerPersona(centroLogistico,indices[i]-j));
+                        destruirPersona(removerPersona(centroLogistico,indices[i]-j-1));
+                    if(esChofer)
+                        printf("\nChoferes eliminados exitosamente.\n\n");
+                    else
+                        printf("\nClientes eliminados exitosamente.\n\n");
                 }
                 else
                 {
@@ -1072,7 +1083,11 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
                     menuModoAccion3(listaAux,desde,hasta);
                 //Obtenemos y destruimos los elementos en el rango de indices
                     for(int i=desde;i<=hasta;i++)
-                        destruirPersona(removerPersona(centroLogistico,desde));
+                        destruirPersona(removerPersona(centroLogistico,desde-1));
+                    if(esChofer)
+                        printf("\nChoferes eliminados exitosamente.\n\n");
+                    else
+                        printf("\nClientes eliminados exitosamente.\n\n");
                 }
 
                 continuar=menuContinuar();
@@ -1118,6 +1133,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                     indice=menuModoAccion1(listaAux);
                 //Obtenemos y destruimos el elemento seleccionado
                     destruirVehiculo(removerVehiculo(centroLogistico,indice));
+                    printf("\nVehiculo eliminado exitosamente.\n\n");
                 }
                 else if(modoAccion==2)
                 {
@@ -1129,6 +1145,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                 //Obtenemos y destruimos los elementos en los indices seleccionados
                     for(int i=0,j=0;i<nIndices;i++,j++)
                         destruirVehiculo(removerVehiculo(centroLogistico,indices[i]-j));
+                    printf("\nVehiculos eliminados exitosamente.\n\n");
                 }
                 else
                 {
@@ -1140,6 +1157,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                 //Obtenemos y destruimos los elementos en el rango de indices
                     for(int i=desde;i<=hasta;i++)
                         destruirVehiculo(removerVehiculo(centroLogistico,desde));
+                    printf("\nVehiculos eliminados exitosamente.\n\n");
                 }
 
                 continuar=menuContinuar();
@@ -2049,6 +2067,7 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int *opMenu
                     break;
                 }
                 printf("\n\n-----------------------------------------------------");
+                presionarEnterYLimpiarPantalla();
             }
         } while(!(op==0 || op==-1));
 
@@ -2425,6 +2444,7 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 indice=menuModoAccion1(listaAux);
             //Obtenemos y destruimos el elemento seleccionado
                 destruirReparto(removerReparto(centroLogistico,indice,esRepartoAbierto));
+                printf("\nReparto eliminado exitosamente.\n\n");
             }
             else if(modoAccion==2)
             {
@@ -2437,25 +2457,9 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 printf("Repartos a remover: ");
                 indices = menuModoAccion2(listaAux,nIndices);
             //Obtenemos y destruimos los elementos seleccionados
-                /* Funcionamiento
-                1 2 5 9 12
-                elimino 1
-                2 5 9 12 => 1 4 8 11
-                elimino 1
-                4 8 11 => 3 7 10
-                elimino 3
-                7 10 => 6 9
-                elimino 6
-                9 => 8
-                elimino 8
-
-                *************************
-
-                llegamos al límite del vector, termino de iterar.
-                */
-
                 for(int i=0,j=0;i<nIndices;i++,j++)
                     destruirReparto(removerReparto(centroLogistico,indices[i]-j,esRepartoAbierto));
+                printf("\nRepartos eliminados exitosamente.\n\n");
             }
             else
             {
@@ -2470,6 +2474,7 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
             //Obtenemos y destruimos los elementos en el rango de indices
                 for(int i=desde;i<=hasta;i++)
                     destruirReparto(removerReparto(centroLogistico,desde,esRepartoAbierto));
+                printf("\nRepartos eliminados exitosamente.\n\n");
             }
 
             continuar=menuContinuar();

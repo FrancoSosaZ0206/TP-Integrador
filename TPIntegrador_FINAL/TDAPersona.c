@@ -100,7 +100,7 @@ bool getEsChofer(PersonaPtr persona)
 
 void mostrarPersona(PersonaPtr persona)
 {
-    printf("Apellido y Nombre: %s, %s\n"),getApellido(persona),getNombre(persona);
+    printf("Apellido y Nombre: %s, %s\n",getApellido(persona),getNombre(persona));
 
     printf("\tTipo: ");
     if(getEsChofer(persona))
