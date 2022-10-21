@@ -109,25 +109,13 @@ void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno)
 
 void mostrarReparto(RepartoPtr reparto)
 {
-    int i = 0;
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
     printf("\nFECHA DE SALIDA: ");
     mostrarFecha(getFechaSalida(reparto));
     printf("\nFECHA DE RETORNO: ");
     mostrarFecha(getFechaRetorno(reparto));
-    ListaPtr ListaAuxiliar = crearLista();
-    agregarLista(ListaAuxiliar, getPaquetesReparto(reparto));
-    PaquetePtr PaqueteAuxiliar;
-    while(!listaVacia(ListaAuxiliar))
-    {
-        printf("\n %d. ", i+1);
-        PaqueteAuxiliar = getCabecera(ListaAuxiliar);
-        mostrarPaquete(PaqueteAuxiliar);
-        ListaAuxiliar = getResto(ListaAuxiliar);
-        i++;
-    }
-    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    mostrarPaquetesReparto(reparto);
     printf("\n\n");
 }
 
@@ -159,7 +147,6 @@ void mostrarPaquetesReparto(RepartoPtr reparto)
         i++;
     }
     ListaAuxiliar = destruirLista(ListaAuxiliar, false);
-    printf("\n");
 }
 
 bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA

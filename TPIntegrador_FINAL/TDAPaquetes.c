@@ -191,7 +191,7 @@ void mostrarPaquete(PaquetePtr paquete)
     mostrarDomicilio(getDirEntrega(paquete));
     printf("\tFECHA DE ENTREGA: ");
     mostrarFecha(getFechaEntrega(paquete));
-    printf("\n\tDestinatario: \n");
+    printf("\nDestinatario: \n");
     mostrarPersona(getCliente(paquete));
     printf("\n\n");
 }
