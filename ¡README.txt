@@ -45,6 +45,8 @@ BUG FIXES
 
 - funcion mostrarPersona: se solucionó el error que impedía mostrar el nombre y apellido de la persona en cuestión. Había un cierre de paréntesis mal puesto en el printf.
 
+- funcion MostrarPaquete / mostrarPaquetes: se arregló el error que corrompía los datos luego de mostrar un paquete o lista de paquetes 1 vez. El problema residía en la funcion mostrarPaquete, que mostraba la fecha de entrega del paquete usando un puntero a char, lo que provocaba problemas. Se reemplazó por un vector de char de 18 caracteres (la cantidad justa y necesaria para este caso), y ahora funciona correctamente, sin importar cuantas veces se utilice la funcion.
+
 ---------------------------------------------------------------------------------------------------------------------
 
 BUGS
@@ -53,11 +55,18 @@ BUGS
 
 - Menus - Funcion eliminarPersona (y otras seguro que también): ahora elimina en el índice que corresponde, pero si se quiere eliminar el último elemento de la lista, no deja, dice que el indice excede el limite de la lista.
 
+- Menus - Funcion modificarPaquete: luego de seleccionar el modo de accion, se sale del menu.
+
+- Menus - funciones de mostrar datos: la opcion "-1. MENU PRINCIPAL" funciona como "0. Volver".
+
+- Menus - Funciones de Modificacion de Datos: el programa crashea al querer setear un nuevo domicilio, ya que en todas estas funciones, la nueva fecha o domicilio solo fueron declaradas y no se hizo espacio en memoria dinámica para que se mantengan en la estructura luego de ser seteadas. 
+	SOLUCIÓN: Para todos los TDA que tengan campos que sean estructuras, modificar todos los respectivos setters para que no asignen directamente la nueva estructura, sino que copien el contenido de cada una.
+
 ---------------------------------------------------------------------------------------------------------------------
 
 MEJORAS
 
-
+- TDAFechaYHora: las funciones de traer fechas con strings ahora son más eficientes, ya que usan sprintf y strcat para construir la fecha en forma de string. (Mejora antigua pero no se había informado).
 
 ---------------------------------------------------------------------------------------------------------------------
 

@@ -218,7 +218,6 @@ int menuModoAccion(int *opMenuAnterior)
     int eleccion;
     do
     {
-        limpiarBufferTeclado();
         printf("Accion:\n");
         printf("1. Sobre un indice unico [Ej: Posicion 1]\n");
         printf("2. Sobre conjunto de indices [Ej: Posiciones 1,18,4,25,7,6] (*)\n");
@@ -236,6 +235,7 @@ int menuModoAccion(int *opMenuAnterior)
             presionarEnterYLimpiarPantalla();
         }
     } while(eleccion<-1 || eleccion>3);
+    system("cls");
 
     if(eleccion==-1)
         *opMenuAnterior=-1;
@@ -563,9 +563,16 @@ void actualizarDomicilio(DomicilioPtr domicilio)
     scanf("%[^\n]%*c",localidad);
     limpiarBufferTeclado();
 
+    printf("Funciona?");
+    presionarEnterYLimpiarPantalla();
+
     setCalle(domicilio,calle);
     setAltura(domicilio,altura);
     setLocalidad(domicilio,localidad);
+
+    printf("Funciona?");
+    presionarEnterYLimpiarPantalla();
+
 }
 /* OPERACIÓN: actualiza los datos de una fecha
 PRECONDICIÓN: fecha debe haberse creado
@@ -987,6 +994,8 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                 continuar=menuContinuar();
             } while(continuar);
         }
+        else //if(modoAccion == 0 || modoAccion == -1)
+            return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
 
         return menuGuardarCambios(centroLogistico,1);
     }
@@ -1093,6 +1102,9 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
                 continuar=menuContinuar();
             } while(continuar);
         }
+        else //if(modoAccion == 0 || modoAccion == -1)
+            return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
+
         return menuGuardarCambios(centroLogistico,2);
     }
 }
@@ -1163,6 +1175,9 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                 continuar=menuContinuar();
             } while(continuar);
         }
+        else //if(modoAccion == 0 || modoAccion == -1)
+            return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
+
         int opGuardar=0;
         do
         {
@@ -1212,7 +1227,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
         ListaPtr copiaLista = copiarLista(listaAux,1);
 
         int modoAccion = menuModoAccion(opMenuAnterior);
-        if(!modoAccion == 0 && modoAccion == -1)
+        if(!(modoAccion == 0 || modoAccion == -1))
         {
             bool continuar;
             int op=0;
@@ -1249,8 +1264,8 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                     printf("Ha elegido Paquetes");
                     for(int i=0;i<nIndices;i++)
                     { //Obtenemos los elementos en los indices seleccionados y los mostramos
-                        paquetesAModificar[i]=(PaquetePtr)getDatoLista(listaAux,indices[i]);
-                        printf("%d. ",indices[i]);
+                        paquetesAModificar[i]=(PaquetePtr)getDatoLista(listaAux,indices[i]-1);
+                        printf("%d. ",indices[i]-1);
                         mostrarPaquete(paquetesAModificar[i]);
                     }
                 }
@@ -1278,7 +1293,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                 int nEstado;
 
 
-                printf("\n\nQué desea modificar?\n\n");
+                printf("\n\nQue desea modificar?\n\n");
 
                 printf("1. Ancho\n");
                 printf("2. Alto\n");
@@ -1293,6 +1308,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                 printf("\n\n-----------------------------------------\n\n");
                 printf("Seleccione una opcion: ");
                 scanf("%d",&op);
+                limpiarBufferTeclado();
 
                 system("cls");
                 switch(op)
@@ -1302,6 +1318,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                     {
                         printf("Ingrese nuevo Ancho: ");
                         scanf("%d",&nDimension);
+                        limpiarBufferTeclado();
 
                         if(nDimension<=0)
                         {
@@ -1326,6 +1343,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                     {
                         printf("Ingrese nuevo Alto: ");
                         scanf("%d",&nDimension);
+                        limpiarBufferTeclado();
 
                         if(nDimension<=0)
                         {
@@ -1350,6 +1368,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                     {
                         printf("Ingrese nuevo Largo: ");
                         scanf("%d",&nDimension);
+                        limpiarBufferTeclado();
 
                         if(nDimension<=0)
                         {
@@ -1374,6 +1393,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                     {
                         printf("Ingrese nuevo Peso: ");
                         scanf("%d",&nDimension);
+                        limpiarBufferTeclado();
 
                         if(nDimension<=0)
                         {
@@ -1439,6 +1459,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
 
                         printf("Ingrese el numero del nuevo estado: ");
                         scanf("%d",&nEstado);
+                        limpiarBufferTeclado();
                         if(nEstado<0 || nEstado>5)
                         {
                             printf("\n\nERROR: estado inexistente. Vuelva a ingresar.");
@@ -1468,11 +1489,15 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                     break;
                 }
 
-                printf("\n\nDatos modificados exitosamente.\n\n");
                 if(!(op==0 || op==-1))
+                {
+                    printf("\n\nDatos modificados exitosamente.\n\n");
                     continuar=menuContinuar();
+                }
             } while(!(op==0 || op==-1) && continuar);
         }
+        else //if(modoAccion == 0 || modoAccion == -1)
+            return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
 
         bool cambioDetectado = detectarCambios(listaAux,copiaLista,1);
 
@@ -1500,7 +1525,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
         ListaPtr copiaLista = copiarLista(listaAux,2);
 
         int modoAccion = menuModoAccion(opMenuAnterior);
-        if(!modoAccion == 0 && modoAccion == -1)
+        if(!(modoAccion == 0 || modoAccion == -1))
         {
             bool continuar;
             int op=0;
@@ -1584,7 +1609,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                 bool nEsChofer;
 
 
-                printf("\n\nQué desea modificar?\n\n");
+                printf("\n\nQue desea modificar?\n\n");
 
                 printf("1. Nombre\n");
                 printf("2. Apellido\n");
@@ -1680,12 +1705,15 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                     presionarEnterYLimpiarPantalla();
                     break;
                 }
-
-                printf("\n\nDatos modificados exitosamente.\n\n");
-
-                continuar=menuContinuar();
+                if(!(op==0 || op==-1))
+                {
+                    printf("\n\nDatos modificados exitosamente.\n\n");
+                    continuar=menuContinuar();
+                }
             } while(!(op==0 || op==-1) && continuar);
         }
+        else //if(modoAccion == 0 || modoAccion == -1)
+            return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
 
         bool cambioDetectado = detectarCambios(listaAux,copiaLista,2);
 
@@ -1710,7 +1738,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterio
         ListaPtr copiaLista = copiarLista(listaAux,3);
 
         int modoAccion = menuModoAccion(opMenuAnterior);
-        if(!modoAccion == 0 && modoAccion == -1)
+        if(!(modoAccion == 0 || modoAccion == -1))
         {
             bool continuar;
             int op=0;
@@ -1778,7 +1806,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterio
                 char nPatente[100];
 
 
-                printf("\n\nQué desea modificar?\n\n");
+                printf("\n\nQue desea modificar?\n\n");
 
                 printf("1. Tipo de vehiculo\n");
                 printf("2. Marca\n");
@@ -1880,11 +1908,15 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterio
                     break;
                 }
 
-                printf("\n\nDatos modificados exitosamente.\n\n");
-
-                continuar=menuContinuar();
+                if(!(op==0 || op==-1))
+                {
+                    printf("\n\nDatos modificados exitosamente.\n\n");
+                    continuar=menuContinuar();
+                }
             } while(!(op==0 || op==-1) && continuar);
         }
+        else //if(modoAccion == 0 || modoAccion == -1)
+            return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
 
         bool cambioDetectado = detectarCambios(listaAux,copiaLista,3);
 
@@ -2402,8 +2434,8 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
         ///Como sí o sí vamos a hacer un cambio, no se necesita detectarlos en este menú.
             return menuGuardarCambios(centroLogistico,4);
         }
-        else
-            return true;
+        else //if(modoAccion == 0 || modoAccion == -1)
+            return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
     }
 }
 bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int *opMenuAnterior)
@@ -2424,61 +2456,66 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
         int modoAccion = menuModoAccion(opMenuAnterior);
         if(!(modoAccion==0 && modoAccion==-1))
         {
-        //para el modo de accion 1,
-            int indice;
-        //para el modo de accion 2,
-            int nIndices;
-            int *indices;
-        //para el modo de accion 3,
-            int desde=0,hasta=0;
+            do
+            {
+            //para el modo de accion 1,
+                int indice;
+            //para el modo de accion 2,
+                int nIndices;
+                int *indices;
+            //para el modo de accion 3,
+                int desde=0,hasta=0;
 /// ////////////////////////////////////////////////////////////////////////////////// ///
-            if(modoAccion==1)
-            {
-                if(esRepartoAbierto)
-                    printf("ELIMINAR REPARTO ABIERTO\n");
+                if(modoAccion==1)
+                {
+                    if(esRepartoAbierto)
+                        printf("ELIMINAR REPARTO ABIERTO\n");
+                    else
+                        printf("ELIMINAR REPARTO CERRADO\n");
+                    mostrarRepartos(centroLogistico,esRepartoAbierto);
+                    printf("\n\n-----------------------------------------\n\n");
+                    printf("Reparto a remover: ");
+                    indice=menuModoAccion1(listaAux);
+                //Obtenemos y destruimos el elemento seleccionado
+                    destruirReparto(removerReparto(centroLogistico,indice,esRepartoAbierto));
+                    printf("\nReparto eliminado exitosamente.\n\n");
+                }
+                else if(modoAccion==2)
+                {
+                    if(esRepartoAbierto)
+                        printf("ELIMINAR REPARTOS ABIERTOS\n");
+                    else
+                        printf("ELIMINAR REPARTOS CERRADOS\n");
+                    mostrarRepartos(centroLogistico,esRepartoAbierto);
+                    printf("\n\n-----------------------------------------\n\n");
+                    printf("Repartos a remover: ");
+                    indices = menuModoAccion2(listaAux,nIndices);
+                //Obtenemos y destruimos los elementos seleccionados
+                    for(int i=0,j=0;i<nIndices;i++,j++)
+                        destruirReparto(removerReparto(centroLogistico,indices[i]-j,esRepartoAbierto));
+                    printf("\nRepartos eliminados exitosamente.\n\n");
+                }
                 else
-                    printf("ELIMINAR REPARTO CERRADO\n");
-                mostrarRepartos(centroLogistico,esRepartoAbierto);
-                printf("\n\n-----------------------------------------\n\n");
-                printf("Reparto a remover: ");
-                indice=menuModoAccion1(listaAux);
-            //Obtenemos y destruimos el elemento seleccionado
-                destruirReparto(removerReparto(centroLogistico,indice,esRepartoAbierto));
-                printf("\nReparto eliminado exitosamente.\n\n");
-            }
-            else if(modoAccion==2)
-            {
-                if(esRepartoAbierto)
-                    printf("ELIMINAR REPARTOS ABIERTOS\n");
-                else
-                    printf("ELIMINAR REPARTOS CERRADOS\n");
-                mostrarRepartos(centroLogistico,esRepartoAbierto);
-                printf("\n\n-----------------------------------------\n\n");
-                printf("Repartos a remover: ");
-                indices = menuModoAccion2(listaAux,nIndices);
-            //Obtenemos y destruimos los elementos seleccionados
-                for(int i=0,j=0;i<nIndices;i++,j++)
-                    destruirReparto(removerReparto(centroLogistico,indices[i]-j,esRepartoAbierto));
-                printf("\nRepartos eliminados exitosamente.\n\n");
-            }
-            else
-            {
-                if(esRepartoAbierto)
-                    printf("ELIMINAR REPARTOS ABIERTOS\n");
-                else
-                    printf("ELIMINAR REPARTOS CERRADOS\n");
-                mostrarRepartos(centroLogistico,esRepartoAbierto);
-                printf("\n\n-----------------------------------------\n\n");
-                printf("Repartos a remover: ");
-                menuModoAccion3(listaAux,desde,hasta);
-            //Obtenemos y destruimos los elementos en el rango de indices
-                for(int i=desde;i<=hasta;i++)
-                    destruirReparto(removerReparto(centroLogistico,desde,esRepartoAbierto));
-                printf("\nRepartos eliminados exitosamente.\n\n");
-            }
+                {
+                    if(esRepartoAbierto)
+                        printf("ELIMINAR REPARTOS ABIERTOS\n");
+                    else
+                        printf("ELIMINAR REPARTOS CERRADOS\n");
+                    mostrarRepartos(centroLogistico,esRepartoAbierto);
+                    printf("\n\n-----------------------------------------\n\n");
+                    printf("Repartos a remover: ");
+                    menuModoAccion3(listaAux,desde,hasta);
+                //Obtenemos y destruimos los elementos en el rango de indices
+                    for(int i=desde;i<=hasta;i++)
+                        destruirReparto(removerReparto(centroLogistico,desde,esRepartoAbierto));
+                    printf("\nRepartos eliminados exitosamente.\n\n");
+                }
 
-            continuar=menuContinuar();
-        } while(continuar);
+                continuar=menuContinuar();
+            } while(continuar);
+        }
+        else //if(modoAccion == 0 || modoAccion == -1)
+            return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
 
         int opGuardar=0;
         do
@@ -2528,7 +2565,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
         ListaPtr copiaLista = copiarLista(listaAux,4);
 
         int modoAccion = menuModoAccion(opMenuAnterior);
-        if(!modoAccion == 0 && modoAccion == -1)
+        if(!(modoAccion == 0 || modoAccion == -1))
         {
             int op2=0;
             int op3=0;
@@ -2612,7 +2649,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                 }
 /// ////////////////////////////////////////////////////////////////////////////////// ///
                 printf("\n\n-----------------------------------------\n\n");
-                printf("Qué desea modificar?\n\n");
+                printf("Que desea modificar?\n\n");
 
                 printf("1. Cambiar Chofer\n");
                 printf("2. Cambiar Vehiculo\n");
@@ -2743,7 +2780,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                     do
                     {
                         printf("\n\n-----------------------------------------\n\n");
-                        printf("Qué desea modificar?\n\n");
+                        printf("Que desea modificar?\n\n");
 
                         printf("1. ESTADO - Marcar como Retirado\n");
                         printf("2. ESTADO - Marcar como Entregado\n");

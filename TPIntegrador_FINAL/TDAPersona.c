@@ -56,12 +56,14 @@ void setApellido(PersonaPtr persona,char *apellido)
 
 void setDomicilio(PersonaPtr persona,DomicilioPtr domicilio)
 {
-    persona->domicilio=domicilio;
+    setCalle(persona->domicilio,domicilio->calle);
+    setAltura(persona->domicilio,domicilio->altura);
+    setLocalidad(persona->domicilio,domicilio->localidad);
 }
 
-void setCuilPersona(PersonaPtr persona, CuilPtr cuil) ///NUEVO NOMBRE PARA NO CONFUNDIR CON SETCUIL DEL TDA CUIL
+void setCuilPersona(PersonaPtr persona,CuilPtr cuil) ///NUEVO NOMBRE PARA NO CONFUNDIR CON SETCUIL DEL TDA CUIL
 {
-    persona->cuil=cuil;
+    setCuil(persona->cuil,cuil->cuil);
 }
 
 void setEsChofer(PersonaPtr persona,bool esChofer)

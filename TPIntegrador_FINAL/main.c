@@ -18,6 +18,26 @@ Para abrir/guardar files = CARPETA "Archivos"
 E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\TPIntegrador_FINAL\Archivos\
 */
 
+void actualizarDomicilioPrueba(DomicilioPtr domicilio)
+{
+    char calle[100];
+    int altura;
+    char localidad[100];
+
+    printf("\n\t\tCalle: ");
+    scanf("%[^\n]%*c",calle);
+    limpiarBufferTeclado();
+    printf("\n\t\tAltura: ");
+    scanf("%d",&altura);
+    limpiarBufferTeclado();
+    printf("\n\t\tLocalidad: ");
+    scanf("%[^\n]%*c",localidad);
+    limpiarBufferTeclado();
+
+    setCalle(domicilio,calle);
+    setAltura(domicilio,altura);
+    setLocalidad(domicilio,localidad);
+}
 
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
@@ -26,9 +46,34 @@ int main()
 /// **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
+/*
+    CentroLogisticoPtr ctroPrueba = crearCentroLogisticoRapido("Prueba");
 
+    PaquetePtr paq1 = crearPaqueteDirect(21652,12,34,25,68,
+                                         "Teniente Alvarez",1877,
+                                         "Hurlingam",
+                                         "Borlo Frezzini",55,
+                                         "La Matanza",
+                                         15,11,2022,19,22,0);
+    PaquetePtr paq2 = crearPaqueteDirect(20514,33,34,35,79,
+                                         "Coronel Chamaco",5604,
+                                         "Haedo",
+                                         "Lavalle",1333,
+                                         "Valentin Alsina",
+                                         16,12,2022,17,35,0);
 
+    agregarPaquete(ctroPrueba,paq1);
+    agregarPaquete(ctroPrueba,paq2); //paq2 estará arriba de todo al mostrar la lista.
 
+    mostrarPaquete(paq1); //Mostramos el paquete a modificar
+    printf("\n\nACTUALICE LA DIRECCION DE RETIRO\n");
+    actualizarDomicilioPrueba(getDirRetiro(paq1)); //Modificamos la direccion de retiro
+    presionarEnterYLimpiarPantalla();
+
+    mostrarPaquete(paq1); //Lo volvemos a mostrar con el nuevo domicilio.
+
+    return 0;
+*/
 /// **************************************************************************************************************
 
     CentroLogisticoPtr centroLogistico;

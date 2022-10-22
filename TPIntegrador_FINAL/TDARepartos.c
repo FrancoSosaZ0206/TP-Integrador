@@ -62,19 +62,30 @@ PilaPtr getPaquetesReparto(RepartoPtr reparto)
 
 void setChofer(RepartoPtr reparto,PersonaPtr chofer)
 {
-    reparto->chofer=chofer;
+    setNombre(reparto->chofer,chofer->nombre);
+    setApellido(reparto->chofer,chofer->apellido);
+    setDomicilio(reparto->chofer,chofer->domicilio);
+    setCuilPersona(reparto->chofer,chofer->cuil);
+    setEsChofer(reparto->chofer,chofer->esChofer);
 }
 void setVehiculo(RepartoPtr reparto,VehiculoPtr vehiculo)
 {
-    reparto->vehiculo=vehiculo;
+    setTipoVehiculo(reparto->vehiculo,vehiculo->tipo);
+    setMarca(reparto->vehiculo,vehiculo->marca);
+    setModelo(reparto->vehiculo,vehiculo->modelo);
+    setPatente(reparto->vehiculo,vehiculo->patente);
 }
 void setFechaSalida(RepartoPtr reparto,FechaPtr fechaSalida)
 {
-    reparto->fechaSalida=fechaSalida;
+    setDiaJuliano(reparto->fechaSalida,fechaSalida->diaJuliano);
+    setHora(reparto->fechaSalida,fechaSalida->hora);
+    setMinuto(reparto->fechaSalida,fechaSalida->minuto);
 }
 void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno)
 {
-    reparto->fechaRetorno=fechaRetorno;
+    setDiaJuliano(reparto->fechaRetorno,fechaRetorno->diaJuliano);
+    setHora(reparto->fechaRetorno,fechaRetorno->hora);
+    setMinuto(reparto->fechaRetorno,fechaRetorno->minuto);
 }
 
 void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) //agrega un paquete a la pila de paquetes

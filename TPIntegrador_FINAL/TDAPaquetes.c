@@ -113,15 +113,21 @@ void setPeso(PaquetePtr paquete,int peso)
 }
 void setDirRetiro(PaquetePtr paquete,DomicilioPtr dirRetiro)
 {
-    paquete->dirRetiro=dirRetiro;
+    setCalle(paquete->dirRetiro,dirRetiro->calle);
+    setAltura(paquete->dirRetiro,dirRetiro->altura);
+    setLocalidad(paquete->dirRetiro,dirRetiro->localidad);
 }
 void setDirEntrega(PaquetePtr paquete,DomicilioPtr dirEntrega)
 {
-    paquete->dirEntrega=dirEntrega;
+    setCalle(paquete->dirEntrega,dirEntrega->calle);
+    setAltura(paquete->dirEntrega,dirEntrega->altura);
+    setLocalidad(paquete->dirEntrega,dirEntrega->localidad);
 }
 void setFechaEntrega(PaquetePtr paquete,FechaPtr fechaEntrega)
 {
-    paquete->fechaEntrega=fechaEntrega;
+    setDiaJuliano(paquete->fechaEntrega,fechaEntrega->diaJuliano);
+    setHora(paquete->fechaEntrega,fechaEntrega->hora);
+    setMinuto(paquete->fechaEntrega,fechaEntrega->minuto);
 }
 void setEstado(PaquetePtr paquete,int estado)
 {
@@ -167,7 +173,7 @@ void mostrarPaquete(PaquetePtr paquete)
     printf("\tDireccion de Entrega: ");
     mostrarDomicilio(getDirEntrega(paquete));
 
-    char *bufferFecha;
+    char bufferFecha[18]; ///Nuevo: cambiamos el puntero a vector para arreglar un bug.
     traerFechaYHora(getFechaEntrega(paquete),bufferFecha);
     printf("\tFecha y Hora de Entrega: %s\n",bufferFecha);
 }

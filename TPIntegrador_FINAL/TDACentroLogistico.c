@@ -114,11 +114,13 @@ void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
         printf("%d. ",i+1);
         mostrarPaquete((PaquetePtr)getCabecera(listaAux));
         listaAux=getResto(listaAux);
+        if(!listaVacia(listaAux))
+            printf("\n");
 
         i++;
     }
+    printf("\n----------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
-    printf("\n");
 }
 
 void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
@@ -187,11 +189,12 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
 
         mostrarVehiculo((VehiculoPtr)getCabecera(listaAux));
         listaAux=getResto(listaAux);
+        if(!listaVacia(listaAux))
+            printf("\n");
 
         i++;
     }
     listaAux=destruirLista(listaAux,false);
-    printf("\n");
 }
 
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
@@ -212,6 +215,8 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         RepartoPtr repartoAux = (RepartoPtr) getCabecera(listaAux);
         mostrarRepartoSinPaquetes(repartoAux);
         listaAux=getResto(listaAux);
+        if(!listaVacia(listaAux))
+            printf("\n");
         i++;
     }
     listaAux=destruirLista(listaAux,false);

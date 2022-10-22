@@ -52,9 +52,7 @@ PtrDato getDatoLista(ListaPtr lista,int posicion)
     PtrDato dato=FinLista;
     PtrNodo nodo=getNodoLista(lista,posicion);
     if(nodo!=FinLista)
-    {
         dato=getDato(nodo);
-    }
     return dato; //devuelve NULL (FinLista) si no se pudo obtener el dato
 }
 
@@ -62,9 +60,7 @@ PtrDato getCabecera(ListaPtr lista)
 {
     PtrDato dato=FinLista;
     if(lista->primero!=FinLista)
-    {
         dato=getDato(lista->primero);
-    }
     return dato;
 }
 
@@ -72,9 +68,7 @@ ListaPtr getResto(ListaPtr lista)
 {
     ListaPtr resto=crearLista();
     if(lista->primero!=FinLista)
-    {
         resto->primero=getSiguiente(lista->primero);
-    }
     return resto;
 }
 
