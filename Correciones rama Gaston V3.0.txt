@@ -165,6 +165,23 @@ Se implementaron los .h de los menues de main, tambien se trasladaron a la secci
 Al leer los archivos guardaba y leia perfectamente, el origen del problema era que estaba mal definida
 el guardado fwrite(sizeof(100)), en lugar de fwrite(sizeof(char)), lo mismo con apertura
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+28. Agregadas funciones ayudantes
+Funciones como verificarLimiteLista, seleccionar un numero
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+29. Correcion del menu buscar reparto
+Agregadas las opciones de buscar por cada campo del reparto
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+30. Correcion de verificacion de datos
+En todas las operaciones que operan con LISTAS se debe realizar una precaucion, verificar que existan datos dentro de la misma
+De esta forma evitamos que el programa eventualmente crashee por no tener datos de los que obtener el puntero, (obtenemos el puntero a una posicion de memoria
+sin datos), y cuando queremos acceder a ella como una STRUCT se colapsa por no ser de esa categoria
+Eliminacion, Modificacion, Busqueda
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
