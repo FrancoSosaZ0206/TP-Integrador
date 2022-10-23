@@ -166,5 +166,13 @@ bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete); ///NUEVA
 //Devuelve: true si son idénticos todos sus cambios, false de lo contrario.
 bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2); ///NUEVA
 
+/*  Operación: crea una copia de un reparto
+Precondición: repartoOriginal debe haber sido armado previamente
+Postcondición: duplica los contenidos del reparto en uno nuevo
+Parámetros:
+    - repartoOriginal: puntero al reparto del que se quiere hacer una copia
+Devuelve: puntero a la copia del reparto creada. */
+RepartoPtr copiarReparto(RepartoPtr repartoOriginal); ///NUEVA - Orientada para la funcion copiarLista
+
 
 #endif // TDAREPARTOS_H_INCLUDED

@@ -1,5 +1,9 @@
 main-v3.0.0-FINAL - NOVEDADES
 
+- GLOBAL - TDAS: agregada familia de funciones "copiarX". Estas reciben un TDA y crean una copia del mismo en memoria dinámica con una copia de los contenidos (sin asignacion de punteros).
+	Estas funciones fueron hechas para facilitar y abstraer el trabajo con la funcion "copiarLista", así como arreglar esta funcion, ya que antes realmente no se hacía una copia de los elementos de la lista, sino que se creaba un nuevo puntero a esos datos, aunque se pusieron como funciones públicas por si se llega a precisar volverlas a usar en otro lado.
+	Nota: todas las funciones de copia internamente llaman a su respectiva "crearXDirect", excepto por "copiarReparto", que llama a las de los demás TDA, ya que por la enorme dimension del TDA no posee una propia.
+
 - Files:
 	- Agregadas funciones privadas "crearCarpeta"  y "abrirCarpeta". crearCarpeta crea una carpeta dentro del archivo del proyecto con el nombre de "Archivos", y abrirCarpeta la abre (si existe). Ambas funciones son invocadas en algunas de las funciones de abrir y guardar datos.
 	- Ahora los archivos se guardan y abren desde la carpeta "Archivos" para mayor comodidad.
@@ -61,6 +65,9 @@ BUGS
 
 - Menus - Funciones de Modificacion de Datos: el programa crashea al querer setear un nuevo domicilio, ya que en todas estas funciones, la nueva fecha o domicilio solo fueron declaradas y no se hizo espacio en memoria dinámica para que se mantengan en la estructura luego de ser seteadas. 
 	SOLUCIÓN: Para todos los TDA que tengan campos que sean estructuras, modificar todos los respectivos setters para que no asignen directamente la nueva estructura, sino que copien el contenido de cada una.
+	YA SE HIZO, AHORA FALTA VER SI ARREGLÓ EL PROBLEMA O PERSISTE.
+
+- Menus - Funcion detectarCambios: se modificó algo que impedía el correcto funcionamiento de la misma, y ahora al usarse.
 
 ---------------------------------------------------------------------------------------------------------------------
 

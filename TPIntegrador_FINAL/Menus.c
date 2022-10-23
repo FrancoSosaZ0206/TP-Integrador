@@ -32,57 +32,35 @@ DEVUELVE: puntero a la copia de la lista. */
 ListaPtr copiarLista(ListaPtr listaOriginal,int tipoDato)
 {
     ListaPtr copiaLista=crearLista();
-///Creamos una lista auxiliar para recorrer la original.
-    ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,listaOriginal);
 //Hacemos lo mismo pero para cada elemento de la lista
     PtrDato datoOriginal;
-    PtrDato datoAux;
+    PtrDato copiaDato;
 
-    while(!listaVacia(listaAux))
-    {
-        datoAux=getCabecera(listaAux);
+    int n = longitudLista(listaOriginal);
+    for(int i=n;i>0;i--)
+    { ///Para mantener el orden original de la lista,
+      ///en lugar de recorrerla con getCabecera y getResto,
+      ///usamos getDatoLista y agarramos del último al primer elemento.
+        datoOriginal=getDatoLista(listaOriginal,i-1);
     ///Copiamos el contenido de cada elemento según el tipo de dato que es
         switch(tipoDato)
         {
         case 1: //creamos un paquete
-            datoOriginal=crearPaquete(getID(datoAux),
-                                         getAncho(datoAux),
-                                         getAlto(datoAux),
-                                         getLargo(datoAux),
-                                         getPeso(datoAux),
-                                         getDirRetiro(datoAux),
-                                         getDirEntrega(datoAux),
-                                         getFechaEntrega(datoAux),
-                                         getEstado(datoAux));
+            copiaDato=copiarPaquete(datoOriginal);
             break;
         case 2: //creamos una persona
-            datoOriginal=crearPersona(getNombre(datoAux),
-                                      getApellido(datoAux),
-                                      getDomicilio(datoAux),
-                                      getCuilPersona(datoAux),
-                                      getEsChofer(datoAux));
+            copiaDato=copiarPersona(datoOriginal);
             break;
         case 3: //creamos un vehiculo
-            datoOriginal=crearVehiculo(getTipoVehiculo(datoAux),
-                                       getMarca(datoAux),
-                                       getModelo(datoAux),
-                                       getPatente(datoAux));
+            copiaDato=copiarVehiculo(datoOriginal);
             break;
         case 4: //creamos un reparto
-            datoOriginal=armarReparto(getChofer(datoAux),
-                                      getVehiculo(datoAux),
-                                      getFechaSalida(datoAux),
-                                      getFechaRetorno(datoAux),
-                                      getPaquetesReparto(datoAux));
+            copiaDato=copiarReparto(datoOriginal);
             break;
         }
-
      ///Agregamos el dato original a la lista
-        agregarDatoLista(copiaLista,datoOriginal);
-        listaAux=getResto(listaAux);
+        agregarDatoLista(copiaLista,copiaDato);
     }
-    listaAux=destruirLista(listaAux,false);
     return copiaLista;
 }
 
@@ -128,18 +106,18 @@ bool detectarCambios(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDato)
             datosIguales = repartosIguales(datoOriginal,copiaDato);
             break;
         }
-        if(!datosIguales) //aunque sea solo 1
+        if(!datosIguales) //aunque sea solo 1 que tenga algo distinto
         {
             listaAux = destruirLista(listaAux,false); //destruimos las listas antes de retornar
             copiaLista = destruirLista(copiaLista,true); //esta ya no la necesitamos, así que también destruimos la copia de cada elemento.
-            return true;
+            return true; //Retornamos que si (true), hubo un cambio.
         }
         listaAux=getResto(listaAux);
-        listaAux=getResto(listaAux);
+        copiaLista=getResto(copiaLista);
     }
     listaAux = destruirLista(listaAux,false); //destruimos las listas antes de retornar
     copiaLista = destruirLista(copiaLista,true); //esta ya no la necesitamos, así que también destruimos la copia de cada elemento.
-    return false;
+    return false; //Retornamos que no (false), no hubo ningún cambio.
 }
 
 /* OPERACIÓN: menu de guardado de cambios
@@ -1985,9 +1963,8 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
             }
             if(!(op==0 || op==-1))
             {
-                printf("\n\n-----------------------------------------------------\n\n");
+                printf("\n\n-----------------------------------------------------\n");
                 mostrarPaquetes(centroLogistico);
-                printf("\n\n-----------------------------------------------------");
                 presionarEnterYLimpiarPantalla();
             }
         } while(!(op==0 || op==-1));

@@ -38,6 +38,172 @@ void actualizarDomicilioPrueba(DomicilioPtr domicilio)
     setAltura(domicilio,altura);
     setLocalidad(domicilio,localidad);
 }
+/* OPERACIÓN: copia una lista
+PRECONDICIÓN: listaOriginal debe haber sido creada y tener contenido.
+POSTCONDICIÓN: copia una lista con todos sus elementos, cuales quiera sean sus tipos.
+PARÁMETROS:
+    - listaOriginal: puntero a la lista como estaba antes de hacer alguna modificación
+    - tipoDato: entero representando la lista a buscar cambios.
+                  1 = Paquetes
+                  2 = Personas (Clientes / Choferes)
+                  3 = Vehiculos
+                  4 = Repartos (Abiertos / Cerrados)
+DEVUELVE: puntero a la copia de la lista. */
+ListaPtr copiarListaPrueba(ListaPtr listaOriginal,int tipoDato)
+{
+    ListaPtr copiaLista=crearLista();
+//Hacemos lo mismo pero para cada elemento de la lista
+    PtrDato datoOriginal;
+    PtrDato copiaDato;
+
+    int n = longitudLista(listaOriginal);
+    for(int i=n;i>0;i--)
+    { ///Para mantener el orden original de la lista,
+      ///en lugar de recorrerla con getCabecera y getResto,
+      ///usamos getDatoLista y agarramos del último al primer elemento.
+        datoOriginal=getDatoLista(listaOriginal,i-1);
+    ///Copiamos el contenido de cada elemento según el tipo de dato que es
+        switch(tipoDato)
+        {
+        case 1: //creamos un paquete
+            copiaDato=copiarPaquete(datoOriginal);
+            break;
+        case 2: //creamos una persona
+            copiaDato=copiarPersona(datoOriginal);
+            break;
+        case 3: //creamos un vehiculo
+            copiaDato=copiarVehiculo(datoOriginal);
+            break;
+        case 4: //creamos un reparto
+            copiaDato=copiarReparto(datoOriginal);
+            break;
+        }
+     ///Agregamos el dato original a la lista
+        agregarDatoLista(copiaLista,copiaDato);
+    }
+    return copiaLista;
+}
+
+/* OPERACIÓN: deteccion de cambios
+PRECONDICIÓN: debe haberse usado copiarLista previamente, y por tanto, copiaLista ya debe
+              haber recibido los contenidos de la lista original.
+POSTCONDICION: compara las listas, retornando si hubo cambios o no.
+PARÁMETROS:
+    - listaOriginal: puntero a la lista como estaba antes de hacer alguna modificación
+    - copiaLista: puntero a la copia de la lista que se hizo
+    - tipoDato: entero representando la lista a buscar cambios.
+                  1 = Paquetes
+                  2 = Personas (Clientes / Choferes)
+                  3 = Vehiculos
+                  4 = Repartos (Abiertos / Cerrados)
+DEVUELVE: booleano informando:
+            true = hubo cambios en, al menos, 1 elemento.
+            false = no hubo ningún cambio, listaOriginal está igual que antes de pasar por el menú. */
+bool detectarCambiosPrueba(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDato)
+{
+    ListaPtr listaAux = crearLista(); //solo la usaremos para la lista original. La otra la destruiremos de todas formas, así que no hay problema.
+    agregarLista(listaAux,listaOriginal);
+
+    bool datosIguales;
+///Recorremos la lista: antes y después de hacer el cambio
+    while(!listaVacia(listaAux))
+    {
+        PtrDato datoOriginal=getCabecera(listaAux);
+        PtrDato copiaDato=getCabecera(copiaLista);
+    ///Revisamos, elemento por elemento, si son iguales o cambiaron (puede ser que se haya ordenado de la misma forma que estaba)
+        switch(tipoDato)
+        {
+        case 1:
+            datosIguales = paquetesIguales((PaquetePtr)datoOriginal,(PaquetePtr)copiaDato);
+            break;
+        case 2:
+            datosIguales = personasIguales((PersonaPtr)datoOriginal,(PersonaPtr)copiaDato);
+            break;
+        case 3:
+            datosIguales = vehiculosIguales((VehiculoPtr)datoOriginal,(VehiculoPtr)copiaDato);
+            break;
+        case 4:
+            datosIguales = repartosIguales((RepartoPtr)datoOriginal,(RepartoPtr)copiaDato);
+            break;
+        }
+        if(!datosIguales) //aunque sea solo 1 que tenga algo distinto
+        {
+            listaAux = destruirLista(listaAux,false); //destruimos las listas antes de retornar
+            copiaLista = destruirLista(copiaLista,true); //esta ya no la necesitamos, así que también destruimos la copia de cada elemento.
+            return true; //Retornamos que si (true), hubo un cambio.
+        }
+        listaAux=getResto(listaAux);
+        copiaLista=getResto(copiaLista);
+    }
+    listaAux = destruirLista(listaAux,false); //destruimos las listas antes de retornar
+    copiaLista = destruirLista(copiaLista,true); //esta ya no la necesitamos, así que también destruimos la copia de cada elemento.
+    return false; //Retornamos que no (false), no hubo ningún cambio.
+}
+
+/* OPERACIÓN: menu de guardado de cambios
+PRECONDICIÓN:
+    - centroLogistico debe haber sido creado y llenado con la lista de datos correspondiente.
+    - debe haberse usado la funcion detectarCambios previamente.
+POSTCONDICION: se despliega un menú por pantalla preguntando al usuario si quiere guardar los cambios realizados en la funcion correspondiente.
+PARÁMETROS:
+    - centroLogistico: puntero a entero representando la opcion del menu anterior
+    - tipoDato: entero representando el tipo de lista que corresponde guardar:
+                  1 = Paquetes
+                  2 = Personas (Clientes / Choferes)
+                  3 = Vehiculos
+                  4 = Repartos (Abiertos / Cerrados)
+DEVUELVE: booleano indicando si se guardaron (true) o no (false) los cambios. */
+bool menuGuardarCambiosPrueba(CentroLogisticoPtr centroLogistico,int tipoDato)
+{
+    int opGuardar=0;
+
+    bool guardarLista;
+    do
+    {
+        printf("Guardar cambios? 1=SI , 0=NO | ");
+        scanf("%d",&opGuardar);
+        limpiarBufferTeclado();
+        system("cls");
+        switch(opGuardar)
+        {
+        case 1:
+            switch(tipoDato)
+            {
+            case 1:
+                guardarLista = guardarPaquetes(centroLogistico);
+                break;
+            case 2:
+                guardarLista = guardarPersonas(centroLogistico);
+                break;
+            case 3:
+                guardarLista = guardarVehiculos(centroLogistico);
+                break;
+            case 4:
+                guardarLista = guardarRepartos(centroLogistico,true) && guardarRepartos(centroLogistico,false);
+                break;
+            }
+            if(guardarLista)
+            {
+                printf("Cambios guardados exitosamente.");
+                presionarEnterYLimpiarPantalla();
+                return true;
+            }
+            else
+            {
+                printf("ERROR AL GUARDAR\n\n");
+                exit(1);
+            }
+            break;
+        case 0:
+            return false;
+            break;
+        default:
+            printf("Opcion incorrecta.");
+            presionarEnterYLimpiarPantalla();
+            break;
+        }
+    } while(opGuardar<0 || opGuardar>1);
+}
 
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
@@ -46,7 +212,7 @@ int main()
 /// **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
-/*
+
     CentroLogisticoPtr ctroPrueba = crearCentroLogisticoRapido("Prueba");
 
     PaquetePtr paq1 = crearPaqueteDirect(21652,12,34,25,68,
@@ -65,15 +231,25 @@ int main()
     agregarPaquete(ctroPrueba,paq1);
     agregarPaquete(ctroPrueba,paq2); //paq2 estará arriba de todo al mostrar la lista.
 
+    ListaPtr copiaPaquetes = copiarListaPrueba(getPaquetes(ctroPrueba),1);
+
     mostrarPaquete(paq1); //Mostramos el paquete a modificar
     printf("\n\nACTUALICE LA DIRECCION DE RETIRO\n");
     actualizarDomicilioPrueba(getDirRetiro(paq1)); //Modificamos la direccion de retiro
     presionarEnterYLimpiarPantalla();
 
     mostrarPaquete(paq1); //Lo volvemos a mostrar con el nuevo domicilio.
+    presionarEnterYLimpiarPantalla();
 
+    bool cambioDetectado = detectarCambiosPrueba(getPaquetes(ctroPrueba),copiaPaquetes,1);
+    if(cambioDetectado)
+        printf("Uy! Hubo un cambio!\n\n");
+    else
+        printf("Todo sigue igual!\n\n");
+
+    ctroPrueba = destruirCentroLogistico(ctroPrueba);
     return 0;
-*/
+
 /// **************************************************************************************************************
 
     CentroLogisticoPtr centroLogistico;

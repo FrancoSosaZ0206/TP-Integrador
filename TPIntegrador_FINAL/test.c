@@ -34,7 +34,7 @@ VehiculoPtr crearVehiculoPorDefecto() ///Crea un vehículo de forma rápida con da
 {
     return crearVehiculo(3,"Mercedes-Benz","Actros","ZZ 999 ZZ");
 }
-RepartoPtr crearRepartoPorDefecto(bool esRepartoAbierto)
+RepartoPtr armarRepartoPorDefecto(bool esRepartoAbierto)
 {
     PilaPtr paquetes = crearPila();
     PaquetePtr temp[5];
@@ -54,7 +54,7 @@ RepartoPtr crearRepartoPorDefecto(bool esRepartoAbierto)
     FechaPtr fechaSalida = crearFecha(22,2,2022,9,30);
     FechaPtr fechaRetorno = crearFecha(22,2,2022,19,45);
 
-    return crearReparto(crearPersonaPorDefecto(true),crearVehiculoPorDefecto(),fechaSalida,fechaRetorno,paquetes);
+    return armarReparto(crearPersonaPorDefecto(true),crearVehiculoPorDefecto(),fechaSalida,fechaRetorno,paquetes);
 }
 
 CentroLogisticoPtr crearTodoPorDefecto() //Crea un centro logistico llamando a las otras funciones
@@ -71,8 +71,8 @@ CentroLogisticoPtr crearTodoPorDefecto() //Crea un centro logistico llamando a l
         agregarDatoLista(vehiculos,(PaquetePtr)crearVehiculoPorDefecto());
         agregarDatoLista(personas,(PaquetePtr)crearPersonaPorDefecto(false)); //Agregamos un cliente
         agregarDatoLista(personas,(PaquetePtr)crearPersonaPorDefecto(true)); //Y un chofer, intercalados
-        agregarDatoLista(repartosAbiertos,(PaquetePtr)crearRepartoPorDefecto(true));
-        agregarDatoLista(repartosCerrados,(PaquetePtr)crearRepartoPorDefecto(false));
+        agregarDatoLista(repartosAbiertos,(PaquetePtr)armarRepartoPorDefecto(true));
+        agregarDatoLista(repartosCerrados,(PaquetePtr)armarRepartoPorDefecto(false));
     }
 
     return crearCentroLogistico("CENTRO LOGISTICO POR DEFECTO",paquetes,personas,vehiculos,repartosAbiertos,repartosCerrados);
@@ -258,7 +258,7 @@ ListaPtr crearListaRepartosGenerica(bool esRepartoAbierto)
 //Creamos un vehículo genérico aprovechando que tenemos hecha la funcion
     VehiculoPtr vehiculo=crearVehiculoGenerico();
 ///Creamos un reparto con los datos creados previamente
-    RepartoPtr reparto=crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,pilaPaquetes);
+    RepartoPtr reparto=armarReparto(chofer,vehiculo,fechaSalida,fechaRetorno,pilaPaquetes);
 
 
 ///REPETIMOS EL PROCESO 2 VECES MÁS
@@ -282,7 +282,7 @@ ListaPtr crearListaRepartosGenerica(bool esRepartoAbierto)
 
     VehiculoPtr vehiculo1=crearVehiculoGenerico();
 
-    RepartoPtr reparto1=crearReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,pilaPaquetes1);
+    RepartoPtr reparto1=armarReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,pilaPaquetes1);
 
 
 
@@ -306,7 +306,7 @@ ListaPtr crearListaRepartosGenerica(bool esRepartoAbierto)
 
     VehiculoPtr vehiculo2=crearVehiculoGenerico();
 
-    RepartoPtr reparto2=crearReparto(chofer2,vehiculo2,fechaSalida2,fechaRetorno2,pilaPaquetes2);
+    RepartoPtr reparto2=armarReparto(chofer2,vehiculo2,fechaSalida2,fechaRetorno2,pilaPaquetes2);
 
 
 ///Agregamos los 3 repartos a la lista

@@ -120,7 +120,7 @@ void mostrarReparto(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
-    char *strFecha;
+    char strFecha[18];
     traerFechaYHora(getFechaSalida(reparto),strFecha);
     printf("Fecha de Salida: %s\n",strFecha);
     traerFechaYHora(getFechaRetorno(reparto),strFecha);
@@ -142,7 +142,7 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
-    char *strFecha;
+    char strFecha[18];
     traerFechaYHora(getFechaSalida(reparto),strFecha);
     printf("Fecha de Salida: %s\n",strFecha);
     traerFechaYHora(getFechaRetorno(reparto),strFecha);
@@ -206,4 +206,39 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
     } ///Las pilas no las destruimos.
 
     return condicion && pilasIguales;
+}
+
+RepartoPtr copiarReparto(RepartoPtr repartoOriginal) ///NUEVA
+{
+/// Antes de crear la copia del reparto, copiaremos todos sus campos
+//Copiamos el chofer
+    PersonaPtr copiaChofer = copiarPersona(getChofer(repartoOriginal));
+//Copiamos el vehiculo
+    VehiculoPtr copiaVehiculo = copiarVehiculo(getVehiculo(repartoOriginal));
+//Copiamos las fechas de salida y retorno
+    FechaPtr fechaSalidaOriginal = getFechaSalida(repartoOriginal);
+    FechaPtr copiaFechaSalida = crearFechaDirect(getDiaJuliano(fechaSalidaOriginal),getHora(fechaSalidaOriginal),getMinuto(fechaSalidaOriginal));
+
+    FechaPtr fechaRetornoOriginal = getFechaRetorno(repartoOriginal);
+    FechaPtr copiaFechaRetorno = crearFechaDirect(getDiaJuliano(fechaRetornoOriginal),getHora(fechaRetornoOriginal),getMinuto(fechaRetornoOriginal));
+///Copiamos la Pila de paquetes: ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    PilaPtr pilaPaquetesOriginal = getPaquetesReparto(repartoOriginal);
+    PilaPtr copiaPilaPaquetes = crearPila();
+/// Primero, los copiamos uno por uno.
+    int n=longitudPila(pilaPaquetesOriginal);
+    PaquetePtr paquetesOriginales[n];
+    PaquetePtr copiaPaquetes[n];
+    for(int i=0;i<n;i++)
+    {
+        paquetesOriginales[i] = desapilar(pilaPaquetesOriginal);
+        copiaPaquetes[i] = copiarPaquete(paquetesOriginales[i]);
+    }
+/// Luego, los volvemos a poner en sus respectivas pilas
+    for(int i=n;i>0;i--)
+    {
+        apilar(pilaPaquetesOriginal,paquetesOriginales[i]);
+        apilar(copiaPilaPaquetes,copiaPaquetes[i]);
+    }
+/// Finalmente, creamos y retornamos la copia del reparto, en una sola linea.
+    return crearReparto(copiaChofer,copiaVehiculo,copiaFechaSalida,copiaFechaRetorno,copiaPilaPaquetes);
 }

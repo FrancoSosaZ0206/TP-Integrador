@@ -126,5 +126,13 @@ void mostrarTipoVehiculo(VehiculoPtr vehiculo); ///informa al usuario de que tip
 //Devuelve: true si son idénticos en patente, false de lo contrario.
 bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2);
 
+/*  Operación: crea una copia de un vehiculo
+Precondición: vehiculoOriginal debe haber sido creado previamente
+Postcondición: duplica los contenidos del vehiculo en uno nuevo
+Parámetros:
+    - vehiculoOriginal: puntero al vehiculo del que se quiere hacer una copia
+Devuelve: puntero a la copia del vehiculo creada. */
+VehiculoPtr copiarVehiculo(VehiculoPtr vehiculoOriginal); ///NUEVA - Orientada para la funcion copiarLista
+
 
 #endif // TDAVEHICULO_H_INCLUDED

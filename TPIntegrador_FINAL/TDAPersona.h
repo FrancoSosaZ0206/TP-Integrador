@@ -161,5 +161,13 @@ bool personasIguales(PersonaPtr persona1,PersonaPtr persona2);
 //  persona2: puntero a la estructura a verificar.
 //Devuelve: true si son idénticos en cuil, false de lo contrario.
 
+PersonaPtr copiarPersona(PersonaPtr personaOriginal); ///NUEVA - Orientada para la funcion copiarLista
+/*  Operación: crea una copia de una persona
+Precondición: personaOriginal debe haber sido creada previamente
+Postcondición: duplica los contenidos de la persona en una nueva
+Parámetros:
+    - personaOriginal: puntero a la persona de la que se quiere hacer una copia
+Devuelve: puntero a la copia de la persona creada. */
+
 
 #endif // TDAPERSONA_H_INCLUDED

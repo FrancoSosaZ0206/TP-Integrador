@@ -101,3 +101,11 @@ bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2)
 {
     return strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0;
 }
+
+VehiculoPtr copiarVehiculo(VehiculoPtr vehiculoOriginal) ///NUEVA - Orientada para la funcion copiarLista
+{
+    return crearVehiculo(getTipoVehiculo(vehiculoOriginal),
+                         getMarca(vehiculoOriginal),
+                         getModelo(vehiculoOriginal),
+                         getPatente(vehiculoOriginal));
+}

@@ -225,11 +225,20 @@ void mostrarEstadopaquete(PaquetePtr paquete); //muestra solo el estado actual d
 
 //Operación: verifica si dos paquetes son iguales.
 //Precondición: Ambos paquetes deben haber sido creados.
-//Postcondición: chequea si cada campo de las estructuras son idénticos
+//Postcondición: chequea la equidad de cada campo de la estructura.
 //Parámetros:
 //  paquete1: puntero a la estructura a verificar.
 //  paquete2: puntero a la estructura a verificar.
 //Devuelve: true si son idénticos en ID O en el resto de campos, false de lo contrario.
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2);
+
+/*  Operación: crea una copia de un paquete
+Precondición: paqueteOriginal debe haber sido creado previamente
+Postcondición: duplica los contenidos del paquete en uno nuevo
+Parámetros:
+    - paqueteOriginal: puntero al paquete del que se quiere hacer una copia
+Devuelve: puntero a la copia del paquete creada. */
+PaquetePtr copiarPaquete(PaquetePtr paqueteOriginal); ///NUEVA - Orientada para la funcion copiarLista
+
 
 #endif // TDAPAQUETES_H_INCLUDED

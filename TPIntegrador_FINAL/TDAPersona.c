@@ -119,3 +119,11 @@ bool personasIguales(PersonaPtr persona1,PersonaPtr persona2)
 {
     return cuilsIguales(getCuilPersona(persona1),getCuilPersona(persona2));
 }
+
+PersonaPtr copiarPersona(PersonaPtr personaOriginal) ///NUEVA - Orientada para la funcion copiarLista
+{
+    return crearPersonaDirect(getNombre(personaOriginal),getApellido(personaOriginal),
+                                            getCalle(getDomicilio(personaOriginal)),getAltura(getDomicilio(personaOriginal)),getLocalidad(getDomicilio(personaOriginal)),
+                                            getCuil(getCuilPersona(personaOriginal)),
+                                            getEsChofer(personaOriginal));
+}

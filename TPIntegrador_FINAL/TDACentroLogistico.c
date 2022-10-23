@@ -119,7 +119,7 @@ void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
 
         i++;
     }
-    printf("\n----------------------------------------\n\n");
+    printf("\n-----------------------------------------------------");
     listaAux=destruirLista(listaAux,false);
 }
 
@@ -172,6 +172,7 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
 
         i++;
     }
+    printf("\n-----------------------------------------------------");
     listaAux=destruirLista(listaAux,false);
 }
 
@@ -194,6 +195,7 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
 
         i++;
     }
+    printf("\n-----------------------------------------------------");
     listaAux=destruirLista(listaAux,false);
 }
 
@@ -219,6 +221,7 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
             printf("\n");
         i++;
     }
+    printf("\n-----------------------------------------------------");
     listaAux=destruirLista(listaAux,false);
     printf("\n");
     if(!esRepartoAbierto)
@@ -244,7 +247,7 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
         printf("ABIERTOS ");
     else
         printf("CERRADOS ");
-    char *buffer;
+    char buffer[11];
     traerFechaCorta(fechaSalida,buffer);
     printf("FILTRADOS POR DIA DE SALIDA - %s \n\n",buffer);
     while(!listaVacia(listaAux))
