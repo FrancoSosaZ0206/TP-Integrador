@@ -80,6 +80,32 @@ MEJORAS
 
 CORRECCIONES
 
+- MENUS 
+	[Corregido por franco sosa]
+	Funcion eliminarPersona
+	Se debe modificar la condicion del menuModoAccion1, en el cual en lugar de estar expresado asi [while(eleccion <= 0 || eleccion >= tamanioLista);] 
+	debe estar asi [while(eleccion <= 0 || eleccion > tamanioLista);], de esta forma considera el ultimo elemento elegido (el tamanioLista)
+	
+	[Corregido por franco sosa]
+	Funciones de mostrar datos
+	Se debe agregar un parametro en las funciones de mostrado a modo de puntero tal que [menuMostrarPaquetes(CentroLogisticoPtr centroLogistico, int* op1)]
+	y cuando se seleccione la opcion (-1) se emplee este formato [*op1 = 0], y asi con todas las funciones de menuMostrado
 
+	[Pendiente]
+	Funcion modificarPaquete (Y las demas de modificacion...)
+	El problema reside en que al utilizar los diferentes if(accion1, accion2, accion3), no se considera cada condicion de las clausulas,
+	quiero decir, al elegir 2 indices [1 al 3], se pregunta una vez sola que dato nuevo quiere cambiar, y lo termina haciendo la cantidad de
+	indices con el mismo valor, el paquete 1,2,3 se cambia con el nuevo valor, cuando deberia haberse cambiado solo el 1, la solucion radica en 
+	modificar las clausulas de menu modo accion de cada menuModificacion, respetando su formato (Buscar ejemplo en Gastpn v3.0 [menuModificar de los campos])
+	- se traspasa mi version de los menuModoAccion del main || se modifica linea a linea los menuModoAccion de cada menu del main
+	
+	[Pendiente]
+	Funcion de modificacion de datos
+	Funciona correctamente, existe la alternativa de usar por ejemplo [actualizarDomicilio(getDirRetiro(paqueteAModificar))], y terminaria 
+	siendo el mismo procedimiento, (La forma actual no esta mal, de hecho, esta bien ejecutada), no es neceario cambiarlo, lo que si es 
+	necesario es cambiar la forma de ejecutar los menuModoAccion
+
+	[Corregido por franco sosa]
+	Funcion detectarCambios
 
 ---------------------------------------------------------------------------------------------------------------------

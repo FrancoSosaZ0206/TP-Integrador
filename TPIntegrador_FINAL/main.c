@@ -326,6 +326,7 @@ int main()
 
     CentroLogisticoPtr centroLogistico;
 
+
     int START_OP=0;
 
     do
@@ -346,7 +347,8 @@ int main()
         {
         case 1:
             centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
-            system("cls");
+            ListaPtr Paquetes = crearListaPaquetesGenericoNuevo();
+            setPaquetes(centroLogistico, Paquetes);
             START_OP = MAIN_MENU(centroLogistico);
             centroLogistico=destruirCentroLogistico(centroLogistico);
             break;

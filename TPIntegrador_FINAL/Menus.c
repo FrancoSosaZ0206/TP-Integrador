@@ -257,22 +257,22 @@ PARÁMETROS:
 DEVUELVE: vector de enteros representando la seleccion de índices elegidos.
 *//**
 ADVERTENCIA: No usar con menus o funciones que modifiquen la longitud de la lista (ej: menuEliminar). */
-int *menuModoAccion2(ListaPtr lista,int cantIndices)
+int *menuModoAccion2(ListaPtr lista,int* cantIndices)
 {
     int n=longitudLista(lista);
 //Ingresamos la cantidad de indices a seleccionar
     do
     {
         printf("Ingrese cantidad de indices a seleccionar: ");
+        limpiarBufferTeclado();
         scanf("%d",&cantIndices);
-        if(cantIndices<=0)
+        if(cantIndices<=0 || cantIndices > longitudLista(lista))
         {
             printf("\n\nCantidad incorrecta.");
             presionarEnterYLimpiarPantalla();
         }
-    } while(cantIndices<=0);
-
-    int *indices;
+    } while(cantIndices<=0 || cantIndices > longitudLista(lista));
+    int* indices;
 //Elegimos los indices
     for(int i=0;i<cantIndices;i++)
     {
@@ -1239,11 +1239,12 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                 else if(modoAccion==2)
                 {
                     printf("MODIFICAR PAQUETES\n\n");
-                    indices=menuModoAccion2(listaAux,nIndices);
+                    indices=menuModoAccion2(listaAux,&nIndices);
 
                     printf("Ha elegido Paquetes");
                     for(int i=0;i<nIndices;i++)
-                    { //Obtenemos los elementos en los indices seleccionados y los mostramos
+                    {
+                        //Obtenemos los elementos en los indices seleccionados y los mostramos
                         paquetesAModificar[i]=(PaquetePtr)getDatoLista(listaAux,indices[i]-1);
                         printf("%d. ",indices[i]-1);
                         mostrarPaquete(paquetesAModificar[i]);
@@ -1294,29 +1295,33 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                 switch(op)
                 {
                 case 1:
-                    do
+                    if(modoAccion == 1)
                     {
                         printf("Ingrese nuevo Ancho: ");
-                        scanf("%d",&nDimension);
                         limpiarBufferTeclado();
-
-                        if(nDimension<=0)
-                        {
-                            printf("\n\nERROR: una dimension debe ser mayor a cero. Vuelva a ingresar.");
-                            presionarEnterYLimpiarPantalla();
-                        }
-                        else
-                            system("cls");
-                    } while(nDimension<=0);
-
-                    if(modoAccion==1)
+                        scanf("%d",&nDimension);
                         setAncho(paqueteAModificar,nDimension);
-                    else if(modoAccion==2)
-                        for(int i=0;i<nIndices;i++)
+                    }
+                    if(modoAccion == 2)
+                    {
+                        for(int i=0; i<nIndices; i++)
+                        {
+                            printf("Ingrese nuevo Ancho: ");
+                            limpiarBufferTeclado();
+                            scanf("%d",&nDimension);
                             setAncho(paquetesAModificar[i],nDimension);
-                    else
-                        for(int i=0;i<=(hasta-desde);i++)
+                        }
+                    }
+                    if(modoAccion == 3)
+                    {
+                        for(int i=0; i<hasta-desde+1; i++)
+                        {
+                            printf("Ingrese nuevo Ancho: ");
+                            limpiarBufferTeclado();
+                            scanf("%d",&nDimension);
                             setAncho(paquetesAModificar[i],nDimension);
+                        }
+                    }
                     break;
                 case 2:
                     do
@@ -1340,7 +1345,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                         for(int i=0;i<nIndices;i++)
                             setAlto(paquetesAModificar[i],nDimension);
                     else
-                        for(int i=0;i<=(hasta-desde);i++)
+                        for(int i=0;i<=(hasta-desde)+1;i++)
                             setAlto(paquetesAModificar[i],nDimension);
                     break;
                 case 3:
