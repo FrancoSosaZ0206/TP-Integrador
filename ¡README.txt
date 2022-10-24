@@ -65,6 +65,10 @@ BUGS
 		SOLUCIÓN: Para todos los TDA que tengan campos que sean estructuras, modificar todos los respectivos setters para que no asignen directamente la nueva estructura, sino que copien el contenido de cada una.
 		YA SE HIZO, AHORA FALTA VER SI ARREGLÓ EL PROBLEMA O PERSISTE.
 	- Funcion detectarCambios: la condicion para detectarlos, que llama a la familia de funciones "XIguales" hace que crashee.
+		FUNCION PAQUETES IGUALES PARCHEADA, PERO FUNCIONA PARCIALMENTE. PROBARLA COMO ESTABA ANTES (DESCOMENTAR EL CÓDIGO).
+
+- FILES
+	- Funciones guardar/abrirPaquetes: Los datos son corrompidos cuando se abre y muestra una lista de paquetes. No logré encontrar pistas de donde está el error, todavía.
 
 ---------------------------------------------------------------------------------------------------------------------
 
