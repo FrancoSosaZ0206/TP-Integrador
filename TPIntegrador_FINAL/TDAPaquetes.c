@@ -220,13 +220,13 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
     bool matchID,matchResto;
 
     DomicilioPtr dirRetiro1 = getDirRetiro(paquete1);
-    DomicilioPtr dirRetiro2 = getDirRetiro(paquete2);
+    DomicilioPtr dirRetiro2 = getDirRetiro(paquete2);/*
     DomicilioPtr dirEntrega1 = getDirEntrega(paquete1);
     DomicilioPtr dirEntrega2 = getDirEntrega(paquete2);
 
     FechaPtr fechaEntrega1 = getFechaEntrega(paquete1);
     FechaPtr fechaEntrega2 = getFechaEntrega(paquete2);
-
+*/
 //primero, se verifica si el ID de paquete1 es igual al del paquete2
     matchID = getID(paquete1) == getID(paquete2);
 //luego, se verifica si las dimensiones de paquete1 son iguales
@@ -235,21 +235,37 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
     matchResto = matchResto && getLargo(paquete1) == getLargo(paquete2);
     matchResto = matchResto && getPeso(paquete1) == getPeso(paquete2);
 //después, se verifica si las direcciones de retiro de paquete1 coinciden con las del paquete2
-    matchResto = matchResto && domiciliosIguales(dirRetiro1,dirRetiro2);
+    matchResto = matchResto && domiciliosIguales(dirRetiro1,dirRetiro2);/*
 //posteriormente, se verifica si las direcciones de entrega de paquete1 coinciden con las del paquete2
     matchResto = matchResto && domiciliosIguales(dirEntrega1,dirEntrega2);
 //finalmente, se chequea la fecha de entrega
     matchResto = matchResto && fechasIguales(fechaEntrega1,fechaEntrega2);
-
+*/
+    ///Esto no:
     //la condicion final será: "si coinciden los ID, o bien el resto de parámetros, o bien todo..."
-    return matchID || matchResto;
+    ///Esto sí:
+    //la condicion final será: "si coinciden los ID y el resto de parámetros..."
+/*
+    printf("Paquete1 \t\t Paquete2\n\n");
+    printf("ID: #%d\t#%d\n",getID(paquete1),getID(paquete2));
+    printf("Ancho: %d\t%d\n",getAncho(paquete1),getAncho(paquete2));
+    printf("Alto: %d\t%d\n",getAlto(paquete1),getAlto(paquete2));
+    printf("Largo: %d\t%d\n",getLargo(paquete1),getLargo(paquete2));
+    printf("Peso: %d\t%d\n\n",getPeso(paquete1),getPeso(paquete2));
+
+    printf("DirRetiro - Paquete1:");
+    mostrarDomicilio(dirRetiro1);
+    printf("DirRetiro - Paquete2:");
+    mostrarDomicilio(dirRetiro2);
+*/
+    return matchID && matchResto;
 }
 
 PaquetePtr copiarPaquete(PaquetePtr paqueteOriginal) ///NUEVA - Orientada para la funcion copiarLista
 {
     return crearPaqueteDirect(getID(paqueteOriginal),getAncho(paqueteOriginal),getAlto(paqueteOriginal),getLargo(paqueteOriginal),getPeso(paqueteOriginal),
-                              getCalle(getDirRetiro(paqueteOriginal)),getAltura(getDirRetiro(paqueteOriginal)),getLocalidad(getDirRetiro(paqueteOriginal)),
-                              getCalle(getDirEntrega(paqueteOriginal)),getAltura(getDirEntrega(paqueteOriginal)),getLocalidad(getDirEntrega(paqueteOriginal)),
-                              getDia(getFechaEntrega(paqueteOriginal)),getMes(getFechaEntrega(paqueteOriginal)),getAnio(getFechaEntrega(paqueteOriginal)),getHora(getFechaEntrega(paqueteOriginal)),getMinuto(getFechaEntrega(paqueteOriginal)),
-                              getEstado(paqueteOriginal));
+                                                  getCalle(getDirRetiro(paqueteOriginal)),getAltura(getDirRetiro(paqueteOriginal)),getLocalidad(getDirRetiro(paqueteOriginal)),
+                                                  getCalle(getDirEntrega(paqueteOriginal)),getAltura(getDirEntrega(paqueteOriginal)),getLocalidad(getDirEntrega(paqueteOriginal)),
+                                                  getDia(getFechaEntrega(paqueteOriginal)),getMes(getFechaEntrega(paqueteOriginal)),getAnio(getFechaEntrega(paqueteOriginal)),getHora(getFechaEntrega(paqueteOriginal)),getMinuto(getFechaEntrega(paqueteOriginal)),
+                                                  getEstado(paqueteOriginal));
 }

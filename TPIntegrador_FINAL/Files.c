@@ -433,7 +433,7 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
     if(!abrirCarpeta(carpeta))
         crearCarpeta();
 
-    FILE *archivo = fopen("Archivos/Lista de Paquetes.txt","w");
+    FILE *archivo = fopen("Archivos/PRUEBA - Lista de Paquetes.txt","w");
 
     if(archivo==NULL)
         return false;
@@ -624,7 +624,7 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
 //  listas de datos (CentroLogistico)
 bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Archivos/Lista de Paquetes.txt","r");
+    FILE *archivo = fopen("Archivos/PRUEBA - Lista de Paquetes.txt","r");
 
     if(archivo==NULL)
     {

@@ -57,17 +57,14 @@ BUGS
 
 - Files - Funcion guardarPaquetes al terminar de cargar paquetes crashea el programa.
 
-- Menus - Funcion eliminarPersona (y otras seguro que también): ahora elimina en el índice que corresponde, pero si se quiere eliminar el último elemento de la lista, no deja, dice que el indice excede el limite de la lista.
-
-- Menus - Funcion modificarPaquete: luego de seleccionar el modo de accion, se sale del menu.
-
-- Menus - funciones de mostrar datos: la opcion "-1. MENU PRINCIPAL" funciona como "0. Volver".
-
-- Menus - Funciones de Modificacion de Datos: el programa crashea al querer setear un nuevo domicilio, ya que en todas estas funciones, la nueva fecha o domicilio solo fueron declaradas y no se hizo espacio en memoria dinámica para que se mantengan en la estructura luego de ser seteadas. 
-	SOLUCIÓN: Para todos los TDA que tengan campos que sean estructuras, modificar todos los respectivos setters para que no asignen directamente la nueva estructura, sino que copien el contenido de cada una.
-	YA SE HIZO, AHORA FALTA VER SI ARREGLÓ EL PROBLEMA O PERSISTE.
-
-- Menus - Funcion detectarCambios: se modificó algo que impedía el correcto funcionamiento de la misma, y ahora al usarse.
+- MENUS
+	- Funcion eliminarPersona (y otras seguro que también): ahora elimina en el índice que corresponde, pero si se quiere eliminar el último elemento de la lista, no deja, dice que el indice excede el limite de la lista.
+	- Funcion modificarPaquete: luego de seleccionar el modo de accion, se sale del menu.
+	- Funciones de mostrar datos: la opcion "-1. MENU PRINCIPAL" funciona como "0. Volver".
+	- Funciones de Modificacion de Datos: el programa crashea al querer setear un nuevo domicilio, ya que en todas estas funciones, la nueva fecha o domicilio solo fueron declaradas y no se hizo espacio en memoria dinámica para que se mantengan en la estructura luego de ser seteadas. 
+		SOLUCIÓN: Para todos los TDA que tengan campos que sean estructuras, modificar todos los respectivos setters para que no asignen directamente la nueva estructura, sino que copien el contenido de cada una.
+		YA SE HIZO, AHORA FALTA VER SI ARREGLÓ EL PROBLEMA O PERSISTE.
+	- Funcion detectarCambios: la condicion para detectarlos, que llama a la familia de funciones "XIguales" hace que crashee.
 
 ---------------------------------------------------------------------------------------------------------------------
 

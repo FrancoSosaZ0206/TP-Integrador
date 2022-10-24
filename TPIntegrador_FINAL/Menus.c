@@ -138,6 +138,7 @@ bool menuGuardarCambios(CentroLogisticoPtr centroLogistico,int tipoDato)
     int opGuardar=0;
 
     bool guardarLista;
+    bool cambiosGuardados=false;
     do
     {
         printf("Guardar cambios? 1=SI , 0=NO | ");
@@ -166,7 +167,7 @@ bool menuGuardarCambios(CentroLogisticoPtr centroLogistico,int tipoDato)
             {
                 printf("Cambios guardados exitosamente.");
                 presionarEnterYLimpiarPantalla();
-                return true;
+                cambiosGuardados=true;
             }
             else
             {
@@ -175,7 +176,6 @@ bool menuGuardarCambios(CentroLogisticoPtr centroLogistico,int tipoDato)
             }
             break;
         case 0:
-            return false;
             break;
         default:
             printf("Opcion incorrecta.");
@@ -183,6 +183,8 @@ bool menuGuardarCambios(CentroLogisticoPtr centroLogistico,int tipoDato)
             break;
         }
     } while(opGuardar<0 || opGuardar>1);
+
+    return cambiosGuardados;
 }
 
 /* OPERACIÓN: menu de modo de accion
@@ -2490,41 +2492,11 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 
                 continuar=menuContinuar();
             } while(continuar);
+
+            return menuGuardarCambios(centroLogistico,4);
         }
         else //if(modoAccion == 0 || modoAccion == -1)
             return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
-
-        int opGuardar=0;
-        do
-        {
-            printf("Guardar cambios? 1=SI , 0=NO | ");
-            scanf("%d",&opGuardar);
-            limpiarBufferTeclado();
-            system("cls");
-            switch(opGuardar)
-            {
-            case 1:
-                if(guardarRepartos(centroLogistico,esRepartoAbierto))
-                {
-                    printf("Cambios guardados exitosamente.");
-                    return true;
-                }
-                else
-                {
-                    printf("ERROR AL GUARDAR\n\n");
-                    exit(1);
-                }
-                break;
-            case 0:
-                return false;
-                break;
-            default:
-                printf("Opcion incorrecta.");
-                break;
-            }
-            if(opGuardar!=0)
-                presionarEnterYLimpiarPantalla();
-        } while(opGuardar<0 || opGuardar>1);
     }
 }
 bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int *opMenuAnterior)
