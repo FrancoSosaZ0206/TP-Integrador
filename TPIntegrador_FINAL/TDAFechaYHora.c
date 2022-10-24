@@ -261,8 +261,6 @@ bool esFechaValida(FechaPtr fecha)
 
 bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
 {
-    //printf("Funcion fechasIguales - entramos a la funcion.");
-    //presionarEnterYLimpiarPantalla();
     int *diferencia = calcularDiferenciaFechas(fecha1,fecha2);
     bool valorRetorno = diferencia[0]==0 && diferencia[1]==0 && diferencia[2]==0;
     free(diferencia);

@@ -221,7 +221,7 @@ int main()
 /// **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
-/**
+
     CentroLogisticoPtr ctroPrueba = crearCentroLogisticoRapido("Prueba");
 
     PaquetePtr paq1 = crearPaqueteDirect(21652,12,34,25,68,
@@ -244,27 +244,9 @@ int main()
     CentroLogisticoPtr copiaCtro = crearCentroLogisticoRapido("Copia Prueba");
     setPaquetes(copiaCtro,copiaPaquetes);
 
-    mostrarPaquete(paq1); //Mostramos el paquete a modificar
-    printf("\n\nACTUALICE LA DIRECCION DE RETIRO\n");
-    actualizarDomicilioPrueba(getDirRetiro(paq1)); //Modificamos la direccion de retiro
-
-    system("cls");
-
-    printf("ANTES:\n");
-    mostrarPaquete(getDatoLista(getPaquetes(copiaCtro),1));
-    printf("\nDESPUES:\n");
-    mostrarPaquete(paq1); //Lo volvemos a mostrar con el nuevo domicilio.
-    presionarEnterYLimpiarPantalla();
-
-    bool cambioDetectado = detectarCambiosPrueba(getPaquetes(ctroPrueba),copiaPaquetes,1);
-    if(cambioDetectado)
+    if(!guardarPaquetes(ctroPrueba))
     {
-        printf("Uy! Hubo un cambio!\n\n");
-        menuGuardarCambiosPrueba(ctroPrueba,1);
-    }
-    else
-    {
-        printf("No se detectaron cambios!");
+        printf("No se pudieron guardar los paquetes.\n\n");
         presionarEnterYLimpiarPantalla();
     }
     ctroPrueba = destruirCentroLogistico(ctroPrueba);
@@ -292,13 +274,13 @@ int main()
     printf("Alto = %d\n",getAlto(paqRecuperado));
     printf("Largo = %d\n",getLargo(paqRecuperado));
     printf("Peso = %d\n",getPeso(paqRecuperado));
-    printf("Estado = %d\n",);
+    printf("Estado = %d\n",getEstado(paqRecuperado));
 
     ctroPrueba = destruirCentroLogistico(ctroPrueba);
     copiaCtro = destruirCentroLogistico(copiaCtro);
 
     return 0;
-*/
+
 /// **************************************************************************************************************
 
     CentroLogisticoPtr centroLogistico;
