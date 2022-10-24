@@ -123,7 +123,7 @@ void setMinuto(FechaPtr fecha,int minuto) ///NUEVA
 //Operaciones
 int *calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2) ///Nueva implementación
 {
-    int diferencias[3] = {0,0,0}; //Definimos e inicializamos el vector
+    int *diferencias = obtenerMemoria(sizeof(int)*3);
 
     diferencias[0] = getDiaJuliano(fecha1) - getDiaJuliano(fecha2);
     diferencias[1] = getHora(fecha1) - getHora(fecha2);
@@ -261,6 +261,10 @@ bool esFechaValida(FechaPtr fecha)
 
 bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
 {
+    //printf("Funcion fechasIguales - entramos a la funcion.");
+    //presionarEnterYLimpiarPantalla();
     int *diferencia = calcularDiferenciaFechas(fecha1,fecha2);
-    return diferencia[0]==0 && diferencia[1]==0 && diferencia[2]==0;
+    bool valorRetorno = diferencia[0]==0 && diferencia[1]==0 && diferencia[2]==0;
+    free(diferencia);
+    return valorRetorno;
 }

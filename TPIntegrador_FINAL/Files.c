@@ -451,14 +451,11 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
         ListaPtr listaAux = crearLista();
         agregarLista(listaAux , getPaquetes(centroLogistico));
 
-        int i=0;
-        while(!listaVacia(listaAux))
+        for(int i=0;!listaVacia(listaAux);i++)
         {
             PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
             fsetPaquete(&fpaquetes[i],paqueteAux,true);
             listaAux=getResto(listaAux);
-
-            i++;
         }
 
         fwrite(&fpaquetes,sizeof(fPaquete),n,archivo);
@@ -643,14 +640,11 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
     ///Como hicimos en funciones anteriores, recuperamos primero la cantidad de elementos de la lista
         int n = 0;
         fread(&n,sizeof(int),1,archivo);
-
-        printf("n = %d\n\n",n);
-
         fPaquete fpaquetes[n];
-        fread(&fpaquetes,sizeof(fPaquete),n,archivo);
 
-        for(int i=0;i<n;i++)
+        for(int i=0;!feof(archivo);i++)
         {
+            fread(&fpaquetes[i],sizeof(fPaquete),1,archivo);
             PaquetePtr paqueteAux = fsetPaquete(&fpaquetes[i],paqueteAux,false);
             agregarPaquete(centroLogistico,paqueteAux);
         }

@@ -237,14 +237,14 @@ int menuModoAccion1(ListaPtr lista)
         printf("\n\nIngrese indice donde tomar accion: ");
         scanf("%d",&i);
         limpiarBufferTeclado();
-        if(i<=0 || i>=n)
+        if(i<=0 || i>n)
         {
             printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
             presionarEnterYLimpiarPantalla();
         }
         else
             system("cls");
-    } while(i<=0 || i>=n);
+    } while(i<=0 || i>n);
 
     return i;
 }

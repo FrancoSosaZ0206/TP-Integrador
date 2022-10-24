@@ -51,6 +51,14 @@ BUG FIXES
 
 - funcion MostrarPaquete / mostrarPaquetes: se arregló el error que corrompía los datos luego de mostrar un paquete o lista de paquetes 1 vez. El problema residía en la funcion mostrarPaquete, que mostraba la fecha de entrega del paquete usando un puntero a char, lo que provocaba problemas. Se reemplazó por un vector de char de 18 caracteres (la cantidad justa y necesaria para este caso), y ahora funciona correctamente, sin importar cuantas veces se utilice la funcion.
 
+- Funciones de mostrar datos: opcion "-1. MENU PRINCIPAL" arreglada.
+
+- Funcion eliminarPersona (y otras seguro que también): problema al tratar de eliminar el último elemento de la lista solucionado. El problema estaba en menuModoAccion1, que en la validacion de indice a tomar accion había un mayor o igual a la dimension de la lista, cuando debía ser mayor ESTRICTO.
+
+- Funciones de Modificacion de Datos: el programa crashea al querer setear un nuevo domicilio, ya que en todas estas funciones, la nueva fecha o domicilio solo fueron declaradas y no se hizo espacio en memoria dinámica para que se mantengan en la estructura luego de ser seteadas. 
+		SOLUCIÓN: Para todos los TDA que tengan campos que sean estructuras, se modificaron todos los respectivos setters para que no asignen directamente la nueva estructura, sino que copien el contenido de cada una.
+		AHORA FALTA VER SI ARREGLÓ EL PROBLEMA O PERSISTE.
+
 ---------------------------------------------------------------------------------------------------------------------
 
 BUGS
@@ -58,15 +66,9 @@ BUGS
 - Files - Funcion guardarPaquetes al terminar de cargar paquetes crashea el programa.
 
 - MENUS
-	- Funcion eliminarPersona (y otras seguro que también): ahora elimina en el índice que corresponde, pero si se quiere eliminar el último elemento de la lista, no deja, dice que el indice excede el limite de la lista.
 	- Funcion modificarPaquete: luego de seleccionar el modo de accion, se sale del menu.
-	- Funciones de mostrar datos: la opcion "-1. MENU PRINCIPAL" funciona como "0. Volver".
-	- Funciones de Modificacion de Datos: el programa crashea al querer setear un nuevo domicilio, ya que en todas estas funciones, la nueva fecha o domicilio solo fueron declaradas y no se hizo espacio en memoria dinámica para que se mantengan en la estructura luego de ser seteadas. 
-		SOLUCIÓN: Para todos los TDA que tengan campos que sean estructuras, modificar todos los respectivos setters para que no asignen directamente la nueva estructura, sino que copien el contenido de cada una.
-		YA SE HIZO, AHORA FALTA VER SI ARREGLÓ EL PROBLEMA O PERSISTE.
 	- Funcion detectarCambios: la condicion para detectarlos, que llama a la familia de funciones "XIguales" hace que crashee.
 		FUNCION PAQUETES IGUALES PARCHEADA, PERO FUNCIONA PARCIALMENTE. PROBARLA COMO ESTABA ANTES (DESCOMENTAR EL CÓDIGO).
-
 - FILES
 	- Funciones guardar/abrirPaquetes: Los datos son corrompidos cuando se abre y muestra una lista de paquetes. No logré encontrar pistas de donde está el error, todavía.
 

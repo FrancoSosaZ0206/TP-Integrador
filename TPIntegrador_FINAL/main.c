@@ -109,29 +109,16 @@ bool detectarCambiosPrueba(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDa
 
     bool datosIguales;
 ///Recorremos la lista: antes y después de hacer el cambio
-    /*printf("Entramos al while:\n\n");
-    int i=0;*/
+
     while(!listaVacia(listaAux))
-    {/*
-        printf("Vuelta while: %d",i+1);
-        presionarEnterYLimpiarPantalla();
-*/
+    {
         PtrDato datoOriginal=getCabecera(listaAux);
         PtrDato copiaDato=getCabecera(listaAux2);
     ///Revisamos, elemento por elemento, si son iguales o cambiaron (puede ser que se haya ordenado de la misma forma que estaba)
         switch(tipoDato)
         {
-        case 1:/*
-            printf("Los datos son de tipo paquete.");
-            presionarEnterYLimpiarPantalla();
-*/
+        case 1:
             datosIguales = paquetesIguales((PaquetePtr)datoOriginal,(PaquetePtr)copiaDato);
-            /*if(datosIguales)
-                printf("Los paquetes son iguales.");
-            else
-                printf("Los paquetes son distintos.");*/
-            /*if(i==1)
-                exit(0);*/
             break;
         case 2:
             datosIguales = personasIguales((PersonaPtr)datoOriginal,(PersonaPtr)copiaDato);
@@ -144,10 +131,7 @@ bool detectarCambiosPrueba(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDa
             break;
         }
         if(!datosIguales) //aunque sea solo 1 que tenga algo distinto
-        {/*
-            printf("\nLos datos no son iguales, hay un cambio.");
-            presionarEnterYLimpiarPantalla();
-*/
+        {
             listaAux = destruirLista(listaAux,false); //destruimos las listas antes de retornar
             listaAux2 = destruirLista(listaAux2,false);
             ///copiaLista = destruirLista(copiaLista,true); //esta ya no la necesitamos, así que también destruimos la copia de cada elemento.
@@ -155,20 +139,11 @@ bool detectarCambiosPrueba(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDa
         }
         listaAux=getResto(listaAux);
         listaAux2=getResto(listaAux2);
-
-        //i++;
     }
-/*
-    printf("Salimos del while, no hubieron cambios.");
-    presionarEnterYLimpiarPantalla();
-*/
     listaAux = destruirLista(listaAux,false); //destruimos las listas antes de retornar
     listaAux2 = destruirLista(listaAux2,false);
     ///copiaLista = destruirLista(copiaLista,true); //esta ya no la necesitamos, así que también destruimos la copia de cada elemento.
-/*
-    printf("Destruimos listaAux, listaAux2 y copiaLista (esta ultima con sus elementos).");
-    presionarEnterYLimpiarPantalla();
-*/
+
     return false; //Retornamos que no (false), no hubo ningún cambio.
 }
 
@@ -246,7 +221,7 @@ int main()
 /// **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
-
+/**
     CentroLogisticoPtr ctroPrueba = crearCentroLogisticoRapido("Prueba");
 
     PaquetePtr paq1 = crearPaqueteDirect(21652,12,34,25,68,
@@ -260,7 +235,7 @@ int main()
                                          "Haedo",
                                          "Lavalle",1333,
                                          "Valentin Alsina",
-                                         16,12,2022,17,35,0);
+                                         16,12,2022,17,35,3);
 
     agregarPaquete(ctroPrueba,paq1);
     agregarPaquete(ctroPrueba,paq2); //paq2 estará arriba de todo al mostrar la lista.
@@ -269,19 +244,15 @@ int main()
     CentroLogisticoPtr copiaCtro = crearCentroLogisticoRapido("Copia Prueba");
     setPaquetes(copiaCtro,copiaPaquetes);
 
-    printf("ANTES:\n\n");
-    printf("COPIA:\n");
-    mostrarPaquete(getDatoLista(getPaquetes(copiaCtro),1));
-    printf("\nORIGINAL:\n");
     mostrarPaquete(paq1); //Mostramos el paquete a modificar
     printf("\n\nACTUALICE LA DIRECCION DE RETIRO\n");
     actualizarDomicilioPrueba(getDirRetiro(paq1)); //Modificamos la direccion de retiro
-    presionarEnterYLimpiarPantalla();
 
-    printf("DESPUES:\n\n");
-    printf("COPIA:\n");
+    system("cls");
+
+    printf("ANTES:\n");
     mostrarPaquete(getDatoLista(getPaquetes(copiaCtro),1));
-    printf("\nORIGINAL:\n");
+    printf("\nDESPUES:\n");
     mostrarPaquete(paq1); //Lo volvemos a mostrar con el nuevo domicilio.
     presionarEnterYLimpiarPantalla();
 
@@ -292,11 +263,11 @@ int main()
         menuGuardarCambiosPrueba(ctroPrueba,1);
     }
     else
+    {
         printf("No se detectaron cambios!");
-
+        presionarEnterYLimpiarPantalla();
+    }
     ctroPrueba = destruirCentroLogistico(ctroPrueba);
-
-    presionarEnterYLimpiarPantalla();
 
     ctroPrueba = crearCentroLogisticoRapido("PRUEBA");
     bool exito = abrirPaquetes(ctroPrueba);
@@ -304,17 +275,30 @@ int main()
         printf("ERROR: la lista de paquetes no se pudo abrir.");
     else
     {
-        printf("ORIGINAL:\n\n");
+        printf("LISTA ORIGINAL:\n\n");
         mostrarPaquetes(ctroPrueba);
-        printf("\n\nCOPIA:\n\n");
+        printf("\n\nLISTA COPIA:\n\n");
         mostrarPaquetes(copiaCtro);
     }
+
+    presionarEnterYLimpiarPantalla();
+
+    PaquetePtr paqRecuperado = getDatoLista(getPaquetes(ctroPrueba),1);
+    mostrarPaquete(paqRecuperado);
+    presionarEnterYLimpiarPantalla();
+
+    printf("ID = #%d\n",getID(paqRecuperado));
+    printf("Ancho = %d\n",getAncho(paqRecuperado));
+    printf("Alto = %d\n",getAlto(paqRecuperado));
+    printf("Largo = %d\n",getLargo(paqRecuperado));
+    printf("Peso = %d\n",getPeso(paqRecuperado));
+    printf("Estado = %d\n",);
 
     ctroPrueba = destruirCentroLogistico(ctroPrueba);
     copiaCtro = destruirCentroLogistico(copiaCtro);
 
     return 0;
-
+*/
 /// **************************************************************************************************************
 
     CentroLogisticoPtr centroLogistico;
