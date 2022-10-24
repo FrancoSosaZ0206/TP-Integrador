@@ -241,8 +241,9 @@ bool menuGuardarCambiosPrueba(CentroLogisticoPtr centroLogistico,int tipoDato)
 
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
-int main()
+void Prubas()
 {
+
 /// **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
@@ -314,6 +315,12 @@ int main()
     copiaCtro = destruirCentroLogistico(copiaCtro);
 
     return 0;
+}
+
+
+
+int main()
+{
 
 /// **************************************************************************************************************
 
