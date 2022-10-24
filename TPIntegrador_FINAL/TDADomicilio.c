@@ -11,13 +11,9 @@
 DomicilioPtr crearDomicilio(char *calle,int altura,char *localidad)
 {
     DomicilioPtr domicilio=(DomicilioPtr)obtenerMemoria(sizeof(Domicilio));
-
     domicilio->calle=crearStringDinamico(calle);
-
     domicilio->altura=altura;
-
     domicilio->localidad=crearStringDinamico(localidad);
-
     return domicilio;
 }
 

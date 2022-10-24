@@ -12,12 +12,10 @@
 VehiculoPtr crearVehiculo(int tipo,char *marca,char *modelo,char *patente)
 {
     VehiculoPtr vehiculo=(VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));
-
     vehiculo->tipo=tipo;
     vehiculo->marca=crearStringDinamico(marca);
     vehiculo->modelo=crearStringDinamico(modelo);
     vehiculo->patente=crearStringDinamico(patente);
-
     return vehiculo;
 }
 
@@ -122,17 +120,21 @@ void tipoVehiculo(VehiculoPtr vehiculo){
 ///informa al usuario de que tipo es el vehículo que ingresa.
 void mostrarTipoVehiculo(VehiculoPtr vehiculo)
 {
-    if(getTipoVehiculo(vehiculo)==1)
-        printf("El vehiculo recibido es de tipo MOTO.\n\n");
-    else if(getTipoVehiculo(vehiculo)==2)
-        printf("El vehiculo recibido es de tipo AUTO.\n\n");
-    else if(getTipoVehiculo(vehiculo)==3)
-        printf("El vehiculo recibido es de tipo CAMION.\n\n");
-    else
+    switch(getTipoVehiculo(vehiculo))
     {
-        printf("ERROR: No existe tipo de vehículo para el numero '%d'.\n",getTipoVehiculo(vehiculo));
-        printf("Si desconoce los tipos existentes, llame a la funcion 'helpTipoVehiculo()'.\n");
-        printf("Ingrese otro invocando a la funcion 'setTipoVehiculo()'.\n");
+    case 1:
+        printf("El vehiculo recibido es de tipo MOTO.\n\n");
+        break;
+    case 2:
+        printf("El vehiculo recibido es de tipo AUTO.\n\n");
+        break;
+    case 3:
+        printf("El vehiculo recibido es de tipo CAMION.\n\n");
+        break;
+    default:
+         printf("ERROR: No existe tipo de vehículo para el numero '%d'.\n",getTipoVehiculo(vehiculo));
+         printf("Si desconoce los tipos existentes, llame a la funcion 'helpTipoVehiculo()'.\n");
+         printf("Ingrese otro invocando a la funcion 'setTipoVehiculo()'.\n");
     }
     printf("\n\n");
 }

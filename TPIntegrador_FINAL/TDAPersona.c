@@ -30,7 +30,6 @@ PersonaPtr crearPersonaDirect(char *nombre,char *apellido,char *calle,int altura
 {
     DomicilioPtr domicilio = crearDomicilio(calle,altura,localidad);
     CuilPtr cuil = crearCuil(cuilStr);
-
     return crearPersona(nombre,apellido,domicilio,cuil,esChofer);
 }
 
@@ -45,7 +44,6 @@ PersonaPtr destruirPersona(PersonaPtr persona)
     destruirStringDinamico(persona->apellido);
     persona->domicilio=destruirDomicilio(persona->domicilio);
     persona->cuil=destruirCuil(persona->cuil);
-
     free(persona);
     return NULL;
 }
@@ -116,9 +114,13 @@ void mostrarPersona(PersonaPtr persona)
 {
     printf("\tTipo: ");
     if(getEsChofer(persona))
+    {
         printf("Chofer\n");
+    }
     else
+    {
         printf("Cliente\n");
+    }
     printf("\tNombre: %s\n",getNombre(persona));
     printf("\tApellido: %s\n",getApellido(persona));
     printf("\tDomicilio: ");

@@ -35,17 +35,13 @@ PaquetePtr crearPaqueteDirect(int ID,int ancho,int alto,int largo,int peso,char 
     paquete->alto=alto;
     paquete->largo=largo;
     paquete->peso=peso;
-
     paquete->dirRetiro=crearDomicilio(calleRetiro,alturaRetiro,localidadRetiro);
     paquete->dirEntrega=crearDomicilio(calleEntrega,alturaEntrega,localidadEntrega);
     paquete->fechaEntrega=crearFecha(dia,mes,anio,hora,minuto);
-
     DomicilioPtr domicilio=crearDomicilio(calleCliente,alturaCliente,localidadCliente);
     CuilPtr cuil=crearCuil(strCuil);
     paquete->cliente=crearPersona(nombre,apellido,domicilio,cuil,false);
-
     paquete->estado=estado;
-
     return paquete;
 }
 
@@ -240,35 +236,31 @@ void mostrarEstadopaquete(PaquetePtr paquete)
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 {
     bool matchID,matchResto;
-
     DomicilioPtr dirRetiro1 = getDirRetiro(paquete1);
     DomicilioPtr dirRetiro2 = getDirRetiro(paquete2);
     DomicilioPtr dirEntrega1 = getDirEntrega(paquete1);
     DomicilioPtr dirEntrega2 = getDirEntrega(paquete2);
-
     FechaPtr fechaEntrega1 = getFechaEntrega(paquete1);
     FechaPtr fechaEntrega2 = getFechaEntrega(paquete2);
     int difFechas[3];
     calcularDiferenciaFechas(fechaEntrega1,fechaEntrega2,difFechas);
-
-//primero, se verifica si el ID de paquete1 es igual al del paquete2
+    //primero, se verifica si el ID de paquete1 es igual al del paquete2
     matchID = getID(paquete1) == getID(paquete2);
-//luego, se verifica si las dimensiones de paquete1 son iguales
+    //luego, se verifica si las dimensiones de paquete1 son iguales
     matchResto = getAncho(paquete1) == getAncho(paquete2);
     matchResto = matchResto && getAlto(paquete1) == getAlto(paquete2);
     matchResto = matchResto && getLargo(paquete1) == getLargo(paquete2);
     matchResto = matchResto && getPeso(paquete1) == getPeso(paquete2);
-//después, se verifica si las direcciones de retiro de paquete1 coinciden con las del paquete2
+    //después, se verifica si las direcciones de retiro de paquete1 coinciden con las del paquete2
     matchResto = matchResto && strcmp(getCalle(dirRetiro1),getCalle(dirRetiro2))==0;
     matchResto = matchResto && getAltura(dirRetiro1) == getAltura(dirRetiro2);
     matchResto = matchResto && strcmp(getLocalidad(dirRetiro1),getLocalidad(dirRetiro2))==0;
-//posteriormente, se verifica si las direcciones de entrega de paquete1 coinciden con las del paquete2
+    //posteriormente, se verifica si las direcciones de entrega de paquete1 coinciden con las del paquete2
     matchResto = matchResto && strcmp(getCalle(dirEntrega1),getCalle(dirEntrega2))==0;
     matchResto = matchResto && getAltura(dirEntrega1) == getAltura(dirEntrega2);
     matchResto = matchResto && strcmp(getLocalidad(dirEntrega1),getLocalidad(dirEntrega2))==0;
-//finalmente, se chequea la fecha de entrega
+    //finalmente, se chequea la fecha de entrega
     matchResto = matchResto && difFechas[0]==0 && difFechas[1]==0 && difFechas[2]==0;
-
     //la condicion final será: "si coinciden los ID, o bien el resto de parámetros, o bien todo..."
     return matchID || matchResto;
 }

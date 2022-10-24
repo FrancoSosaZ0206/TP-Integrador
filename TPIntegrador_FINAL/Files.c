@@ -22,72 +22,89 @@
 FechaPtr crearFechaDirectNuevo(fFechaPtr FechaEstatico)
 {
     FechaPtr fecha = (FechaPtr)obtenerMemoria(sizeof(Fecha));
+
     fecha->diaJuliano=FechaEstatico->diaJuliano;
     fecha->hora=FechaEstatico->hora;
     fecha->minuto=FechaEstatico->minuto;
+
     return fecha;
 }
 
 DomicilioPtr crearDomicilioNuevo(fDomicilioPtr DomicilioEstatico)
 {
     DomicilioPtr domicilio = (DomicilioPtr)obtenerMemoria(sizeof(Domicilio));
+
     domicilio->calle=crearStringDinamico(DomicilioEstatico->calle);
     domicilio->altura=DomicilioEstatico->altura;
     domicilio->localidad=crearStringDinamico(DomicilioEstatico->localidad);
+
     return domicilio;
 }
 
 PaquetePtr crearPaqueteDirectNuevo(fPaquetePtr PaqueteEstatico)
 {
     PaquetePtr paquete=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
+
     paquete->ID=PaqueteEstatico->ID;
     paquete->ancho=PaqueteEstatico->ancho;
     paquete->alto=PaqueteEstatico->alto;
     paquete->largo=PaqueteEstatico->largo;
     paquete->peso=PaqueteEstatico->peso;
     paquete->estado=PaqueteEstatico->estado;
+
     paquete->dirRetiro=crearDomicilioNuevo(&PaqueteEstatico->dirRetiro);
     paquete->dirEntrega=crearDomicilioNuevo(&PaqueteEstatico->dirEntrega);
     paquete->fechaEntrega=crearFechaDirectNuevo(&PaqueteEstatico->fechaEntrega);
     paquete->cliente=crearPersonaDirectNuevo(&PaqueteEstatico->cliente);
+
     return paquete;
 }
 
 PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PersonaEstatico)
 {
     PersonaPtr persona=(PersonaPtr)obtenerMemoria(sizeof(Persona));
+
     persona->nombre=crearStringDinamico(PersonaEstatico->nombre);
     persona->apellido=crearStringDinamico(PersonaEstatico->apellido);
+
     persona->domicilio=crearDomicilio(PersonaEstatico->domicilio.calle,PersonaEstatico->domicilio.altura,PersonaEstatico->domicilio.localidad);
     persona->cuil=crearCuil(PersonaEstatico->cuil.cuil);
+
     persona->esChofer=PersonaEstatico->esChofer;
+
     return persona;
 }
 
 VehiculoPtr crearVehiculoDirectNuevo(fVehiculoPtr VehiculoEstatico)
 {
     VehiculoPtr vehiculo = (VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));
+
     vehiculo->tipo=VehiculoEstatico->tipo;
     vehiculo->marca=crearStringDinamico(VehiculoEstatico->marca);
     vehiculo->modelo=crearStringDinamico(VehiculoEstatico->modelo);
     vehiculo->patente=crearStringDinamico(VehiculoEstatico->patente);
+
     return vehiculo;
 }
 
 RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RepartoEstatico)
 {
     RepartoPtr reparto=(RepartoPtr)obtenerMemoria(sizeof(Reparto));
+
     reparto->chofer=crearPersonaDirectNuevo(&RepartoEstatico->chofer);
     reparto->vehiculo=crearVehiculoDirectNuevo(&RepartoEstatico->vehiculo);
     reparto->fechaSalida=crearFechaDirectNuevo(&RepartoEstatico->fechaSalida);
     reparto->fechaRetorno=crearFechaDirectNuevo(&RepartoEstatico->fechaRetorno);
+
     ListaPtr paquetes=crearLista();
     PaquetePtr PaqueteDinamico;
-    for(int i=0;i<RepartoEstatico->tamanioPilaPaq;i++){
+    for(int i=RepartoEstatico->tamanioPilaPaq;i>=0;i--)
+    {
         PaqueteDinamico=PasajePaqueteDinamico(&RepartoEstatico->paquetes[i],PaqueteDinamico,true);
         agregarDatoLista(paquetes,(PaquetePtr)PaqueteDinamico);
     }
     reparto->paquetes=paquetes;
+
     return reparto;
 }
 
@@ -97,9 +114,12 @@ RepartoPtr crearRepartoDirectoNuevo(fRepartoPtr RepartoEstatico)
 
 FechaPtr PasajeFechaDinamico(fFechaPtr FechaEstatica, FechaPtr FechaDinamica, bool ADinamico)
 {
-    if(ADinamico){
+    if(ADinamico)
+    {
         FechaDinamica=crearFechaDirectNuevo(FechaEstatica);
-    }else{
+    }
+    else
+    {
         FechaEstatica->diaJuliano=getDiaJuliano(FechaDinamica);
         FechaEstatica->hora=getHora(FechaDinamica);
         FechaEstatica->minuto=getMinuto(FechaDinamica);
@@ -109,9 +129,12 @@ FechaPtr PasajeFechaDinamico(fFechaPtr FechaEstatica, FechaPtr FechaDinamica, bo
 
 DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DomicilioEstatico, DomicilioPtr DomicilioDinamico, bool ADinamico)
 {
-    if(ADinamico){
+    if(ADinamico)
+    {
         DomicilioDinamico=crearDomicilio(DomicilioEstatico->calle,DomicilioEstatico->altura,DomicilioEstatico->localidad);
-    }else{
+    }
+    else
+    {
         strcpy(DomicilioEstatico->calle,DomicilioDinamico->calle);
         DomicilioEstatico->altura=DomicilioDinamico->altura;
         strcpy(DomicilioEstatico->localidad,DomicilioDinamico->localidad);
@@ -121,9 +144,12 @@ DomicilioPtr PasajeDomicilioDinamico(fDomicilioPtr DomicilioEstatico, DomicilioP
 
 CuilPtr PasajeCuilDinamico(fCuilPtr CuilEstatico, CuilPtr CuilDinamico, bool ADinamico)
 {
-    if(ADinamico){
+    if(ADinamico)
+    {
         CuilDinamico=crearCuil(CuilEstatico->cuil);
-    }else{
+    }
+    else
+    {
         strcpy(CuilEstatico->cuil,CuilDinamico->cuil);
     }
     return CuilDinamico;
@@ -131,9 +157,12 @@ CuilPtr PasajeCuilDinamico(fCuilPtr CuilEstatico, CuilPtr CuilDinamico, bool ADi
 
 VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VehiculoEstatico, VehiculoPtr VehiculoDinamico, bool ADinamico)
 {
-    if(ADinamico){
+    if(ADinamico)
+    {
         VehiculoDinamico=crearVehiculoDirectNuevo(VehiculoEstatico);
-    }else{
+    }
+    else
+    {
         VehiculoEstatico->tipo=VehiculoDinamico->tipo;
         strcpy(VehiculoEstatico->marca,VehiculoDinamico->marca);
         strcpy(VehiculoEstatico->modelo,VehiculoDinamico->modelo);
@@ -144,13 +173,18 @@ VehiculoPtr PasajeVehiculoDinamico(fVehiculoPtr VehiculoEstatico, VehiculoPtr Ve
 
 PersonaPtr PasajePersonaDinamico(fPersonaPtr PersonaEstatico, PersonaPtr PersonaDinamica, bool ADinamico)
 {
-    if(ADinamico){
+    if(ADinamico)
+    {
         PersonaDinamica=crearPersonaDirectNuevo(PersonaEstatico);
-    }else{
+    }
+    else
+    {
         strcpy(PersonaEstatico->nombre ,PersonaDinamica->nombre);
         strcpy(PersonaEstatico->apellido,PersonaDinamica->apellido);
+
         PasajeDomicilioDinamico(&PersonaEstatico->domicilio,PersonaDinamica->domicilio,false);
         strcpy(PersonaEstatico->cuil.cuil,PersonaDinamica->cuil->cuil);
+
         PersonaEstatico->esChofer = PersonaDinamica->esChofer;
     }
     return PersonaDinamica;
@@ -158,15 +192,19 @@ PersonaPtr PasajePersonaDinamico(fPersonaPtr PersonaEstatico, PersonaPtr Persona
 
 PaquetePtr PasajePaqueteDinamico(fPaquetePtr PaqueteEstatico, PaquetePtr PaqueteDinamico, bool ADinamico)
 {
-    if(ADinamico){
+    if(ADinamico)
+    {
         PaqueteDinamico=crearPaqueteDirectNuevo(PaqueteEstatico);
-    }else{
+    }
+    else
+    {
         PaqueteEstatico->ID=PaqueteDinamico->ID;
         PaqueteEstatico->alto=PaqueteDinamico->alto;
         PaqueteEstatico->ancho=PaqueteDinamico->ancho;
         PaqueteEstatico->largo=PaqueteDinamico->largo;
         PaqueteEstatico->peso=PaqueteDinamico->peso;
         PaqueteEstatico->estado=PaqueteDinamico->estado;
+
         PasajeDomicilioDinamico(&PaqueteEstatico->dirRetiro,PaqueteDinamico->dirRetiro,false);
         PasajeDomicilioDinamico(&PaqueteEstatico->dirEntrega,PaqueteDinamico->dirEntrega,false);
         PasajeFechaDinamico(&PaqueteEstatico->fechaEntrega,PaqueteDinamico->fechaEntrega,false);
@@ -177,25 +215,34 @@ PaquetePtr PasajePaqueteDinamico(fPaquetePtr PaqueteEstatico, PaquetePtr Paquete
 
 RepartoPtr PasajeRepartoDinamico(fRepartoPtr RepartoEstatico, RepartoPtr RepartoDinamico, bool ADinamico)
 {
-    if(ADinamico){
+    if(ADinamico)
+    {
         RepartoDinamico=crearRepartoDirectoNuevo(RepartoEstatico);
-    }else{
+    }
+    else
+    {
         PasajePersonaDinamico(&RepartoEstatico->chofer,RepartoDinamico->chofer,false);
         PasajeVehiculoDinamico(&RepartoEstatico->vehiculo,RepartoDinamico->vehiculo,false);
         PasajeFechaDinamico(&RepartoEstatico->fechaSalida,RepartoDinamico->fechaSalida,false);
         PasajeFechaDinamico(&RepartoEstatico->fechaRetorno,RepartoDinamico->fechaRetorno,false);
+
         int total=(int)longitudLista(getPaquetesReparto(RepartoDinamico));
         RepartoEstatico->tamanioPilaPaq=total;
-        ListaPtr ListaAuxiliar=(ListaPtr)getPaquetesReparto(RepartoDinamico);
-        PaquetePtr PD;
+        ListaPtr ListaAuxiliar=crearLista();
+        ListaAuxiliar=(ListaPtr)getPaquetesReparto(RepartoDinamico);
+        PaquetePtr PaqueteDinamico;
         int i=0;
         while(!listaVacia(ListaAuxiliar))
         {
-            PD=getCabecera(ListaAuxiliar);
-            PasajePaqueteDinamico(&RepartoEstatico->paquetes[i],PD,false);
-            ListaAuxiliar=getResto(ListaAuxiliar);
+            PaqueteDinamico=getCabecera(ListaAuxiliar);
+            PasajePaqueteDinamico(&RepartoEstatico->paquetes[i],PaqueteDinamico,false);
+
+            ListaPtr ListaDestruir = ListaAuxiliar;
+            ListaAuxiliar = getResto(ListaAuxiliar);
+            ListaDestruir = destruirLista(ListaDestruir, false);
             i++;
         }
+        ListaAuxiliar=destruirLista(ListaAuxiliar,false);
     }
     return RepartoDinamico;
 }
@@ -218,13 +265,19 @@ bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
     }
     fVehiculo VehiculoEstatico;
     VehiculoPtr VehiculoDinamico;
-    ListaPtr ListaAuxiliar=getVehiculos(centroLogistico);
-    while(!listaVacia(ListaAuxiliar)){
+    ListaPtr ListaAuxiliar=crearLista();
+    agregarLista(ListaAuxiliar, getVehiculos(centroLogistico));
+    while(!listaVacia(ListaAuxiliar))
+    {
         VehiculoDinamico=getCabecera(ListaAuxiliar);
         PasajeVehiculoDinamico(&VehiculoEstatico,VehiculoDinamico,false);
         fwrite(&VehiculoEstatico,sizeof(fVehiculo),1,arch);
-        ListaAuxiliar=getResto(ListaAuxiliar);
+
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
     }
+    ListaAuxiliar=destruirLista(ListaAuxiliar,false);
     fclose(arch);
     return guardado;
 }
@@ -258,7 +311,10 @@ bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         RepartoDinamico=(RepartoPtr)getCabecera(ListaAuxiliar);
         PasajeRepartoDinamico(&RepartoEstatico,RepartoDinamico,false);
         fwrite(&RepartoEstatico,sizeof(fReparto),1,arch);
-        ListaAuxiliar=getResto(ListaAuxiliar);
+
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
     }
     ListaAuxiliar=destruirLista(ListaAuxiliar,false);
     fclose(arch);
@@ -271,7 +327,8 @@ bool guardarPersonas(CentroLogisticoPtr centroLogistico)
     bool guardado=false;
     fPersona PersonaEstatico;
     PersonaPtr PersonaDinamica;
-    ListaPtr ListaAuxiliar=getPersonas(centroLogistico);
+    ListaPtr ListaAuxiliar=crearLista();
+    agregarLista(ListaAuxiliar, getPersonas(centroLogistico));
     arch=fopen("PersonasPrueba.bin","wb");
     fclose(arch);
     arch=fopen("PersonasPrueba.bin","ab");
@@ -279,12 +336,17 @@ bool guardarPersonas(CentroLogisticoPtr centroLogistico)
     {
         guardado=true;
     }
-    while(!listaVacia(ListaAuxiliar)){
+    while(!listaVacia(ListaAuxiliar))
+    {
         PersonaDinamica=getCabecera(ListaAuxiliar);
         PasajePersonaDinamico(&PersonaEstatico,PersonaDinamica,false);
         fwrite(&PersonaEstatico,sizeof(fPersona),1,arch);
-        ListaAuxiliar=getResto(ListaAuxiliar);
+
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
     }
+    ListaAuxiliar=destruirLista(ListaAuxiliar,false);
     fclose(arch);
     return guardado;
 }
@@ -295,7 +357,8 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
     bool guardado=false;
     fPaquete PaqueteEstatico;
     PaquetePtr PaqueteDinamico;
-    ListaPtr ListaAuxiliar=getPaquetes(centroLogistico);
+    ListaPtr ListaAuxiliar=crearLista();
+    agregarLista(ListaAuxiliar, getPaquetes(centroLogistico));
     arch=fopen("PaquetesPrueba.bin","wb");
     fclose(arch);
     arch=fopen("PaquetesPrueba.bin","ab");
@@ -307,8 +370,12 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
         PaqueteDinamico=getCabecera(ListaAuxiliar);
         PasajePaqueteDinamico(&PaqueteEstatico,PaqueteDinamico,false);
         fwrite(&PaqueteEstatico,sizeof(fPaquete),1,arch);
-        ListaAuxiliar=getResto(ListaAuxiliar);
+
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
     }
+    ListaAuxiliar=destruirLista(ListaAuxiliar,false);
     fclose(arch);
     return guardado;
 }
@@ -329,7 +396,8 @@ bool abrirVehiculos(CentroLogisticoPtr centroLogistico)
         guardado=true;
     }
     fread(&VehiculoEstatico,sizeof(fVehiculo),1,arch);
-    while(!feof(arch)){
+    while(!feof(arch))
+    {
         VehiculoDinamico=PasajeVehiculoDinamico(&VehiculoEstatico,VehiculoDinamico,true);
         agregarVehiculo(centroLogistico,VehiculoDinamico);
         fread(&VehiculoEstatico,sizeof(fVehiculo),1,arch);
@@ -350,7 +418,8 @@ bool abrirPersonas(CentroLogisticoPtr centroLogistico)
         guardado=true;
     }
     fread(&PersonaEstatico,sizeof(fPersona),1,arch);
-    while(!feof(arch)){
+    while(!feof(arch))
+    {
         PersonaDinamico=PasajePersonaDinamico(&PersonaEstatico,PersonaDinamico,true);
         agregarPersona(centroLogistico,PersonaDinamico);
         fread(&PersonaEstatico,sizeof(fPersona),1,arch);
@@ -371,7 +440,8 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
         guardado=true;
     }
     fread(&PaqueteEstatico,sizeof(fPaquete),1,arch);
-    while(!feof(arch)){
+    while(!feof(arch))
+    {
         PaqueteDinamico=PasajePaqueteDinamico(&PaqueteEstatico,PaqueteDinamico,true);
         agregarPaquete(centroLogistico,PaqueteDinamico);
         fread(&PaqueteEstatico,sizeof(fPaquete),1,arch);

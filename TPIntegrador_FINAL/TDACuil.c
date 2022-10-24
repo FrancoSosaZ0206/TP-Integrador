@@ -12,9 +12,7 @@
 CuilPtr crearCuil(char *cuilStr)
 {
     CuilPtr cuil=(CuilPtr)obtenerMemoria(sizeof(Cuil));
-
     cuil->cuil=crearStringDinamico(cuilStr);
-
     return cuil;
 }
 
@@ -24,13 +22,9 @@ CuilPtr crearCuilNumeros(int tipoPersona,int dni,int nVerificador)
     sprintf(temp,"%d %d %d",tipoPersona,dni,nVerificador);
     int longitudString=strlen(temp)+1;
     temp[longitudString]=0;
-
     char* sCuil=crearStringDinamico(temp);
-
     CuilPtr cuil=(CuilPtr)obtenerMemoria(sizeof(Cuil));
-
     cuil->cuil=sCuil;
-
     return cuil;
 }
 
@@ -41,9 +35,7 @@ CuilPtr crearCuilNumeros(int tipoPersona,int dni,int nVerificador)
 CuilPtr destruirCuil(CuilPtr cuil)
 {
     destruirStringDinamico(cuil->cuil);
-
     free(cuil);
-
     return NULL;
 }
 
@@ -61,7 +53,6 @@ void setTipo(CuilPtr cuil,int tipo)
     int oldTipo=0;
     int oldDni=0;
     int oldNVerif=0;
-
     //Dividimos el string en 3 variables int
     sscanf(cuil->cuil,"%d %d %d",&oldTipo,&oldDni,&oldNVerif);
     //Vaciamos el contenido del string
@@ -75,11 +66,8 @@ void setDni(CuilPtr cuil,int dni)
     int oldTipo=0;
     int oldDni=0;
     int oldNVerif=0;
-
     sscanf(cuil->cuil,"%d %d %d",&oldTipo,&oldDni,&oldNVerif);
-
     cuil->cuil="";
-
     sprintf(cuil->cuil,"%d %d %d",oldTipo,dni,oldNVerif);
 }
 
@@ -88,12 +76,9 @@ void setNVerificador(CuilPtr cuil,int nVerificador)
     int oldTipo=0;
     int oldDni=0;
     int oldNVerif=0;
-
     //Obtenemos los primeros 2 numeros y los almacenamos en un entero;
     sscanf(cuil->cuil,"%d %d %d",&oldTipo,&oldDni,&oldNVerif);
-
     cuil->cuil="";
-
     sprintf(cuil->cuil,"%d %d %d",oldTipo,oldDni,nVerificador);
 }
 
@@ -111,7 +96,6 @@ int getTipo(CuilPtr cuil)
     int tipo=0;
     int dni=0;
     int nVerif=0;
-
     //Dividimos el string en 3 variables int
     sscanf(cuil->cuil,"%d %d %d",&tipo,&dni,&nVerif);
     //retornamos el que queríamos
@@ -123,7 +107,6 @@ int getDni(CuilPtr cuil)
     int tipo=0;
     int dni=0;
     int nVerif=0;
-
     //Dividimos el string en 3 variables int
     sscanf(cuil->cuil,"%d %d %d",&tipo,&dni,&nVerif);
     //retornamos el que queríamos
@@ -135,7 +118,6 @@ int getNVerificador(CuilPtr cuil)
     int tipo=0;
     int dni=0;
     int nVerif=0;
-
     //Dividimos el string en 3 variables int
     sscanf(cuil->cuil,"%d %d %d",&tipo,&dni,&nVerif);
     //retornamos el que queríamos
@@ -251,12 +233,10 @@ void helpCuil()
     printf("\n\n----------------------------------------\n");
     printf("AYUDA CUIL\n\n");
     printf("CUIL = XY 12345678 Z\n");
-
     printf("\tXY = Tipo de persona\n");
     printf("\t\t20 = Hombre\n");
     printf("\t\t27 = Mujer\n");
     printf("\t\t30 = Empresa\n\n");
-
     printf("\t12345678 = DNI\n");
     printf("\tZ = Numero Verificador");
     printf("\n\n----------------------------------------\n");

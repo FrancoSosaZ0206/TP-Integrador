@@ -11,23 +11,22 @@
 
 FechaPtr crearFecha(int dia,int mes,int anio,int hora,int minuto)
 {
-    FechaPtr f=(FechaPtr)obtenerMemoria(sizeof(Fecha));
-    f->diaJuliano=calcularDiaJuliano(dia,mes,anio);
-    f->hora=hora;
-    f->minuto=minuto; ///Agregamos estas dos a la estructura antes de retornar f.
-
-    return f;
+    FechaPtr FechaNueva=(FechaPtr)obtenerMemoria(sizeof(Fecha));
+    FechaNueva->diaJuliano=calcularDiaJuliano(dia,mes,anio);
+    FechaNueva->hora=hora;
+    FechaNueva->minuto=minuto; ///Agregamos estas dos a la estructura antes de retornar f.
+    return FechaNueva;
 }
 
 ///NUEVA: Orientada a crear fecha a partir de otra fecha (o si se parte de d. julianos) (utilizada en Files).
 FechaPtr crearFechaDirect(int diaJuliano,int hora,int minuto)
 {
-    FechaPtr f = (FechaPtr)obtenerMemoria(sizeof(Fecha));
-    f->diaJuliano=diaJuliano;
-    f->hora=hora;
-    f->minuto=minuto;
+    FechaPtr FechaNueva = (FechaPtr)obtenerMemoria(sizeof(Fecha));
+    FechaNueva->diaJuliano=diaJuliano;
+    FechaNueva->hora=hora;
+    FechaNueva->minuto=minuto;
 
-    return f;
+    return FechaNueva;
 }
 
 ///-----------------------------------------------------------------------------------------------------------///
@@ -160,7 +159,6 @@ Usamos la funcion strcat, con lo que concatenamos la barra al final del
 string como esta en ese momento, sin importar que tantos dígitos tengan
 los meses y días de la fecha.
 */
-
     sprintf(buffer,"%d",getDia(fecha)); //insertamos el día
     strcat(buffer,"/"); ///insertamos la barra al final del string
     sprintf(buffer+strlen(buffer),"%d",getMes(fecha)); //repetimos para mes y año
@@ -179,9 +177,13 @@ bool esBiciesto(FechaPtr fecha)
 {
     int anio=getAnio(fecha);
     if(anio%400==0 || (anio%4==0 && anio%100!=0))
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 FechaPtr sumarAFecha(FechaPtr fecha,int dias)
@@ -216,39 +218,31 @@ void traerFechaLarga(FechaPtr fecha, char* buffer)
     strlen() y sprintf se encargaría de medir cada una de
     estas palabras, resolviendo el problema.
 */
-
-
     char *diaSemana=(char*)obtenerMemoria((sizeof(char)*9)+1);
     diaSemanaStr(fecha,diaSemana);
-    char *mes[]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
-                 "Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
-
+    char *mes[]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio", "Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
     int i=getMes(fecha)-1; //este será el mes numerico.
     //Le restamos 1 x q mes[] va de 0 a 11, y getMes() va de 1 a 12
-
     strcpy(buffer,diaSemana); //copiamos el dia de la semana
     strcat(buffer,", "); //ponemos la coma al final de eso
-
     sprintf(buffer+strlen(buffer),"%d",getDia(fecha)); //agregamos el dia numerico
     strcat(buffer," de "); //concatenamos " de " al final del buffer
-
     strcat(buffer,mes[i]); //concatenamos el mes
     strcat(buffer," de ");
-
     sprintf(buffer+strlen(buffer),"%d",getAnio(fecha)); //agregamos el anio numerico
-
     free(diaSemana);
     diaSemana=NULL;
 }
 
 void traerFechaYHora(FechaPtr fecha,char *buffer)
 {
+    /// Nota: cuando usamos buffer+strlen(buffer), realmente no hace falta restar nada. Así como está, está bien.
     traerFechaCorta(fecha,buffer);
     strcat(buffer,", ");
     sprintf(buffer+strlen(buffer),"%d",getHora(fecha));
     strcat(buffer,":");
     sprintf(buffer+strlen(buffer),"%d",getMinuto(fecha));
-}/// Nota: cuando usamos buffer+strlen(buffer), realmente no hace falta restar nada. Así como está, está bien.
+}
 
 char *traerFechaYHoraDinamica(FechaPtr fecha)
 {
@@ -261,31 +255,25 @@ char *traerFechaYHoraDinamica(FechaPtr fecha)
 bool esFechaValida(FechaPtr fecha)
 {
     bool resultado=true;
-
-//    E  F    M  A  M  J  J  A  S  O  N  D  <<<MESES
-//    31 29/8 31 30 31 30 31 31 30 31 30 31 <<<DIAS
-
+    //E  F    M  A  M  J  J  A  S  O  N  D  <<<MESES
+    //31 29/8 31 30 31 30 31 31 30 31 30 31 <<<DIAS
     int n=11;
     int vecMes[]={31,28,31,30,31,30,31,31,30,31,30,31};
-
     int mes=getMes(fecha);
-
     resultado = mes>=1 && mes<=n+1;
-
     int dia=getDia(fecha);
-
     if(mes==2)
+    {
         if(esBiciesto(fecha))
+        {
             vecMes[mes-1]++;
-
+        }
+    }
     resultado = resultado && (dia>=1 && dia<=vecMes[mes-1]);
-
-    resultado = resultado && ((getAnio(fecha)>=2000) && (getAnio(fecha)<=2030)); //entre 2000 y 2030
-
+    //entre 2000 y 2030
+    resultado = resultado && ((getAnio(fecha)>=2000) && (getAnio(fecha)<=2030));
     resultado = resultado && ((getHora(fecha)>=0) && (getHora(fecha)<=23));
-
     resultado = resultado && ((getMinuto(fecha)>=0) && (getMinuto(fecha)<=59));
-
     return resultado;
 }
 
