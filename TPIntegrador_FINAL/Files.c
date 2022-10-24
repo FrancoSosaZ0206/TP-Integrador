@@ -241,7 +241,9 @@ DomicilioPtr fsetDomicilio(fDomicilioPtr pfdomicilio,DomicilioPtr domicilio,bool
         strcpy(pfdomicilio->localidad,getLocalidad(domicilio));
     }
     else ///asumimos que la estructura está vacía y la creamos.
-        domicilio = crearDomicilio(fgetCalle(pfdomicilio),fgetAltura(pfdomicilio),fgetLocalidad(pfdomicilio));
+        domicilio = crearDomicilio(pfdomicilio->calle,
+                                   pfdomicilio->altura,
+                                   pfdomicilio->localidad);
     return domicilio;
 }
 FechaPtr fsetFecha(fFechaPtr pffecha,FechaPtr fecha,bool setGuardar)
@@ -434,6 +436,8 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
         crearCarpeta();
 
     FILE *archivo = fopen("Archivos/PRUEBA - Lista de Paquetes.txt","w");
+    fclose(archivo);
+    archivo = fopen("Archivos/PRUEBA - Lista de Paquetes.txt","a");
 
     if(archivo==NULL)
         return false;
@@ -443,19 +447,22 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
         int n = longitudLista(getPaquetes(centroLogistico));
         fwrite(&n,sizeof(int),1,archivo);
 
-        fPaquete fpaquete;
+        fPaquete fpaquetes[n];
         ListaPtr listaAux = crearLista();
         agregarLista(listaAux , getPaquetes(centroLogistico));
 
+        int i=0;
         while(!listaVacia(listaAux))
         {
             PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
-            fsetPaquete(&fpaquete,paqueteAux,true);
-
-            fwrite(&fpaquete,sizeof(fPaquete),1,archivo);
-
+            fsetPaquete(&fpaquetes[i],paqueteAux,true);
             listaAux=getResto(listaAux);
+
+            i++;
         }
+
+        fwrite(&fpaquetes,sizeof(fPaquete),n,archivo);
+
         listaAux=destruirLista(listaAux,false);
 
         fclose(archivo);
@@ -637,13 +644,14 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
         int n = 0;
         fread(&n,sizeof(int),1,archivo);
 
-        fPaquete fpaquete;
+        printf("n = %d\n\n",n);
+
+        fPaquete fpaquetes[n];
+        fread(&fpaquetes,sizeof(fPaquete),n,archivo);
 
         for(int i=0;i<n;i++)
         {
-            fread(&fpaquete,sizeof(fPaquete),1,archivo);
-
-            PaquetePtr paqueteAux = fsetPaquete(&fpaquete,paqueteAux,false);
+            PaquetePtr paqueteAux = fsetPaquete(&fpaquetes[i],paqueteAux,false);
             agregarPaquete(centroLogistico,paqueteAux);
         }
         fclose(archivo);

@@ -289,7 +289,7 @@ int main()
     if(cambioDetectado)
     {
         printf("Uy! Hubo un cambio!\n\n");
-        bool cambiosGuardados = menuGuardarCambiosPrueba(ctroPrueba,1);
+        menuGuardarCambiosPrueba(ctroPrueba,1);
     }
     else
         printf("No se detectaron cambios!");
