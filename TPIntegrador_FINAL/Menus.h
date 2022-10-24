@@ -253,7 +253,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
 //      - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario.
-bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
+bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto, int* op1);
 
 
 ///--------------------------------------------------------------------------------------------------------------------------

@@ -39,15 +39,13 @@ int menuModoAccion()
         printf("3. Sobre rango de indices [Ej: Posiciones 1 - 4 (1,2,3,4)]\n");
         printf("\n-------------------------------------------------------------\n");
         printf("Opcion: ");
-        limpiarBufferTeclado();
-        scanf("%d", &eleccion);
-        limpiarBufferTeclado();
-        if(eleccion<-1 || eleccion>3)
+        eleccion = seleccionarNumero();
+        if(eleccion<1 || eleccion>3)
         {
             printf("\nOpcion incorrecta.\n\n");
             presionarEnterYLimpiarPantalla();
         }
-    } while(eleccion<-1 || eleccion>3);
+    } while(eleccion<1 || eleccion>3);
     system("cls");
     return eleccion;
 }
@@ -2601,12 +2599,12 @@ int menuOrdenarRepartos()
     return op3;
 }
 
-bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
+bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto, int* op1)
 {
-	int op2=0,op3=0,i=0;
+	int Main_1=0,Main_2=0,i=0;
     bool cambiosGuardados=false;
 	int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
-    if(listaVacia(getRepartos(centroLogistico,false)))
+    if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
     {
         printf("Lista de repartos vacia, por favor, agregue elementos para mostrar\n");
         presionarEnterYLimpiarPantalla();
@@ -2620,8 +2618,8 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 printf("EMITIR LISTADO DE REPARTOS ABIERTOS\n");
             else
                 printf("EMITIR LISTADO DE REPARTOS CERRADOS\n");
-            op2=menuListadoReparto();
-            switch(op2)
+            Main_1=menuListadoReparto();
+            switch(Main_1)
             {
             case 1:
                 do
@@ -2643,8 +2641,8 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
             case 2:
                 do
                 {
-                    op3=menuOrdenarRepartos();
-                    switch(op3)
+                    Main_2=menuOrdenarRepartos();
+                    switch(Main_2)
                     {
                     case 1:
                         ordenarRepartos(centroLogistico,esRepartoAbierto,1);
@@ -2669,23 +2667,25 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                         break;
                     case 0:
                         break;
-                    case -1:
-                        op2=0;
-                        op3=0;
                     default:
                         printf("Opcion incorrecta.\n\n");
                         break;
                     }
                     system("cls");
-                } while(op3!=0);
+                } while(Main_2!=0);
                 break;
             case 0:
+                break;
+           case -1:
+                *op1 = 0;
+                Main_1 = 0;
+                Main_2 = 0;
                 break;
             default:
                 printf("Opcion incorrecta\n\n");
                 break;
             }
-        } while(op2!=0);
+        } while(Main_1!=0);
     }
     return cambiosGuardados;
 }

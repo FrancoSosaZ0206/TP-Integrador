@@ -366,7 +366,8 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
     {
         guardado=true;
     }
-    while(!listaVacia(ListaAuxiliar)){
+    while(!listaVacia(ListaAuxiliar))
+    {
         PaqueteDinamico=getCabecera(ListaAuxiliar);
         PasajePaqueteDinamico(&PaqueteEstatico,PaqueteDinamico,false);
         fwrite(&PaqueteEstatico,sizeof(fPaquete),1,arch);

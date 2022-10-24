@@ -331,10 +331,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     cambiosGuardados = menuMostrarVehiculos(centroLogistico);
                     break;
                 case 6:
-                    cambiosGuardados = menuMostrarRepartos(centroLogistico,true);
+                    cambiosGuardados = menuMostrarRepartos(centroLogistico,true, &op1);
                     break;
                 case 7:
-                    cambiosGuardados = menuMostrarRepartos(centroLogistico,false);
+                    cambiosGuardados = menuMostrarRepartos(centroLogistico,false, &op1);
                     break;
                 case 0:
                     break;
