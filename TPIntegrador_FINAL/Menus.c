@@ -57,6 +57,10 @@ int menuModoAccion1(ListaPtr lista)
     {
         printf("\n\nIngrese indice donde tomar accion: ");
         eleccion = seleccionarNumero();
+        if(eleccion < 1 || eleccion > tamanioLista)
+        {
+            printf("\t(Indice inexistente)\n");
+        }
     } while(eleccion <= 0 || eleccion > tamanioLista);
     eleccion--;
     return eleccion;
@@ -64,25 +68,29 @@ int menuModoAccion1(ListaPtr lista)
 
 void menuModoAccion2(ListaPtr lista,int cantIndices,int* indices)
 {
-    int n=longitudLista(lista);
-//Elegimos los indices
-    for(int i=0;i<cantIndices;i++)
+    int tamanioLista = longitudLista(lista);
+    //Elegimos los indices
+    for(int i = 0;i < cantIndices;i++)
     {
         do
         {
-            printf("\n\nIngrese indice %d: ",i+1);
-            scanf("%d",&indices[i]);
+            printf("\n\nIngrese indice %d: ", i+1);
+            scanf("%d", &indices[i]);
             limpiarBufferTeclado();
-            if(indices[i]<1 && indices[i]>n)
+            if(indices[i] < 1 && indices[i] > tamanioLista)
             {
                 printf("\n\nIndice inexistente. Vuelva a ingresar.\n\n");
                 presionarEnterYLimpiarPantalla();
             }
-        } while(indices[i]<1 && indices[i]>n);
+            if(indices[i] < 1 || indices[i] > tamanioLista)
+            {
+                printf("\t(Indice inexistente)\n");
+            }
+        } while(indices[i] < 1 && indices[i] > tamanioLista);
     }
-    for(int i=0;i<cantIndices-1;i++)
+    for(int i = 0 ; i < cantIndices-1 ; i++)
     {
-        for(int j=i+1;j<cantIndices;j++)
+        for(int j = i+1 ; j < cantIndices; j++)
         {
             if(indices[i]>indices[j])
             {
@@ -103,35 +111,33 @@ void menuModoAccion3(ListaPtr lista,int* vec)
 {
     int desde = 0;
     int hasta = 0;
-    int n=longitudLista(lista);
+    int tamanioLista = longitudLista(lista);
     do
     {
         printf("Ingrese el indice minimo: ");
         desde=seleccionarNumero();
-        if(desde<1 || desde>n)
+        if(desde < 1 || desde > tamanioLista)
         {
-            printf("\n\nIndice incorrecto. Vuelva a ingresar.\n\n");
-            presionarEnterYLimpiarPantalla();
+            printf("\t(Indice inexistente)\n");
         }
-    } while(desde<1 || desde>n);
+    } while(desde < 1 || desde > tamanioLista);
     do
     {
         printf("Ingrese el indice maximo: ");
         hasta=seleccionarNumero();
-        if(hasta<desde || hasta>n)
+        if(hasta < 1 || hasta > tamanioLista)
         {
-            printf("\n\nIndice incorrecto. Vuelva a ingresar.\n\n");
-            presionarEnterYLimpiarPantalla();
+            printf("\t(Indice inexistente)\n");
         }
-    } while(hasta<desde || hasta>n);
-    if(vec[0]>vec[1])
+    } while(hasta < desde || hasta > tamanioLista);
+    if(vec[0] > vec[1])
     {
-        int aux=vec[0];
-        vec[0]=vec[1];
-        vec[1]=aux;
+        int aux = vec[0];
+        vec[0] = vec[1];
+        vec[1] = aux;
     }
-    vec[0]=desde-1;
-    vec[1]=hasta-1;
+    vec[0] = desde-1;
+    vec[1] = hasta-1;
     //El sistema permite que desde y hasta sean iguales si la lista tiene solo 1 elemento.
 }
 
@@ -140,13 +146,13 @@ bool menuContinuar()
     int eleccion;
     do
     {
-        printf("\n\n\tDesea continuar?\n");
-        printf("1. SI \n");
-        printf("0. NO \n");
-        printf("Opcion: ");
+        printf("\n\n\t Desea continuar? \n\n");
+        printf("\t     [1. SI] \n");
+        printf("\t     [0. NO] \n");
+        printf("\n\t   Opcion: ");
         eleccion=seleccionarNumero();
     } while(eleccion<0 || eleccion>1);
-    if(eleccion==1)
+    if(eleccion == 1)
     {
         return true;
     }
@@ -166,10 +172,12 @@ int calcularCantidad()
         printf("Ingrese cantidad de indices a seleccionar: ");
         scanf("%d",&cantIndices);
         limpiarBufferTeclado();
+
         if(cantIndices<=0)
         {
             printf("\n\nCantidad incorrecta.\n\n");
         }
+
     } while(cantIndices<=0);
     return cantIndices;
 }
@@ -206,8 +214,13 @@ CuilPtr cargarCuil(CuilPtr cuil)
 
         setCuil(cuil,strCuil);
 
-        system("cls");
-        i++;
+        if(!esCuilValido(cuil))
+        {
+            printf("\n\t [Usted no ha ingresado un cuil en un formato valido] \n");
+            printf("\t [Debera reingresar un cuil hasta que ingrese uno valido] \n\n");
+            presionarEnterYLimpiarPantalla();
+        }
+
     } while(!esCuilValido(cuil));
     return cuil;
 }
@@ -252,7 +265,13 @@ FechaPtr cargarFecha(FechaPtr fecha)
         setHora(fecha,hora);
         setMinuto(fecha,minuto);
 
-        system("cls");
+        if( !esFechaValida(fecha) )
+        {
+            printf("\n\t [Usted no ha ingresado una fecha con el formato apropiado] \n");
+            printf("\t [Debera reingresar la fecha, hasta que ingrese una fecha en condiciones] \n\n");
+            presionarEnterYLimpiarPantalla();
+        }
+
     }while(!esFechaValida(fecha));
     return fecha;
 }
@@ -617,23 +636,29 @@ PersonaPtr menuBusquedaCliente(CentroLogisticoPtr centroLogistico)
     else
     {
         MENU = menuTipoBusquedaCliente();
+        mostrarPersonas(centroLogistico, 2);
         switch(MENU)
         {
         case 1:
             do{
-                system("cls");
-                mostrarPersonas(centroLogistico, 2);
                 ELECCION = menuModoAccion1( getPersonas(centroLogistico) );
                 PersonaBuscada = getDatoLista( getPersonas(centroLogistico), ELECCION );
+                if( getEsChofer(PersonaBuscada) )
+                {
+                    printf("\t (Debe eligir un cliente, no un chofer, eliga debidamente) \n");
+                }
             }while(getEsChofer(PersonaBuscada));
             break;
         case 2:
             do{
-                system("cls");
-                printf("Ingrese el cuil a buscar: ");
+                printf("\n Ingrese el cuil a buscar: ");
                 seleccionarString(CuilBuscar);
                 PersonaBuscada = devolverPersona(centroLogistico, CuilBuscar);
-            }while(PersonaBuscada == NULL);
+                if( getEsChofer(PersonaBuscada) )
+                {
+                    printf("\t (Debe eligir un cliente, no un chofer, eliga debidamente) \n");
+                }
+            }while( PersonaBuscada == NULL || getEsChofer(PersonaBuscada) );
             break;
         default:
             printf("Opcion equivocada... \n");
@@ -907,20 +932,14 @@ void cambiarVehiculo(VehiculoPtr vehiculoAModificar)
             helpTipoVehiculo();
             printf("\n\nSeleccione una opcion: ");
             scanf("%d",&nTipo);
-            switch(nTipo)
+            if(nTipo > 0 && nTipo < 4)
             {
-            case 1:
-                setTipoVehiculo(vehiculoAModificar,1);
-                break;
-            case 2:
-                setTipoVehiculo(vehiculoAModificar,2);
-                break;
-            case 3:
-                setTipoVehiculo(vehiculoAModificar,3);
-                break;
-            default:
-                printf("\nERROR: esa opcion no existe.\n\n");
-                break;
+                setTipoVehiculo(vehiculoAModificar, nTipo);
+            }
+            else
+            {
+                printf("Opcion incorrecta...\n");
+                presionarEnterYLimpiarPantalla();
             }
             break;
         case 2:

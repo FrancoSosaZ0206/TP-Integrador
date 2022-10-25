@@ -275,7 +275,7 @@ void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
     while(!listaVacia(listaAux))
     {
         paqueteAux=(PaquetePtr)getCabecera(listaAux);
-        if(getEstado(paqueteAux)!=0)
+        if(getEstado(paqueteAux) == 0)
         {
             printf("\n NUMERO %d. \n",i+1);
             mostrarPaquete(paqueteAux);

@@ -105,10 +105,10 @@ void helpTipoVehiculo()
 void tipoVehiculo(VehiculoPtr vehiculo){
     switch(getTipoVehiculo(vehiculo)){
         case 1:
-            printf("AUTO\n");
+            printf("MOTO\n");
             break;
         case 2:
-            printf("MOTO\n");
+            printf("AUTO\n");
             break;
         case 3:
             printf("CAMION\n");

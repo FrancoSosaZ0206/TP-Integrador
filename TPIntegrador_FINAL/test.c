@@ -91,35 +91,35 @@ ListaPtr crearListaPersonasGenerica()
 {
     ListaPtr personas = crearLista();
     DomicilioPtr domicilio1 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
-    CuilPtr cuil_1 = crearCuil("20654342349");
+    CuilPtr cuil_1 = crearCuil("20654342341");
     PersonaPtr cliente1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,false);
 
     DomicilioPtr domicilio2 = crearDomicilio("Italia",1000,"Lomas de zamora");
-    CuilPtr cuil_2 = crearCuil("20655612339");
+    CuilPtr cuil_2 = crearCuil("20655612332");
     PersonaPtr cliente2 = crearPersona("Gonzalo","Gutierrez",domicilio2,cuil_2,false);
 
     DomicilioPtr domicilio3 = crearDomicilio("Espania",3000,"Lomas de zamora");
-    CuilPtr cuil_3 = crearCuil("20245432349");
+    CuilPtr cuil_3 = crearCuil("20245432343");
     PersonaPtr cliente3 = crearPersona("Gabriel","Alonzo",domicilio3,cuil_3,false);
 
     DomicilioPtr domicilio4 = crearDomicilio("9 de mayo",2000,"Lomas de zamora");
-    CuilPtr cuil_4 = crearCuil("20126543212");
+    CuilPtr cuil_4 = crearCuil("20126543214");
     PersonaPtr cliente4 = crearPersona("Alfonso","Romero",domicilio4,cuil_4,false);
 
     DomicilioPtr domicilio5 = crearDomicilio("Sixto Fernandez",2000,"Lomas de zamora");
-    CuilPtr cuil_5 = crearCuil("20654342349");
+    CuilPtr cuil_5 = crearCuil("20654342345");
     PersonaPtr chofer1 = crearPersona("Javier","Gonzalez",domicilio5,cuil_5,true);
 
     DomicilioPtr domicilio6 = crearDomicilio("Italia",1000,"Lomas de zamora");
-    CuilPtr cuil_6 = crearCuil("20655612339");
+    CuilPtr cuil_6 = crearCuil("20655612336");
     PersonaPtr chofer2 = crearPersona("Gonzalo","Gutierrez",domicilio6,cuil_6,true);
 
     DomicilioPtr domicilio7 = crearDomicilio("Espania",3000,"Lomas de zamora");
-    CuilPtr cuil_7 = crearCuil("20245432349");
+    CuilPtr cuil_7 = crearCuil("20245432347");
     PersonaPtr chofer3 = crearPersona("Gabriel","Alonzo",domicilio7,cuil_7,true);
 
     DomicilioPtr domicilio8 = crearDomicilio("9 de mayo",2000,"Lomas de zamora");
-    CuilPtr cuil_8 = crearCuil("20126543212");
+    CuilPtr cuil_8 = crearCuil("20126543218");
     PersonaPtr chofer4 = crearPersona("Alfonso","Romero",domicilio8,cuil_8,true);
 
     agregarDatoLista(personas,(PersonaPtr)chofer1);

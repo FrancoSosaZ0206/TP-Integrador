@@ -30,8 +30,8 @@ E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\Ar
 int main()
 {
     CentroLogisticoPtr centroLogistico;
-    centroLogistico=crearCentroLogisticoDefecto();
-    int START_OP=0;
+    centroLogistico = crearCentroLogisticoDefecto();
+    int START_OP = 0;
     do
     {
         START_OP = menuMainMenu();
