@@ -1,0 +1,17 @@
+----------------------------------------------------------------------------------------------------------------------------
+						    Lista de bugs arreglados
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
+- Ordenamientos de los campos (ordenarPersonas, ordenarPaquetes, ordenarRepartos, ordenarVehiculos)	
+	
+		- Se modifico el metodo de ordenamiento de burbuja a shell
+
+		- Se modifico la forma de ordenar los elementos, ya no se usa un array, se modifica directamente
+		la lista de centroLogistico
+		
+- Apertura de archivos (abrirPersonas, abrirPaquetes, abrirRepartos, abrirVehiculos)
+		
+		- Se modifico la forma de abrirlas, a partir de ahora se implemento una lista auxiliar que invierte la lista
+		obteniendo la forma original de la misma
