@@ -11,7 +11,12 @@ BUG FIXES
 
 BUGS
 
-- (Pendiente) main.c - START MENU - Opcion "ABRIR ARCHIVOS": a veces, cuando hay archivos creados pero están vacíos, el programa crashea.
+- MENUS:
+	- Funcion menuCargarVehiculo: luego de cargar vehiculos tipo AUTO, cuando se quiere emitir el listado de vehiculos con el nuevo vehiculo, todos los autos aparecen como MOTO.
+	- Funcion menuModificarVehiculo: no se puede cambiar al tipo AUTO.
+
+	- Funcion menuArmarReparto: no se puede ver un listado de paquetes para meter al reparto.
+	- menus de emitir listados: la opcion "-1. MENU PRINCIPAL" funciona como "0. Volver". *** ESTO FUE SOLUCIONADO EN LA VERSION "MAIN-V3.0.0-FINAL" ***
 
 ---------------------------------------------------------------------------------------------------------------------
 
