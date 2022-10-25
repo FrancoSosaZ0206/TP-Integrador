@@ -165,7 +165,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico);
 //      - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario.
-bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico);
+bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico, int* op1);
 //OPERACIÓN: menú de muestra de personas
 //PRECONDICIÓN:
 //              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
@@ -176,7 +176,7 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico);
 //      - tipo: entero que indica si se quiere mostrar un chofer (1), un cliente (2), o todas las personas (3).
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario.
-bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo);
+bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico, int tipo, int* op1);
 //OPERACIÓN: menú de muestra de vehiculos
 //PRECONDICIÓN:
 //              - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
@@ -186,7 +186,7 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo);
 //      - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
 //      - opMenuAnterior: entero representando la variable utilizada para elegir la opcion del menú anterior.
 //DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario.
-bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico);
+bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico, int* op1);
 
 ///--------------------------------------------------------------------------------------------------------------------------
                                 ///MENÚS DE ACCIÓN DEDICADOS A REPARTOS///

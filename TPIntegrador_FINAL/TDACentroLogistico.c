@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 #include "Lista.h"
 #include "TDAPaquetes.h"
 #include "TDAPersona.h"
@@ -1130,8 +1131,7 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
 
 void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modoOrdenamiento, int modoMostrado)
 {
-    int n=longitudLista(getPersonas(centroLogistico));
-    PersonaPtr personas[n];
+    int TamanioLista = longitudLista(getPersonas(centroLogistico));
     PersonaPtr personaAux;
     bool condicion;
     if(listaVacia(getPersonas(centroLogistico)))
@@ -1141,27 +1141,26 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modoOrdenamiento, in
     }
     else
     {
-        for(int i=0;i<n;i++)
-        {
-            personas[i]=getDatoLista(getPersonas(centroLogistico),i);
-        }
+        int Salto = round(TamanioLista / 2);
+        bool Cambios = true;
         ///Luego, ordenamos el vector (m. burbuja)
-        for(int i=0; i<n-1 ; i++)
+        while( Salto > 0)
         {
-            for(int j=i+1; j<n; j++)
+            Cambios = false;
+            for(int i = 0; i < (TamanioLista - Salto); i++)
             {
                 switch(modoOrdenamiento)
                 {
                 case 1:
-                    condicion = strcmp(getNombre(personas[i]),getNombre(personas[j])) > 0;
+                    condicion = strcmp( getNombre( getDatoLista( getPersonas(centroLogistico), i ) ), getNombre( getDatoLista( getPersonas(centroLogistico), i+1 ) ) ) > 0;
                     break;
                     ///condición: "Si el apellido de la persona en j va después del de la persona en j+1..."
                 case 2:
-                    condicion = strcmp(getApellido(personas[i]),getApellido(personas[j])) > 0;
+                    condicion = strcmp( getApellido( getDatoLista( getPersonas(centroLogistico), i ) ), getApellido( getDatoLista( getPersonas(centroLogistico), i+1 ) ) ) > 0;
                     ///condición: "Si el apellido de la persona en j va después del de la persona en j+1..."
                     break;
                 case 3:
-                    condicion = strcmp(getCuil(getCuilPersona(personas[i])),getCuil(getCuilPersona(personas[j]))) > 0;
+                    condicion = strcmp( getCuil( getCuilPersona( getDatoLista( getPersonas(centroLogistico), i ) ) ), getCuil( getCuilPersona( getDatoLista( getPersonas(centroLogistico), i+1 ) ) ) ) > 0;
                     ///condición: "Si el Cuil de la persona en j van después de los de la persona en j+1..."
                     break;
                 case 4:
@@ -1169,49 +1168,25 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modoOrdenamiento, in
                 }
                 if(condicion)
                 {
-                    ///Hago un swap
-                    personaAux=personas[i];
-                    personas[i]=personas[j];
-                    personas[j]=personaAux;
+                    personaAux = removerDeLista( getPersonas(centroLogistico), i );
+                    insertarDatoLista( getPersonas(centroLogistico), (PersonaPtr)personaAux, i+1 );
                 }
             }
-        }
-
-        ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
-        for(int i=0; i<n; i++)
-        {
-            switch(modoMostrado)
+            if( !Cambios)
             {
-            case 1:
-                if(getEsChofer(personas[i]))
-                {
-                    printf("\n%d. ",i+1);
-                    mostrarPersona(personas[i]);
-                }
-                break;
-            case 2:
-                if(!getEsChofer(personas[i]))
-                {
-                    printf("\n%d. ",i+1);
-                    mostrarPersona(personas[i]);
-                }
-                break;
-            case 3:
-                printf("\n%d. ",i+1);
-                mostrarPersona(personas[i]);
-                break;
+                Salto = round(Salto / 2);
             }
         }
+        mostrarPersonas(centroLogistico, modoMostrado);
         system("pause");
     }
 }
 
 void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo)
 {
-    int n=longitudLista(getVehiculos(centroLogistico));
-    VehiculoPtr vehiculos[n];
+    int TamanioLista = longitudLista( getVehiculos( centroLogistico ) );
     VehiculoPtr vehiculoAux;
-    bool condicion=false;
+    bool condicion = false;
     if(listaVacia(getVehiculos(centroLogistico)))
     {
         printf("Lista vacia, intente agregando un vehiculo a la lista\n");
@@ -1219,27 +1194,25 @@ void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo)
     }
     else
     {
-        for(int i=0;i<n;i++)
+        int Salto = round(TamanioLista / 2);
+        bool Cambios = true;
+        while(Salto > 0)
         {
-            vehiculos[i]=getDatoLista(getVehiculos(centroLogistico),i);
-        }
-        ///Luego, ordenamos el vector (m. burbuja)
-        for(int i=0; i<n-1 ; i++)
-        {
-            for(int j=i+1; j<n; j++)
+            Cambios = false;
+            for(int i=0; i < (TamanioLista - Salto); i++)
             {
                 switch(modo)
                 {
                 case 1:
-                    condicion = strcmp(getMarca(vehiculos[i]),getMarca(vehiculos[j])) > 0;
+                    condicion = strcmp( getMarca( getDatoLista( getVehiculos(centroLogistico), i ) ), getMarca( getDatoLista( getVehiculos(centroLogistico), i+1 ) ) ) > 0;
                     ///condición: "Si la marca de vehiculos[j] es posterior a la de vehiculos[j+1]..."
                     break;
                 case 2:
-                    condicion = condicion && strcmp(getModelo(vehiculos[i]),getModelo(vehiculos[j])) > 0;
+                    condicion = condicion && strcmp( getModelo( getDatoLista( getVehiculos(centroLogistico), i ) ), getModelo( getDatoLista( getVehiculos(centroLogistico), i+1 ) ) ) > 0;
                     ///condición: "Si la marca Y modelo de vehiculos[j] son posteriores a los de vehiculos[j+1]..."
                     break;
                 case 3:
-                    condicion = getTipoVehiculo(vehiculos[i]) > getTipoVehiculo(vehiculos[j]);
+                    condicion = getTipoVehiculo( getDatoLista( getVehiculos(centroLogistico), i ) ) > getTipoVehiculo( getDatoLista( getVehiculos(centroLogistico), i ) );
                     ///condición: "Si el tipo, la marca Y el modelo de vehiculos[j] son posteriores a los de vehiculos[j+1]..."
                     break;
                 case 4:
@@ -1247,164 +1220,151 @@ void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo)
                 }
                 if(condicion)
                 {
-                    ///Hago un swap
-                    vehiculoAux=vehiculos[i];
-                    vehiculos[i]=vehiculos[j];
-                    vehiculos[j]=vehiculoAux;
+                    vehiculoAux = removerDeLista( getVehiculos(centroLogistico), i );
+                    insertarDatoLista( getVehiculos(centroLogistico), (VehiculoPtr)vehiculoAux, i+1 );
                 }
             }
+            if( !Cambios )
+            {
+                Salto = round(Salto / 2);
+            }
         }
-        ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
-        for(int i=0; i<n; i++)
-        {
-            printf("\n%d. ", i+1);
-            mostrarVehiculo(vehiculos[i]);
-        }
+        mostrarVehiculos(centroLogistico);
+        system("pause");
     }
-    system("pause");
 }
 
 void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
 {
-    int n=longitudLista(getPaquetes(centroLogistico));
-    PaquetePtr paquetes[n];
+    int TamanioLista = longitudLista( getPaquetes( centroLogistico ) );
     PaquetePtr paqueteAux;
     bool condicion;
     int diferenciaFechas[3];
-    if(listaVacia(getPaquetes(centroLogistico)))
+    if( listaVacia( getPaquetes(centroLogistico) ) )
     {
         printf("Lista vacia, intente agregando un paquete a la lista\n");
         presionarEnterYLimpiarPantalla();
     }
     else
     {
-        for(int i=0;i<n;i++)
+        int Salto = round(TamanioLista / 2);
+        bool Cambios = true;
+        while(Salto > 0)
         {
-            paquetes[i]=getDatoLista(getPaquetes(centroLogistico),i);
-        }
-        ///Luego, ordenamos el vector (m. burbuja)
-        for(int i=0; i<n-1; i++)
-        {
-            for(int j=i+1; j<n; j++)
+            Cambios = false;
+            for(int i = 0 ; i < (TamanioLista - Salto) ; i++)
             {
                 switch(modo)
                 {
-                case 1:
-                    condicion = getID(paquetes[i]) > getID(paquetes[j]);
-                    ///condicion de la bandera: "Si el ID de paquetes[j] es mayor al de paquetes[j+1]..."
-                    break;
-                case 2:
-                    calcularDiferenciaFechas(getFechaEntrega(paquetes[j]),getFechaEntrega(paquetes[j]),diferenciaFechas);
-                    condicion = diferenciaFechas[0]>=0 || diferenciaFechas[1]>=0 || diferenciaFechas[2]>0;
-                    ///condicion de la bandera: "Si la fecha de entrega de paquetes[j] es mayor a la de paquetes[j+1]..."
-                    break;
-                case 3:
-                    condicion = getEstado(paquetes[i]) > getEstado(paquetes[j]);
-                    break;
-                case 4:
-                    break;
-                    ///NO REQUIERE CLÁUSULA "DEFAULT"
+                    case 1:
+                        condicion = getID( getDatoLista( getPaquetes(centroLogistico), i ) ) > getID( getDatoLista( getPaquetes(centroLogistico), i+1) );
+                        ///condicion de la bandera: "Si el ID de paquetes[j] es mayor al de paquetes[j+1]..."
+                        break;
+                    case 2:
+                        calcularDiferenciaFechas( getFechaEntrega( getDatoLista( getPaquetes(centroLogistico), i) ), getFechaEntrega( getDatoLista( getPaquetes(centroLogistico), i+1) ), diferenciaFechas );
+                        condicion = diferenciaFechas[0] >= 0 || diferenciaFechas[1] >= 0 || diferenciaFechas[2] > 0;
+                        ///condicion de la bandera: "Si la fecha de entrega de paquetes[j] es mayor a la de paquetes[j+1]..."
+                        break;
+                    case 3:
+                        condicion = getEstado( getDatoLista( getPaquetes(centroLogistico), i) ) > getEstado( getDatoLista( getPaquetes(centroLogistico), i+1) );
+                        break;
+                    case 4:
+                        ///Mostrar sin ordenar
+                        break;
+                        ///NO REQUIERE CLÁUSULA "DEFAULT"
                 }
-                if(condicion)
+                if( condicion )
                 {
-                    ///Hago un swap
-                    paqueteAux=paquetes[i];
-                    paquetes[i]=paquetes[j];
-                    paquetes[j]=paqueteAux;
+                    paqueteAux = removerDeLista( getPaquetes(centroLogistico), i );
+                    insertarDatoLista( getPaquetes(centroLogistico), (PaquetePtr)paqueteAux, i+1 );
+                    Cambios = true;
                 }
             }
+            if( !Cambios )
+            {
+                Salto = round(Salto / 2);
+            }
         }
-        ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
-        for(int i=0;i<n;i++)
-        {
-            printf("\n %d. ", i+1);
-            mostrarPaquete(paquetes[i]);
-        }
+        mostrarPaquetes(centroLogistico);
         system("pause");
     }
 }
 
+
 void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo)
 {
     limpiarBufferTeclado();
-    int n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
-    RepartoPtr repartos[n];
+    int TamanioLista = longitudLista( getRepartos(centroLogistico, esRepartoAbierto) );
     RepartoPtr repartoAux;
-    bool condicion=false;
+    bool condicion = false;
     int diferenciaFechaSalida[3];
     int diferenciaFechaRetorno[3];
-    int diferenciaNombres=0;
-    int diferenciaApellidos=0;
-    ListaPtr listaAuxiliar=getRepartos(centroLogistico,esRepartoAbierto);
-    if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
+    int diferenciaNombres = 0;
+    int diferenciaApellidos = 0;
+    if( listaVacia( getRepartos(centroLogistico,esRepartoAbierto) ) )
     {
         printf("Lista de repartos vacia, intente agregando un reparto a la lista\n");
         presionarEnterYLimpiarPantalla();
     }
     else
     {
-        for(int i=0;i<n;i++)
+        int Salto = round(TamanioLista / 2);
+        bool Cambios = true;
+        while(Salto > 0)
         {
-            repartos[i]=getDatoLista(listaAuxiliar,i);
-        }
-        ///Luego, ordenamos el vector (m. burbuja)
-        for(int i=0; i<n-1 ; i++)
-        {
-            for(int j=i+1; j<n; j++)
+            Cambios = false;
+            for(int i = 0 ; i < (TamanioLista - Salto) ; i++)
             {
                 switch(modo)
                 {
-                case 1:
-                    calcularDiferenciaFechas(getFechaSalida(repartos[i]),getFechaSalida(repartos[j]),diferenciaFechaSalida);
-                    condicion = (diferenciaFechaSalida[0]>=0 && (diferenciaFechaSalida[1]>=0 || diferenciaFechaSalida[2]>0));
-                    ///condicion: "Ya sea en dias, horas o minutos, si fechaDeSalida de reparto[j] es posterior a la de repartos[j+1]..."
-                    break;
-                case 2:
-                    calcularDiferenciaFechas(getFechaRetorno(repartos[i]),getFechaRetorno(repartos[j]),diferenciaFechaRetorno);
-                    condicion = diferenciaFechaRetorno[0]>=0 && (diferenciaFechaRetorno[1]>=0 || diferenciaFechaRetorno[2]>0);
-                    ///condicion: "Ya sea en dias, horas o minutos, si fechaDeRetorno de reparto[j] es posterior a la de repartos[j+1]..."
-                    break;
-                case 3:
-                    calcularDiferenciaFechas(getFechaSalida(repartos[i]),getFechaSalida(repartos[j]),diferenciaFechaSalida);
-                    condicion = diferenciaFechaSalida[0]>=0 && (diferenciaFechaSalida[1]>=0 || diferenciaFechaSalida[2]>0); //agrego la condicion de fechaSalida
-                    calcularDiferenciaFechas(getFechaRetorno(repartos[i]),getFechaRetorno(repartos[j]),diferenciaFechaRetorno);
-                    condicion = condicion && (diferenciaFechaRetorno[0]>=0 && (diferenciaFechaRetorno[1]>=0 || diferenciaFechaRetorno[2]>0)); //sumo la condicion de fechaRetorno
-                    ///condicion: "Ya sea en dias, horas o minutos, si fechaDeSalida *Y* fechaDeRetorno de reparto[j] son posteriores a las de repartos[j+1]..."
-                    break;
-                case 4:
-                    condicion = strcmp(getNombre(getChofer(repartos[i])),getNombre(getChofer(repartos[j]))) > 0;
-                    ///condicion de la bandera: "Si el nombre del chofer del reparto en j va después del del reparto en j+1..."
-                    break;
-                case 5:
-                    condicion = strcmp(getApellido(getChofer(repartos[i])),getApellido(getChofer(repartos[j]))) > 0;
-                    ///condicion de la bandera: "Si el nombre del chofer del reparto en j va después del del reparto en j+1..."
-                    break;
-                case 6:
-                    diferenciaApellidos = strcmp(getApellido(getChofer(repartos[i])),getApellido(getChofer(repartos[j])));
-                    condicion = diferenciaApellidos >= 0;
-                    diferenciaNombres = strcmp(getNombre(getChofer(repartos[i])),getNombre(getChofer(repartos[j])));
-                    condicion = condicion && diferenciaNombres > 0;
-                    ///condicion de la bandera: "Si el APELLIDO Y NOMBRE del chofer del reparto en j van después de los del chofer del reparto en j+1..."
-                    break;
-                case 7:
-                    break;
+                    case 1:
+                        calcularDiferenciaFechas( getFechaSalida( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i ) ), getFechaSalida( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i+1 ) ), diferenciaFechaSalida);
+                        condicion = (diferenciaFechaSalida[0] >= 0 && (diferenciaFechaSalida[1] >= 0 || diferenciaFechaSalida[2] > 0));
+                        ///condicion: "Ya sea en dias, horas o minutos, si fechaDeSalida de reparto[j] es posterior a la de repartos[j+1]..."
+                        break;
+                    case 2:
+                        calcularDiferenciaFechas( getFechaRetorno( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i ) ), getFechaRetorno( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i+1 ) ), diferenciaFechaRetorno);
+                        condicion = diferenciaFechaRetorno[0] >= 0 && (diferenciaFechaRetorno[1] >= 0 || diferenciaFechaRetorno[2] > 0);
+                        ///condicion: "Ya sea en dias, horas o minutos, si fechaDeRetorno de reparto[j] es posterior a la de repartos[j+1]..."
+                        break;
+                    case 3:
+                        calcularDiferenciaFechas( getFechaSalida( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i ) ), getFechaSalida( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i+1 ) ), diferenciaFechaSalida);
+                        condicion = diferenciaFechaSalida[0]>=0 && (diferenciaFechaSalida[1]>=0 || diferenciaFechaSalida[2]>0); //agrego la condicion de fechaSalida
+                        calcularDiferenciaFechas( getFechaRetorno( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i ) ), getFechaRetorno( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i+1 ) ), diferenciaFechaRetorno);
+                        condicion = condicion && ( diferenciaFechaRetorno[0] >= 0 && ( diferenciaFechaRetorno[1] >= 0 || diferenciaFechaRetorno[2] > 0 ) ); //sumo la condicion de fechaRetorno
+                        ///condicion: "Ya sea en dias, horas o minutos, si fechaDeSalida *Y* fechaDeRetorno de reparto[j] son posteriores a las de repartos[j+1]..."
+                        break;
+                    case 4:
+                        condicion = strcmp( getNombre( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i ) ) ), getNombre( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i+1 ) ) ) ) > 0;
+                        ///condicion de la bandera: "Si el nombre del chofer del reparto en j va después del del reparto en j+1..."
+                        break;
+                    case 5:
+                        condicion = strcmp( getApellido( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i ) ) ), getApellido( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i+1 ) ) ) ) > 0;
+                        ///condicion de la bandera: "Si el nombre del chofer del reparto en j va después del del reparto en j+1..."
+                        break;
+                    case 6:
+                        diferenciaApellidos = strcmp( getApellido( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i ) ) ), getApellido( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i+1 ) ) ) );
+                        condicion = diferenciaApellidos >= 0;
+                        diferenciaNombres = strcmp( getNombre( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i ) ) ), getNombre( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i+1 ) ) ) );
+                        condicion = condicion && diferenciaNombres > 0;
+                        ///condicion de la bandera: "Si el APELLIDO Y NOMBRE del chofer del reparto en j van después de los del chofer del reparto en j+1..."
+                        break;
+                    case 7:
+                        break;
                 }
-                if(condicion)
+                if( condicion )
                 {
-                    ///Hago un swap
-                    repartoAux=repartos[i];
-                    repartos[i]=repartos[j];
-                    repartos[j]=repartoAux;
+                    repartoAux = removerDeLista( getRepartos(centroLogistico, esRepartoAbierto), i );
+                    insertarDatoLista( getRepartos(centroLogistico, esRepartoAbierto), (RepartoPtr)repartoAux, i+1 );
+                    Cambios = true;
                 }
             }
+            if( !Cambios )
+            {
+                Salto = round(Salto / 2);
+            }
         }
-        ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
-        printf("\n\n\n\t LISTA DE REPARTOS ORDENADA \n\n");
-        for(int i=0; i<n; i++)
-        {
-            printf("\n\n %d. ", i+1);
-            mostrarRepartoSinPaquetes(repartos[i]);
-        }
+        mostrarRepartos(centroLogistico, esRepartoAbierto);
         system("pause");
     }
 }

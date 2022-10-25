@@ -151,10 +151,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                             cambiosGuardados = menuModificarPaquete(centroLogistico);
                             break;
                         case 2:
-                            cambiosGuardados = menuModificarPersona(centroLogistico,false);
+                            cambiosGuardados = menuModificarPersona(centroLogistico, false);
                             break;
                         case 3:
-                            cambiosGuardados = menuModificarPersona(centroLogistico,true);
+                            cambiosGuardados = menuModificarPersona(centroLogistico, true);
                             break;
                         case 4:
                             cambiosGuardados = menuModificarVehiculo(centroLogistico);
@@ -182,10 +182,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                             menuBuscarPaquete(centroLogistico);
                             break;
                         case 2:
-                            menuBuscarPersona(centroLogistico,false);
+                            menuBuscarPersona(centroLogistico, false);
                             break;
                         case 3:
-                            menuBuscarPersona(centroLogistico,true);
+                            menuBuscarPersona(centroLogistico, true);
                             break;
                         case 4:
                             menuBuscarVehiculo(centroLogistico);
@@ -305,8 +305,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
         } while(op1!=0);
             break;
         case 3:
-            ///[IGNORAR]
-            ///op1=menuActualizarRepartoCompleto();
             menuActualizarReparto(centroLogistico);
             break;
         case 4:
@@ -316,19 +314,19 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 switch(op1)
                 {
                 case 1:
-                    cambiosGuardados = menuMostrarPaquetes(centroLogistico);
+                    cambiosGuardados = menuMostrarPaquetes(centroLogistico, &op1);
                     break;
                 case 2:
-                    cambiosGuardados = menuMostrarPersonas(centroLogistico,2);
+                    cambiosGuardados = menuMostrarPersonas(centroLogistico,1, &op1);
                     break;
                 case 3:
-                    cambiosGuardados = menuMostrarPersonas(centroLogistico,1);
+                    cambiosGuardados = menuMostrarPersonas(centroLogistico,2, &op1);
                     break;
                 case 4:
-                    cambiosGuardados = menuMostrarPersonas(centroLogistico,3);
+                    cambiosGuardados = menuMostrarPersonas(centroLogistico,3, &op1);
                     break;
                 case 5:
-                    cambiosGuardados = menuMostrarVehiculos(centroLogistico);
+                    cambiosGuardados = menuMostrarVehiculos(centroLogistico, &op1);
                     break;
                 case 6:
                     cambiosGuardados = menuMostrarRepartos(centroLogistico,true, &op1);

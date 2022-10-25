@@ -397,12 +397,23 @@ bool abrirVehiculos(CentroLogisticoPtr centroLogistico)
         guardado=true;
     }
     fread(&VehiculoEstatico,sizeof(fVehiculo),1,arch);
+    ListaPtr ListaAuxiliar = crearLista();
     while(!feof(arch))
     {
         VehiculoDinamico=PasajeVehiculoDinamico(&VehiculoEstatico,VehiculoDinamico,true);
-        agregarVehiculo(centroLogistico,VehiculoDinamico);
+        agregarDatoLista(ListaAuxiliar, (VehiculoPtr)VehiculoDinamico);
         fread(&VehiculoEstatico,sizeof(fVehiculo),1,arch);
     }
+    while( !listaVacia(ListaAuxiliar) )
+    {
+        VehiculoDinamico = (VehiculoPtr)getCabecera(ListaAuxiliar);
+        agregarVehiculo(centroLogistico, VehiculoDinamico);
+
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
     fclose(arch);
     return guardado;
 }
@@ -419,12 +430,23 @@ bool abrirPersonas(CentroLogisticoPtr centroLogistico)
         guardado=true;
     }
     fread(&PersonaEstatico,sizeof(fPersona),1,arch);
+    ListaPtr ListaAuxiliar = crearLista();
     while(!feof(arch))
     {
         PersonaDinamico=PasajePersonaDinamico(&PersonaEstatico,PersonaDinamico,true);
-        agregarPersona(centroLogistico,PersonaDinamico);
+        agregarDatoLista(ListaAuxiliar, (PersonaPtr)PersonaDinamico);
         fread(&PersonaEstatico,sizeof(fPersona),1,arch);
     }
+    while( !listaVacia(ListaAuxiliar) )
+    {
+        PersonaDinamico = (PersonaPtr)getCabecera(ListaAuxiliar);
+        agregarPersona(centroLogistico, PersonaDinamico);
+
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
     fclose(arch);
     return guardado;
 }
@@ -441,12 +463,23 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
         guardado=true;
     }
     fread(&PaqueteEstatico,sizeof(fPaquete),1,arch);
+    ListaPtr ListaAuxiliar = crearLista();
     while(!feof(arch))
     {
         PaqueteDinamico=PasajePaqueteDinamico(&PaqueteEstatico,PaqueteDinamico,true);
-        agregarPaquete(centroLogistico,PaqueteDinamico);
+        agregarDatoLista(ListaAuxiliar, (PaquetePtr)PaqueteDinamico);
         fread(&PaqueteEstatico,sizeof(fPaquete),1,arch);
     }
+    while( !listaVacia(ListaAuxiliar) )
+    {
+        PaqueteDinamico = (PaquetePtr)getCabecera(ListaAuxiliar);
+        agregarPaquete(centroLogistico, PaqueteDinamico);
+
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
     fclose(arch);
     return guardado;
 }
@@ -470,12 +503,23 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
         guardado=true;
     }
     fread(&RepartoEstatico,sizeof(fReparto),1,arch);
+    ListaPtr ListaAuxiliar = crearLista();
     while(!feof(arch))
     {
         RepartoDinamico=PasajeRepartoDinamico(&RepartoEstatico,RepartoDinamico,true);
-        agregarReparto(centroLogistico,RepartoDinamico,esRepartoAbierto);
+        agregarDatoLista(ListaAuxiliar, RepartoDinamico);
         fread(&RepartoEstatico,sizeof(fReparto),1,arch);
     }
+    while( !listaVacia(ListaAuxiliar) )
+    {
+        RepartoDinamico = (RepartoPtr)getCabecera(ListaAuxiliar);
+        agregarReparto(centroLogistico, RepartoDinamico, esRepartoAbierto);
+
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
     fclose(arch);
     return guardado;
 }

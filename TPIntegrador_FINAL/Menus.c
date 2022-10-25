@@ -11,7 +11,6 @@
 #include "Menus.h"
 #include "TDARepartos.h"
 
-
 ///--------------------------------------------------------------------------------------------------------------------------
                                             ///FUNCIONES DE MENUES AYUDANTES///
 ///--------------------------------------------------------------------------------------------------------------------------
@@ -1520,7 +1519,28 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
 ///-----------------------------------------------------------------------------------------------------------///
 
 
-bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico)
+int menuTipoOrdenamientoPaquetes()
+{
+    int op = 0;
+    system("cls");
+    printf("EMITIR LISTADO DE PAQUETES\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("1. Ordenados por ID\n");
+    printf("2. Ordenados por Fecha de Entrega\n");
+    printf("3. Ordenados por Estado\n");
+    printf("4. SIN ORDENAR\n");
+    printf("0. Volver\n");
+    printf("-1. MENU PRINCIPAL");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op);
+    limpiarBufferTeclado();
+    system("cls");
+    return op;
+}
+
+bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico, int* op1)
 {
     int op=0;
     bool cambiosGuardados=false;
@@ -1533,42 +1553,34 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico)
     {
         do
         {
-            system("cls");
-            printf("EMITIR LISTADO DE PAQUETES\n");
-            printf("\n-----------------------------------------\n\n");
-            printf("1. Ordenados por ID\n");
-            printf("2. Ordenados por Fecha de Entrega\n");
-            printf("3. Ordenados por Estado\n");
-            printf("4. SIN ORDENAR\n");
-            printf("0. Volver\n");
-            printf("-1. MENU PRINCIPAL");
-            printf("\n-----------------------------------------\n\n");
-            printf("Elija una opcion: ");
-            limpiarBufferTeclado();
-            scanf("%d",&op);
-            limpiarBufferTeclado();
-            system("cls");
+            op = menuTipoOrdenamientoPaquetes();
             switch(op)
             {
             case 1:
                 printf("LISTADO DE PAQUETES (ORDENADOS POR ID)");
                 ordenarPaquetes(centroLogistico,1);
+                cambiosGuardados = true;
                 break;
             case 2:
                 printf("LISTADO DE PAQUETES (ORDENADOS POR FECHA DE SALIDA)");
                 ordenarPaquetes(centroLogistico,2);
+                cambiosGuardados = true;
                 break;
             case 3:
                 printf("LISTADO DE PAQUETES (ORDENADOS POR ESTADO)");
                 ordenarPaquetes(centroLogistico,3);
+                cambiosGuardados = true;
                 break;
             case 4:
                 printf("LISTADO DE PAQUETES (SIN ORDENAR)");
                 ordenarPaquetes(centroLogistico,4);
+                cambiosGuardados = true;
                 break;
             case 0:
                 break;
             case -1:
+                op = 0;
+                *op1 = 0;
                 break;
             default:
                 printf("\nOpcion incorrecta.\n\n");
@@ -1579,7 +1591,25 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico)
     return cambiosGuardados;
 }
 
-bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo)
+int menuTipoOrdenamientoPersonas()
+{
+    int op = 0;
+    printf("\n-----------------------------------------\n\n");
+    printf("1. Ordenados por Nombre\n");
+    printf("2. Ordenados por Apellido\n");
+    printf("3. Ordenados por Cuil\n");
+    printf("4. SIN ORDENAR\n");
+    printf("0. Volver\n");
+    printf("-1. MENU PRINCIPAL");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    scanf("%d",&op);
+    limpiarBufferTeclado();
+    system("cls");
+    return op;
+}
+
+bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico, int tipo, int* op1)
 {
     int op=0;
     bool cambiosGuardados=false;
@@ -1592,7 +1622,6 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo)
     {
         do
         {
-            system("cls");
             switch(tipo)
             {
             case 1:
@@ -1605,53 +1634,34 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo)
                 printf("EMITIR LISTADO DE PERSONAS\n");
                 break;
             }
-            printf("\n-----------------------------------------\n\n");
-            printf("1. Ordenados por Nombre\n");
-            printf("2. Ordenados por Apellido\n");
-            printf("3. Ordenados por Cuil\n");
-            printf("4. SIN ORDENAR\n");
-            printf("0. Volver\n");
-            printf("-1. MENU PRINCIPAL");
-            printf("\n-----------------------------------------\n\n");
-            printf("Elija una opcion: ");
-            scanf("%d",&op);
-            limpiarBufferTeclado();
-            system("cls");
-
-            switch(tipo)
-            {
-            case 1:
-                printf("LISTADO DE CHOFERES ");
-                break;
-            case 2:
-                printf("LISTADO DE CLIENTES ");
-                break;
-            case 3:
-                printf("LISTADO DE PERSONAS ");
-                break;
-            }
-
+            op = menuTipoOrdenamientoPersonas();
             switch(op)
             {
             case 1:
-                printf("(ORDENADO POR NOMBRE)");
+                printf("(ORDENADO POR NOMBRE)\n");
                 ordenarPersonas(centroLogistico, 1, tipo);
+                cambiosGuardados = true;
                 break;
             case 2:
-                printf("(ORDENADO POR APELLIDO)");
+                printf("(ORDENADO POR APELLIDO)\n");
                 ordenarPersonas(centroLogistico, 2, tipo);
+                cambiosGuardados = true;
                 break;
             case 3:
-                printf("(ORDENADO POR NOMBRE Y APELLIDO)");
+                printf("(ORDENADO POR NOMBRE Y APELLIDO)\n");
                 ordenarPersonas(centroLogistico, 3, tipo);
+                cambiosGuardados = true;
                 break;
             case 4:
-                printf("(SIN ORDENAR)");
+                printf("(SIN ORDENAR)\n");
                 ordenarPersonas(centroLogistico, 4, tipo);
+                cambiosGuardados = true;
                 break;
             case 0:
                 break;
             case -1:
+                *op1 = 0;
+                op = 0;
                 break;
             default:
                 printf("\nOpcion incorrecta.\n\n");
@@ -1662,7 +1672,28 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo)
     return cambiosGuardados;
 }
 
-bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico)
+int menuTipoOrdenamientoVehiculos()
+{
+    int op = 0;
+    system("cls");
+    printf("EMITIR LISTADO DE VEHICULOS\n");
+    printf("\n-----------------------------------------\n\n");
+    printf("1. Ordenados por Marca\n");
+    printf("2. Ordenados por Modelo\n");
+    printf("3. Ordenados por tipo\n");
+    printf("4. SIN ORDENAR\n");
+    printf("0. Volver\n");
+    printf("-1. MENU PRINCIPAL");
+    printf("\n-----------------------------------------\n\n");
+    printf("Elija una opcion: ");
+    limpiarBufferTeclado();
+    scanf("%d",&op);
+    limpiarBufferTeclado();
+    system("cls");
+    return op;
+}
+
+bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico, int* op1)
 {
     int op=0;
     bool cambiosGuardados=false;
@@ -1675,42 +1706,34 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico)
     {
         do
         {
-            system("cls");
-            printf("EMITIR LISTADO DE VEHICULOS\n");
-            printf("\n-----------------------------------------\n\n");
-            printf("1. Ordenados por Marca\n");
-            printf("2. Ordenados por Modelo\n");
-            printf("3. Ordenados por tipo\n");
-            printf("4. SIN ORDENAR\n");
-            printf("0. Volver\n");
-            printf("-1. MENU PRINCIPAL");
-            printf("\n-----------------------------------------\n\n");
-            printf("Elija una opcion: ");
-            limpiarBufferTeclado();
-            scanf("%d",&op);
-            limpiarBufferTeclado();
-            system("cls");
+            op = menuTipoOrdenamientoVehiculos();
             switch(op)
             {
             case 1:
                 printf("LISTADO DE VEHICULOS (ORDENADOS POR MARCA)");
                 ordenarVehiculos(centroLogistico,1);
+                cambiosGuardados = true;
                 break;
             case 2:
                 printf("LISTADO DE VEHICULOS (ORDENADOS POR MODELO)");
                 ordenarVehiculos(centroLogistico,2);
+                cambiosGuardados = true;
                 break;
             case 3:
                 printf("LISTADO DE VEHICULOS (ORDENADOS TIPO)");
                 ordenarVehiculos(centroLogistico,3);
+                cambiosGuardados = true;
                 break;
             case 4:
                 printf("LISTADO DE VEHICULOS (SIN ORDENAR)");
                 ordenarVehiculos(centroLogistico,4);
+                cambiosGuardados = true;
                 break;
             case 0:
                 break;
             case -1:
+                op = 0;
+                *op1 = 0;
                 break;
             default:
                 printf("\nOpcion incorrecta.\n\n");
@@ -2946,8 +2969,8 @@ int menuListados()
     system("cls");
     printf("EMITIR LISTADOS DE:\n\n");
     printf("1. Paquetes\n");
-    printf("2. Clientes\n");
-    printf("3. Choferes\n");
+    printf("2. Choferes\n");
+    printf("3. Clientes\n");
     printf("4. Clientes y Choferes\n");
     printf("5. Vehiculos\n");
     printf("6. Repartos - ABIERTOS\n");
