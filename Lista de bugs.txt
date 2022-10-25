@@ -1,0 +1,40 @@
+-----------------------------------------------------------------------------------------------
+				Lista de bugs 
+-----------------------------------------------------------------------------------------------
+
+Pendientes: 
+	Realizar el pasaje de las funciones:
+
+		(Necesarios)
+		[Aclaracion] Extraer las funciones verificadas [CopiaLista, DetectarCambios, MenuGuardarCambios] en la rama MAIN V3.0, que ya estan solucionados
+		e intentar implementarlas en la MAIN V4.0
+
+		Verificar que funcionen las aperturas de archivos (Comprobar que no abra los archivos al inverso del guardado)
+		Revisar los ordenamientos de los campos (ordenarPersonas, ordenarPaquetes, ordenarRepartos, ordenarVehiculos)
+
+
+		(PostData)
+		Ya comprobe particularmente cada funcion, funcionan como es debido, a modo de precaucion, ir probando de vez en 
+		cuando alguna opcion del menu y experimentar como reacciona el programa ante situaciones de crisis
+		(Por ejemplo: Si ingresamos buscar clientes, y nos pide solicitar un cuil cuando la lista esta vacia)
+
+		
+		(Opcionales) [Por si se aburren...]
+		Revisar los espaciados entre avisos en la pantalla principal
+		Revisar las interfaces de los '.h' y verificar que tengan bien las condiciones
+		Revisar algun error de syntaxis en los menues o en alguna funcion
+		Ordenar las funciones y espaciarlas
+
+Realizados: 
+
+	Ordenamientos de los campos (ordenarPersonas, ordenarPaquetes, ordenarRepartos, ordenarVehiculos)	
+	
+		Se modifico el metodo de ordenamiento de burbuja a shell
+
+		Se modifico la forma de ordenar los elementos, ya no se usa un array, se modifica directamente
+		la lista de centroLogistico
+
+	Apertura de archivos (abrirPersonas, abrirPaquetes, abrirRepartos, abrirVehiculos)
+		
+		Se modifico la forma de abrirlas, a partir de ahora se implemento una lista auxiliar que invierte la lista
+		obteniendo la forma original de la misma
