@@ -218,7 +218,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
 int main()
 {
-/// **************************************************************************************************************
+/** **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
 
@@ -237,7 +237,7 @@ int main()
                                          "Otra Calle 2",2222,
                                          "Otra Localidad 2",
                                          22,2,2022,22,22,0);
-*/
+
 
     PaquetePtr paq1 = crearPaqueteDirect(21652,12,34,25,68,
                                          "Teniente Alvarez",1877,
@@ -251,6 +251,7 @@ int main()
                                          "Lavalle",1333,
                                          "Valentin Alsina",
                                          16,12,2022,17,35,0);
+
 
     printf("DIAS JULIANOS\nPaq1: %d\tPaq2: %d",getDiaJuliano(getFechaEntrega(paq1)),getDiaJuliano(getFechaEntrega(paq2)));
     presionarEnterYLimpiarPantalla();
@@ -287,7 +288,7 @@ int main()
 
     return 0;
 
-/// **************************************************************************************************************
+/// **************************************************************************************************************/
 
     CentroLogisticoPtr centroLogistico;
 
