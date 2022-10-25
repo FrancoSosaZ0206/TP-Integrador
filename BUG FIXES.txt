@@ -1,0 +1,12 @@
+----------------------------------------------------------------------------------------------------------------------------
+						    Lista de bugs arreglados
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
+Ordenamientos de los campos (ordenarPersonas, ordenarPaquetes, ordenarRepartos, ordenarVehiculos)	
+	
+		- Se modifico el metodo de ordenamiento de burbuja a shell
+
+		- Se modifico la forma de ordenar los elementos, ya no se usa un array, se modifica directamente
+		la lista de centroLogistico
