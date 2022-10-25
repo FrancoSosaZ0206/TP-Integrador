@@ -224,6 +224,18 @@ int main()
 
     CentroLogisticoPtr ctroPrueba = crearCentroLogisticoRapido("Prueba");
 
+/**    PaquetePtr paq1 = crearPaqueteDirect(1111,11,11,11,11,
+                                         "Calle 1",1111,
+                                         "Localidad 1",
+                                         "Otra Calle 1",1111,
+                                         "Otra Localidad 1",
+                                         11,11,2022,11,11,0);
+    PaquetePtr paq2 = crearPaqueteDirect(2222,22,22,22,22,
+                                         "Calle 2",2222,
+                                         "Localidad 2",
+                                         "Otra Calle 2",2222,
+                                         "Otra Localidad 2",
+                                         22,2,2022,22,22,0);*/
     PaquetePtr paq1 = crearPaqueteDirect(21652,12,34,25,68,
                                          "Teniente Alvarez",1877,
                                          "Hurlingam",
@@ -235,7 +247,12 @@ int main()
                                          "Haedo",
                                          "Lavalle",1333,
                                          "Valentin Alsina",
-                                         16,12,2022,17,35,3);
+                                         16,12,2022,17,35,0);
+
+    printf("DIAS JULIANOS\nPaq1: %d\tPaq2: %d",getDiaJuliano(getFechaEntrega(paq1)),getDiaJuliano(getFechaEntrega(paq2)));
+    presionarEnterYLimpiarPantalla();
+
+
 
     agregarPaquete(ctroPrueba,paq1);
     agregarPaquete(ctroPrueba,paq2); //paq2 estará arriba de todo al mostrar la lista.
@@ -252,8 +269,7 @@ int main()
     ctroPrueba = destruirCentroLogistico(ctroPrueba);
 
     ctroPrueba = crearCentroLogisticoRapido("PRUEBA");
-    bool exito = abrirPaquetes(ctroPrueba);
-    if(!exito)
+    if(!abrirPaquetes(ctroPrueba))
         printf("ERROR: la lista de paquetes no se pudo abrir.");
     else
     {
@@ -262,19 +278,6 @@ int main()
         printf("\n\nLISTA COPIA:\n\n");
         mostrarPaquetes(copiaCtro);
     }
-
-    presionarEnterYLimpiarPantalla();
-
-    PaquetePtr paqRecuperado = getDatoLista(getPaquetes(ctroPrueba),1);
-    mostrarPaquete(paqRecuperado);
-    presionarEnterYLimpiarPantalla();
-
-    printf("ID = #%d\n",getID(paqRecuperado));
-    printf("Ancho = %d\n",getAncho(paqRecuperado));
-    printf("Alto = %d\n",getAlto(paqRecuperado));
-    printf("Largo = %d\n",getLargo(paqRecuperado));
-    printf("Peso = %d\n",getPeso(paqRecuperado));
-    printf("Estado = %d\n",getEstado(paqRecuperado));
 
     ctroPrueba = destruirCentroLogistico(ctroPrueba);
     copiaCtro = destruirCentroLogistico(copiaCtro);

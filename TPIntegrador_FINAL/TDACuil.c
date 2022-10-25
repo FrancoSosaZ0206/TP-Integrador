@@ -16,7 +16,7 @@ CuilPtr crearCuil(char *cuilStr)
 
 CuilPtr crearCuilNumeros(int tipoPersona,int dni,int nVerificador)
 {
-    char *temp;
+    char temp[14];
     sprintf(temp,"%d %d %d",tipoPersona,dni,nVerificador);
     int longitudString=strlen(temp)+1;
     temp[longitudString]=0;

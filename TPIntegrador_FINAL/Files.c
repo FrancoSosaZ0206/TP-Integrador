@@ -399,24 +399,10 @@ POSTCONDICIÓN: se busca una carpeta con el nombre "Archivos".
 PARÁMETROS: puntero a la variable DIR (directorio) a usar
 DEVUELVE: true si se pudo encontrar y abrir, false de lo contrario.
 */
-bool abrirCarpeta(DIR *carpeta)
+bool abrirCarpeta()
 {
-    carpeta = opendir("Archivos"); ///Chequeamos si existe la carpeta
+    DIR *carpeta = opendir("Archivos"); ///Chequeamos si existe la carpeta
     if(carpeta==NULL)
-        return false;
-    else
-        return true;
-}
-/** OPERACIÓN: cierra una carpeta.
-PRECONDICIÓN: debe haber una carpeta "Archivos" creada y abierta en el proyecto
-POSTCONDICIÓN: se terminan de utilizar los recursos para mantener abierta la carpeta
-PARÁMETROS: puntero a la variable DIR (directorio) a usar
-DEVUELVE: true si se pudo cerrar, false de lo contrario.
-*/
-bool cerrarCarpeta(DIR *carpeta)
-{
-    int resultado = closedir(carpeta);
-    if(-1==resultado)
         return false;
     else
         return true;
@@ -431,13 +417,12 @@ bool cerrarCarpeta(DIR *carpeta)
 //  listas de datos / estructuras
 bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
 {
-    DIR *carpeta;
-    if(!abrirCarpeta(carpeta))
+    if(!abrirCarpeta())
         crearCarpeta();
+        //if(!crearCarpeta())
+            //return false;
 
     FILE *archivo = fopen("Archivos/PRUEBA - Lista de Paquetes.txt","w");
-    fclose(archivo);
-    archivo = fopen("Archivos/PRUEBA - Lista de Paquetes.txt","a");
 
     if(archivo==NULL)
         return false;
@@ -455,6 +440,31 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
         {
             PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
             fsetPaquete(&fpaquetes[i],paqueteAux,true);
+/// ///////////////////////////////////////////////////////////////////////
+            printf("PAQUETE %d\n",i+1);
+            printf("ID = #%d\n",fgetID(&fpaquetes[i]));
+            printf("Ancho = %d\n",fgetAncho(&fpaquetes[i]));
+            printf("Alto = %d\n",fgetAlto(&fpaquetes[i]));
+            printf("Largo = %d\n",fgetLargo(&fpaquetes[i]));
+            printf("Peso = %d\n",fgetPeso(&fpaquetes[i]));
+            printf("Estado = %d\n",fgetEstado(&fpaquetes[i]));
+            printf("Direccion de Retiro: %s %d, %s\n",fpaquetes[i].dirRetiro.calle,
+                                                      fpaquetes[i].dirRetiro.altura,
+                                                      fpaquetes[i].dirRetiro.localidad);
+            printf("Direccion de Entrega: %s %d, %s\n",fpaquetes[i].dirEntrega.calle,
+                                                       fpaquetes[i].dirEntrega.altura,
+                                                       fpaquetes[i].dirEntrega.localidad);
+
+            printf("Fecha de Entrega: %d, %d:%d\n",fpaquetes[i].fechaEntrega.diaJuliano,
+                                                   fpaquetes[i].fechaEntrega.hora,
+                                                   fpaquetes[i].fechaEntrega.minuto);
+
+            presionarEnterYLimpiarPantalla();
+
+        ///Paquete 1 - dia juliano debería ser: 2459899
+        ///Paquete 2 - dia juliano debería ser: 2459930
+
+/// ///////////////////////////////////////////////////////////////////////
             listaAux=getResto(listaAux);
         }
 
@@ -463,14 +473,12 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
         listaAux=destruirLista(listaAux,false);
 
         fclose(archivo);
-        cerrarCarpeta(carpeta);
         return true;
     }
 }
 bool guardarPersonas(CentroLogisticoPtr centroLogistico)
 {
-    DIR *carpeta;
-    if(!abrirCarpeta(carpeta))
+    if(!abrirCarpeta())
         crearCarpeta();
 
     FILE *archivo = fopen("Archivos/Lista de Personas.txt","w");
@@ -499,14 +507,12 @@ bool guardarPersonas(CentroLogisticoPtr centroLogistico)
         listaAux=destruirLista(listaAux,false);
 
         fclose(archivo);
-        cerrarCarpeta(carpeta);
         return true;
     }
 }
 bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
 {
-    DIR *carpeta;
-    if(!abrirCarpeta(carpeta))
+    if(!abrirCarpeta())
         crearCarpeta();
 
     FILE *archivo = fopen("Archivos/Lista de Vehiculos.txt","w");
@@ -538,14 +544,12 @@ bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
         listaAux=destruirLista(listaAux,false);
 
         fclose(archivo);
-        cerrarCarpeta(carpeta);
         return true;
     }
 }
 bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
-    DIR *carpeta;
-    if(!abrirCarpeta(carpeta))
+    if(!abrirCarpeta())
         crearCarpeta();
 
     FILE *archivo;
@@ -586,15 +590,13 @@ bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         listaAux=destruirLista(listaAux,false);
 
         fclose(archivo);
-        cerrarCarpeta(carpeta);
         return true;
     }
 }
 //  general
 bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a las otras funciones de guardado
 {
-    DIR *carpeta;
-    if(!abrirCarpeta(carpeta))
+    if(!abrirCarpeta())
         crearCarpeta();
 
     FILE *archivo = fopen("Archivos/Nombre del Centro Logistico.txt","w");
@@ -612,7 +614,6 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
     ///Guardamos el nombre del centro logistico en un archivo aparte
         fwrite(nombreCtroLog,sizeof(char),longStr,archivo);
         fclose(archivo);
-        cerrarCarpeta(carpeta);
     }
     res = res && guardarPaquetes(centroLogistico);
     res = res && guardarPersonas(centroLogistico);
@@ -642,9 +643,34 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
         fread(&n,sizeof(int),1,archivo);
         fPaquete fpaquetes[n];
 
-        for(int i=0;!feof(archivo);i++)
+        for(int i=0;i<n;i++)
         {
             fread(&fpaquetes[i],sizeof(fPaquete),1,archivo);
+/// ///////////////////////////////////////////////////////////////////////
+            printf("PAQUETE %d\n",i+1);
+            printf("ID = #%d\n",fgetID(&fpaquetes[i]));
+            printf("Ancho = %d\n",fgetAncho(&fpaquetes[i]));
+            printf("Alto = %d\n",fgetAlto(&fpaquetes[i]));
+            printf("Largo = %d\n",fgetLargo(&fpaquetes[i]));
+            printf("Peso = %d\n",fgetPeso(&fpaquetes[i]));
+            printf("Estado = %d\n",fgetEstado(&fpaquetes[i]));
+            printf("Direccion de Retiro: %s %d, %s\n",fpaquetes[i].dirRetiro.calle,
+                                                      fpaquetes[i].dirRetiro.altura,
+                                                      fpaquetes[i].dirRetiro.localidad);
+            printf("Direccion de Entrega: %s %d, %s\n",fpaquetes[i].dirEntrega.calle,
+                                                       fpaquetes[i].dirEntrega.altura,
+                                                       fpaquetes[i].dirEntrega.localidad);
+
+            printf("Fecha de Entrega: %d, %d:%d\n",fpaquetes[i].fechaEntrega.diaJuliano,
+                                                   fpaquetes[i].fechaEntrega.hora,
+                                                   fpaquetes[i].fechaEntrega.minuto);
+
+            presionarEnterYLimpiarPantalla();
+
+        ///Paquete 1 - dia juliano debería ser: 2459899
+        ///Paquete 2 - dia juliano debería ser: 2459930
+
+/// ///////////////////////////////////////////////////////////////////////
             PaquetePtr paqueteAux = fsetPaquete(&fpaquetes[i],paqueteAux,false);
             agregarPaquete(centroLogistico,paqueteAux);
         }
@@ -737,8 +763,7 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 
 CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo llenará de datos. Llamará a las otras funciones de apertura
 {
-    DIR *carpeta;
-    bool res = abrirCarpeta(carpeta); //Primero, chequeamos que la carpeta exista.
+    bool res = abrirCarpeta(); //Primero, chequeamos que la carpeta exista.
     if(res) //Si existe, hacemos lo demás
     {
     //Luego, recuperamos el nombre del centro logistico.
@@ -763,7 +788,6 @@ CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo
         res = res && abrirRepartos(centroLogistico,false);
     ///Un booleano almacenará el valor de verdad de los resultados de todas las funciones.
     ///De esta manera, si alguna funcion falla, la booleana será falso, y nos daremos cuenta.
-        cerrarCarpeta(carpeta);
         if(res)
             return centroLogistico;
         else
