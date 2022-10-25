@@ -396,7 +396,7 @@ bool crearCarpeta()
 /** OPERACIÓN: busca y abre una carpeta.
 PRECONDICIÓN: ninguna
 POSTCONDICIÓN: se busca una carpeta con el nombre "Archivos".
-PARÁMETROS: puntero a la variable DIR (directorio) a usar
+PARÁMETROS: ninguno
 DEVUELVE: true si se pudo encontrar y abrir, false de lo contrario.
 */
 bool abrirCarpeta()
