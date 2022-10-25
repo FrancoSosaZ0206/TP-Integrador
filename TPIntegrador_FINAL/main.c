@@ -12,17 +12,6 @@
 #include "util.h"
 
 
-/**
-DIRECTORIOS (FRANCO S.)
-
-Para crear y linkear archivos
-E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\TPIntegrador_FINAL\
-
-Para abrir/guardar files = CARPETA "Archivos"
-E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\Archivos\
-*/
-
-
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE FUNCIONES DE REGISTRO DE USUARIO///
 ///-----------------------------------------------------------------------------------------------------------///
