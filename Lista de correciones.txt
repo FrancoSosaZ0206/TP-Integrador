@@ -1,7 +1,5 @@
-
-			[CAMBIOS REALIZADOS A PARTIR DE LA RAMA DE GASTON V 3.0]
-
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+					[Lista de correcciones]
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 1. Correccion de crearStringDinamico
 Esta funcion originalmente creaba un string con tamanio de 8 bytes, no del tamanio enviado por el usuario en el string
@@ -180,6 +178,21 @@ En todas las operaciones que operan con LISTAS se debe realizar una precaucion, 
 De esta forma evitamos que el programa eventualmente crashee por no tener datos de los que obtener el puntero, (obtenemos el puntero a una posicion de memoria
 sin datos), y cuando queremos acceder a ella como una STRUCT se colapsa por no ser de esa categoria
 Eliminacion, Modificacion, Busqueda
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+31. Correcion de los metodos de ordenamiento
+En todas las funciones de ordenamiento se ha modificado tanto la forma de ordenarlos como el algoritmo para el mismo fin,
+a partir de ahora se utiliza el metodo shell, y en lugar de usar arrays se utilizan los datos de la lista directamente
+modificando la lista con removerDeLista e insertarDatoLista
+(Agregadas la clausula de sin ordenar)[No hace nada, solo muestra personas naturalmente]
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+32. Correcion de los menus
+En todas las funciones de menues de main que tienen la opcion de volver al menu principal se soluciono y se implemento un puntero a entero dentro
+de los parametros de la funcion, modificandolo si y solo si se elige la opcion -1
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+33. Correccion de los archivos
+A la hora de guardar y abrir archivos ocurria el inconveniente de que se guardaban de manera natural y se abrian de manera inversa,
+para solucionar este conflicto se implemento una lista adicional en los menues de apertura para extraer los datos de esa lista y volver
+a invertirlos para lograr la forma original de ordenamiento de la lista
