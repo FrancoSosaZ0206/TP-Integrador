@@ -405,7 +405,10 @@ bool abrirCarpeta()
     if(carpeta==NULL)
         return false;
     else
+    {
+        closedir(carpeta);
         return true;
+    }
 }
 /// ///////////////////////////////////////////////////////////////////////////////////////////////// ///
 
@@ -422,7 +425,9 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
         //if(!crearCarpeta())
             //return false;
 
-    FILE *archivo = fopen("Archivos/PRUEBA - Lista de Paquetes.txt","w");
+    FILE *archivo = fopen("Archivos/PRUEBA - Lista de Paquetes.txt","wb");
+    /*fclose(archivo);
+    archivo = fopen("PRUEBA - Lista de Paquetes.bin","ab");*/
 
     if(archivo==NULL)
         return false;
@@ -441,7 +446,7 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
             PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
             fsetPaquete(&fpaquetes[i],paqueteAux,true);
 /// ///////////////////////////////////////////////////////////////////////
-            printf("PAQUETE %d\n",i+1);
+            /*printf("PAQUETE %d\n",i+1);
             printf("ID = #%d\n",fgetID(&fpaquetes[i]));
             printf("Ancho = %d\n",fgetAncho(&fpaquetes[i]));
             printf("Alto = %d\n",fgetAlto(&fpaquetes[i]));
@@ -459,7 +464,7 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
                                                    fpaquetes[i].fechaEntrega.hora,
                                                    fpaquetes[i].fechaEntrega.minuto);
 
-            presionarEnterYLimpiarPantalla();
+            presionarEnterYLimpiarPantalla();*/
 
         ///Paquete 1 - dia juliano debería ser: 2459899
         ///Paquete 2 - dia juliano debería ser: 2459930
@@ -629,7 +634,7 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
 //  listas de datos (CentroLogistico)
 bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Archivos/PRUEBA - Lista de Paquetes.txt","r");
+    FILE *archivo = fopen("Archivos/PRUEBA - Lista de Paquetes.txt","rb");
 
     if(archivo==NULL)
     {
@@ -646,8 +651,8 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
         for(int i=0;i<n;i++)
         {
             fread(&fpaquetes[i],sizeof(fPaquete),1,archivo);
-/// ///////////////////////////////////////////////////////////////////////
-            printf("PAQUETE %d\n",i+1);
+/// ////////////////////////////////////////////////////////////////////////
+            /*printf("PAQUETE %d\n",i+1);
             printf("ID = #%d\n",fgetID(&fpaquetes[i]));
             printf("Ancho = %d\n",fgetAncho(&fpaquetes[i]));
             printf("Alto = %d\n",fgetAlto(&fpaquetes[i]));
@@ -665,7 +670,7 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
                                                    fpaquetes[i].fechaEntrega.hora,
                                                    fpaquetes[i].fechaEntrega.minuto);
 
-            presionarEnterYLimpiarPantalla();
+            presionarEnterYLimpiarPantalla();*/
 
         ///Paquete 1 - dia juliano debería ser: 2459899
         ///Paquete 2 - dia juliano debería ser: 2459930
@@ -801,8 +806,8 @@ CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo
 ///                                     ESPECIALES - AYUDANTES
 
 
-// Función para leer líneas de texto terminadas con un
-// caracter determinado
+/* Función para leer líneas de texto terminadas con un
+caracter determinado */
 int LeerString(FILE *archivo,char buffer[], int longitudMax,char terminador){
     // leemos caracter a caracter hasta encontrar terminador o EOF
     char caracter;

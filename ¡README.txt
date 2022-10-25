@@ -28,6 +28,12 @@ main-v3.0.0-FINAL - NOVEDADES
 
 BUG FIXES
 
+- FILES:
+	- Se arregló el error que corrompía los datos al guardar paquetes en un archivo. Aún se desconoce la causa del problema, pero se probó guardando en archivos binarios en lugar de .txt y ahora funciona correctamente, incluso guardandolos en una carpeta.
+
+		EXPLICACION DE CAUSA PROBABLE: "En esta versión quisimos usar .txt simple y llanamente porque podías abrir el archivo con el bloc de notas y ver que estaba pasando adentro, pero parece que por alguna razón genera problemas. Quizás sea que necesite serializar los datos de alguna manera, convirtiendo todo a string y agregando "\n" al final de cada uno de ellos, pero eso llevaría mucho trabajo, y a esta altura solo queremos que todo funcione bien."
+
+
 - Se arregló el error que crasheaba el programa al escanear un string largo cualquiera (util.c - Funcion crearStringDinámico).
 
 - Ahora la funcion "menuMostrarPaquetes" muestra los paquetes correctamente, sólo si la lista de paquetes den centro logístico tiene contenidos.

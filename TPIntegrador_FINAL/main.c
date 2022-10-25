@@ -224,7 +224,8 @@ int main()
 
     CentroLogisticoPtr ctroPrueba = crearCentroLogisticoRapido("Prueba");
 
-/**    PaquetePtr paq1 = crearPaqueteDirect(1111,11,11,11,11,
+/**
+    PaquetePtr paq1 = crearPaqueteDirect(1111,11,11,11,11,
                                          "Calle 1",1111,
                                          "Localidad 1",
                                          "Otra Calle 1",1111,
@@ -235,7 +236,9 @@ int main()
                                          "Localidad 2",
                                          "Otra Calle 2",2222,
                                          "Otra Localidad 2",
-                                         22,2,2022,22,22,0);*/
+                                         22,2,2022,22,22,0);
+*/
+
     PaquetePtr paq1 = crearPaqueteDirect(21652,12,34,25,68,
                                          "Teniente Alvarez",1877,
                                          "Hurlingam",
