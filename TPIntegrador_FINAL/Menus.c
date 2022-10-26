@@ -286,7 +286,7 @@ void actualizarCuil(CuilPtr cuil)
     do
     {
         helpCuil();
-        printf("\n\tNuevo CUIL:");
+        printf("\n\n\tNuevo CUIL: ");
         limpiarBufferTeclado();
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
@@ -304,7 +304,7 @@ void actualizarDomicilio(DomicilioPtr domicilio)
     char localidad[100];
 
     limpiarBufferTeclado();
-    printf("\n\t\t[CALLE]: ");
+    printf("\n\n\t\t[CALLE]: ");
     scanf("%[^\n]%*c",calle);
 
     limpiarBufferTeclado();
@@ -326,7 +326,7 @@ void actualizarFecha(FechaPtr fecha)
     do
     {
         limpiarBufferTeclado();
-        printf("\n\t\tFecha (DD MM AAAA) --- Horario (HH MM): ");
+        printf("\n\n\t\tFecha (DD MM AAAA) --- Horario (HH MM): ");
         scanf("%d %d %d %d %d",&dia,&mes,&anio,&hora,&minuto);
         limpiarBufferTeclado();
 
@@ -2574,17 +2574,15 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
         ListaPtr paquetes = getPaquetesReparto(RepartoActualizar);
         ListaPtr listaRespaldo=crearLista();
         agregarLista(listaRespaldo,paquetes);
-        bool encontrado = false;
-        while(!encontrado && !listaVacia(listaRespaldo))
+        while(!listaVacia(listaRespaldo))
         {
             paqueteActual=getCabecera(listaRespaldo);
             EstadoPaquete = getEstado(paqueteActual);
             ///SI ES DISTINTO DE ENTREGADO Y SUSPENDIDO
-            if(EstadoPaquete != 3 && EstadoPaquete != 5 && encontrado == false)
+            if(EstadoPaquete != 3 && EstadoPaquete != 5)
             {
-                encontrado=true;
                 PaqueteModificar = paqueteActual;
-                ///break;
+                break;
             }
             ListaPtr ListaDestruir = listaRespaldo;
             listaRespaldo = getResto(listaRespaldo);
@@ -2600,7 +2598,7 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
             eleccion=seleccionarNumero();
             if(eleccion == 0)
             {
-                printf("Que haces seleccionando un paquete en estado 'DEPOSITO'?\n");
+                printf("\n\n Que haces seleccionando un paquete en estado 'DEPOSITO'? \n\n");
                 presionarEnterYLimpiarPantalla();
             }
             if(eleccion < 1 && eleccion > 6)
