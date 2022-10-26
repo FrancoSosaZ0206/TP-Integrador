@@ -196,3 +196,63 @@ de los parametros de la funcion, modificandolo si y solo si se elige la opcion -
 A la hora de guardar y abrir archivos ocurria el inconveniente de que se guardaban de manera natural y se abrian de manera inversa,
 para solucionar este conflicto se implemento una lista adicional en los menues de apertura para extraer los datos de esa lista y volver
 a invertirlos para lograr la forma original de ordenamiento de la lista
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+34. Correccion de los menu modo accion
+Modifique el funcionamiento de los mismos, modificando todas las alteraciones que provocaba en sus llamadas a funciones,
+simplifique mucho el codigo centrandola en los 3 modos de accion, tambien solucione diversos problemas criticos del programa 
+como por ejemplo, cuando seleccionabamos una cantidad de indices fuera del rango de la lista, o cuando eliminabamos una cantidad de elementos 
+en personas sin tener consideracion del chofer o cliente, o tambien a la hora de evaluar si la lista estaba vacia lo haciamos afuera del do
+while en lugar de dentro, entre otras aplicaciones, en general corregi las partes en donde requiere seleccionar una cantidad, reemplazado
+por el menu modo accion 1, que cumple con todas las condiciones necesarias para solucionar estos problemas de los limites de la lista y evitar hacer
+multiples comparaciones cada 5 renglones
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+35. Correcion del cargar paquete
+Ahora muestra las personas a la hora de seleccionar una persona, ya que no permite que se salga del menu de seleccion del cliente sin seleccionar uno
+valido, (se romperia la memoria dinamica del constructor de paquete)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+36. Correcion de mostrar vehiculo
+A la hora de mostrar el tipo del auto estaba mal puesto la conformacion de los datos del mismo, en lugar de mostrar 1=moto,2=auto,3=camion,
+mostraba 1=auto,2-moto,3=camion
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+37. Correccion de avisos 
+Se generaron muchos avisos, MUCHOS, cuando una condicion presenta una amenaza para el programa y la ejecucion del mismo, impidiendo estrictamente que el
+usuario pueda emplear alguna accion en pos de la seguridad de sus datos, de repente puede salir de un menu debido a que el sistema debe corroborar que
+las acciones que quiere desempeniar el usuario puedan llevarse a cabo, evaluando si existen elementos para interactuar, si existen en esas posiciones, si 
+tiene sentido reclamar esa posicion, ayudarlo a elegir correctamente para no alterar el estado de otros punteros, entre otros
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+38. Correccion de aspecto visual
+Se corrigieron algunas de las funciones mostrado general, principalmente de las funciones ayudantes que se presentaban de manera muy reiterada en el
+programa, para una mayor comodidad, se emplearon diferentes detalles visuales para lograr una pantalla mas agradable
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+39. Correcion de los menues de eliminacion
+Se corrigieron muchos errores de los menues de eliminacion, se corrroboro que elimine solamente cuando sea posible, cuando exista ese indice, cuando
+el limite de cantidad de indices lo permita la lista, sea estrictamente necesario evaluar las opciones del usuario para validar que sea
+posible llevar a cabo esa operacion, y modificar las estructuras de los menues para que reiteradamente corrobore que existan elementos para eliminar
+para que no quede dentro de un bucle infinito si agota todos los elementos
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+40. Correccion de armar reparto
+Este se viene heavy, se deberian haber hecho muchas condiciones, resultados, y comprobaciones antes de haberla desarrollado, faltaba evaluar si el chofer
+no habia realizado un REPARTO DIARIO, una nueva variable que alteraria la funcion por completo, si esta resultara falsa significa o que esta en curso,
+o que esta esperando a ser asignado a un reparto, en conjunto con la funcion de buscar choferes en repartos, se corrrobora que ambas condiciones se 
+cumplan, que no se encuentre en un reparto, y que tampoco haya realizado la entrega diaria, tambien se modificaron las condiciones de los paquetes, los 
+vehiculos, asegurandose de que si el usuario empieza a ingresar datos, es porque esta super comprobado que hay datos disponibles para elegir
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+41. Correccion de cerrar reparto
+Este es medio facilito, en lugar de copiar todos los elementos, lo unico que hacemos es dejarlo como esta, le pasamos el puntero, asignamos todos los paquetes
+que no fueron entregados al deposito nuevamente, y luego asignamos al chofer de ese reparto como que ya entrego el reparto diario, por ende queda registrado 
+tanto en el reparto cerrado como en la lista de personas, pero esta vez queda inhabilitado para futuros repartos
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+42. Correccion de archivos
+Al incorporar una nueva caracteristica de personas, tambien se corroboro que se lea correctamente en el archivo este campo nuevo para evitar
+perder el registro de que ese chofer ya haya realizado el reparto diario
+
+
