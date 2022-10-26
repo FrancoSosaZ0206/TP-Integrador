@@ -21,7 +21,7 @@ char *crearStringDinamico(char* literal);
 //POSTCONDICIÓN: libera la memoria que anteriormente ocupaba esa cadena de caracteres reservada en memoria dinamica
 //PARÁMETROS: cadena de caracteres representada por medio de un puntero a char
 //devuelve NULL
-void destruirStringDinamico(char *buffer);
+char *destruirStringDinamico(char *buffer);
 
 //FUNCIÓN DE LIMPIEZA DE BUFFER DE TECLADO (UTILIZA FFLUSH(STDIN))
 //PRECONDICIÓN: Ninguna

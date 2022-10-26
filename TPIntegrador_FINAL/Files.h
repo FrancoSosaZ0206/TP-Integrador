@@ -64,6 +64,13 @@ bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 /// Guardado general
 
+/** NUEVA - OPERACIÓN: guarda el nombre de un centro logistico en un archivo.
+PRECONDICIÓN: centroLogistico debe haber sido creado
+POSTCONDICIÓN: se serializa el nombre del centro logístico a un archivo de texto
+PARÁMETROS: puntero a la estructura centro logístico.
+DEVUELVE: true si se guardó correctamente, false de lo contrario. */
+bool guardarNombreCentroLogistico(CentroLogisticoPtr centroLogistico);
+
 //OPERACIÓN: guarda un centro logístico en un conjunto de archivos de texto.
 //PRECONDICIÓN: centroLogistico debe haber sido creado con la función crearCentroLogistico previamente
 //POSTCONDICIÓN: Utiliza a las funciones "guardar" para registrar el conjunto de datos procedente del
@@ -132,6 +139,13 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 ///---------------------------------------------------------------------------------------------------------------
 
 /// Apertura general
+
+/** NUEVA - OPERACIÓN: abre el nombre de un centro logistico desde un archivo.
+PRECONDICIÓN: centroLogistico debe haber sido declarado
+POSTCONDICIÓN: se recupera el nombre del centro logistico desde un archivo de texto.
+PARÁMETROS: ninguno.
+DEVUELVE: puntero al string recuperado, NULL de lo contrario. */
+char *abrirNombreCentroLogistico();
 
 //OPERACIÓN: Crea un centro logístico a partir de los datos de un conjunto de archivos de texto.
 //PRECONDICIÓN: centroLogistico debe haber sido declarado previamente

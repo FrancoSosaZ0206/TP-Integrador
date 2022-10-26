@@ -22,10 +22,10 @@ char* crearStringDinamico(char* literal)
     return buffer;
 }
 
-void destruirStringDinamico(char *buffer)
+char *destruirStringDinamico(char *buffer)
 {
-    buffer=NULL;
     free(buffer);
+    return NULL;
 }
 
 void limpiarBufferTeclado()

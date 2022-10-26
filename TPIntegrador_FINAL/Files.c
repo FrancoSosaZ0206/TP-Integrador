@@ -417,7 +417,7 @@ bool abrirCarpeta()
 
 ///                                             FUNCIONES PÚBLICAS/DE LA INTERFAZ
 
-//  listas de datos / estructuras
+///  listas de datos / estructuras
 bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
 {
     if(!abrirCarpeta())
@@ -551,29 +551,40 @@ bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
     fclose(archivo);
     return true;
 }
-//  general
-bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a las otras funciones de guardado
+///  General
+bool guardarNombreCentroLogistico(CentroLogisticoPtr centroLogistico)
 {
     if(!abrirCarpeta())
         if(!crearCarpeta())
             return false;
 
     FILE *archivo = fopen("Archivos/Nombre del Centro Logistico.txt","w");
-    bool res = true; //a diferencia de las funciones anteriores, usamos una bandera para juntar al conjugado.
     if(archivo==NULL)
-        res=false;
-    else
     {
-        char *temp = getNombreCentroLogistico(centroLogistico);
-        int longStr = strlen(temp) + 2; //2 más que el original: 1 x el '\0', y 2 x el caracter que le agregaremos.
-
-        char nombreCtroLog[longStr];
-        strcpy(nombreCtroLog,temp);
-        nombreCtroLog[longStr-1]='\n'; ///le agregamos el caracter especial para la apertura.
-    ///Guardamos el nombre del centro logistico en un archivo aparte
-        fwrite(nombreCtroLog,sizeof(char),longStr,archivo);
-        fclose(archivo);
+        printf("ERROR AL ABRIR EL ARCHIVO 'Nombre del Centro Logistico.txt'.\n\n");
+        return false;
     }
+
+    char *temp = getNombreCentroLogistico(centroLogistico);
+    int longStr = strlen(temp) + 2; //2 más que el original: 1 x el '\0', y 2 x el caracter que le agregaremos.
+
+    char nombreCtroLog[longStr];
+    strcpy(nombreCtroLog,temp);
+    nombreCtroLog[longStr-1]='\n'; ///le agregamos el caracter especial para la apertura.
+///Guardamos el nombre del centro logistico en un archivo aparte
+    fwrite(nombreCtroLog,sizeof(char),longStr,archivo);
+    fclose(archivo);
+
+    return true;
+}
+
+bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a las otras funciones de guardado
+{
+    if(!abrirCarpeta())
+        if(!crearCarpeta())
+            return false;
+
+    bool res = guardarNombreCentroLogistico(centroLogistico);
     res = res && guardarPaquetes(centroLogistico);
     res = res && guardarPersonas(centroLogistico);
     res = res && guardarVehiculos(centroLogistico);
@@ -585,7 +596,7 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
 }
 
 
-//  listas de datos (CentroLogistico)
+///  Listas de datos (CentroLogistico)
 bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
 {
     FILE *archivo = fopen("Archivos/Lista de Paquetes.txt","rb");
@@ -674,9 +685,8 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
     fclose(archivo);
     return true;
 }
-//  general
-
-CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo llenará de datos. Llamará a las otras funciones de apertura
+///  General
+char *abrirNombreCentroLogistico()
 {
     if(!abrirCarpeta())
     {
@@ -685,14 +695,32 @@ CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo
     }
 //Si se pudo abrir la carpeta, recuperamos el nombre del centro logistico.
     FILE *archivo = fopen("Archivos/Nombre del Centro Logistico.txt","r");
-    char nombreCtroLog[100];
-    if(archivo==NULL || LeerString(archivo,nombreCtroLog,100,'\n')==EOF) ///si el archivo no abre o está vacío por alguna razón,
+    char temp[100];
+    if(archivo==NULL || LeerString(archivo,temp,100,'\n')==EOF) ///si el archivo no abre o está vacío por alguna razón,
     {
         printf("ERROR: archivo inexistente o vacio."); ///mostramos un mensaje de error, y
         return NULL; ///retornamos NULL
     }
+    char *nombreCtroLog = crearStringDinamico(temp);
+    return nombreCtroLog;
+}
 
+CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo llenará de datos. Llamará a las otras funciones de apertura
+{
+    if(!abrirCarpeta())
+    {
+        printf("ERROR: no se pudo abrir la carpeta 'Archivos'.");
+        return NULL;
+    }
+
+    char *nombreCtroLog = abrirNombreCentroLogistico();
+    if(nombreCtroLog==NULL)
+    {
+        printf("ERROR AL INICIAR SESION,\nNO SE PUDO RECUPERAR EL NOMBRE DEL CENTRO LOGISTICO.\n\n");
+        return NULL;
+    }
     CentroLogisticoPtr centroLogistico = crearCentroLogisticoRapido(nombreCtroLog);
+    nombreCtroLog = destruirStringDinamico(nombreCtroLog); //Destruimos el stirng porque fue creado en memoria dinamica.
 
     bool res = abrirPaquetes(centroLogistico);
     res = res && abrirPersonas(centroLogistico);

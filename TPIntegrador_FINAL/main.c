@@ -893,6 +893,14 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         presionarEnterYLimpiarPantalla();
                 } while(op1<0 || op1>2);
             }
+            else
+            {
+                if(!guardarNombreCentroLogistico(centroLogistico))
+                {
+                    printf("ERROR AL CERRAR SESION.\n\n");
+                    exit(1);
+                }
+            }
             break;
         default:
             printf("Opcion incorrecta.");
