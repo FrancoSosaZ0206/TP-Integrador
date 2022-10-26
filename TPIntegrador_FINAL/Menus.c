@@ -1694,7 +1694,6 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico, int* op1)
             case 4:
                 printf("LISTADO DE PAQUETES (SIN ORDENAR)");
                 ordenarPaquetes(centroLogistico,4);
-                cambiosGuardados = true;
                 break;
             case 0:
                 break;
@@ -1775,7 +1774,6 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico, int tipo, int* op1)
             case 4:
                 printf("(SIN ORDENAR)\n");
                 ordenarPersonas(centroLogistico, 4, tipo);
-                cambiosGuardados = true;
                 break;
             case 0:
                 break;
@@ -1847,7 +1845,6 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico, int* op1)
             case 4:
                 printf("LISTADO DE VEHICULOS (SIN ORDENAR)");
                 ordenarVehiculos(centroLogistico,4);
-                cambiosGuardados = true;
                 break;
             case 0:
                 break;
@@ -2591,24 +2588,29 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
             {
                 encontrado=true;
                 PaqueteModificar = paqueteActual;
+                ///break;
             }
             ListaPtr ListaDestruir = listaRespaldo;
             listaRespaldo = getResto(listaRespaldo);
             ListaDestruir = destruirLista(ListaDestruir, false);
         }
         listaRespaldo = destruirLista(listaRespaldo,false);
-        system("cls");
-        printf("El paquete que esta modificando es: \n");
-        mostrarPaquete(PaqueteModificar);
-        printf("\n");
         helpEstadoPaquete();
         do
         {
+            printf("El paquete que esta modificando es: \n");
+            mostrarPaquete(PaqueteModificar);
             printf("SELECCIONE EL ESTADO: ");
             eleccion=seleccionarNumero();
             if(eleccion == 0)
             {
                 printf("Que haces seleccionando un paquete en estado 'DEPOSITO'?\n");
+                presionarEnterYLimpiarPantalla();
+            }
+            if(eleccion < 1 && eleccion > 6)
+            {
+                printf("\n\n\t [Eliga bien por favor]... \n\n");
+                presionarEnterYLimpiarPantalla();
             }
         }while(eleccion < 1 && eleccion > 6);
         setEstado(PaqueteModificar,eleccion);
@@ -2826,21 +2828,27 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                     {
                     case 1:
                         ordenarRepartos(centroLogistico,esRepartoAbierto,1);
+                        cambiosGuardados = true;
                         break;
                     case 2:
                         ordenarRepartos(centroLogistico,esRepartoAbierto,2);
+                        cambiosGuardados = true;
                         break;
                     case 3:
                         ordenarRepartos(centroLogistico,esRepartoAbierto,3);
+                        cambiosGuardados = true;
                         break;
                     case 4:
                         ordenarRepartos(centroLogistico,esRepartoAbierto,4);
+                        cambiosGuardados = true;
                         break;
                     case 5:
                         ordenarRepartos(centroLogistico,esRepartoAbierto,5);
+                        cambiosGuardados = true;
                         break;
                     case 6:
                         ordenarRepartos(centroLogistico,esRepartoAbierto,6);
+                        cambiosGuardados = true;
                         break;
                     case 7:
                         ordenarRepartos(centroLogistico,esRepartoAbierto,7);
