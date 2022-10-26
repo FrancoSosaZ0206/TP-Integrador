@@ -266,4 +266,8 @@ void mostrarFecha(FechaPtr fecha);
 ///DEVUELVE: UN ENTERO CON EL CALCULO YA REALIZADO
 int calcularDiaJuliano(int dia, int mes, int anio);
 
+
+
+FechaPtr cargarFecha(FechaPtr fecha);
+
 #endif //TDAFECHAYHORA_H_INCLUDED

@@ -98,5 +98,6 @@ void mostrarDomicilio(DomicilioPtr domicilio);
 bool domiciliosIguales(DomicilioPtr domicilio1,DomicilioPtr domicilio2);
 
 
+DomicilioPtr cargarDomicilio(DomicilioPtr domicilio);
 
 #endif // TDADOMICILIO_H_INCLUDED

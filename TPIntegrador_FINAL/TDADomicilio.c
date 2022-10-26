@@ -82,3 +82,50 @@ bool domiciliosIguales(DomicilioPtr domicilio1,DomicilioPtr domicilio2)
     condicion = condicion && getAltura(domicilio1) == getAltura(domicilio2);
     return condicion && strcmp(getLocalidad(domicilio1),getLocalidad(domicilio2)) == 0;
 }
+
+
+DomicilioPtr cargarDomicilio(DomicilioPtr domicilio)
+{
+    char calle[100];
+    int altura;
+    char localidad[100];
+
+    limpiarBufferTeclado();
+    printf("\n\n\t\t Calle: ");
+    scanf("%[^\n]%*c",calle);
+
+    limpiarBufferTeclado();
+    printf("\n\t\t Altura: ");
+    scanf("%d",&altura);
+
+    limpiarBufferTeclado();
+    printf("\n\t\t Localidad: ");
+    scanf("%[^\n]%*c",localidad);
+
+    domicilio=crearDomicilio(calle,altura,localidad);
+
+    return domicilio;
+}
+
+void actualizarDomicilio(DomicilioPtr domicilio)
+{
+    char calle[100];
+    int altura;
+    char localidad[100];
+
+    limpiarBufferTeclado();
+    printf("\n\n\t\t[CALLE]: ");
+    scanf("%[^\n]%*c",calle);
+
+    limpiarBufferTeclado();
+    printf("\n\t\tAltura: ");
+    scanf("%d",&altura);
+
+    limpiarBufferTeclado();
+    printf("\n\t\tLocalidad: ");
+    scanf("%[^\n]%*c",localidad);
+
+    setCalle(domicilio,calle);
+    setAltura(domicilio,altura);
+    setLocalidad(domicilio,localidad);
+}

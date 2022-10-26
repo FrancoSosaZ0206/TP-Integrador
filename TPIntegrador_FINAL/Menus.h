@@ -631,5 +631,52 @@ int menuMainMenu();
 int MAIN_MENU(CentroLogisticoPtr centroLogistico);
 
 
+bool menuContinuar();
+
+
+int menuGuardarCambios();
+
+
+bool menuContinuar();
+
+
+int menuModoAccion();
+
+
+int menuModoAccion1(ListaPtr lista);
+
+
+void menuModoAccion2(ListaPtr lista, int cantIndices,int* indices);
+
+
+void menuModoAccion3(ListaPtr lista,int* vec);
+
+
+int calcularCantidad();
+
+
+void tipoPersona(bool esChofer);
+
+
+void notificacionListaVacia(ListaPtr ListaAnalizar);
+
+
+int menuTipoOrdenamientoPaquetes();
+
+
+int menuTipoOrdenamientoPersonas();
+
+
+int menuTipoOrdenamientoVehiculos();
+
+
+int MenuSeleccionAtributoReparto();
+
+
+int menuListadoReparto();
+
+
+int menuOrdenarRepartos();
+
 
 #endif // MENUS_H_INCLUDED

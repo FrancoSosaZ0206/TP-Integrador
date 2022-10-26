@@ -3,6 +3,10 @@
 #include <string.h>
 #include <time.h>
 #include "TDAVehiculo.h"
+#include "TDACentroLogistico.h"
+#include "Lista.h"
+#include "Menus.h"
+#include "Files.h"
 #include "util.h"
 
 ///-----------------------------------------------------------------------------------------------------------///
@@ -142,4 +146,382 @@ void mostrarTipoVehiculo(VehiculoPtr vehiculo)
 bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2)
 {
     return strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0;
+}
+
+
+bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
+{
+    int tipoVehiculo=0,i=1,resultado=0;
+    char marca[100];
+    char modelo[100];
+    char patente[100];
+    VehiculoPtr vehiculo;
+    bool cambiosGuardados=false, continuar;
+    do
+    {
+        system("cls");
+        printf("VEHICULO %d\n\n",i++);
+
+        helpTipoVehiculo();
+
+        limpiarBufferTeclado();
+        printf("\n\n\tSeleccione un Tipo: ");
+        scanf("%d",&tipoVehiculo);
+
+        limpiarBufferTeclado();
+        printf("\n\tMarca: ");
+        scanf("%[^\n]%*c",marca);
+
+        limpiarBufferTeclado();
+        printf("\n\tModelo: ");
+        scanf("%[^\n]%*c",modelo);
+
+        limpiarBufferTeclado();
+        printf("\n\tPatente (AA 000 AA): ");
+        scanf("%[^\n]%*c",patente);
+
+        vehiculo=crearVehiculo(tipoVehiculo,marca,modelo,patente);
+        agregarVehiculo(centroLogistico,vehiculo);
+
+        continuar=menuContinuar();
+    } while(continuar);
+    resultado=menuGuardarCambios();
+    if(resultado==1)
+    {
+        cambiosGuardados=guardarVehiculos(centroLogistico);
+    }
+    return cambiosGuardados;
+}
+
+bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
+{
+    int opcion=0;
+    bool cambiosGuardados=false;
+    bool continuar;
+    int EleccionMenuModoAccion = 0;
+    int EleccionAccion = 0;
+    int indices[100];
+    int cantIndices=0;
+    VehiculoPtr vehiculoRemovido = (VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));
+    do
+    {
+        if(listaVacia(getVehiculos(centroLogistico)))
+        {
+            printf("ERROR: Lista vacía. Debe agregar vehiculos para poder eliminarlos.\n\n");
+            presionarEnterYLimpiarPantalla();
+        }
+        else
+        {
+            EleccionMenuModoAccion = menuModoAccion(0);
+            mostrarVehiculos(centroLogistico);
+            printf("ELIMINAR VEHICULO \n\n");
+                switch(EleccionMenuModoAccion)
+                {
+                    case 1:
+                        EleccionAccion = menuModoAccion1(getVehiculos(centroLogistico));
+                        vehiculoRemovido = removerVehiculo(centroLogistico, EleccionAccion);
+                        vehiculoRemovido = destruirVehiculo(vehiculoRemovido);
+                        cambiosGuardados = true;
+                        break;
+                    case 2:
+                        printf("[ACLARACION]Eliga la cantidad de indices...\n");
+                        cantIndices = menuModoAccion1( getVehiculos(centroLogistico) );
+                        menuModoAccion2(getVehiculos(centroLogistico),cantIndices,indices);
+                        for(int i=0;i<cantIndices;i++)
+                        {
+                            vehiculoRemovido = removerVehiculo(centroLogistico,indices[i]-i);
+                            vehiculoRemovido = destruirVehiculo(vehiculoRemovido);
+                        }
+                        cambiosGuardados = true;
+                        break;
+                    case 3:
+                        menuModoAccion3(getVehiculos(centroLogistico),indices);
+                        for(int i=0;i<indices[1]-indices[0]+1;i++)
+                        {
+                            vehiculoRemovido = removerVehiculo(centroLogistico,indices[0]);
+                            vehiculoRemovido = destruirVehiculo(vehiculoRemovido);
+                        }
+                        cambiosGuardados = true;
+                        break;
+                    default:
+                        printf("Eleccion equivocada \n");
+                        break;
+                }
+            continuar=menuContinuar();
+        }
+    }while(continuar && !listaVacia( getVehiculos(centroLogistico) ) );
+    notificacionListaVacia( getVehiculos(centroLogistico) );
+    if( cambiosGuardados )
+    {
+        opcion = menuGuardarCambios();
+        if(opcion == 1)
+        {
+            cambiosGuardados=guardarPersonas(centroLogistico);
+        }
+    }
+    return cambiosGuardados;
+}
+
+void cambiarVehiculo(VehiculoPtr vehiculoAModificar)
+{
+    int op=0;
+    int nTipo=0;
+    char nMarca[100];
+    char nModelo[100];
+    char nPatente[100];
+    int seguirMod=0;
+    do
+    {
+        system("cls");
+        printf("Ha elegido - \n");
+        mostrarVehiculo(vehiculoAModificar);
+        printf("\n\nQué desea modificar?\n\n");
+        printf("1. Tipo de vehiculo\n");
+        printf("2. Marca\n");
+        printf("3. Modelo\n");
+        printf("4. Patente\n");
+        printf("Seleccione una opcion: ");
+        limpiarBufferTeclado();
+        scanf("%d",&op);
+        limpiarBufferTeclado();
+        switch(op)
+        {
+        case 1:
+            printf("\n\n");
+            helpTipoVehiculo();
+            printf("\n\nSeleccione una opcion: ");
+            scanf("%d",&nTipo);
+            if(nTipo > 0 && nTipo < 4)
+            {
+                setTipoVehiculo(vehiculoAModificar, nTipo);
+            }
+            else
+            {
+                printf("Opcion incorrecta...\n");
+                presionarEnterYLimpiarPantalla();
+            }
+            break;
+        case 2:
+            printf("\n\nIngrese la nueva marca:");
+            scanf("%[^\n]%*c",nMarca);
+            setMarca(vehiculoAModificar,nMarca);
+            break;
+        case 3:
+            printf("\n\nIngrese el nuevo modelo:");
+            scanf("%[^\n]%*c",nModelo);
+            setModelo(vehiculoAModificar,nModelo);
+            break;
+        case 4:
+            printf("\n\nIngrese la nueva patente (AA 111 AA):\n\t");
+            scanf("%[^\n]%*c",nPatente);
+            setPatente(vehiculoAModificar,nPatente);
+            break;
+        default:
+            printf("\nOpcion incorrecta.\n\n");
+            break;
+        }
+        printf("\n\nDatos modificados exitosamente.\n\n");
+        printf("Desea seguir modificando este vehiculo?\n\n");
+        printf("\t1. SI\n\t");
+        printf("0. NO\n\n");
+        printf("Seleccione una opcion: ");
+        scanf("%d",&seguirMod);
+    } while(seguirMod!=0);
+}
+
+
+ListaPtr OriginalVehiculos(CentroLogisticoPtr centroLogistico)
+{
+    ///Creamos una lista "original" para ver si hay cambios,
+    ///y una "auxiliar" para obtener y recorrer la lista.
+    ListaPtr listaOriginal=crearLista();
+    ListaPtr listaAux2=crearLista();
+    agregarLista(listaAux2,getVehiculos(centroLogistico));
+    ///Hacemos lo mismo pero para cada elemento de la lista
+    VehiculoPtr vehiculoOriginal;
+    VehiculoPtr vehiculoAux;
+    while(!listaVacia(listaAux2))
+    {
+        vehiculoAux=getCabecera(listaAux2);
+        ///Copiamos el contenido de cada elemento
+        vehiculoOriginal=crearVehiculo(getTipoVehiculo(vehiculoAux),getMarca(vehiculoAux),getModelo(vehiculoAux),getPatente(vehiculoAux));
+        ///Agregamos el dato original a la lista
+        agregarDatoLista(listaOriginal,(VehiculoPtr)vehiculoOriginal);
+        listaAux2=getResto(listaAux2);
+    }
+    listaAux2=destruirLista(listaAux2,false);
+    return listaOriginal;
+}
+
+bool CambiosVehiculos(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal)
+{
+    bool cambioDetectado=false;
+    ListaPtr listaAux2=crearLista();
+    VehiculoPtr vehiculoAux;
+    VehiculoPtr vehiculoOriginal;
+    agregarLista(listaAux2,getVehiculos(centroLogistico));
+    ///Recorremos la lista: antes y después de hacer el cambio
+    while(!listaVacia(listaAux2))
+    {
+        vehiculoAux=getCabecera(listaAux2);
+        vehiculoOriginal=getCabecera(listaOriginal);
+        ///Revisamos, elemento por elemento, si son iguales o cambiaron (puede ser que se haya ordenado de la misma forma que estaba)
+        if(!vehiculosIguales(vehiculoOriginal,vehiculoAux))
+            cambioDetectado=true;
+        listaAux2=getResto(listaAux2);
+        listaOriginal=getResto(listaOriginal);
+    }
+    ///Destruimos ambas listas, ya no las necesitamos más
+    listaAux2=destruirLista(listaAux2,false);
+    ///Como en esta copiamos los contenidos, ponemos true para removerlos.
+    listaOriginal=destruirLista(listaOriginal,true);
+    return cambioDetectado;
+}
+
+bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
+{
+    bool cambioDetectado=false, cambiosGuardados=false, continuar;
+    int modoAccion, Cantidad, Eleccion, resultado;
+    int Elecciones[10];
+    VehiculoPtr vehiculoModificar;
+    ListaPtr listaOriginal;
+    ///------------------------------------------------------------------------------------------------------///
+        listaOriginal = OriginalVehiculos(centroLogistico);
+    ///------------------------------------------------------------------------------------------------------///
+        if(listaVacia(getVehiculos(centroLogistico)))
+        {
+            printf("ERROR: Lista vacía. Debe agregar vehiculos para poder modificarlos.\n\n");
+            presionarEnterYLimpiarPantalla();
+        }
+        else
+        {
+            do
+            {
+                modoAccion = menuModoAccion();
+                mostrarVehiculos(centroLogistico);
+                switch(modoAccion)
+                {
+                case 1:
+                    Eleccion=menuModoAccion1(getVehiculos(centroLogistico));
+                    vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Eleccion);
+                    cambiarVehiculo(vehiculoModificar);
+                    break;
+                case 2:
+                    printf("[ACLARACION]Eliga la cantidad de indices...\n");
+                    Cantidad=menuModoAccion1(getVehiculos(centroLogistico));
+                    menuModoAccion2(getVehiculos(centroLogistico),Cantidad,Elecciones);
+                    for(int i=0;i<Cantidad;i++)
+                    {
+                        vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Elecciones[i]);
+                        cambiarVehiculo(vehiculoModificar);
+                    }
+                    break;
+                case 3:
+                    menuModoAccion3(getVehiculos(centroLogistico),Elecciones);
+                    for(int i=0;i<Elecciones[1]-Elecciones[0]+1;i++)
+                    {
+                        vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),i);
+                        cambiarVehiculo(vehiculoModificar);
+                    }
+                    break;
+                default:
+                    printf("Eleccion equivocada \n");
+                    break;
+                }
+                continuar=menuContinuar();
+        } while(continuar);
+    }
+    ///------------------------------------------------------------------------------------------------------///
+        cambioDetectado = CambiosVehiculos(centroLogistico,listaOriginal);
+    ///------------------------------------------------------------------------------------------------------///
+    if( cambioDetectado )
+    {
+        resultado=menuGuardarCambios();
+        if(resultado==1)
+        {
+            cambiosGuardados=guardarVehiculos(centroLogistico);
+        }
+    }
+    return cambiosGuardados;
+}
+
+
+
+
+void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
+{
+    bool continuar;
+    if(listaVacia(getVehiculos(centroLogistico)))
+    {
+        printf("ERROR: Lista vacia. No hay vehiculos para buscar\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        do
+        {
+            system("cls");
+            char patente[100];
+            printf("BUSCAR VEHICULO\n\n");
+            printf("Ingrese la patente del vehiculo a buscar (AA 111 AA): ");
+            scanf("%[^\n]%*c",patente);
+            if(!buscarVehiculo(centroLogistico,patente))
+            {
+                printf("\n\nNo se pudo encontrar el vehiculo con patente %s.\n\n",patente);
+            }
+            continuar=menuContinuar();
+        } while(continuar);
+    }
+}
+
+
+
+bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico, int* op1)
+{
+    int op=0;
+    bool cambiosGuardados=false;
+    if(listaVacia(getVehiculos(centroLogistico)))
+    {
+        printf("Lista vacia de vehiculos, agregue un elemento por favor\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        do
+        {
+            op = menuTipoOrdenamientoVehiculos();
+            switch(op)
+            {
+            case 1:
+                printf("LISTADO DE VEHICULOS (ORDENADOS POR MARCA)");
+                ordenarVehiculos(centroLogistico,1);
+                cambiosGuardados = true;
+                break;
+            case 2:
+                printf("LISTADO DE VEHICULOS (ORDENADOS POR MODELO)");
+                ordenarVehiculos(centroLogistico,2);
+                cambiosGuardados = true;
+                break;
+            case 3:
+                printf("LISTADO DE VEHICULOS (ORDENADOS TIPO)");
+                ordenarVehiculos(centroLogistico,3);
+                cambiosGuardados = true;
+                break;
+            case 4:
+                printf("LISTADO DE VEHICULOS (SIN ORDENAR)");
+                ordenarVehiculos(centroLogistico,4);
+                break;
+            case 0:
+                break;
+            case -1:
+                op = 0;
+                *op1 = 0;
+                break;
+            default:
+                printf("\nOpcion incorrecta.\n\n");
+                break;
+            }
+        }while(op!=0 && op!=-1);
+    }
+    return cambiosGuardados;
 }

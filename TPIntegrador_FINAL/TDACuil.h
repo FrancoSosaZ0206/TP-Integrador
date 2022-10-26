@@ -137,4 +137,6 @@ void mostrarCuil(CuilPtr cuil);
 bool cuilsIguales(CuilPtr cuil1,CuilPtr cuil2);
 
 
+CuilPtr cargarCuil(CuilPtr cuil);
+
 #endif // TDACUIL_H_INCLUDED

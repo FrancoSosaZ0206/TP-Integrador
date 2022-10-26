@@ -180,5 +180,6 @@ bool personasIguales(PersonaPtr persona1,PersonaPtr persona2);
 //  persona2: puntero a la estructura a verificar.
 //Devuelve: true si son idénticos en cuil, false de lo contrario.
 
+void cambiarPersona(PersonaPtr personaAModificar, bool esChofer);
 
 #endif // TDAPERSONA_H_INCLUDED

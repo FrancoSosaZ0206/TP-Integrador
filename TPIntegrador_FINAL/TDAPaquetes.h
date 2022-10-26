@@ -253,4 +253,9 @@ void mostrarEstadopaquete(PaquetePtr paquete); //muestra solo el estado actual d
 //Devuelve: true si son idénticos en ID O en el resto de campos, false de lo contrario.
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2);
 
+
+
+void cambiarPaquete(PaquetePtr paqueteAModificar);
+
+
 #endif // TDAPAQUETES_H_INCLUDED

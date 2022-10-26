@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "Lista.h"
+
 #include "TDAPaquetes.h"
 #include "TDAPersona.h"
 #include "TDAVehiculo.h"
@@ -20,7 +21,7 @@ typedef struct CentroLogistico
     ListaPtr listaRepartosCerrados; ///se pasan a esta lista en lugar de ser eliminados.
 } CentroLogistico;
 
-typedef CentroLogistico * CentroLogisticoPtr;
+typedef CentroLogistico* CentroLogisticoPtr;
 
 //Operación:Crea la estructura Centro Logistico
 //Precondición:Que el centro logistico no haya sido creado
@@ -635,5 +636,21 @@ bool existenPaquetesDisponibles(CentroLogisticoPtr centroLogistico);
 ///DEVUELVE: BOOLEANO
 bool existenVehiculosDisponibles(CentroLogisticoPtr centroLogistico);
 
+
+ListaPtr OriginalPaquetes(CentroLogisticoPtr centroLogistico);
+
+bool CambiosPaquetes(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal);
+
+ListaPtr OriginalVehiculos(CentroLogisticoPtr centroLogistico);
+
+bool CambiosVehiculos(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal);
+
+bool CambiosRepartos(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal,bool esRepartoAbierto);
+
+ListaPtr OriginalRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
+
+ListaPtr OriginalPersonas(CentroLogisticoPtr centroLogistico);
+
+bool CambiosPersonas(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal);
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

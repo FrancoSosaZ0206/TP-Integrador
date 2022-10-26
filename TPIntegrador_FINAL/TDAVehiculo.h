@@ -135,4 +135,8 @@ bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2);
 //Devuelve: VACIO
 void tipoVehiculo(VehiculoPtr vehiculo);
 
+
+
+void cambiarVehiculo(VehiculoPtr vehiculoAModificar);
+
 #endif // TDAVEHICULO_H_INCLUDED

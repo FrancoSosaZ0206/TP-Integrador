@@ -251,3 +251,47 @@ bool cuilsIguales(CuilPtr cuil1,CuilPtr cuil2)
 {
     return strcmp(getCuil(cuil1),getCuil(cuil2)) == 0;
 }
+
+
+
+CuilPtr cargarCuil(CuilPtr cuil)
+{
+    cuil=crearCuil("0000000000000");
+    char strCuil[100];
+    do
+    {
+        helpCuil();
+        printf("\n\tCUIL:");
+        limpiarBufferTeclado();
+        scanf("%[^\n]%*c",strCuil);
+        limpiarBufferTeclado();
+
+        setCuil(cuil,strCuil);
+
+        if(!esCuilValido(cuil))
+        {
+            printf("\n\t [Usted no ha ingresado un cuil en un formato valido] \n");
+            printf("\t [Debera reingresar un cuil hasta que ingrese uno valido] \n\n");
+            presionarEnterYLimpiarPantalla();
+        }
+
+    } while(!esCuilValido(cuil));
+    return cuil;
+}
+
+void actualizarCuil(CuilPtr cuil)
+{
+    char strCuil[100];
+    do
+    {
+        helpCuil();
+        printf("\n\n\tNuevo CUIL: ");
+        limpiarBufferTeclado();
+        scanf("%[^\n]%*c",strCuil);
+        limpiarBufferTeclado();
+
+        setCuil(cuil,strCuil);
+
+        system("cls");
+    } while(!esCuilValido(cuil));
+}

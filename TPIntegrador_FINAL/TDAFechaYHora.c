@@ -295,3 +295,52 @@ int calcularDiaJuliano(int dia, int mes, int anio)
            + (367 * (mes - 2 - 12 * ((mes - 14)/12)))/12
            - (3 * ((anio + 4900 + (mes - 14)/12)/100))/4 + dia - 32075;
 }
+
+
+FechaPtr cargarFecha(FechaPtr fecha)
+{
+    int dia=0,mes=0,anio=0,hora=0,minuto=0;
+    fecha=crearFecha(dia,mes,anio,hora,minuto);
+    do
+    {
+        printf("\n\n\t\t Fecha (DD MM AAAA) ---- Horario (HH MM): ");
+        limpiarBufferTeclado();
+        scanf("%d %d %d %d %d",&dia,&mes,&anio,&hora,&minuto);
+        limpiarBufferTeclado();
+
+        setDia(fecha,dia);
+        setMes(fecha,mes);
+        setAnio(fecha,anio);
+        setHora(fecha,hora);
+        setMinuto(fecha,minuto);
+
+        if( !esFechaValida(fecha) )
+        {
+            printf("\n\t [Usted no ha ingresado una fecha con el formato apropiado] \n");
+            printf("\t [Debera reingresar la fecha, hasta que ingrese una fecha en condiciones] \n\n");
+            presionarEnterYLimpiarPantalla();
+        }
+
+    }while(!esFechaValida(fecha));
+    return fecha;
+}
+
+void actualizarFecha(FechaPtr fecha)
+{
+    int dia=0,mes=0,anio=0,hora=0,minuto=0;
+    do
+    {
+        limpiarBufferTeclado();
+        printf("\n\n\t\tFecha (DD MM AAAA) --- Horario (HH MM): ");
+        scanf("%d %d %d %d %d",&dia,&mes,&anio,&hora,&minuto);
+        limpiarBufferTeclado();
+
+        setDia(fecha,dia);
+        setMes(fecha,mes);
+        setAnio(fecha,anio);
+        setHora(fecha,hora);
+        setMinuto(fecha,minuto);
+
+        system("cls");
+    }while(!esFechaValida(fecha));
+}

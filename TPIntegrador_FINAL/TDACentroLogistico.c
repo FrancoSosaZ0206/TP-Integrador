@@ -10,10 +10,22 @@
 #include "TDARepartos.h"
 #include "TDACentroLogistico.h"
 #include "util.h"
-
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE FUNCIONES DE CREACION///
 ///-----------------------------------------------------------------------------------------------------------///
+
+
+CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog)
+{
+    char nuevoNombre[100];
+
+    printf("INGRESE EL NOMBRE DEL CENTRO LOGISTICO: ");
+    scanf("%[^\n]%*c",nuevoNombre);
+
+    ctroLog=crearCentroLogisticoRapido(nuevoNombre);
+
+    return ctroLog;
+}
 
 CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,ListaPtr listaPersonas,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados)
 {
@@ -1126,6 +1138,73 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
     }
     listaAux=destruirLista(listaAux,false);
     return match;
+}
+
+
+bool existenChoferesDisponibles(CentroLogisticoPtr centroLogistico)
+{
+    bool existen = false;
+    PersonaPtr ChoferAuxiliar;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPersonas(centroLogistico));
+    while(!listaVacia(ListaAuxiliar))
+    {
+        ChoferAuxiliar = (PersonaPtr)getCabecera(ListaAuxiliar);
+        if(!buscarChoferRepartos(centroLogistico, getCuil(getCuilPersona(ChoferAuxiliar))))
+        {
+            if(!getRepartoDiario(ChoferAuxiliar))
+            {
+                existen = true;
+            }
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return existen;
+}
+
+bool existenPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
+{
+    bool existen = false;
+    PaquetePtr PaqueteAuxiliar;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPaquetes(centroLogistico));
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PaqueteAuxiliar = (PaquetePtr)getCabecera(ListaAuxiliar);
+        if(getEstado(PaqueteAuxiliar) == 0)
+        {
+            existen = true;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return existen;
+}
+
+bool existenVehiculosDisponibles(CentroLogisticoPtr centroLogistico)
+{
+    bool existen = false;
+    VehiculoPtr VehiculoAuxiliar;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getVehiculos(centroLogistico));
+    while(!listaVacia(ListaAuxiliar))
+    {
+        VehiculoAuxiliar = (VehiculoPtr)getCabecera(ListaAuxiliar);
+        if(!buscarVehiculoRepartos(centroLogistico, getPatente(VehiculoAuxiliar)))
+        {
+            existen = true;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return existen;
 }
 
 ///-----------------------------------------------------------------------------------------------------------///
