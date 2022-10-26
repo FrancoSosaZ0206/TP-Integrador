@@ -138,11 +138,12 @@ void menuModoAccion3(ListaPtr lista,int* vec)
 {
     int desde = 0;
     int hasta = 0;
-    int tamanioLista = longitudLista(lista);
     printf("Indice minimo: \n");
     desde = menuModoAccion1(lista);
     printf("Indice maximo: \n");
     hasta = menuModoAccion1(lista);
+    vec[0] = desde;
+    vec[1] = hasta;
     if(vec[0] > vec[1])
     {
         int aux = vec[0];
@@ -203,7 +204,6 @@ CuilPtr cargarCuil(CuilPtr cuil)
 {
     cuil=crearCuil("0000000000000");
     char strCuil[100];
-    int i=0;
     do
     {
         helpCuil();
@@ -774,12 +774,10 @@ bool verificarExistenciaPersonas(CentroLogisticoPtr centroLogistico, bool esChof
 bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
 {
     bool cambiosGuardados = false;
-    bool continuar;
     int EleccionMenuModoAccion=0;
     int EleccionAccion=0;
     int cantidadCorrectas=0;
     int cantIndices=0;
-    int opcion=0;
     int indices[100];
     PersonaPtr personaRemovida;
     EleccionMenuModoAccion = menuModoAccion();
@@ -862,23 +860,22 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
         printf("Eleccion equivocada \n");
         break;
     }
-    continuar = menuContinuar();
-    return continuar;
+    return cambiosGuardados;
 }
 
 
 bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
-    int opcion;
-    bool continuar;
-    bool cambiosGuardados;
+    int opcion = 0;
+    bool continuar = false;
+    bool cambiosGuardados = false;
     do
     {
         if(esChofer)
         {
             if( verificarExistenciaPersonas(centroLogistico, true) )
             {
-                continuar = eliminarPersona(centroLogistico, esChofer);
+                cambiosGuardados = eliminarPersona(centroLogistico, esChofer);
             }
             else
             {
@@ -890,7 +887,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         {
             if( verificarExistenciaPersonas(centroLogistico, false)  )
             {
-                continuar = eliminarPersona(centroLogistico, esChofer);
+                cambiosGuardados = eliminarPersona(centroLogistico, esChofer);
             }
             else
             {
@@ -898,6 +895,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 presionarEnterYLimpiarPantalla();
             }
         }
+        continuar = menuContinuar();
     } while(continuar == true && !listaVacia( getPersonas(centroLogistico) ) && verificarExistenciaPersonas(centroLogistico, esChofer) );
     if(esChofer)
     {
@@ -1937,19 +1935,17 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 {
     RepartoPtr reparto;
     int k=0;
-    int cantPaquetesElegidos=0;
     int resultado=0;
     PersonaPtr choferElegido;
     VehiculoPtr vehiculoElegido;
-    FechaPtr fechaSalida=NULL;
-    FechaPtr fechaRetorno=NULL;
+    FechaPtr fechaSalida = NULL;
+    FechaPtr fechaRetorno = NULL;
     ListaPtr paquetes=crearLista();
     PaquetePtr paqueteElegido;
     bool ExistenDatos=true;
     bool cambiosGuardados=false;
     bool continuar;
     bool valido=false;
-    bool HayChofer=false;
     if(!listaVacia(getVehiculos(centroLogistico)))
     {
         if(!existenVehiculosDisponibles(centroLogistico))

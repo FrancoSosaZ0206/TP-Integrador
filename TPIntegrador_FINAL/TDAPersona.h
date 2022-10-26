@@ -101,6 +101,14 @@ void setEsChofer(PersonaPtr persona, bool esChofer); //pondremos true or false, 
 
 
 
+//Operación: determina si realizo el reparto diario
+//Precondición: la estructura Persona debe haberse creado
+//Postcondición: agrega el valor false, cuando se crea se inicia en falso
+//Parámetros: persona(puntero a la estructura persona), RepartoDiario(bool que representa el nuevo valor)
+//Devuelve: nada
+void setRepartoDiario(PersonaPtr persona, bool RepartoDiario);
+
+
 
 
 char *getNombre(PersonaPtr persona);
@@ -142,6 +150,16 @@ bool getEsChofer(PersonaPtr persona);
 //Parámetros: persona(puntero a la estructura persona)
 //
 //Devuelve: booleano representando el tipo de persona que es (chofer=true,cliente=false)
+
+
+
+//Operación: obtiene el valor asignado de RepartoDiario para determinar si lo realizo o no
+//Precondición: persona debe haber sido creado en memoria dinamica con crearPersona
+//Postcondición: muestra el valor obtenido
+//Parámetros: persona(puntero a la estructura persona)
+//Devuelve: booleano representando si ya concreto su reparto diario(Realizado=true,No Realizado=false)
+bool getRepartoDiario(PersonaPtr persona);
+
 
 ///Especiales
 
