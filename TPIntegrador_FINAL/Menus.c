@@ -42,9 +42,9 @@ bool menuContinuar()
     int eleccion;
     do
     {
-        printf("\n\n\t Desea continuar? \n\n");
-        printf("\t     [0. NO] \n");
-        printf("\t     [1. SI] \n");
+        printf("\n\n\t Desea seguir en este menu? \n\n");
+        printf("\t     [0. NO [Deseo salir] ] \n");
+        printf("\t     [1. SI [Deseo quedarme en el menu] ] \n");
         printf("\n\t   Opcion: ");
         eleccion = seleccionarNumero();
         if(eleccion != 0 && eleccion != 1)
@@ -67,21 +67,14 @@ int menuModoAccion()
 {
     system("cls");
     int eleccion = 0;
-    do
-    {
-        printf("Accion:\n");
-        printf("1. Sobre un indice unico [Ej: Posicion 1]\n");
-        printf("2. Sobre conjunto de indices [Ej: Posiciones 1,18,4,25,7,6] (*)\n");
-        printf("3. Sobre rango de indices [Ej: Posiciones 1 - 4 (1,2,3,4)]\n");
-        printf("\n-------------------------------------------------------------\n");
-        printf("Opcion: ");
-        eleccion = seleccionarNumero();
-        if(eleccion<1 || eleccion>3)
-        {
-            printf("\nOpcion incorrecta.\n\n");
-            presionarEnterYLimpiarPantalla();
-        }
-    } while(eleccion<1 || eleccion>3);
+    printf("Accion:\n");
+    printf("1. Sobre un indice unico [Ej: Posicion 1]\n");
+    printf("2. Sobre conjunto de indices [Ej: Posiciones 1,18,4,25,7,6] (*)\n");
+    printf("3. Sobre rango de indices [Ej: Posiciones 1 - 4 (1,2,3,4)]\n");
+    printf("0. Volver\n");
+    printf("\n-------------------------------------------------------------\n");
+    printf("Opcion: ");
+    eleccion = seleccionarNumero();
     system("cls");
     return eleccion;
 }
@@ -98,26 +91,25 @@ int menuModoAccion1(ListaPtr lista)
         {
             printf("\t(Indice inexistente)\n");
         }
-    } while(eleccion <= 0 || eleccion > tamanioLista);
+    } while(eleccion < 1 || eleccion > tamanioLista);
     eleccion--;
     return eleccion;
 }
 
 void menuModoAccion2(ListaPtr lista, int cantIndices,int* indices)
 {
-    int tamanioLista = longitudLista(lista);
     //Elegimos los indices
     for(int i = 0;i < cantIndices+1;i++)
     {
-        printf("\nElemento %d", i+1);
+        printf("\n Elemento %d", i+1);
         indices[i] = menuModoAccion1(lista);
     }
-    int Salto = round(tamanioLista / 2);
+    int Salto = round(cantIndices / 2);
     bool cambios = true;
     while(Salto > 0)
     {
         cambios = false;
-        for(int i=0; i< (tamanioLista - Salto); i++)
+        for(int i=0; i< (cantIndices - Salto); i++)
         {
             if(indices[i] > indices[i+1])
             {
@@ -136,14 +128,10 @@ void menuModoAccion2(ListaPtr lista, int cantIndices,int* indices)
 
 void menuModoAccion3(ListaPtr lista,int* vec)
 {
-    int desde = 0;
-    int hasta = 0;
-    printf("Indice minimo: \n");
-    desde = menuModoAccion1(lista);
-    printf("Indice maximo: \n");
-    hasta = menuModoAccion1(lista);
-    vec[0] = desde;
-    vec[1] = hasta;
+    printf("\n\n Indice minimo: \n\n");
+    vec[0] = menuModoAccion1(lista);
+    printf("\n\n Indice maximo: \n\n");
+    vec[1] = menuModoAccion1(lista);
     if(vec[0] > vec[1])
     {
         int aux = vec[0];
@@ -279,6 +267,7 @@ int menuTipoRepartos()
    printf("4. Fecha salida \n");
    printf("5. Fecha retorno \n");
    printf("6. ID paquete \n");
+   printf("0. Volver \n");
    printf("Eleccion: ");
    scanf("%d",&eleccion);
    fflush(stdin);

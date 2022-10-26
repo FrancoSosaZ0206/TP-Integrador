@@ -523,7 +523,7 @@ bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente)
                                 ///SECCION DE FUNCIONES DE DEVOLUCION DE DATOS EN LAS LISTAS///
 ///-----------------------------------------------------------------------------------------------------------///
 
-RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil)
+RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil, bool esRepartoAbierto)
 {
     bool match=false;
     RepartoPtr repartoDevolver;
@@ -557,7 +557,7 @@ RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil)
     }
 }
 
-RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* patente)
+RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* patente, bool esRepartoAbierto)
 {
     bool match=false;
     VehiculoPtr vehiculoInvestigar;
@@ -589,7 +589,7 @@ RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* pat
     }
 }
 
-RepartoPtr devolverRepartoFechaSalida(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar)
+RepartoPtr devolverRepartoFechaSalida(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, bool esRepartoAbierto)
 {
     int hora = 0;
     int minutos = 0;
@@ -654,7 +654,7 @@ RepartoPtr devolverRepartoFechaSalida(CentroLogisticoPtr centroLogistico, FechaP
     }
 }
 
-RepartoPtr devolverRepartoFechaRetorno(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar)
+RepartoPtr devolverRepartoFechaRetorno(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, bool esRepartoAbierto)
 {
     int diaJuliano = 0;
     int hora = 0;
@@ -717,7 +717,7 @@ RepartoPtr devolverRepartoFechaRetorno(CentroLogisticoPtr centroLogistico, Fecha
     }
 }
 
-RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID)
+RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID, bool esRepartoAbierto)
 {
     ListaPtr listaAuxiliar2;
     ListaPtr ListaAuxiliar = crearLista();
@@ -767,10 +767,9 @@ PersonaPtr devolverPersona(CentroLogisticoPtr centroLogistico, char* cuilBuscar)
     ListaPtr ListaAux = crearLista();
     agregarLista( ListaAux, getPersonas(centroLogistico) );
     PersonaPtr PersonaActual;
-    PersonaPtr PersonaDevolver;
+    PersonaPtr PersonaDevolver = NULL;
     CuilPtr CuilActual;
     int encontrado = 0;
-    bool match = false;
     while(!listaVacia(ListaAux))
     {
         PersonaActual = (PersonaPtr)getCabecera(ListaAux);
@@ -779,21 +778,13 @@ PersonaPtr devolverPersona(CentroLogisticoPtr centroLogistico, char* cuilBuscar)
         if(encontrado == 0)
         {
             PersonaDevolver = PersonaActual;
-            match = true;
         }
         ListaPtr ListaDestruir = ListaAux;
         ListaAux = getResto(ListaAux);
         ListaDestruir = destruirLista(ListaDestruir, false);
     }
     ListaAux = destruirLista(ListaAux, false);
-    if(match)
-    {
-        return PersonaDevolver;
-    }
-    else
-    {
-        return NULL;
-    }
+    return PersonaDevolver;
 }
 
 ///-----------------------------------------------------------------------------------------------------------///
@@ -1140,7 +1131,6 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
     return match;
 }
 
-
 bool existenChoferesDisponibles(CentroLogisticoPtr centroLogistico)
 {
     bool existen = false;
@@ -1229,7 +1219,7 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modoOrdenamiento, in
     {
         int Salto = round(TamanioLista / 2);
         bool Cambios = true;
-        ///Luego, ordenamos el vector (m. burbuja)
+        ///Luego, ordenamos el vector (m. shell)
         while( Salto > 0)
         {
             Cambios = false;
@@ -1256,6 +1246,7 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modoOrdenamiento, in
                 {
                     personaAux = removerDeLista( getPersonas(centroLogistico), i );
                     insertarDatoLista( getPersonas(centroLogistico), (PersonaPtr)personaAux, i+1 );
+                    Cambios = true;
                 }
             }
             if( !Cambios)
@@ -1294,7 +1285,7 @@ void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo)
                     ///condición: "Si la marca de vehiculos[j] es posterior a la de vehiculos[j+1]..."
                     break;
                 case 2:
-                    condicion = condicion && strcmp( getModelo( getDatoLista( getVehiculos(centroLogistico), i ) ), getModelo( getDatoLista( getVehiculos(centroLogistico), i+1 ) ) ) > 0;
+                    condicion = strcmp( getModelo( getDatoLista( getVehiculos(centroLogistico), i ) ), getModelo( getDatoLista( getVehiculos(centroLogistico), i+1 ) ) ) > 0;
                     ///condición: "Si la marca Y modelo de vehiculos[j] son posteriores a los de vehiculos[j+1]..."
                     break;
                 case 3:
@@ -1308,6 +1299,7 @@ void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo)
                 {
                     vehiculoAux = removerDeLista( getVehiculos(centroLogistico), i );
                     insertarDatoLista( getVehiculos(centroLogistico), (VehiculoPtr)vehiculoAux, i+1 );
+                    Cambios = true;
                 }
             }
             if( !Cambios )
@@ -1348,7 +1340,7 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
                         break;
                     case 2:
                         calcularDiferenciaFechas( getFechaEntrega( getDatoLista( getPaquetes(centroLogistico), i) ), getFechaEntrega( getDatoLista( getPaquetes(centroLogistico), i+1) ), diferenciaFechas );
-                        condicion = diferenciaFechas[0] >= 0 || diferenciaFechas[1] >= 0 || diferenciaFechas[2] > 0;
+                        condicion = diferenciaFechas[0] >= 0 && (diferenciaFechas[1] >= 0 || diferenciaFechas[2] > 0);
                         ///condicion de la bandera: "Si la fecha de entrega de paquetes[j] es mayor a la de paquetes[j+1]..."
                         break;
                     case 3:
@@ -1430,9 +1422,8 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
                         break;
                     case 6:
                         diferenciaApellidos = strcmp( getApellido( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i ) ) ), getApellido( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i+1 ) ) ) );
-                        condicion = diferenciaApellidos >= 0;
                         diferenciaNombres = strcmp( getNombre( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i ) ) ), getNombre( getChofer( getDatoLista( getRepartos(centroLogistico, esRepartoAbierto), i+1 ) ) ) );
-                        condicion = condicion && diferenciaNombres > 0;
+                        condicion = diferenciaNombres >= 0 && diferenciaApellidos > 0;
                         ///condicion de la bandera: "Si el APELLIDO Y NOMBRE del chofer del reparto en j van después de los del chofer del reparto en j+1..."
                         break;
                     case 7:

@@ -349,35 +349,47 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 switch(op1)
                 {
                 case 1:
-                    resultadoGuardado=guardarPaquetes(centroLogistico);
+                    resultadoGuardado = guardarPaquetes(centroLogistico);
                     if(resultadoGuardado)
+                    {
                         printf("Lista de Paquetes guardada exitosamente.\n\n");
+                    }
                     break;
                 case 2:
-                    resultadoGuardado=guardarPersonas(centroLogistico);
+                    resultadoGuardado = guardarPersonas(centroLogistico);
                     if(resultadoGuardado)
+                    {
                         printf("Lista de Personas guardada exitosamente.\n\n");
+                    }
                     break;
                 case 3:
-                    resultadoGuardado=guardarVehiculos(centroLogistico);
+                    resultadoGuardado = guardarVehiculos(centroLogistico);
                     if(resultadoGuardado)
+                    {
                         printf("Lista de Vehiculos guardada exitosamente.\n\n");
+                    }
                     break;
                 case 4:
-                    resultadoGuardado=guardarRepartos(centroLogistico,true);
+                    resultadoGuardado = guardarRepartos(centroLogistico,true);
                     if(resultadoGuardado)
+                    {
                         printf("Lista de Repartos Abiertos guardada exitosamente.\n\n");
+                    }
                     break;
                 case 5:
-                    resultadoGuardado=guardarRepartos(centroLogistico,false);
+                    resultadoGuardado = guardarRepartos(centroLogistico,false);
                     if(resultadoGuardado)
+                    {
                         printf("Lista de Repartos Cerrados guardada exitosamente.\n\n");
+                    }
                     break;
                 case 6:
-                    resultadoGuardado=guardarTodo(centroLogistico);
-                    cambiosGuardados=resultadoGuardado;
+                    resultadoGuardado = guardarTodo(centroLogistico);
+                    cambiosGuardados = resultadoGuardado;
                     if(resultadoGuardado)
+                    {
                         printf("Todas las listas han sido guardadas exitosamente.\n\n");
+                    }
                     break;
                 case 0:
                     break;
@@ -385,13 +397,13 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     printf("Opcion incorrecta.\n\n");
                     break;
                 }
-                if(!resultadoGuardado && op1!=0)
+                if(!resultadoGuardado)
                 {
                     printf("ERROR AL GUARDAR\n\n");
                     exit(1);
                 }
 
-            } while(op1!=0);
+            } while(op1 < 0 || op1 > 6);
             break;
         case 0:
             ///"Si no se efectuaron cambios o si se efectuaron y no se guardaron"

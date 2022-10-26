@@ -149,6 +149,28 @@ bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2)
 }
 
 
+bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar)
+{
+    VehiculoPtr VehiculoTemporal;
+    bool PatenteUnica = true;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getVehiculos(centroLogistico) );
+    while(!listaVacia(ListaAuxiliar))
+    {
+        VehiculoTemporal = (VehiculoPtr)getCabecera(ListaAuxiliar);
+        if( strcmp( PatenteComprobar, getPatente(VehiculoTemporal) ) == 0 )
+        {
+            PatenteUnica = false;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return PatenteUnica;
+}
+
+
 bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 {
     int tipoVehiculo=0,i=1,resultado=0;
@@ -156,6 +178,7 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
     char modelo[100];
     char patente[100];
     VehiculoPtr vehiculo;
+    bool PatenteUnica = false;
     bool cambiosGuardados=false, continuar;
     do
     {
@@ -176,9 +199,18 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
         printf("\n\tModelo: ");
         scanf("%[^\n]%*c",modelo);
 
-        limpiarBufferTeclado();
-        printf("\n\tPatente (AA 000 AA): ");
-        scanf("%[^\n]%*c",patente);
+        do
+        {
+            limpiarBufferTeclado();
+            printf("\n\tPatente (AA 000 AA): ");
+            scanf("%[^\n]%*c",patente);
+            PatenteUnica = VerificarPatenteUnica(centroLogistico, patente);
+            if(!PatenteUnica)
+            {
+                printf("\n\n\t [Usted ha ingresado una patente ya existente...] \n\n");
+                presionarEnterYLimpiarPantalla();
+            }
+        }while(!PatenteUnica);
 
         vehiculo=crearVehiculo(tipoVehiculo,marca,modelo,patente);
         agregarVehiculo(centroLogistico,vehiculo);
@@ -227,7 +259,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
                         printf("[ACLARACION]Eliga la cantidad de indices...\n");
                         cantIndices = menuModoAccion1( getVehiculos(centroLogistico) );
                         menuModoAccion2(getVehiculos(centroLogistico),cantIndices,indices);
-                        for(int i=0;i<cantIndices;i++)
+                        for(int i=0;i<cantIndices+1;i++)
                         {
                             vehiculoRemovido = removerVehiculo(centroLogistico,indices[i]-i);
                             vehiculoRemovido = destruirVehiculo(vehiculoRemovido);
@@ -410,7 +442,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
                     printf("[ACLARACION]Eliga la cantidad de indices...\n");
                     Cantidad=menuModoAccion1(getVehiculos(centroLogistico));
                     menuModoAccion2(getVehiculos(centroLogistico),Cantidad,Elecciones);
-                    for(int i=0;i<Cantidad;i++)
+                    for(int i=0;i<Cantidad+1;i++)
                     {
                         vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Elecciones[i]);
                         cambiarVehiculo(vehiculoModificar);
@@ -418,7 +450,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
                     break;
                 case 3:
                     menuModoAccion3(getVehiculos(centroLogistico),Elecciones);
-                    for(int i=0;i<Elecciones[1]-Elecciones[0]+1;i++)
+                    for(int i=Elecciones[0];i<=Elecciones[1];i++)
                     {
                         vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),i);
                         cambiarVehiculo(vehiculoModificar);
@@ -495,17 +527,14 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico, int* op1)
             case 1:
                 printf("LISTADO DE VEHICULOS (ORDENADOS POR MARCA)");
                 ordenarVehiculos(centroLogistico,1);
-                cambiosGuardados = true;
                 break;
             case 2:
                 printf("LISTADO DE VEHICULOS (ORDENADOS POR MODELO)");
                 ordenarVehiculos(centroLogistico,2);
-                cambiosGuardados = true;
                 break;
             case 3:
                 printf("LISTADO DE VEHICULOS (ORDENADOS TIPO)");
                 ordenarVehiculos(centroLogistico,3);
-                cambiosGuardados = true;
                 break;
             case 4:
                 printf("LISTADO DE VEHICULOS (SIN ORDENAR)");

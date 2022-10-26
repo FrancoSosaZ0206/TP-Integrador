@@ -149,6 +149,29 @@ bool personasIguales(PersonaPtr persona1,PersonaPtr persona2)
     return cuilsIguales(getCuilPersona(persona1),getCuilPersona(persona2));
 }
 
+bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
+{
+    PersonaPtr PersonaTemporal;
+    CuilPtr CuilTemporal;
+    bool CuilUnico = true;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPersonas(centroLogistico) );
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PersonaTemporal = (PersonaPtr)getCabecera(ListaAuxiliar);
+        CuilTemporal = getCuilPersona(PersonaTemporal);
+        if( strcmp(getCuil(CuilTemporal), CuilComprobar) == 0 )
+        {
+            CuilUnico = false;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return CuilUnico;
+}
+
 
 bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
@@ -157,6 +180,7 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     PersonaPtr persona=0;
     CuilPtr cuil=0;
     DomicilioPtr domicilio=0;
+    bool CuilValido = false;
     int i=1,resultado=0;
     bool cambiosGuardados=false, continuar;
     do
@@ -177,7 +201,16 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         printf("\n\t Domicilio ");
         domicilio=cargarDomicilio(domicilio);
 
-        cuil=cargarCuil(cuil);
+        do
+        {
+            cuil=cargarCuil(cuil);
+            CuilValido = VerificarCuilUnico(centroLogistico, getCuil(cuil));
+            if(!CuilValido)
+            {
+                printf("\n\n\t [Usted ha ingresado un cuil ya existente...] \n\n");
+                presionarEnterYLimpiarPantalla();
+            }
+        }while(!CuilValido);
 
         persona=crearPersona(nombre,apellido,domicilio,cuil,esChofer);
         agregarPersona(centroLogistico,persona);
@@ -261,7 +294,7 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
         printf("[ACLARACION]Eliga la cantidad de indices...\n");
         cantIndices = menuModoAccion1( getPersonas(centroLogistico) );
         menuModoAccion2( getPersonas(centroLogistico) , cantIndices, indices);
-        for(int i=0;i<cantIndices;i++)
+        for(int i=0;i<cantIndices+1;i++)
         {
             if(getEsChofer(getDatoLista(getPersonas(centroLogistico),indices[i])) == esChofer)
             {
@@ -551,7 +584,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 printf("[ACLARACION]Eliga la cantidad de indices...\n");
                 Cantidad=menuModoAccion1(getPersonas(centroLogistico));
                 menuModoAccion2(getPersonas(centroLogistico),Cantidad,Elecciones);
-                for(int i=0;i<Cantidad;i++)
+                for(int i=0;i<Cantidad+1;i++)
                 {
                     if(getEsChofer(getDatoLista(getPersonas(centroLogistico),Elecciones[i])) == esChofer)
                     {
@@ -560,7 +593,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 }
                 if(cantidadCorrectas==Cantidad)
                 {
-                    for(int i=0;i<Cantidad;i++)
+                    for(int i=0;i<Cantidad+1;i++)
                     {
                         personaModificar=getDatoLista(getPersonas(centroLogistico),Elecciones[i]);
                         cambiarPersona(personaModificar,esChofer);
@@ -574,7 +607,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             case 3:
                 cantidadCorrectas=0;
                 menuModoAccion3(getPersonas(centroLogistico),Elecciones);
-                for(int i=Elecciones[0];i<Elecciones[1]+1;i++)
+                for(int i=Elecciones[0];i<=Elecciones[1];i++)
                 {
                     if(getEsChofer(getDatoLista(getPersonas(centroLogistico),i)) == esChofer)
                     {
@@ -682,27 +715,32 @@ PersonaPtr menuBusquedaCliente(CentroLogisticoPtr centroLogistico)
     else
     {
         MENU = menuTipoBusquedaCliente();
-        mostrarPersonas(centroLogistico, 2);
         switch(MENU)
         {
         case 1:
-            do{
+            do
+            {
+                mostrarPersonas(centroLogistico, 2);
                 ELECCION = menuModoAccion1( getPersonas(centroLogistico) );
                 PersonaBuscada = getDatoLista( getPersonas(centroLogistico), ELECCION );
                 if( getEsChofer(PersonaBuscada) )
                 {
-                    printf("\t (Debe eligir un cliente, no un chofer, eliga debidamente) \n");
+                    printf("\n\n\t [No ha elegido correctamente...] \n\n");
+                    presionarEnterYLimpiarPantalla();
                 }
             }while(getEsChofer(PersonaBuscada));
             break;
         case 2:
-            do{
+            do
+            {
+                mostrarPersonas(centroLogistico, 2);
                 printf("\n Ingrese el cuil a buscar: ");
                 seleccionarString(CuilBuscar);
                 PersonaBuscada = devolverPersona(centroLogistico, CuilBuscar);
-                if( getEsChofer(PersonaBuscada) )
+                if(PersonaBuscada == NULL)
                 {
-                    printf("\t (Debe eligir un cliente, no un chofer, eliga debidamente) \n");
+                    printf("\n\n\t [No ha elegido correctamente...] \n\n");
+                    presionarEnterYLimpiarPantalla();
                 }
             }while( PersonaBuscada == NULL || getEsChofer(PersonaBuscada) );
             break;
@@ -727,6 +765,7 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico, int tipo, int* op1)
     {
         do
         {
+            system("cls");
             switch(tipo)
             {
             case 1:
@@ -745,17 +784,14 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico, int tipo, int* op1)
             case 1:
                 printf("(ORDENADO POR NOMBRE)\n");
                 ordenarPersonas(centroLogistico, 1, tipo);
-                cambiosGuardados = true;
                 break;
             case 2:
                 printf("(ORDENADO POR APELLIDO)\n");
                 ordenarPersonas(centroLogistico, 2, tipo);
-                cambiosGuardados = true;
                 break;
             case 3:
                 printf("(ORDENADO POR NOMBRE Y APELLIDO)\n");
                 ordenarPersonas(centroLogistico, 3, tipo);
-                cambiosGuardados = true;
                 break;
             case 4:
                 printf("(SIN ORDENAR)\n");

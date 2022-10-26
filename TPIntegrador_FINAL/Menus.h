@@ -392,7 +392,7 @@ void menuBuscarPorIndiceReparto(CentroLogisticoPtr centroLogistico, bool esRepar
 ///PARAMETROS:
 ///         PUNTERO A CENTRO LOGISTICO
 ///DEVUELVE: VOID
-void menuBuscarRepartoPorCuilChofer(CentroLogisticoPtr centroLogistico);
+void menuBuscarRepartoPorCuilChofer(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 
 ///OPERACION: MENU
@@ -402,7 +402,7 @@ void menuBuscarRepartoPorCuilChofer(CentroLogisticoPtr centroLogistico);
 ///PARAMETROS:
 ///         PUNTERO A CENTRO LOGISTICO
 ///DEVUELVE: VOID
-void menuBuscarRepartoPorPatenteVehiculo(CentroLogisticoPtr centroLogistico);
+void menuBuscarRepartoPorPatenteVehiculo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 
 ///OPERACION: MENU
@@ -412,7 +412,7 @@ void menuBuscarRepartoPorPatenteVehiculo(CentroLogisticoPtr centroLogistico);
 ///PARAMETROS:
 ///         PUNTERO A CENTRO LOGISTICO
 ///DEVUELVE: VOID
-void menuBuscarRepartoPorFechaSalida(CentroLogisticoPtr centroLogistico);
+void menuBuscarRepartoPorFechaSalida(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 
 ///OPERACION: MENU
@@ -422,7 +422,7 @@ void menuBuscarRepartoPorFechaSalida(CentroLogisticoPtr centroLogistico);
 ///PARAMETROS:
 ///         PUNTERO A CENTRO LOGISTICO
 ///DEVUELVE: VOID
-void menuBuscarRepartoPorFechaRetorno(CentroLogisticoPtr centroLogistico);
+void menuBuscarRepartoPorFechaRetorno(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 
 ///OPERACION: MENU
@@ -432,7 +432,7 @@ void menuBuscarRepartoPorFechaRetorno(CentroLogisticoPtr centroLogistico);
 ///PARAMETROS:
 ///         PUNTERO A CENTRO LOGISTICO
 ///DEVUELVE: VOID
-void menuBuscarRepartoPorIDPaquete(CentroLogisticoPtr centroLogistico);
+void menuBuscarRepartoPorIDPaquete(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 
 
@@ -479,7 +479,7 @@ int menuTipoBusquedaCliente();
 ///PARAMETROS:
 ///         PUNTERO A CENTRO LOGISTICO
 ///DEVUELVE: PUNTERO A REPARTO
-RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico);
+RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
 
 ///-------------------------------------------------------------------------------------------///

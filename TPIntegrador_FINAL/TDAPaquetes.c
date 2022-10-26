@@ -377,7 +377,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
                 printf("[ACLARACION]Eliga la cantidad de indices...\n");
                 cantIndices = menuModoAccion1( getPaquetes(centroLogistico) );
                 menuModoAccion2( getPaquetes(centroLogistico), cantIndices, indices );
-                for(int i=0;i<cantIndices;i++)
+                for(int i=0;i<cantIndices+1;i++)
                 {
                     paqueteRemovido = removerPaquete(centroLogistico,indices[i]-i);
                     paqueteRemovido = destruirPaquete(paqueteRemovido);
@@ -581,7 +581,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
                 printf("[ACLARACION]Eliga la cantidad de indices...\n");
                 Cantidad=menuModoAccion1(getPaquetes(centroLogistico));
                 menuModoAccion2(getPaquetes(centroLogistico),Cantidad,Elecciones);
-                for(int i=0;i<Cantidad;i++)
+                for(int i=0;i<Cantidad+1;i++)
                 {
                     paqueteModificar=getDatoLista(getPaquetes(centroLogistico),Elecciones[i]);
                     cambiarPaquete(paqueteModificar);
@@ -589,7 +589,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
                 break;
             case 3:
                 menuModoAccion3(getPaquetes(centroLogistico),Elecciones);
-                for(int i=0;i<Elecciones[1]-Elecciones[0]+1;i++)
+                for(int i=Elecciones[0];i<=Elecciones[1];i++)
                 {
                     paqueteModificar=getDatoLista(getPaquetes(centroLogistico),i);
                     cambiarPaquete(paqueteModificar);
@@ -665,17 +665,14 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico, int* op1)
             case 1:
                 printf("LISTADO DE PAQUETES (ORDENADOS POR ID)");
                 ordenarPaquetes(centroLogistico,1);
-                cambiosGuardados = true;
                 break;
             case 2:
                 printf("LISTADO DE PAQUETES (ORDENADOS POR FECHA DE SALIDA)");
                 ordenarPaquetes(centroLogistico,2);
-                cambiosGuardados = true;
                 break;
             case 3:
                 printf("LISTADO DE PAQUETES (ORDENADOS POR ESTADO)");
                 ordenarPaquetes(centroLogistico,3);
-                cambiosGuardados = true;
                 break;
             case 4:
                 printf("LISTADO DE PAQUETES (SIN ORDENAR)");

@@ -529,8 +529,6 @@ bool buscarFechaRetornoRepartos(CentroLogisticoPtr centroLogistico, FechaPtr fec
 ///DEVUELVE: BOOLEANO, TRUE = ENCONTRADO, FALSE = NO ENCONTRADO
 bool buscarPaqueteRepartos(RepartoPtr reparto, int ID);
 
-
-
 ///OPERACION: DEVOLUCION DE DATO
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN
 /// MEMORIA DINAMICA CON CREAR CENTRO LOGISTICO
@@ -539,9 +537,7 @@ bool buscarPaqueteRepartos(RepartoPtr reparto, int ID);
 ///         PUNTERO A CENTRO LOGISTICO
 ///         ENTERO REPRESENTANDO EL ID DEL PAQUETE A BUSCAR
 ///DEVUELVE: PUNTERO A REPARTO
-RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID);
-
-
+RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID, bool esRepartoAbierto);
 
 ///OPERACION: DEVOLUCION DE DATO
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN
@@ -551,9 +547,7 @@ RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID);
 ///         PUNTERO A CENTRO LOGISTICO
 ///         PUNTERO A FECHA REPRESENTANDO LA FECHA A BUSCAR
 ///DEVUELVE: PUNTERO A REPARTO
-RepartoPtr devolverRepartoFechaRetorno(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar);
-
-
+RepartoPtr devolverRepartoFechaRetorno(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, bool esRepartoAbierto);
 
 ///OPERACION: DEVOLUCION DE DATO
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN
@@ -563,9 +557,7 @@ RepartoPtr devolverRepartoFechaRetorno(CentroLogisticoPtr centroLogistico, Fecha
 ///         PUNTERO A CENTRO LOGISTICO
 ///         PUNTERO A FECHA REPRESENTANDO LA FECHA A BUSCAR
 ///DEVUELVE: PUNTERO A REPARTO
-RepartoPtr devolverRepartoFechaSalida(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar);
-
-
+RepartoPtr devolverRepartoFechaSalida(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, bool esRepartoAbierto);
 
 ///OPERACION: DEVOLUCION DE DATO
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN
@@ -575,9 +567,7 @@ RepartoPtr devolverRepartoFechaSalida(CentroLogisticoPtr centroLogistico, FechaP
 ///         PUNTERO A CENTRO LOGISTICO
 ///         PUNTERO A CHAR REPRESENTANDO EL PATENTE A BUSCAR
 ///DEVUELVE: PUNTERO A REPARTO
-RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* patente);
-
-
+RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* patente, bool esRepartoAbierto);
 
 ///OPERACION: DEVOLUCION DE DATO
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN
@@ -587,9 +577,7 @@ RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* pat
 ///         PUNTERO A CENTRO LOGISTICO
 ///         PUNTERO A CHAR REPRESENTANDO EL CUIL A BUSCAR
 ///DEVUELVE: PUNTERO A REPARTO
-RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil);
-
-
+RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil, bool esRepartoAbierto);
 
 ///OPERACION: DEVOLUCION DE DATO
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN
@@ -601,8 +589,6 @@ RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil)
 ///DEVUELVE: PUNTERO A PERSONA
 PersonaPtr devolverPersona(CentroLogisticoPtr centroLogistico, char* cuilBuscar);
 
-
-
 ///OPERACION: COMPROBACION DE ESTADO
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN
 /// MEMORIA DINAMICA CON CREAR CENTRO LOGISTICO
@@ -612,9 +598,6 @@ PersonaPtr devolverPersona(CentroLogisticoPtr centroLogistico, char* cuilBuscar)
 ///DEVUELVE: BOOLEANO
 bool existenChoferesDisponibles(CentroLogisticoPtr centroLogistico);
 
-
-
-
 ///OPERACION: COMPROBACION DE ESTADO
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN
 /// MEMORIA DINAMICA CON CREAR CENTRO LOGISTICO
@@ -623,9 +606,6 @@ bool existenChoferesDisponibles(CentroLogisticoPtr centroLogistico);
 ///PARAMETROS: PUNTERO A CENTRO LOGISTICO
 ///DEVUELVE: BOOLEANO
 bool existenPaquetesDisponibles(CentroLogisticoPtr centroLogistico);
-
-
-
 
 ///OPERACION: COMPROBACION DE ESTADO
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN
@@ -652,5 +632,9 @@ ListaPtr OriginalRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
 ListaPtr OriginalPersonas(CentroLogisticoPtr centroLogistico);
 
 bool CambiosPersonas(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal);
+
+bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar);
+
+bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar);
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

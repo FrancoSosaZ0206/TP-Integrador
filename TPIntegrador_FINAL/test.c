@@ -63,9 +63,25 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     RepartoPtr reparto3=0;
     reparto3=crearReparto(chofer3,vehiculo3,fechaSalida3,fechaRetorno3,listaPaquetes3);
 
+    DomicilioPtr domicilioChofer4=crearDomicilio("Espania",1500,"Puerto Madero");
+    DomicilioPtr dirRetiro4=crearDomicilio("Tesla Industry",10000,"Washington DC");
+    DomicilioPtr dirEntrega4=crearDomicilio("24 de mayo",3000,"Capital Federal");
+    FechaPtr fechaSalida4=crearFecha(10,12,2022,10,30);
+    FechaPtr fechaRetorno4=crearFecha(10,12,2022,10,30);
+    FechaPtr fechaEntrega4=crearFecha(10,12,2022,8,30);
+    CuilPtr cuil4=crearCuil("30234565431");
+    PersonaPtr chofer4=crearPersona("Alberto","Alonzo",domicilioChofer4,cuil4,true);
+    PaquetePtr paquete4=crearPaquete(3,8,8,10,800,dirRetiro4,dirEntrega4,fechaEntrega4,cliente1,0);
+    ListaPtr listaPaquetes4=crearListaPaquetesGenerico();
+    agregarDatoLista(listaPaquetes4,(PaquetePtr)paquete4);
+    VehiculoPtr vehiculo4=crearVehiculo(3,"Mercedes Benz","Actros","19 JUY 78");
+    RepartoPtr reparto4=0;
+    reparto4=crearReparto(chofer4,vehiculo4,fechaSalida4,fechaRetorno4,listaPaquetes4);
+
     agregarDatoLista(listaRepartos,(RepartoPtr)reparto1);
     agregarDatoLista(listaRepartos,(RepartoPtr)reparto2);
     agregarDatoLista(listaRepartos,(RepartoPtr)reparto3);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto4);
     return listaRepartos;
 }
 
