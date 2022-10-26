@@ -32,7 +32,7 @@ CuilPtr crearCuilNumeros(int tipoPersona,int dni,int nVerificador)
 
 CuilPtr destruirCuil(CuilPtr cuil)
 {
-    destruirStringDinamico(cuil->cuil);
+    cuil->cuil=destruirStringDinamico(cuil->cuil);
 
     free(cuil);
 

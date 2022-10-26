@@ -19,8 +19,8 @@ DomicilioPtr crearDomicilio(char *calle,int altura,char *localidad)
 
 DomicilioPtr destruirDomicilio(DomicilioPtr domicilio)
 {
-    destruirStringDinamico(getCalle(domicilio)); //no probé esta funcion con estructuras, así que si sale mal,
-    destruirStringDinamico(getLocalidad(domicilio)); //cambiamos esto por el clásico free(domicilio->...)
+    domicilio->calle=destruirStringDinamico(domicilio->calle);
+    domicilio->localidad=destruirStringDinamico(domicilio->localidad);
     free(domicilio);
     return NULL;
 }

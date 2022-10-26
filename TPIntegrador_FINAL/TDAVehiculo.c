@@ -19,9 +19,9 @@ VehiculoPtr crearVehiculo(int tipo,char *marca,char *modelo,char *patente)
 }
 VehiculoPtr destruirVehiculo(VehiculoPtr vehiculo)
 {
-    destruirStringDinamico(vehiculo->marca);
-    destruirStringDinamico(vehiculo->modelo);
-    destruirStringDinamico(vehiculo->patente);
+    vehiculo->marca=destruirStringDinamico(vehiculo->marca);
+    vehiculo->modelo=destruirStringDinamico(vehiculo->modelo);
+    vehiculo->patente=destruirStringDinamico(vehiculo->patente);
     free(vehiculo);
     return NULL;
 }

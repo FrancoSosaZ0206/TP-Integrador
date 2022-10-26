@@ -224,7 +224,7 @@ Fórmula para calcular un numero aleatorio entre dos límites determinados:
     }
     free(modelo);
 
-    destruirStringDinamico(patente);
+    patente=destruirStringDinamico(patente);
 //Retornamos un puntero a la estructura generada.
     return vehiculo;
 }

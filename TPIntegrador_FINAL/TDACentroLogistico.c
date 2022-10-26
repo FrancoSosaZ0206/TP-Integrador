@@ -40,7 +40,7 @@ CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre) ///Crea un centro lo
 }
 CentroLogisticoPtr destruirCentroLogistico(CentroLogisticoPtr centroLogistico)
 {
-    destruirStringDinamico(centroLogistico->nombre);
+    centroLogistico->nombre=destruirStringDinamico(centroLogistico->nombre);
 
     centroLogistico->listaPaquetes=destruirLista(centroLogistico->listaPaquetes,true);
     centroLogistico->listaPersonas=destruirLista(centroLogistico->listaPersonas,true);
