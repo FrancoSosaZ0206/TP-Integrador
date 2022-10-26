@@ -222,7 +222,6 @@ Y * 4
         zRes = 11 - resto;
         break;
     }
-
 //Si son iguales, es un cuil valido (retornará true), caso contrario es invalido (false).
     return (digitosCuil[10] == zRes);
 }

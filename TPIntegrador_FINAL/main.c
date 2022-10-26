@@ -16,7 +16,28 @@ int main()
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
 
+    CentroLogisticoPtr c = crearCentroLogisticoRapido("prueba");
+    PaquetePtr p = crearPaqueteDirect(1111,1,1,1,1,"a",1,"a","a",1,"b",12,10,2023,13,15,0);
+    PaquetePtr p2 = crearPaqueteDirect(1111,1,1,1,1,"a",1,"a","a",1,"b",13,11,2022,10,40,0);
 
+    agregarPaquete(c,p);
+    agregarPaquete(c,p2);
+
+    mostrarPaquetes(c);
+    presionarEnterYLimpiarPantalla();
+
+    guardarTodo(c);
+    c=destruirCentroLogistico(c);
+
+    c = abrirTodo();
+    if(c!=NULL)
+    {
+        printf("Recuperado:\n\n");
+        mostrarPaquetes(c);
+        presionarEnterYLimpiarPantalla();
+    }
+
+    c=destruirCentroLogistico(c);
 
     return 0;
 
@@ -62,7 +83,6 @@ int main()
             }
             break;
         case 0:
-            printf("\t\tHasta pronto!\n\n");
             break;
         default:
             printf("Opcion incorrecta.");
@@ -71,6 +91,7 @@ int main()
         }
     } while(START_OP!=0);
 
+    printf("\t\tHasta pronto!\n\n");
     return 0;
 }
 
@@ -612,11 +633,14 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
             } while(op1!=0);
             break;
         case 0:
-            if(!cambiosGuardados) //"Si no se efectuaron cambios o si se efectuaron y no se guardaron"
+            if(!cambiosGuardados || primeraVez) //"Si no se efectuaron cambios o si se efectuaron y no se guardaron"
             {
                 do
                 {
-                    printf("Tiene cambios sin guardar. Seguro que quiere salir?");
+                    if(!primeraVez)
+                        printf("Tiene cambios sin guardar. Seguro que quiere salir?");
+                    else
+                        printf("Su sesion aun no ha sido guardada. Podria perder todos sus datos. Seguro que quiere salir?");
                     printf("\n\n----------------------------------------------------\n\n");
                     printf("1. Guardar y salir\n");
                     printf("2. Salir sin guardar\n");

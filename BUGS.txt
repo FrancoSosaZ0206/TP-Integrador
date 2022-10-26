@@ -1,0 +1,15 @@
+BUGS
+
+---------------------------------------------------------------------------------------------------------------------
+
+- Files - Funcion guardarPaquetes al terminar de cargar paquetes crashea el programa.
+
+- MENUS
+	- Funcion modificarPaquete: luego de seleccionar el modo de accion, se sale del menu.
+	- Funcion detectarCambios: la condicion para detectarlos, que llama a la familia de funciones "XIguales" hace que crashee.
+		FUNCION PAQUETES IGUALES PARCHEADA, PERO FUNCIONA PARCIALMENTE. PROBARLA COMO ESTABA ANTES (DESCOMENTAR EL CÓDIGO).
+- FILES
+	- Funciones guardar/abrirPaquetes: Los datos son corrompidos cuando se abre y muestra una lista de paquetes. No logré encontrar pistas de donde está el error, todavía.
+
+---------------------------------------------------------------------------------------------------------------------
+
