@@ -35,13 +35,16 @@ ListaPtr copiarLista(ListaPtr listaOriginal,int tipoDato)
 //Hacemos lo mismo pero para cada elemento de la lista
     PtrDato datoOriginal;
     PtrDato copiaDato;
+//Para recorrer la lista original
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux,listaOriginal);
 
-    int n = longitudLista(listaOriginal);
-    for(int i=n;i>0;i--)
+    ListaPtr temp = crearLista(); //Para mantener el orden original de la lista
+    while(!listaVacia(listaAux))
     { ///Para mantener el orden original de la lista,
-      ///en lugar de recorrerla con getCabecera y getResto,
-      ///usamos getDatoLista y agarramos del último al primer elemento.
-        datoOriginal=getDatoLista(listaOriginal,i-1);
+      ///en lugar de agregar los datos directamente a copiaLista,
+      ///usamos una lista temporal de por medio.
+        datoOriginal=getCabecera(listaAux);
     ///Copiamos el contenido de cada elemento según el tipo de dato que es
         switch(tipoDato)
         {
@@ -59,8 +62,17 @@ ListaPtr copiarLista(ListaPtr listaOriginal,int tipoDato)
             break;
         }
      ///Agregamos el dato original a la lista
-        agregarDatoLista(copiaLista,copiaDato);
+        agregarDatoLista(temp,copiaDato);
     }
+
+    listaAux=destruirLista(listaAux,false);
+    while(!listaVacia(temp))
+    {
+        agregarDatoLista(copiaLista,getCabecera(temp));
+        temp=getResto(temp);
+    }
+    temp=destruirLista(temp,false);
+
     return copiaLista;
 }
 
@@ -89,6 +101,7 @@ bool detectarCambios(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDato)
 
     bool datosIguales;
 ///Recorremos la lista: antes y después de hacer el cambio
+
     while(!listaVacia(listaAux))
     {
         PtrDato datoOriginal=getCabecera(listaAux);

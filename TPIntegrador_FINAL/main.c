@@ -8,213 +8,7 @@
 #include "util.h"
 
 
-/**
-DIRECTORIOS (FRANCO S.)
-
-Para crear y linkear archivos
-E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\TPIntegrador_FINAL\
-
-Para abrir/guardar files = CARPETA "Archivos"
-E:\Franco\9. PROGRAMAS\GitHub\GitHub - Repositorios\TP-Integrador-Repositorio\TPIntegrador_FINAL\Archivos\
-*/
-
-void actualizarDomicilioPrueba(DomicilioPtr domicilio)
-{
-    char calle[100];
-    int altura;
-    char localidad[100];
-
-    printf("\n\t\tCalle: ");
-    scanf("%[^\n]%*c",calle);
-    limpiarBufferTeclado();
-    printf("\n\t\tAltura: ");
-    scanf("%d",&altura);
-    limpiarBufferTeclado();
-    printf("\n\t\tLocalidad: ");
-    scanf("%[^\n]%*c",localidad);
-    limpiarBufferTeclado();
-
-    setCalle(domicilio,calle);
-    setAltura(domicilio,altura);
-    setLocalidad(domicilio,localidad);
-}
-/* OPERACIÓN: copia una lista
-PRECONDICIÓN: listaOriginal debe haber sido creada y tener contenido.
-POSTCONDICIÓN: copia una lista con todos sus elementos, cuales quiera sean sus tipos.
-PARÁMETROS:
-    - listaOriginal: puntero a la lista como estaba antes de hacer alguna modificación
-    - tipoDato: entero representando la lista a buscar cambios.
-                  1 = Paquetes
-                  2 = Personas (Clientes / Choferes)
-                  3 = Vehiculos
-                  4 = Repartos (Abiertos / Cerrados)
-DEVUELVE: puntero a la copia de la lista. */
-ListaPtr copiarListaPrueba(ListaPtr listaOriginal,int tipoDato)
-{
-    ListaPtr copiaLista=crearLista();
-//Hacemos lo mismo pero para cada elemento de la lista
-    PtrDato datoOriginal;
-    PtrDato copiaDato;
-
-    int n = longitudLista(listaOriginal);
-    for(int i=n;i>0;i--)
-    { ///Para mantener el orden original de la lista,
-      ///en lugar de recorrerla con getCabecera y getResto,
-      ///usamos getDatoLista y agarramos del último al primer elemento.
-        datoOriginal=getDatoLista(listaOriginal,i-1);
-    ///Copiamos el contenido de cada elemento según el tipo de dato que es
-        switch(tipoDato)
-        {
-        case 1: //creamos un paquete
-            copiaDato = (PaquetePtr) copiarPaquete((PaquetePtr) datoOriginal);
-            break;
-        case 2: //creamos una persona
-            copiaDato = (PersonaPtr) copiarPersona((PersonaPtr) datoOriginal);
-            break;
-        case 3: //creamos un vehiculo
-            copiaDato = (VehiculoPtr) copiarVehiculo((VehiculoPtr) datoOriginal);
-            break;
-        case 4: //creamos un reparto
-            copiaDato = (RepartoPtr) copiarReparto((RepartoPtr) datoOriginal);
-            break;
-        }
-     ///Agregamos el dato original a la lista
-        agregarDatoLista(copiaLista,copiaDato);
-    }
-    return copiaLista;
-}
-
-/* OPERACIÓN: deteccion de cambios
-PRECONDICIÓN: debe haberse usado copiarLista previamente, y por tanto, copiaLista ya debe
-              haber recibido los contenidos de la lista original.
-POSTCONDICION: compara las listas, retornando si hubo cambios o no.
-PARÁMETROS:
-    - listaOriginal: puntero a la lista como estaba antes de hacer alguna modificación
-    - copiaLista: puntero a la copia de la lista que se hizo
-    - tipoDato: entero representando la lista a buscar cambios.
-                  1 = Paquetes
-                  2 = Personas (Clientes / Choferes)
-                  3 = Vehiculos
-                  4 = Repartos (Abiertos / Cerrados)
-DEVUELVE: booleano informando:
-            true = hubo cambios en, al menos, 1 elemento.
-            false = no hubo ningún cambio, listaOriginal está igual que antes de pasar por el menú. */
-bool detectarCambiosPrueba(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDato)
-{
-    ListaPtr listaAux = crearLista(); //solo la usaremos para la lista original. La otra la destruiremos de todas formas, así que no hay problema.
-    agregarLista(listaAux,listaOriginal);
-
-    ListaPtr listaAux2 = crearLista();
-    agregarLista(listaAux2,copiaLista);
-
-    bool datosIguales;
-///Recorremos la lista: antes y después de hacer el cambio
-
-    while(!listaVacia(listaAux))
-    {
-        PtrDato datoOriginal=getCabecera(listaAux);
-        PtrDato copiaDato=getCabecera(listaAux2);
-    ///Revisamos, elemento por elemento, si son iguales o cambiaron (puede ser que se haya ordenado de la misma forma que estaba)
-        switch(tipoDato)
-        {
-        case 1:
-            datosIguales = paquetesIguales((PaquetePtr)datoOriginal,(PaquetePtr)copiaDato);
-            break;
-        case 2:
-            datosIguales = personasIguales((PersonaPtr)datoOriginal,(PersonaPtr)copiaDato);
-            break;
-        case 3:
-            datosIguales = vehiculosIguales((VehiculoPtr)datoOriginal,(VehiculoPtr)copiaDato);
-            break;
-        case 4:
-            datosIguales = repartosIguales((RepartoPtr)datoOriginal,(RepartoPtr)copiaDato);
-            break;
-        }
-        if(!datosIguales) //aunque sea solo 1 que tenga algo distinto
-        {
-            listaAux = destruirLista(listaAux,false); //destruimos las listas antes de retornar
-            listaAux2 = destruirLista(listaAux2,false);
-            ///copiaLista = destruirLista(copiaLista,true); //esta ya no la necesitamos, así que también destruimos la copia de cada elemento.
-            return true; //Retornamos que si (true), hubo un cambio.
-        }
-        listaAux=getResto(listaAux);
-        listaAux2=getResto(listaAux2);
-    }
-    listaAux = destruirLista(listaAux,false); //destruimos las listas antes de retornar
-    listaAux2 = destruirLista(listaAux2,false);
-    ///copiaLista = destruirLista(copiaLista,true); //esta ya no la necesitamos, así que también destruimos la copia de cada elemento.
-
-    return false; //Retornamos que no (false), no hubo ningún cambio.
-}
-
-/* OPERACIÓN: menu de guardado de cambios
-PRECONDICIÓN:
-    - centroLogistico debe haber sido creado y llenado con la lista de datos correspondiente.
-    - debe haberse usado la funcion detectarCambios previamente.
-POSTCONDICION: se despliega un menú por pantalla preguntando al usuario si quiere guardar los cambios realizados en la funcion correspondiente.
-PARÁMETROS:
-    - centroLogistico: puntero a entero representando la opcion del menu anterior
-    - tipoDato: entero representando el tipo de lista que corresponde guardar:
-                  1 = Paquetes
-                  2 = Personas (Clientes / Choferes)
-                  3 = Vehiculos
-                  4 = Repartos (Abiertos / Cerrados)
-DEVUELVE: booleano indicando si se guardaron (true) o no (false) los cambios. */
-bool menuGuardarCambiosPrueba(CentroLogisticoPtr centroLogistico,int tipoDato)
-{
-    int opGuardar=0;
-
-    bool guardarLista;
-    bool cambiosGuardados=false;
-    do
-    {
-        printf("Guardar cambios? 1=SI , 0=NO | ");
-        scanf("%d",&opGuardar);
-        limpiarBufferTeclado();
-        system("cls");
-        switch(opGuardar)
-        {
-        case 1:
-            switch(tipoDato)
-            {
-            case 1:
-                guardarLista = guardarPaquetes(centroLogistico);
-                break;
-            case 2:
-                guardarLista = guardarPersonas(centroLogistico);
-                break;
-            case 3:
-                guardarLista = guardarVehiculos(centroLogistico);
-                break;
-            case 4:
-                guardarLista = guardarRepartos(centroLogistico,true) && guardarRepartos(centroLogistico,false);
-                break;
-            }
-            if(guardarLista)
-            {
-                printf("Cambios guardados exitosamente.");
-                presionarEnterYLimpiarPantalla();
-                cambiosGuardados=true;
-            }
-            else
-            {
-                printf("ERROR AL GUARDAR\n\n");
-                exit(1);
-            }
-            break;
-        case 0:
-            break;
-        default:
-            printf("Opcion incorrecta.");
-            presionarEnterYLimpiarPantalla();
-            break;
-        }
-    } while(opGuardar<0 || opGuardar>1);
-
-    return cambiosGuardados;
-}
-
-int MAIN_MENU(CentroLogisticoPtr centroLogistico);
+int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez);
 
 int main()
 {
@@ -222,69 +16,7 @@ int main()
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
 
-    CentroLogisticoPtr ctroPrueba = crearCentroLogisticoRapido("Prueba");
 
-/**
-    PaquetePtr paq1 = crearPaqueteDirect(1111,11,11,11,11,
-                                         "Calle 1",1111,
-                                         "Localidad 1",
-                                         "Otra Calle 1",1111,
-                                         "Otra Localidad 1",
-                                         11,11,2022,11,11,0);
-    PaquetePtr paq2 = crearPaqueteDirect(2222,22,22,22,22,
-                                         "Calle 2",2222,
-                                         "Localidad 2",
-                                         "Otra Calle 2",2222,
-                                         "Otra Localidad 2",
-                                         22,2,2022,22,22,0);
-
-
-    PaquetePtr paq1 = crearPaqueteDirect(21652,12,34,25,68,
-                                         "Teniente Alvarez",1877,
-                                         "Hurlingam",
-                                         "Borlo Frezzini",55,
-                                         "La Matanza",
-                                         15,11,2022,19,22,0);
-    PaquetePtr paq2 = crearPaqueteDirect(20514,33,34,35,79,
-                                         "Coronel Chamaco",5604,
-                                         "Haedo",
-                                         "Lavalle",1333,
-                                         "Valentin Alsina",
-                                         16,12,2022,17,35,0);
-
-
-    printf("DIAS JULIANOS\nPaq1: %d\tPaq2: %d",getDiaJuliano(getFechaEntrega(paq1)),getDiaJuliano(getFechaEntrega(paq2)));
-    presionarEnterYLimpiarPantalla();
-
-
-
-    agregarPaquete(ctroPrueba,paq1);
-    agregarPaquete(ctroPrueba,paq2); //paq2 estará arriba de todo al mostrar la lista.
-
-    ListaPtr copiaPaquetes = copiarListaPrueba(getPaquetes(ctroPrueba),1);
-    CentroLogisticoPtr copiaCtro = crearCentroLogisticoRapido("Copia Prueba");
-    setPaquetes(copiaCtro,copiaPaquetes);
-
-    if(!guardarPaquetes(ctroPrueba))
-    {
-        printf("No se pudieron guardar los paquetes.\n\n");
-        presionarEnterYLimpiarPantalla();
-    }
-    ctroPrueba = destruirCentroLogistico(ctroPrueba);
-
-    ctroPrueba = crearCentroLogisticoRapido("PRUEBA");
-    if(!abrirPaquetes(ctroPrueba))
-        printf("ERROR: la lista de paquetes no se pudo abrir.");
-    else
-    {
-        printf("LISTA ORIGINAL:\n\n");
-        mostrarPaquetes(ctroPrueba);
-        printf("\n\nLISTA COPIA:\n\n");
-        mostrarPaquetes(copiaCtro);
-    }
-
-    ctroPrueba = destruirCentroLogistico(ctroPrueba);
-    copiaCtro = destruirCentroLogistico(copiaCtro);
 
     return 0;
 
@@ -313,7 +45,7 @@ int main()
         case 1:
             centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             system("cls");
-            START_OP = MAIN_MENU(centroLogistico);
+            START_OP = MAIN_MENU(centroLogistico,true);
             centroLogistico=destruirCentroLogistico(centroLogistico);
             break;
         case 2:
@@ -325,7 +57,7 @@ int main()
             }
             else
             {
-                START_OP = MAIN_MENU(centroLogistico);
+                START_OP = MAIN_MENU(centroLogistico,false);
                 centroLogistico=destruirCentroLogistico(centroLogistico);
             }
             break;
@@ -342,15 +74,43 @@ int main()
     return 0;
 }
 
-
-int MAIN_MENU(CentroLogisticoPtr centroLogistico)
+/** NUEVO: ahora detecta si es la primera vez que se ingresa al sistema.*/
+int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
 {
     ///Menúes
     int MAIN_OP = 0;
     int op1=0;
     int op2=0;
 
-    bool cambiosGuardados=true; //Asumimos que es verdad para que la opcion al salir no salga si no hacemos nada.
+    bool cambiosGuardados=false; //Asumimos que no es verdad para que la opcion al salir no salga si no hacemos nada.
+
+    if(primeraVez)
+    {
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t   B   I   E   N   V   E   N   I   D   O\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\t\t\t\t********************************************\n");
+        printf("\n\n\n\n\n\n\n\t\t\t\t  ");
+        system("pause");
+        system("cls");
+    }
 
     do
     {
@@ -872,7 +632,13 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                         if(guardarTodo(centroLogistico))
                         {
                             cambiosGuardados=true;
-                            printf("Cambios guardados exitosamente.");
+                            printf("Cambios guardados exitosamente.\n\n");
+                            if(primeraVez)
+                            {
+                                printf("*************************************************************************\n\n");
+                                printf("Los datos de tu nueva sesion han sido guardados en la carpeta Archivos.\n\n");
+                                printf("*************************************************************************\n\n\n");
+                            }
                         }
                         else
                         {
@@ -892,14 +658,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     if(op1==1)
                         presionarEnterYLimpiarPantalla();
                 } while(op1<0 || op1>2);
-            }
-            else
-            {
-                if(!guardarNombreCentroLogistico(centroLogistico))
-                {
-                    printf("ERROR AL CERRAR SESION.\n\n");
-                    exit(1);
-                }
             }
             break;
         default:

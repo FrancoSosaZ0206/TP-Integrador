@@ -21,9 +21,9 @@ typedef fCuil* fCuilPtr;
 
 typedef struct fDomicilio
 {
-    char calle[50];
+    char calle[100];
     int altura;
-    char localidad[50];
+    char localidad[100];
 } fDomicilio;
 typedef fDomicilio* fDomicilioPtr;
 
@@ -38,8 +38,8 @@ typedef fFecha* fFechaPtr;
 
 typedef struct fPersona
 {
-    char nombre[50];
-    char apellido[50];
+    char nombre[100];
+    char apellido[100];
     fDomicilio domicilio; ///Ojo:
     fCuil cuil; ///las estructuras tampoco pueden ser punteros!!!
     bool esChofer;
@@ -424,7 +424,7 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
         if(!crearCarpeta())
             return false;
 
-    FILE *archivo = fopen("Archivos/Lista de Paquetes.txt","wb");
+    FILE *archivo = fopen("Archivos/Lista de Paquetes.bin","wb");
 
     if(archivo==NULL)
         return false;
@@ -455,7 +455,7 @@ bool guardarPersonas(CentroLogisticoPtr centroLogistico)
         if(!crearCarpeta())
             return false;
 
-    FILE *archivo = fopen("Archivos/Lista de Personas.txt","wb");
+    FILE *archivo = fopen("Archivos/Lista de Personas.bin","wb");
 
     if(archivo==NULL)
         return false;
@@ -486,7 +486,7 @@ bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
         if(!crearCarpeta())
             return false;
 
-    FILE *archivo = fopen("Archivos/Lista de Vehiculos.txt","wb");
+    FILE *archivo = fopen("Archivos/Lista de Vehiculos.bin","wb");
 
     if(archivo==NULL)
         return false;
@@ -519,9 +519,9 @@ bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 
     FILE *archivo;
 	if(esRepartoAbierto)
-		archivo = fopen("Archivos/Lista de Repartos Abiertos.txt","wb");
+		archivo = fopen("Archivos/Lista de Repartos Abiertos.bin","wb");
 	else
-		archivo = fopen("Archivos/Lista de Repartos Cerrados.txt","wb");
+		archivo = fopen("Archivos/Lista de Repartos Cerrados.bin","wb");
 
     if(archivo==NULL)
         return false;
@@ -599,7 +599,7 @@ bool guardarTodo(CentroLogisticoPtr centroLogistico) //implementacion: llamará a
 ///  Listas de datos (CentroLogistico)
 bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Archivos/Lista de Paquetes.txt","rb");
+    FILE *archivo = fopen("Archivos/Lista de Paquetes.bin","rb");
 
     if(archivo==NULL)
     {
@@ -622,7 +622,7 @@ bool abrirPaquetes(CentroLogisticoPtr centroLogistico)
 }
 bool abrirPersonas(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Archivos/Lista de Personas.txt","rb");
+    FILE *archivo = fopen("Archivos/Lista de Personas.bin","rb");
 
     if(archivo==NULL)
         return false;
@@ -642,7 +642,7 @@ bool abrirPersonas(CentroLogisticoPtr centroLogistico)
 }
 bool abrirVehiculos(CentroLogisticoPtr centroLogistico)
 {
-    FILE *archivo = fopen("Archivos/Lista de Vehiculos.txt","rb");
+    FILE *archivo = fopen("Archivos/Lista de Vehiculos.bin","rb");
 
     if(archivo==NULL)
         return false;
@@ -664,9 +664,9 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     FILE *archivo;
     if(esRepartoAbierto)
-        archivo = fopen("Archivos/Lista de Repartos Abiertos.txt","rb");
+        archivo = fopen("Archivos/Lista de Repartos Abiertos.bin","rb");
     else
-        archivo = fopen("Archivos/Lista de Repartos Cerrados.txt","rb");
+        archivo = fopen("Archivos/Lista de Repartos Cerrados.bin","rb");
 
     if(archivo==NULL)
         return false;
