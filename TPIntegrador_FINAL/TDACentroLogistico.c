@@ -623,7 +623,8 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
     return match;
 }
 
-///FUNCIONES DE ORDENAMIENTO
+///////////////////////////////////////////////////FUNCIONES DE ORDENAMIENTO//////////////////////////////////////////////////////////////////////////
+
 void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo)
 {
     int n=longitudLista(getPersonas(centroLogistico));
