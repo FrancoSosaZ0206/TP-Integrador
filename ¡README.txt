@@ -11,6 +11,8 @@ MEJORAS
 
 - UTIL - funcion destruirStringDinámico: ahora no es más de tipo void, sino char *, con lo que realmente retorna NULL, siguiendo la convencion de funciones destructoras como se hace en los TDAs con sus estructuras.
 
+- TDACentroLogistico: funciones de ordenamiento ahora ordenan por metodo shell.
+
 ---------------------------------------------------------------------------------------------------------------------
 
 CORRECCIONES
