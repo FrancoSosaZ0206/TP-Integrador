@@ -14,6 +14,7 @@ typedef struct Persona
     DomicilioPtr domicilio;
     CuilPtr cuil;
     bool esChofer; //la persona es un chofer si da verdadero, de lo contrario es un cliente.
+    bool RepartoDiario;
 } Persona;
 
 typedef Persona* PersonaPtr;

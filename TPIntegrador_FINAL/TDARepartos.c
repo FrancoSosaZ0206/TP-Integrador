@@ -107,9 +107,9 @@ void mostrarReparto(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
-    printf("\nFECHA DE SALIDA: ");
+    printf("\n\tFECHA DE SALIDA: ");
     mostrarFecha(getFechaSalida(reparto));
-    printf("\nFECHA DE RETORNO: ");
+    printf("\n\tFECHA DE RETORNO: ");
     mostrarFecha(getFechaRetorno(reparto));
     mostrarPaquetesReparto(reparto);
     printf("\n\n");

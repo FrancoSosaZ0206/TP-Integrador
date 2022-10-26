@@ -20,6 +20,7 @@ PersonaPtr crearPersona(char *nombre,char *apellido,DomicilioPtr domicilio,CuilP
     persona->domicilio=domicilio;
     persona->cuil=cuil;
     persona->esChofer=esChofer;
+    persona->RepartoDiario = false;
     //en VSCode vimos que se puede asignar valores entre variables de tipo bool.
     //esChofer valdría NULL por defecto, pero ahora vale o bien true, o bien false.
     return persona;
@@ -77,6 +78,11 @@ void setEsChofer(PersonaPtr persona,bool esChofer)
     persona->esChofer=esChofer; //de nuevo, esto se puede hacer sin drama.
 }
 
+void setRepartoDiario(PersonaPtr persona, bool RepartoDiario)
+{
+    persona->RepartoDiario = RepartoDiario;
+}
+
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE FUNCIONES DE GETTERS///
 ///-----------------------------------------------------------------------------------------------------------///
@@ -104,6 +110,11 @@ CuilPtr getCuilPersona(PersonaPtr persona) ///NUEVO NOMBRE PARA NO CONFUNDIR CON
 bool getEsChofer(PersonaPtr persona)
 {
     return persona->esChofer;
+}
+
+bool getRepartoDiario(PersonaPtr persona)
+{
+    return persona->RepartoDiario;
 }
 
 ///-----------------------------------------------------------------------------------------------------------///

@@ -205,6 +205,7 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
     {
         printf("%d. ",i+1);
         mostrarVehiculo((VehiculoPtr)getCabecera(listaAux));
+        printf("\n\n");
         listaAux=getResto(listaAux);
         i++;
     }
@@ -253,8 +254,11 @@ void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
         {
             if(!buscarChoferRepartos(centroLogistico,getCuil(cuilPersona)))
             {
-                printf("\n NUMERO %d. \n",i+1);
-                mostrarPersona(personaAux);
+                if(!getRepartoDiario(personaAux))
+                {
+                    printf("\n\n NUMERO %d. \n\n", i+1);
+                    mostrarPersona(personaAux);
+                }
             }
         }
         ListaPtr ListaDestruir = listaAux;
@@ -464,6 +468,7 @@ bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente)
         if(strcmp(getPatente(vehiculoAux),patente)==0)
         {
             match=true;
+            printf("\n");
             //mostramos si las patentes coinciden, es decir, si strcmp da cero.
             mostrarVehiculo(vehiculoAux);
         }
@@ -785,14 +790,16 @@ PersonaPtr devolverPersona(CentroLogisticoPtr centroLogistico, char* cuilBuscar)
 
 bool buscarChoferRepartos(CentroLogisticoPtr centroLogistico, char* cuilBuscar)
 {
-    bool match=false;
-    ListaPtr listaAux=crearLista();
+    bool match = false;
+    ListaPtr listaAux = crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico,true));
     while(!listaVacia(listaAux))
     {
         PersonaPtr personaAux=getChofer((RepartoPtr)getCabecera(listaAux));
         if(strcmp(getCuil(getCuilPersona(personaAux)),cuilBuscar)==0 && getEsChofer(personaAux)==true)
+        {
             match=true;
+        }
         ListaPtr ListaDestruir = listaAux;
         listaAux = getResto(listaAux);
         ListaDestruir = destruirLista(ListaDestruir, false);

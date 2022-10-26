@@ -34,6 +34,7 @@ typedef struct fPersona
     fDomicilio domicilio; ///Ojo:
     fCuil cuil; ///las estructuras tampoco pueden ser punteros!!!
     bool esChofer;
+    bool RepartoDiario;
 } fPersona; //Lo único que pasamos como puntero es la estructura dentro del campo de fwrite o fread
 typedef fPersona* fPersonaPtr;
 

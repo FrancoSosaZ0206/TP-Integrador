@@ -71,6 +71,7 @@ PersonaPtr crearPersonaDirectNuevo(fPersonaPtr PersonaEstatico)
     persona->cuil=crearCuil(PersonaEstatico->cuil.cuil);
 
     persona->esChofer=PersonaEstatico->esChofer;
+    persona->RepartoDiario=PersonaEstatico->RepartoDiario;
 
     return persona;
 }
@@ -186,6 +187,7 @@ PersonaPtr PasajePersonaDinamico(fPersonaPtr PersonaEstatico, PersonaPtr Persona
         strcpy(PersonaEstatico->cuil.cuil,PersonaDinamica->cuil->cuil);
 
         PersonaEstatico->esChofer = PersonaDinamica->esChofer;
+        PersonaEstatico->RepartoDiario = PersonaDinamica->RepartoDiario;
     }
     return PersonaDinamica;
 }
