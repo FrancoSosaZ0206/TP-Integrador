@@ -2377,7 +2377,7 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
         {
             system("cls");
             eleccion=menuTipoRepartos();
-            mostrarRepartos(centroLogistico,true);
+            mostrarRepartos(centroLogistico,esRepartoAbierto);
             switch(eleccion)
             {
                 case 1:
