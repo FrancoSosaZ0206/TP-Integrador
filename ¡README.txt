@@ -14,14 +14,3 @@ MEJORAS
 - TDACentroLogistico: funciones de ordenamiento ahora ordenan por metodo shell.
 
 ---------------------------------------------------------------------------------------------------------------------
-
-CORRECCIONES
-
-	[Pendiente]
-	- menuModoAccion: modificar para que cuando se elige modo accion 2 o 3 se pregunte y modifique para cada dato en particular, en lugar de asignar un dato a todos. ver: Gaston-v4.1 en adelante.
-	
-	[Pendiente]
-	- métodos de ordenamiento de listas: no funciona bien, cambiar a la implementacion utilizada en la v4.1 de Gaston en adelante (método shell y trabaja directamente sobre las listas, no con un vector).
-
-
----------------------------------------------------------------------------------------------------------------------

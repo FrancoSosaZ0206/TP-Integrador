@@ -1,0 +1,15 @@
+MEJORAR
+
+---------------------------------------------------------------------------------------------------------------------
+
+- MENUS:
+
+	- menus Modificar:
+		- modificar para que cuando se elige modo accion 2 o 3 se pregunte y modifique para cada dato en particular, en lugar de asignar un dato a todos. ver: Gaston-v4.1 en adelante.
+
+	- menus de modos de accion: si todos los modos de accion retornaran un vector de enteros, aunque solo tengan 1 elemento, la implementación se simplificaría muchísimo.
+
+	- menus de carga: implementar un chequeo para que no se ingresen datos preexistentes tales como CUIL, ID, patente, etc.
+
+---------------------------------------------------------------------------------------------------------------------
+

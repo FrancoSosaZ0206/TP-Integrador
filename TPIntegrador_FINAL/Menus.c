@@ -635,55 +635,35 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
     //por defecto, los paquetes se cargan con el estado 0: 'en depósito'.
         ///Variables para funciones
         srand(time(NULL));
-        do
-        {
-            printf("CARGAR PAQUETE\n\n");
-            printf("Ingrese cantidad de paquetes a cargar: ");
-            scanf("%d",&n);
-            limpiarBufferTeclado();
 
-            if(n<1)
-            {
-                printf("\nCantidad incorrecta.");
-                presionarEnterYLimpiarPantalla();
-            }
-            else
-                system("cls");
-        } while(n<1);
+        printf("CARGAR PAQUETE\n\n");
 
-        for(int i=0;i<n;i++)
-        {
-            if(n>1)
-                printf("\n\nPAQUETE %d\n\n",i+1);
-            ID=rand(); //esto no se mostrará sino al final de la carga del paquete.
-            printf("\tAncho: ");
-            scanf("%d",&ancho);
-            limpiarBufferTeclado();
-            printf("\n\tAlto: ");
-            scanf("%d",&alto);
-            limpiarBufferTeclado();
-            printf("\n\tLargo: ");
-            scanf("%d",&largo);
-            limpiarBufferTeclado();
-            printf("\n\tPeso: ");
-            scanf("%d",&peso);
-            limpiarBufferTeclado();
-            printf("\n\tDireccion de retiro:");
-            DomicilioPtr dirRetiro = cargarDomicilio();
-            printf("\n\tDireccion de entrega:");
-            DomicilioPtr dirEntrega = cargarDomicilio();
+        ID=rand(); //esto no se mostrará sino al final de la carga del paquete.
+        printf("\tIngrese Ancho: ");
+        scanf("%d",&ancho);
+        limpiarBufferTeclado();
+        printf("\n\tIngrese Alto: ");
+        scanf("%d",&alto);
+        limpiarBufferTeclado();
+        printf("\n\tIngrese Largo: ");
+        scanf("%d",&largo);
+        limpiarBufferTeclado();
+        printf("\n\tIngrese Peso: ");
+        scanf("%d",&peso);
+        limpiarBufferTeclado();
+        printf("\n\tDireccion de retiro:");
+        DomicilioPtr dirRetiro = cargarDomicilio();
+        printf("\n\tDireccion de entrega:");
+        DomicilioPtr dirEntrega = cargarDomicilio();
 
-            printf("\n\tFecha de entrega:");
-            FechaPtr fechaEntrega = cargarFecha();
+        printf("\n\tFecha de entrega:");
+        FechaPtr fechaEntrega = cargarFecha();
 
-            paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,0);
-            agregarPaquete(centroLogistico,paquete);
+        paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,0);
+        agregarPaquete(centroLogistico,paquete);
 
-            printf("\n\nPaquete #%d cargado exitosamente.",ID);
-            presionarEnterYLimpiarPantalla();
-        }
-        if(n>1)
-            printf("Paquetes cargados exitosamente.\n\n");
+        printf("\n\nPaquete #%d cargado exitosamente.",ID);
+        presionarEnterYLimpiarPantalla();
 
         continuar=menuContinuar();
     } while(continuar);
@@ -703,63 +683,31 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         char apellido[100];
         PersonaPtr persona;
 
-        do
-        {
-            if(esChofer)
-            {
-                printf("CARGAR CHOFER\n\n");
-                printf("Ingrese cantidad de choferes a cargar: ");
-            }
-            else
-            {
-                printf("CARGAR CLIENTE\n\n");
-                printf("Ingrese cantidad de clientes a cargar: ");
-            }
-            scanf("%d",&n);
-            limpiarBufferTeclado();
-            if(n<1)
-            {
-                printf("\nCantidad incorrecta.");
-                presionarEnterYLimpiarPantalla();
-            }
-            else
-                system("cls");
-        } while(n<1);
+        if(esChofer)
+            printf("CARGAR CHOFER\n\n");
+        else
+            printf("CARGAR CLIENTE\n\n");
 
-        for(int i=0;i<n;i++)
-        {
-            if(n>1)
-            {
-                if(esChofer)
-                    printf("CHOFER %d\n\n",i+1);
-                else
-                    printf("CLIENTE %d\n\n",i+1);
-            }
-            printf("\tNombre: ");
-            scanf("%[^\n]%*c",nombre);
-            limpiarBufferTeclado();
-            printf("\n\tApellido: ");
-            scanf("%[^\n]%*c",apellido);
-            limpiarBufferTeclado();
+        printf("\tIngrese Nombre: ");
+        scanf("%[^\n]%*c",nombre);
+        limpiarBufferTeclado();
+        printf("\n\tIngrese Apellido: ");
+        scanf("%[^\n]%*c",apellido);
+        limpiarBufferTeclado();
 
-            printf("\n\tDomicilio");
-            DomicilioPtr domicilio = cargarDomicilio();
+        printf("\n\tDomicilio");
+        DomicilioPtr domicilio = cargarDomicilio();
 
-            CuilPtr cuil = cargarCuil();
+        CuilPtr cuil = cargarCuil();
 
-            persona=crearPersona(nombre,apellido,domicilio,cuil,false);
-            agregarPersona(centroLogistico,persona);
+        persona=crearPersona(nombre,apellido,domicilio,cuil,false);
+        agregarPersona(centroLogistico,persona);
 
-            if(esChofer)
-                printf("Cliente cargado exitosamente.");
-            else
-                printf("Cliente cargado exitosamente.");
-            presionarEnterYLimpiarPantalla();
-        }
-        if(esChofer && n>1)
-            printf("Choferes cargados exitosamente.\n\n");
-        else if(n>1)
-            printf("Clientes cargados exitosamente.\n\n");
+        if(esChofer)
+            printf("Cliente cargado exitosamente.");
+        else
+            printf("Cliente cargado exitosamente.");
+        presionarEnterYLimpiarPantalla();
 
         continuar=menuContinuar();
     } while(continuar);
