@@ -315,3 +315,17 @@ Se corrigio una condicion logica de comparacion de modelos,(condicion && ), inne
 55. Correccion del menu repartos
 Solucione el problema de que no informaba cuando el chofer ya habia realizado su reparto diario
 Solucione el problema de que los choferes siempre estaban disponibles, cuando se cierra un reparto, el chofer se le asigna que ya realizo el reparto diario
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+56. Correccion de los menues
+Solucione el problema de quedar atrapado en muchos menues
+Agregue la funcionalidad de que en todo momento se puede volver para atras, de esta forma se evalua constanemente el accionar
+del usuario, asegurandose de que no muestre cosas por pantalla que no pidio, o que se pase de menues de una manera mas agil
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
