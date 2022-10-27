@@ -180,6 +180,12 @@ bool personasIguales(PersonaPtr persona1,PersonaPtr persona2);
 //  persona2: puntero a la estructura a verificar.
 //Devuelve: true si son idénticos en cuil, false de lo contrario.
 
+
+//Operación: Modificacion
+//Precondición: PersonaModificar debe ser creado en memoria dinamica
+//Postcondición: altera algun campo de la persona a pedido del usuario
+//Parámetros: puntero a la persona a modificar
+//Devuelve: vacio
 void cambiarPersona(PersonaPtr personaAModificar, bool esChofer);
 
 #endif // TDAPERSONA_H_INCLUDED

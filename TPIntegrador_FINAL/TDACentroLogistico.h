@@ -616,25 +616,74 @@ bool existenPaquetesDisponibles(CentroLogisticoPtr centroLogistico);
 ///DEVUELVE: BOOLEANO
 bool existenVehiculosDisponibles(CentroLogisticoPtr centroLogistico);
 
-
+//Operación: Copia
+//Precondición: ListaOriginal debe ser creado en memoria dinamica
+//Postcondición: genera una copia identica de la lista de paquetes
+//Parámetros: puntero al centroLogistico
+//Devuelve: puntero a lista
 ListaPtr OriginalPaquetes(CentroLogisticoPtr centroLogistico);
 
+//Operación: Verificacion
+//Precondición: CentroLogistico y ListaOriginal debe ser creado en memoria dinamica
+//Postcondición: devuelve true si detecto alguna diferencia, y false si no detecto ninguna
+//Parámetros: puntero a centro logistico y a la lista original
+//Devuelve: booleano
 bool CambiosPaquetes(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal);
 
+//Operación: Copia
+//Precondición: ListaOriginal debe ser creado en memoria dinamica
+//Postcondición: genera una copia identica de la lista de paquetes
+//Parámetros: puntero al centroLogistico
+//Devuelve: puntero a lista
 ListaPtr OriginalVehiculos(CentroLogisticoPtr centroLogistico);
 
+//Operación: Verificacion
+//Precondición: CentroLogistico y ListaOriginal debe ser creado en memoria dinamica
+//Postcondición: devuelve true si detecto alguna diferencia, y false si no detecto ninguna
+//Parámetros: puntero a centro logistico y a la lista original
+//Devuelve: booleano
 bool CambiosVehiculos(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal);
 
+//Operación: Verificacion
+//Precondición: CentroLogistico y ListaOriginal debe ser creado en memoria dinamica
+//Postcondición: devuelve true si detecto alguna diferencia, y false si no detecto ninguna
+//Parámetros: puntero a centro logistico y a la lista original
+//Devuelve: booleano
 bool CambiosRepartos(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal,bool esRepartoAbierto);
 
+//Operación: Copia
+//Precondición: ListaOriginal debe ser creado en memoria dinamica
+//Postcondición: genera una copia identica de la lista de repartos
+//Parámetros: puntero al centroLogistico
+//Devuelve: puntero a lista
 ListaPtr OriginalRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 
+//Operación: Copia
+//Precondición: ListaOriginal debe ser creado en memoria dinamica
+//Postcondición: genera una copia identica de la lista de personas
+//Parámetros: puntero al centroLogistico
+//Devuelve: puntero a lista
 ListaPtr OriginalPersonas(CentroLogisticoPtr centroLogistico);
 
+//Operación: Verificacion
+//Precondición: CentroLogistico y ListaOriginal debe ser creado en memoria dinamica
+//Postcondición: devuelve true si detecto alguna diferencia, y false si n detecto ninguna
+//Parámetros: puntero a centro logistico y a la lista original
+//Devuelve: booleano
 bool CambiosPersonas(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal);
 
+//Operación: Verificacion
+//Precondición: CentroLogistico debe ser creado en memoria dinamica
+//Postcondición: devuelve true si encontro alguna coincidencia con otro cuil, y false si no detecto ninguna
+//Parámetros: puntero a centro logistico, puntero a char
+//Devuelve: booleano
 bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar);
 
+//Operación: Verificacion
+//Precondición: CentroLogistico y ListaOriginal debe ser creado en memoria dinamica
+//Postcondición: devuelve true si detecto alguna diferencia con otra patente, y false si no detecto ninguna
+//Parámetros: puntero a centro logistico, puntero a char
+//Devuelve: booleano
 bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar);
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

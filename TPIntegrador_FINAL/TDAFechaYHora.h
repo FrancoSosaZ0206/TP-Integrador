@@ -267,7 +267,11 @@ void mostrarFecha(FechaPtr fecha);
 int calcularDiaJuliano(int dia, int mes, int anio);
 
 
-
+//Operación: Carga de fecha
+//Precondición: Fecha debe ser creado en memoria dinamica
+//Postcondición: crea un fecha para ser asignado, y verifica que sea valido
+//Parámetros: puntero al fecha
+//Devuelve: puntero al Fecha creado en memoria dinamica
 FechaPtr cargarFecha(FechaPtr fecha);
 
 #endif //TDAFECHAYHORA_H_INCLUDED

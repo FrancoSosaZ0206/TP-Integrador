@@ -363,7 +363,10 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
         else
         {
             EleccionMenuModoAccion = menuModoAccion();
-            mostrarPaquetes(centroLogistico);
+            if(EleccionMenuModoAccion != 0)
+            {
+                mostrarPaquetes(centroLogistico);
+            }
             printf("ELIMINAR PAQUETE\n\n");
             switch(EleccionMenuModoAccion)
             {
@@ -371,7 +374,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
                 EleccionAccion = menuModoAccion1( getPaquetes(centroLogistico) );
                 paqueteRemovido = removerPaquete(centroLogistico, EleccionAccion);
                 paqueteRemovido = destruirPaquete(paqueteRemovido);
-                cambiosGuardados = true;
+                cambiosGuardados = false;
                 break;
             case 2:
                 printf("[ACLARACION]Eliga la cantidad de indices...\n");
@@ -382,7 +385,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
                     paqueteRemovido = removerPaquete(centroLogistico,indices[i]-i);
                     paqueteRemovido = destruirPaquete(paqueteRemovido);
                 }
-                cambiosGuardados = true;
+                cambiosGuardados = false;
                 break;
             case 3:
                 menuModoAccion3( getPaquetes(centroLogistico) , indices );
@@ -391,13 +394,22 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
                     paqueteRemovido = removerPaquete(centroLogistico,indices[0]);
                     paqueteRemovido = destruirPaquete(paqueteRemovido);
                 }
-                cambiosGuardados = true;
+                cambiosGuardados = false;
+                break;
+            case 0:
                 break;
             default:
                 printf("Eleccion equivocada \n");
                 break;
             }
-            continuar = menuContinuar();
+            if(EleccionMenuModoAccion == 0)
+            {
+                continuar = false;
+            }
+            else
+            {
+                continuar = menuContinuar();
+            }
         }
     }while(continuar == true && !listaVacia( getPaquetes(centroLogistico) ) );
     notificacionListaVacia( getPaquetes(centroLogistico) );
@@ -430,6 +442,7 @@ void cambiarPaquete(PaquetePtr paqueteAModificar)
         printf("7. Fecha de Entrega\n");
         printf("8. Estado\n");
         printf("9. Destinatario\n");
+        printf("0. Volver \n");
         printf("Seleccione una opcion: ");
         limpiarBufferTeclado();
         scanf("%d",&op);
@@ -482,18 +495,27 @@ void cambiarPaquete(PaquetePtr paqueteAModificar)
         case 9:
             cambiarPersona(getCliente(paqueteAModificar),getEsChofer(getCliente(paqueteAModificar)));
             break;
+        case 0:
+            break;
         default:
             printf("\nOpcion incorrecta.\n\n");
             presionarEnterYLimpiarPantalla();
             break;
         }
-        printf("\n\nDatos modificados exitosamente.\n\n");
-        printf("Desea seguir modificando este paquete?\n\n");
-        printf("\t1. SI\n\t");
-        printf("0. NO\n\n");
-        printf("Seleccione una opcion: ");
-        limpiarBufferTeclado();
-        scanf("%d",&seguirMod);
+        if(op == 0)
+        {
+            seguirMod = 0;
+        }
+        else
+        {
+            printf("\n\nDatos modificados exitosamente.\n\n");
+            printf("Desea seguir modificando este paquete?\n\n");
+            printf("\t1. SI\n\t");
+            printf("0. NO\n\n");
+            printf("Seleccione una opcion: ");
+            limpiarBufferTeclado();
+            scanf("%d",&seguirMod);
+        }
     }while(seguirMod!=0);
 }
 
@@ -551,11 +573,10 @@ bool CambiosPaquetes(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal)
 
 bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
 {
-    bool cambioDetectado=false, cambiosGuardados=false, continuar;
+    bool cambiosGuardados=true, continuar;
     int modoAccion, Cantidad, Eleccion, resultado;
     int Elecciones[10];
     PaquetePtr paqueteModificar;
-    ListaPtr listaOriginal;
     if(listaVacia(getPaquetes(centroLogistico)))
     {
         printf("ERROR: Lista vacía. Debe agregar paquetes para poder modificarlos.\n\n");
@@ -563,19 +584,20 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
     }
     else
     {
-    ///--------------------------------------------------------------------///
-        listaOriginal = OriginalPaquetes(centroLogistico);
-    ///--------------------------------------------------------------------///
         do
         {
             modoAccion = menuModoAccion();
-            mostrarPaquetes(centroLogistico);
+            if(modoAccion != 0)
+            {
+                mostrarPaquetes(centroLogistico);
+            }
             switch(modoAccion)
             {
             case 1:
                 Eleccion=menuModoAccion1(getPaquetes(centroLogistico));
                 paqueteModificar=getDatoLista(getPaquetes(centroLogistico),Eleccion);
                 cambiarPaquete(paqueteModificar);
+                cambiosGuardados = false;
                 break;
             case 2:
                 printf("[ACLARACION]Eliga la cantidad de indices...\n");
@@ -586,6 +608,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
                     paqueteModificar=getDatoLista(getPaquetes(centroLogistico),Elecciones[i]);
                     cambiarPaquete(paqueteModificar);
                 }
+                cambiosGuardados = false;
                 break;
             case 3:
                 menuModoAccion3(getPaquetes(centroLogistico),Elecciones);
@@ -594,18 +617,23 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
                     paqueteModificar=getDatoLista(getPaquetes(centroLogistico),i);
                     cambiarPaquete(paqueteModificar);
                 }
+                cambiosGuardados = false;
                 break;
             default:
                 printf("Eleccion equivocada \n");
                 break;
             }
-            continuar=menuContinuar();
+            if(modoAccion == 0)
+            {
+                continuar = false;
+            }
+            else
+            {
+                continuar = menuContinuar();
+            }
         } while(continuar);
     }
-    ///--------------------------------------------------------------------///
-        cambioDetectado = CambiosPaquetes(centroLogistico,listaOriginal);
-    ///--------------------------------------------------------------------///
-    if(cambioDetectado)
+    if( !cambiosGuardados )
     {
         resultado = menuGuardarCambios();
         if(resultado==1)
@@ -632,15 +660,23 @@ void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
             system("cls");
             int ID=0;
             printf("BUSCAR PAQUETE\n\n");
+            printf("0. Volver\n");
             printf("Ingrese ID del paquete a buscar: ");
             scanf("%d",&ID);
             limpiarBufferTeclado();
             printf("\n\n");
-            if(!buscarPaquete(centroLogistico,ID))
+            if(!buscarPaquete(centroLogistico,ID) && ID != 0)
             {
                 printf("\n\nNo se pudo encontrar el paquete con ID #%d.\n\n",ID);
             }
-            continuar=menuContinuar();
+            if(ID == 0)
+            {
+                continuar = false;
+            }
+            else
+            {
+                continuar = menuContinuar();
+            }
         }while(continuar);
     }
 }

@@ -244,8 +244,11 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
         }
         else
         {
-            EleccionMenuModoAccion = menuModoAccion(0);
-            mostrarVehiculos(centroLogistico);
+            EleccionMenuModoAccion = menuModoAccion();
+            if(EleccionMenuModoAccion != 0)
+            {
+                mostrarVehiculos(centroLogistico);
+            }
             printf("ELIMINAR VEHICULO \n\n");
                 switch(EleccionMenuModoAccion)
                 {
@@ -275,11 +278,20 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
                         }
                         cambiosGuardados = true;
                         break;
+                    case 0:
+                        break;
                     default:
                         printf("Eleccion equivocada \n");
                         break;
                 }
-            continuar=menuContinuar();
+            if(EleccionMenuModoAccion == 0)
+            {
+                continuar = false;
+            }
+            else
+            {
+                continuar = menuContinuar();
+            }
         }
     }while(continuar && !listaVacia( getVehiculos(centroLogistico) ) );
     notificacionListaVacia( getVehiculos(centroLogistico) );
@@ -312,6 +324,7 @@ void cambiarVehiculo(VehiculoPtr vehiculoAModificar)
         printf("2. Marca\n");
         printf("3. Modelo\n");
         printf("4. Patente\n");
+        printf("0. Volver\n");
         printf("Seleccione una opcion: ");
         limpiarBufferTeclado();
         scanf("%d",&op);
@@ -348,16 +361,25 @@ void cambiarVehiculo(VehiculoPtr vehiculoAModificar)
             scanf("%[^\n]%*c",nPatente);
             setPatente(vehiculoAModificar,nPatente);
             break;
+        case 0:
+            break;
         default:
             printf("\nOpcion incorrecta.\n\n");
             break;
         }
-        printf("\n\nDatos modificados exitosamente.\n\n");
-        printf("Desea seguir modificando este vehiculo?\n\n");
-        printf("\t1. SI\n\t");
-        printf("0. NO\n\n");
-        printf("Seleccione una opcion: ");
-        scanf("%d",&seguirMod);
+        if(op == 0)
+        {
+            seguirMod = 0;
+        }
+        else
+        {
+            printf("\n\nDatos modificados exitosamente.\n\n");
+            printf("Desea seguir modificando este vehiculo?\n\n");
+            printf("\t1. SI\n\t");
+            printf("0. NO\n\n");
+            printf("Seleccione una opcion: ");
+            scanf("%d",&seguirMod);
+        }
     } while(seguirMod!=0);
 }
 
@@ -412,61 +434,67 @@ bool CambiosVehiculos(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal
 
 bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
 {
-    bool cambioDetectado=false, cambiosGuardados=false, continuar;
+    bool cambiosGuardados=true, continuar;
     int modoAccion, Cantidad, Eleccion, resultado;
     int Elecciones[10];
     VehiculoPtr vehiculoModificar;
-    ListaPtr listaOriginal;
-    ///------------------------------------------------------------------------------------------------------///
-        listaOriginal = OriginalVehiculos(centroLogistico);
-    ///------------------------------------------------------------------------------------------------------///
-        if(listaVacia(getVehiculos(centroLogistico)))
+    if(listaVacia(getVehiculos(centroLogistico)))
+    {
+        printf("ERROR: Lista vacía. Debe agregar vehiculos para poder modificarlos.\n\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        do
         {
-            printf("ERROR: Lista vacía. Debe agregar vehiculos para poder modificarlos.\n\n");
-            presionarEnterYLimpiarPantalla();
-        }
-        else
-        {
-            do
+            modoAccion = menuModoAccion();
+            if(modoAccion != 0)
             {
-                modoAccion = menuModoAccion();
                 mostrarVehiculos(centroLogistico);
-                switch(modoAccion)
+            }
+            switch(modoAccion)
+            {
+            case 1:
+                Eleccion=menuModoAccion1(getVehiculos(centroLogistico));
+                vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Eleccion);
+                cambiarVehiculo(vehiculoModificar);
+                cambiosGuardados = false;
+                break;
+            case 2:
+                printf("[ACLARACION]Eliga la cantidad de indices...\n");
+                Cantidad=menuModoAccion1(getVehiculos(centroLogistico));
+                menuModoAccion2(getVehiculos(centroLogistico),Cantidad,Elecciones);
+                for(int i=0;i<Cantidad+1;i++)
                 {
-                case 1:
-                    Eleccion=menuModoAccion1(getVehiculos(centroLogistico));
-                    vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Eleccion);
+                    vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Elecciones[i]);
                     cambiarVehiculo(vehiculoModificar);
-                    break;
-                case 2:
-                    printf("[ACLARACION]Eliga la cantidad de indices...\n");
-                    Cantidad=menuModoAccion1(getVehiculos(centroLogistico));
-                    menuModoAccion2(getVehiculos(centroLogistico),Cantidad,Elecciones);
-                    for(int i=0;i<Cantidad+1;i++)
-                    {
-                        vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Elecciones[i]);
-                        cambiarVehiculo(vehiculoModificar);
-                    }
-                    break;
-                case 3:
-                    menuModoAccion3(getVehiculos(centroLogistico),Elecciones);
-                    for(int i=Elecciones[0];i<=Elecciones[1];i++)
-                    {
-                        vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),i);
-                        cambiarVehiculo(vehiculoModificar);
-                    }
-                    break;
-                default:
-                    printf("Eleccion equivocada \n");
-                    break;
                 }
-                continuar=menuContinuar();
+                cambiosGuardados = false;
+                break;
+            case 3:
+                menuModoAccion3(getVehiculos(centroLogistico),Elecciones);
+                for(int i=Elecciones[0];i<=Elecciones[1];i++)
+                {
+                    vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),i);
+                    cambiarVehiculo(vehiculoModificar);
+                }
+                cambiosGuardados = false;
+                break;
+            default:
+                printf("Eleccion equivocada \n");
+                break;
+            }
+            if(modoAccion == 0)
+            {
+                continuar = false;
+            }
+            else
+            {
+                continuar = menuContinuar();
+            }
         } while(continuar);
     }
-    ///------------------------------------------------------------------------------------------------------///
-        cambioDetectado = CambiosVehiculos(centroLogistico,listaOriginal);
-    ///------------------------------------------------------------------------------------------------------///
-    if( cambioDetectado )
+    if( !cambiosGuardados )
     {
         resultado=menuGuardarCambios();
         if(resultado==1)
@@ -476,9 +504,6 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
     }
     return cambiosGuardados;
 }
-
-
-
 
 void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
 {
@@ -495,18 +520,24 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
             system("cls");
             char patente[100];
             printf("BUSCAR VEHICULO\n\n");
+            printf("0. Volver\n");
             printf("Ingrese la patente del vehiculo a buscar (AA 111 AA): ");
             scanf("%[^\n]%*c",patente);
-            if(!buscarVehiculo(centroLogistico,patente))
+            if(!buscarVehiculo(centroLogistico,patente) && strlen(patente) != 1)
             {
                 printf("\n\nNo se pudo encontrar el vehiculo con patente %s.\n\n",patente);
             }
-            continuar=menuContinuar();
+            if(strlen(patente) == 1)
+            {
+                continuar = false;
+            }
+            else
+            {
+                continuar = menuContinuar();
+            }
         } while(continuar);
     }
 }
-
-
 
 bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico, int* op1)
 {

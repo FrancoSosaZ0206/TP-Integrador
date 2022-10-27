@@ -136,7 +136,11 @@ bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2);
 void tipoVehiculo(VehiculoPtr vehiculo);
 
 
-
+//Operación: Modificacion
+//Precondición: VehiculoModificar debe ser creado en memoria dinamica
+//Postcondición: altera algun campo del vehiculo a pedido del usuario
+//Parámetros: puntero al vehiculo a modificar
+//Devuelve: vacio
 void cambiarVehiculo(VehiculoPtr vehiculoAModificar);
 
 #endif // TDAVEHICULO_H_INCLUDED

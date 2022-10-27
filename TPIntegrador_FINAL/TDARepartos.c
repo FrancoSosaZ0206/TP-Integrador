@@ -370,7 +370,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
 bool menuCerrarReparto(CentroLogisticoPtr centroLogistico)
 {
-    bool cambiosGuardados=false;
+    bool cambiosGuardados=true;
     bool continuar;
     int EleccionMenuModoAccion=0,EleccionAccion=0,cantIndices=0,resultado=0;
     int indices[100];
@@ -385,7 +385,10 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico)
         else
         {
             EleccionMenuModoAccion = menuModoAccion();
-            mostrarRepartos(centroLogistico,true);
+            if(EleccionMenuModoAccion != 0)
+            {
+                mostrarRepartos(centroLogistico,true);
+            }
             printf("CERRAR REPARTO \n\n");
             switch(EleccionMenuModoAccion)
             {
@@ -395,7 +398,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico)
                     verificacionPaquetesCurso(getPaquetesReparto(repartoCerrado));
                     setRepartoDiario(getChofer(repartoCerrado),true);
                     agregarReparto(centroLogistico,repartoCerrado,false);
-                    cambiosGuardados = true;
+                    cambiosGuardados = false;
                     break;
                 case 2:
                     cantIndices = menuModoAccion1(getRepartos(centroLogistico,true));
@@ -408,7 +411,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico)
                         setRepartoDiario(getChofer(repartoCerrado),true);
                         agregarReparto(centroLogistico,repartoCerrado,false);
                     }
-                    cambiosGuardados = true;
+                    cambiosGuardados = false;
                     break;
                 case 3:
                     menuModoAccion3(getRepartos(centroLogistico, true),indices);
@@ -420,17 +423,26 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico)
                         setRepartoDiario(getChofer(repartoCerrado),true);
                         agregarReparto(centroLogistico,repartoCerrado,false);
                     }
-                    cambiosGuardados = true;
+                    cambiosGuardados = false;
+                    break;
+                case 0:
                     break;
                 default:
                     printf("Eleccion equivocada \n");
                 break;
             }
-            continuar=menuContinuar();
+            if(EleccionMenuModoAccion == 0)
+            {
+                continuar = false;
+            }
+            else
+            {
+                continuar = menuContinuar();
+            }
         }
     } while(continuar && !listaVacia(getRepartos(centroLogistico,true)));
     notificacionListaVacia(getRepartos(centroLogistico, true));
-    if( cambiosGuardados )
+    if( !cambiosGuardados )
     {
         resultado = menuGuardarCambios();
         if(resultado == 1)
@@ -445,7 +457,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico)
 bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 {
     int resultado=0;
-    bool cambiosGuardados=false;
+    bool cambiosGuardados = true;
     bool continuar;
     int EleccionMenuModoAccion = 0;
     int EleccionAccion = 0;
@@ -462,7 +474,10 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
         else
         {
             EleccionMenuModoAccion = menuModoAccion();
-            mostrarRepartos(centroLogistico,esRepartoAbierto);
+            if(EleccionMenuModoAccion != 0)
+            {
+                mostrarRepartos(centroLogistico,esRepartoAbierto);
+            }
             printf("ELIMINAR REPARTO \n\n");
             switch(EleccionMenuModoAccion)
             {
@@ -470,7 +485,7 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                     EleccionAccion = menuModoAccion1(getRepartos(centroLogistico,esRepartoAbierto));
                     repartoRemovido = removerReparto(centroLogistico, EleccionAccion,esRepartoAbierto);
                     repartoRemovido = destruirReparto(repartoRemovido);
-                    cambiosGuardados = true;
+                    cambiosGuardados = false;
                     break;
                 case 2:
                     printf("[ACLARACION]Eliga la cantidad de indices...\n");
@@ -481,7 +496,7 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                         repartoRemovido = removerReparto(centroLogistico,indices[i]-i,esRepartoAbierto);
                         repartoRemovido = destruirReparto(repartoRemovido);
                     }
-                    cambiosGuardados = true;
+                    cambiosGuardados = false;
                     break;
                 case 3:
                     menuModoAccion3(getRepartos(centroLogistico,esRepartoAbierto),indices);
@@ -490,13 +505,20 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                         repartoRemovido = removerReparto(centroLogistico,indices[0],esRepartoAbierto);
                         repartoRemovido = destruirReparto(repartoRemovido);
                     }
-                    cambiosGuardados = true;
+                    cambiosGuardados = false;
                     break;
                 default:
                     printf("Eleccion equivocada \n");
                     break;
             }
-            continuar=menuContinuar();
+            if(EleccionMenuModoAccion == 0)
+            {
+                continuar = false;
+            }
+            else
+            {
+                continuar=menuContinuar();
+            }
         }
     } while(continuar && !listaVacia(getRepartos(centroLogistico,esRepartoAbierto)));
     notificacionListaVacia(getRepartos(centroLogistico,esRepartoAbierto));
@@ -603,22 +625,30 @@ void cambiarAtributoReparto(RepartoPtr repartoModificar)
                 paqueteModificar = getDatoLista(getPaquetesReparto(repartoModificar), iMod);
                 cambiarPaquete(paqueteModificar);
             break;
+            case 0:
+                break;
             default:
                 printf("Eleccion ewuivocada\n");
             break;
         }
-        printf("\n\nDatos modificados exitosamente.\n\n");
-        printf("Desea seguir modificando este REPARTO?\n\n");
-        printf("\t1. SI\n\t");
-        printf("0. NO\n\n");
-        printf("Seleccione una opcion: ");
-        scanf("%d",&seguirMod);
+        if(SubMenu == 0)
+        {
+            seguirMod = 0;
+        }
+        else
+        {
+            printf("\n\nDatos modificados exitosamente.\n\n");
+            printf("Desea seguir modificando este REPARTO?\n\n");
+            printf("\t1. SI\n\t");
+            printf("0. NO\n\n");
+            printf("Seleccione una opcion: ");
+            scanf("%d",&seguirMod);
+        }
     }while(seguirMod!=0);
 }
 
 bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 {
-    ListaPtr listaOriginal=crearLista();
     bool cambioDetectado=false,cambiosGuardados=false,continuar;
     int resultado=0;
     int EleccionMenuModoAccion = 0;
@@ -632,13 +662,13 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
     }
     else
     {
-        ///----------------------------------------------------///
-            listaOriginal=OriginalRepartos(centroLogistico,esRepartoAbierto);
-        ///----------------------------------------------------///
         do
         {
-            EleccionMenuModoAccion = menuModoAccion(0);
-            mostrarRepartos(centroLogistico,esRepartoAbierto);
+            EleccionMenuModoAccion = menuModoAccion();
+            if(EleccionMenuModoAccion != 0)
+            {
+                mostrarRepartos(centroLogistico,esRepartoAbierto);
+            }
             printf("MODIFICAR REPARTO\n\n");
             switch(EleccionMenuModoAccion)
             {
@@ -665,18 +695,23 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                     cambiarAtributoReparto(repartoModificar);
                 }
                 break;
+            case 0:
+                break;
             default:
                 printf("Eleccion equivocada \n");
                 break;
             }
-            continuar=menuContinuar();
+            if(EleccionMenuModoAccion == 0)
+            {
+                continuar = false;
+            }
+            else
+            {
+                continuar=menuContinuar();
+            }
         }while(continuar);
     }
-    ///----------------------------------------------------///
-        cambioDetectado=CambiosRepartos(centroLogistico,listaOriginal,esRepartoAbierto);
-    ///----------------------------------------------------///
-
-    if(cambioDetectado)
+    if( !cambioDetectado )
     {
         resultado = menuGuardarCambios();
         if(resultado==1)
@@ -696,7 +731,7 @@ RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool 
     FechaPtr FechaBuscar;
     int Menu;
     int Indice;
-    RepartoPtr RepartoElegido=NULL;
+    RepartoPtr RepartoElegido = NULL;
     if( listaVacia( getRepartos( centroLogistico, esRepartoAbierto ) ) )
     {
         printf("Lista de repartos vacia, agregue elementos para seleccionar...\n");
@@ -948,7 +983,10 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto
         {
             system("cls");
             eleccion = menuTipoRepartos();
-            mostrarRepartos(centroLogistico,esRepartoAbierto);
+            if(eleccion != 0)
+            {
+                mostrarRepartos(centroLogistico,esRepartoAbierto);
+            }
             switch(eleccion)
             {
                 case 1:
@@ -970,7 +1008,6 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto
                     menuBuscarRepartoPorIDPaquete(centroLogistico, esRepartoAbierto);
                     break;
                 case 0:
-                    system("cls");
                     break;
                 default:
                     printf("\n\n\t [Opcion invalida...] \n\n");
@@ -979,9 +1016,12 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto
             }
             if(eleccion == 0)
             {
-                break;
+                continuar = false;
             }
-            continuar=menuContinuar();
+            else
+            {
+                continuar=menuContinuar();
+            }
         }while(continuar);
     }
 }

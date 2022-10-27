@@ -136,7 +136,11 @@ void mostrarCuil(CuilPtr cuil);
 //Devuelve: true si son idénticos, false de lo contrario.
 bool cuilsIguales(CuilPtr cuil1,CuilPtr cuil2);
 
-
+//Operación: Carga de cuil
+//Precondición: Cuil debe ser creado en memoria dinamica
+//Postcondición: crea un cuil para ser asignado, y verifica que sea valido
+//Parámetros: puntero al cuil
+//Devuelve: puntero al cuil creado en memoria dinamica
 CuilPtr cargarCuil(CuilPtr cuil);
 
 #endif // TDACUIL_H_INCLUDED

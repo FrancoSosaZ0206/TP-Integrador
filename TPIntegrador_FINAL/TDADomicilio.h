@@ -97,7 +97,11 @@ void mostrarDomicilio(DomicilioPtr domicilio);
 //Devuelve: true si son idénticos, false de lo contrario.
 bool domiciliosIguales(DomicilioPtr domicilio1,DomicilioPtr domicilio2);
 
-
+//Operación: Carga de domicilio
+//Precondición: Domicilio debe ser creado en memoria dinamica
+//Postcondición: crea un domicio para ser asignado
+//Parámetros: puntero al domicilio
+//Devuelve: puntero al domicilio creado en memoria dinamica
 DomicilioPtr cargarDomicilio(DomicilioPtr domicilio);
 
 #endif // TDADOMICILIO_H_INCLUDED
