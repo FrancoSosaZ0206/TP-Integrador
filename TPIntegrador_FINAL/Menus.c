@@ -21,8 +21,8 @@ int menuGuardarCambios()
     do
     {
         printf("\n\n\t Guardar cambios? \n\n");
-        printf("\t     [0 = NO] \n");
-        printf("\t     [1 = SI] \n");
+        printf("\t     [ 0 = NO ] \n");
+        printf("\t     [ 1 = SI ] \n");
         printf("\n\t   Opcion: ");
         limpiarBufferTeclado();
         scanf("%d",&opGuardar);
@@ -43,8 +43,8 @@ bool menuContinuar()
     do
     {
         printf("\n\n\t Desea seguir en este menu? \n\n");
-        printf("\t     [0. NO [Deseo salir] ] \n");
-        printf("\t     [1. SI [Deseo quedarme en el menu] ] \n");
+        printf("\t     [ 0. NO ] \n");
+        printf("\t     [ 1. SI ] \n");
         printf("\n\t   Opcion: ");
         eleccion = seleccionarNumero();
         if(eleccion != 0 && eleccion != 1)
