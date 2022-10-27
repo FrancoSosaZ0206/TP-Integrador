@@ -255,4 +255,63 @@ tanto en el reparto cerrado como en la lista de personas, pero esta vez queda in
 Al incorporar una nueva caracteristica de personas, tambien se corroboro que se lea correctamente en el archivo este campo nuevo para evitar
 perder el registro de que ese chofer ya haya realizado el reparto diario
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+43. Se cambio de lugar las funciones para tener un acceso mucho mas comodo a las mismas
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+44. MenuModoAccion1,2,3 ahora imprime un mensaje cada vez que se equivoca (no limpiar pantalla porque sino se pierde la lista mostrada)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+45. cargar cliente ahora muestra las posibles opciones en busqueda por indice y cuil
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+46. tipo vehiculo mostraba los datos al reves, 1=auto,2=moto, 1=moto,2=auto
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+47. agregado el aviso de que se ingreso una fecha invalida, y un cuil invalido
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+(IGNORAR CAMBIO)
+48. modificado el aspecto visual de menu continuar y menuGuardarCambios
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+49. Correcion del menu busqueda de cliente
+Solucione el problema al elegir un cliente para el paquete
+Se cambio la condicion del while del menuBusquedaCliente caso 2, en lugar de preguntar si es un chofer o no, se pregunta si es igual a NULL solamente
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+50. Correcion del menu cargar persona
+Solucione el error de no verificar que el cuil sea unico
+Se agrego una funcion que busca una coincidencia en la lista comparando cuils, encierra en un do while cargarCuil hasta que sea valido
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+51. Correccion del menu cargar vehiculo
+Soluciones el error de no verificar que la patente sea unica
+Se agrego una funcion que busca una coincidencia en la lista comparando patentes, encierra en un do while scanear patente hasta que sea valido
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+52. Correcion del menu eliminacion
+Solucione el error de no eliminar los indices que correspondian
+Caso 2: Contaba hasta una posicion anterior por usar menuModoAccion1, se agrego una unidad mas
+Caso 3: Contaba hasta la posicion maxima, pero no en el orden que debia, se cambio la condicion del for (i=minimo ; i<=maximo)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+53. Correcion del menu modificacion
+Solucione el error de no modificar los indices que correspondian
+Caso 2: Contaba hasta una posicion anterior por usar menuModoAccion1, se agrego una unidad mas
+Caso 3: Contaba hasta la posicion maxima, pero no en el orden que debia, se cambio la condicion del for (i=minimo ; i<=maximo)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+54. Correcion del menu listados
+Se corrigio la forma de ordenar de las fechas, las condiciones logicas estaban mal empleadas
+Se corrigieron las condiciones de cambio, (Faltaba agregar Cambios = true)
+Se corrigio una condicion logica de comparacion de modelos,(condicion && ), innecesaria
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+55. Correccion del menu repartos
+Solucione el problema de que no informaba cuando el chofer ya habia realizado su reparto diario
+Solucione el problema de que los choferes siempre estaban disponibles, cuando se cierra un reparto, el chofer se le asigna que ya realizo el reparto diario
