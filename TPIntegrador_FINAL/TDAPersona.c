@@ -287,6 +287,7 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
         else
         {
             printf("\n\t [Ha elegido un tipo de persona inadecuado...] \n\n");
+            presionarEnterYLimpiarPantalla();
         }
         break;
     case 2:
@@ -313,6 +314,7 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
         else
         {
             printf("\n\t [Ha elegido un tipo de persona inadecuado...] \n\n");
+            presionarEnterYLimpiarPantalla();
         }
         break;
     case 3:
@@ -337,6 +339,7 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
         else
         {
             printf("\n\t [Ha elegido un tipo de persona inadecuado...] \n\n");
+            presionarEnterYLimpiarPantalla();
         }
         break;
     case 0:
@@ -381,7 +384,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 presionarEnterYLimpiarPantalla();
             }
         }
-        if(!cambiosGuardados)
+        if( !cambiosGuardados )
         {
             continuar = menuContinuar();
         }
@@ -595,6 +598,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 else
                 {
                     printf("ERROR: No ha elegido correctamente \n");
+                    presionarEnterYLimpiarPantalla();
                 }
                 break;
             case 2:
@@ -621,6 +625,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 else
                 {
                     printf("ERROR: No ha elegido correctamente \n");
+                    presionarEnterYLimpiarPantalla();
                 }
                 break;
             case 3:
@@ -645,6 +650,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 else
                 {
                     printf("ERROR: No ha elegido correctamente \n");
+                    presionarEnterYLimpiarPantalla();
                 }
                 break;
             case 0:
@@ -665,10 +671,10 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     }
     if( !cambiosGuardados )
     {
-        resultado=menuGuardarCambios();
+        resultado = menuGuardarCambios();
         if(resultado == 1)
         {
-            cambiosGuardados=guardarPersonas(centroLogistico);
+            cambiosGuardados = guardarPersonas(centroLogistico);
         }
     }
     return cambiosGuardados;

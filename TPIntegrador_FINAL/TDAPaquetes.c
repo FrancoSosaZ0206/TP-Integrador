@@ -346,7 +346,7 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
 {
     int opcion=0;
-    bool cambiosGuardados=false;
+    bool cambiosGuardados = true;
     bool continuar = true;
     int EleccionMenuModoAccion = 0;
     int EleccionAccion = 0;
@@ -411,9 +411,9 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
                 continuar = menuContinuar();
             }
         }
-    }while(continuar == true && !listaVacia( getPaquetes(centroLogistico) ) );
+    }while(continuar && !listaVacia( getPaquetes(centroLogistico) ) );
     notificacionListaVacia( getPaquetes(centroLogistico) );
-    if( cambiosGuardados )
+    if( !cambiosGuardados )
     {
         opcion = menuGuardarCambios();
         if(opcion == 1)
@@ -573,7 +573,7 @@ bool CambiosPaquetes(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal)
 
 bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
 {
-    bool cambiosGuardados=true, continuar;
+    bool cambiosGuardados = true, continuar;
     int modoAccion, Cantidad, Eleccion, resultado;
     int Elecciones[10];
     PaquetePtr paqueteModificar;
@@ -636,7 +636,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
     if( !cambiosGuardados )
     {
         resultado = menuGuardarCambios();
-        if(resultado==1)
+        if(resultado == 1)
         {
             cambiosGuardados=guardarPaquetes(centroLogistico);
         }

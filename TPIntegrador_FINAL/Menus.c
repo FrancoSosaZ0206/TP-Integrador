@@ -24,16 +24,13 @@ int menuGuardarCambios()
         printf("\t     [ 0 = NO ] \n");
         printf("\t     [ 1 = SI ] \n");
         printf("\n\t   Opcion: ");
-        limpiarBufferTeclado();
-        scanf("%d",&opGuardar);
-        limpiarBufferTeclado();
+        opGuardar = seleccionarNumero();
         if(opGuardar != 0 && opGuardar != 1)
         {
             printf("\n\t [Usted ha ingresado una opcion invalida] \n");
             printf("\n\t [Reingrese una opcion valida] \n");
         }
     }while(opGuardar != 0 && opGuardar != 1);
-    system("cls");
     return opGuardar;
 }
 

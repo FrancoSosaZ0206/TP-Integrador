@@ -228,7 +228,7 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
 {
     int opcion=0;
-    bool cambiosGuardados=false;
+    bool cambiosGuardados = true;
     bool continuar;
     int EleccionMenuModoAccion = 0;
     int EleccionAccion = 0;
@@ -256,7 +256,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
                         EleccionAccion = menuModoAccion1(getVehiculos(centroLogistico));
                         vehiculoRemovido = removerVehiculo(centroLogistico, EleccionAccion);
                         vehiculoRemovido = destruirVehiculo(vehiculoRemovido);
-                        cambiosGuardados = true;
+                        cambiosGuardados = false;
                         break;
                     case 2:
                         printf("[ACLARACION]Eliga la cantidad de indices...\n");
@@ -267,7 +267,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
                             vehiculoRemovido = removerVehiculo(centroLogistico,indices[i]-i);
                             vehiculoRemovido = destruirVehiculo(vehiculoRemovido);
                         }
-                        cambiosGuardados = true;
+                        cambiosGuardados = false;
                         break;
                     case 3:
                         menuModoAccion3(getVehiculos(centroLogistico),indices);
@@ -276,7 +276,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
                             vehiculoRemovido = removerVehiculo(centroLogistico,indices[0]);
                             vehiculoRemovido = destruirVehiculo(vehiculoRemovido);
                         }
-                        cambiosGuardados = true;
+                        cambiosGuardados = false;
                         break;
                     case 0:
                         break;
@@ -295,7 +295,7 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
         }
     }while(continuar && !listaVacia( getVehiculos(centroLogistico) ) );
     notificacionListaVacia( getVehiculos(centroLogistico) );
-    if( cambiosGuardados )
+    if( !cambiosGuardados )
     {
         opcion = menuGuardarCambios();
         if(opcion == 1)
@@ -434,7 +434,8 @@ bool CambiosVehiculos(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal
 
 bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
 {
-    bool cambiosGuardados=true, continuar;
+    bool cambiosGuardados = true;
+    bool continuar;
     int modoAccion, Cantidad, Eleccion, resultado;
     int Elecciones[10];
     VehiculoPtr vehiculoModificar;

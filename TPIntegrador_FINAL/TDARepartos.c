@@ -370,7 +370,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
 bool menuCerrarReparto(CentroLogisticoPtr centroLogistico)
 {
-    bool cambiosGuardados=true;
+    bool cambiosGuardados = true;
     bool continuar;
     int EleccionMenuModoAccion=0,EleccionAccion=0,cantIndices=0,resultado=0;
     int indices[100];
@@ -649,7 +649,8 @@ void cambiarAtributoReparto(RepartoPtr repartoModificar)
 
 bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 {
-    bool cambioDetectado=false,cambiosGuardados=false,continuar;
+    bool cambiosGuardados = true;
+    bool continuar;
     int resultado=0;
     int EleccionMenuModoAccion = 0;
     int EleccionAccion = 0;
@@ -676,6 +677,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                 EleccionAccion = menuModoAccion1(getRepartos(centroLogistico,esRepartoAbierto));
                 repartoModificar = getDatoLista(getRepartos(centroLogistico,esRepartoAbierto), EleccionAccion);
                 cambiarAtributoReparto(repartoModificar);
+                cambiosGuardados = false;
                 break;
             case 2:
                 printf("[ACLARACION]Eliga la cantidad de indices...\n");
@@ -686,6 +688,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                     repartoModificar = getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),indices[i]-i);
                     cambiarAtributoReparto(repartoModificar);
                 }
+                cambiosGuardados = false;
                 break;
             case 3:
                 menuModoAccion3(getRepartos(centroLogistico,esRepartoAbierto),indices);
@@ -694,6 +697,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                     repartoModificar = getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i);
                     cambiarAtributoReparto(repartoModificar);
                 }
+                cambiosGuardados = false;
                 break;
             case 0:
                 break;
@@ -711,7 +715,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
             }
         }while(continuar);
     }
-    if( !cambioDetectado )
+    if( !cambiosGuardados )
     {
         resultado = menuGuardarCambios();
         if(resultado==1)
