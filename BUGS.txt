@@ -2,27 +2,35 @@
 						    Lista de bugs 
 ----------------------------------------------------------------------------------------------------------------------------
 
-Realizar el pasaje de las funciones:
+Consignas esenciales del TP(Prioridad de 1ra categoria)
 
-		(Necesarios)
+		1. Corregir armar reparto
+		Se requiere formar multiples clausulas para asegurar que el chofer y el vehiculo esten disponibles
+		Asegurar tanto que existan choferes para elegir, (no que la lista de PERSONAS este vacia)
+		Asegurar que el chofer elegido exista 
+		Asegurar que el chofer elegido no este en un reparto
+		Asegurar que el chofer no haya realizado su reparto diario
+		Asegurar que no se asigne un paquete que no tenga el estado deposito
+
+		2. Agregar funciones de validacion y verificacion
+		Se debe desarrollar funciones que faciliten el punto 1 (Realizadas en gaston v4.1)
+		Entre ellas estan, validacion de cuil unico entre clientes y choferes
+		Validacion de patente entre los vehiculos
+		Validacion de chofer que no se encuentra en algun reparto
+		Validacion de chofer que no haya realizado el reparto diario
+		Valdiacion de vehiculo que no se encuentre en otro reparto
+
+		3. Agregar campo de reparto diario a persona
+		Para poder emplear tanto el punto 1, como el punto 2, 
+		desarrollar sus getters y setters
+		Setearlo en true cuando se cierra el reparto, al chofer del mismo
+		Agregar las funcionalidades al guardado y apertura de archivos de persona
+		Agregar al deposito aquellos paquetes que no hayan sido entregados (distintos de 3)
+
+Realizar el pasaje de las funciones:(Prioridad de 2da categoria)
+
 		- [Aclaracion] Extraer las funciones verificadas [CopiaLista, DetectarCambios, MenuGuardarCambios] en la rama MAIN V3.0, que ya estan solucionados
 		e intentar implementarlas en la MAIN V4.0
-
-		- Verificar que funcionen las aperturas de archivos (Comprobar que no abra los archivos al inverso del guardado)
-		- Revisar los ordenamientos de los campos (ordenarPersonas, ordenarPaquetes, ordenarRepartos, ordenarVehiculos)
-
-
-		(PostData)
-		- Ya comprobe particularmente cada funcion, funcionan como es debido, a modo de precaucion, ir probando de vez en 
-		cuando alguna opcion del menu y experimentar como reacciona el programa ante situaciones de crisis
-		(Por ejemplo: Si ingresamos buscar clientes, y nos pide solicitar un cuil cuando la lista esta vacia)
-
-		
-		(Opcionales) [Por si se aburren...]
-		- Revisar los espaciados entre avisos en la pantalla principal
-		- Revisar las interfaces de los '.h' y verificar que tengan bien las condiciones
-		- Revisar algun error de syntaxis en los menues o en alguna funcion
-		- Ordenar las funciones y espaciarlas
 
 
 - MENUS:
