@@ -454,20 +454,15 @@ void cambiarPersona(CentroLogisticoPtr centroLogistico, PersonaPtr personaAModif
         switch(op)
         {
             case 1:
-                printf("\n\nIngrese el nuevo nombre y apellido de esta manera:");
-                printf("\n\t[Nombre]: ");
-                limpiarBufferTeclado();
-                scanf("%[^\n]%*c",nNombre);
-                limpiarBufferTeclado();
-                printf("\n\t[Apellido]: ");
-                limpiarBufferTeclado();
-                scanf("%[^\n]%*c",nApellido);
-                limpiarBufferTeclado();
+                printf("\n\t [Nombre]: ");
+                seleccionarString(nNombre);
+                printf("\n\t [Apellido]: ");
+                seleccionarString(nApellido);
                 setNombre(personaAModificar,nNombre);
                 setApellido(personaAModificar,nApellido);
             break;
             case 2:
-                printf("\n\nIngrese el nuevo domicilio:");
+                printf("\n\n Ingrese el nuevo domicilio: ");
                 actualizarDomicilio(getDomicilio(personaAModificar));
             break;
             case 3:
@@ -476,10 +471,10 @@ void cambiarPersona(CentroLogisticoPtr centroLogistico, PersonaPtr personaAModif
                     actualizarCuil(getCuilPersona(personaAModificar));
                     if(!VerificarCuilUnico(centroLogistico, getCuil(getCuilPersona(personaAModificar))))
                     {
+                        mostrarPersonas(centroLogistico, 3);
                         printf("\n\n\t [No ha ingresado un cuil unico...] \n\n");
                         printf("\n\t [Verifique que el cuil que ingresa sea unico...] \n");
                         printf("\n\t [Compruebe usted mismo los cuils existentes...] \n\n");
-                        mostrarPersonas(centroLogistico, 3);
                         presionarEnterYLimpiarPantalla();
                     }
                 }while(!VerificarCuilUnico(centroLogistico, getCuil(getCuilPersona(personaAModificar))));
@@ -506,12 +501,7 @@ void cambiarPersona(CentroLogisticoPtr centroLogistico, PersonaPtr personaAModif
         }
         else
         {
-            printf("\n\nDatos modificados exitosamente.\n\n");
-            printf("Desea seguir modificando esta persona?\n\n");
-            printf("\t1. SI\n\t");
-            printf("0. NO\n\n");
-            printf("Seleccione una opcion: ");
-            scanf("%d",&seguirMod);
+            seguirMod = MenuDeseaSeguirModificando();
         }
     } while(seguirMod!=0);
 }
@@ -628,7 +618,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                         cantidadCorrectas++;
                     }
                 }
-                if(cantidadCorrectas==Cantidad)
+                if(cantidadCorrectas == Cantidad+1)
                 {
                     for(int i=0;i<Cantidad+1;i++)
                     {
@@ -653,9 +643,9 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                         cantidadCorrectas++;
                     }
                 }
-                if(cantidadCorrectas==Elecciones[1]-Elecciones[0]+1)
+                if(cantidadCorrectas == Elecciones[1]-Elecciones[0]+1)
                 {
-                    for(int i=Elecciones[0];i<Elecciones[1]+1;i++)
+                    for(int i=Elecciones[0];i<=Elecciones[1];i++)
                     {
                         personaModificar = getDatoLista(getPersonas(centroLogistico),i);
                         cambiarPersona(centroLogistico, personaModificar,esChofer);

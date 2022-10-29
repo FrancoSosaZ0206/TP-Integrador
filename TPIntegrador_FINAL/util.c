@@ -120,3 +120,4 @@ void NotificacionEleccionEquivocada()
     fflush(stdin);
     presionarEnterYLimpiarPantalla();
 }
+

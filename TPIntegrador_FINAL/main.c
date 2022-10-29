@@ -77,13 +77,13 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
         case 1:
             do
             {
-                op1=menuBaseDeDatos();
+                op1 = menuBaseDeDatos();
                 switch(op1)
                 {
                 case 1:
                     do
                     {
-                        op2=menuCargaDeDatos();
+                        op2 = menuCargaDeDatos();
                         switch(op2)
                         {
                         case 1:
@@ -114,7 +114,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 case 2:
                     do
                     {
-                        op2=menuEliminarDatos();
+                        op2 = menuEliminarDatos();
                         switch(op2)
                         {
                         case 1:
@@ -145,7 +145,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 case 3:
                     do
                     {
-                        op2=menuModificacionDatos();
+                        op2 = menuModificacionDatos();
                         switch(op2)
                         {
                         case 1:
@@ -176,7 +176,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 case 4:
                     do
                     {
-                        op2=menuBusquedaDatos();
+                        op2 = menuBusquedaDatos();
                         switch(op2)
                         {
                         case 1:
@@ -210,7 +210,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                     printf("Opcion incorrecta.\n\n");
                     break;
                 }
-            } while(op1!=0);
+            } while(op1 != 0);
             break;
         case 2:
             do
@@ -227,7 +227,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                 case 3:
                     do
                     {
-                        op2=menuEliminarRepartoCompleto();
+                        op2 = menuEliminarRepartoCompleto();
                         switch(op2)
                         {
                             case 1:
@@ -240,8 +240,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
                                 break;
                             case -1:
                                 ///reseteamos esta opcion tambien para que no vuelva al menu anterior, sino al ppal (el de "op")
-                                op1=0;
-                                op2=0;
+                                op1 = 0;
+                                op2 = 0;
                                 break;
                             default:
                                 printf("Opcion incorrecta.\n\n");

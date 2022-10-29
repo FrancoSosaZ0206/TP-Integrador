@@ -431,13 +431,20 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
 
 void cambiarPaquete(CentroLogisticoPtr centroLogistico, PaquetePtr paqueteAModificar)
 {
-    int nAncho,nAlto,nLargo,nPeso,nEstado,seguirMod,op;
+    int nAncho = 0;
+    int nAlto = 0;
+    int nLargo = 0;
+    int nPeso = 0;
+    int nEstado = 0;
+    int seguirMod = 0;
+    int op = 0;
+    bool EstadoValido = false;
     do
     {
         system("cls");
         printf("Ha elegido el - \n\n");
         mostrarPaquete(paqueteAModificar);
-        printf("\n\nQué desea modificar?\n\n");
+        printf("\n\n Qué desea modificar? \n\n");
         printf("1. Ancho\n");
         printf("2. Alto\n");
         printf("3. Largo\n");
@@ -492,11 +499,23 @@ void cambiarPaquete(CentroLogisticoPtr centroLogistico, PaquetePtr paqueteAModif
             actualizarFecha(getFechaEntrega(paqueteAModificar));
             break;
         case 8:
-            helpEstadoPaquete();
-            printf("\n\nIngrese el nuevo estado: ");
-            limpiarBufferTeclado();
-            scanf("%d",&nEstado);
-            setEstado(paqueteAModificar,nEstado);
+            while(!EstadoValido)
+            {
+                helpEstadoPaquete();
+                printf("\n\nIngrese el nuevo estado: ");
+                nEstado = seleccionarNumero();
+                if(nEstado >= 0 && nEstado <= 5)
+                {
+                    EstadoValido = true;
+                }
+                if(!EstadoValido)
+                {
+                    printf("\n\n\t [Estado invalido...] \n");
+                    printf("\n\t [Estados validos: 0,1,2,3,4,5 ] \n\n");
+                    presionarEnterYLimpiarPantalla();
+                }
+            }
+            setEstado(paqueteAModificar, nEstado);
             break;
         case 9:
             cambiarPersona(centroLogistico, getCliente(paqueteAModificar),getEsChofer(getCliente(paqueteAModificar)));
@@ -514,13 +533,7 @@ void cambiarPaquete(CentroLogisticoPtr centroLogistico, PaquetePtr paqueteAModif
         }
         else
         {
-            printf("\n\nDatos modificados exitosamente.\n\n");
-            printf("Desea seguir modificando este paquete?\n\n");
-            printf("\t1. SI\n\t");
-            printf("0. NO\n\n");
-            printf("Seleccione una opcion: ");
-            limpiarBufferTeclado();
-            scanf("%d",&seguirMod);
+            seguirMod = MenuDeseaSeguirModificando();
         }
     }while(seguirMod!=0);
 }

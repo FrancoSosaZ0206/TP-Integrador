@@ -62,6 +62,19 @@ bool menuContinuar()
     }
 }
 
+
+int MenuDeseaSeguirModificando()
+{
+    int Eleccion = 0;
+    printf("\n\n\t Datos modificados exitosamente. \n\n");
+    printf("\t Desea seguir modificando este elemento? \n\n");
+    printf("\t 1. SI \n");
+    printf("\t 0. NO \n\n");
+    printf("Seleccione una opcion: ");
+    scanf("%d",&Eleccion);
+    return Eleccion;
+}
+
 int menuModoAccion()
 {
     system("cls");

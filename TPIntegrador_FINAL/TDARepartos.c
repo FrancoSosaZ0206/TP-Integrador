@@ -636,12 +636,7 @@ void cambiarAtributoReparto(CentroLogisticoPtr centroLogistico, RepartoPtr repar
         }
         else
         {
-            printf("\n\nDatos modificados exitosamente.\n\n");
-            printf("Desea seguir modificando este REPARTO?\n\n");
-            printf("\t1. SI\n\t");
-            printf("0. NO\n\n");
-            printf("Seleccione una opcion: ");
-            scanf("%d",&seguirMod);
+            seguirMod = MenuDeseaSeguirModificando();
         }
     }while(seguirMod!=0);
 }
