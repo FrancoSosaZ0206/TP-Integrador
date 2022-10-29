@@ -1017,17 +1017,17 @@ PaquetePtr removerPaquete(CentroLogisticoPtr centroLogistico,int posicion)
     return (PaquetePtr)removerDeLista(centroLogistico->listaPaquetes,posicion);
 }
 
-PersonaPtr removerPersona(CentroLogisticoPtr centroLogistico,int posicion)
+PersonaPtr removerPersona(CentroLogisticoPtr centroLogistico, int posicion)
 {
     return (PersonaPtr)removerDeLista(centroLogistico->listaPersonas,posicion);
 }
 
-VehiculoPtr removerVehiculo(CentroLogisticoPtr centroLogistico,int posicion)
+VehiculoPtr removerVehiculo(CentroLogisticoPtr centroLogistico, int posicion)
 {
-    return (VehiculoPtr)removerDeLista(centroLogistico->listaVehiculos,posicion);
+    return (VehiculoPtr)removerDeLista(centroLogistico->listaVehiculos, posicion);
 }
 
-RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto)
+RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico, int posicion, bool esRepartoAbierto)
 {
     if(esRepartoAbierto)
     {
@@ -1367,7 +1367,6 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
         system("pause");
     }
 }
-
 
 void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo)
 {

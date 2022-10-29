@@ -215,12 +215,12 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
     VehiculoPtr vehiculoElegido;
     FechaPtr fechaSalida = NULL;
     FechaPtr fechaRetorno = NULL;
-    ListaPtr paquetes=crearLista();
+    ListaPtr paquetes = crearLista();
     PaquetePtr paqueteElegido;
-    bool ExistenDatos=true;
-    bool cambiosGuardados=false;
-    bool continuar;
-    bool valido=false;
+    bool ExistenDatos = true;
+    bool cambiosGuardados = false;
+    bool continuar = false;
+    bool valido = false;
     if(!listaVacia(getVehiculos(centroLogistico)))
     {
         if(!existenVehiculosDisponibles(centroLogistico))
@@ -318,7 +318,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
         }while(!valido);
         system("cls");
         printf("\n\nFecha de salida:");
-        fechaSalida=cargarFecha(fechaSalida);
+        fechaSalida = cargarFecha(fechaSalida);
         printf("\n\nFecha de retorno:");
         fechaRetorno=cargarFecha(fechaRetorno);
         system("cls");
