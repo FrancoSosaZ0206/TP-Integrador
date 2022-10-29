@@ -539,6 +539,76 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
 
 ///////////////////////////////////////////////////FUNCIONES DE VALIDACION//////////////////////////////////////////////////////////////////////////
 
+bool VerificarIDUnico(CentroLogisticoPtr centroLogistico, int ID_Analizar)
+{
+    bool ID_Unico = true;
+    PaquetePtr PaqueteActual;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPaquetes(centroLogistico));
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PaqueteActual = (PaquetePtr)getCabecera(ListaAuxiliar);
+        if(ID_Analizar == getID(PaqueteActual))
+        {
+            ID_Unico = false;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return ID_Unico;
+}
+
+bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
+{
+    PersonaPtr PersonaTemporal;
+    CuilPtr CuilTemporal;
+    bool CuilUnico = true;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPersonas(centroLogistico) );
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PersonaTemporal = (PersonaPtr)getCabecera(ListaAuxiliar);
+        CuilTemporal = getCuilPersona(PersonaTemporal);
+        if( strcmp(getCuil(CuilTemporal), CuilComprobar) == 0 )
+        {
+            CuilUnico = false;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return CuilUnico;
+}
+
+bool VerificarPatenteValida(char* PatenteValidar)
+{
+    bool Valido = false;
+    int ContadorValidas = 0;
+
+    ///Se evalua si tiene 4 letras y 3 numeros
+
+    if( isalpha(PatenteValidar[0]) ) { ContadorValidas++; }
+    if( isalpha(PatenteValidar[1]) ) { ContadorValidas++; }
+
+    if( isdigit(PatenteValidar[3]) ) { ContadorValidas++; }
+    if( isdigit(PatenteValidar[4]) ) { ContadorValidas++; }
+    if( isdigit(PatenteValidar[5]) ) { ContadorValidas++; }
+
+    if( isalpha(PatenteValidar[7]) ) { ContadorValidas++; }
+    if( isalpha(PatenteValidar[8]) ) { ContadorValidas++; }
+
+    if( ContadorValidas == 7 ){ Valido = true; }
+
+    return Valido;
+}
+
+
+
+
+
 bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
 {
     bool match=false;

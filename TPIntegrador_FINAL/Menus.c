@@ -637,8 +637,12 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
         srand(time(NULL));
 
         printf("CARGAR PAQUETE\n\n");
-
-        ID=rand(); //esto no se mostrará sino al final de la carga del paquete.
+        //esto no se mostrará sino al final de la carga del paquete.
+        ID = longitudLista(getPaquetes(centroLogistico))+1;
+        while(!VerificarIDUnico(centroLogistico, ID))
+        {
+            ID++;
+        }
         printf("\tIngrese Ancho: ");
         scanf("%d",&ancho);
         limpiarBufferTeclado();
@@ -717,62 +721,40 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 {
     bool continuar;
-
+    ///Variables para funciones
+    int n=0;
+    ///Vehiculo
+    int tipoVehiculo=0;
+    char marca[100];
+    char modelo[100];
+    char patente[100];
+    VehiculoPtr vehiculo;
     do
     {
-        ///Variables para funciones
-        int n=0;
-        ///Vehiculo
-        int tipoVehiculo=0;
-        char marca[100];
-        char modelo[100];
-        char patente[100];
-        VehiculoPtr vehiculo;
+        printf("\n\nVEHICULO %d\n\n",i+1);
+        helpTipoVehiculo();
+        printf("\tSeleccione un Tipo: ");
+        scanf("%d",&tipoVehiculo);
 
-        do
-        {
-            printf("CARGAR VEHICULO\n\n");
-            printf("Ingrese cantidad de vehiculos a cargar: ");
-            scanf("%d",&n);
-            limpiarBufferTeclado();
+        limpiarBufferTeclado();
+        printf("\n\n\tMarca: ");
+        scanf("%[^\n]%*c",marca);
 
-            if(n<1)
-            {
-                printf("\nCantidad incorrecta.");
-                presionarEnterYLimpiarPantalla();
-            }
-            else
-                system("cls");
-        } while(n<1);
+        limpiarBufferTeclado();
+        printf("\n\tModelo: ");
+        scanf("%[^\n]%*c",modelo);
 
-        for(int i=0;i<n;i++)
-        {
-            if(n>1)
-                printf("\n\nVEHICULO %d\n\n",i+1);
-            helpTipoVehiculo();
-            printf("\tSeleccione un Tipo: ");
-            scanf("%d",&tipoVehiculo);
-            limpiarBufferTeclado();
-            printf("\n\n\tMarca: ");
-            scanf("%[^\n]%*c",marca);
-            limpiarBufferTeclado();
-            printf("\n\tModelo: ");
-            scanf("%[^\n]%*c",modelo);
-            limpiarBufferTeclado();
-            printf("\n\tPatente (AA 000 AA): ");
-            scanf("%[^\n]%*c",patente);
-            limpiarBufferTeclado();
+        while(!)
 
-            vehiculo=crearVehiculo(tipoVehiculo,marca,modelo,patente);
-            agregarDatoLista(centroLogistico->listaVehiculos,(VehiculoPtr)vehiculo);
 
-            printf("\n\nVehiculo cargado exitosamente.");
-            presionarEnterYLimpiarPantalla();
-        }
-        if(n>1)
-            printf("\n\nVehiculos cargados exitosamente.\n\n");
+        vehiculo=crearVehiculo(tipoVehiculo,marca,modelo,patente);
+        agregarDatoLista(centroLogistico->listaVehiculos,(VehiculoPtr)vehiculo);
+
+        printf("\n\nVehiculo cargado exitosamente.");
+        presionarEnterYLimpiarPantalla();
 
         continuar=menuContinuar();
+
     } while(continuar);
 
     return menuGuardarCambios(centroLogistico,3);
