@@ -2811,9 +2811,9 @@ bool ChoferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr PersonaEvalu
     return Match;
 }
 
-bool ExistenChoferes(CentroLogisticoPtr centroLogistico)
+bool ExistenChoferesDisponibles(CentroLogisticoPtr centroLogistico)
 {
-    bool Existen = false;
+    bool ExistenChoferesDisponibles = false;
     PersonaPtr PersonaTemporal;
     ListaPtr ListaAuxiliar = crearLista();
     agregarLista(ListaAuxiliar, getPersonas(centroLogistico));
@@ -2822,14 +2822,14 @@ bool ExistenChoferes(CentroLogisticoPtr centroLogistico)
         PersonaTemporal = (PersonaPtr)getCabecera(ListaAuxiliar);
         if(getEsChofer(PersonaTemporal))
         {
-            Existen = true;
+            ExistenChoferesDisponibles = true;
         }
         ListaPtr ListaDestruir = ListaAuxiliar;
         ListaAuxiliar = getResto(ListaAuxiliar);
         ListaDestruir = destruirLista(ListaDestruir, false);
     }
     ListaAuxiliar = destruirLista(ListaAuxiliar, false);
-    return Existen;
+    return ExistenChoferesDisponibles;
 }
 
 void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
@@ -2857,7 +2857,7 @@ void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
         }
         if(ChoferHabilitado)
         {
-            printf("\n\nPosicion %d.", Contador);
+            printf("\n\nPosicion %d.\n\n", Contador);
             mostrarPersona(PersonaTemporal);
         }
         ListaPtr ListaDestruir = ListaAuxiliar;
@@ -2868,6 +2868,61 @@ void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
     ListaAuxiliar = destruirLista(ListaAuxiliar, false);
 }
 
+void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
+{
+    int Contador = 1;
+    PaquetePtr PaqueteTemporal;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPaquetes(centroLogistico));
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PaqueteTemporal = (PaquetePtr)getCabecera(ListaAuxiliar);
+        if(getEstado(PaqueteTemporal) == 0)
+        {
+            printf("\n\n Posicion %d. \n\n", Contador);
+            mostrarPaquete(PaqueteTemporal);
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+        Contador++;
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+}
+
+bool ExistenPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
+{
+    bool ExistenPaquetesDisponibles = false;
+    PaquetePtr PaqueteTemporal;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPaquetes(centroLogistico));
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PaqueteTemporal = (PaquetePtr)getCabecera(ListaAuxiliar);
+        if(getEstado(PaqueteTemporal) == 0)
+        {
+            ExistenPaquetesDisponibles = true;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return ExistenPaquetesDisponibles;
+}
+
+void DevolverPaquetesAlDeposito(CentroLogisticoPtr centroLogistico, RepartoPtr RepartoCerrar)
+{
+    PaquetePtr PaqueteTemporal;
+    while(!pilaVacia(getPaquetesReparto(RepartoCerrar)))
+    {
+        PaqueteTemporal = (PaquetePtr)desapilar(getPaquetesReparto(RepartoCerrar));
+        if(getEstado(PaqueteTemporal) != 3)
+        {
+            setEstado(PaqueteTemporal, 0);
+        }
+    }
+}
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
@@ -2900,11 +2955,15 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
     {
         SePuedeArmar = false;
     }
-    if(!ExistenChoferes(centroLogistico))
+    if(!ExistenChoferesDisponibles(centroLogistico))
     {
         SePuedeArmar = false;
     }
     if(listaVacia(getPaquetes(centroLogistico)))
+    {
+        SePuedeArmar = false;
+    }
+    if(!ExistenPaquetesDisponibles(centroLogistico))
     {
         SePuedeArmar = false;
     }
@@ -2932,11 +2991,14 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
                     presionarEnterYLimpiarPantalla();
                 }
-                if(!getEsChofer(choferElegido))
+                else
                 {
-                    ChoferValido = false;
-                    printf("\n\nERROR: el indice ingresado no corresponde a un chofer. Vuelva a elegir.");
-                    presionarEnterYLimpiarPantalla();
+                    if(!getEsChofer(choferElegido))
+                    {
+                        ChoferValido = false;
+                        printf("\n\nERROR: el indice ingresado no corresponde a un chofer. Vuelva a elegir.");
+                        presionarEnterYLimpiarPantalla();
+                    }
                 }
                 if(ChoferEnReparto(centroLogistico, choferElegido))
                 {
@@ -2984,7 +3046,8 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                 {
                     ///SELECCION DE PAQUETES
                     PaqueteValido = true;
-                    filtrarPaquetes(centroLogistico, 0);
+                    longLista = longitudLista(getPaquetes(centroLogistico));
+                    mostrarPaquetesDisponibles(centroLogistico);
                     printf("\n\nPaquete nro: %d. ", i+1);
                     printf("Seleccione el paquete a cargar ingresando su indice: ");
                     limpiarBufferTeclado();
@@ -3003,10 +3066,11 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                         presionarEnterYLimpiarPantalla();
                     }
                     system("cls");
-                }while(!PaqueteValido);
+                }while(!PaqueteValido && ExistenPaquetesDisponibles(centroLogistico));
+                setEstado(paqueteElegido, 1);
                 apilar(pilaPaquetesElegidos, (PaquetePtr)paqueteElegido);
-                i++;
                 SeguirApilandoPaquetes = menuContinuar();
+                i++;
             }while(SeguirApilandoPaquetes);
 
             reparto = armarReparto(choferElegido, vehiculoElegido, fechaSalida, fechaRetorno, pilaPaquetesElegidos);
@@ -3052,6 +3116,7 @@ bool menuCerrarRepartoPrototipo(CentroLogisticoPtr centroLogistico)
             }
         }
         RepartoCerrar = removerReparto(centroLogistico, IndiceSeleccionado-1, true);
+        DevolverPaquetesAlDeposito(centroLogistico, RepartoCerrar);
         agregarReparto(centroLogistico, RepartoCerrar, false);
     }
 
