@@ -606,8 +606,26 @@ bool VerificarPatenteValida(char* PatenteValidar)
 }
 
 
-
-
+bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar)
+{
+    VehiculoPtr VehiculoTemporal;
+    bool PatenteUnica = true;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getVehiculos(centroLogistico) );
+    while(!listaVacia(ListaAuxiliar))
+    {
+        VehiculoTemporal = (VehiculoPtr)getCabecera(ListaAuxiliar);
+        if( strcmp( PatenteComprobar, getPatente(VehiculoTemporal) ) == 0 )
+        {
+            PatenteUnica = false;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return PatenteUnica;
+}
 
 bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
 {

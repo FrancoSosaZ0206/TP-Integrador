@@ -412,31 +412,19 @@ DEVUELVE: puntero al cuil cargado
 ADVERTENCIA: No debe crearse el cuil con su constructora, causará memory leaks. */
 CuilPtr cargarCuil()
 {
-    CuilPtr cuil;
-
+    CuilPtr cuil = crearCuil("0000000000000");
     char strCuil[100];
-
-    int i=0;
-
     do
     {
         helpCuil();
         printf("\n\tCUIL: ");
-        scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
-        if(i==0)
-            cuil=crearCuil(strCuil); ///IMPLEMENTACION CAMBIADA
-        else if(i>0 && i<4)
-            setCuil(cuil,strCuil);
-        else    //if(i==4)
-            printf("\n\nIntentos agotados.\n\n");
-
-        i++;
+        scanf("%[^\n]%*c",strCuil);
+        setCuil(cuil,strCuil);
         if(!esCuilValido(cuil))
         {
             printf("Cuil invalido. Vuelva a ingresar.\n\n");
-            if(i>1)
-                presionarEnterYLimpiarPantalla();
+            presionarEnterYLimpiarPantalla();
         }
     } while(!esCuilValido(cuil));
 
@@ -621,22 +609,21 @@ void actualizarFecha(FechaPtr fecha)
 bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 {
     bool continuar;
-
+    int n=0;
+    int i = 1;
+    ///Paquete
+    PaquetePtr paquete;
+    int ID=0;   //el ID del paquete se genera automáticamente, no lo tiene que ingresar el usuario.
+    int ancho=0;//el mismo se genera aleatoriamente.
+    int alto=0;
+    int largo=0;
+    int peso=0;
+    //por defecto, los paquetes se cargan con el estado 0: 'en depósito'.
+    ///Variables para funciones
+    srand(time(NULL));
     do
     {
-        int n=0;
-        ///Paquete
-        PaquetePtr paquete;
-        int ID=0;   //el ID del paquete se genera automáticamente, no lo tiene que ingresar el usuario.
-        int ancho=0;//el mismo se genera aleatoriamente.
-        int alto=0;
-        int largo=0;
-        int peso=0;
-    //por defecto, los paquetes se cargan con el estado 0: 'en depósito'.
-        ///Variables para funciones
-        srand(time(NULL));
-
-        printf("CARGAR PAQUETE\n\n");
+        printf("CARGAR PAQUETE %d.\n\n", i++);
         //esto no se mostrará sino al final de la carga del paquete.
         ID = longitudLista(getPaquetes(centroLogistico))+1;
         while(!VerificarIDUnico(centroLogistico, ID))
@@ -676,21 +663,22 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 }
 bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
+    bool CuilUnico = false;
     bool continuar;
-
+    ///Variables para funciones
+    int n=0;
+    int i = 1;
+    ///Cliente
+    char nombre[100];
+    char apellido[100];
+    PersonaPtr persona;
+    CuilPtr cuil;
     do
     {
-        ///Variables para funciones
-        int n=0;
-        ///Cliente
-        char nombre[100];
-        char apellido[100];
-        PersonaPtr persona;
-
         if(esChofer)
-            printf("CARGAR CHOFER\n\n");
+            printf("CARGAR CHOFER %d.\n\n", i++);
         else
-            printf("CARGAR CLIENTE\n\n");
+            printf("CARGAR CLIENTE %d.\n\n", i++);
 
         printf("\tIngrese Nombre: ");
         scanf("%[^\n]%*c",nombre);
@@ -702,7 +690,18 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         printf("\n\tDomicilio");
         DomicilioPtr domicilio = cargarDomicilio();
 
-        CuilPtr cuil = cargarCuil();
+        CuilUnico = false;
+        while(!CuilUnico)
+        {
+            CuilUnico = true;
+            cuil = cargarCuil();
+            if(!VerificarCuilUnico(centroLogistico, getCuil(cuil)))
+            {
+                CuilUnico = false;
+                printf("\n\n\t[Cuil existente...]\n");
+                presionarEnterYLimpiarPantalla();
+            }
+        }
 
         persona=crearPersona(nombre,apellido,domicilio,cuil,false);
         agregarPersona(centroLogistico,persona);
@@ -714,15 +713,19 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         presionarEnterYLimpiarPantalla();
 
         continuar=menuContinuar();
+
     } while(continuar);
 
     return menuGuardarCambios(centroLogistico,2);
 }
 bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 {
+    bool PatenteValida = false;
+    bool PatenteUnica = false;
     bool continuar;
     ///Variables para funciones
     int n=0;
+    int i = 1;
     ///Vehiculo
     int tipoVehiculo=0;
     char marca[100];
@@ -731,7 +734,7 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
     VehiculoPtr vehiculo;
     do
     {
-        printf("\n\nVEHICULO %d\n\n",i+1);
+        printf("\n\nVEHICULO %d\n\n",i++);
         helpTipoVehiculo();
         printf("\tSeleccione un Tipo: ");
         scanf("%d",&tipoVehiculo);
@@ -744,7 +747,29 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
         printf("\n\tModelo: ");
         scanf("%[^\n]%*c",modelo);
 
-        while(!)
+        PatenteUnica = false;
+        PatenteValida = false;
+        while(!PatenteUnica || !PatenteValida)
+        {
+            PatenteValida = true;
+            PatenteUnica = true;
+            limpiarBufferTeclado();
+            printf("\n\n\tFormato: [AA 111 AA]");
+            printf("\n\n\tPatente: ");
+            scanf("%[^\n]%*c", patente);
+            if(!VerificarPatenteUnica(centroLogistico, patente))
+            {
+                PatenteUnica = false;
+                printf("\n\n\t [Patente existente...]\n");
+                presionarEnterYLimpiarPantalla();
+            }
+            if(!VerificarPatenteValida(patente))
+            {
+                PatenteValida = false;
+                printf("\n\n\t [Patente invalida...]\n");
+                presionarEnterYLimpiarPantalla();
+            }
+        }
 
 
         vehiculo=crearVehiculo(tipoVehiculo,marca,modelo,patente);
