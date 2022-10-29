@@ -264,7 +264,6 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
     printf("\n");
 }
 
-
 void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
 {
     ListaPtr listaAux=crearLista();
@@ -612,8 +611,8 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
 
         bool condicion = fechasIguales(getFechaSalida(repartoAux),getFechaSalida(reparto));
         condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto));
-///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
-///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
+        ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
+        ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
         if(condicion)
             match=true;
         listaAux=getResto(listaAux);

@@ -44,9 +44,7 @@ int main()
 /// **************************************************************************************************************/
 
     CentroLogisticoPtr centroLogistico;
-
     int START_OP=0;
-
     do
     {
         printf("\t    MENU DE INICIO - BIENVENIDO");
