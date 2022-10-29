@@ -275,14 +275,21 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 {
     PaquetePtr paquete;
     ///el ID del paquete se genera automáticamente, no lo tiene que ingresar el usuario.
-    int ID=0,ancho=0,alto=0,largo=0,peso=0,i=1,resultado=0;
+    int ID = 0;
+    int ancho = 0;
+    int alto = 0;
+    int largo = 0;
+    int peso = 0;
+    int i = 1;
+    int resultado = 0;
     FechaPtr fechaEntrega;
     DomicilioPtr dirRetiro;
     DomicilioPtr dirEntrega;
     PersonaPtr persona;
     ///por defecto, los paquetes se cargan con el estado 0: 'en depósito'.
     srand(time(NULL));
-    bool cambiosGuardados=false, continuar;
+    bool cambiosGuardados = false;
+    bool continuar = false;
     if(listaVacia(getPersonas(centroLogistico)))
     {
         printf("No hay destinatarios para elegir\n");
@@ -294,50 +301,49 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
         do
         {
             system("cls");
-            printf("PAQUETE %d\n\n",i++);
+            printf("\n\n\t\t PAQUETE %d. \n\n", i+1);
+            i++;
 
             ///esto no se mostrará sino al final de la carga del paquete.
-            ID=rand();
+            ID = longitudLista(getPaquetes(centroLogistico))+1;
 
-            limpiarBufferTeclado();
-            printf("\tAncho: ");
-            scanf("%d",&ancho);
+            printf("\n\t Ancho: ");
+            ancho = seleccionarNumero();
 
-            limpiarBufferTeclado();
-            printf("\n\tAlto: ");
-            scanf("%d",&alto);
+            printf("\n\t Alto: ");
+            alto = seleccionarNumero();
 
-            limpiarBufferTeclado();
-            printf("\n\tLargo: ");
-            scanf("%d",&largo);
+            printf("\n\t Largo: ");
+            largo = seleccionarNumero();
 
-            limpiarBufferTeclado();
-            printf("\n\tPeso: ");
-            scanf("%d",&peso);
+            printf("\n\t Peso: ");
+            peso = seleccionarNumero();
 
-            printf("\n\tDireccion de retiro:");
-            dirRetiro=cargarDomicilio(dirRetiro);
+            printf("\n\t Direccion de retiro: ");
+            dirRetiro = cargarDomicilio(dirRetiro);
 
-            printf("\n\tDireccion de entrega:");
-            dirEntrega=cargarDomicilio(dirEntrega);
+            printf("\n\t Direccion de entrega: ");
+            dirEntrega = cargarDomicilio(dirEntrega);
 
-            printf("\n\tFecha de entrega:");
-            fechaEntrega=cargarFecha(fechaEntrega);
+            printf("\n\t Fecha de entrega: ");
+            fechaEntrega = cargarFecha(fechaEntrega);
 
-            system("cls");
-
-            printf("Elegir destinatario\n");
+            printf("\n\t Elegir destinatario \n\n");
             persona = menuBusquedaCliente(centroLogistico);
 
-            paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,persona,0);
+            paquete = crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,persona,0);
+
             agregarPaquete(centroLogistico,paquete);
 
-            continuar=menuContinuar();
+            continuar = menuContinuar();
+
         } while(continuar);
-        resultado=menuGuardarCambios();
-        if(resultado==1)
+
+        resultado = menuGuardarCambios();
+
+        if(resultado == 1)
         {
-            cambiosGuardados=guardarPaquetes(centroLogistico);
+            cambiosGuardados = guardarPaquetes(centroLogistico);
         }
     }
     return cambiosGuardados;
@@ -345,20 +351,19 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 
 bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
 {
-    int opcion=0;
+    int opcion = 0;
     bool cambiosGuardados = true;
     bool continuar = true;
     int EleccionMenuModoAccion = 0;
     int EleccionAccion = 0;
     int indices[100];
-    int cantIndices=0;
-    PaquetePtr paqueteRemovido=(PaquetePtr)obtenerMemoria(sizeof(Paquete));
+    int cantIndices = 0;
+    PaquetePtr paqueteRemovido;
     do
     {
         if( listaVacia( getPaquetes(centroLogistico) ) )
         {
             printf("ERROR: Lista vacia. Debe agregar paquetes para poder eliminarlos.\n\n");
-            presionarEnterYLimpiarPantalla();
         }
         else
         {
@@ -424,7 +429,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
     return cambiosGuardados;
 }
 
-void cambiarPaquete(PaquetePtr paqueteAModificar)
+void cambiarPaquete(CentroLogisticoPtr centroLogistico, PaquetePtr paqueteAModificar)
 {
     int nAncho,nAlto,nLargo,nPeso,nEstado,seguirMod,op;
     do
@@ -447,6 +452,7 @@ void cambiarPaquete(PaquetePtr paqueteAModificar)
         limpiarBufferTeclado();
         scanf("%d",&op);
         limpiarBufferTeclado();
+        printf("\n\n");
         switch(op)
         {
         case 1:
@@ -493,7 +499,7 @@ void cambiarPaquete(PaquetePtr paqueteAModificar)
             setEstado(paqueteAModificar,nEstado);
             break;
         case 9:
-            cambiarPersona(getCliente(paqueteAModificar),getEsChofer(getCliente(paqueteAModificar)));
+            cambiarPersona(centroLogistico, getCliente(paqueteAModificar),getEsChofer(getCliente(paqueteAModificar)));
             break;
         case 0:
             break;
@@ -596,7 +602,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
             case 1:
                 Eleccion=menuModoAccion1(getPaquetes(centroLogistico));
                 paqueteModificar=getDatoLista(getPaquetes(centroLogistico),Eleccion);
-                cambiarPaquete(paqueteModificar);
+                cambiarPaquete(centroLogistico, paqueteModificar);
                 cambiosGuardados = false;
                 break;
             case 2:
@@ -606,7 +612,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
                 for(int i=0;i<Cantidad+1;i++)
                 {
                     paqueteModificar=getDatoLista(getPaquetes(centroLogistico),Elecciones[i]);
-                    cambiarPaquete(paqueteModificar);
+                    cambiarPaquete(centroLogistico, paqueteModificar);
                 }
                 cambiosGuardados = false;
                 break;
@@ -615,7 +621,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
                 for(int i=Elecciones[0];i<=Elecciones[1];i++)
                 {
                     paqueteModificar=getDatoLista(getPaquetes(centroLogistico),i);
-                    cambiarPaquete(paqueteModificar);
+                    cambiarPaquete(centroLogistico, paqueteModificar);
                 }
                 cambiosGuardados = false;
                 break;

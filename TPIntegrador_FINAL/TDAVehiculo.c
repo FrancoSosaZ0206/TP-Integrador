@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
 #include <time.h>
 #include "TDAVehiculo.h"
@@ -40,49 +41,25 @@ VehiculoPtr destruirVehiculo(VehiculoPtr vehiculo)
                                 ///SECCION DE FUNCIONES DE GETTERS///
 ///-----------------------------------------------------------------------------------------------------------///
 
-int getTipoVehiculo(VehiculoPtr vehiculo)
-{
-    return vehiculo->tipo;
-}
+int getTipoVehiculo(VehiculoPtr vehiculo) { return vehiculo->tipo; }
 
-char *getMarca(VehiculoPtr vehiculo)
-{
-    return vehiculo->marca;
-}
+char *getMarca(VehiculoPtr vehiculo) { return vehiculo->marca; }
 
-char *getModelo(VehiculoPtr vehiculo)
-{
-    return vehiculo->modelo;
-}
+char *getModelo(VehiculoPtr vehiculo) { return vehiculo->modelo; }
 
-char *getPatente(VehiculoPtr vehiculo)
-{
-    return vehiculo->patente;
-}
+char *getPatente(VehiculoPtr vehiculo) { return vehiculo->patente; }
 
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE FUNCIONES DE SETTERS///
 ///-----------------------------------------------------------------------------------------------------------///
 
-void setTipoVehiculo(VehiculoPtr vehiculo,int tipo)
-{
-    vehiculo->tipo=tipo;
-}
+void setTipoVehiculo(VehiculoPtr vehiculo, int tipo) { vehiculo->tipo = tipo; }
 
-void setMarca(VehiculoPtr vehiculo,char *marca)
-{
-    strcpy(vehiculo->marca,marca);
-}
+void setMarca(VehiculoPtr vehiculo, char *marca) { strcpy(vehiculo->marca, marca); }
 
-void setModelo(VehiculoPtr vehiculo,char *modelo)
-{
-    strcpy(vehiculo->modelo,modelo);
-}
+void setModelo(VehiculoPtr vehiculo, char *modelo) { strcpy(vehiculo->modelo, modelo); }
 
-void setPatente(VehiculoPtr vehiculo,char *patente)
-{
-    strcpy(vehiculo->patente,patente);
-}
+void setPatente(VehiculoPtr vehiculo, char *patente) { strcpy(vehiculo->patente, patente); }
 
 ///-----------------------------------------------------------------------------------------------------------///
                         ///SECCION DE FUNCIONES DE OPERACION CON VEHICULO///
@@ -106,17 +83,13 @@ void helpTipoVehiculo()
     printf("Tipo 3 = CAMION\n");
 }
 
-void tipoVehiculo(VehiculoPtr vehiculo){
-    switch(getTipoVehiculo(vehiculo)){
-        case 1:
-            printf("MOTO\n");
-            break;
-        case 2:
-            printf("AUTO\n");
-            break;
-        case 3:
-            printf("CAMION\n");
-            break;
+void tipoVehiculo(VehiculoPtr vehiculo)
+{
+    switch(getTipoVehiculo(vehiculo))
+    {
+        case 1: printf("MOTO\n"); break;
+        case 2: printf("AUTO\n"); break;
+        case 3: printf("CAMION\n"); break;
     }
 }
 
@@ -126,26 +99,23 @@ void mostrarTipoVehiculo(VehiculoPtr vehiculo)
 {
     switch(getTipoVehiculo(vehiculo))
     {
-    case 1:
-        printf("El vehiculo recibido es de tipo MOTO.\n\n");
-        break;
-    case 2:
-        printf("El vehiculo recibido es de tipo AUTO.\n\n");
-        break;
-    case 3:
-        printf("El vehiculo recibido es de tipo CAMION.\n\n");
-        break;
-    default:
-         printf("ERROR: No existe tipo de vehículo para el numero '%d'.\n",getTipoVehiculo(vehiculo));
-         printf("Si desconoce los tipos existentes, llame a la funcion 'helpTipoVehiculo()'.\n");
-         printf("Ingrese otro invocando a la funcion 'setTipoVehiculo()'.\n");
+        case 1: printf("El vehiculo recibido es de tipo MOTO.\n\n"); break;
+        case 2: printf("El vehiculo recibido es de tipo AUTO.\n\n"); break;
+        case 3: printf("El vehiculo recibido es de tipo CAMION.\n\n"); break;
     }
     printf("\n\n");
 }
 
 bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2)
 {
-    return strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0;
+    bool Igualdad = false;
+    int ResultadoComparacion = 0;
+    ResultadoComparacion = strcmp(getPatente(vehiculo1),getPatente(vehiculo2));
+    if(ResultadoComparacion == 0)
+    {
+        Igualdad = true;
+    }
+    return Igualdad;
 }
 
 
@@ -170,6 +140,28 @@ bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComp
     return PatenteUnica;
 }
 
+bool VerificarPatenteValida(char* PatenteValidar)
+{
+    bool Valido = false;
+    int ContadorValidas = 0;
+
+    ///Se evalua si tiene 4 letras y 3 numeros
+
+    if( isalpha(PatenteValidar[0]) ) { ContadorValidas++; }
+    if( isalpha(PatenteValidar[1]) ) { ContadorValidas++; }
+
+    if( isdigit(PatenteValidar[3]) ) { ContadorValidas++; }
+    if( isdigit(PatenteValidar[4]) ) { ContadorValidas++; }
+    if( isdigit(PatenteValidar[5]) ) { ContadorValidas++; }
+
+    if( isalpha(PatenteValidar[7]) ) { ContadorValidas++; }
+    if( isalpha(PatenteValidar[8]) ) { ContadorValidas++; }
+
+    if( ContadorValidas == 7 ){ Valido = true; }
+
+    return Valido;
+}
+
 
 bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 {
@@ -178,49 +170,59 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
     char modelo[100];
     char patente[100];
     VehiculoPtr vehiculo;
+    bool TipoValido = false;
     bool PatenteUnica = false;
+    bool PatenteValida = false;
     bool cambiosGuardados=false, continuar;
     do
     {
         system("cls");
         printf("VEHICULO %d\n\n",i++);
 
-        helpTipoVehiculo();
-
-        limpiarBufferTeclado();
-        printf("\n\n\tSeleccione un Tipo: ");
-        scanf("%d",&tipoVehiculo);
-
-        limpiarBufferTeclado();
-        printf("\n\tMarca: ");
-        scanf("%[^\n]%*c",marca);
-
-        limpiarBufferTeclado();
-        printf("\n\tModelo: ");
-        scanf("%[^\n]%*c",modelo);
-
-        do
+        while(!TipoValido)
         {
-            limpiarBufferTeclado();
-            printf("\n\tPatente (AA 000 AA): ");
-            scanf("%[^\n]%*c",patente);
-            PatenteUnica = VerificarPatenteUnica(centroLogistico, patente);
-            if(!PatenteUnica)
+            helpTipoVehiculo();
+            printf("\n\n\tSeleccione un Tipo: ");
+            tipoVehiculo = seleccionarNumero();
+            if(!TipoValido)
             {
-                printf("\n\n\t [Usted ha ingresado una patente ya existente...] \n\n");
+                printf("\n\n\t [Ingrese un tipo valido por favor...] \n\n");
                 presionarEnterYLimpiarPantalla();
             }
-        }while(!PatenteUnica);
+        }
 
+        printf("\n\tMarca: ");
+        seleccionarString(marca);
+
+        printf("\n\tModelo: ");
+        seleccionarString(modelo);
+
+        while( !PatenteUnica || !PatenteValida )
+        {
+            printf("\n\tPatente (AA 000 AA): ");
+            seleccionarString(patente);
+            PatenteUnica = VerificarPatenteUnica(centroLogistico, patente);
+            PatenteValida = VerificarPatenteValida(patente);
+            if(!PatenteUnica)
+            {
+                printf("\n\n\t [Usted ha ingresado una patente ya existente...] \n\n");presionarEnterYLimpiarPantalla();
+            }
+            if(!PatenteValida)
+            {
+                printf("\n\n\t [Usted ha ingresado una patente invalida...] \n\n");
+                presionarEnterYLimpiarPantalla();
+            }
+        }
+        ConvertirMayusculasString(patente);
         vehiculo=crearVehiculo(tipoVehiculo,marca,modelo,patente);
         agregarVehiculo(centroLogistico,vehiculo);
 
-        continuar=menuContinuar();
+        continuar = menuContinuar();
     } while(continuar);
     resultado=menuGuardarCambios();
     if(resultado==1)
     {
-        cambiosGuardados=guardarVehiculos(centroLogistico);
+        cambiosGuardados = guardarVehiculos(centroLogistico);
     }
     return cambiosGuardados;
 }
@@ -234,13 +236,12 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
     int EleccionAccion = 0;
     int indices[100];
     int cantIndices=0;
-    VehiculoPtr vehiculoRemovido = (VehiculoPtr)obtenerMemoria(sizeof(Vehiculo));
+    VehiculoPtr vehiculoRemovido;
     do
     {
         if(listaVacia(getVehiculos(centroLogistico)))
         {
             printf("ERROR: Lista vacía. Debe agregar vehiculos para poder eliminarlos.\n\n");
-            presionarEnterYLimpiarPantalla();
         }
         else
         {
@@ -306,13 +307,16 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
     return cambiosGuardados;
 }
 
-void cambiarVehiculo(VehiculoPtr vehiculoAModificar)
+void cambiarVehiculo(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculoAModificar)
 {
     int op=0;
     int nTipo=0;
     char nMarca[100];
     char nModelo[100];
     char nPatente[100];
+    bool PatenteValida = false;
+    bool PatenteUnica = false;
+    bool TipoValido = false;
     int seguirMod=0;
     do
     {
@@ -332,18 +336,21 @@ void cambiarVehiculo(VehiculoPtr vehiculoAModificar)
         switch(op)
         {
         case 1:
-            printf("\n\n");
-            helpTipoVehiculo();
-            printf("\n\nSeleccione una opcion: ");
-            scanf("%d",&nTipo);
-            if(nTipo > 0 && nTipo < 4)
+            while(!TipoValido)
             {
-                setTipoVehiculo(vehiculoAModificar, nTipo);
-            }
-            else
-            {
-                printf("Opcion incorrecta...\n");
-                presionarEnterYLimpiarPantalla();
+                printf("\n\n");
+                helpTipoVehiculo();
+                printf("\n\n Seleccione una opcion: ");
+                nTipo = seleccionarNumero();
+                if(nTipo > 0 && nTipo < 4)
+                {
+                    TipoValido = true;
+                }
+                if(!TipoValido)
+                {
+                    printf("\n\n\t [Ingrese un tipo de vehiculo valido...] \n\n");
+                    presionarEnterYLimpiarPantalla();
+                }
             }
             break;
         case 2:
@@ -357,8 +364,28 @@ void cambiarVehiculo(VehiculoPtr vehiculoAModificar)
             setModelo(vehiculoAModificar,nModelo);
             break;
         case 4:
-            printf("\n\nIngrese la nueva patente (AA 111 AA):\n\t");
-            scanf("%[^\n]%*c",nPatente);
+            do
+            {
+                printf("\n\n\t Ingrese la nueva patente (AA 111 AA):");
+                seleccionarString(nPatente);
+                PatenteUnica = VerificarPatenteUnica(centroLogistico, nPatente);
+                PatenteValida = VerificarPatenteValida(nPatente);
+                if(!PatenteUnica)
+                {
+                    printf("\n\n\t [Patente ya  existente...] \n");
+                    printf("\n\t [Ingrese una valida por favor...] \n");
+                    printf("\n\t [Compruebe las patentes existentes...] \n\n");
+                    mostrarVehiculos(centroLogistico);
+                    presionarEnterYLimpiarPantalla();
+                }
+                if(!PatenteValida)
+                {
+                    printf("\n\n\t [Patente invalida...] \n");
+                    printf("\n\t [Formato valido: [AA 111 AAA] ...] \n");
+                    printf("\n\t [Formato valido: [(LETRA)(LETRA) (NUMERO)(NUMERO)(NUMERO) (LETRA)(LETRA)] ...] \n\n");
+                    presionarEnterYLimpiarPantalla();
+                }
+            }while(!PatenteUnica || !PatenteValida);
             setPatente(vehiculoAModificar,nPatente);
             break;
         case 0:
@@ -373,10 +400,10 @@ void cambiarVehiculo(VehiculoPtr vehiculoAModificar)
         }
         else
         {
-            printf("\n\nDatos modificados exitosamente.\n\n");
-            printf("Desea seguir modificando este vehiculo?\n\n");
-            printf("\t1. SI\n\t");
-            printf("0. NO\n\n");
+            printf("\n\n Datos modificados exitosamente. \n\n");
+            printf("Desea seguir modificando este vehiculo? \n\n");
+            printf("\t 1. SI \n");
+            printf("\t 0. NO \n\n");
             printf("Seleccione una opcion: ");
             scanf("%d",&seguirMod);
         }
@@ -455,35 +482,35 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
             }
             switch(modoAccion)
             {
-            case 1:
-                Eleccion=menuModoAccion1(getVehiculos(centroLogistico));
-                vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Eleccion);
-                cambiarVehiculo(vehiculoModificar);
-                cambiosGuardados = false;
-                break;
-            case 2:
-                printf("[ACLARACION]Eliga la cantidad de indices...\n");
-                Cantidad=menuModoAccion1(getVehiculos(centroLogistico));
-                menuModoAccion2(getVehiculos(centroLogistico),Cantidad,Elecciones);
-                for(int i=0;i<Cantidad+1;i++)
-                {
-                    vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Elecciones[i]);
-                    cambiarVehiculo(vehiculoModificar);
-                }
-                cambiosGuardados = false;
-                break;
-            case 3:
-                menuModoAccion3(getVehiculos(centroLogistico),Elecciones);
-                for(int i=Elecciones[0];i<=Elecciones[1];i++)
-                {
-                    vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),i);
-                    cambiarVehiculo(vehiculoModificar);
-                }
-                cambiosGuardados = false;
-                break;
-            default:
-                printf("Eleccion equivocada \n");
-                break;
+                case 1:
+                        Eleccion=menuModoAccion1(getVehiculos(centroLogistico));
+                        vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Eleccion);
+                        cambiarVehiculo(centroLogistico, vehiculoModificar);
+                        cambiosGuardados = false;
+                    break;
+                case 2:
+                        printf("[ACLARACION]Eliga la cantidad de indices...\n");
+                        Cantidad=menuModoAccion1(getVehiculos(centroLogistico));
+                        menuModoAccion2(getVehiculos(centroLogistico),Cantidad,Elecciones);
+                        for(int i=0;i<Cantidad+1;i++)
+                        {
+                            vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),Elecciones[i]);
+                            cambiarVehiculo(centroLogistico, vehiculoModificar);
+                        }
+                        cambiosGuardados = false;
+                    break;
+                case 3:
+                        menuModoAccion3(getVehiculos(centroLogistico),Elecciones);
+                        for(int i=Elecciones[0];i<=Elecciones[1];i++)
+                        {
+                            vehiculoModificar=getDatoLista(getVehiculos(centroLogistico),i);
+                            cambiarVehiculo(centroLogistico, vehiculoModificar);
+                        }
+                        cambiosGuardados = false;
+                    break;
+                default:
+                    printf("Eleccion equivocada \n");
+                    break;
             }
             if(modoAccion == 0)
             {

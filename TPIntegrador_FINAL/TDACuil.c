@@ -260,6 +260,7 @@ CuilPtr cargarCuil(CuilPtr cuil)
     char strCuil[100];
     do
     {
+        printf("\n\n\t [INGRESE ESTRICTAMENTE DE ESTA FORMA] \n\n");
         helpCuil();
         printf("\n\tCUIL:");
         limpiarBufferTeclado();
@@ -284,14 +285,20 @@ void actualizarCuil(CuilPtr cuil)
     char strCuil[100];
     do
     {
+        printf("\n\n\t [INGRESE ESTRICTAMENTE DE ESTA FORMA] \n\n");
         helpCuil();
-        printf("\n\n\tNuevo CUIL: ");
+        printf("\n\n\tNuevo CUIL:");
         limpiarBufferTeclado();
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
 
         setCuil(cuil,strCuil);
 
-        system("cls");
+        if(!esCuilValido(cuil))
+        {
+            printf("\n\t [Usted no ha ingresado un cuil en un formato valido] \n");
+            printf("\t [Debera reingresar un cuil hasta que ingrese uno valido] \n\n");
+            presionarEnterYLimpiarPantalla();
+        }
     } while(!esCuilValido(cuil));
 }

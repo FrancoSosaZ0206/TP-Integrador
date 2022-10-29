@@ -254,12 +254,4 @@ void mostrarEstadopaquete(PaquetePtr paquete); //muestra solo el estado actual d
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2);
 
 
-//Operación: Modificacion
-//Precondición: PaqueteModificar debe ser creado en memoria dinamica
-//Postcondición: altera algun campo del paquete a pedido del usuario
-//Parámetros: puntero al paquete a modificar
-//Devuelve: vacio
-void cambiarPaquete(PaquetePtr paqueteAModificar);
-
-
 #endif // TDAPAQUETES_H_INCLUDED

@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef char* String;
+typedef void* PtrDato;
+typedef int* Array;
+
 //FUNCIÓN DE OBTENCIÓN DE MEMORIA
 //PRECONDICIÓN: Debe haber espacio en memoria disponible
 //POSTCONDICIÓN: Devuelve un puntero a memoria dinamica
@@ -59,5 +63,23 @@ int seleccionarNumero();
 //PARÁMETROS: PUNTERO A CHAR
 //DEVUELVE: VOID.
 void seleccionarString(char* STRING);
+
+/// OPERACION: MOSTRAR
+/// PRECONDICIÓN: EL STRING DEBE HABER RESERVADO MEMORIA
+/// YA SEA EN MEMORIA ESTATICA O DINAMICA
+/// POSTCONDICIÓN: MUESTRA UN STRING POR PANTALLA CON
+/// ESPACIADOS, TABULACIONES, Y DECORACIONES
+/// PARÁMETROS: PUNTERO A CHAR
+/// DEVUELVE: VOID
+void ImprimirString(char* StringImprimir);
+
+/// OPERACION: TRANSFORMAR
+/// PRECONDICIÓN: EL STRING DEBE HABER RESERVADO MEMORIA
+/// YA SEA EN MEMORIA ESTATICA O DINAMICA
+/// POSTCONDICIÓN: CONVIERTE CADA CARACTER INDIVIDUALMENTE
+/// EN MAYUSCULAS, INDEPENDIENTEMENTE DEL ESTADO DEL STRING
+/// PARÁMETROS: PUNTERO A CHAR
+/// DEVUELVE: VOID
+void ConvertirMayusculasString(char* StringConvertir);
 
 #endif // UTIL_H_INCLUDED

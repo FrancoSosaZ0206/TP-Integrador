@@ -99,4 +99,24 @@ void ignorar(){
     }
 }
 
+void ConvertirMayusculasString(char* StringConvertir)
+{
+    for(int i = 0 ; i < strlen(StringConvertir) ; i++)
+    {
+        StringConvertir[i] = toupper(StringConvertir[i]);
+    }
+}
 
+void ImprimirString(char* StringImprimir)
+{
+    printf("\n\n\t String: %s \n\n", StringImprimir);
+}
+
+void NotificacionEleccionEquivocada()
+{
+    fflush(stdin);
+    printf("\n\n\t [Usted ha elegido una opcion equivocada...] \n\n");
+    printf("\n\n\t [Lea bien las instrucciones otorgadas...] \n\n");
+    fflush(stdin);
+    presionarEnterYLimpiarPantalla();
+}

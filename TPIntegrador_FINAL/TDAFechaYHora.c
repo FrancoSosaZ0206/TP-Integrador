@@ -331,6 +331,7 @@ void actualizarFecha(FechaPtr fecha)
     do
     {
         limpiarBufferTeclado();
+        printf("\n\n\t [INGRESE ESTRICTAMENTE DE ESTA FORMA] \n\n");
         printf("\n\n\t\tFecha (DD MM AAAA) --- Horario (HH MM): ");
         scanf("%d %d %d %d %d",&dia,&mes,&anio,&hora,&minuto);
         limpiarBufferTeclado();
@@ -341,6 +342,12 @@ void actualizarFecha(FechaPtr fecha)
         setHora(fecha,hora);
         setMinuto(fecha,minuto);
 
-        system("cls");
+        if( !esFechaValida(fecha) )
+        {
+            printf("\n\t [Usted no ha ingresado una fecha con el formato apropiado] \n");
+            printf("\t [Debera reingresar la fecha, hasta que ingrese una fecha en condiciones] \n\n");
+            presionarEnterYLimpiarPantalla();
+        }
+
     }while(!esFechaValida(fecha));
 }

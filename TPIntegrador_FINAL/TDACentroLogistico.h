@@ -686,4 +686,29 @@ bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
 //Devuelve: booleano
 bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar);
 
+
+//Operación: Modificacion
+//Precondición: PaqueteModificar debe ser creado en memoria dinamica
+//Postcondición: altera algun campo del paquete a pedido del usuario
+//Parámetros: puntero al paquete a modificar
+// puntero a centro logistico
+//Devuelve: vacio
+void cambiarPaquete(CentroLogisticoPtr centroLogistico, PaquetePtr paqueteAModificar);
+
+//Operación: Modificacion
+//Precondición: PersonaModificar debe ser creado en memoria dinamica
+//Postcondición: altera algun campo de la persona a pedido del usuario
+//Parámetros: puntero a la persona a modificar
+// puntero a centro logistico
+//Devuelve: vacio
+void cambiarPersona(CentroLogisticoPtr centroLogistico, PersonaPtr personaAModificar, bool esChofer);
+
+//Operación: Modificacion
+//Precondición: VehiculoModificar debe ser creado en memoria dinamica
+//Postcondición: altera algun campo del vehiculo a pedido del usuario
+//Parámetros: puntero al vehiculo a modificar
+// puntero a centro logistico
+//Devuelve: vacio
+void cambiarVehiculo(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculoAModificar);
+
 #endif // TDACENTROLOGISTICO_H_INCLUDED

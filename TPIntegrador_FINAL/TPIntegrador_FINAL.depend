@@ -721,7 +721,7 @@
 	"util.h"
 	"TDANodo.h"
 
-1666618966 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\util.h
+1667001349 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\util.h
 	<stdio.h>
 	<stdlib.h>
 
@@ -735,7 +735,7 @@
 	<stdbool.h>
 	"TDANodo.h"
 
-1666904108 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacentrologistico.h
+1666998310 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacentrologistico.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -745,7 +745,7 @@
 	"TDAVehiculo.h"
 	"TDARepartos.h"
 
-1666904108 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapaquetes.h
+1666997951 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapaquetes.h
 	<stdio.h>
 	<stdlib.h>
 	"TDAFechaYHora.h"
@@ -762,7 +762,7 @@
 	<stdlib.h>
 	<stdbool.h>
 
-1666904108 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapersona.h
+1666997951 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapersona.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -774,7 +774,7 @@
 	<stdlib.h>
 	<stdbool.h>
 
-1666904108 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdavehiculo.h
+1666999684 c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdavehiculo.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -800,9 +800,10 @@
 	"TDANodo.h"
 	"Lista.h"
 
-1666904108 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\main.c
+1667001363 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\main.c
 	<stdio.h>
 	<stdlib.h>
+	<ctype.h>
 	<stdbool.h>
 	<string.h>
 	<math.h>
@@ -846,7 +847,7 @@
 	"TDACentroLogistico.h"
 	"util.h"
 
-1666904108 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacuil.c
+1666997751 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacuil.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -861,7 +862,7 @@
 	"TDADomicilio.h"
 	"util.h"
 
-1666904108 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdafechayhora.c
+1666997443 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdafechayhora.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -875,7 +876,7 @@
 	"util.h"
 	"TDANodo.h"
 
-1666904726 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapaquetes.c
+1666997960 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapaquetes.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -890,7 +891,7 @@
 	"Files.h"
 	"Menus.h"
 
-1666904609 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapersona.c
+1666998214 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdapersona.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -904,7 +905,7 @@
 	"Lista.h"
 	"util.h"
 
-1666904883 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdarepartos.c
+1666998314 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdarepartos.c
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -919,9 +920,10 @@
 	"Files.h"
 	"Menus.h"
 
-1666904876 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdavehiculo.c
+1667001138 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdavehiculo.c
 	<stdio.h>
 	<stdlib.h>
+	<ctype.h>
 	<string.h>
 	<time.h>
 	"TDAVehiculo.h"
@@ -944,7 +946,7 @@
 	"TDARepartos.h"
 	"Files.h"
 
-1666618966 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\util.c
+1667001274 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\util.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -953,7 +955,7 @@
 	<ctype.h>
 	<stdbool.h>
 
-1666904563 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\menus.c
+1666996519 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\menus.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

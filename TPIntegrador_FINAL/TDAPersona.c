@@ -287,6 +287,8 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
         else
         {
             printf("\n\t [Ha elegido un tipo de persona inadecuado...] \n\n");
+            printf("\n\n\t [Se procedera a retirarlo del menu...] \n\n");
+            printf("\n\t [Se deshara todas las elecciones realizadas...] \n\n");
             presionarEnterYLimpiarPantalla();
         }
         break;
@@ -302,9 +304,9 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
                 cantidadCorrectas++;
             }
         }
-        if(cantidadCorrectas == cantIndices)
+        if(cantidadCorrectas == cantIndices+1)
         {
-            for(int i=0;i<cantIndices;i++)
+            for(int i=0;i<cantIndices+1;i++)
             {
                 personaRemovida = removerPersona(centroLogistico,indices[i]-i);
                 personaRemovida = destruirPersona(personaRemovida);
@@ -314,13 +316,15 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
         else
         {
             printf("\n\t [Ha elegido un tipo de persona inadecuado...] \n\n");
+            printf("\n\n\t [Se procedera a retirarlo del menu...] \n\n");
+            printf("\n\t [Se deshara todas las elecciones realizadas...] \n\n");
             presionarEnterYLimpiarPantalla();
         }
         break;
     case 3:
         cantidadCorrectas=0;
         menuModoAccion3(getPersonas(centroLogistico),indices);
-        for(int i=indices[0];i<indices[1]+1;i++)
+        for(int i=indices[0];i<=indices[1];i++)
         {
             if(getEsChofer(getDatoLista(getPersonas(centroLogistico),i)) == esChofer)
             {
@@ -329,7 +333,7 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
         }
         if(cantidadCorrectas == indices[1]-indices[0]+1)
         {
-            for(int i=indices[0];i<indices[1]+1;i++)
+            for(int i=indices[0];i<=indices[1];i++)
             {
                 personaRemovida = removerPersona(centroLogistico,indices[0]);
                 personaRemovida = destruirPersona(personaRemovida);
@@ -339,6 +343,8 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
         else
         {
             printf("\n\t [Ha elegido un tipo de persona inadecuado...] \n\n");
+            printf("\n\t [Se procedera a retirarlo del menu...] \n");
+            printf("\n\t [Se deshara todas las elecciones realizadas...] \n\n");
             presionarEnterYLimpiarPantalla();
         }
         break;
@@ -369,7 +375,6 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             else
             {
                 printf("\n\t [No existen choferes para eliminar...] \n");
-                presionarEnterYLimpiarPantalla();
             }
         }
         else
@@ -381,7 +386,6 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             else
             {
                 printf("\n\t [No existen clientes para eliminar...] \n");
-                presionarEnterYLimpiarPantalla();
             }
         }
         if( !cambiosGuardados )
@@ -422,7 +426,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     return cambiosGuardados;
 }
 
-void cambiarPersona(PersonaPtr personaAModificar, bool esChofer)
+void cambiarPersona(CentroLogisticoPtr centroLogistico, PersonaPtr personaAModificar, bool esChofer)
 {
     int seguirMod=0,op=0;
     char nNombre[100];
@@ -467,7 +471,18 @@ void cambiarPersona(PersonaPtr personaAModificar, bool esChofer)
                 actualizarDomicilio(getDomicilio(personaAModificar));
             break;
             case 3:
-                actualizarCuil(getCuilPersona(personaAModificar));
+                do
+                {
+                    actualizarCuil(getCuilPersona(personaAModificar));
+                    if(!VerificarCuilUnico(centroLogistico, getCuil(getCuilPersona(personaAModificar))))
+                    {
+                        printf("\n\n\t [No ha ingresado un cuil unico...] \n\n");
+                        printf("\n\t [Verifique que el cuil que ingresa sea unico...] \n");
+                        printf("\n\t [Compruebe usted mismo los cuils existentes...] \n\n");
+                        mostrarPersonas(centroLogistico, 3);
+                        presionarEnterYLimpiarPantalla();
+                    }
+                }while(!VerificarCuilUnico(centroLogistico, getCuil(getCuilPersona(personaAModificar))));
             break;
             case 4:
                 if(esChofer)
@@ -563,12 +578,12 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     {
         if(esChofer)
         {
-            printf("ERROR: Lista vacía. Debe agregar choferes para poder modificarlos.\n\n");
+            printf("\n\n\t ERROR: Lista vacía. Debe agregar choferes para poder modificarlos. \n\n");
             presionarEnterYLimpiarPantalla();
         }
         else
         {
-            printf("ERROR: Lista vacía. Debe agregar clientes para poder modificarlos.\n\n");
+            printf("\n\n\t ERROR: Lista vacía. Debe agregar clientes para poder modificarlos.\n\n");
             presionarEnterYLimpiarPantalla();
         }
     }
@@ -592,18 +607,18 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 if(getEsChofer(getDatoLista(getPersonas(centroLogistico),Eleccion)) == esChofer)
                 {
                     personaModificar=getDatoLista(getPersonas(centroLogistico),Eleccion);
-                    cambiarPersona(personaModificar,esChofer);
+                    cambiarPersona(centroLogistico, personaModificar,esChofer);
                     cambiosGuardados = false;
                 }
                 else
                 {
-                    printf("ERROR: No ha elegido correctamente \n");
+                    printf("\n\n\t ERROR: No ha elegido correctamente \n\n");
                     presionarEnterYLimpiarPantalla();
                 }
                 break;
             case 2:
                 cantidadCorrectas=0;
-                printf("[ACLARACION]Eliga la cantidad de indices...\n");
+                printf("\n\n\t [ACLARACION]Eliga la cantidad de indices...\n\n");
                 Cantidad = menuModoAccion1(getPersonas(centroLogistico));
                 menuModoAccion2(getPersonas(centroLogistico),Cantidad,Elecciones);
                 for(int i=0;i<Cantidad+1;i++)
@@ -618,13 +633,13 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                     for(int i=0;i<Cantidad+1;i++)
                     {
                         personaModificar=getDatoLista(getPersonas(centroLogistico),Elecciones[i]);
-                        cambiarPersona(personaModificar,esChofer);
+                        cambiarPersona(centroLogistico, personaModificar,esChofer);
                         cambiosGuardados = false;
                     }
                 }
                 else
                 {
-                    printf("ERROR: No ha elegido correctamente \n");
+                    printf("\n\n\t ERROR: No ha elegido correctamente \n\n");
                     presionarEnterYLimpiarPantalla();
                 }
                 break;
@@ -643,20 +658,20 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                     for(int i=Elecciones[0];i<Elecciones[1]+1;i++)
                     {
                         personaModificar = getDatoLista(getPersonas(centroLogistico),i);
-                        cambiarPersona(personaModificar,esChofer);
+                        cambiarPersona(centroLogistico, personaModificar,esChofer);
                         cambiosGuardados = false;
                     }
                 }
                 else
                 {
-                    printf("ERROR: No ha elegido correctamente \n");
+                    printf("\n\n\t ERROR: No ha elegido correctamente \n\n");
                     presionarEnterYLimpiarPantalla();
                 }
                 break;
             case 0:
                 break;
             default:
-                printf("Eleccion equivocada \n");
+                printf("\n\n\t Eleccion equivocada \n\n");
                 break;
             }
             if(modoAccion == 0)
@@ -689,12 +704,12 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     {
         if(esChofer)
         {
-             printf("ERROR: Lista vacia. No hay choferes para buscar\n");
+             printf("\n\n\t ERROR: Lista vacia. No hay choferes para buscar \n\n");
              presionarEnterYLimpiarPantalla();
         }
         else
         {
-            printf("ERROR: Lista vacia. No hay clientes para buscar\n");
+            printf("\n\n\t ERROR: Lista vacia. No hay clientes para buscar \n\n");
             presionarEnterYLimpiarPantalla();
         }
     }

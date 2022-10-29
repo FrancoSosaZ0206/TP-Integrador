@@ -29,6 +29,7 @@ int menuGuardarCambios()
         {
             printf("\n\t [Usted ha ingresado una opcion invalida] \n");
             printf("\n\t [Reingrese una opcion valida] \n");
+            presionarEnterYLimpiarPantalla();
         }
     }while(opGuardar != 0 && opGuardar != 1);
     return opGuardar;
@@ -48,6 +49,7 @@ bool menuContinuar()
         {
             printf("\n\t [Usted ha ingresado una opcion invalida] \n");
             printf("\n\t [Reingrese una opcion valida] \n");
+            presionarEnterYLimpiarPantalla();
         }
     } while(eleccion < 0 || eleccion > 1);
     if(eleccion == 1)

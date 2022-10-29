@@ -469,7 +469,6 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
         if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
         {
             printf("ERROR: Lista vacía. Debe agregar repartos para poder eliminarlos.\n\n");
-            presionarEnterYLimpiarPantalla();
         }
         else
         {
@@ -582,7 +581,7 @@ bool CambiosRepartos(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal,
 }
 
 
-void cambiarAtributoReparto(RepartoPtr repartoModificar)
+void cambiarAtributoReparto(CentroLogisticoPtr centroLogistico, RepartoPtr repartoModificar)
 {
     int SubMenu,iMod,seguirMod;
     PersonaPtr choferModificar;
@@ -599,12 +598,12 @@ void cambiarAtributoReparto(RepartoPtr repartoModificar)
             case 1:
                 printf("MODIFICAR CHOFER \n");
                 choferModificar = getChofer(repartoModificar);
-                cambiarPersona(choferModificar, true);
+                cambiarPersona(centroLogistico, choferModificar, true);
             break;
             case 2:
                 printf("MODIFICAR VEHICULO \n");
                 vehiculoModificar = getVehiculo(repartoModificar);
-                cambiarVehiculo(vehiculoModificar);
+                cambiarVehiculo(centroLogistico, vehiculoModificar);
             break;
             case 3:
                 printf("MODIFICAR FECHA DE SALIDA \n");
@@ -623,7 +622,7 @@ void cambiarAtributoReparto(RepartoPtr repartoModificar)
                 printf("Seleccione un paquete ");
                 iMod = menuModoAccion1(getPaquetesReparto(repartoModificar));
                 paqueteModificar = getDatoLista(getPaquetesReparto(repartoModificar), iMod);
-                cambiarPaquete(paqueteModificar);
+                cambiarPaquete(centroLogistico, paqueteModificar);
             break;
             case 0:
                 break;
@@ -676,7 +675,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
             case 1:
                 EleccionAccion = menuModoAccion1(getRepartos(centroLogistico,esRepartoAbierto));
                 repartoModificar = getDatoLista(getRepartos(centroLogistico,esRepartoAbierto), EleccionAccion);
-                cambiarAtributoReparto(repartoModificar);
+                cambiarAtributoReparto(centroLogistico, repartoModificar);
                 cambiosGuardados = false;
                 break;
             case 2:
@@ -686,7 +685,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                 for(int i=0;i<cantIndices+1;i++)
                 {
                     repartoModificar = getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),indices[i]-i);
-                    cambiarAtributoReparto(repartoModificar);
+                    cambiarAtributoReparto(centroLogistico, repartoModificar);
                 }
                 cambiosGuardados = false;
                 break;
@@ -695,7 +694,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                 for(int i=indices[0];i<=indices[1];i++)
                 {
                     repartoModificar = getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i);
-                    cambiarAtributoReparto(repartoModificar);
+                    cambiarAtributoReparto(centroLogistico, repartoModificar);
                 }
                 cambiosGuardados = false;
                 break;

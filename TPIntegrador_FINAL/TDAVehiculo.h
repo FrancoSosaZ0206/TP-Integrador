@@ -135,12 +135,12 @@ bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2);
 //Devuelve: VACIO
 void tipoVehiculo(VehiculoPtr vehiculo);
 
-
-//Operación: Modificacion
-//Precondición: VehiculoModificar debe ser creado en memoria dinamica
-//Postcondición: altera algun campo del vehiculo a pedido del usuario
-//Parámetros: puntero al vehiculo a modificar
-//Devuelve: vacio
-void cambiarVehiculo(VehiculoPtr vehiculoAModificar);
+//Operación: Verificacion
+//Precondición: PatenteValidar debe haber reservado memoria estatica o dinamica
+//Postcondición: Determina si el estado de la patente ingresada es valida
+// en el formato AA 111 AA
+//Parámetros: Puntero a char
+//Devuelve: Booleano
+bool VerificarPatenteValida(char* PatenteValidar);
 
 #endif // TDAVEHICULO_H_INCLUDED
