@@ -13,3 +13,11 @@ MEJORAR
 
 ---------------------------------------------------------------------------------------------------------------------
 
+GASTON
+
+	Poner los procesos de verificacion en el armado de repartos y cargado de datos en funciones aparte:
+		Validacion de cuil unico entre clientes y choferes
+		Validacion de patente entre los vehiculos
+		Validacion de chofer que no se encuentra en algun reparto
+		Validacion de chofer que no haya realizado el reparto diario
+		Valdiacion de vehiculo que no se encuentre en otro reparto

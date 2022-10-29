@@ -10,3 +10,12 @@ PENDIENTES
 
 ---------------------------------------------------------------------------------------------------------------------
 
+PENDIENTES GASTON
+
+	Armar Reparto:
+		Asegurar que existan choferes para elegir (no que la lista de PERSONAS este vacia)
+		Asegurar que el chofer elegido no este en un reparto
+		Asegurar que el chofer no haya realizado su reparto diario
+		Asegurar que no se asigne un paquete que no tenga el estado deposito
+	Cerrar reparto:
+		Agregar al deposito aquellos paquetes que no hayan sido entregados (distintos de 3)
