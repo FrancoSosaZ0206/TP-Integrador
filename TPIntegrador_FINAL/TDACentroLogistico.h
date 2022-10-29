@@ -374,7 +374,7 @@ bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona);
 //  vehiculo: puntero a la estructura vehiculo de la que se desea verificar su existencia.
 //Devuelve: true si el vehiculo recibido tiene el mismo ID O parámetros que uno de los vehiculos, false de lo contrario.
 bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo);
-//Operación: se verifica si el chofer y fecha de salida de un reparto, son iguales a los de algún reparto previamente ingresado.
+//Operación: verifica si el chofer y fecha de salida de un reparto, son iguales a los de algún reparto previamente ingresado.
 //Precondición: Centro logistico debe haberse creado y cargado con, al menos, una persona.
 //Postcondición: se recorre la lista de repartos del centro,
 //               chequeando si en algun momento coincide el cuil del chofer Y la fecha de salida con los del reparto recibido.

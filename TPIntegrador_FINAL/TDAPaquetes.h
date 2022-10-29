@@ -16,9 +16,18 @@ typedef struct Paquete
     DomicilioPtr dirRetiro;
     DomicilioPtr dirEntrega;
     FechaPtr fechaEntrega;
-    int estado; ///0=En depósito,1=En curso,2=Retirado,3=Entregado,4=Demorado,5=Suspendido
+    int estado;
 } Paquete;
 typedef Paquete * PaquetePtr;
+
+/** ESTADOS DEL PAQUETE:
+    0 = En depósito
+    1 = En curso
+    2 = Retirado
+    3 = Entregado
+    4 = Demorado
+    5 = Suspendido
+*/
 
 //Operación: crea un paquete
 //Precondición: Paquete no debe estar creado.

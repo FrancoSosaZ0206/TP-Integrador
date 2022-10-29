@@ -28,11 +28,11 @@ RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
 }
 RepartoPtr destruirReparto(RepartoPtr reparto)
 { //liberamos la memoria de todos los campos que hayan sido reservados dinamicamente con sus respectivas funciones. En este caso, son todos los campos.
-/**Como el chofer y vehiculo se los pasamos como punteros, destruirlos acá ocasionaría que se eliminen tambien del centro logistico.
-No queremos eso, así que simplemente no las destruimos.*/
-    reparto->fechaSalida=destruirFecha(reparto->fechaSalida);
-    reparto->fechaRetorno=destruirFecha(reparto->fechaRetorno);
-    reparto->paquetes=destruirPila(reparto->paquetes);
+/** Como el chofer y vehiculo se los pasamos como punteros, destruirlos acá ocasionaría que se eliminen tambien del centro logistico.
+No queremos eso, así que simplemente no las destruimos. */
+    reparto->fechaSalida = destruirFecha(reparto->fechaSalida);
+    reparto->fechaRetorno = destruirFecha(reparto->fechaRetorno);
+    reparto->paquetes = destruirPila(reparto->paquetes);
 
     free(reparto);
 

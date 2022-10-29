@@ -624,7 +624,6 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 
     do
     {
-        int n=0;
         ///Paquete
         PaquetePtr paquete;
         int ID=0;   //el ID del paquete se genera automáticamente, no lo tiene que ingresar el usuario.
@@ -676,9 +675,6 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 
     do
     {
-        ///Variables para funciones
-        int n=0;
-        ///Cliente
         char nombre[100];
         char apellido[100];
         PersonaPtr persona;
@@ -2762,13 +2758,23 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 
 bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 {
+///Primero, chequeamos que las otras listas estén llenas
+    bool listasVacias = listaVacia(getPaquetes(centroLogistico));
+    listasVacias = listasVacias || listaVacia(getPersonas(centroLogistico));
+    listasVacias = listasVacias || listaVacia(getVehiculos(centroLogistico));
+
+    if(listasVacias)
+    {
+        printf("ERROR: para armar un reparto, todas las otras listas deben tener contenido.");
+        presionarEnterYLimpiarPantalla();
+        return true;
+    }
+///Ahora sí, procedemos a armar el reparto:
     bool continuar=true;
 
     do
     {
         RepartoPtr reparto;
-        int n=0;
-        int k=0;
         PersonaPtr choferElegido;
         VehiculoPtr vehiculoElegido;
 
@@ -2776,116 +2782,129 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
         int cantPaquetesElegidos=0;
         PaquetePtr paqueteElegido;
 
+        int n=0;
+        int i=0;
+    ///Primero, cargamos el chofer
+        n = longitudLista(getPersonas(centroLogistico));
         do
         {
-            printf("ARMAR REPARTO\n\n");
-            printf("Ingrese cantidad de repartos a armar: ");
-            scanf("%d",&n);
+        //Se selecciona el indice
+            mostrarPersonas(centroLogistico,1);
+            printf("\n\nSeleccione un chofer ingresando su indice: ");
+            scanf("%d",&i);
             limpiarBufferTeclado();
-
-            if(n<1)
+        //Si el índice está fuera de los límites de la lista,
+            if(i<1 || i>n) //Mostramos un mensaje de error.
             {
-                printf("\nCantidad incorrecta.");
+                printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
                 presionarEnterYLimpiarPantalla();
             }
-            else
-                system("cls");
-        } while(n<1);
-
-        int longLista=0;
-        int i=0;
-        while(i<n && continuar)
-        {
-            if(n>1)
-                printf("\n\nREPARTO %d",i+1);
-            do
-            { //Cargamos el chofer
-                longLista = longitudLista(getPersonas(centroLogistico));
-
-                mostrarPersonas(centroLogistico,1);
-                printf("\n\nSeleccione un chofer ingresando su indice: ");
-                scanf("%d",&k);
-                limpiarBufferTeclado();
-
-                choferElegido=(PersonaPtr)getDatoLista(getPersonas(centroLogistico),k-1);
-
-                if(k>0 && k<longLista && !getEsChofer(choferElegido))
-                    printf("\n\nERROR: el indice ingresado no corresponde a un chofer. Vuelva a elegir.");
-                else if(k<=0 || k>=longLista)
-                    printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
-
-                presionarEnterYLimpiarPantalla();
-            } while(k<=0 || k>=longLista || !getEsChofer(choferElegido));
-
-            do
-            {
-                longLista = longitudLista(getVehiculos(centroLogistico));
-
-                mostrarVehiculos(centroLogistico);
-                printf("\n\nSeleccione un vehiculo ingresando su indice: ");
-                scanf("%d",&k);
-                limpiarBufferTeclado();
-
-                if(k<=0 || k>=longLista)
-                    printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
-
-                system("cls");
-            } while(k<=0 || k>=longLista);
-
-            vehiculoElegido=getDatoLista(getVehiculos(centroLogistico),k-1);
-            presionarEnterYLimpiarPantalla();
-
-            printf("\n\nFecha de salida:");
-            FechaPtr fechaSalida = cargarFecha();
-            printf("\n\nFecha de retorno:");
-            FechaPtr fechaRetorno = cargarFecha();
-
-            presionarEnterYLimpiarPantalla();
-
-            do
-            {
-                printf("Ingrese cantidad de paquetes a agregar al reparto: ");
-                scanf("%d",&cantPaquetesElegidos);
-                if(n<1)
+            else if(i>0 && i<n) //Sino,
+            { //Obtenemos el chofer elegido
+                choferElegido=(PersonaPtr)getDatoLista(getPersonas(centroLogistico),i-1);
+            //Si resulta que no es un chofer,
+                if(!getEsChofer(choferElegido)) //Imprimimos un mensaje de error
                 {
-                    printf("\n\nERROR: cantidad incorrecta. Vuelva a ingresar.");
+                    printf("\n\nERROR: el indice ingresado no corresponde a un chofer. Vuelva a elegir.");
                     presionarEnterYLimpiarPantalla();
                 }
-            } while(n<1);
-
-            for(int j=0;j<cantPaquetesElegidos;j++)
-            {
-                do
-                {
-                    mostrarPaquetes(centroLogistico);
-                    if(cantPaquetesElegidos>1)
-                        printf("\n\nPaquete N. %d\n",j+1);
-
-                    printf("Seleccione el paquete a cargar ingresando su indice: ");
-                    scanf("%d",&k);
-                    limpiarBufferTeclado();
-
-                    if(k<=0 || k>=longLista)
-                        printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
-                    system("cls");
-                } while(k<=0 || k>=longLista);
-
-                paqueteElegido=getDatoLista(getPaquetes(centroLogistico),k-1);
-                apilar(pilaPaquetesElegidos,(PaquetePtr)paqueteElegido);
             }
+        } while(i<0 || i>n || !getEsChofer(choferElegido));
+        system("cls");
+    ///Luego, cargamos el vehiculo:
+        n = longitudLista(getVehiculos(centroLogistico));
+        do
+        {
+            mostrarVehiculos(centroLogistico);
+            printf("\n\nSeleccione un vehiculo ingresando su indice: ");
+            scanf("%d",&i);
+            limpiarBufferTeclado();
+        //Si el índice elegido está fuera del rango de la lista,
+            if(i<0 || i>n)
+            { //Desplegamos un mensaje de error.
+                printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
+                presionarEnterYLimpiarPantalla();
+            }
+        } while(i<0 || i>n);
+        system("cls");
+    //Una vez que se elige el índice correcto, obtenemos el vehiculo.
+        vehiculoElegido=getDatoLista(getVehiculos(centroLogistico),i-1);
+        presionarEnterYLimpiarPantalla();
+    ///Ahora, cargamos las fechas de salida y retorno:
+        printf("\n\nFecha de salida:");
+        FechaPtr fechaSalida = cargarFecha();
+        printf("\n\nFecha de retorno:");
+        FechaPtr fechaRetorno = cargarFecha();
 
+        presionarEnterYLimpiarPantalla();
+    ///Posteriormente, cargamos los paquetes:
+        n = longitudLista(getPaquetes(centroLogistico));
+        do
+        {
+            printf("Ingrese cantidad de paquetes a agregar al reparto: ");
+            scanf("%d",&cantPaquetesElegidos);
+            limpiarBufferTeclado();
+        //Si la cantidad es menor a 1 o excede la cantidad de paquetes existentes,
+            if(cantPaquetesElegidos<1 || cantPaquetesElegidos>n)
+            { //Mostramos un mensaje de error.
+                printf("\n\nERROR: cantidad incorrecta. Vuelva a ingresar.");
+                presionarEnterYLimpiarPantalla();
+            }
+        } while(cantPaquetesElegidos<1 || cantPaquetesElegidos>n);
+    //Cuando se elige una cantidad correcta, elegimos los paquetes:
+        for(int j=0;j<cantPaquetesElegidos;j++)
+        { //Primero, seleccionamos el índice de cada paquete.
+            bool estadoIncorrecto;
+            do
+            {
+                mostrarPaquetes(centroLogistico);
+                if(cantPaquetesElegidos>1)
+                    printf("\n\nPaquete N. %d\n",j+1);
 
-            reparto=armarReparto(choferElegido,vehiculoElegido,fechaSalida,fechaRetorno,pilaPaquetesElegidos);
-            agregarReparto(centroLogistico,reparto,true);
-
-            printf("\n\nReparto armado exitosamente.");
+                printf("Seleccione el paquete a cargar ingresando su indice: ");
+                scanf("%d",&i);
+                limpiarBufferTeclado();
+            //Si el índice está fuera de los límites de la lista,
+                if(i<1 || i>n)
+                { //Mostramos un mensaje de error.
+                    printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
+                    presionarEnterYLimpiarPantalla();
+                }
+                else if(i>0 && i<n)
+                { //si se elige un índice correcto, obtenemos el paquete.
+                    paqueteElegido = getDatoLista(getPaquetes(centroLogistico),i-1);
+                //Ahora, si el paquete fue entregado, está en curso o demorado,
+                    int estadoPaquete = getEstado(paqueteElegido);
+                    estadoIncorrecto = estadoPaquete == 1;
+                    estadoIncorrecto = estadoIncorrecto || estadoPaquete == 3;
+                    estadoIncorrecto = estadoIncorrecto || estadoPaquete == 4;
+                    if(estadoIncorrecto)
+                    {
+                        printf("\n\nERROR: el paquete elegido no esta en el deposito. Vuelva a elegir.");
+                        presionarEnterYLimpiarPantalla();
+                    }
+                }
+            } while(i<1 || i>n || estadoIncorrecto);
+            system("cls");
+        //Una vez se elige un paquete válido, lo apilamos.
+            apilar(pilaPaquetesElegidos,(PaquetePtr)paqueteElegido);
+            printf("Paquete %d cargado exitosamente.",i+1);
             presionarEnterYLimpiarPantalla();
-            i++;
-
-            continuar=menuContinuar();
         }
-        if(n>1)
-            printf("Repartos cargados exitosamente.\n\n");
+    ///Finalmente, armamos el reparto:
+        reparto = armarReparto(choferElegido,vehiculoElegido,fechaSalida,fechaRetorno,pilaPaquetesElegidos);
+    //Si resulta que el reparto tenía el mismo chofer y fecha de salida que uno previo,
+        if(esRepartoExistente(centroLogistico,reparto,true))
+        { //Destruimos el reparto y mostramos un mensaje de error.
+            reparto = destruirReparto(reparto);
+            printf("ERROR: el chofer elegido ya estaba asignado en otro reparto el mismo dia.\n");
+            printf("Seleccione otro chofer o cambie la fecha de salida.");
+        }
+        else //De lo contrario,
+        { //Agregamos el reparto al centro e informamos al usuario.
+            agregarReparto(centroLogistico,reparto,true);
+            printf("\n\nReparto armado exitosamente.");
+        }
 
         continuar=menuContinuar();
     } while(continuar);

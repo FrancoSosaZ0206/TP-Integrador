@@ -33,9 +33,9 @@ typedef Reparto * RepartoPtr;
 RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes);
 //Operación: Destruccion del TDArepartos.
 //Precondición: Repartos debe estar creado.
-//Postcondición: Se elimina el reparto y se libera la memoria.
+//Postcondición: Se se libera la memoria reservada para la fecha de salida, retorno, la pila de paquetes, y la estructura reparto.
 //Parámetros:
-// reparto: puntero a la estructura a liberar.
+// reparto: puntero a la estructura a destruir.
 //Devuelve NULL
 RepartoPtr destruirReparto(RepartoPtr reparto);
 
