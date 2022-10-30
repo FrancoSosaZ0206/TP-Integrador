@@ -114,7 +114,7 @@ bool detectarCambios(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDato)
             datosIguales = paquetesIguales((PaquetePtr)datoOriginal,(PaquetePtr)copiaDato);
             break;
         case 2:
-            datosIguales = personasIguales((PersonaPtr)datoOriginal,(PersonaPtr)copiaDato);
+            datosIguales = personasIguales((PersonaPtr)datoOriginal,(PersonaPtr)copiaDato, true);
             break;
         case 3:
             datosIguales = vehiculosIguales((VehiculoPtr)datoOriginal,(VehiculoPtr)copiaDato);
@@ -675,10 +675,8 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     CuilPtr cuil;
     do
     {
-        if(esChofer)
-            printf("CARGAR CHOFER %d.\n\n", i++);
-        else
-            printf("CARGAR CLIENTE %d.\n\n", i++);
+        if(esChofer) { printf("CARGAR CHOFER %d.\n\n", i++); }
+        if(!esChofer) { printf("CARGAR CLIENTE %d.\n\n", i++); }
 
         printf("\tIngrese Nombre: ");
         scanf("%[^\n]%*c",nombre);
@@ -703,13 +701,21 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             }
         }
 
-        persona=crearPersona(nombre,apellido,domicilio,cuil,false);
-        agregarPersona(centroLogistico,persona);
+        if(cuil != NULL)
+        {
+            persona = crearPersona(nombre, apellido, domicilio, cuil, false);
+            agregarPersona(centroLogistico, persona);
+        }
 
-        if(esChofer)
-            printf("Cliente cargado exitosamente.");
-        else
-            printf("Cliente cargado exitosamente.");
+        if(cuil == NULL)
+        {
+            printf("\n\n\tCuil invalido, saliendo del menu.");
+            presionarEnterYLimpiarPantalla();
+        }
+
+        if(esChofer) { printf("Cliente cargado exitosamente."); }
+        if(!esChofer) { printf("Cliente cargado exitosamente."); }
+
         presionarEnterYLimpiarPantalla();
 
         continuar=menuContinuar();

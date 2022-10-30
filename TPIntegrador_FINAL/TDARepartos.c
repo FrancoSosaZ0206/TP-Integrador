@@ -177,7 +177,7 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
     PilaPtr pilaAux1=crearPila();
     PilaPtr pilaAux2=crearPila();
 
-    bool condicion = personasIguales(getChofer(reparto1),getChofer(reparto2));
+    bool condicion = personasIguales(getChofer(reparto1),getChofer(reparto2),true);
     condicion = condicion && vehiculosIguales(getVehiculo(reparto1),getVehiculo(reparto2));
     condicion = condicion && fechasIguales(getFechaSalida(reparto1),getFechaSalida(reparto2));
     condicion = condicion && fechasIguales(getFechaRetorno(reparto1),getFechaRetorno(reparto2));

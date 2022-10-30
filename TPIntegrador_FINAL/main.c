@@ -13,6 +13,12 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez);
 int main()
 {
     CentroLogisticoPtr c = crearCentroLogisticoDefecto();
+    PersonaPtr p1 = getDatoLista(getPersonas(c), 1);
+    PersonaPtr p2 = getDatoLista(getPersonas(c), 1);
+    bool R = personasIguales(p1,p2, true);
+    if(R) { printf("\n\n\tVALIDO"); }
+    else { printf("\n\n\tINVALIDO"); }
+    system("\n\n\tpause");
 /** **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************

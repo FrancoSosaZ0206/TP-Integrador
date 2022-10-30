@@ -564,6 +564,7 @@ bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
 {
     PersonaPtr PersonaTemporal;
     CuilPtr CuilTemporal;
+    int ResultadoComparacion = 0;
     bool CuilUnico = true;
     ListaPtr ListaAuxiliar = crearLista();
     agregarLista(ListaAuxiliar, getPersonas(centroLogistico) );
@@ -571,7 +572,8 @@ bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
     {
         PersonaTemporal = (PersonaPtr)getCabecera(ListaAuxiliar);
         CuilTemporal = getCuilPersona(PersonaTemporal);
-        if( strcmp(getCuil(CuilTemporal), CuilComprobar) == 0 )
+        ResultadoComparacion = strcmp(getCuil(CuilTemporal), CuilComprobar);
+        if( ResultadoComparacion == 0 )
         {
             CuilUnico = false;
         }
@@ -604,6 +606,9 @@ bool VerificarPatenteValida(char* PatenteValidar)
 
     return Valido;
 }
+
+
+
 
 bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar)
 {
@@ -695,7 +700,7 @@ bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) 
     while(!listaVacia(listaAux))
     {
         PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
-        if(personasIguales(personaAux,persona))
+        if(personasIguales(personaAux,persona,true))
             match=true;
         listaAux=getResto(listaAux);
     }
@@ -733,7 +738,7 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
         RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
 
         bool condicion = fechasIguales(getFechaSalida(repartoAux),getFechaSalida(reparto));
-        condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto));
+        condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto),true);
         ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
         ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
         if(condicion)
