@@ -1441,18 +1441,28 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
 }
 bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *opMenuAnterior)
 {
+    bool ExistenDatos = true;
     ListaPtr listaAux=getPersonas(centroLogistico);
 
-    if(listaVacia(listaAux))
+    if(esChofer)
     {
-        if(esChofer)
-            printf("ERROR: Lista vacia. Debe agregar choferes para poder modificarlos.");
-        else
-            printf("ERROR: Lista vacia. Debe agregar clientes para poder modificarlos.");
-        presionarEnterYLimpiarPantalla();
-        return true;
+        if(!VerificarExistenciaChoferes(centroLogistico))
+        {
+            ExistenDatos = false;
+            printf("\n\n\tNo existen choferes para modificar.");
+            presionarEnterYLimpiarPantalla();
+        }
     }
-    else
+    if(!esChofer)
+    {
+        if(!VerificarExistenciaClientes(centroLogistico))
+        {
+            ExistenDatos = false;
+            printf("\n\n\tNo existen clientes para modificar.");
+            presionarEnterYLimpiarPantalla();
+        };
+    }
+    if(ExistenDatos)
     {
         ListaPtr copiaLista = copiarLista(listaAux,2);
 

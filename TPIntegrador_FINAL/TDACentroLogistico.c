@@ -605,7 +605,6 @@ bool VerificarPatenteValida(char* PatenteValidar)
     return Valido;
 }
 
-
 bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar)
 {
     VehiculoPtr VehiculoTemporal;
@@ -627,6 +626,48 @@ bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComp
     return PatenteUnica;
 }
 
+bool VerificarExistenciaChoferes(CentroLogisticoPtr centroLogistico)
+{
+    bool ExistenChoferes = false;
+    PersonaPtr PersonaActual;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPersonas(centroLogistico));
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PersonaActual = (PersonaPtr)getCabecera(ListaAuxiliar);
+        if(getEsChofer(PersonaActual))
+        {
+            ExistenChoferes = true;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return ExistenChoferes;
+}
+
+bool VerificarExistenciaClientes(CentroLogisticoPtr centroLogistico)
+{
+    bool ExistenClientes = false;
+    PersonaPtr PersonaActual;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPersonas(centroLogistico));
+    while(!listaVacia(ListaAuxiliar))
+    {
+        PersonaActual = (PersonaPtr)getCabecera(ListaAuxiliar);
+        if(!getEsChofer(PersonaActual))
+        {
+            ExistenClientes = true;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return ExistenClientes;
+}
+
 bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
 {
     bool match=false;
@@ -644,6 +685,7 @@ bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
 
     return match;
 }
+
 bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) // devuelve true si la persona que le ingresamos tiene el mismo cuil que una de las personas, false si no
 {
     bool match=false;
@@ -661,6 +703,7 @@ bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) 
 
     return match;
 }
+
 bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo)
 {
     bool match=false;
@@ -678,6 +721,7 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
 
     return match;
 }
+
 bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,bool esRepartoAbierto)
 {
     bool match=false;
