@@ -242,7 +242,7 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
     match = match && getEstado(paquete1) == getEstado(paquete2);
 
 //la condicion final será: "si coinciden el ID o TODOS LOS PARÁMETROS (o ambos)..."
-    return matchID || match;
+    return matchID && match;
 }
 
 PaquetePtr copiarPaquete(PaquetePtr paqueteOriginal) ///NUEVA - Orientada para la funcion copiarLista

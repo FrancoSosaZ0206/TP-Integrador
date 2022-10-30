@@ -13,4 +13,6 @@ MEJORAS
 
 - TDACentroLogistico: funciones de ordenamiento ahora ordenan por metodo shell.
 
+- MENUS - Funcion DetectarCambios: Se arregló el error de implementación en las funciones "XIguales" dentro de detectarCambios, que dejaban huecos a la hora de detectarlos si, por ejemplo, se modificaba el nombre de una persona. Ahora todas estas funciones determinan que un dato es igual al otro SI ESTRICTAMENTE TODOS SUS CAMPOS SON IDÉNTICOS, lo que soluciona este hueco. 
+
 ---------------------------------------------------------------------------------------------------------------------

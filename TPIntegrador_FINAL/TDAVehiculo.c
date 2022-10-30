@@ -99,7 +99,12 @@ void mostrarTipoVehiculo(VehiculoPtr vehiculo) ///informa al usuario de que tipo
 
 bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2)
 {
-    return strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0;
+    bool matchPatente = strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0;
+
+    bool match = getTipoVehiculo(vehiculo1) == getTipoVehiculo(vehiculo2);
+    bool match = match && strcmp(getMarca(vehiculo1),getMarca(vehiculo2)) == 0;
+    bool match = match && strcmp(getModelo(vehiculo1),getModelo(vehiculo2)) == 0;
+    return matchPatente && match;
 }
 
 VehiculoPtr copiarVehiculo(VehiculoPtr vehiculoOriginal) ///NUEVA - Orientada para la funcion copiarLista

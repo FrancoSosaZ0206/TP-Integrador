@@ -115,11 +115,11 @@ void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
         mostrarPaquete((PaquetePtr)getCabecera(listaAux));
         listaAux=getResto(listaAux);
         if(!listaVacia(listaAux))
-            printf("\n");
+            printf("\n\n\n");
 
         i++;
     }
-    printf("\n-----------------------------------------------------");
+    printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
 }
 
@@ -168,11 +168,11 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
         }
         listaAux=getResto(listaAux);
         if(!listaVacia(listaAux))
-            printf("\n");
+            printf("\n\n\n");
 
         i++;
     }
-    printf("\n-----------------------------------------------------");
+    printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
 }
 
@@ -191,11 +191,11 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
         mostrarVehiculo((VehiculoPtr)getCabecera(listaAux));
         listaAux=getResto(listaAux);
         if(!listaVacia(listaAux))
-            printf("\n");
+            printf("\n\n\n");
 
         i++;
     }
-    printf("\n-----------------------------------------------------");
+    printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
 }
 
@@ -218,10 +218,10 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         mostrarRepartoSinPaquetes(repartoAux);
         listaAux=getResto(listaAux);
         if(!listaVacia(listaAux))
-            printf("\n");
+            printf("\n\n\n");
         i++;
     }
-    printf("\n-----------------------------------------------------");
+    printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
     printf("\n");
     if(!esRepartoAbierto)
@@ -259,9 +259,11 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
         if(condicion)
             mostrarRepartoSinPaquetes(repartoAux);
         listaAux=getResto(listaAux);
+        if(!listaVacia(listaAux))
+            printf("\n\n\n");
     }
     listaAux=destruirLista(listaAux,false);
-    printf("\n");
+    printf("\n-----------------------------------------------------\n\n");
 }
 
 
