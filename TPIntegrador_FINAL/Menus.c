@@ -624,28 +624,21 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 
     do
     {
-        ///Paquete
+    ///Variables:
         PaquetePtr paquete;
-        int ID=0;   //el ID del paquete se genera automáticamente, no lo tiene que ingresar el usuario.
-        int ancho=0;//el mismo se genera aleatoriamente.
+        int ID=0;       //el ID del paquete se genera automáticamente, no lo tiene que ingresar el usuario.
+        int ancho=0;    //el mismo se genera aleatoriamente.
         int alto=0;
         int largo=0;
         int peso=0;
     //por defecto, los paquetes se cargan con el estado 0: 'en depósito'.
-        ///Variables para funciones
         srand(time(NULL));
 
         printf("CARGAR PAQUETE\n\n");
 
         ID=rand(); //esto no se mostrará sino al final de la carga del paquete.
-        printf("\tIngrese Ancho: ");
-        scanf("%d",&ancho);
-        limpiarBufferTeclado();
-        printf("\n\tIngrese Alto: ");
-        scanf("%d",&alto);
-        limpiarBufferTeclado();
-        printf("\n\tIngrese Largo: ");
-        scanf("%d",&largo);
+        printf("\tIngrese Ancho, Alto y Largo separados por espacios: ");
+        scanf("%d %d %d",&ancho,&alto,&largo);
         limpiarBufferTeclado();
         printf("\n\tIngrese Peso: ");
         scanf("%d",&peso);
@@ -659,12 +652,16 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
         FechaPtr fechaEntrega = cargarFecha();
 
         paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,0);
-        agregarPaquete(centroLogistico,paquete);
 
-        printf("\n\nPaquete #%d cargado exitosamente.",ID);
-        presionarEnterYLimpiarPantalla();
-
+        if(esPaqueteExistente(centroLogistico,paquete))
+            printf("\n\nERROR: este paquete ya existe. Ingrese uno con otros datos.");
+        else
+        {
+            agregarPaquete(centroLogistico,paquete);
+            printf("\n\nPaquete #%d cargado exitosamente.",ID);
+        }
         continuar=menuContinuar();
+
     } while(continuar);
 
     return menuGuardarCambios(centroLogistico,1);
@@ -697,13 +694,18 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         CuilPtr cuil = cargarCuil();
 
         persona=crearPersona(nombre,apellido,domicilio,cuil,false);
-        agregarPersona(centroLogistico,persona);
 
-        if(esChofer)
-            printf("Cliente cargado exitosamente.");
+        if(esPersonaExistente(centroLogistico,persona))
+            printf("ERROR: esta persona ya existe. Pruebe ingresando otros datos.");
         else
-            printf("Cliente cargado exitosamente.");
-        presionarEnterYLimpiarPantalla();
+        {
+            agregarPersona(centroLogistico,persona);
+
+            if(esChofer)
+                printf("Cliente cargado exitosamente.");
+            else
+                printf("Cliente cargado exitosamente.");
+        }
 
         continuar=menuContinuar();
     } while(continuar);
@@ -716,9 +718,7 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 
     do
     {
-        ///Variables para funciones
-        int n=0;
-        ///Vehiculo
+    ///Variables:
         int tipoVehiculo=0;
         char marca[100];
         char modelo[100];
@@ -728,45 +728,38 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
         do
         {
             printf("CARGAR VEHICULO\n\n");
-            printf("Ingrese cantidad de vehiculos a cargar: ");
-            scanf("%d",&n);
-            limpiarBufferTeclado();
 
-            if(n<1)
-            {
-                printf("\nCantidad incorrecta.");
-                presionarEnterYLimpiarPantalla();
-            }
-            else
-                system("cls");
-        } while(n<1);
-
-        for(int i=0;i<n;i++)
-        {
-            if(n>1)
-                printf("\n\nVEHICULO %d\n\n",i+1);
             helpTipoVehiculo();
+
             printf("\tSeleccione un Tipo: ");
             scanf("%d",&tipoVehiculo);
             limpiarBufferTeclado();
-            printf("\n\n\tMarca: ");
-            scanf("%[^\n]%*c",marca);
-            limpiarBufferTeclado();
-            printf("\n\tModelo: ");
-            scanf("%[^\n]%*c",modelo);
-            limpiarBufferTeclado();
-            printf("\n\tPatente (AA 000 AA): ");
-            scanf("%[^\n]%*c",patente);
-            limpiarBufferTeclado();
 
-            vehiculo=crearVehiculo(tipoVehiculo,marca,modelo,patente);
-            agregarDatoLista(centroLogistico->listaVehiculos,(VehiculoPtr)vehiculo);
+            if(tipoVehiculo<1 || tipoVehiculo>3)
+            {
+                printf("\n\nERROR: el tipoVehiculo de vehiculo ingresado es inexistente, vuelva a intentar.");
+                presionarEnterYLimpiarPantalla();
+            }
+        } while(tipoVehiculo<1 || tipoVehiculo>3);
 
+        printf("\n\n\tMarca: ");
+        scanf("%[^\n]%*c",marca);
+        limpiarBufferTeclado();
+        printf("\n\tModelo: ");
+        scanf("%[^\n]%*c",modelo);
+        limpiarBufferTeclado();
+        printf("\n\tPatente (AA 000 AA): ");
+        scanf("%[^\n]%*c",patente);
+        limpiarBufferTeclado();
+
+        vehiculo=crearVehiculo(tipoVehiculo,marca,modelo,patente);
+        if(esVehiculoExistente(centroLogistico,vehiculo))
+            printf("\n\nERROR: este vehiculo ya existe, pruebe ingresando otros datos.");
+        else
+        {
+            agregarVehiculo(centroLogistico,vehiculo);
             printf("\n\nVehiculo cargado exitosamente.");
-            presionarEnterYLimpiarPantalla();
         }
-        if(n>1)
-            printf("\n\nVehiculos cargados exitosamente.\n\n");
 
         continuar=menuContinuar();
     } while(continuar);
@@ -2837,29 +2830,17 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
         FechaPtr fechaRetorno = cargarFecha();
 
         presionarEnterYLimpiarPantalla();
-    ///Posteriormente, cargamos los paquetes:
+    ///Posteriormente, armamos el reparto con la pila de paquetes vacía (lo necesitamos para poder verificar cosas al seleccionar paquetes).
+        reparto = armarReparto(choferElegido,vehiculoElegido,fechaSalida,fechaRetorno,pilaPaquetesElegidos);
+    ///Y cargamos los paquetes:
         n = longitudLista(getPaquetes(centroLogistico));
         do
-        {
-            printf("Ingrese cantidad de paquetes a agregar al reparto: ");
-            scanf("%d",&cantPaquetesElegidos);
-            limpiarBufferTeclado();
-        //Si la cantidad es menor a 1 o excede la cantidad de paquetes existentes,
-            if(cantPaquetesElegidos<1 || cantPaquetesElegidos>n)
-            { //Mostramos un mensaje de error.
-                printf("\n\nERROR: cantidad incorrecta. Vuelva a ingresar.");
-                presionarEnterYLimpiarPantalla();
-            }
-        } while(cantPaquetesElegidos<1 || cantPaquetesElegidos>n);
-    //Cuando se elige una cantidad correcta, elegimos los paquetes:
-        for(int j=0;j<cantPaquetesElegidos;j++)
         { //Primero, seleccionamos el índice de cada paquete.
             bool estadoIncorrecto;
+        ///Ahora, verificamos una serie de cosas:
             do
             {
                 mostrarPaquetes(centroLogistico);
-                if(cantPaquetesElegidos>1)
-                    printf("\n\nPaquete N. %d\n",j+1);
 
                 printf("Seleccione el paquete a cargar ingresando su indice: ");
                 scanf("%d",&i);
@@ -2879,20 +2860,24 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     estadoIncorrecto = estadoIncorrecto || estadoPaquete == 3;
                     estadoIncorrecto = estadoIncorrecto || estadoPaquete == 4;
                     if(estadoIncorrecto)
-                    {
+                    { // Desplegamos un mensaje de error.
                         printf("\n\nERROR: el paquete elegido no esta en el deposito. Vuelva a elegir.");
                         presionarEnterYLimpiarPantalla();
                     }
+                    else if(esPaqueteCargado(reparto,paqueteElegido))
+                    { //Como última barrera, si el paquete ya fue cargado antes en este reparto, mostramos un mensaje de error
+                        printf("\n\nERROR: el paquete ya esta cargado en este reparto. Vuelva a elegir.");
+                        presionarEnterYLimpiarPantalla();
+                    }
                 }
-            } while(i<1 || i>n || estadoIncorrecto);
+            } while(i<1 || i>n || estadoIncorrecto || esPaqueteCargado(reparto,paqueteElegido));
             system("cls");
-        //Una vez se elige un paquete válido, lo apilamos.
-            apilar(pilaPaquetesElegidos,(PaquetePtr)paqueteElegido);
-            printf("Paquete %d cargado exitosamente.",i+1);
-            presionarEnterYLimpiarPantalla();
-        }
-    ///Finalmente, armamos el reparto:
-        reparto = armarReparto(choferElegido,vehiculoElegido,fechaSalida,fechaRetorno,pilaPaquetesElegidos);
+        //Una vez se elige un paquete válido, lo cargamos al reparto.
+            cargarPaquete(reparto,paqueteElegido);
+            printf("Paquete cargado exitosamente.");
+        //Se sigue agregando paquetes hasta que el usuario decida salir.
+            continuar = menuContinuar();
+        } while(continuar);
     //Si resulta que el reparto tenía el mismo chofer y fecha de salida que uno previo,
         if(esRepartoExistente(centroLogistico,reparto,true))
         { //Destruimos el reparto y mostramos un mensaje de error.
@@ -2906,7 +2891,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             printf("\n\nReparto armado exitosamente.");
         }
 
-        continuar=menuContinuar();
+        continuar = menuContinuar();
     } while(continuar);
 
     return menuGuardarCambios(centroLogistico,4);

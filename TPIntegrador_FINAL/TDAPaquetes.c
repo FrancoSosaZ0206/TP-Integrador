@@ -226,9 +226,9 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
     FechaPtr fechaEntrega2 = getFechaEntrega(paquete2);
 
 //primero, se verifica si el ID de paquete1 es igual al del paquete2
-    bool match = getID(paquete1) == getID(paquete2);
+    bool matchID = getID(paquete1) == getID(paquete2);
 //luego, se verifica si las dimensiones de paquete1 son iguales
-    match = match && getAncho(paquete1) == getAncho(paquete2);
+    bool match = match && getAncho(paquete1) == getAncho(paquete2);
     match = match && getAlto(paquete1) == getAlto(paquete2);
     match = match && getLargo(paquete1) == getLargo(paquete2);
     match = match && getPeso(paquete1) == getPeso(paquete2);
@@ -236,11 +236,13 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
     match = match && domiciliosIguales(dirRetiro1,dirRetiro2);
 //posteriormente, se verifica si las direcciones de entrega de paquete1 coinciden con las del paquete2
     match = match && domiciliosIguales(dirEntrega1,dirEntrega2);
-//finalmente, se chequea la fecha de entrega
+//tambien se chequea la fecha de entrega
     match = match && fechasIguales(fechaEntrega1,fechaEntrega2);
+//y por último, se verifica que los estados coincidan
+    match = match && getEstado(paquete1) == getEstado(paquete2);
 
-//la condicion final será: "si coinciden TODOS LOS PARÁMETROS..."
-    return match;
+//la condicion final será: "si coinciden el ID o TODOS LOS PARÁMETROS (o ambos)..."
+    return matchID || match;
 }
 
 PaquetePtr copiarPaquete(PaquetePtr paqueteOriginal) ///NUEVA - Orientada para la funcion copiarLista

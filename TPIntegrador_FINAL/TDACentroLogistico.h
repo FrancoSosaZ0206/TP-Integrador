@@ -350,8 +350,8 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion);
 
 //Operación: se verifica si el paquete existe en el Centro Logistico.
 //Precondición: Centro logistico debe haberse creado y cargado con, al menos, un paquete.
-//Postcondición: se recorre la lista de paquetes del centro, chequeando si en algun momento coincide el ID
-//               o el resto de campos con el paquete recibido.
+//Postcondición: se recorre la lista de paquetes del centro, chequeando si en algun momento coinciden
+//               los campos con los el paquete recibido.
 //Parámetros:
 //  centroLogistico: puntero a estructura que representa al centro logistico.
 //  paquete: puntero a la estructura paquete de la que se desea verificar su existencia.

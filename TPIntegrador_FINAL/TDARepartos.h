@@ -107,6 +107,7 @@ void setFechaSalida(RepartoPtr reparto,FechaPtr fechaSalida);
 // fechaRetorno: puntero a la estructura del nuevo valor.
 //Devuelve nada
 void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno);
+
 //Operación: Agrega un nuevo paquete a la pila de paquetes.
 //Precondición: La pila debe haberse creado
 //Postcondición: La pila tiene un nuevo paquete

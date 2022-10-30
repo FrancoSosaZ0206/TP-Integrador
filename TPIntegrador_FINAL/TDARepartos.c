@@ -154,20 +154,23 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete) ///NUEVA
 {
     bool match = false;
+//Si el reparto no tiene paquetes, no hacemos nada. De lo contrario, procedemos a revisar.
+    if(!pilaVacia(getPaquetesReparto(reparto)))
+    {
+        int n=cantidadPaquetes(reparto);
+        PaquetePtr paquetes[n]; ///Acá definieron una lista, lo cual era erróneo puesto que los paquetes de un reparto se almacenan en una pila.
+    ///Además, manejar las verificaciones con un vector es más fácil.
 
-    int n=cantidadPaquetes(reparto);
-    PaquetePtr paquetes[n]; ///Acá definieron una lista, lo cual era erróneo puesto que los paquetes de un reparto se almacenan en una pila.
-///Además, manejar las verificaciones con un vector es más fácil.
+        for(int i=0;i<n;i++)
+        { ///paquetes obtiene los paquetes del reparto, almacenandolos en c/u de sus posiciones.
+            paquetes[i]=descargarPaquete(reparto);
 
-    for(int i=0;i<n;i++)
-    { ///paquetes obtiene los paquetes del reparto, almacenandolos en c/u de sus posiciones.
-        paquetes[i]=descargarPaquete(reparto);
-
-        if(paquetesIguales(paquetes[i],paquete))
-            match = true;
+            if(paquetesIguales(paquetes[i],paquete))
+                match = true;
+        }
+        for(int i=n;i>-1;i--) ///Antes de obtener el siguiente reparto, reinsertamos los paquetes en el reparto.
+            cargarPaquete(reparto,paquetes[i]); ///El for va de n hasta 0 para mantener el orden original de los paquetes como estaban en la pila.
     }
-    for(int i=n;i>0;i--) ///Antes de obtener el siguiente reparto, reinsertamos los paquetes en el reparto.
-        cargarPaquete(reparto,paquetes[i]); ///El for va de n hasta 0 para mantener el orden original de los paquetes como estaban en la pila.
 
     return match;
 }
