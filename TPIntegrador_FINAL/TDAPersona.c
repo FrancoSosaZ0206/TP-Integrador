@@ -59,12 +59,16 @@ PersonaPtr destruirPersona(PersonaPtr persona)
 
 void setNombre(PersonaPtr persona,char *nombre)
 {
-    strcpy(persona->nombre,nombre);
+    destruirStringDinamico(persona->nombre);
+    char* NombreNuevo = crearStringDinamico(nombre);
+    persona->nombre = NombreNuevo;
 }
 
 void setApellido(PersonaPtr persona,char *apellido)
 {
-    strcpy(persona->apellido,apellido);
+    destruirStringDinamico(persona->apellido);
+    char* ApellidoNuevo = crearStringDinamico(apellido);
+    persona->apellido = ApellidoNuevo;
 }
 
 void setDomicilio(PersonaPtr persona,DomicilioPtr domicilio)

@@ -72,17 +72,23 @@ void setTipoVehiculo(VehiculoPtr vehiculo, int tipo)
 
 void setMarca(VehiculoPtr vehiculo, char *marca)
 {
-    strcpy(vehiculo->marca, marca);
+    destruirStringDinamico(vehiculo->marca);
+    char* MarcaNueva = crearStringDinamico(marca);
+    vehiculo->marca = MarcaNueva;
 }
 
 void setModelo(VehiculoPtr vehiculo, char *modelo)
 {
-    strcpy(vehiculo->modelo, modelo);
+    destruirStringDinamico(vehiculo->modelo);
+    char* ModeloNuevo = crearStringDinamico(modelo);
+    vehiculo->modelo = ModeloNuevo;
 }
 
 void setPatente(VehiculoPtr vehiculo, char *patente)
 {
-    strcpy(vehiculo->patente, patente);
+    destruirStringDinamico(vehiculo->patente);
+    char* PatenteNueva = crearStringDinamico(patente);
+    vehiculo->patente = PatenteNueva;
 }
 
 ///-----------------------------------------------------------------------------------------------------------///

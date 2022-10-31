@@ -32,7 +32,7 @@ char* crearStringDinamico(char* literal)
 
 void destruirStringDinamico(char *buffer)
 {
-    buffer=NULL;
+    buffer = NULL;
     free(buffer);
 }
 
@@ -76,7 +76,8 @@ void seleccionarString(char* STRING)
     fflush(stdin);
 }
 
-void ignorar(){
+void ignorar()
+{
     bool f=false;
     f? printf("YES\n"): printf("NO\n");
     if(f) printf("YES\n");
