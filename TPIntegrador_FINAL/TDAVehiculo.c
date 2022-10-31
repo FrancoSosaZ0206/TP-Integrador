@@ -227,6 +227,8 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
         printf("\n\tModelo: ");
         seleccionarString(modelo);
 
+        PatenteUnica = false;
+        PatenteValida = false;
         while( !PatenteUnica || !PatenteValida )
         {
             printf("\n\tPatente (AA 000 AA): ");

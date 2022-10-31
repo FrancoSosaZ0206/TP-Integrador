@@ -204,8 +204,8 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         limpiarBufferTeclado();
         printf("\n\t Domicilio ");
         domicilio=cargarDomicilio(domicilio);
-
-        do
+        CuilValido = false;
+        while(!CuilValido)
         {
             cuil=cargarCuil(cuil);
             CuilValido = VerificarCuilUnico(centroLogistico, getCuil(cuil));
@@ -214,7 +214,7 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 printf("\n\n\t [Usted ha ingresado un cuil ya existente...] \n\n");
                 presionarEnterYLimpiarPantalla();
             }
-        }while(!CuilValido);
+        }
 
         persona=crearPersona(nombre,apellido,domicilio,cuil,esChofer);
         agregarPersona(centroLogistico,persona);
