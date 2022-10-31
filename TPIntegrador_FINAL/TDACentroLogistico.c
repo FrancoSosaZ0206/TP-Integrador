@@ -608,7 +608,26 @@ bool VerificarPatenteValida(char* PatenteValidar)
 }
 
 
-
+bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente)
+{
+    bool match=false;
+    VehiculoPtr vehiculoDevolver;
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico,true));
+    while(!listaVacia(listaAux))
+    {
+        vehiculoDevolver=getVehiculo((RepartoPtr)getCabecera(listaAux));
+        if(strcmp(getPatente(vehiculoDevolver),patente)==0)
+        {
+            match=true;
+        }
+        ListaPtr ListaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    listaAux=destruirLista(listaAux,false);
+    return match;
+}
 
 bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar)
 {

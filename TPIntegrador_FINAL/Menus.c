@@ -3045,18 +3045,20 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                 scanf("%d",&k);
                 if(k > 0 && k < longLista)
                 {
-                    if(!)
+                    vehiculoElegido = getDatoLista(getVehiculos(centroLogistico),k-1);
+                    if(!buscarVehiculoRepartos(centroLogistico, getPatente(vehiculoElegido)))
                     {
-
+                        VehiculoValido = true;
                     }
                     else
                     {
-
+                        printf("\n\nVehiculo en otro reparto. Vuelva a elegir.");
+                        presionarEnterYLimpiarPantalla();
                     }
                 }
                 else
                 {
-                    printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
+                    printf("\n\nIndice inexistente. Vuelva a elegir.");
                     presionarEnterYLimpiarPantalla();
                 }
             } while(!VehiculoValido);
