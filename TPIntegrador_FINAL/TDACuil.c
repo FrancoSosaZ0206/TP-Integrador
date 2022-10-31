@@ -42,7 +42,8 @@ CuilPtr destruirCuil(CuilPtr cuil)
 
 void setCuil(CuilPtr cuil,char *cuilStr) ///NUEVA
 {
-    strcpy(cuil->cuil,cuilStr);
+    cuil->cuil=destruirStringDinamico(cuil->cuil);
+    cuil->cuil=crearStringDinamico(cuil);
 }
 
 void setTipo(CuilPtr cuil,int tipo)
@@ -215,7 +216,6 @@ Y * 4
             break;
         default: ///Posiblemente salga este mensaje aunque el tipo sea empresa.
             printf("\n\nERROR: TIPO DE CUIL INEXISTENTE.\n\n");
-            exit(1);
         }
         break;
     default:

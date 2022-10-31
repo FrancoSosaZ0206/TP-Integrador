@@ -220,7 +220,7 @@ int menuModoAccion(int *opMenuAnterior)
     {
         printf("Accion:\n");
         printf("1. Sobre un indice unico [Ej: Posicion 1]\n");
-        printf("2. Sobre conjunto de indices [Ej: Posiciones 1,18,4,25,7,6] (*)\n");
+        printf("2. Sobre conjunto de indices [Ej: Posiciones 1,18,4,25,7,6]\n");
         printf("3. Sobre rango de indices [Ej: Posiciones 1 - 4 (1,2,3,4)]\n");
         printf("0. Volver\n");
         printf("-1. MENU PRINCIPAL");
@@ -285,12 +285,12 @@ int *menuModoAccion2(ListaPtr lista,int cantIndices)
     {
         printf("Ingrese cantidad de indices a seleccionar: ");
         scanf("%d",&cantIndices);
-        if(cantIndices<1)
+        if(cantIndices<1 || cantIndices>n)
         {
             printf("\n\nCantidad incorrecta.");
             presionarEnterYLimpiarPantalla();
         }
-    } while(cantIndices<1);
+    } while(cantIndices<1 || cantIndices>n);
 
     int *indices = obtenerMemoria(sizeof(int)*cantIndices);
 //Elegimos los indices
@@ -298,7 +298,10 @@ int *menuModoAccion2(ListaPtr lista,int cantIndices)
     {
         do
         {
-            printf("\n\nIngrese indice %d: ",i+1);
+            if(cantIndices>1)
+                printf("\n\nIngrese indice %d: ",i+1);
+            else
+                printf("\n\nIngrese indice: ");
             scanf("%d",&indices[i]);
             limpiarBufferTeclado();
             if(indices[i]<1 || indices[i]>n)
@@ -407,7 +410,7 @@ bool menuContinuar()
 PRECONDICIÓN: cuil debe haber sido DECLARADO
 POSTCONDICION: se piden datos por pantalla y se crea un cuil en memoria dinamica con datos válidos
 PARÁMETROS: ninguno
-DEVUELVE: puntero al cuil cargado
+DEVUELVE: puntero al cuil cargado o NULL si se agotan los intentos y el cuil es invalido
 *//**
 ADVERTENCIA: No debe crearse el cuil con su constructora, causará memory leaks. */
 CuilPtr cargarCuil()
@@ -429,7 +432,10 @@ CuilPtr cargarCuil()
         else if(i>0 && i<4)
             setCuil(cuil,strCuil);
         else    //if(i==4)
+        {
             printf("\n\nIntentos agotados.\n\n");
+            return NULL;
+        }
 
         i++;
         if(!esCuilValido(cuil))
@@ -517,12 +523,12 @@ FechaPtr cargarFecha()
 }
 
 /* OPERACIÓN: actualiza los datos de un cuil
-PRECONDICIÓN: cuil debe haberse creado
+PRECONDICIÓN: cuil debe haberse declarado como struct estático
 POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
 PARÁMETROS:
   puntero a la estructura a actualizar
-DEVUELVE: Nada */
-void actualizarCuil(CuilPtr cuil)
+DEVUELVE: booleano informando si se pudo actualizar (true) o si se agotaron los intentos (false) */
+bool actualizarCuil(CuilPtr cuil)
 {
     char strCuil[100];
     int i=0;
@@ -533,16 +539,20 @@ void actualizarCuil(CuilPtr cuil)
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
         if(i<4)
-            setCuil(cuil,strCuil);
+            cuil->cuil=crearStringDinamico(cuil->cuil);
         else    //if(i==4)
+        {
             printf("\n\nIntentos agotados.\n\n");
+            return false;
+        }
         i++;
         if(i>1)
             system("cls");
     } while(!esCuilValido(cuil));
+    return true;
 }
 /* OPERACIÓN: actualiza los datos de un domicilio
-PRECONDICIÓN: domicilio debe haberse creado
+PRECONDICIÓN: domicilio debe haberse declarado como struct estático.
 POSTCONDICION: se piden datos por pantalla y se actualiza la estructura
 PARÁMETROS:
   puntero a la estructura a actualizar
@@ -563,12 +573,12 @@ void actualizarDomicilio(DomicilioPtr domicilio)
     scanf("%[^\n]%*c",localidad);
     limpiarBufferTeclado();
 
-    setCalle(domicilio,calle);
+    domicilio->calle=crearStringDinamico(calle);
     setAltura(domicilio,altura);
-    setLocalidad(domicilio,localidad);
+    domicilio->localidad=crearStringDinamico(localidad);
 }
 /* OPERACIÓN: actualiza los datos de una fecha
-PRECONDICIÓN: fecha debe haberse creado
+PRECONDICIÓN: fecha debe haberse declarado como struct estático
 POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
 PARÁMETROS:
   puntero a la estructura a actualizar
@@ -580,8 +590,6 @@ void actualizarFecha(FechaPtr fecha)
     int anio=0;
     int hora=0;
     int minuto=0;
-
-    int i=0;
 
     do
     {
@@ -597,16 +605,10 @@ void actualizarFecha(FechaPtr fecha)
         setAnio(fecha,anio);
         setHora(fecha,hora);
         setMinuto(fecha,minuto);
-        if(!esFechaValida(fecha) && i<4)
+        if(!esFechaValida(fecha))
         {
             printf("\n\nFecha invalida. Reingrese la fecha.");
             presionarEnterYLimpiarPantalla();
-        }
-        else if(i==4)
-        {
-            printf("\n\nSe agotaron los intentos.");
-            presionarEnterYLimpiarPantalla();
-            break;
         }
     } while (!esFechaValida(fecha));
 }
@@ -654,7 +656,10 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
         paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,0);
 
         if(esPaqueteExistente(centroLogistico,paquete))
-            printf("\n\nERROR: este paquete ya existe. Ingrese uno con otros datos.");
+        {
+            paquete=destruirPaquete(paquete);
+            printf("\n\nERROR: este paquete ya existe. Pruebe ingresando otros datos.");
+        }
         else
         {
             agregarPaquete(centroLogistico,paquete);
@@ -692,20 +697,27 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         DomicilioPtr domicilio = cargarDomicilio();
 
         CuilPtr cuil = cargarCuil();
-
-        persona=crearPersona(nombre,apellido,domicilio,cuil,esChofer);
-
-        if(esPersonaExistente(centroLogistico,persona))
-            printf("ERROR: esta persona ya existe. Pruebe ingresando otros datos.");
-        else
+        if(cuil!=NULL)
         {
-            agregarPersona(centroLogistico,persona);
+            persona=crearPersona(nombre,apellido,domicilio,cuil,esChofer);
 
-            if(esChofer)
-                printf("\n\nChofer cargado exitosamente.");
+            if(esPersonaExistente(centroLogistico,persona))
+            {
+                persona=destruirPersona(persona);
+                printf("ERROR: esta persona ya existe. Pruebe ingresando otros datos.");
+            }
             else
-                printf("\n\nCliente cargado exitosamente.");
+            {
+                agregarPersona(centroLogistico,persona);
+
+                if(esChofer)
+                    printf("\n\nChofer cargado exitosamente.");
+                else
+                    printf("\n\nCliente cargado exitosamente.");
+            }
         }
+        else
+            domicilio=destruirDomicilio(domicilio);
 
         continuar=menuContinuar();
     } while(continuar);
@@ -754,7 +766,10 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 
         vehiculo=crearVehiculo(tipoVehiculo,marca,modelo,patente);
         if(esVehiculoExistente(centroLogistico,vehiculo))
+        {
+            vehiculo=destruirVehiculo(vehiculo);
             printf("\n\nERROR: este vehiculo ya existe, pruebe ingresando otros datos.");
+        }
         else
         {
             agregarVehiculo(centroLogistico,vehiculo);
@@ -1190,10 +1205,9 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
 /// ////////////////////////////////////////////////////////////////////////////////// ///
 
                 int nDimension=0; //vale para ancho, alto, largo y peso.
-                DomicilioPtr nDireccion; //vale para retiro y entrega
-                FechaPtr nFechaEntrega;
+                Domicilio nDireccion; //vale para retiro y entrega
+                Fecha nFechaEntrega;
                 int nEstado;
-
 
                 printf("\n\nQue desea modificar?\n\n");
 
@@ -1317,42 +1331,48 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                     break;
                 case 5:
                     printf("Nueva Direccion de Retiro: ");
-                    actualizarDomicilio(nDireccion);
+                    actualizarDomicilio(&nDireccion);
 
                     if(modoAccion==1)
-                        setDirRetiro(paqueteAModificar,nDireccion);
+                        setDirRetiro(paqueteAModificar,&nDireccion);
                     else if(modoAccion==2)
                         for(int i=0;i<nIndices;i++)
-                            setDirRetiro(paquetesAModificar[i],nDireccion);
+                            setDirRetiro(paquetesAModificar[i],&nDireccion);
                     else
                         for(int i=0;i<=(hasta-desde);i++)
-                            setDirRetiro(paquetesAModificar[i],nDireccion);
+                            setDirRetiro(paquetesAModificar[i],&nDireccion);
+
+                    nDireccion.calle=destruirStringDinamico(nDireccion.calle);
+                    nDireccion.localidad=destruirStringDinamico(nDireccion.localidad);
                     break;
                 case 6:
                     printf("Nueva Direccion de Entrega: ");
-                    actualizarDomicilio(nDireccion);
+                    actualizarDomicilio(&nDireccion);
 
                     if(modoAccion==1)
-                        setDirEntrega(paqueteAModificar,nDireccion);
+                        setDirEntrega(paqueteAModificar,&nDireccion);
                     else if(modoAccion==2)
                         for(int i=0;i<nIndices;i++)
-                            setDirEntrega(paquetesAModificar[i],nDireccion);
+                            setDirEntrega(paquetesAModificar[i],&nDireccion);
                     else
                         for(int i=0;i<=(hasta-desde);i++)
-                            setDirEntrega(paquetesAModificar[i],nDireccion);
+                            setDirEntrega(paquetesAModificar[i],&nDireccion);
+
+                    nDireccion.calle=destruirStringDinamico(nDireccion.calle);
+                    nDireccion.localidad=destruirStringDinamico(nDireccion.localidad);
                     break;
                 case 7:
                     printf("Nueva Fecha de Entrega: ");
-                    actualizarFecha(nFechaEntrega);
+                    actualizarFecha(&nFechaEntrega);
 
                     if(modoAccion==1)
-                        setFechaEntrega(paqueteAModificar,nFechaEntrega);
+                        setFechaEntrega(paqueteAModificar,&nFechaEntrega);
                     else if(modoAccion==2)
                         for(int i=0;i<nIndices;i++)
-                            setFechaEntrega(paquetesAModificar[i],nFechaEntrega);
+                            setFechaEntrega(paquetesAModificar[i],&nFechaEntrega);
                     else
                         for(int i=0;i<=(hasta-desde);i++)
-                            setFechaEntrega(paquetesAModificar[i],nFechaEntrega);
+                            setFechaEntrega(paquetesAModificar[i],&nFechaEntrega);
                     break;
                 case 8:
                     do
@@ -1507,8 +1527,8 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
 /// ////////////////////////////////////////////////////////////////////////////////// ///
                 char nNombre[100];
                 char nApellido[100];
-                DomicilioPtr nDomicilio;
-                CuilPtr nCuil;
+                Domicilio nDomicilio;
+                Cuil nCuil;
                 bool nEsChofer;
 
 
@@ -1559,29 +1579,36 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                     break;
                 case 3:
                     printf("\n\nNuevo Domicilio:");
-                    actualizarDomicilio(nDomicilio);
+                    actualizarDomicilio(&nDomicilio);
 
                     if(modoAccion==1)
-                        setDomicilio(personaAModificar,nDomicilio);
+                        setDomicilio(personaAModificar,&nDomicilio);
                     else if(modoAccion==2)
                         for(int i=0;i<nIndices;i++)
-                            setDomicilio(personasAModificar[i],nDomicilio);
+                            setDomicilio(personasAModificar[i],&nDomicilio);
                     else
                         for(int i=0;i<=(hasta-desde);i++)
-                            setDomicilio(personasAModificar[i],nDomicilio);
+                            setDomicilio(personasAModificar[i],&nDomicilio);
+                    nDomicilio.calle=destruirStringDinamico(nDomicilio.calle);
+                    nDomicilio.localidad=destruirStringDinamico(nDomicilio.localidad);
                     break;
                 case 4:
                     printf("\n\nNuevo CUIL:");
-                    actualizarCuil(nCuil);
+                    if(actualizarCuil(&nCuil))
+                    {
+                        if(modoAccion==1)
+                            setCuilPersona(personaAModificar,&nCuil);
+                        else if(modoAccion==2)
+                            for(int i=0;i<nIndices;i++)
+                                setCuilPersona(personasAModificar[i],&nCuil);
+                        else
+                            for(int i=0;i<=(hasta-desde);i++)
+                                setCuilPersona(personasAModificar[i],&nCuil);
 
-                    if(modoAccion==1)
-                        setCuilPersona(personaAModificar,nCuil);
-                    else if(modoAccion==2)
-                        for(int i=0;i<nIndices;i++)
-                            setCuilPersona(personasAModificar[i],nCuil);
+                        nCuil.cuil=destruirStringDinamico(nCuil.cuil);
+                    }
                     else
-                        for(int i=0;i<=(hasta-desde);i++)
-                            setCuilPersona(personasAModificar[i],nCuil);
+                        printf("No se pudo actualizar el cuil.");
                     break;
                 case 5:
                     if(esChofer)
@@ -1608,6 +1635,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                     presionarEnterYLimpiarPantalla();
                     break;
                 }
+
                 if(!(op==0 || op==-1))
                 {
                     printf("\n\nDatos modificados exitosamente.\n\n");
@@ -1897,7 +1925,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                         repartosAModificar[i]=(RepartoPtr)getDatoLista(listaAux,i-1);
                 }
 /// ////////////////////////////////////////////////////////////////////////////////// ///
-                FechaPtr fechaAModificar;
+                Fecha fechaAModificar;
                 int nuevoEstado;
 
                 system("cls");
@@ -1962,30 +1990,30 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                     printf("MODIFICAR FECHA SALIDA");
                     printf("\n\n-----------------------------------------\n\n");
 /// ////////////////////////////////////////////////////////////////////////////////// ///
-                    actualizarFecha(fechaAModificar);
+                    actualizarFecha(&fechaAModificar);
                     if(modoAccion==1)
-                        setFechaSalida(repartoAModificar,fechaAModificar);
+                        setFechaSalida(repartoAModificar,&fechaAModificar);
                     else if(modoAccion==2)
                         for(int i=0;i<nIndices;i++)
-                            setFechaSalida(repartosAModificar[i],fechaAModificar);
+                            setFechaSalida(repartosAModificar[i],&fechaAModificar);
                     else
                         for(int i=0;i<=(hasta-desde);i++)
-                            setFechaSalida(repartosAModificar[i],fechaAModificar);
+                            setFechaSalida(repartosAModificar[i],&fechaAModificar);
 /// ////////////////////////////////////////////////////////////////////////////////// ///
                     break;
                 case 4:
                     printf("MODIFICAR FECHA RETORNO");
                     printf("\n\n-----------------------------------------\n\n");
 /// ////////////////////////////////////////////////////////////////////////////////// ///
-                    actualizarFecha(fechaAModificar);
+                    actualizarFecha(&fechaAModificar);
                     if(modoAccion==1)
-                        setFechaRetorno(repartoAModificar,fechaAModificar);
+                        setFechaRetorno(repartoAModificar,&fechaAModificar);
                     else if(modoAccion==2)
                         for(int i=0;i<nIndices;i++)
-                            setFechaRetorno(repartosAModificar[i],fechaAModificar);
+                            setFechaRetorno(repartosAModificar[i],&fechaAModificar);
                     else
                         for(int i=0;i<=(hasta-desde);i++)
-                            setFechaRetorno(repartosAModificar[i],fechaAModificar);
+                            setFechaRetorno(repartosAModificar[i],&fechaAModificar);
 /// ////////////////////////////////////////////////////////////////////////////////// ///
                     break;
                 }
@@ -2218,15 +2246,17 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 printf("BUSCAR CLIENTE\n\n");
                 printf("Ingrese el CUIL del cliente a buscar: ");
             }
-            cargarCuil(cuilABuscar);
-            printf("\n\n");
-
-            if(!buscarPersona(centroLogistico,cuilABuscar,esChofer))
+            if(cargarCuil(cuilABuscar)!=NULL)
             {
-                if(esChofer)
-                    printf("\n\nNo se pudo encontrar el chofer con CUIL %s.\n\n",getCuil(cuilABuscar));
-                else
-                    printf("\n\nNo se pudo encontrar el cliente con CUIL %s.\n\n",getCuil(cuilABuscar));
+                printf("\n\n");
+
+                if(!buscarPersona(centroLogistico,cuilABuscar,esChofer))
+                {
+                    if(esChofer)
+                        printf("\n\nNo se pudo encontrar el chofer con CUIL %s.\n\n",getCuil(cuilABuscar));
+                    else
+                        printf("\n\nNo se pudo encontrar el cliente con CUIL %s.\n\n",getCuil(cuilABuscar));
+                }
             }
 
             continuar=menuContinuar();
@@ -2754,7 +2784,6 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
         VehiculoPtr vehiculoElegido;
 
         PilaPtr pilaPaquetesElegidos=crearPila();
-        int cantPaquetesElegidos=0;
         PaquetePtr paqueteElegido;
 
         int n=0;

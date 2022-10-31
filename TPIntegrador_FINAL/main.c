@@ -385,7 +385,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
                         printf("ELIMINAR REPARTO:\n\n");
                         printf("1. Abierto\n");
                         printf("2. Cerrado\n");
-                        printf("0. Volver");
+                        printf("0. Volver\n");
                         printf("-1. MENU PRINCIPAL");
                         printf("\n\n-----------------------------------------\n\n");
                         printf("Seleccione una opcion: ");

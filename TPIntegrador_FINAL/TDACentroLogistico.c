@@ -675,7 +675,7 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
             salto/=2;
     }
 ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
-    for(int i=n; i>0; i--)
+    for(int i=n-1; i>-1; i--)
         agregarPaquete(centroLogistico,paquetes[i]);
 }
 void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo)
@@ -725,7 +725,7 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo)
             salto/=2;
     }
 ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
-    for(int i=n; i>0; i--)
+    for(int i=n-1; i>-1; i--)
         agregarPersona(centroLogistico,personas[i]);
 }
 void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo)
@@ -777,7 +777,7 @@ void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo)
             salto/=2;
     }
 ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
-    for(int i=n; i>0; i--)
+    for(int i=n-1; i>-1; i--)
         agregarVehiculo(centroLogistico,vehiculos[i]);
 }
 
@@ -851,6 +851,6 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
             salto/=2;
     }
 ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
-    for(int i=n; i>0; i--)
+    for(int i=n-1; i>-1; i--)
         agregarReparto(centroLogistico,repartos[i],esRepartoAbierto);
 }
