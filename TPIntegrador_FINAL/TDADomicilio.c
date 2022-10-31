@@ -66,7 +66,12 @@ void mostrarDomicilio(DomicilioPtr domicilio)
 
 bool domiciliosIguales(DomicilioPtr domicilio1,DomicilioPtr domicilio2)
 {
-    bool condicion = strcmp(getCalle(domicilio1),getCalle(domicilio2)) == 0;
-    condicion = condicion && getAltura(domicilio1) == getAltura(domicilio2);
-    return condicion && strcmp(getLocalidad(domicilio1),getLocalidad(domicilio2)) == 0;
+    bool SonDomiciliosIguales = true;
+    SonDomiciliosIguales = SonDomiciliosIguales && (strcmp(getCalle(domicilio1),getCalle(domicilio2)) == 0);
+    SonDomiciliosIguales = SonDomiciliosIguales && (getAltura(domicilio1) == getAltura(domicilio2));
+    SonDomiciliosIguales = SonDomiciliosIguales && (strcmp(getLocalidad(domicilio1),getLocalidad(domicilio2)) == 0);
+    return SonDomiciliosIguales;
 }
+
+
+

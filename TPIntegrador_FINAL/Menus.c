@@ -111,13 +111,13 @@ bool detectarCambios(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDato)
         switch(tipoDato)
         {
         case 1:
-            datosIguales = paquetesIguales((PaquetePtr)datoOriginal,(PaquetePtr)copiaDato);
+            datosIguales = paquetesIguales((PaquetePtr)datoOriginal,(PaquetePtr)copiaDato,true);
             break;
         case 2:
             datosIguales = personasIguales((PersonaPtr)datoOriginal,(PersonaPtr)copiaDato, true);
             break;
         case 3:
-            datosIguales = vehiculosIguales((VehiculoPtr)datoOriginal,(VehiculoPtr)copiaDato);
+            datosIguales = vehiculosIguales((VehiculoPtr)datoOriginal,(VehiculoPtr)copiaDato,true);
             break;
         case 4:
             datosIguales = repartosIguales((RepartoPtr)datoOriginal,(RepartoPtr)copiaDato);
@@ -2257,13 +2257,9 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         do
         {
             CuilPtr cuilABuscar;
-            if(esChofer)
-            {
+            if(esChofer){
                 printf("BUSCAR CHOFER\n\n");
-                printf("Ingrese el CUIL del chofer a buscar: ");
-            }
-            else
-            {
+            }else{
                 printf("BUSCAR CLIENTE\n\n");
                 printf("Ingrese el CUIL del cliente a buscar: ");
             }
@@ -2960,12 +2956,12 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
     int cantPaquetesElegidos = 0;
     int longLista=0;
     int i=0;
-    bool continuar = true;
-    bool SeguirApilandoPaquetes = true;
+    bool continuar = false;
+    bool SeguirApilandoPaquetes = false;
     bool SePuedeArmar = true;
-    bool PaqueteValido = true;
-    bool ChoferValido = true;
-    bool VehiculoValido = true;
+    bool PaqueteValido = false;
+    bool ChoferValido = false;
+    bool VehiculoValido = false;
     RepartoPtr reparto;
     PersonaPtr choferElegido;
     VehiculoPtr vehiculoElegido;
@@ -2974,10 +2970,6 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
     //------------------------------------------//
     ///SECCION DE VERIFICACION DE RECURSOS
     //------------------------------------------//
-    if(listaVacia(getPersonas(centroLogistico)))
-    {
-        SePuedeArmar = false;
-    }
     if(!ExistenChoferesDisponibles(centroLogistico))
     {
         SePuedeArmar = false;
@@ -2999,56 +2991,71 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
         {
             do
             {
-                ///SELECCION DEL CHOFER
-                ChoferValido = true;
+                ChoferValido = false;
                 longLista = longitudLista(getPersonas(centroLogistico));
                 mostrarChoferesDisponibles(centroLogistico);
-                printf("\n\nSeleccione un chofer ingresando su indice: ");
+                printf("\n\nElegir chofer: ");
                 limpiarBufferTeclado();
                 scanf("%d",&k);
-                choferElegido=(PersonaPtr)getDatoLista(getPersonas(centroLogistico),k-1);
-
-                if(k<=0 || k>longLista)
+                if(k > 0 && k < longLista)
                 {
-                    ChoferValido = false;
-                    printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
-                    presionarEnterYLimpiarPantalla();
-                }
-                else
-                {
-                    if(!getEsChofer(choferElegido))
+                    choferElegido = getDatoLista(getPersonas(centroLogistico), k-1);
+                    if(getEsChofer(choferElegido))
                     {
-                        ChoferValido = false;
-                        printf("\n\nERROR: el indice ingresado no corresponde a un chofer. Vuelva a elegir.");
+                        if(!ChoferEnReparto(centroLogistico, choferElegido))
+                        {
+                            if(!RepartoDiarioConcretado(centroLogistico, choferElegido))
+                            {
+                                ChoferValido = true;
+                            }
+                            else
+                            {
+                                printf("\n\nChofer con reparto diario concretado. Vuelva a elegir.");
+                                presionarEnterYLimpiarPantalla();
+                            }
+                        }
+                        else
+                        {
+                            printf("\n\nChofer en otro reparto. Vuelva a elegir.");
+                            presionarEnterYLimpiarPantalla();
+                        }
+                    }
+                    else
+                    {
+                        printf("\n\nChofer elegido no ser chofer. Vuelva a elegir.");
                         presionarEnterYLimpiarPantalla();
                     }
                 }
-                if(ChoferEnReparto(centroLogistico, choferElegido))
+                else
                 {
-                    ChoferValido = false;
-                    printf("\n\nERROR: el chofer seleccionado esta en un reparto. Vuelva a elegir.");
+                    printf("\n\nIndice inexistente. Vuelva a elegir.");
                     presionarEnterYLimpiarPantalla();
                 }
-                if(RepartoDiarioConcretado(centroLogistico, choferElegido))
-                {
-                    ChoferValido = false;
-                    printf("\n\nERROR: el chofer elegido ya emprendio su reparto diario. Vuelva a elegir.");
-                    presionarEnterYLimpiarPantalla();
-                }
-            } while(!ChoferValido);
+                system("cls");
+            }while(!ChoferValido);
 
             do
             {
+                VehiculoValido = false;
                 ///SELECCION DEL VEHICULO
-                VehiculoValido = true;
                 longLista = longitudLista(getVehiculos(centroLogistico));
                 mostrarVehiculos(centroLogistico);
                 printf("\n\nSeleccione un vehiculo ingresando su indice: ");
                 limpiarBufferTeclado();
                 scanf("%d",&k);
-                if(k<=0 || k>=longLista)
+                if(k > 0 && k < longLista)
                 {
-                    VehiculoValido = false;
+                    if(!)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
                     printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
                     presionarEnterYLimpiarPantalla();
                 }
@@ -3065,27 +3072,32 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
             do
             {
+                PaqueteValido = false;
                 do
                 {
                     ///SELECCION DE PAQUETES
-                    PaqueteValido = true;
                     longLista = longitudLista(getPaquetes(centroLogistico));
                     mostrarPaquetesDisponibles(centroLogistico);
-                    printf("\n\nPaquete nro: %d. ", i+1);
+                    printf("\n\nPaquete nro: %d. \n", i+1);
                     printf("Seleccione el paquete a cargar ingresando su indice: ");
                     limpiarBufferTeclado();
                     scanf("%d",&k);
-                    paqueteElegido = getDatoLista(getPaquetes(centroLogistico), k-1);
-                    if(k<=0 || k>=longLista)
+                    if(k > 0 && k < longLista)
                     {
-                        PaqueteValido = false;
-                        printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
-                        presionarEnterYLimpiarPantalla();
+                        paqueteElegido = getDatoLista(getPaquetes(centroLogistico), k-1);
+                        if(getEstado(paqueteElegido) == 0)
+                        {
+                            PaqueteValido = true;
+                        }
+                        else
+                        {
+                            printf("\n\nERROR: Paquete actualmente en curso. Vuelva a elegir.");
+                            presionarEnterYLimpiarPantalla();
+                        }
                     }
-                    if(getEstado(paqueteElegido) != 0)
+                    else
                     {
-                        PaqueteValido = false;
-                        printf("\n\nERROR: Paquete actualmente en curso. Vuelva a elegir.");
+                        printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
                         presionarEnterYLimpiarPantalla();
                     }
                     system("cls");

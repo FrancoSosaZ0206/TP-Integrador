@@ -215,7 +215,6 @@ Y * 4
             break;
         default: ///Posiblemente salga este mensaje aunque el tipo sea empresa.
             printf("\n\nERROR: TIPO DE CUIL INEXISTENTE.\n\n");
-            exit(1);
         }
         break;
     default:

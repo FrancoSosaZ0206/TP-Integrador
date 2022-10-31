@@ -682,7 +682,7 @@ bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
     while(!listaVacia(listaAux))
     {
         PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
-        if(paquetesIguales(paqueteAux,paquete))
+        if(paquetesIguales(paqueteAux,paquete,true))
             match=true;
         listaAux=getResto(listaAux);
     }
@@ -718,7 +718,7 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
     while(!listaVacia(listaAux))
     {
         VehiculoPtr vehculoAux = (VehiculoPtr)getCabecera(listaAux);
-        if(vehiculosIguales(vehculoAux,vehiculo))
+        if(vehiculosIguales(vehculoAux,vehiculo,true))
             match=true;
         listaAux=getResto(listaAux);
     }
@@ -786,7 +786,7 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
             case 3:
                 condicion = getEstado(paquetes[i]) > getEstado(paquetes[i+salto]);
                 break;
-        ///NO REQUIERE CLÁUSULA "DEFAULT"
+            ///NO REQUIERE CLÁUSULA "DEFAULT"
             }
             if(condicion)
             { //Hago un swap
@@ -799,8 +799,8 @@ void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
         if(!cambios)
             salto/=2;
     }
-///Finalmente, agregamos nuevamente los elementos ordenados a la lista
-    for(int i=n; i>0; i--)
+    ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
+    for(int i=n-1; i>-1; i--)
         agregarPaquete(centroLogistico,paquetes[i]);
 }
 void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo)

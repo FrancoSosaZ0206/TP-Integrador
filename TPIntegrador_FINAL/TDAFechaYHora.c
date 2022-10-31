@@ -261,8 +261,16 @@ bool esFechaValida(FechaPtr fecha)
 
 bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
 {
-    int *diferencia = calcularDiferenciaFechas(fecha1,fecha2);
-    bool valorRetorno = diferencia[0]==0 && diferencia[1]==0 && diferencia[2]==0;
-    free(diferencia);
-    return valorRetorno;
+    bool SonFechasIguales = true;
+    SonFechasIguales = SonFechasIguales && (getDia(fecha1) == getDia(fecha2));
+    SonFechasIguales = SonFechasIguales && (getMes(fecha1) == getMes(fecha2));
+    SonFechasIguales = SonFechasIguales && (getAnio(fecha1) == getAnio(fecha2));
+    SonFechasIguales = SonFechasIguales && (getHora(fecha1) == getHora(fecha2));
+    SonFechasIguales = SonFechasIguales && (getMinuto(fecha1) == getMinuto(fecha2));
+    return SonFechasIguales;
+}
+
+void MostrarFecha(FechaPtr F)
+{
+    printf("\t %d / %d / %d - %d - %d : %d \n\n", getDia(F), getMes(F), getAnio(F), getHora(F), getMinuto(F));
 }

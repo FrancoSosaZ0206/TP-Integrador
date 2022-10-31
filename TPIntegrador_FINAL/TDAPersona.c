@@ -119,25 +119,17 @@ void mostrarPersona(PersonaPtr persona)
 
 bool personasIguales(PersonaPtr persona1,PersonaPtr persona2, bool CompararTodo)
 {
-    int Resultado = 0;
-    bool SonPersonasIguales = false;
+    bool SonPersonasIguales = true;
     if(CompararTodo)
     {
-        Resultado = strcmp(getNombre(persona1), getNombre(persona2));
-        if(Resultado == 0) { SonPersonasIguales = true; }
-        Resultado = strcmp(getApellido(persona1), getApellido(persona2));
-        if(Resultado == 0) { SonPersonasIguales = true; }
-        Resultado = strcmp(getCalle(getDomicilio(persona1)), getCalle(getDomicilio(persona2)));
-        if(Resultado == 0) { SonPersonasIguales = true; }
-        Resultado = getAltura(getDomicilio(persona1)) - getAltura(getDomicilio(persona2));
-        if(Resultado == 0) { SonPersonasIguales = true; }
-        Resultado = strcmp(getLocalidad(getDomicilio(persona1)), getLocalidad(getDomicilio(persona2)));
-        if(Resultado == 0) { SonPersonasIguales = true; }
-        SonPersonasIguales = cuilsIguales(getCuilPersona(persona1), getCuilPersona(persona2));
+        SonPersonasIguales = SonPersonasIguales && (strcmp(getNombre(persona1), getNombre(persona2)) == 0);
+        SonPersonasIguales = SonPersonasIguales && (strcmp(getNombre(persona1), getNombre(persona2)) == 0);
+        SonPersonasIguales = SonPersonasIguales && domiciliosIguales(getDomicilio(persona1),getDomicilio(persona2));
+        SonPersonasIguales = SonPersonasIguales && cuilsIguales(getCuilPersona(persona1), getCuilPersona(persona2));
     }
     else
     {
-        SonPersonasIguales = cuilsIguales(getCuil(persona1), getCuil(persona2));
+        SonPersonasIguales = cuilsIguales(getCuilPersona(persona1), getCuilPersona(persona2));
     }
     return SonPersonasIguales;
 }
