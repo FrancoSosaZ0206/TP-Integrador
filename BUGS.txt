@@ -7,6 +7,12 @@ BUGS
 - MENUS
 	- Funcion modificarPaquete: luego de seleccionar el modo de accion, se sale del menu.
 	- Funcion modificarPaquete: crashea cuando se termina de cambiar el domicilio.
+	- Menu Mostrar X: para las opciones "Emitir Listados de Paquetes / Clientes / Choferes", luego de mostrar una lista sin ordenar, 
+	  sale el cartel "Guardar Cambios? Si/No" cuando no se realizó ninguno.
+	- Menu buscar persona: Crashea luego de ingresar un CUIL para buscar.
+	- menuModificarPaquete: fallo al obtener los paquetes si se selecciona el menu modo accion 2
+	- menuModoAccion3: si se elige un hasta incorrecto, y luego se elige el mismo valor que desde, crashea.
+	- menuMostrarPaquetes: se congela al imprimir la lista ordenada por fecha de salida.
 
 ----------------------------------------------------------------------------------------------------------------------
 
@@ -14,3 +20,4 @@ FILES
 	- Funciones guardar/abrirPaquetes: Los datos son corrompidos cuando se abre y muestra una lista de paquetes. No logré encontrar pistas de donde está el error, todavía.
 
 ---------------------------------------------------------------------------------------------------------------------
+
