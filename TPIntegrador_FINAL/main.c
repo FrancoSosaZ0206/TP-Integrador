@@ -12,6 +12,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez);
 
 int main()
 {
+    CentroLogisticoPtr c = crearCentroLogisticoDefecto();
 /** **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
@@ -42,11 +43,8 @@ int main()
     return 0;
 
 /// **************************************************************************************************************/
-
     CentroLogisticoPtr centroLogistico;
-
     int START_OP=0;
-
     do
     {
         printf("\t    MENU DE INICIO - BIENVENIDO");
@@ -64,10 +62,10 @@ int main()
         switch(START_OP)
         {
         case 1:
-            centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
+            ///centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             system("cls");
-            START_OP = MAIN_MENU(centroLogistico,true);
-            centroLogistico=destruirCentroLogistico(centroLogistico);
+            START_OP = MAIN_MENU(c,true);
+            centroLogistico=destruirCentroLogistico(c);
             break;
         case 2:
             centroLogistico = abrirTodo();
@@ -377,7 +375,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
                     cambiosGuardados = menuArmarReparto(centroLogistico);
                     break;
                 case 2:
-                    cambiosGuardados = menuCerrarReparto(centroLogistico,&op1);
+                    cambiosGuardados = menuCerrarRepartoPrototipo(centroLogistico,&op1);
                     break;
                 case 3:
                     do

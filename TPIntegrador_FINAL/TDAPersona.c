@@ -115,16 +115,23 @@ void mostrarPersona(PersonaPtr persona)
     mostrarCuil(getCuilPersona(persona));
 }
 
-bool personasIguales(PersonaPtr persona1,PersonaPtr persona2)
+
+
+bool personasIguales(PersonaPtr persona1,PersonaPtr persona2, bool CompararTodo)
 {
-    bool matchCuil = cuilsIguales(getCuilPersona(persona1),getCuilPersona(persona2));
-
-    bool match = strcmp(getNombre(persona1),getNombre(persona2)) == 0;
-    match = match && strcmp(getApellido(persona1),getApellido(persona2)) == 0;
-    match = match && domiciliosIguales(getDomicilio(persona1),getDomicilio(persona2));
-    match = match && getEsChofer(persona1) && getEsChofer(persona2);
-
-    return matchCuil && match;
+    bool SonPersonasIguales = true;
+    if(CompararTodo)
+    {
+        SonPersonasIguales = SonPersonasIguales && (strcmp(getNombre(persona1), getNombre(persona2)) == 0);
+        SonPersonasIguales = SonPersonasIguales && (strcmp(getNombre(persona1), getNombre(persona2)) == 0);
+        SonPersonasIguales = SonPersonasIguales && domiciliosIguales(getDomicilio(persona1),getDomicilio(persona2));
+        SonPersonasIguales = SonPersonasIguales && cuilsIguales(getCuilPersona(persona1), getCuilPersona(persona2));
+    }
+    else
+    {
+        SonPersonasIguales = cuilsIguales(getCuilPersona(persona1), getCuilPersona(persona2));
+    }
+    return SonPersonasIguales;
 }
 
 PersonaPtr copiarPersona(PersonaPtr personaOriginal) ///NUEVA - Orientada para la funcion copiarLista

@@ -97,14 +97,21 @@ void mostrarTipoVehiculo(VehiculoPtr vehiculo) ///informa al usuario de que tipo
     }
 }
 
-bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2)
+bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2, bool CompararTodo)
 {
-    bool matchPatente = strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0;
-
-    bool match = getTipoVehiculo(vehiculo1) == getTipoVehiculo(vehiculo2);
-    match = match && strcmp(getMarca(vehiculo1),getMarca(vehiculo2)) == 0;
-    match = match && strcmp(getModelo(vehiculo1),getModelo(vehiculo2)) == 0;
-    return matchPatente && match;
+    bool SonVehiculosIguales = true;
+    if(CompararTodo)
+    {
+        SonVehiculosIguales = SonVehiculosIguales && (getTipoVehiculo(vehiculo1) == getTipoVehiculo(vehiculo2));
+        SonVehiculosIguales = SonVehiculosIguales && (strcmp(getMarca(vehiculo1),getMarca(vehiculo2)) == 0);
+        SonVehiculosIguales = SonVehiculosIguales && (strcmp(getModelo(vehiculo1),getModelo(vehiculo2)) == 0);
+        SonVehiculosIguales = SonVehiculosIguales && (strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0);
+    }
+    else
+    {
+        SonVehiculosIguales = SonVehiculosIguales && (strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0);
+    }
+    return SonVehiculosIguales;
 }
 
 VehiculoPtr copiarVehiculo(VehiculoPtr vehiculoOriginal) ///NUEVA - Orientada para la funcion copiarLista

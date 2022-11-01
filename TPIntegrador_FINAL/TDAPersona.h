@@ -152,7 +152,7 @@ void mostrarPersona(PersonaPtr persona);
 //
 //Devuelve: todos los datos de Persona
 
-bool personasIguales(PersonaPtr persona1,PersonaPtr persona2);
+bool personasIguales(PersonaPtr persona1,PersonaPtr persona2, bool CompararTodo);
 //Operación: verifica si dos personas son iguales.
 //Precondición: Ambas personas deben haber sido creadas.
 //Postcondición: chequea si las estructuras son idénticas en cuil

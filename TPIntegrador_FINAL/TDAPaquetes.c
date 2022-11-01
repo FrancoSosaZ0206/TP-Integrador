@@ -173,9 +173,8 @@ void mostrarPaquete(PaquetePtr paquete)
     printf("\tDireccion de Entrega: ");
     mostrarDomicilio(getDirEntrega(paquete));
 
-    char bufferFecha[18]; ///Nuevo: cambiamos el puntero a vector para arreglar un bug.
-    traerFechaYHora(getFechaEntrega(paquete),bufferFecha);
-    printf("\tFecha y Hora de Entrega: %s\n",bufferFecha);
+    printf("\tFecha y Hora de Entrega:");
+    MostrarFecha(getFechaEntrega(paquete));
 }
 void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
 {
@@ -215,34 +214,37 @@ void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual de
     }
 }
 
-bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
+    int ID;
+    int ancho;
+    int alto;
+    int largo;
+    int peso;
+    DomicilioPtr dirRetiro;
+    DomicilioPtr dirEntrega;
+    FechaPtr fechaEntrega;
+    int estado; ///0=En depósito,1=En curso,2=Retirado,3=Entregado,4=Demorado,5=Suspendido
+
+bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2,bool CompararTodo)
 {
-    DomicilioPtr dirRetiro1 = getDirRetiro(paquete1);
-    DomicilioPtr dirRetiro2 = getDirRetiro(paquete2);
-    DomicilioPtr dirEntrega1 = getDirEntrega(paquete1);
-    DomicilioPtr dirEntrega2 = getDirEntrega(paquete2);
-
-    FechaPtr fechaEntrega1 = getFechaEntrega(paquete1);
-    FechaPtr fechaEntrega2 = getFechaEntrega(paquete2);
-
-//primero, se verifica si el ID de paquete1 es igual al del paquete2
-    bool matchID = getID(paquete1) == getID(paquete2);
-//luego, se verifica si las dimensiones de paquete1 son iguales
-    bool match = match && getAncho(paquete1) == getAncho(paquete2);
-    match = match && getAlto(paquete1) == getAlto(paquete2);
-    match = match && getLargo(paquete1) == getLargo(paquete2);
-    match = match && getPeso(paquete1) == getPeso(paquete2);
-//después, se verifica si las direcciones de retiro de paquete1 coinciden con las del paquete2
-    match = match && domiciliosIguales(dirRetiro1,dirRetiro2);
-//posteriormente, se verifica si las direcciones de entrega de paquete1 coinciden con las del paquete2
-    match = match && domiciliosIguales(dirEntrega1,dirEntrega2);
-//tambien se chequea la fecha de entrega
-    match = match && fechasIguales(fechaEntrega1,fechaEntrega2);
-//y por último, se verifica que los estados coincidan
-    match = match && getEstado(paquete1) == getEstado(paquete2);
-
-//la condicion final será: "si coinciden el ID o TODOS LOS PARÁMETROS (o ambos)..."
-    return matchID && match;
+    int Resultado = 0;
+    bool SonPaquetesIguales = true;
+    if(CompararTodo)
+    {
+        SonPaquetesIguales = SonPaquetesIguales && (getID(paquete1) == getID(paquete2));
+        SonPaquetesIguales = SonPaquetesIguales && (getAncho(paquete1) == getAncho(paquete2));
+        SonPaquetesIguales = SonPaquetesIguales && (getAlto(paquete1) == getAlto(paquete2));
+        SonPaquetesIguales = SonPaquetesIguales && (getLargo(paquete1) == getLargo(paquete2));
+        SonPaquetesIguales = SonPaquetesIguales && (getPeso(paquete1) == getPeso(paquete2));
+        SonPaquetesIguales = SonPaquetesIguales && domiciliosIguales(getDirRetiro(paquete1),getDirRetiro(paquete2));
+        SonPaquetesIguales = SonPaquetesIguales && domiciliosIguales(getDirEntrega(paquete1),getDirEntrega(paquete2));
+        SonPaquetesIguales = SonPaquetesIguales && fechasIguales(getFechaEntrega(paquete1),getFechaEntrega(paquete2));
+        SonPaquetesIguales = SonPaquetesIguales && (getEstado(paquete1) == getEstado(paquete2));
+    }
+    else
+    {
+        SonPaquetesIguales = SonPaquetesIguales && (getID(paquete1) == getID(paquete2));
+    }
+    return SonPaquetesIguales;
 }
 
 PaquetePtr copiarPaquete(PaquetePtr paqueteOriginal) ///NUEVA - Orientada para la funcion copiarLista

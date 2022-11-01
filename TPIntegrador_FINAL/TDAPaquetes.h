@@ -239,7 +239,7 @@ void mostrarEstadopaquete(PaquetePtr paquete); //muestra solo el estado actual d
 //  paquete1: puntero a la estructura a verificar.
 //  paquete2: puntero a la estructura a verificar.
 //Devuelve: true si son idénticos en ID O en el resto de campos, false de lo contrario.
-bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2);
+bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2, bool CompararTodo);
 
 /*  Operación: crea una copia de un paquete
 Precondición: paqueteOriginal debe haber sido creado previamente

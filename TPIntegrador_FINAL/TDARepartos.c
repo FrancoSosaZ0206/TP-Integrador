@@ -28,11 +28,11 @@ RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
 }
 RepartoPtr destruirReparto(RepartoPtr reparto)
 { //liberamos la memoria de todos los campos que hayan sido reservados dinamicamente con sus respectivas funciones. En este caso, son todos los campos.
-/** Como el chofer y vehiculo se los pasamos como punteros, destruirlos acá ocasionaría que se eliminen tambien del centro logistico.
-No queremos eso, así que simplemente no las destruimos. */
-    reparto->fechaSalida = destruirFecha(reparto->fechaSalida);
-    reparto->fechaRetorno = destruirFecha(reparto->fechaRetorno);
-    reparto->paquetes = destruirPila(reparto->paquetes);
+/**Como el chofer y vehiculo se los pasamos como punteros, destruirlos acá ocasionaría que se eliminen tambien del centro logistico.
+No queremos eso, así que simplemente no las destruimos.*/
+    reparto->fechaSalida=destruirFecha(reparto->fechaSalida);
+    reparto->fechaRetorno=destruirFecha(reparto->fechaRetorno);
+    reparto->paquetes=destruirPila(reparto->paquetes);
 
     free(reparto);
 
@@ -154,23 +154,20 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete) ///NUEVA
 {
     bool match = false;
-//Si el reparto no tiene paquetes, no hacemos nada. De lo contrario, procedemos a revisar.
-    if(!pilaVacia(getPaquetesReparto(reparto)))
-    {
-        int n=cantidadPaquetes(reparto);
-        PaquetePtr paquetes[n]; ///Acá definieron una lista, lo cual era erróneo puesto que los paquetes de un reparto se almacenan en una pila.
-    ///Además, manejar las verificaciones con un vector es más fácil.
 
-        for(int i=0;i<n;i++)
-        { ///paquetes obtiene los paquetes del reparto, almacenandolos en c/u de sus posiciones.
-            paquetes[i]=descargarPaquete(reparto);
+    int n=cantidadPaquetes(reparto);
+    PaquetePtr paquetes[n]; ///Acá definieron una lista, lo cual era erróneo puesto que los paquetes de un reparto se almacenan en una pila.
+///Además, manejar las verificaciones con un vector es más fácil.
 
-            if(paquetesIguales(paquetes[i],paquete))
-                match = true;
-        }
-        for(int i=n;i>-1;i--) ///Antes de obtener el siguiente reparto, reinsertamos los paquetes en el reparto.
-            cargarPaquete(reparto,paquetes[i]); ///El for va de n hasta 0 para mantener el orden original de los paquetes como estaban en la pila.
+    for(int i=0;i<n;i++)
+    { ///paquetes obtiene los paquetes del reparto, almacenandolos en c/u de sus posiciones.
+        paquetes[i]=descargarPaquete(reparto);
+
+        if(paquetesIguales(paquetes[i],paquete,true))
+            match = true;
     }
+    for(int i=n;i>0;i--) ///Antes de obtener el siguiente reparto, reinsertamos los paquetes en el reparto.
+        cargarPaquete(reparto,paquetes[i]); ///El for va de n hasta 0 para mantener el orden original de los paquetes como estaban en la pila.
 
     return match;
 }
@@ -180,8 +177,8 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
     PilaPtr pilaAux1=crearPila();
     PilaPtr pilaAux2=crearPila();
 
-    bool condicion = personasIguales(getChofer(reparto1),getChofer(reparto2));
-    condicion = condicion && vehiculosIguales(getVehiculo(reparto1),getVehiculo(reparto2));
+    bool condicion = personasIguales(getChofer(reparto1),getChofer(reparto2),true);
+    condicion = condicion && vehiculosIguales(getVehiculo(reparto1),getVehiculo(reparto2),true);
     condicion = condicion && fechasIguales(getFechaSalida(reparto1),getFechaSalida(reparto2));
     condicion = condicion && fechasIguales(getFechaRetorno(reparto1),getFechaRetorno(reparto2));
 
@@ -199,7 +196,7 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
     {
         paqueteAux1=descargarPaquete(reparto1);
         paqueteAux2=descargarPaquete(reparto2);
-        if(paquetesIguales(paqueteAux1,paqueteAux2))
+        if(paquetesIguales(paqueteAux1,paqueteAux2,true))
             pilasIguales=true;
     }
     for(int i=0;i<n;i++)
