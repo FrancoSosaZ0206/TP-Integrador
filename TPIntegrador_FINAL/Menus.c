@@ -3122,44 +3122,6 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
     return menuGuardarCambios(centroLogistico,4);
 }
 
-bool menuCerrarRepartoPrototipo(CentroLogisticoPtr centroLogistico)
-{
-    int IndiceSeleccionado = 0;
-    bool CambiosGuardados = true;
-    bool IndiceValido = false;
-    RepartoPtr RepartoCerrar;
-    if(listaVacia(getRepartos(centroLogistico, true)))
-    {
-        printf("\n\nERROR: Lista repartos vacia.");
-        presionarEnterYLimpiarPantalla();
-    }
-    else
-    {
-        while(!IndiceValido)
-        {
-            mostrarRepartos(centroLogistico, true);
-            printf("\n\n\tCERRAR REPARTO\n\n");
-            printf("Seleccione un indice: ");
-            limpiarBufferTeclado();
-            scanf("%d", &IndiceSeleccionado);
-            if(IndiceSeleccionado > 0 && IndiceSeleccionado <= longitudLista(getRepartos(centroLogistico, true)))
-            {
-                IndiceValido = true;
-            }
-            else
-            {
-                printf("\n\nERROR: Indice invalido.");
-                presionarEnterYLimpiarPantalla();
-            }
-        }
-        RepartoCerrar = removerReparto(centroLogistico, IndiceSeleccionado-1, true);
-        DevolverPaquetesAlDeposito(centroLogistico, RepartoCerrar);
-        agregarReparto(centroLogistico, RepartoCerrar, false);
-    }
-
-    return CambiosGuardados;
-}
-
 
 bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
 {

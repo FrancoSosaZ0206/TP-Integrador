@@ -375,7 +375,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
                     cambiosGuardados = menuArmarReparto(centroLogistico);
                     break;
                 case 2:
-                    cambiosGuardados = menuCerrarRepartoPrototipo(centroLogistico,&op1);
+                    cambiosGuardados = menuCerrarReparto(centroLogistico,&op1);
                     break;
                 case 3:
                     do
