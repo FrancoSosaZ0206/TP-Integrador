@@ -273,6 +273,14 @@ PARÁMETROS:
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.*/
 bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
+
+
+/* OPERACIÓN: menu de actualizado de repartos
+PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
+POSTCONDICION: se modifica el estado del proximo paquete a entregar
+PARÁMETROS:
+      - centroLogistico: puntero a la estructura del Centro Logistico
+DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.*/
 bool menuActualizarReparto(CentroLogisticoPtr centroLogistico); ///NUEVA
 
 

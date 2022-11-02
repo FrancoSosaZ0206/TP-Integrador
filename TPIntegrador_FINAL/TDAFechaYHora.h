@@ -254,7 +254,14 @@ bool esFechaValida(FechaPtr fecha);
 //Devuelve: true si son idénticas, false de lo contrario.
 bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2); ///NUEVA
 
-void MostrarFecha(FechaPtr F);
+///OPERACION: MOSTRAR
+///PRECONDICION: FECHA DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
+///POSTCONDICION: MUESTRA LOS VALORES DE LA FECHA EN FORMATO
+/// [DD/MM/AAAA - HH:MM]
+///PARAMETROS:
+/// PUNTERO A FECHA [A MOSTRAR]
+///DEVUELVE: NULL
+void MostrarFecha(FechaPtr fecha);
 
 
 #endif //TDAFECHAYHORA_H_INCLUDED
