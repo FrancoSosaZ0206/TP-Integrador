@@ -136,7 +136,7 @@ void setEstado(PaquetePtr paquete,int estado)
 
 void mostrarPaquete(PaquetePtr paquete)
 {
-    printf("Paquete #%d\n",getID(paquete));
+    printf("\n\nPaquete #%d\n",getID(paquete));
 
     switch(getEstado(paquete))
     {
@@ -175,6 +175,8 @@ void mostrarPaquete(PaquetePtr paquete)
 
     printf("\tFecha y Hora de Entrega:");
     MostrarFecha(getFechaEntrega(paquete));
+
+    printf("\n\n");
 }
 void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
 {
