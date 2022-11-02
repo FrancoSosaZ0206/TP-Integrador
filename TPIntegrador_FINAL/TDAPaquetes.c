@@ -226,7 +226,6 @@ void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual de
 
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2,bool CompararTodo)
 {
-    int Resultado = 0;
     bool SonPaquetesIguales = true;
     if(CompararTodo)
     {

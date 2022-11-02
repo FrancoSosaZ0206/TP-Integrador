@@ -3,15 +3,13 @@
 #include "TDANodo.h"
 #include "Lista.h"
 
-const void* FinLista=NULL;
-
 //declarada acá porque no es parte de la interfaz
 PtrNodo getNodoLista(ListaPtr lista, int posicion);
 
 ListaPtr crearLista()
 {
     ListaPtr lista=(ListaPtr)obtenerMemoria(sizeof(Lista));
-    lista->primero=FinLista;
+    lista->primero=0;
     return lista;
 }
 
@@ -22,12 +20,12 @@ ListaPtr destruirLista(ListaPtr lista,bool remover)
             removerDeLista(lista,0);
 
     free(lista);
-    return FinLista; //no estaba en la implementacion del profe. Supongo que va, pero si no funca probamos sacandola
+    return 0; //no estaba en la implementacion del profe. Supongo que va, pero si no funca probamos sacandola
 }
 
 bool listaVacia(ListaPtr lista)
 {
-    return (lista->primero==FinLista);
+    return (lista->primero==0);
 }
 
 
@@ -36,9 +34,9 @@ PtrNodo getNodoLista(ListaPtr lista, int posicion)
 {//funcion auxiliar para getDatoLista, no está en la interfaz de Lista.h
     PtrNodo nodo=lista->primero;
     int posicionActual=0;
-    if(nodo!=FinLista)
+    if(nodo!=0)
     {
-        while(posicionActual<posicion && getSiguiente(nodo)!=FinLista)
+        while(posicionActual<posicion && getSiguiente(nodo)!=0)
         {
             posicionActual++;
             nodo=getSiguiente(nodo);
@@ -49,17 +47,17 @@ PtrNodo getNodoLista(ListaPtr lista, int posicion)
 
 PtrDato getDatoLista(ListaPtr lista,int posicion)
 {
-    PtrDato dato=FinLista;
+    PtrDato dato=0;
     PtrNodo nodo=getNodoLista(lista,posicion);
-    if(nodo!=FinLista)
+    if(nodo!=0)
         dato=getDato(nodo);
-    return dato; //devuelve NULL (FinLista) si no se pudo obtener el dato
+    return dato; //devuelve NULL (0) si no se pudo obtener el dato
 }
 
 PtrDato getCabecera(ListaPtr lista)
 {
-    PtrDato dato=FinLista;
-    if(lista->primero!=FinLista)
+    PtrDato dato=0;
+    if(lista->primero!=0)
         dato=getDato(lista->primero);
     return dato;
 }
@@ -67,7 +65,7 @@ PtrDato getCabecera(ListaPtr lista)
 ListaPtr getResto(ListaPtr lista)
 {
     ListaPtr resto=crearLista();
-    if(lista->primero!=FinLista)
+    if(lista->primero!=0)
         resto->primero=getSiguiente(lista->primero);
     return resto;
 }
@@ -78,7 +76,7 @@ int longitudLista(ListaPtr lista)
 {
     int longitud=0;
     PtrNodo nodo=lista->primero;
-    while(nodo!=FinLista)
+    while(nodo!=0)
     {
         nodo=getSiguiente(nodo);
         longitud++;
@@ -106,7 +104,7 @@ bool insertarDatoLista(ListaPtr lista,PtrDato dato,int posicion)
 { //recordamos: inserta el dato DESPUES de la posicion. NOTA: Lo hace 2 posiciones después.
     PtrNodo nodo=getNodoLista(lista,posicion); //obtiene el nodo DE LA POSICION PEDIDA
     bool resultado=false;
-    if(nodo!=FinLista)
+    if(nodo!=0)
     {
         PtrNodo nuevoNodo=crearNodo(dato); //el nuevo dato precisa un nodo para ser insertado a la lista
         setSiguiente(nuevoNodo,getSiguiente(nodo)); //el nodo siguiente a nodo (siguiente del siguiente) es ahora el siguiente al nuevo
@@ -129,12 +127,12 @@ más intuitivo y fácil de insertar. Pero en una lista como esta, se puede hacer s
 */
 void agregarLista(ListaPtr estaLista,ListaPtr otraLista)
 {
-    if(estaLista->primero==FinLista)
+    if(estaLista->primero==0)
         estaLista->primero=otraLista->primero;
     else
     {
         PtrNodo nodo=estaLista->primero;
-        while(getSiguiente(nodo)!=FinLista)
+        while(getSiguiente(nodo)!=0)
             nodo=getSiguiente(nodo);
         setSiguiente(nodo,otraLista->primero);
     }
@@ -146,7 +144,7 @@ PtrDato removerDeLista(ListaPtr lista, int posicion)
 {
     PtrDato dato=NULL;
     PtrNodo nodoEliminar=NULL;
-    if(lista->primero!=FinLista)
+    if(lista->primero!=0)
     {
         if(posicion==0)
         {
@@ -158,10 +156,10 @@ PtrDato removerDeLista(ListaPtr lista, int posicion)
         else
         {
             PtrNodo nodo=getNodoLista(lista,posicion-1);
-            if(nodo!=FinLista)
+            if(nodo!=0)
             {
                 nodoEliminar=getSiguiente(nodo);
-                if(nodoEliminar!=FinLista)
+                if(nodoEliminar!=0)
                 {
                     dato=getDato(nodoEliminar);
                     setSiguiente(nodo,getSiguiente(nodoEliminar));

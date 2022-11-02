@@ -276,9 +276,12 @@ PaquetePtr fsetPaquete(fPaquetePtr pfpaquete,PaquetePtr paquete,bool setGuardar)
     }
     else ///asumimos que la estructura está vacía y la creamos.
     {
-        DomicilioPtr dirRetiro = fsetDomicilio(fgetDirRetiro(pfpaquete),dirRetiro,false);
-        DomicilioPtr dirEntrega = fsetDomicilio(fgetDirEntrega(pfpaquete),dirEntrega,false);
-        FechaPtr fechaEntrega = fsetFecha(fgetFechaEntrega(pfpaquete),fechaEntrega,false);
+        DomicilioPtr dirRetiro = NULL;
+        dirRetiro = fsetDomicilio(fgetDirRetiro(pfpaquete),dirRetiro,false);
+        DomicilioPtr dirEntrega = NULL;
+        dirEntrega = fsetDomicilio(fgetDirEntrega(pfpaquete),dirEntrega,false);
+        FechaPtr fechaEntrega = NULL;
+        fechaEntrega = fsetFecha(fgetFechaEntrega(pfpaquete),fechaEntrega,false);
 
         paquete = crearPaquete(fgetID(pfpaquete),
                                fgetAncho(pfpaquete),
@@ -306,8 +309,10 @@ PersonaPtr fsetPersona(fPersonaPtr pfpersona,PersonaPtr persona,bool setGuardar)
     }
     else ///asumimos que la estructura está vacía y la creamos.
     {
-        DomicilioPtr domicilio = fsetDomicilio(fgetDomicilio(pfpersona),domicilio,false);
-        CuilPtr cuil = fsetCuil(fgetCuilPersona(pfpersona),cuil,false);
+        DomicilioPtr domicilio = NULL;
+        domicilio = fsetDomicilio(fgetDomicilio(pfpersona),domicilio,false);
+        CuilPtr cuil = NULL;
+        cuil = fsetCuil(fgetCuilPersona(pfpersona),cuil,false);
 
         persona = crearPersona(fgetNombre(pfpersona),
                              fgetApellido(pfpersona),
@@ -357,10 +362,14 @@ RepartoPtr fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setGuardar)
     }
     else ///asumimos que la estructura está vacía y la creamos.
     {
-        PersonaPtr chofer = fsetPersona(fgetChofer(pfreparto),chofer,false);
-        VehiculoPtr vehiculo = fsetVehiculo(fgetVehiculo(pfreparto),vehiculo,false);
-        FechaPtr fechaSalida = fsetFecha(fgetFechaSalida(pfreparto),fechaSalida,false);
-        FechaPtr fechaRetorno = fsetFecha(fgetFechaRetorno(pfreparto),fechaRetorno,false);
+        PersonaPtr chofer = NULL;
+        chofer = fsetPersona(fgetChofer(pfreparto),chofer,false);
+        VehiculoPtr vehiculo = NULL;
+        vehiculo = fsetVehiculo(fgetVehiculo(pfreparto),vehiculo,false);
+        FechaPtr fechaSalida = NULL;
+        fechaSalida = fsetFecha(fgetFechaSalida(pfreparto),fechaSalida,false);
+        FechaPtr fechaRetorno = NULL;
+        fechaRetorno = fsetFecha(fgetFechaRetorno(pfreparto),fechaRetorno,false);
 
         PilaPtr paquetes = crearPila();
         n=pfreparto->tamanioPilaPaq;

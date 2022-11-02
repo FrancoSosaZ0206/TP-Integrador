@@ -20,6 +20,19 @@ typedef struct Reparto
 } Reparto;
 typedef Reparto * RepartoPtr;
 
+
+//Operación: Creacion del TDArepartos.
+//Precondición: Repartos no debe estar creado.
+//Postcondición: Se crea un nuevo reparto.
+//Parámetros:
+// chofer: un puntero de la estructura persona representando al chofer.
+// vehiculo: un puntero a de la estructura vehiculo representando al vehiculo.
+// fechaSalida: un puntero a la estructura fecha representando la fecha de salida.
+// fechaRetorno: un puntero a la estructura fecha representando la fecha de retorno.
+// paquetes: un puntero a la estructura pila que contiene los paquetes del reparto.
+//Devuelve un puntero a la nueva estructura.
+RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes);
+
 //Operación: Creacion del TDArepartos.
 //Precondición: Repartos no debe estar creado.
 //Postcondición: Se crea un nuevo reparto.

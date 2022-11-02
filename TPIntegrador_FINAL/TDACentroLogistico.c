@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include "Lista.h"
 #include "TDAPaquetes.h"
 #include "TDAPersona.h"
@@ -995,6 +996,6 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
             salto/=2;
     }
 ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
-    for(int i=n; i>0; i--)
+    for(int i=n-1; i>-1; i--)
         agregarReparto(centroLogistico,repartos[i],esRepartoAbierto);
 }

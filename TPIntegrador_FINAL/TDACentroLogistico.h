@@ -446,4 +446,12 @@ void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo);
 void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo);
 
 
+bool VerificarIDUnico(CentroLogisticoPtr centroLogistico, int ID_Analizar);
+bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar);
+bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar);
+bool VerificarPatenteValida(char* PatenteValidar);
+bool VerificarExistenciaChoferes(CentroLogisticoPtr centroLogistico);
+bool VerificarExistenciaClientes(CentroLogisticoPtr centroLogistico);
+bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
+
 #endif // TDACENTROLOGISTICO_H_INCLUDED

@@ -39,4 +39,12 @@ RepartoPtr crearRepartoGenerico(); //solo se crean repartos abiertos.
 ListaPtr crearListaRepartosGenerica(bool esRepartoAbierto); //Hecha por Gastón
 
 
+ListaPtr crearListaRepartosPorDefectoConLista();
+ListaPtr crearListaPaquetesGenerico();
+ListaPtr crearListaPersonasGenerica();
+ListaPtr clientesGenericos();
+ListaPtr choferesGenericos();
+ListaPtr crearListaVehiculosGenerico();
+CentroLogisticoPtr crearCentroLogisticoDefecto();
+
 #endif // TEST_H_INCLUDED

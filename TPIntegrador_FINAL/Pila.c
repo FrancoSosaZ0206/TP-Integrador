@@ -4,13 +4,11 @@
 #include "TDANodo.h"
 #include "Util.h"
 
-const void* FinPila=NULL;
-
 int longitudPilaAyudante(PtrNodo nodo, int longitud);
 
 PilaPtr crearPila(){
     PilaPtr pila=(PilaPtr)obtenerMemoria(sizeof(Pila));
-    pila->primero=FinPila;
+    pila->primero=0;
     return pila;
 }
 
@@ -27,34 +25,18 @@ PilaPtr destruirPila(PilaPtr pila){
 }
 
 bool pilaVacia(PilaPtr pila){
-    return (pila->primero==FinPila);
+    return (pila->primero==0);
 }
 
 int longitudPila(PilaPtr pila){
     // la longitud es cuantos nodos hay en la pila. Para saberlo, hay que recorrerla
     int longitud=0;
     PtrNodo nodo=pila->primero;
-    while(nodo!=FinPila){
+    while(nodo!=0){
         nodo=getSiguiente(nodo);
         longitud++;
     }
     return longitud;
-}
-
-// Otra versión, recursiva
-int longitudPilaRecur(PilaPtr pila){
-    int longitud=longitudPilaAyudante(pila->primero,0);
-    return longitud;
-}
-
-int longitudPilaAyudante(PtrNodo nodo, int longitud){
-    // la longitud es cuantos nodos hay en la pila. Para saberlo, hay que recorrerla
-
-    if(nodo==FinPila){
-        return longitud;
-    } else {
-        longitudPilaAyudante(getSiguiente(nodo), longitud++);
-    } ///Ojo: hay posibilidad de que la funcion no retorne nada. Si algo no funca, fijarse si esto se puede arreglar.
 }
 
 void apilar(PilaPtr pila, PtrDato dato){
