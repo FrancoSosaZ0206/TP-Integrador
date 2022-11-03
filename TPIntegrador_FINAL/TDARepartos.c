@@ -84,21 +84,25 @@ ListaPtr getPaquetesReparto(RepartoPtr reparto)
 
 void setChofer(RepartoPtr reparto,PersonaPtr chofer)
 {
+    reparto->chofer = destruirPersona(reparto->chofer);
     reparto->chofer=chofer;
 }
 
 void setVehiculo(RepartoPtr reparto,VehiculoPtr vehiculo)
 {
+    reparto->vehiculo = destruirVehiculo(reparto->vehiculo);
     reparto->vehiculo=vehiculo;
 }
 
 void setFechaSalida(RepartoPtr reparto,FechaPtr fechaSalida)
 {
+    reparto->fechaSalida = destruirFecha(reparto->fechaSalida);
     reparto->fechaSalida=fechaSalida;
 }
 
 void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno)
 {
+    reparto->fechaRetorno = destruirFecha(reparto->fechaRetorno);
     reparto->fechaRetorno=fechaRetorno;
 }
 
