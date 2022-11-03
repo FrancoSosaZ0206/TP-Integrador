@@ -66,9 +66,11 @@ int main()
 int MAIN_MENU(CentroLogisticoPtr centroLogistico)
 {
     ///Menúes
-    int MAIN_OP=1,op1=0,op2=0;
-    bool resultadoGuardado=false;
-    bool cambiosGuardados=false;
+    int MAIN_OP = 1;
+    int op1 = 0;
+    int op2 = 0;
+    bool resultadoGuardado = true;
+    bool cambiosGuardados = true;
     do
     {
         MAIN_OP = menuPrincipal(centroLogistico);
@@ -306,7 +308,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico)
         } while(op1!=0);
             break;
         case 3:
-            menuActualizarReparto(centroLogistico);
+            cambiosGuardados = menuActualizarReparto(centroLogistico);
             break;
         case 4:
             do

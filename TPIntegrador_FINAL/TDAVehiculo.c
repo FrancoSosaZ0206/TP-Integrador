@@ -599,8 +599,8 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
 
 bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico, int* op1)
 {
-    int op=0;
-    bool cambiosGuardados=false;
+    int op = 0;
+    bool cambiosGuardados = true;
     if(listaVacia(getVehiculos(centroLogistico)))
     {
         printf("Lista vacia de vehiculos, agregue un elemento por favor\n");
@@ -616,14 +616,17 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico, int* op1)
             case 1:
                 printf("LISTADO DE VEHICULOS (ORDENADOS POR MARCA)");
                 ordenarVehiculos(centroLogistico,1);
+                cambiosGuardados = false;
                 break;
             case 2:
                 printf("LISTADO DE VEHICULOS (ORDENADOS POR MODELO)");
                 ordenarVehiculos(centroLogistico,2);
+                cambiosGuardados = false;
                 break;
             case 3:
                 printf("LISTADO DE VEHICULOS (ORDENADOS TIPO)");
                 ordenarVehiculos(centroLogistico,3);
+                cambiosGuardados = false;
                 break;
             case 4:
                 printf("LISTADO DE VEHICULOS (SIN ORDENAR)");

@@ -802,8 +802,8 @@ PersonaPtr menuBusquedaCliente(CentroLogisticoPtr centroLogistico)
 
 bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico, int tipo, int* op1)
 {
-    int op=0;
-    bool cambiosGuardados=false;
+    int op = 0;
+    bool cambiosGuardados = true;
     if(listaVacia(getPersonas(centroLogistico)))
     {
         printf("Lista vacia de personas, agregue un elemento por favor\n");
@@ -832,14 +832,17 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico, int tipo, int* op1)
             case 1:
                 printf("(ORDENADO POR NOMBRE)\n");
                 ordenarPersonas(centroLogistico, 1, tipo);
+                cambiosGuardados = false;
                 break;
             case 2:
                 printf("(ORDENADO POR APELLIDO)\n");
                 ordenarPersonas(centroLogistico, 2, tipo);
+                cambiosGuardados = false;
                 break;
             case 3:
                 printf("(ORDENADO POR NOMBRE Y APELLIDO)\n");
                 ordenarPersonas(centroLogistico, 3, tipo);
+                cambiosGuardados = false;
                 break;
             case 4:
                 printf("(SIN ORDENAR)\n");

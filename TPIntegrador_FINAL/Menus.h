@@ -274,8 +274,8 @@ CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog);
 //POSTCONDICION: se pide el reparto para actualizar, luego de elegir
 // se obtiene el paquete que no haya sido entregado o suspendido, en formato inverso al ingresado
 //PARÁMETROS: puntero a centro logistico
-//DEVUELVE: Nada
-void menuActualizarReparto(CentroLogisticoPtr centroLogistico);
+//DEVUELVE: BOOLEANO
+bool menuActualizarReparto(CentroLogisticoPtr centroLogistico);
 
 
 //OPERACIÓN: actualiza los datos de una fecha

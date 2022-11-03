@@ -301,7 +301,7 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
         do
         {
             system("cls");
-            printf("\n\n\t\t PAQUETE %d. \n\n", i+1);
+            printf("\n\nPAQUETE %d. \n\n", i+1);
             i++;
 
             ///esto no se mostrará sino al final de la carga del paquete.
@@ -703,8 +703,8 @@ void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
 
 bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico, int* op1)
 {
-    int op=0;
-    bool cambiosGuardados=false;
+    int op = 0;
+    bool cambiosGuardados = true;
     if(listaVacia(getPaquetes(centroLogistico)))
     {
         printf("Lista de paquetes vacia, por favor, agregue elementos\n");
@@ -720,18 +720,22 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico, int* op1)
             case 1:
                 printf("LISTADO DE PAQUETES (ORDENADOS POR ID)");
                 ordenarPaquetes(centroLogistico,1);
+                cambiosGuardados = false;
                 break;
             case 2:
                 printf("LISTADO DE PAQUETES (ORDENADOS POR FECHA DE SALIDA)");
                 ordenarPaquetes(centroLogistico,2);
+                cambiosGuardados = false;
                 break;
             case 3:
                 printf("LISTADO DE PAQUETES (ORDENADOS POR ESTADO)");
                 ordenarPaquetes(centroLogistico,3);
+                cambiosGuardados = false;
                 break;
             case 4:
                 printf("LISTADO DE PAQUETES (SIN ORDENAR)");
                 ordenarPaquetes(centroLogistico,4);
+                cambiosGuardados = false;
                 break;
             case 0:
                 break;

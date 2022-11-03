@@ -262,7 +262,7 @@ CuilPtr cargarCuil(CuilPtr cuil)
     {
         printf("\n\n\t [INGRESE ESTRICTAMENTE DE ESTA FORMA] \n\n");
         helpCuil();
-        printf("\n\tCUIL:");
+        printf("\n\tCUIL: ");
         limpiarBufferTeclado();
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();

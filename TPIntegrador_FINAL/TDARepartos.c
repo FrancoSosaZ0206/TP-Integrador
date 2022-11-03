@@ -351,13 +351,13 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
         if(!existenPaquetesDisponibles(centroLogistico))
         {
             printf("\n\n\t [Se ha quedado sin paquetes para seleccionar, agregue mas...] \n\n");
+            presionarEnterYLimpiarPantalla();
         }
-        reparto=crearReparto(choferElegido,vehiculoElegido,fechaSalida,fechaRetorno,paquetes);
-        cambiosGuardados = true;
+        reparto = crearReparto(choferElegido,vehiculoElegido,fechaSalida,fechaRetorno,paquetes);
         agregarReparto(centroLogistico,reparto,true);
         printf("\n\nReparto armado exitosamente.\n\n");
     }
-    if( cambiosGuardados )
+    if( !cambiosGuardados )
     {
         resultado = menuGuardarCambios();
         if(resultado == 1)
@@ -791,10 +791,11 @@ RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool 
     return RepartoElegido;
 }
 
-void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
+bool menuActualizarReparto(CentroLogisticoPtr centroLogistico)
 {
     int eleccion = 0;
     int EstadoPaquete = 0;
+    bool CambiosGuardado = false;
     PaquetePtr paqueteActual;
     RepartoPtr RepartoActualizar;
     if(listaVacia(getRepartos(centroLogistico,true)))
@@ -843,6 +844,7 @@ void menuActualizarReparto(CentroLogisticoPtr centroLogistico)
         }while(eleccion < 1 || eleccion > 6);
         setEstado(paqueteActual,eleccion);
     }
+    return CambiosGuardado;
 }
 
 void menuBuscarPorIndiceReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
@@ -1027,8 +1029,10 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto
 
 bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto, int* op1)
 {
-	int Main_1=0,Main_2=0,i=0;
-    bool cambiosGuardados = false;
+	int Main_1 = 0;
+	int Main_2 = 0;
+	int i = 0;
+    bool cambiosGuardados = true;
     if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
     {
         printf("Lista de repartos vacia, por favor, agregue elementos para mostrar\n");
@@ -1065,24 +1069,37 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbier
                     switch(Main_2)
                     {
                     case 1:
+                        printf("\n\nLista de repartos ordenada por [Fecha de salida]\n\n");
                         ordenarRepartos(centroLogistico,esRepartoAbierto,1);
+                        cambiosGuardados = false;
                         break;
                     case 2:
+                        printf("\n\nLista de repartos ordenada por [Fecha de retorno]\n\n");
                         ordenarRepartos(centroLogistico,esRepartoAbierto,2);
+                        cambiosGuardados = false;
                         break;
                     case 3:
+                        printf("\n\nLista de repartos ordenada por [Fecha de salida y de retorno]\n\n");
                         ordenarRepartos(centroLogistico,esRepartoAbierto,3);
+                        cambiosGuardados = false;
                         break;
                     case 4:
+                        printf("\n\nLista de repartos ordenada por [Nombre del chofer]\n\n");
                         ordenarRepartos(centroLogistico,esRepartoAbierto,4);
+                        cambiosGuardados = false;
                         break;
                     case 5:
+                        printf("\n\nLista de repartos ordenada por [Apellido del chofer]\n\n");
                         ordenarRepartos(centroLogistico,esRepartoAbierto,5);
+                        cambiosGuardados = false;
                         break;
                     case 6:
+                        printf("\n\nLista de repartos ordenada por [Nombre y apellido del chofer]\n\n");
                         ordenarRepartos(centroLogistico,esRepartoAbierto,6);
+                        cambiosGuardados = false;
                         break;
                     case 7:
+                        printf("\n\nLista de repartos ordenada por [Sin ordenar]\n\n");
                         ordenarRepartos(centroLogistico,esRepartoAbierto,7);
                         break;
                     case 0:
