@@ -88,6 +88,11 @@ void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno)
     setMinuto(reparto->fechaRetorno,fechaRetorno->minuto);
 }
 
+void setPaquetesReparto(RepartoPtr reparto, PilaPtr paquetes)
+{
+    reparto->paquetes = paquetes;
+}
+
 void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) //agrega un paquete a la pila de paquetes
 { //antes de hacer nada, debemos comprobar que haya algun dato en la pila. Sino, creamos la pila y le insertamos el dato.
     if(pilaVacia(getPaquetesReparto(reparto)))

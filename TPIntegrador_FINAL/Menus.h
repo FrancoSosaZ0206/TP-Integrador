@@ -18,7 +18,6 @@
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
-
 /*OPERACIÓN: menu de carga de paquete
 PRECONDICIÓN: centro logistico debe haberse creado en main.c
 POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion,
