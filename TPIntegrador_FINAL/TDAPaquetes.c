@@ -149,16 +149,19 @@ void setPeso(PaquetePtr paquete,int peso)
 
 void setDirRetiro(PaquetePtr paquete,DomicilioPtr dirRetiro)
 {
+    paquete->dirRetiro = destruirDomicilio(paquete->dirRetiro);
     paquete->dirRetiro=dirRetiro;
 }
 
 void setDirEntrega(PaquetePtr paquete,DomicilioPtr dirEntrega)
 {
+    paquete->dirEntrega = destruirDomicilio(paquete->dirEntrega);
     paquete->dirEntrega=dirEntrega;
 }
 
 void setFechaEntrega(PaquetePtr paquete,FechaPtr fechaEntrega)
 {
+    paquete->fechaEntrega = destruirFecha(paquete->fechaEntrega);
     paquete->fechaEntrega=fechaEntrega;
 }
 

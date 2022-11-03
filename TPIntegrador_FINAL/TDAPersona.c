@@ -73,11 +73,13 @@ void setApellido(PersonaPtr persona,char *apellido)
 
 void setDomicilio(PersonaPtr persona,DomicilioPtr domicilio)
 {
+    persona->domicilio = destruirDomicilio(persona->domicilio);
     persona->domicilio=domicilio;
 }
 
 void setCuilPersona(PersonaPtr persona, CuilPtr cuil) ///NUEVO NOMBRE PARA NO CONFUNDIR CON SETCUIL DEL TDA CUIL
 {
+    persona->cuil = destruirCuil(persona->cuil);
     persona->cuil=cuil;
 }
 
