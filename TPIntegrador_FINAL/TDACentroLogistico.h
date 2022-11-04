@@ -382,7 +382,7 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
 //  centroLogistico: puntero a estructura que representa al centro logistico.
 //  reparto: puntero a la estructura reparto que se desea verificar.
 //Devuelve: true si el reparto recibido tiene el mismo chofer y fecha de salida que uno de los repartos, false de lo contrario.
-bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto);
+bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto, bool esRepartoAbierto);
 
 ///---------------------------------------Funciones de ordenamiento------------------------------------------------
 

@@ -551,12 +551,12 @@ bool VerificarIDUnico(CentroLogisticoPtr centroLogistico, int ID_Analizar)
         if(ID_Analizar == getID(PaqueteActual))
         {
             ListaAuxiliar = destruirLista(ListaAuxiliar, false);
-            return true;
+            return false;
         }
         ListaAuxiliar = getResto(ListaAuxiliar);
     }
     ListaAuxiliar = destruirLista(ListaAuxiliar, false);
-    return false;
+    return true;
 }
 
 bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
@@ -574,12 +574,12 @@ bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
         if( ResultadoComparacion == 0 )
         {
             ListaAuxiliar = destruirLista(ListaAuxiliar, false);
-            return true;
+            return false;
         }
         ListaAuxiliar = getResto(ListaAuxiliar);
     }
     ListaAuxiliar = destruirLista(ListaAuxiliar, false);
-    return false;
+    return true;
 }
 
 bool VerificarPatenteValida(char* PatenteValidar)
@@ -688,7 +688,7 @@ bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
     while(!listaVacia(listaAux))
     {
         PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
-        if(paquetesIguales(paqueteAux,paquete,false))
+        if(paquetesIguales(paqueteAux,paquete))
         {
             listaAux=destruirLista(listaAux,false);
             return true;
@@ -706,7 +706,7 @@ bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) 
     while(!listaVacia(listaAux))
     {
         PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
-        if(personasIguales(personaAux,persona,false))
+        if(personasIguales(personaAux,persona))
         {
             listaAux=destruirLista(listaAux,false);
             return true;
@@ -724,7 +724,7 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
     while(!listaVacia(listaAux))
     {
         VehiculoPtr vehculoAux = (VehiculoPtr)getCabecera(listaAux);
-        if(vehiculosIguales(vehculoAux,vehiculo,false))
+        if(vehiculosIguales(vehculoAux,vehiculo))
         {
             listaAux=destruirLista(listaAux,false);
             return true;
@@ -744,7 +744,7 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
         RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
 
         bool condicion = fechasIguales(getFechaSalida(repartoAux),getFechaSalida(reparto));
-        condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto),false);
+        condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto));
         ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
         ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
         if(condicion)
