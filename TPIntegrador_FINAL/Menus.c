@@ -2784,6 +2784,12 @@ bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr choferEvalua
 
 ///////////////////////////////////////////////COMENTARIOS FRANCO/////////////////////////////////////////////////////
 ///Podría directamente retornar el índice / indices (o la cantidad) donde se encontraron los choferes o -1 si no hay, sería más útil.
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: Nada. */
 bool hayChoferes(CentroLogisticoPtr centroLogistico)
 {
     bool match = false;
