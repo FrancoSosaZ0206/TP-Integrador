@@ -2752,7 +2752,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 ///--------------------------------------------------------------------------------------------------------------------------///
 
 
-///PENDIENTE: modificar donde se llama a la funcion
+///ESTA FUNCION NO ES NECESARIA, USAR esRepartoExistente
 bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr choferEvaluar,bool esRepartoAbierto)
 {
     //bool match = false;
@@ -2783,7 +2783,7 @@ bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr choferEvalua
 }
 
 ///////////////////////////////////////////////COMENTARIOS FRANCO/////////////////////////////////////////////////////
-///Podría directamente retornar el índice / indices (o la cantidad) donde se encontraron los choferes o -1 si no hay, sería más útil.
+///Idea: Podría directamente retornar el índice / indices (o la cantidad) donde se encontraron los choferes o -1 si no hay, sería más útil.
 /** OPERACIÓN:
 PRECONDICIÓN:
 POSTCONDICIÓN:
