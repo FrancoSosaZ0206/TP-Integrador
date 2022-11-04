@@ -1169,7 +1169,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
     int nDimension=0; //vale para ancho, alto, largo y peso.
     DomicilioPtr nDireccion = crearDomicilio("",0,""); //vale para retiro y entrega
     FechaPtr nFechaEntrega = crearFecha(0,0,0,0,0);
-    PaquetePtr paquetesAModificar[10];
+    PaquetePtr paquetesAModificar[100];
     int nEstado;
 
 
@@ -1464,7 +1464,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
     bool ExistenDatos = true;
     DomicilioPtr nDomicilio = crearDomicilio("",0,"");
     CuilPtr nCuil = crearCuil("000000000000000");
-    PersonaPtr personasAModificar[10];
+    PersonaPtr personasAModificar[100];
     ListaPtr listaAux=getPersonas(centroLogistico);
 
     if(esChofer)
@@ -1719,7 +1719,7 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterio
             //para el modo de accion 3,
                 int desde=0,hasta=0;
             //para los modos de accion 2 y 3,
-                VehiculoPtr vehiculosAModificar[10];
+                VehiculoPtr vehiculosAModificar[100];
 
                 if(modoAccion==1)
                 {
@@ -1927,7 +1927,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                 int indice;
                 RepartoPtr repartoAModificar;
                 PilaPtr pilaAux;
-                PaquetePtr paquetesAModificar[10];
+                PaquetePtr paquetesAModificar[100];
             //para el modo de accion 2,
                 int nIndices=0;
                 int indices[100];

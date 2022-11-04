@@ -77,7 +77,7 @@ typedef struct fReparto
     fFecha fechaSalida;
     fFecha fechaRetorno;
     int tamanioPilaPaq; ///la dimension del array...
-    fPaquete paquetes[]; ///depende de la longitud de la pila que me pasan
+    fPaquete paquetes[100]; ///depende de la longitud de la pila que me pasan
 } fReparto;
 typedef fReparto* fRepartoPtr;
 
@@ -353,7 +353,6 @@ RepartoPtr fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setGuardar)
 
         n = cantidadPaquetes(reparto);
         pfreparto->tamanioPilaPaq = n;
-
         for(int i=0;i<n;i++)
         {
             paqueteAux = descargarPaquete(reparto);
@@ -679,7 +678,7 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 
     if(archivo==NULL)
         return false;
-///Como hicimos en funciones anteriores, recuperamos primero la cantidad de elementos de la lista
+    ///Como hicimos en funciones anteriores, recuperamos primero la cantidad de elementos de la lista
     int n = 0;
     fread(&n,sizeof(int),1,archivo);
 

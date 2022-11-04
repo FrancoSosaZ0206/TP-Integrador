@@ -46,24 +46,26 @@ PersonaPtr destruirPersona(PersonaPtr persona)
 
 void setNombre(PersonaPtr persona,char *nombre)
 {
-    strcpy(persona->nombre,nombre);
+    persona->nombre = destruirStringDinamico(persona->nombre);
+    persona->nombre = crearStringDinamico(nombre);
 }
 
 void setApellido(PersonaPtr persona,char *apellido)
 {
-    strcpy(persona->apellido,apellido);
+    persona->apellido = destruirStringDinamico(persona->apellido);
+    persona->apellido = crearStringDinamico(apellido);
 }
 
 void setDomicilio(PersonaPtr persona,DomicilioPtr domicilio)
 {
-    setCalle(persona->domicilio,domicilio->calle);
-    setAltura(persona->domicilio,domicilio->altura);
-    setLocalidad(persona->domicilio,domicilio->localidad);
+    persona->domicilio = destruirDomicilio(persona->domicilio);
+    persona->domicilio = domicilio;
 }
 
 void setCuilPersona(PersonaPtr persona,CuilPtr cuil) ///NUEVO NOMBRE PARA NO CONFUNDIR CON SETCUIL DEL TDA CUIL
 {
-    setCuil(persona->cuil,cuil->cuil);
+    persona->cuil = destruirCuil(persona->cuil);
+    persona->cuil = cuil;
 }
 
 void setEsChofer(PersonaPtr persona,bool esChofer)
@@ -123,7 +125,7 @@ bool personasIguales(PersonaPtr persona1,PersonaPtr persona2, bool CompararTodo)
     if(CompararTodo)
     {
         SonPersonasIguales = SonPersonasIguales && (strcmp(getNombre(persona1), getNombre(persona2)) == 0);
-        SonPersonasIguales = SonPersonasIguales && (strcmp(getNombre(persona1), getNombre(persona2)) == 0);
+        SonPersonasIguales = SonPersonasIguales && (strcmp(getApellido(persona1), getApellido(persona2)) == 0);
         SonPersonasIguales = SonPersonasIguales && domiciliosIguales(getDomicilio(persona1),getDomicilio(persona2));
         SonPersonasIguales = SonPersonasIguales && cuilsIguales(getCuilPersona(persona1), getCuilPersona(persona2));
     }

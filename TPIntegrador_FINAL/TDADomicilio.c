@@ -29,7 +29,8 @@ DomicilioPtr destruirDomicilio(DomicilioPtr domicilio)
 
 void setCalle(DomicilioPtr domicilio,char *calle)
 {
-    strcpy(domicilio->calle,calle);
+    domicilio->calle = destruirStringDinamico(domicilio->calle);
+    domicilio->calle = crearStringDinamico(calle);
 }
 
 void setAltura(DomicilioPtr domicilio,int altura)
@@ -39,7 +40,8 @@ void setAltura(DomicilioPtr domicilio,int altura)
 
 void setLocalidad(DomicilioPtr domicilio,char *localidad)
 {
-    strcpy(domicilio->localidad,localidad);
+    domicilio->localidad = destruirStringDinamico(domicilio->localidad);
+    domicilio->localidad = crearStringDinamico(localidad);
 }
 
 

@@ -42,7 +42,8 @@ CuilPtr destruirCuil(CuilPtr cuil)
 
 void setCuil(CuilPtr cuil,char *cuilStr) ///NUEVA
 {
-    strcpy(cuil->cuil,cuilStr);
+    cuil->cuil = destruirStringDinamico(cuil->cuil);
+    cuil->cuil = crearStringDinamico(cuilStr);
 }
 
 void setTipo(CuilPtr cuil,int tipo)

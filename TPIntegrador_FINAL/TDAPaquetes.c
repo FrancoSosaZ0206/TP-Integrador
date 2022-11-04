@@ -113,21 +113,18 @@ void setPeso(PaquetePtr paquete,int peso)
 }
 void setDirRetiro(PaquetePtr paquete,DomicilioPtr dirRetiro)
 {
-    setCalle(paquete->dirRetiro,dirRetiro->calle);
-    setAltura(paquete->dirRetiro,dirRetiro->altura);
-    setLocalidad(paquete->dirRetiro,dirRetiro->localidad);
+    paquete->dirRetiro = destruirDomicilio(paquete->dirRetiro);
+    paquete->dirRetiro = dirRetiro;
 }
 void setDirEntrega(PaquetePtr paquete,DomicilioPtr dirEntrega)
 {
-    setCalle(paquete->dirEntrega,dirEntrega->calle);
-    setAltura(paquete->dirEntrega,dirEntrega->altura);
-    setLocalidad(paquete->dirEntrega,dirEntrega->localidad);
+    paquete->dirEntrega = destruirDomicilio(paquete->dirEntrega);
+    paquete->dirEntrega = dirEntrega;
 }
 void setFechaEntrega(PaquetePtr paquete,FechaPtr fechaEntrega)
 {
-    setDiaJuliano(paquete->fechaEntrega,fechaEntrega->diaJuliano);
-    setHora(paquete->fechaEntrega,fechaEntrega->hora);
-    setMinuto(paquete->fechaEntrega,fechaEntrega->minuto);
+    paquete->fechaEntrega = destruirFecha(paquete->fechaEntrega);
+    paquete->fechaEntrega = fechaEntrega;
 }
 void setEstado(PaquetePtr paquete,int estado)
 {
