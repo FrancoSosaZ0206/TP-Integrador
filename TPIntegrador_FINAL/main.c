@@ -13,8 +13,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez);
 int main()
 {
     CentroLogisticoPtr c = crearCentroLogisticoDefecto();
-    RepartoPtr R = SeleccionRepartoPorAtributo(c,true);
-    if(R != NULL) {mostrarRepartoSinPaquetes(R);}
 /** **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
@@ -633,7 +631,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
             } while(op1!=0);
             break;
         case 0:
-            if(!cambiosGuardados || primeraVez) //"Si no se efectuaron cambios o si se efectuaron y no se guardaron"
+            if(!cambiosGuardados) //"Si no se efectuaron cambios o si se efectuaron y no se guardaron"
             {
                 do
                 {

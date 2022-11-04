@@ -312,7 +312,6 @@ ADVERTENCIA: Cuidado con menus o funciones que modifiquen la longitud de la list
 void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
 {
     int n=longitudLista(lista);
-    bool continuar = true;
 //Ingresamos la cantidad de indices a seleccionar
     do
     {
@@ -326,7 +325,7 @@ void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
     } while((*cantIndices)<1 || (*cantIndices) > n);
     //Elegimos los indices
     int i = 0;
-    while(i < (*cantIndices) && continuar)
+    while(i < (*cantIndices))
     {
         do
         {
@@ -340,7 +339,6 @@ void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
             }
         } while(indices[i]<1 || indices[i]>n);
         i++;
-        continuar = menuContinuar();
     }
     int salto=round((*cantIndices)/2);
     int temp=0;
@@ -1189,7 +1187,6 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
     }
     else
     {
-        ListaPtr copiaLista = copiarLista(listaAux,1);
 
         int modoAccion = menuModoAccion(opMenuAnterior);
         if(!(modoAccion == 0 || modoAccion == -1))
@@ -1241,11 +1238,11 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
                     for(int i=desde;i<=hasta;i++)
 
                     printf("Ha elegido Paquetes {%d - %d}\n",desde,hasta);
-                    for(int i=0,j=desde;i<=(hasta-desde);i++,j++)
+                    for(int i=desde-1;i<=(hasta-desde);i++)
                     { //Obtenemos los elementos en el rango de indices y los mostramos
-                        paquetesAModificar[i]=(PaquetePtr)getDatoLista(listaAux,i-1);
+                        paquetesAModificar[i]=(PaquetePtr)getDatoLista(listaAux,i);
 
-                        printf("%d. ",j);
+                        printf("%d. ",i);
                         mostrarPaquete(paquetesAModificar[i]);
                     }
                 }
@@ -1458,13 +1455,9 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
         else //if(modoAccion == 0 || modoAccion == -1)
             return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
 
-        bool cambioDetectado = detectarCambios(listaAux,copiaLista,1);
         nDireccion = destruirDomicilio(nDireccion);
         nFechaEntrega = destruirFecha(nFechaEntrega);
-        if(cambioDetectado)
-            return menuGuardarCambios(centroLogistico,1);
-        else
-            return true; //"todo sigue igual que lo guardado."
+        return menuGuardarCambios(centroLogistico,1);
     }
 }
 bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *opMenuAnterior)
@@ -2882,8 +2875,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 printf("EMITIR LISTADO DE REPARTOS CERRADOS\n");
             printf("\n\n-----------------------------------------\n\n");
             printf("1. Mostrar un reparto\n");
-            printf("2. Mostrar lista de repartos\n");
-            printf("3. Ordenar lista y mostrar...\n");
+            printf("2. Ordenar lista y mostrar...\n");
             printf("0. Volver\n");
             printf("-1. MENU PRINCIPAL");
             printf("\n\n-----------------------------------------\n\n");
@@ -2911,45 +2903,6 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 presionarEnterYLimpiarPantalla();
                 break;
             case 2:
-                do
-                {
-                    printf("MOSTRAR LISTA DE REPARTOS:\n");
-
-                    printf("1. Filtrados por fecha de salida\n");
-                    printf("2. Sin filtrar\n");
-                    printf("0. Volver\n");
-                    printf("-1. MENU PRINCIPAL");
-                    printf("\n\n-----------------------------------------\n\n");
-                    printf("Seleccione una opcion: ");
-                    scanf("%d",&op3);
-
-                    system("cls");
-                    switch(op3)
-                    {
-                    case 1:
-                        printf("MOSTRAR LISTA DE REPARTOS FILTRADOS POR FECHA DE SALIDA\n\n");
-
-                        printf("Fecha para filtrar\n");
-                        cargarFecha(fechaSalida);
-                        ordenarRepartos(centroLogistico,esRepartoAbierto,1);
-                        cambiosGuardados = false;
-                        break;
-                    case 2:
-                        break;
-                    case 0:
-                        break;
-                    case -1:
-                        op2=-1;
-                        break;
-                    default:
-                        printf("Opcion incorrecta.");
-                        break;
-                    }
-                    if(!(op3==0 || op3==-1))
-                        presionarEnterYLimpiarPantalla();
-                } while(!(op3==0 || op3==-1));
-                break;
-            case 3:
                 do
                 {
                     printf("ORDENAR Y MOSTRAR POR:\n");

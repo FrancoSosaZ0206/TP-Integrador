@@ -567,14 +567,14 @@ bool VerificarIDUnico(CentroLogisticoPtr centroLogistico, int ID_Analizar)
         if(ID_Analizar == getID(PaqueteActual))
         {
             listaAux = destruirLista(listaAux, false);
-            return true;
+            return false;
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux = destruirLista(listaAux, false);
-    return false;
+    return true;
 }
 
 bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
@@ -592,14 +592,14 @@ bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
         if( ResultadoComparacion == 0 )
         {
             listaAux = destruirLista(listaAux, false);
-            return true;
+            return false;
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux = destruirLista(listaAux, false);
-    return false;
+    return true;
 }
 
 bool VerificarPatenteValida(char* PatenteValidar)
@@ -656,14 +656,14 @@ bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComp
         if( strcmp( PatenteComprobar, getPatente(VehiculoTemporal) ) == 0 )
         {
             listaAux = destruirLista(listaAux, false);
-            return true;
+            return false;
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux = destruirLista(listaAux, false);
-    return false;
+    return true;
 }
 
 bool VerificarExistenciaChoferes(CentroLogisticoPtr centroLogistico)
