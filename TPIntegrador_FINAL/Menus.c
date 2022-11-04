@@ -1477,7 +1477,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
             presionarEnterYLimpiarPantalla();
         }
     }
-    if(!esChofer)
+    else
     {
         if(!VerificarExistenciaClientes(centroLogistico))
         {
@@ -1488,8 +1488,6 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
     }
     if(ExistenDatos)
     {
-        ListaPtr copiaLista = copiarLista(listaAux,2);
-
         int modoAccion = menuModoAccion(opMenuAnterior);
         if(!(modoAccion == 0 || modoAccion == -1))
         {
@@ -1559,11 +1557,11 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                         printf("Ha elegido Choferes {%d - %d}\n",desde,hasta);
                     else
                         printf("Ha elegido Clientes {%d - %d}\n",desde,hasta);
-                    for(int i=0,j=desde;i<=(hasta-desde);i++,j++)
+                    for(int i=desde-1;i<=(hasta-desde);i++)
                     { //Obtenemos los elementos en el rango de indices y los mostramos
-                        personasAModificar[i]=(PersonaPtr)getDatoLista(listaAux,i-1);
+                        personasAModificar[i]=(PersonaPtr)getDatoLista(listaAux,i);
 
-                        printf("%d. ",j);
+                        printf("%d. ",i);
                         mostrarPersona(personasAModificar[i]);
                     }
                 }
@@ -1679,12 +1677,9 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
         else //if(modoAccion == 0 || modoAccion == -1)
             return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
 
-        bool cambioDetectado = detectarCambios(listaAux,copiaLista,2);
         nCuil = destruirCuil(nCuil);
         nDomicilio = destruirDomicilio(nDomicilio);
-
-        if(cambioDetectado)
-            return menuGuardarCambios(centroLogistico,2);
+        return menuGuardarCambios(centroLogistico,2);
     }
     return true;
 }
