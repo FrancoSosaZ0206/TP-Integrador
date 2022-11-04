@@ -117,21 +117,12 @@ void mostrarPersona(PersonaPtr persona)
 
 
 
-bool personasIguales(PersonaPtr persona1,PersonaPtr persona2, bool CompararTodo)
+bool personasIguales(PersonaPtr persona1,PersonaPtr persona2)
 {
-    bool SonPersonasIguales = true;
-    if(CompararTodo)
-    {
-        SonPersonasIguales = SonPersonasIguales && (strcmp(getNombre(persona1), getNombre(persona2)) == 0);
-        SonPersonasIguales = SonPersonasIguales && (strcmp(getNombre(persona1), getNombre(persona2)) == 0);
-        SonPersonasIguales = SonPersonasIguales && domiciliosIguales(getDomicilio(persona1),getDomicilio(persona2));
-        SonPersonasIguales = SonPersonasIguales && cuilsIguales(getCuilPersona(persona1), getCuilPersona(persona2));
-    }
-    else
-    {
-        SonPersonasIguales = cuilsIguales(getCuilPersona(persona1), getCuilPersona(persona2));
-    }
-    return SonPersonasIguales;
+    bool match = strcmp(getNombre(persona1), getNombre(persona2)) == 0;
+    match = match && (strcmp(getApellido(persona1), getApellido(persona2)) == 0);
+    match = match && domiciliosIguales(getDomicilio(persona1),getDomicilio(persona2));
+    return match && cuilsIguales(getCuilPersona(persona1), getCuilPersona(persona2));
 }
 
 PersonaPtr copiarPersona(PersonaPtr personaOriginal) ///NUEVA - Orientada para la funcion copiarLista

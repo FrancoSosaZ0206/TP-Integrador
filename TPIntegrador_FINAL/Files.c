@@ -750,7 +750,8 @@ CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo
 
 /* Función para leer líneas de texto terminadas con un
 caracter determinado */
-int LeerString(FILE *archivo,char buffer[], int longitudMax,char terminador){
+int LeerString(FILE *archivo,char buffer[], int longitudMax,char terminador)
+{
     // leemos caracter a caracter hasta encontrar terminador o EOF
     char caracter;
     int k=0;

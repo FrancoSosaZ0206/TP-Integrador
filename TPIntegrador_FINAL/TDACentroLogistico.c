@@ -329,7 +329,7 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer
     while(!listaVacia(listaAux))
     {
         PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
-        if(strcmp(getCuil(getCuilPersona(personaAux)),getCuil(cuil))==0 && getEsChofer(personaAux)==esChofer)
+        if(cuilsIguales(getCuilPersona(personaAux),cuil) && getEsChofer(personaAux)==esChofer)
         {
             match=true;
             mostrarPersona(personaAux); //mostramos solo si el cuil y esChofer coinciden
@@ -702,7 +702,7 @@ bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
     while(!listaVacia(listaAux))
     {
         PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
-        if(paquetesIguales(paqueteAux,paquete,true))
+        if(paquetesIguales(paqueteAux,paquete))
             match=true;
         listaAux=getResto(listaAux);
     }
@@ -713,20 +713,21 @@ bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
 
 bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) // devuelve true si la persona que le ingresamos tiene el mismo cuil que una de las personas, false si no
 {
-    bool match=false;
-
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPersonas(centroLogistico));
     while(!listaVacia(listaAux))
     {
         PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
-        if(personasIguales(personaAux,persona,true))
-            match=true;
+        if(cuilsIguales(getCuilPersona(personaAux),getCuilPersona(persona)))
+        {
+            listaAux=destruirLista(listaAux,false);
+            return true;
+        }
         listaAux=getResto(listaAux);
     }
     listaAux=destruirLista(listaAux,false);
 
-    return match;
+    return false;
 }
 
 bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo)
@@ -738,7 +739,7 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
     while(!listaVacia(listaAux))
     {
         VehiculoPtr vehculoAux = (VehiculoPtr)getCabecera(listaAux);
-        if(vehiculosIguales(vehculoAux,vehiculo,true))
+        if(vehiculosIguales(vehculoAux,vehiculo))
             match=true;
         listaAux=getResto(listaAux);
     }
@@ -747,27 +748,36 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
     return match;
 }
 
-bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,bool esRepartoAbierto)
+bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
 {
-    bool match=false;
+    ListaPtr listaAux = crearLista();
+    ListaPtr listaAux2 = crearLista();
 
-    ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
-    while(!listaVacia(listaAux))
+    agregarLista(listaAux,getRepartos(centroLogistico,true));
+    agregarLista(listaAux,getRepartos(centroLogistico,false));
+
+    while(!listaVacia(listaAux) && !listaVacia(listaAux2))
     {
         RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
 
         bool condicion = fechasIguales(getFechaSalida(repartoAux),getFechaSalida(reparto));
-        condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto),true);
+        condicion = condicion && cuilsIguales(getCuilPersona(getChofer(repartoAux)),
+                                              getCuilPersona(getChofer(reparto)));
         ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
         ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
         if(condicion)
-            match=true;
+        {
+            listaAux=destruirLista(listaAux,false);
+            listaAux=destruirLista(listaAux2,false);
+            return true;
+        }
         listaAux=getResto(listaAux);
+        listaAux2=getResto(listaAux2);
     }
     listaAux=destruirLista(listaAux,false);
+    listaAux2=destruirLista(listaAux2,false);
 
-    return match;
+    return false;
 }
 
 ///////////////////////////////////////////////////FUNCIONES DE ORDENAMIENTO//////////////////////////////////////////////////////////////////////////

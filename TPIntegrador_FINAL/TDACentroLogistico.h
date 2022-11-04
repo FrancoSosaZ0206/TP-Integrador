@@ -376,14 +376,13 @@ bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona);
 bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo);
 //Operación: verifica si el chofer y fecha de salida de un reparto, son iguales a los de algún reparto previamente ingresado.
 //Precondición: Centro logistico debe haberse creado y cargado con, al menos, una persona.
-//Postcondición: se recorre la lista de repartos del centro,
+//Postcondición: se recorre las listas de repartos del centro,
 //               chequeando si en algun momento coincide el cuil del chofer Y la fecha de salida con los del reparto recibido.
 //Parámetros:
 //  centroLogistico: puntero a estructura que representa al centro logistico.
 //  reparto: puntero a la estructura reparto que se desea verificar.
-//  esRepartoAbierto: booleano que indica de que reparto se trata.
 //Devuelve: true si el reparto recibido tiene el mismo chofer y fecha de salida que uno de los repartos, false de lo contrario.
-bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,bool esRepartoAbierto);
+bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto);
 
 ///---------------------------------------Funciones de ordenamiento------------------------------------------------
 

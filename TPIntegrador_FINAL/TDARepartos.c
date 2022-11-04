@@ -105,10 +105,7 @@ PaquetePtr descargarPaquete(RepartoPtr reparto) //elimina el ultimo paquete agre
     if(!pilaVacia(getPaquetesReparto(reparto)))
         paquete=(PaquetePtr)desapilar(reparto->paquetes);
     else
-    {
-        printf("\n\nERROR: NO SE PUEDE ELIMINAR ELEMENTOS PORQUE LA PILA YA ESTA VACIA.\n\n");
-        exit(1);
-    }
+        printf("\n\nERROR: NO SE PUEDE DESCARGAR MAS PAQUETES PORQUE LA PILA YA ESTA VACIA.\n\n");
     return paquete;
 }
 int cantidadPaquetes(RepartoPtr reparto) //devuelve cantidad de paquetes que contiene el reparto
@@ -163,7 +160,7 @@ bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete) ///NUEVA
     { ///paquetes obtiene los paquetes del reparto, almacenandolos en c/u de sus posiciones.
         paquetes[i]=descargarPaquete(reparto);
 
-        if(paquetesIguales(paquetes[i],paquete,true))
+        if(paquetesIguales(paquetes[i],paquete))
             match = true;
     }
     for(int i=n;i>0;i--) ///Antes de obtener el siguiente reparto, reinsertamos los paquetes en el reparto.
@@ -177,8 +174,8 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
     PilaPtr pilaAux1=crearPila();
     PilaPtr pilaAux2=crearPila();
 
-    bool condicion = personasIguales(getChofer(reparto1),getChofer(reparto2),true);
-    condicion = condicion && vehiculosIguales(getVehiculo(reparto1),getVehiculo(reparto2),true);
+    bool condicion = personasIguales(getChofer(reparto1),getChofer(reparto2));
+    condicion = condicion && vehiculosIguales(getVehiculo(reparto1),getVehiculo(reparto2));
     condicion = condicion && fechasIguales(getFechaSalida(reparto1),getFechaSalida(reparto2));
     condicion = condicion && fechasIguales(getFechaRetorno(reparto1),getFechaRetorno(reparto2));
 
@@ -196,7 +193,7 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
     {
         paqueteAux1=descargarPaquete(reparto1);
         paqueteAux2=descargarPaquete(reparto2);
-        if(paquetesIguales(paqueteAux1,paqueteAux2,true))
+        if(paquetesIguales(paqueteAux1,paqueteAux2))
             pilasIguales=true;
     }
     for(int i=0;i<n;i++)
