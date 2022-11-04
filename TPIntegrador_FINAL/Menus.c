@@ -2841,7 +2841,6 @@ void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
     listaAux = destruirLista(listaAux, false);
 }
 
-
 /** OPERACIÓN:
 PRECONDICIÓN:
 POSTCONDICIÓN:
