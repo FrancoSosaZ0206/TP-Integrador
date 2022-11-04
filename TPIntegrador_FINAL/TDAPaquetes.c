@@ -226,26 +226,17 @@ void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual de
     FechaPtr fechaEntrega;
     int estado; ///0=En depósito,1=En curso,2=Retirado,3=Entregado,4=Demorado,5=Suspendido
 
-bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2,bool CompararTodo)
+bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 {
-    bool SonPaquetesIguales = true;
-    if(CompararTodo)
-    {
-        SonPaquetesIguales = SonPaquetesIguales && (getID(paquete1) == getID(paquete2));
-        SonPaquetesIguales = SonPaquetesIguales && (getAncho(paquete1) == getAncho(paquete2));
-        SonPaquetesIguales = SonPaquetesIguales && (getAlto(paquete1) == getAlto(paquete2));
-        SonPaquetesIguales = SonPaquetesIguales && (getLargo(paquete1) == getLargo(paquete2));
-        SonPaquetesIguales = SonPaquetesIguales && (getPeso(paquete1) == getPeso(paquete2));
-        SonPaquetesIguales = SonPaquetesIguales && domiciliosIguales(getDirRetiro(paquete1),getDirRetiro(paquete2));
-        SonPaquetesIguales = SonPaquetesIguales && domiciliosIguales(getDirEntrega(paquete1),getDirEntrega(paquete2));
-        SonPaquetesIguales = SonPaquetesIguales && fechasIguales(getFechaEntrega(paquete1),getFechaEntrega(paquete2));
-        SonPaquetesIguales = SonPaquetesIguales && (getEstado(paquete1) == getEstado(paquete2));
-    }
-    else
-    {
-        SonPaquetesIguales = SonPaquetesIguales && (getID(paquete1) == getID(paquete2));
-    }
-    return SonPaquetesIguales;
+    bool match = match && (getID(paquete1) == getID(paquete2));
+    match = match && (getAncho(paquete1) == getAncho(paquete2));
+    match = match && (getAlto(paquete1) == getAlto(paquete2));
+    match = match && (getLargo(paquete1) == getLargo(paquete2));
+    match = match && (getPeso(paquete1) == getPeso(paquete2));
+    match = match && domiciliosIguales(getDirRetiro(paquete1),getDirRetiro(paquete2));
+    match = match && domiciliosIguales(getDirEntrega(paquete1),getDirEntrega(paquete2));
+    match = match && fechasIguales(getFechaEntrega(paquete1),getFechaEntrega(paquete2));
+    return match && (getEstado(paquete1) == getEstado(paquete2));
 }
 
 PaquetePtr copiarPaquete(PaquetePtr paqueteOriginal) ///NUEVA - Orientada para la funcion copiarLista

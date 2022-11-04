@@ -124,7 +124,7 @@ void mostrarTipoVehiculo(VehiculoPtr vehiculo); ///informa al usuario de que tip
 //  vehiculo1: puntero a la estructura a verificar.
 //  vehiculo2: puntero a la estructura a verificar.
 //Devuelve: true si son idénticos en patente, false de lo contrario.
-bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2, bool CompararTodo);
+bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2);
 
 /*  Operación: crea una copia de un vehiculo
 Precondición: vehiculoOriginal debe haber sido creado previamente
