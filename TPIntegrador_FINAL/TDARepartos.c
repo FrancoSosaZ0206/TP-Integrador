@@ -62,30 +62,28 @@ PilaPtr getPaquetesReparto(RepartoPtr reparto)
 
 void setChofer(RepartoPtr reparto,PersonaPtr chofer)
 {
-    setNombre(reparto->chofer,chofer->nombre);
-    setApellido(reparto->chofer,chofer->apellido);
-    setDomicilio(reparto->chofer,chofer->domicilio);
-    setCuilPersona(reparto->chofer,chofer->cuil);
-    setEsChofer(reparto->chofer,chofer->esChofer);
+    reparto->chofer = destruirPersona(reparto->chofer);
+    reparto->chofer = chofer;
 }
 void setVehiculo(RepartoPtr reparto,VehiculoPtr vehiculo)
 {
-    setTipoVehiculo(reparto->vehiculo,vehiculo->tipo);
-    setMarca(reparto->vehiculo,vehiculo->marca);
-    setModelo(reparto->vehiculo,vehiculo->modelo);
-    setPatente(reparto->vehiculo,vehiculo->patente);
+    reparto->vehiculo = destruirVehiculo(reparto->vehiculo);
+    reparto->vehiculo = vehiculo;
 }
 void setFechaSalida(RepartoPtr reparto,FechaPtr fechaSalida)
 {
-    setDiaJuliano(reparto->fechaSalida,fechaSalida->diaJuliano);
-    setHora(reparto->fechaSalida,fechaSalida->hora);
-    setMinuto(reparto->fechaSalida,fechaSalida->minuto);
+    reparto->fechaSalida = destruirFecha(reparto->fechaSalida);
+    reparto->fechaSalida = fechaSalida;
 }
 void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno)
 {
-    setDiaJuliano(reparto->fechaRetorno,fechaRetorno->diaJuliano);
-    setHora(reparto->fechaRetorno,fechaRetorno->hora);
-    setMinuto(reparto->fechaRetorno,fechaRetorno->minuto);
+    reparto->fechaRetorno = destruirFecha(reparto->fechaRetorno);
+    reparto->fechaRetorno = fechaRetorno;
+}
+
+void setPaquetesReparto(RepartoPtr reparto, PilaPtr paquetes)
+{
+    reparto->paquetes = paquetes;
 }
 
 void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) //agrega un paquete a la pila de paquetes
@@ -146,6 +144,17 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
     printf("Fecha de Retorno: %s\n",strFecha);
 }
 
+
+
+
+
+
+
+
+
+
+
+
 ///---------------------------------------Funciones de validación------------------------------------------------
 
 bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete) ///NUEVA
@@ -201,8 +210,8 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
         cargarPaquete(reparto1,(PaquetePtr)desapilar(pilaAux1));
         cargarPaquete(reparto2,(PaquetePtr)desapilar(pilaAux2));
     } ///Las pilas no las destruimos.
-
-    return condicion && pilasIguales;
+    if(condicion && pilasIguales) { return true; }
+    else { return false; }
 }
 
 RepartoPtr copiarReparto(RepartoPtr repartoOriginal) ///NUEVA

@@ -508,4 +508,7 @@ bool VerificarExistenciaClientes(CentroLogisticoPtr centroLogistico);
 ///DEVUELVE BOOLEANO (TRUE = NO DISPONIBLES / FALSE = DISPONIBLE)
 bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
 
+
+
+
 #endif // TDACENTROLOGISTICO_H_INCLUDED

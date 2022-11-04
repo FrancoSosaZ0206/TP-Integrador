@@ -77,7 +77,7 @@ typedef struct fReparto
     fFecha fechaSalida;
     fFecha fechaRetorno;
     int tamanioPilaPaq; ///la dimension del array...
-    fPaquete paquetes[]; ///depende de la longitud de la pila que me pasan
+    fPaquete paquetes[100]; ///depende de la longitud de la pila que me pasan
 } fReparto;
 typedef fReparto* fRepartoPtr;
 
@@ -353,7 +353,6 @@ RepartoPtr fsetReparto(fRepartoPtr pfreparto,RepartoPtr reparto,bool setGuardar)
 
         n = cantidadPaquetes(reparto);
         pfreparto->tamanioPilaPaq = n;
-
         for(int i=0;i<n;i++)
         {
             paqueteAux = descargarPaquete(reparto);
@@ -450,7 +449,9 @@ bool guardarPaquetes(CentroLogisticoPtr centroLogistico)
         PaquetePtr paqueteAux = (PaquetePtr)getCabecera(listaAux);
         fsetPaquete(&fpaquetes[i],paqueteAux,true);
 
-        listaAux=getResto(listaAux);
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
     fwrite(&fpaquetes,sizeof(fPaquete),n,archivo);
@@ -481,7 +482,9 @@ bool guardarPersonas(CentroLogisticoPtr centroLogistico)
         PersonaPtr personaAux = (PersonaPtr)getCabecera(listaAux);
         fsetPersona(&fpersonas[i],personaAux,true);
 
-        listaAux=getResto(listaAux);
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
     fwrite(&fpersonas,sizeof(fPersona),n,archivo);
@@ -512,7 +515,9 @@ bool guardarVehiculos(CentroLogisticoPtr centroLogistico)
         VehiculoPtr vehiculoAux = (VehiculoPtr)getCabecera(listaAux);
         fsetVehiculo(&fvehiculos[i],vehiculoAux,true);
 
-        listaAux=getResto(listaAux);
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
     fwrite(&fvehiculos,sizeof(fVehiculo),n,archivo);
@@ -552,7 +557,9 @@ bool guardarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
         fsetReparto(&frepartos[i],repartoAux,true);
 
-        listaAux=getResto(listaAux);
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
     fwrite(&frepartos,sizeof(fReparto),n,archivo);
@@ -679,7 +686,7 @@ bool abrirRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 
     if(archivo==NULL)
         return false;
-///Como hicimos en funciones anteriores, recuperamos primero la cantidad de elementos de la lista
+    ///Como hicimos en funciones anteriores, recuperamos primero la cantidad de elementos de la lista
     int n = 0;
     fread(&n,sizeof(int),1,archivo);
 
