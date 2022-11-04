@@ -388,12 +388,12 @@ void cambiarVehiculo(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculoAMo
             break;
         case 2:
             printf("\n\nIngrese la nueva marca:");
-            scanf("%[^\n]%*c",nMarca);
+            seleccionarString(nMarca);
             setMarca(vehiculoAModificar,nMarca);
             break;
         case 3:
             printf("\n\nIngrese el nuevo modelo:");
-            scanf("%[^\n]%*c",nModelo);
+            seleccionarString(nModelo);
             setModelo(vehiculoAModificar,nModelo);
             break;
         case 4:
@@ -580,7 +580,7 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
             printf("BUSCAR VEHICULO\n\n");
             printf("0. Volver\n");
             printf("Ingrese la patente del vehiculo a buscar (AA 111 AA): ");
-            scanf("%[^\n]%*c",patente);
+            seleccionarString(patente);
             if(!buscarVehiculo(centroLogistico,patente) && strlen(patente) != 1)
             {
                 printf("\n\nNo se pudo encontrar el vehiculo con patente %s.\n\n",patente);

@@ -467,26 +467,22 @@ void cambiarPaquete(CentroLogisticoPtr centroLogistico, PaquetePtr paqueteAModif
         {
         case 1:
             printf("\n\nIngrese el nuevo ancho: ");
-            limpiarBufferTeclado();
-            scanf("%d",&nAncho);
+            nAncho = seleccionarNumero();
             setAncho(paqueteAModificar,nAncho);
             break;
         case 2:
             printf("\n\nIngrese el nuevo alto: ");
-            limpiarBufferTeclado();
-            scanf("%d",&nAlto);
+            nAlto = seleccionarNumero();
             setAlto(paqueteAModificar,nAlto);
             break;
         case 3:
             printf("\n\nIngrese el nuevo largo: ");
-            limpiarBufferTeclado();
-            scanf("%d",&nLargo);
+            nLargo = seleccionarNumero();
             setLargo(paqueteAModificar,nLargo);
             break;
         case 4:
             printf("\n\nIngrese el nuevo peso: ");
-            limpiarBufferTeclado();
-            scanf("%d",&nPeso);
+            nPeso = seleccionarNumero();
             setPeso(paqueteAModificar,nPeso);
             break;
         case 5:
@@ -684,8 +680,7 @@ void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
             printf("BUSCAR PAQUETE\n\n");
             printf("0. Volver\n");
             printf("Ingrese ID del paquete a buscar: ");
-            scanf("%d",&ID);
-            limpiarBufferTeclado();
+            ID = seleccionarNumero();
             printf("\n\n");
             if(!buscarPaquete(centroLogistico,ID) && ID != 0)
             {

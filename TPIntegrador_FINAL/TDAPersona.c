@@ -725,7 +725,7 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 printf("BUSCAR CLIENTE\n\n");
                 printf("Ingrese el CUIL del cliente a buscar: ");
             }
-            scanf("%[^\n]%*c",cuilStr);
+            seleccionarString(cuilStr);
             printf("\n\n");
 
             if(!buscarPersona(centroLogistico,cuilStr,esChofer) && strlen(cuilStr) != 1)
