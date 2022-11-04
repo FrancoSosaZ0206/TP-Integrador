@@ -225,8 +225,7 @@ void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual de
 
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 {
-    bool SonPaquetesIguales = true;
-    SonPaquetesIguales = SonPaquetesIguales && (getID(paquete1) == getID(paquete2));
+    bool SonPaquetesIguales = (getID(paquete1) == getID(paquete2));
     SonPaquetesIguales = SonPaquetesIguales && (getAncho(paquete1) == getAncho(paquete2));
     SonPaquetesIguales = SonPaquetesIguales && (getAlto(paquete1) == getAlto(paquete2));
     SonPaquetesIguales = SonPaquetesIguales && (getLargo(paquete1) == getLargo(paquete2));
@@ -234,8 +233,7 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
     SonPaquetesIguales = SonPaquetesIguales && domiciliosIguales(getDirRetiro(paquete1),getDirRetiro(paquete2));
     SonPaquetesIguales = SonPaquetesIguales && domiciliosIguales(getDirEntrega(paquete1),getDirEntrega(paquete2));
     SonPaquetesIguales = SonPaquetesIguales && fechasIguales(getFechaEntrega(paquete1),getFechaEntrega(paquete2));
-    SonPaquetesIguales = SonPaquetesIguales && (getEstado(paquete1) == getEstado(paquete2));
-    return SonPaquetesIguales;
+    return SonPaquetesIguales && (getEstado(paquete1) == getEstado(paquete2));
 }
 
 PaquetePtr copiarPaquete(PaquetePtr paqueteOriginal) ///NUEVA - Orientada para la funcion copiarLista

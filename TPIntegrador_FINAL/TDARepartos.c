@@ -147,6 +147,17 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
     printf("Fecha de Retorno: %s\n",strFecha);
 }
 
+
+
+
+
+
+
+
+
+
+
+
 ///---------------------------------------Funciones de validación------------------------------------------------
 
 bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete) ///NUEVA

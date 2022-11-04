@@ -2358,7 +2358,259 @@ RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAb
     }
 }
 
+RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
+{
+    char CuilBuscar[100];
+    char PatenteBuscar[100];
+    int ID_Buscar;
+    int diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutosBuscar;
+    FechaPtr FechaBuscar;
+    int Menu;
+    int Indice;
+    RepartoPtr RepartoElegido = NULL;
+    if( listaVacia( getRepartos( centroLogistico, esRepartoAbierto ) ) )
+    {
+        printf("Lista de repartos vacia, agregue elementos para seleccionar...\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        do
+        {
+            system("cls");
+            Menu = menuTipoRepartos();
+            switch(Menu)
+            {
+                case 1:
+                    mostrarRepartos(centroLogistico, true);
+                    Indice = menuModoAccion1( getRepartos(centroLogistico, esRepartoAbierto) );
+                    RepartoElegido = (RepartoPtr)getDatoLista( getRepartos(centroLogistico, esRepartoAbierto) , Indice);
+                    break;
+                case 2:
+                    printf("Ingrese el cuil: ");
+                    seleccionarString(CuilBuscar);
+                    RepartoElegido = devolverRepartoChofer(centroLogistico, CuilBuscar, esRepartoAbierto);
+                    break;
+                case 3:
+                    printf("Ingrese la patente: ");
+                    seleccionarString(PatenteBuscar);
+                    RepartoElegido = devolverRepartoVehiculo(centroLogistico, PatenteBuscar, esRepartoAbierto);
+                    break;
+                case 4:
+                    printf("Ingrese la fecha de salida [DD/MM/AA HH:MM]: ");
+                    fflush(stdin);
+                    scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutosBuscar);
+                    fflush(stdin);
+                    FechaBuscar = crearFecha(diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutosBuscar);
+                    RepartoElegido = devolverRepartoFechaSalida(centroLogistico, FechaBuscar, esRepartoAbierto);
+                    FechaBuscar = destruirFecha(FechaBuscar);
+                    break;
+                case 5:
+                    printf("Ingrese la fecha de retorno [DD/MM/AA HH:MM]: ");
+                    fflush(stdin);
+                    scanf("%d %d %d %d %d", &diaBuscar,&mesBuscar,&anioBuscar,&horaBuscar,&minutosBuscar);
+                    fflush(stdin);
+                    FechaBuscar = crearFecha(diaBuscar,mesBuscar,anioBuscar,horaBuscar,minutosBuscar);
+                    RepartoElegido = devolverRepartoFechaRetorno(centroLogistico, FechaBuscar, esRepartoAbierto);
+                    FechaBuscar = destruirFecha(FechaBuscar);
+                    break;
+                case 6:
+                    printf("Ingrese el ID: ");
+                    ID_Buscar = seleccionarNumero();
+                    RepartoElegido = devolverRepartoPaquete(centroLogistico, ID_Buscar, esRepartoAbierto);
+                    break;
+                default:
+                    printf("Opcion equivocada... \n");
+                    presionarEnterYLimpiarPantalla();
+                    break;
+            }
+        }while(RepartoElegido == NULL);
+    }
+    return RepartoElegido;
+}
 
+RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil, bool esRepartoAbierto)
+{
+    bool match=false;
+    RepartoPtr repartoDevolver;
+    RepartoPtr repartoAux;
+    PersonaPtr personaInvestigar;
+    CuilPtr cuilInvestigar;
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico,true));
+    while(!listaVacia(listaAux))
+    {
+        repartoAux=(RepartoPtr)getCabecera(listaAux);
+        personaInvestigar=getChofer(repartoAux);
+        cuilInvestigar=getCuilPersona(personaInvestigar);
+        if(strcmp(getCuil(cuilInvestigar),cuil)==0)
+        {
+            match=true;
+            repartoDevolver=repartoAux;
+            break;
+        }
+        ListaPtr ListaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    listaAux=destruirLista(listaAux,false);
+    if(match)
+    {
+        return repartoDevolver;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* patente, bool esRepartoAbierto)
+{
+    bool match=false;
+    VehiculoPtr vehiculoInvestigar;
+    RepartoPtr repartoDevolver;
+    RepartoPtr repartoActual;
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico,true));
+    while(!listaVacia(listaAux))
+    {
+        repartoActual=(RepartoPtr)getCabecera(listaAux);
+        vehiculoInvestigar=getVehiculo(repartoActual);
+        if(strcmp(getPatente(vehiculoInvestigar),patente)==0)
+        {
+            match=true;
+            repartoDevolver=repartoActual;
+            break;
+        }
+        ListaPtr ListaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    listaAux=destruirLista(listaAux,false);
+    if(match)
+    {
+        return repartoDevolver;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+RepartoPtr devolverRepartoFechaSalida(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, bool esRepartoAbierto, bool esFechaSalida)
+{
+    int hora = 0;
+    int minutos = 0;
+    int cantidadCorrectas = 0;
+    int horaBuscar = 0;
+    int minutosBuscar = 0;
+    ///int posicionEncontrado=0
+    bool encontrado=false;
+    RepartoPtr repartoDevolver;
+    ListaPtr ListaAuxiliar = crearLista();
+    ListaPtr ListaRepartos = getRepartos(centroLogistico, true);
+    agregarLista(ListaAuxiliar, ListaRepartos);
+    FechaPtr fechaActual;
+    RepartoPtr repartoActual;
+    while(!listaVacia(ListaAuxiliar))
+    {
+        cantidadCorrectas = 0;
+        repartoActual = (RepartoPtr)getCabecera(ListaAuxiliar);
+        if(esFechaSalida)
+	{
+
+	}
+        horaBuscar = getHora(fechaBuscar);
+        minutosBuscar = getMinuto(fechaBuscar);
+        hora = getHora(fechaActual);
+        minutos = getMinuto(fechaActual);
+        if(getDia(fechaActual) == getDia(fechaBuscar))
+        {
+            cantidadCorrectas++;
+        }
+        if(getMes(fechaActual) == getMes(fechaBuscar))
+        {
+            cantidadCorrectas++;
+        }
+        if(getAnio(fechaActual) == getAnio(fechaBuscar))
+        {
+            cantidadCorrectas++;
+        }
+        if(hora == horaBuscar)
+        {
+            cantidadCorrectas++;
+        }
+        if(minutos == minutosBuscar)
+        {
+            cantidadCorrectas++;
+        }
+        if(cantidadCorrectas == 5)
+        {
+            encontrado = true;
+            repartoDevolver=repartoActual;
+            break;
+            ///posicionEncontrado = i;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    if(encontrado)
+    {
+        return repartoDevolver;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID, bool esRepartoAbierto)
+{
+    ListaPtr listaAuxiliar2;
+    ListaPtr ListaAuxiliar = crearLista();
+    ListaPtr ListaPaquetes = getRepartos(centroLogistico,true);
+    agregarLista(ListaAuxiliar, ListaPaquetes);
+    RepartoPtr repartoActual;
+    RepartoPtr repartoDevolver;
+    PaquetePtr PaqueteActual;
+    int ID_paquete = 0;
+    bool encontrado = false;
+    while(!listaVacia(ListaAuxiliar))
+    {
+        repartoActual = (RepartoPtr)getCabecera(ListaAuxiliar);
+        listaAuxiliar2=crearLista();
+        agregarLista(listaAuxiliar2, getPaquetesReparto(repartoActual));
+        while(!listaVacia(listaAuxiliar2))
+        {
+            PaqueteActual = (PaquetePtr)getCabecera(listaAuxiliar2);
+            ID_paquete = getID(PaqueteActual);
+            if(ID_paquete == ID)
+            {
+                encontrado = true;
+                repartoDevolver = repartoActual;
+                break;
+            }
+            ListaPtr ListaDestruir1 = listaAuxiliar2;
+            listaAuxiliar2 = getResto(listaAuxiliar2);
+            ListaDestruir1 = destruirLista(ListaDestruir1, false);
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+        listaAuxiliar2 = destruirLista(listaAuxiliar2, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    if(encontrado)
+    {
+        return repartoDevolver;
+    }
+    else
+    {
+        return NULL;
+    }
+}
 ///--------------------------------------------------------------------------------------------------------------------------
 
 ///                                                FUNCIONES DE MUESTRA DE ESTRUCTURAS

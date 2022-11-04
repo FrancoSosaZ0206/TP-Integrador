@@ -102,12 +102,10 @@ void mostrarTipoVehiculo(VehiculoPtr vehiculo) ///informa al usuario de que tipo
 
 bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2)
 {
-    bool SonVehiculosIguales = true;
-    SonVehiculosIguales = SonVehiculosIguales && (getTipoVehiculo(vehiculo1) == getTipoVehiculo(vehiculo2));
+    bool SonVehiculosIguales = ((getTipoVehiculo(vehiculo1) == getTipoVehiculo(vehiculo2)));
     SonVehiculosIguales = SonVehiculosIguales && (strcmp(getMarca(vehiculo1),getMarca(vehiculo2)) == 0);
     SonVehiculosIguales = SonVehiculosIguales && (strcmp(getModelo(vehiculo1),getModelo(vehiculo2)) == 0);
-    SonVehiculosIguales = SonVehiculosIguales && (strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0);
-    return SonVehiculosIguales;
+    return SonVehiculosIguales && (strcmp(getPatente(vehiculo1),getPatente(vehiculo2)) == 0);
 }
 
 VehiculoPtr copiarVehiculo(VehiculoPtr vehiculoOriginal) ///NUEVA - Orientada para la funcion copiarLista
