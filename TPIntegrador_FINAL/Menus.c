@@ -135,13 +135,13 @@ bool detectarCambios(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDato)
         switch(tipoDato)
         {
         case 1:
-            datosIguales = paquetesIguales((PaquetePtr)datoOriginal,(PaquetePtr)copiaDato,true);
+            datosIguales = paquetesIguales((PaquetePtr)datoOriginal,(PaquetePtr)copiaDato);
             break;
         case 2:
-            datosIguales = personasIguales((PersonaPtr)datoOriginal,(PersonaPtr)copiaDato, true);
+            datosIguales = personasIguales((PersonaPtr)datoOriginal,(PersonaPtr)copiaDato);
             break;
         case 3:
-            datosIguales = vehiculosIguales((VehiculoPtr)datoOriginal,(VehiculoPtr)copiaDato,true);
+            datosIguales = vehiculosIguales((VehiculoPtr)datoOriginal,(VehiculoPtr)copiaDato);
             break;
         case 4:
             datosIguales = repartosIguales((RepartoPtr)datoOriginal,(RepartoPtr)copiaDato);
@@ -3182,7 +3182,6 @@ bool menuActualizarReparto(CentroLogisticoPtr centroLogistico)
     bool PaqueteValido = false;
     PaquetePtr PaqueteElegido;
     RepartoPtr repartoActualizar;
-    PilaPtr pilaAux = crearPila();
     if(listaVacia(getRepartos(centroLogistico,true)))
     {
         printf("ERROR: Lista Vacia.");

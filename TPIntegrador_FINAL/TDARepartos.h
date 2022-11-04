@@ -121,6 +121,15 @@ void setFechaSalida(RepartoPtr reparto,FechaPtr fechaSalida);
 //Devuelve nada
 void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno);
 
+//Operación: Asignacion de paquetes.
+//Precondición: Repartos debe estar creado.
+//Postcondición: El reparto cambia con el nuevo valor de paquetes
+//Parámetros:
+// reparto: puntero a la estructura a asignar el nuevo valor.
+// pila paquetes: puntero a la estructura del nuevo valor.
+//Devuelve nada
+void setPaquetesReparto(RepartoPtr reparto, PilaPtr paquetes);
+
 //Operación: Agrega un nuevo paquete a la pila de paquetes.
 //Precondición: La pila debe haberse creado
 //Postcondición: La pila tiene un nuevo paquete
