@@ -191,7 +191,13 @@ PARÁMETROS:
 DEVUELVE: puntero al reparto buscado. */
 RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 
-
+int menuTipoRepartos();
+int MenuSeleccionAtributoReparto();
+RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID, bool esRepartoAbierto);
+RepartoPtr devolverRepartoFecha(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, bool esRepartoAbierto, bool esFechaSalida);
+RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* patente, bool esRepartoAbierto);
+RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil, bool esRepartoAbierto);
+RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 ///--------------------------------------------------------------------------------------------------------------------------
 
 ///                                             MENÚS DE MUESTRA DE DATOS

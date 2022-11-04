@@ -510,12 +510,6 @@ bool VerificarExistenciaClientes(CentroLogisticoPtr centroLogistico);
 bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
 
 
-RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID, bool esRepartoAbierto);
-RepartoPtr devolverRepartoFechaSalida(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, bool esRepartoAbierto, bool esFechaSalida);
-RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* patente, bool esRepartoAbierto);
-RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil, bool esRepartoAbierto);
-RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
-
 
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

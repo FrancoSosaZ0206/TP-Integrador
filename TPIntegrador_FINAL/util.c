@@ -22,6 +22,22 @@ char* crearStringDinamico(char* literal)
     return buffer;
 }
 
+int seleccionarNumero()
+{
+    int eleccion = 0;
+    limpiarBufferTeclado();
+    scanf("%d", &eleccion);
+    limpiarBufferTeclado();
+    return eleccion;
+}
+
+void seleccionarString(char* literal)
+{
+    limpiarBufferTeclado();
+    scanf("%[^\n]%*c", literal);
+    limpiarBufferTeclado();
+}
+
 char *destruirStringDinamico(char *buffer)
 {
     free(buffer);

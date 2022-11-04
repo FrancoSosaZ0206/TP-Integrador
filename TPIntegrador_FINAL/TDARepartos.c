@@ -213,8 +213,8 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
         cargarPaquete(reparto1,(PaquetePtr)desapilar(pilaAux1));
         cargarPaquete(reparto2,(PaquetePtr)desapilar(pilaAux2));
     } ///Las pilas no las destruimos.
-
-    return condicion && pilasIguales;
+    if(condicion && pilasIguales) { return true; }
+    else { return false; }
 }
 
 RepartoPtr copiarReparto(RepartoPtr repartoOriginal) ///NUEVA

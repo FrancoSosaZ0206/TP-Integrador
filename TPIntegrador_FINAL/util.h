@@ -53,4 +53,11 @@ PARÁMETROS:
 DEVUELVE: cantidad de dígitos extraídos. */
 int extraerDigitosString(char *source,int buffer[]);
 
+
+int seleccionarNumero();
+
+
+void seleccionarString(char* literal);
+
+
 #endif // UTIL_H_INCLUDED
