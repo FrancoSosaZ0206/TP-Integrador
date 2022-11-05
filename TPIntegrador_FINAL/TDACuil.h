@@ -48,7 +48,7 @@ CuilPtr destruirCuil(CuilPtr cuil);
 ///*****************************************************************************************************
 ///                                            SETTERS
 
-void setCuil(CuilPtr cuil,char *cuilStr); ///NUEVA
+void setCuil(CuilPtr cuil,char *cuilStr);
 //Operación: Asignacion de tipo de genero.
 //Precondición: Cuil debe estar creado.
 //Postcondición: Cuil va a tener un nuevo tipo de valor.
@@ -77,7 +77,7 @@ void setNVerificador(CuilPtr cuil,int nVerificador);
 ///*****************************************************************************************************
 ///                                            GETTERS
 
-char *getCuil(CuilPtr cuil); ///NUEVA
+char *getCuil(CuilPtr cuil);
 
 //Operación: Obtencion del tipo.
 //Precondición: Cuil debe estar creado.
@@ -109,7 +109,7 @@ int getNVerificador(CuilPtr cuil);
 //Postcondición: ninguna
 //Parámetros: puntero a estructura cuil a validar
 //Devuelve true si es valido, false de lo contrario
-bool esCuilValido(CuilPtr cuil); ///NUEVA - NO APTA PARA TIPO EMPRESA
+bool esCuilValido(CuilPtr cuil); /// - NO APTA PARA TIPO EMPRESA
 
 ///*****************************************************************************************************
 

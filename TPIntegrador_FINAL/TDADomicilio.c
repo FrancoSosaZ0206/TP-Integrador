@@ -87,26 +87,26 @@ bool domiciliosIguales(DomicilioPtr domicilio1,DomicilioPtr domicilio2)
     return condicion && strcmp(getLocalidad(domicilio1),getLocalidad(domicilio2)) == 0;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                        ///SECCION DE MENUES DE OPERACIONES CON EL DOMICILIO///
+///-----------------------------------------------------------------------------------------------------------///
 
 DomicilioPtr cargarDomicilio(DomicilioPtr domicilio)
 {
     char calle[100];
-    int altura;
+    int altura = 0;
     char localidad[100];
 
-    limpiarBufferTeclado();
     printf("\n\n\t\t Calle: ");
-    scanf("%[^\n]%*c",calle);
+    seleccionarString(calle);
 
-    limpiarBufferTeclado();
     printf("\n\t\t Altura: ");
-    scanf("%d",&altura);
+    altura = seleccionarNumero();
 
-    limpiarBufferTeclado();
     printf("\n\t\t Localidad: ");
-    scanf("%[^\n]%*c",localidad);
+    seleccionarString(localidad);
 
-    domicilio=crearDomicilio(calle,altura,localidad);
+    domicilio = crearDomicilio(calle,altura,localidad);
 
     return domicilio;
 }
@@ -114,20 +114,17 @@ DomicilioPtr cargarDomicilio(DomicilioPtr domicilio)
 void actualizarDomicilio(DomicilioPtr domicilio)
 {
     char calle[100];
-    int altura;
+    int altura = 0;
     char localidad[100];
 
-    limpiarBufferTeclado();
-    printf("\n\n\t\t[CALLE]: ");
-    scanf("%[^\n]%*c",calle);
+    printf("\n\n\t\t Calle: ");
+    seleccionarString(calle);
 
-    limpiarBufferTeclado();
-    printf("\n\t\tAltura: ");
-    scanf("%d",&altura);
+    printf("\n\t\t Altura: ");
+    altura = seleccionarNumero();
 
-    limpiarBufferTeclado();
-    printf("\n\t\tLocalidad: ");
-    scanf("%[^\n]%*c",localidad);
+    printf("\n\t\t Localidad: ");
+    seleccionarString(localidad);
 
     setCalle(domicilio,calle);
     setAltura(domicilio,altura);

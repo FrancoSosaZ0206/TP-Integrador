@@ -18,7 +18,6 @@ FechaPtr crearFecha(int dia,int mes,int anio,int hora,int minuto)
     return FechaNueva;
 }
 
-///NUEVA: Orientada a crear fecha a partir de otra fecha (o si se parte de d. julianos) (utilizada en Files).
 FechaPtr crearFechaDirect(int diaJuliano,int hora,int minuto)
 {
     FechaPtr FechaNueva = (FechaPtr)obtenerMemoria(sizeof(Fecha));
@@ -79,12 +78,12 @@ int getAnio(FechaPtr fecha)
     return (e / 1461) - 4716 + (12 + 2 - mes) / 12;
 }
 
-int getHora(FechaPtr fecha) ///NUEVA
+int getHora(FechaPtr fecha)
 {
     return fecha->hora;
 }
 
-int getMinuto(FechaPtr fecha) ///NUEVA
+int getMinuto(FechaPtr fecha)
 {
     return fecha->minuto;
 }
@@ -129,12 +128,12 @@ void setAnio(FechaPtr fecha,int anio)
     fecha->diaJuliano=newYear;
 }
 
-void setHora(FechaPtr fecha,int hora) ///NUEVA
+void setHora(FechaPtr fecha,int hora)
 {
     fecha->hora=hora;
 }
 
-void setMinuto(FechaPtr fecha,int minuto) ///NUEVA
+void setMinuto(FechaPtr fecha,int minuto)
 {
     fecha->minuto=minuto;
 }
@@ -143,7 +142,7 @@ void setMinuto(FechaPtr fecha,int minuto) ///NUEVA
                                 ///SECCION DE FUNCIONES DE OPERACIONES CON FECHA///
 ///-----------------------------------------------------------------------------------------------------------///
 
-void calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2,int* diferencias) ///Nueva implementación
+void calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2,int* diferencias)
 {
     diferencias[0] = getDiaJuliano(fecha1) - getDiaJuliano(fecha2);
     diferencias[1] = getHora(fecha1) - getHora(fecha2);
@@ -277,7 +276,7 @@ bool esFechaValida(FechaPtr fecha)
     return resultado;
 }
 
-bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
+bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2)
 {
     int diferencia[3];
     calcularDiferenciaFechas(fecha1,fecha2,diferencia);
@@ -296,6 +295,9 @@ int calcularDiaJuliano(int dia, int mes, int anio)
            - (3 * ((anio + 4900 + (mes - 14)/12)/100))/4 + dia - 32075;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                        ///SECCION DE MENUES DE OPERACIONES CON LA FECHA///
+///-----------------------------------------------------------------------------------------------------------///
 
 FechaPtr cargarFecha(FechaPtr fecha)
 {
@@ -330,9 +332,9 @@ void actualizarFecha(FechaPtr fecha)
     int dia=0,mes=0,anio=0,hora=0,minuto=0;
     do
     {
-        limpiarBufferTeclado();
         printf("\n\n\t [INGRESE ESTRICTAMENTE DE ESTA FORMA] \n\n");
         printf("\n\n\t\tFecha (DD MM AAAA) --- Horario (HH MM): ");
+        limpiarBufferTeclado();
         scanf("%d %d %d %d %d",&dia,&mes,&anio,&hora,&minuto);
         limpiarBufferTeclado();
 

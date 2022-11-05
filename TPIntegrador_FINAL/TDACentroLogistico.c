@@ -39,7 +39,7 @@ CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,List
     return centroLogistico;
 }
 
-CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre) ///Crea un centro logístico con un nombre y listas vacías.
+CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre)
 {
     CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
     centroLogistico->nombre=crearStringDinamico(nombre);
@@ -365,7 +365,6 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
     printf("\n");
 }
 
-///filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
 void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado)
 {
     ListaPtr listaAux=crearLista();
@@ -995,7 +994,6 @@ bool insertarVehiculoLista(CentroLogisticoPtr centroLogistico,VehiculoPtr vehicu
     return insertarDatoLista(centroLogistico->listaVehiculos,(VehiculoPtr)vehiculo,posicion);
 }
 
-///SOLO PARA REPARTOS ABIERTOS
 bool insertarRepartoLista(CentroLogisticoPtr centroLogistico,RepartoPtr reparto,int posicion)
 {
     return insertarDatoLista(centroLogistico->listaRepartosAbiertos,(RepartoPtr)reparto,posicion);
@@ -1057,7 +1055,6 @@ bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
     return match;
 }
 
-///devuelve true si la persona que le ingresamos tiene el mismo cuil que una de las personas, false si no
 bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona)
 {
     bool match=false;
@@ -1200,10 +1197,6 @@ bool existenVehiculosDisponibles(CentroLogisticoPtr centroLogistico)
 ///-----------------------------------------------------------------------------------------------------------///
                                 ///SECCION DE FUNCIONES DE ORDENAMIENTO///
 ///-----------------------------------------------------------------------------------------------------------///
-
-///NINGUNA DE LAS OPERACIONES DE ORDENAMIENTO ALTERA EL ESTADO DE CENTRO LOGISTICO
-///ORDENA EN UN VECTOR APARTE Y LUEGO LOS MUESTRA, GENERANDOLOS EN MEMORIA LOCAL,
-///SIN ALTERAR EL ORDEN ORIGINAL DEL CENTRO LOGISTICO
 
 void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modoOrdenamiento, int modoMostrado)
 {

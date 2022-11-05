@@ -200,7 +200,6 @@ void mostrarPaquete(PaquetePtr paquete)
     printf("\n\n");
 }
 
-///muestra que relacion hay entre cada numero y cada estado posible del paquete.
 void helpEstadoPaquete()
 {
     printf("Codigo de estados: \n");
@@ -212,7 +211,6 @@ void helpEstadoPaquete()
     printf("\t5 = Suspendido\n\n");
 }
 
-///muestra solo el estado actual del paquete recibido.
 void mostrarEstadopaquete(PaquetePtr paquete)
 {
     switch(getEstado(paquete))
@@ -273,6 +271,9 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
     return matchID || matchResto;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                        ///SECCION DE OPERACIONES BASICAS DE PAQUETE///
+///-----------------------------------------------------------------------------------------------------------///
 
 bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 {
@@ -430,6 +431,10 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico)
     }
     return cambiosGuardados;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                        ///SECCION DE MODIFICACION DE PAQUETE///
+///-----------------------------------------------------------------------------------------------------------///
 
 void cambiarPaquete(CentroLogisticoPtr centroLogistico, PaquetePtr paqueteAModificar)
 {
@@ -661,6 +666,9 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico)
     return cambiosGuardados;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                        ///SECCION DE MOSTRADO DE PAQUETE///
+///-----------------------------------------------------------------------------------------------------------///
 
 void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
 {
@@ -696,7 +704,6 @@ void menuBuscarPaquete(CentroLogisticoPtr centroLogistico)
         }while(continuar);
     }
 }
-
 
 bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico, int* op1)
 {

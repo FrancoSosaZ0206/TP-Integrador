@@ -17,8 +17,8 @@ typedef struct CentroLogistico
     ListaPtr listaPaquetes;
     ListaPtr listaPersonas;
     ListaPtr listaVehiculos;
-    ListaPtr listaRepartosAbiertos; ///Nueva implementacion: Ahora los repartos que se cierran
-    ListaPtr listaRepartosCerrados; ///se pasan a esta lista en lugar de ser eliminados.
+    ListaPtr listaRepartosAbiertos;
+    ListaPtr listaRepartosCerrados;
 } CentroLogistico;
 
 typedef CentroLogistico* CentroLogisticoPtr;

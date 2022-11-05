@@ -153,7 +153,7 @@ void mostrarPaquetesReparto(RepartoPtr reparto)
     ListaAuxiliar = destruirLista(ListaAuxiliar, false);
 }
 
-bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
+bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2)
 {
     bool condicion = personasIguales(getChofer(reparto1),getChofer(reparto2));
     condicion = condicion && vehiculosIguales(getVehiculo(reparto1),getVehiculo(reparto2));
@@ -209,6 +209,9 @@ void verificacionPaquetesCurso(ListaPtr ListaPaquetes)
     destruirLista(ListaAuxiliar, false);
 }
 
+///-------------------------------------------------------------------------------------------------------///
+                            /// SECCION DE OPERACIONES BASICAS DE REPARTO ///
+///-------------------------------------------------------------------------------------------------------///
 
 bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 {
@@ -514,7 +517,6 @@ bool menuActualizarReparto(CentroLogisticoPtr centroLogistico)
     return CambiosGuardado;
 }
 
-
 bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 {
     int resultado=0;
@@ -592,6 +594,10 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
     }
     return cambiosGuardados;
 }
+
+///-------------------------------------------------------------------------------------------------------///
+                            /// SECCION DE MODIFICACION DE REPARTO ///
+///-------------------------------------------------------------------------------------------------------///
 
 ListaPtr OriginalRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 {
@@ -780,6 +786,9 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
     return cambiosGuardados;
 }
 
+///-------------------------------------------------------------------------------------------------------///
+                            /// SECCION DE BUSQUEDA DE REPARTO ///
+///-------------------------------------------------------------------------------------------------------///
 
 RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
@@ -1031,6 +1040,9 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto
     }
 }
 
+///-------------------------------------------------------------------------------------------------------///
+                            /// SECCION DE MOSTRADO DE REPARTO ///
+///-------------------------------------------------------------------------------------------------------///
 
 bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto, int* op1)
 {

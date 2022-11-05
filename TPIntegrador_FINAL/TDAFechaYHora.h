@@ -56,7 +56,7 @@ FechaPtr destruirFecha(FechaPtr fecha);
 //Parámetros:
 //  fecha: Fecha de la que se quiere obtener el dia juliano
 // Devuelve un entero representando el día juliano.
-int getDiaJuliano(FechaPtr fecha); ///NUEVA
+int getDiaJuliano(FechaPtr fecha);
 //Operación: Obtiene el dia.
 //Precondición: fecha debe haberse creado
 //Postcondición: se obtiene el dia de fecha
@@ -100,7 +100,7 @@ int getMinuto(FechaPtr fecha);
 //  fecha: puntero a estructura fecha al que se asignara el nuevo valor
 //  diaJuliano: entero representando el nuevo valor del dia juliano
 //No devuelve nada
-void setDiaJuliano(FechaPtr fecha,int diaJuliano); ///NUEVA
+void setDiaJuliano(FechaPtr fecha,int diaJuliano);
 //Operación: Asigna el dia a la fecha.
 //Precondición: fecha debe haberse creado.
 //Postcondición: fecha cambia con el nuevo valor de dia.
@@ -158,7 +158,7 @@ void setMinuto(FechaPtr fecha,int minuto);
 
 ///     *** Si diferencia==0 EN TODAS SUS POSICIONES, entonces las fechas son totalmente idénticas.
 ///     ADVERTENCIA: manejar con cuidado, chequeando siempre con lo explicado acá.
-void calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2, int* diferencias); ///Nueva implementación
+void calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2, int* diferencias);
 // Operación de conversión a string
 // Precondición: fecha debe haberse creado
 // Postcondición: se obtiene la representación "dd/mm/aaaa" de la fecha

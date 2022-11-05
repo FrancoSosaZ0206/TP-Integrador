@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "TDACentroLogistico.h"
 
-typedef struct fCuil //a este ya lo definimos como nos dijo el profe. Despues cambio el que utilizamos siempre.
+typedef struct fCuil
 {
     char cuil[15]; //un CUIL con espacios entre cada campo ocuparía 13 espacios, pero le damos un poco de
 } fCuil; //espacio extra por las dudas.

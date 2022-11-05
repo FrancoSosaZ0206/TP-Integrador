@@ -178,6 +178,38 @@ bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
     return CuilUnico;
 }
 
+bool verificarExistenciaPersonas(CentroLogisticoPtr centroLogistico, bool esChofer)
+{
+    bool Existen = false;
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getPersonas(centroLogistico));
+    while(!listaVacia(ListaAuxiliar))
+    {
+        if(esChofer)
+        {
+            if(getEsChofer(getCabecera(ListaAuxiliar)))
+            {
+                Existen = true;
+            }
+        }
+        if(!esChofer)
+        {
+            if(!getEsChofer(getCabecera(ListaAuxiliar)))
+            {
+                Existen = true;
+            }
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return Existen;
+}
+
+///-----------------------------------------------------------------------------------------------------------///
+                            ///SECCION DE FUNCIONES DE OPERACIONES BASICAS CON PERSONA///
+///-----------------------------------------------------------------------------------------------------------///
 
 bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
@@ -231,35 +263,6 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         cambiosGuardados=guardarPersonas(centroLogistico);
     }
     return cambiosGuardados;
-}
-
-bool verificarExistenciaPersonas(CentroLogisticoPtr centroLogistico, bool esChofer)
-{
-    bool Existen = false;
-    ListaPtr ListaAuxiliar = crearLista();
-    agregarLista(ListaAuxiliar, getPersonas(centroLogistico));
-    while(!listaVacia(ListaAuxiliar))
-    {
-        if(esChofer)
-        {
-            if(getEsChofer(getCabecera(ListaAuxiliar)))
-            {
-                Existen = true;
-            }
-        }
-        if(!esChofer)
-        {
-            if(!getEsChofer(getCabecera(ListaAuxiliar)))
-            {
-                Existen = true;
-            }
-        }
-        ListaPtr ListaDestruir = ListaAuxiliar;
-        ListaAuxiliar = getResto(ListaAuxiliar);
-        ListaDestruir = destruirLista(ListaDestruir, false);
-    }
-    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
-    return Existen;
 }
 
 bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
@@ -365,8 +368,6 @@ bool eliminarPersona(CentroLogisticoPtr centroLogistico, bool esChofer)
     return cambiosGuardados;
 }
 
-
-
 bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
     int opcion = 0;
@@ -433,6 +434,10 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     }
     return cambiosGuardados;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                            ///SECCION DE FUNCIONES DE MODIFICACION CON PERSONA///
+///-----------------------------------------------------------------------------------------------------------///
 
 void cambiarPersona(CentroLogisticoPtr centroLogistico, PersonaPtr personaAModificar, bool esChofer)
 {
@@ -693,6 +698,9 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
     return cambiosGuardados;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                            ///SECCION DE FUNCIONES DE MOSTRADO CON PERSONA///
+///-----------------------------------------------------------------------------------------------------------///
 
 void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
@@ -866,8 +874,3 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico, int tipo, int* op1)
     }
     return cambiosGuardados;
 }
-
-
-
-
-

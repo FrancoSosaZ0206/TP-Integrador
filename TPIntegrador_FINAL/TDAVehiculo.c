@@ -104,7 +104,6 @@ void mostrarVehiculo(VehiculoPtr vehiculo)
     printf("\tPatente: %s\n",getPatente(vehiculo));
 }
 
-///muestra al usuario que significa cada numero de tipo de vehiculo.
 void helpTipoVehiculo()
 {
     //1: Moto, 2: Auto, 3: Camión.
@@ -123,8 +122,6 @@ void tipoVehiculo(VehiculoPtr vehiculo)
     }
 }
 
-
-///informa al usuario de que tipo es el vehículo que ingresa.
 void mostrarTipoVehiculo(VehiculoPtr vehiculo)
 {
     switch(getTipoVehiculo(vehiculo))
@@ -147,7 +144,6 @@ bool vehiculosIguales(VehiculoPtr vehiculo1,VehiculoPtr vehiculo2)
     }
     return Igualdad;
 }
-
 
 bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar)
 {
@@ -192,6 +188,10 @@ bool VerificarPatenteValida(char* PatenteValidar)
     return Valido;
 }
 
+
+///-----------------------------------------------------------------------------------------------------------///
+                        ///SECCION DE FUNCIONES DE OPERACIONES BASICAS CON VEHICULO///
+///-----------------------------------------------------------------------------------------------------------///
 
 bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 {
@@ -343,6 +343,10 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico)
     return cambiosGuardados;
 }
 
+///-----------------------------------------------------------------------------------------------------------///
+                        ///SECCION DE FUNCIONES DE MODIFICACION CON VEHICULO///
+///-----------------------------------------------------------------------------------------------------------///
+
 void cambiarVehiculo(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculoAModificar)
 {
     int op=0;
@@ -372,8 +376,9 @@ void cambiarVehiculo(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculoAMo
         switch(op)
         {
         case 1:
-            while(!TipoValido)
+            do
             {
+                TipoValido = false;
                 printf("\n\n");
                 helpTipoVehiculo();
                 printf("\n\n Seleccione una opcion: ");
@@ -387,7 +392,7 @@ void cambiarVehiculo(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculoAMo
                     printf("\n\n\t [Ingrese un tipo de vehiculo valido...] \n\n");
                     presionarEnterYLimpiarPantalla();
                 }
-            }
+            }while(!TipoValido);
             break;
         case 2:
             printf("\n\nIngrese la nueva marca:");
@@ -440,7 +445,6 @@ void cambiarVehiculo(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculoAMo
         }
     } while(seguirMod!=0);
 }
-
 
 ListaPtr OriginalVehiculos(CentroLogisticoPtr centroLogistico)
 {
@@ -565,6 +569,10 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico)
     }
     return cambiosGuardados;
 }
+
+///-----------------------------------------------------------------------------------------------------------///
+                        ///SECCION DE FUNCIONES DE MOSTRADO CON VEHICULO///
+///-----------------------------------------------------------------------------------------------------------///
 
 void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
 {

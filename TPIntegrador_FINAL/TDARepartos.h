@@ -131,7 +131,7 @@ void mostrarReparto(RepartoPtr reparto);
 //Parámetros:
 // reparto: un puntero a la estructura a mostrar.
 //Devuelve nada
-void mostrarRepartoSinPaquetes(RepartoPtr reparto); ///NUEVA
+void mostrarRepartoSinPaquetes(RepartoPtr reparto);
 
 ///---------------------------------------Funciones de validación------------------------------------------------
 
@@ -143,7 +143,7 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto); ///NUEVA
 //  reparto: puntero a estructura que representa al reparto.
 //  paquete: puntero a la estructura paquete que se desea verificar si se cargó.
 //Devuelve: true si el paquete recibido ya estaba cargado en el reparto, false de lo contrario.
-bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete); ///NUEVA
+bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete);
 
 //Operación: verifica si dos repartos son iguales.
 //Precondición: Ambos repartos deben haber sido creados.
@@ -152,7 +152,7 @@ bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete); ///NUEVA
 //  reparto1: puntero a la estructura a verificar.
 //  reparto2: puntero a la estructura a verificar.
 //Devuelve: true si son idénticos todos sus cambios, false de lo contrario.
-bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2); ///NUEVA
+bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2);
 
 ///OPERACION: MOSTRAR
 ///PRECONDICION: REPARTO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA

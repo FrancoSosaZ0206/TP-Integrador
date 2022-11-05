@@ -71,7 +71,7 @@ int MenuDeseaSeguirModificando()
     printf("\t 1. SI \n");
     printf("\t 0. NO \n\n");
     printf("Seleccione una opcion: ");
-    scanf("%d",&Eleccion);
+    Eleccion = seleccionarNumero();
     return Eleccion;
 }
 
@@ -159,11 +159,8 @@ int calcularCantidad()
     //Ingresamos la cantidad de indices a seleccionar
     do
     {
-        limpiarBufferTeclado();
         printf("Ingrese cantidad de indices a seleccionar: ");
-        scanf("%d",&cantIndices);
-        limpiarBufferTeclado();
-
+        cantIndices = seleccionarNumero();
         if(cantIndices<=0)
         {
             printf("\n\nCantidad incorrecta.\n\n");
@@ -198,8 +195,7 @@ void notificacionListaVacia(ListaPtr ListaAnalizar)
 int menuTipoBusquedaCliente()
 {
    int eleccion = 0;
-   system("cls");
-   printf("MENU DE SELECCION DE CLIENTE DE PAQUETE \n");
+   printf("\n\nMENU DE SELECCION DE CLIENTE DE PAQUETE \n");
    printf("1. Seleccion mediante INDICE \n");
    printf("2. Seleccion mediante CUIL \n");
    printf("OPCION: ");
@@ -221,9 +217,7 @@ int menuTipoOrdenamientoPaquetes()
     printf("-1. MENU PRINCIPAL");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op);
-    limpiarBufferTeclado();
+    op = seleccionarNumero();
     system("cls");
     return op;
 }
@@ -240,8 +234,7 @@ int menuTipoOrdenamientoPersonas()
     printf("-1. MENU PRINCIPAL");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    scanf("%d",&op);
-    limpiarBufferTeclado();
+    op = seleccionarNumero();
     system("cls");
     return op;
 }
@@ -260,9 +253,7 @@ int menuTipoOrdenamientoVehiculos()
     printf("-1. MENU PRINCIPAL");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op);
-    limpiarBufferTeclado();
+    op = seleccionarNumero();
     system("cls");
     return op;
 }
@@ -271,7 +262,6 @@ int menuTipoRepartos()
 {
    system("cls");
    int eleccion=0;
-   fflush(stdin);
    printf("BUSCAR POR: \n");
    printf("1. Indice \n");
    printf("2. Cuil chofer \n");
@@ -281,11 +271,9 @@ int menuTipoRepartos()
    printf("6. ID paquete \n");
    printf("0. Volver \n");
    printf("Eleccion: ");
-   scanf("%d",&eleccion);
-   fflush(stdin);
+   eleccion = seleccionarNumero();
    return eleccion;
 }
-
 
 int MenuSeleccionAtributoReparto()
 {
@@ -297,9 +285,7 @@ int MenuSeleccionAtributoReparto()
     printf("4. Fecha de retorno \n");
     printf("5. Paquete \n");
     printf("Opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d", &eleccion);
-    limpiarBufferTeclado();
+    eleccion = seleccionarNumero();
     return eleccion;
 }
 
@@ -314,9 +300,7 @@ int menuListadoReparto()
     printf("-1. MENU PRINCIPAL");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion:");
-    limpiarBufferTeclado();
-    scanf("%d",&op2);
-    limpiarBufferTeclado();
+    op2 = seleccionarNumero();
     system("cls");
     return op2;
 }
@@ -337,9 +321,7 @@ int menuOrdenarRepartos()
     printf("-1. MENU PRINCIPAL");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op3);
-    limpiarBufferTeclado();
+    op3 = seleccionarNumero();
     system("cls");
     return op3;
 }
@@ -358,9 +340,7 @@ int menuMainMenu()
     printf("\t2. INICIAR SESION\n");
     printf("\t0. SALIR\n\n");
     printf("Seleccione una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&START_OP);
-    limpiarBufferTeclado();
+    START_OP = seleccionarNumero();
     system("cls");
     return START_OP;
 }
@@ -378,9 +358,7 @@ int menuPrincipal(CentroLogisticoPtr centroLogistico)
     printf("0. SALIR\n");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d", &MAIN_OP);
-    limpiarBufferTeclado();
+    MAIN_OP = seleccionarNumero();
     system("cls");
     return MAIN_OP;
 }
@@ -397,9 +375,7 @@ int menuBaseDeDatos()
     printf("0. Volver\n");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d", &op1);
-    limpiarBufferTeclado();
+    op1 = seleccionarNumero();
     system("cls");
     return op1;
 }
@@ -417,9 +393,7 @@ int menuCargaDeDatos()
     printf("-1. MENU PRINCIPAL\n");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d", &op2);
-    limpiarBufferTeclado();
+    op2 = seleccionarNumero();
     system("cls");
     return op2;
 }
@@ -437,9 +411,7 @@ int menuEliminarDatos()
     printf("-1. MENU PRINCIPAL\n");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op2);
-    limpiarBufferTeclado();
+    op2 = seleccionarNumero();
     system("cls");
     return op2;
 }
@@ -457,9 +429,7 @@ int menuModificacionDatos()
     printf("-1. MENU PRINCIPAL\n");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op2);
-    limpiarBufferTeclado();
+    op2 = seleccionarNumero();
     system("cls");
     return op2;
 }
@@ -477,9 +447,7 @@ int menuBusquedaDatos()
     printf("-1. MENU PRINCIPAL\n");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d", &op2);
-    limpiarBufferTeclado();
+    op2 = seleccionarNumero();
     system("cls");
     return op2;
 }
@@ -498,9 +466,7 @@ int menuOperacionesReparto()
     printf("0. Volver\n");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op1);
-    limpiarBufferTeclado();
+    op1 = seleccionarNumero();
     system("cls");
     return op1;
 }
@@ -516,9 +482,7 @@ int menuEliminarRepartoCompleto()
     printf("-1. MENU PRINCIPAL");
     printf("\n-----------------------------------------\n\n");
     printf("Seleccione una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op2);
-    limpiarBufferTeclado();
+    op2 = seleccionarNumero();
     system("cls");
     return op2;
 }
@@ -534,9 +498,7 @@ int menuModificarRepartoCompleto()
     printf("-1. MENU PRINCIPAL");
     printf("\n-----------------------------------------\n\n");
     printf("Seleccione una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op2);
-    limpiarBufferTeclado();
+    op2 = seleccionarNumero();
     system("cls");
     return op2;
 }
@@ -552,9 +514,7 @@ int menuBuscadoReparto()
     printf("-1. MENU PRINCIPAL");
     printf("\n-----------------------------------------\n\n");
     printf("Seleccione una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op2);
-    limpiarBufferTeclado();
+    op2 = seleccionarNumero();
     system("cls");
     return op2;
 }
@@ -571,9 +531,7 @@ int menuActualizarRepartoCompleto()
     printf("0. Volver\n");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op1);
-    limpiarBufferTeclado();
+    op1 = seleccionarNumero();
     system("cls");
     return op1;
 }
@@ -593,9 +551,7 @@ int menuListados()
     printf("0. Volver\n");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op1);
-    limpiarBufferTeclado();
+    op1 = seleccionarNumero();
     system("cls");
     return op1;
 }
@@ -615,9 +571,7 @@ int menuGuardarCambiosMain()
     printf("0. Volver\n");
     printf("\n-----------------------------------------\n\n");
     printf("Elija una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op1);
-    limpiarBufferTeclado();
+    op1 = seleccionarNumero();
     system("cls");
     return op1;
 }
@@ -633,9 +587,7 @@ int menuGuardadoRespaldo()
     printf("0. Volver\n\n");
     printf("\n----------------------------------------------------\n\n");
     printf("Seleccione una opcion: ");
-    limpiarBufferTeclado();
-    scanf("%d",&op1);
-    limpiarBufferTeclado();
+    op1 = seleccionarNumero();
     system("cls");
     return op1;
 }

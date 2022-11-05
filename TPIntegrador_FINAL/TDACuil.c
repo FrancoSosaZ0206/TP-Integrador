@@ -43,7 +43,7 @@ CuilPtr destruirCuil(CuilPtr cuil)
                                 ///SECCION DE FUNCIONES DE SETTERS///
 ///-----------------------------------------------------------------------------------------------------------///
 
-void setCuil(CuilPtr cuil,char *cuilStr) ///NUEVA
+void setCuil(CuilPtr cuil,char *cuilStr)
 {
     destruirStringDinamico(cuil->cuil);
     cuil->cuil = crearStringDinamico(cuilStr);
@@ -87,7 +87,7 @@ void setNVerificador(CuilPtr cuil,int nVerificador)
                                 ///SECCION DE FUNCIONES DE GETTERS///
 ///-----------------------------------------------------------------------------------------------------------///
 
-char *getCuil(CuilPtr cuil) ///NUEVA
+char *getCuil(CuilPtr cuil)
 {
     return cuil->cuil;
 }
@@ -126,11 +126,10 @@ int getNVerificador(CuilPtr cuil)
 }
 
 ///-----------------------------------------------------------------------------------------------------------///
-                                ///SECCION DE FUNCIONES DE OPERACIONES CON EL CUIL///
+                        ///SECCION DE FUNCIONES DE OPERACIONES CON EL CUIL///
 ///-----------------------------------------------------------------------------------------------------------///
 
-///NO APTA PARA TIPO EMPRESA
-bool esCuilValido(CuilPtr cuil) ///NUEVA
+bool esCuilValido(CuilPtr cuil)
 {
 /** COMO CALCULAR EL CUIL / CUIT ***
 
@@ -253,7 +252,9 @@ bool cuilsIguales(CuilPtr cuil1,CuilPtr cuil2)
     return strcmp(getCuil(cuil1),getCuil(cuil2)) == 0;
 }
 
-
+///-----------------------------------------------------------------------------------------------------------///
+                        ///SECCION DE MENUES DE OPERACIONES CON EL CUIL///
+///-----------------------------------------------------------------------------------------------------------///
 
 CuilPtr cargarCuil(CuilPtr cuil)
 {
@@ -286,12 +287,8 @@ void actualizarCuil(CuilPtr cuil)
         printf("\n\n\t [INGRESE ESTRICTAMENTE DE ESTA FORMA] \n\n");
         helpCuil();
         printf("\n\n\tNuevo CUIL:");
-        limpiarBufferTeclado();
-        scanf("%[^\n]%*c",strCuil);
-        limpiarBufferTeclado();
-
+        seleccionarString(strCuil);
         setCuil(cuil,strCuil);
-
         if(!esCuilValido(cuil))
         {
             printf("\n\t [Usted no ha ingresado un cuil en un formato valido] \n");
