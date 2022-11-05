@@ -209,13 +209,16 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
         system("cls");
         printf("VEHICULO %d\n\n",i++);
 
+        TipoValido = false;
         while(!TipoValido)
         {
+            TipoValido = true;
             helpTipoVehiculo();
             printf("\n\n\tSeleccione un Tipo: ");
             tipoVehiculo = seleccionarNumero();
             if(!TipoValido)
             {
+                TipoValido = false;
                 printf("\n\n\t [Ingrese un tipo valido por favor...] \n\n");
                 presionarEnterYLimpiarPantalla();
             }

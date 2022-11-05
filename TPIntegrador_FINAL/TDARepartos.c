@@ -458,6 +458,63 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico)
     return cambiosGuardados;
 }
 
+bool menuActualizarReparto(CentroLogisticoPtr centroLogistico)
+{
+    int eleccion = 0;
+    int EstadoPaquete = 0;
+    bool CambiosGuardado = false;
+    PaquetePtr paqueteActual;
+    RepartoPtr RepartoActualizar;
+    if(listaVacia(getRepartos(centroLogistico,true)))
+    {
+        printf("No existen repartos para actualizar...\n");
+        presionarEnterYLimpiarPantalla();
+    }
+    else
+    {
+        RepartoActualizar = SeleccionRepartoPorAtributo(centroLogistico, true);
+        ListaPtr paquetes = getPaquetesReparto(RepartoActualizar);
+        ListaPtr listaRespaldo=crearLista();
+        agregarLista(listaRespaldo,paquetes);
+        while(!listaVacia(listaRespaldo))
+        {
+            paqueteActual = (PaquetePtr)getCabecera(listaRespaldo);
+            EstadoPaquete = getEstado(paqueteActual);
+            ///SI ES DISTINTO DE ENTREGADO Y SUSPENDIDO
+            if(EstadoPaquete != 3 && EstadoPaquete != 5)
+            {
+                break;
+            }
+            ListaPtr ListaDestruir = listaRespaldo;
+            listaRespaldo = getResto(listaRespaldo);
+            ListaDestruir = destruirLista(ListaDestruir, false);
+        }
+        listaRespaldo = destruirLista(listaRespaldo,false);
+        system("cls");
+        helpEstadoPaquete();
+        do
+        {
+            printf("El paquete que esta modificando es: \n");
+            mostrarPaquete(paqueteActual);
+            printf("SELECCIONE EL ESTADO: ");
+            eleccion = seleccionarNumero();
+            if(eleccion == 0)
+            {
+                printf("\n\n\t [Que haces seleccionando un paquete en estado 'DEPOSITO'?] \n\n");
+                presionarEnterYLimpiarPantalla();
+            }
+            if(eleccion < 1 || eleccion > 6)
+            {
+                printf("\n\n\t [Eliga bien por favor...] \n\n");
+                presionarEnterYLimpiarPantalla();
+            }
+        }while(eleccion < 1 || eleccion > 6);
+        setEstado(paqueteActual,eleccion);
+    }
+    return CambiosGuardado;
+}
+
+
 bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 {
     int resultado=0;
@@ -583,7 +640,6 @@ bool CambiosRepartos(CentroLogisticoPtr centroLogistico, ListaPtr listaOriginal,
     listaOriginal=destruirLista(listaOriginal,true);
     return cambioDetectado;
 }
-
 
 void cambiarAtributoReparto(CentroLogisticoPtr centroLogistico, RepartoPtr repartoModificar)
 {
@@ -724,6 +780,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
     return cambiosGuardados;
 }
 
+
 RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     char CuilBuscar[100];
@@ -745,10 +802,10 @@ RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool 
         {
             system("cls");
             Menu = menuTipoRepartos();
+            mostrarRepartos(centroLogistico, true);
             switch(Menu)
             {
                 case 1:
-                    mostrarRepartos(centroLogistico, true);
                     Indice = menuModoAccion1( getRepartos(centroLogistico, esRepartoAbierto) );
                     RepartoElegido = (RepartoPtr)getDatoLista( getRepartos(centroLogistico, esRepartoAbierto) , Indice);
                     break;
@@ -793,62 +850,6 @@ RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool 
         }while(RepartoElegido == NULL);
     }
     return RepartoElegido;
-}
-
-bool menuActualizarReparto(CentroLogisticoPtr centroLogistico)
-{
-    int eleccion = 0;
-    int EstadoPaquete = 0;
-    bool CambiosGuardado = false;
-    PaquetePtr paqueteActual;
-    RepartoPtr RepartoActualizar;
-    if(listaVacia(getRepartos(centroLogistico,true)))
-    {
-        printf("No existen repartos para actualizar...\n");
-        presionarEnterYLimpiarPantalla();
-    }
-    else
-    {
-        RepartoActualizar = SeleccionRepartoPorAtributo(centroLogistico, true);
-        ListaPtr paquetes = getPaquetesReparto(RepartoActualizar);
-        ListaPtr listaRespaldo=crearLista();
-        agregarLista(listaRespaldo,paquetes);
-        while(!listaVacia(listaRespaldo))
-        {
-            paqueteActual = (PaquetePtr)getCabecera(listaRespaldo);
-            EstadoPaquete = getEstado(paqueteActual);
-            ///SI ES DISTINTO DE ENTREGADO Y SUSPENDIDO
-            if(EstadoPaquete != 3 && EstadoPaquete != 5)
-            {
-                break;
-            }
-            ListaPtr ListaDestruir = listaRespaldo;
-            listaRespaldo = getResto(listaRespaldo);
-            ListaDestruir = destruirLista(ListaDestruir, false);
-        }
-        listaRespaldo = destruirLista(listaRespaldo,false);
-        system("cls");
-        helpEstadoPaquete();
-        do
-        {
-            printf("El paquete que esta modificando es: \n");
-            mostrarPaquete(paqueteActual);
-            printf("SELECCIONE EL ESTADO: ");
-            eleccion = seleccionarNumero();
-            if(eleccion == 0)
-            {
-                printf("\n\n\t [Que haces seleccionando un paquete en estado 'DEPOSITO'?] \n\n");
-                presionarEnterYLimpiarPantalla();
-            }
-            if(eleccion < 1 || eleccion > 6)
-            {
-                printf("\n\n\t [Eliga bien por favor...] \n\n");
-                presionarEnterYLimpiarPantalla();
-            }
-        }while(eleccion < 1 || eleccion > 6);
-        setEstado(paqueteActual,eleccion);
-    }
-    return CambiosGuardado;
 }
 
 void menuBuscarPorIndiceReparto(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)

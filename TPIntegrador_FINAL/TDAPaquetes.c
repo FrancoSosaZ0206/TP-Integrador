@@ -304,8 +304,7 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
         do
         {
             system("cls");
-            printf("\n\nPAQUETE %d. \n\n", i+1);
-            i++;
+            printf("\n\nPAQUETE %d. \n\n", i++);
 
             ///esto no se mostrará sino al final de la carga del paquete.
             ID = longitudLista(getPaquetes(centroLogistico))+1;

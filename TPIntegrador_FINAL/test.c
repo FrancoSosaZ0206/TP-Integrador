@@ -88,12 +88,12 @@ ListaPtr crearListaRepartosPorDefectoConLista()
 ListaPtr crearListaPaquetesGenerico()
 {
     ListaPtr listaPaquetes = crearLista();
-    PaquetePtr paquete1 = crearPaqueteDirect(rand(),4,2,5,150,"Sixto Fernandez",1800,"Lomas de Zamora","Calle Morazan",2100,"Villa fiorito",10,12,2022,16,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
-    PaquetePtr paquete2 = crearPaqueteDirect(rand(),20,7,3,200,"Sixto Fernandez",1700,"Lomas de Zamora","Calle Morazan",2020,"Villa fiorito",10,12,2022,17,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
-    PaquetePtr paquete3 = crearPaqueteDirect(rand(),15,5,9,75,"Sixto Fernandez",1220,"Lomas de Zamora","Calle Morazan",2310,"Villa fiorito",10,12,2022,18,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
-    PaquetePtr paquete4 = crearPaqueteDirect(rand(),25,14,15,54,"Sixto Fernandez",5000,"Lomas de Zamora","Calle Morazan",250,"Villa fiorito",10,12,2022,19,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
-    PaquetePtr paquete5 = crearPaqueteDirect(rand(),12,11,23,54,"Sixto Fernandez",1000,"Lomas de Zamora","Calle Morazan",650,"Villa fiorito",10,12,2022,20,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
-    PaquetePtr paquete6 = crearPaqueteDirect(rand(),14,16,31,54,"Sixto Fernandez",2000,"Lomas de Zamora","Calle Morazan",550,"Villa fiorito",10,12,2022,21,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
+    PaquetePtr paquete1 = crearPaqueteDirect(1,4,2,5,150,"Sixto Fernandez",1800,"Lomas de Zamora","Calle Morazan",2100,"Villa fiorito",10,12,2022,16,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
+    PaquetePtr paquete2 = crearPaqueteDirect(2,20,7,3,200,"Sixto Fernandez",1700,"Lomas de Zamora","Calle Morazan",2020,"Villa fiorito",10,12,2022,17,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
+    PaquetePtr paquete3 = crearPaqueteDirect(3,15,5,9,75,"Sixto Fernandez",1220,"Lomas de Zamora","Calle Morazan",2310,"Villa fiorito",10,12,2022,18,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
+    PaquetePtr paquete4 = crearPaqueteDirect(4,25,14,15,54,"Sixto Fernandez",5000,"Lomas de Zamora","Calle Morazan",250,"Villa fiorito",10,12,2022,19,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
+    PaquetePtr paquete5 = crearPaqueteDirect(5,12,11,23,54,"Sixto Fernandez",1000,"Lomas de Zamora","Calle Morazan",650,"Villa fiorito",10,12,2022,20,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
+    PaquetePtr paquete6 = crearPaqueteDirect(6,14,16,31,54,"Sixto Fernandez",2000,"Lomas de Zamora","Calle Morazan",550,"Villa fiorito",10,12,2022,21,45,"Javier","Gonzalez","Sixto",1200,"Lomas","20458730955",0);
     agregarDatoLista(listaPaquetes,(PaquetePtr)paquete1);
     agregarDatoLista(listaPaquetes,(PaquetePtr)paquete2);
     agregarDatoLista(listaPaquetes,(PaquetePtr)paquete3);

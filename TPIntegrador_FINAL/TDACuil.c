@@ -45,7 +45,8 @@ CuilPtr destruirCuil(CuilPtr cuil)
 
 void setCuil(CuilPtr cuil,char *cuilStr) ///NUEVA
 {
-    strcpy(cuil->cuil,cuilStr);
+    destruirStringDinamico(cuil->cuil);
+    cuil->cuil = crearStringDinamico(cuilStr);
 }
 
 void setTipo(CuilPtr cuil,int tipo)
@@ -179,19 +180,19 @@ Y * 4
 
     char cuilStr[100];
     strcpy(cuilStr,getCuil(cuil));
-//1. Obtenemos cada numero y hacemos las multiplicaciones
-    int x=((int)cuilStr[1]-48) * 5;
-    int y=((int)cuilStr[2]-48) * 4;
-//cuilStr[2] = " " <<< un espacio
-    int n1=((int)cuilStr[4]-48) * 3;
-    int n2=((int)cuilStr[5]-48) * 2;
-    int n3=((int)cuilStr[6]-48) * 7;
-    int n4=((int)cuilStr[7]-48) * 6;
-    int n5=((int)cuilStr[8]-48) * 5;
-    int n6=((int)cuilStr[9]-48) * 4;
-    int n7=((int)cuilStr[10]-48) * 3;
-    int n8=((int)cuilStr[11]-48) * 2;
-//obtenemos el Z actual
+    //1. Obtenemos cada numero y hacemos las multiplicaciones
+    int x=((int)cuilStr[0]-48) * 5;
+    int y=((int)cuilStr[1]-48) * 4;
+    //cuilStr[2] = " " <<< un espacio
+    int n1=((int)cuilStr[3]-48) * 3;
+    int n2=((int)cuilStr[4]-48) * 2;
+    int n3=((int)cuilStr[5]-48) * 7;
+    int n4=((int)cuilStr[6]-48) * 6;
+    int n5=((int)cuilStr[7]-48) * 5;
+    int n6=((int)cuilStr[8]-48) * 4;
+    int n7=((int)cuilStr[9]-48) * 3;
+    int n8=((int)cuilStr[10]-48) * 2;
+    //obtenemos el Z actual
     int z=getNVerificador(cuil);
     int zRes = 0;
     int sumatoria = x+y+n1+n2+n3+n4+n5+n6+n7+n8;
@@ -216,9 +217,9 @@ Y * 4
             zRes = 4;
             setTipo(cuil,23);
             break;
-        default: ///Posiblemente salga este mensaje aunque el tipo sea empresa.
+        default:
+            //Posiblemente salga este mensaje aunque el tipo sea empresa.
             printf("\n\nERROR: TIPO DE CUIL INEXISTENTE.\n\n");
-            exit(1);
         }
     default:
 //zRes se deja como está.
@@ -256,17 +257,14 @@ bool cuilsIguales(CuilPtr cuil1,CuilPtr cuil2)
 
 CuilPtr cargarCuil(CuilPtr cuil)
 {
-    cuil=crearCuil("0000000000000");
+    cuil=crearCuil("0");
     char strCuil[100];
     do
     {
         printf("\n\n\t [INGRESE ESTRICTAMENTE DE ESTA FORMA] \n\n");
         helpCuil();
         printf("\n\tCUIL: ");
-        limpiarBufferTeclado();
-        scanf("%[^\n]%*c",strCuil);
-        limpiarBufferTeclado();
-
+        seleccionarString(strCuil);
         setCuil(cuil,strCuil);
 
         if(!esCuilValido(cuil))

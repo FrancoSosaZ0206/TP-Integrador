@@ -209,10 +209,12 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         CuilValido = false;
         while(!CuilValido)
         {
+            CuilValido = true;
             cuil=cargarCuil(cuil);
             CuilValido = VerificarCuilUnico(centroLogistico, getCuil(cuil));
             if(!CuilValido)
             {
+                CuilValido = false;
                 printf("\n\n\t [Usted ha ingresado un cuil ya existente...] \n\n");
                 presionarEnterYLimpiarPantalla();
             }
