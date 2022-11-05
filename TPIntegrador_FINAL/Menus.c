@@ -762,6 +762,7 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
             limpiarBufferTeclado();
             printf("\n\n\tFormato: [AA 111 AA]");
             printf("\n\n\tPatente: ");
+            limpiarBufferTeclado();
             scanf("%[^\n]%*c", patente);
             if(!VerificarPatenteUnica(centroLogistico, patente))
             {

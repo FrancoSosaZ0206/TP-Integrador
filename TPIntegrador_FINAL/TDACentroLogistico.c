@@ -634,12 +634,12 @@ bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComp
         if( strcmp( PatenteComprobar, getPatente(VehiculoTemporal) ) == 0 )
         {
             ListaAuxiliar = destruirLista(ListaAuxiliar, false);
-            return true;
+            return false;
         }
         ListaAuxiliar = getResto(ListaAuxiliar);
     }
     ListaAuxiliar = destruirLista(ListaAuxiliar, false);
-    return false;
+    return true;
 }
 
 bool VerificarExistenciaChoferes(CentroLogisticoPtr centroLogistico)
