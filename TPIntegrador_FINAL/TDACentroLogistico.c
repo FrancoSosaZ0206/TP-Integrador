@@ -323,7 +323,6 @@ bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID)
 bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer)
 {
     bool match=false;
-
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPersonas(centroLogistico));
     while(!listaVacia(listaAux))
@@ -332,14 +331,15 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer
         if(strcmp(getCuil(getCuilPersona(personaAux)),getCuil(cuil))==0 && getEsChofer(personaAux)==esChofer)
         {
             match=true;
-            mostrarPersona(personaAux); //mostramos solo si el cuil y esChofer coinciden
+            //mostramos solo si el cuil y esChofer coinciden
+            mostrarPersona(personaAux);
         }
         listaAux=getResto(listaAux);
     }
     listaAux=destruirLista(listaAux,false);
-
+    //esto lo pongo acá para que no pase si no hay un match.
     if(match)
-        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
+        printf("\n");
 
     return match;
 }

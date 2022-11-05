@@ -704,7 +704,7 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 
         if(cuil != NULL)
         {
-            persona = crearPersona(nombre, apellido, domicilio, cuil, false);
+            persona = crearPersona(nombre, apellido, domicilio, cuil, esChofer);
             agregarPersona(centroLogistico, persona);
         }
 
@@ -2273,6 +2273,7 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             CuilPtr cuilABuscar = crearCuil("000000000000");
             if(esChofer){
                 printf("BUSCAR CHOFER\n\n");
+                printf("Ingrese el CUIL del chofer a buscar: ");
             }else{
                 printf("BUSCAR CLIENTE\n\n");
                 printf("Ingrese el CUIL del cliente a buscar: ");
@@ -2280,6 +2281,7 @@ void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             printf("\n\n");
             limpiarBufferTeclado();
             scanf("%[^\n]%*c",cadena);
+            limpiarBufferTeclado();
             setCuil(cuilABuscar,cadena);
             if(!buscarPersona(centroLogistico,cuilABuscar,esChofer))
             {
@@ -2338,7 +2340,9 @@ RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAb
         bool continuar;
         do
         {
-            printf("Seleccione un reparto para buscar mediante su indice: ");
+            mostrarRepartos(centroLogistico, esRepartoAbierto);
+            printf("\n\nSeleccione un reparto para buscar mediante su indice: ");
+            limpiarBufferTeclado();
             scanf("%d",&i);
             if(i>=0 && i<n)
             {

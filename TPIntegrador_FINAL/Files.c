@@ -77,7 +77,7 @@ typedef struct fReparto
     fFecha fechaSalida;
     fFecha fechaRetorno;
     int tamanioPilaPaq; ///la dimension del array...
-    fPaquete paquetes[]; ///depende de la longitud de la pila que me pasan
+    fPaquete paquetes[100]; ///depende de la longitud de la pila que me pasan
 } fReparto;
 typedef fReparto* fRepartoPtr;
 

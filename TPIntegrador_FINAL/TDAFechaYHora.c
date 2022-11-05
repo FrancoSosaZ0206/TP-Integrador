@@ -272,5 +272,5 @@ bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
 
 void MostrarFecha(FechaPtr fecha)
 {
-    printf("\t %d / %d / %d - %d : %d \n\n", getDia(fecha), getMes(fecha), getAnio(fecha), getHora(fecha), getMinuto(fecha));
+    printf(" %d / %d / %d - %d : %d \n\n", getDia(fecha), getMes(fecha), getAnio(fecha), getHora(fecha), getMinuto(fecha));
 }
