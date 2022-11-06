@@ -254,7 +254,9 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
     ///CONDICION: "si SOLAMENTE el día JULIANO del reparto (dia, mes y año) coincide con el de la fecha recibida..."
         if(condicion)
             mostrarRepartoSinPaquetes(repartoAux);
-        listaAux=getResto(listaAux);
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir,false);
     }
     listaAux=destruirLista(listaAux,false);
     printf("\n");
@@ -722,7 +724,7 @@ bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete)
             return true;
         }
         ListaPtr listaDestruir = listaAux;
-        listaAux=getResto(listaAux);
+        listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
@@ -742,7 +744,7 @@ bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona) 
             return true;
         }
         ListaPtr listaDestruir = listaAux;
-        listaAux=getResto(listaAux);
+        listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
@@ -762,7 +764,7 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
             return true;
         }
         ListaPtr listaDestruir = listaAux;
-        listaAux=getResto(listaAux);
+        listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
@@ -787,7 +789,7 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,b
             return true;
         }
         ListaPtr listaDestruir = listaAux;
-        listaAux=getResto(listaAux);
+        listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
