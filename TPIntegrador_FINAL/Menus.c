@@ -427,7 +427,6 @@ DEVUELVE: puntero al cuil cargado
 CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico)
 {
     CuilPtr cuil;
-
     char strCuil[100];
 
     int i=0;
@@ -562,13 +561,16 @@ void actualizarCuil(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
             printf("\n\nIntentos agotados.\n\n");
             return;
         }
-        i++;
         if(!esCuilValido(cuil))
             printf("Cuil invalido. Vuelva a ingresar.");
         else if(esCuilExistente(centroLogistico,cuil))
             printf("Cuil existente. Vuelva a ingresar.");
 
+        i++;
     } while(!esCuilValido(cuil) && esCuilExistente(centroLogistico,cuil));
+
+    setCuil(cuil,strCuil);
+    cuilAux = destruirCuil(cuilAux);
 }
 /** OPERACIÓN: actualiza los datos de un domicilio
 PRECONDICIÓN: domicilio debe haberse creado
