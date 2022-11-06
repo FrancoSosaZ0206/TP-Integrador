@@ -3167,10 +3167,9 @@ POSTCONDICIÓN:
 PARÁMETROS:
     -
 DEVUELVE: Nada. */
+///Cambio Franco: la condición ahora es analizar la lista de repartos y ver si hay paquetes iguales al que no
 bool hayPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
 {
-    bool match = false;
-
     PaquetePtr paqueteAux;
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPaquetes(centroLogistico));
@@ -3182,13 +3181,16 @@ bool hayPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
         int estado = getEstado(paqueteAux);
         bool paqueteDisponible = estado == 0 || estado == 5;
         if(paqueteDisponible)
-            match = true;
+        {
+            listaAux = destruirLista(listaAux, false);
+            return true;
+        }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux = destruirLista(listaAux, false);
-    return match;
+    return false;
 }
 
 
@@ -3205,6 +3207,8 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
     int i=0;
 
     bool continuar = false;
+
+    bool repartoArmado = false;
 
     bool choferValido = false;
     bool vehiculoValido = false;
@@ -3235,8 +3239,6 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
         return true;
     else
     {
-
-    }
     //------------------------------------------//
     ///SECCION DE ARMADO
     //------------------------------------------//
@@ -3338,10 +3340,8 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     if(k > 0 && k < n)
                     {
                         paqueteElegido = getDatoLista(getPaquetes(centroLogistico), k-1);
-                        if(getEstado(paqueteElegido) == 0)
-                        {
+                        if(getEstado(paqueteElegido) == 0 || getEstado(paqueteElegido) == 5)
                             paqueteValido = true;
-                        }
                         else
                         {
                             printf("\n\nERROR: Paquete actualmente en curso. Vuelva a elegir.");
@@ -3354,7 +3354,8 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                         presionarEnterYLimpiarPantalla();
                     }
                     system("cls");
-                }while(!paqueteValido && hayPaquetesDisponibles(centroLogistico));
+                } while(!paqueteValido && hayPaquetesDisponibles(centroLogistico));
+
                 setEstado(paqueteElegido, 1);
                 apilar(pilaPaquetesElegidos, (PaquetePtr)paqueteElegido);
                 seguirApilando = menuContinuar();
@@ -3362,22 +3363,26 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             } while(seguirApilando);
 
             reparto = armarReparto(choferElegido, vehiculoElegido, fechaSalida, fechaRetorno, pilaPaquetesElegidos);
-            if(esRepartoExistente(centroLogistico,reparto,true) && esRepartoExistente(centroLogistico,reparto,false))
+            if(esRepartoExistente(centroLogistico,reparto))
             {
                 reparto = destruirReparto(reparto);
                 printf("ERROR: el reparto armado ya existia en el centro logistico. Pruebe seleccionando otro chofer o cambiando la fecha.");
             }
             else
-            {
+            { //Si el reparto es válido, lo agregamos a la lista del centro,
                 agregarReparto(centroLogistico, reparto, true);
                 printf("\n\nReparto armado exitosamente.");
+                repartoArmado = true;
             }
 
             continuar=menuContinuar();
         } while(continuar);
-    }
 
-    return menuGuardarCambios(centroLogistico,4);
+        if(repartoArmado)
+            return menuGuardarCambios(centroLogistico,4);
+        else //Si no se armaron repartos, no habrá nada que guardar, y simplemente retornamos de la funcion.
+            return true;
+    }
 }
 
 
@@ -3423,10 +3428,10 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                         indice = menuModoAccion1(listaAux);
 
                         repartoCerrar=(RepartoPtr)getDatoLista(getRepartos(centroLogistico,true),indice-1);
-                        existeEnCerrados = esRepartoExistente(centroLogistico,repartoCerrar,false);
+                        existeEnCerrados = esRepartoExistente(centroLogistico,repartoCerrar);
                         if(existeEnCerrados)
                         {
-                            printf("\n\nERROR: el reparto seleccionado ya existe en la lista de repartos cerrados.");
+                            printf("\n\nERROR: el reparto seleccionado ya existe en el centro.\nCambie el chofer o la fecha de salida antes de cerrar.");
                             presionarEnterYLimpiarPantalla();
                         }
                     }
@@ -3448,7 +3453,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
 
                         if(existeEnCerrados)
                         {
-                            printf("\n\nERROR: hay repartos seleccionados que ya existen en la lista de repartos cerrados.");
+                            printf("\n\nERROR: hay repartos seleccionados que ya existen en el centro.");
                             presionarEnterYLimpiarPantalla();
                         }
                     }
@@ -3468,7 +3473,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                         }
                         if(existeEnCerrados)
                         {
-                            printf("\n\nERROR: hay repartos seleccionados que ya existen en la lista de repartos cerrados.");
+                            printf("\n\nERROR: hay repartos seleccionados que ya existen en el centro.");
                             presionarEnterYLimpiarPantalla();
                         }
                     }

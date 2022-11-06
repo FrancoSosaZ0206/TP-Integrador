@@ -723,28 +723,39 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
     return false;
 }
 
-bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto,bool esRepartoAbierto)
-{
+bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
+{ ///NUEVO: ahora recorre la lista de repartos abiertos y cerrados a la vez.
     ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
-    while(!listaVacia(listaAux))
+    ListaPtr listaAux2=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico,true));
+    agregarLista(listaAux2,getRepartos(centroLogistico,false));
+    while(!listaVacia(listaAux) && !listaVacia(listaAux2))
     {
         RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
+        RepartoPtr repartoAux2=(RepartoPtr)getCabecera(listaAux2);
 
         bool condicion = fechasIguales(getFechaSalida(repartoAux),getFechaSalida(reparto));
         condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto));
+
+        bool condicion2 = fechasIguales(getFechaSalida(repartoAux2),getFechaSalida(reparto));
+        condicion = condicion && personasIguales(getChofer(repartoAux2),getChofer(reparto));
         ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
         ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
-        if(condicion)
+        if(condicion || condicion2)
         {
             listaAux=destruirLista(listaAux,false);
+            listaAux2=destruirLista(listaAux2,false);
             return true;
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
+        ListaPtr listaDestruir = listaAux2;
+        listaAux2 = getResto(listaAux2);
+        listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
+    listaAux2=destruirLista(listaAux2,false);
     return false;
 }
 
