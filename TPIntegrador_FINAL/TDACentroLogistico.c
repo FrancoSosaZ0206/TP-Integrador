@@ -307,7 +307,7 @@ void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los
     listaAux = destruirLista(listaAux,false);
     printf("\n");
 }
-///NUEVO: Funciones de búsqueda de datos en la lista
+///Funciones de búsqueda de datos en la lista
 bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID)
 {
     bool match=false;
@@ -441,61 +441,22 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
     else
         return (RepartoPtr)removerDeLista(centroLogistico->listaRepartosCerrados,posicion);
 }
-///NUEVA
+///NUEVA IMPLEMENTACIÓN
 void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
 { ///extraemos el reparto de la lista de abiertos
     RepartoPtr repartoACerrar = removerReparto(centroLogistico,posicion,true);
 ///Copiamos el contenido del reparto en uno nuevo.
-    PersonaPtr copiaChofer = crearPersonaDirect(getNombre(getChofer(repartoACerrar)),
-                                                getApellido(getChofer(repartoACerrar)),
-                                                getCalle(getDomicilio(getChofer(repartoACerrar))),
-                                                getAltura(getDomicilio(getChofer(repartoACerrar))),
-                                                getLocalidad(getDomicilio(getChofer(repartoACerrar))),
-                                                getCuil(getCuilPersona(getChofer(repartoACerrar))),
-                                                getEsChofer(getChofer(repartoACerrar)));
+///NUEVO: aprovechamos las nuevas funciones "copiarX" para agilizar y simplificar el proceso.
+    RepartoPtr copiaReparto = copiarReparto(repartoACerrar);
 
-    VehiculoPtr copiaVehiculo = crearVehiculo(getTipoVehiculo(getVehiculo(repartoACerrar)),
-                                              getMarca(getVehiculo(repartoACerrar)),
-                                              getModelo(getVehiculo(repartoACerrar)),
-                                              getPatente(getVehiculo(repartoACerrar)));
-
-    FechaPtr copiaFechaSalida = crearFechaDirect(getDiaJuliano(getFechaSalida(repartoACerrar)),
-                                                 getHora(getFechaSalida(repartoACerrar)),
-                                                 getMinuto(getFechaSalida(repartoACerrar)));
-
-    FechaPtr copiaFechaRetorno = crearFechaDirect(getDiaJuliano(getFechaRetorno(repartoACerrar)),
-                                                 getHora(getFechaRetorno(repartoACerrar)),
-                                                 getMinuto(getFechaRetorno(repartoACerrar)));
-
-///Obtenemos cada paquete de la pila y le cambiamos el estado a 3: "entregado"
+///Obtenemos cada paquete de la pila y registramos sus estados
     int n=cantidadPaquetes(repartoACerrar);
     PaquetePtr paquetesAux[n];
-
-    PaquetePtr copiaPaquetes[n];
-    PilaPtr copiaPilaPaquetes=crearPila();
 
     int estadoPaquetes[6];
     for(int i=0;i<n;i++)
     {
         paquetesAux[i] = descargarPaquete(repartoACerrar);
-    ///Hacemos una copia de cada paquete
-        copiaPaquetes[i]  = crearPaqueteDirect(getID(paquetesAux[i]),
-                                               getAncho(paquetesAux[i]),
-                                               getAlto(paquetesAux[i]),
-                                               getLargo(paquetesAux[i]),
-                                               getPeso(paquetesAux[i]),
-                                               getCalle(getDirRetiro(paquetesAux[i])),
-                                               getAltura(getDirRetiro(paquetesAux[i])),
-                                               getLocalidad(getDirRetiro(paquetesAux[i])),
-                                               getCalle(getDirEntrega(paquetesAux[i])),
-                                               getAltura(getDirEntrega(paquetesAux[i])),
-                                               getLocalidad(getDirEntrega(paquetesAux[i])),
-                                               getDia(getFechaEntrega(paquetesAux[i])),
-                                               getMes(getFechaEntrega(paquetesAux[i])),
-                                               getAnio(getFechaEntrega(paquetesAux[i])),
-                                               getHora(getFechaEntrega(paquetesAux[i])),
-                                               getMinuto(getFechaEntrega(paquetesAux[i])),
-                                               getEstado(paquetesAux[i]));
     ///Salvamos el conjunto de estados de los paquetes de la pila como valores de verdad en un vector de enteros
         switch(getEstado(paquetesAux[i]))
         {
@@ -519,17 +480,8 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
             break;
         }
     }
-    for(int i=n;i>0;i--)
-    {
+    for(int i=n-1;i>-1;i--)
         cargarPaquete(repartoACerrar,paquetesAux[i]);
-        apilar(copiaPilaPaquetes,(PaquetePtr)copiaPaquetes[i]);
-    }
-
-    RepartoPtr copiaReparto=armarReparto(copiaChofer,
-                                         copiaVehiculo,
-                                         copiaFechaSalida,
-                                         copiaFechaRetorno,
-                                         copiaPilaPaquetes);
 
 ///Agregamos la copia del reparto cerrado a la lista de cerrados
     agregarReparto(centroLogistico,copiaReparto,false);

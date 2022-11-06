@@ -46,7 +46,7 @@ RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
 RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes);
 //Operación: Destruccion del TDArepartos.
 //Precondición: Repartos debe estar creado.
-//Postcondición: Se se libera la memoria reservada para la fecha de salida, retorno, la pila de paquetes, y la estructura reparto.
+//Postcondición: Se se libera la memoria reservada para la fecha de salida, retorno, la pila de paquetes (no los paquetes), y la estructura reparto.
 //Parámetros:
 // reparto: puntero a la estructura a destruir.
 //Devuelve NULL

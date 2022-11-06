@@ -3055,15 +3055,30 @@ bool ChoferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr PersonaEvalu
     return false;
 }
 
-bool ExistenChoferesDisponibles(CentroLogisticoPtr centroLogistico)
+///--------------------------------------------------------------------------------------------------------------------------///
+
+///                                                FUNCIONES AYUDANTES ESPECIALES
+
+///--------------------------------------------------------------------------------------------------------------------------///
+
+
+///////////////////////////////////////////////COMENTARIOS FRANCO/////////////////////////////////////////////////////
+///Idea: Podría directamente retornar el índice / indices (o la cantidad) donde se encontraron los choferes o -1 si no hay, sería más útil.
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: Nada. */
+bool hayChoferes(CentroLogisticoPtr centroLogistico)
 {
-    PersonaPtr PersonaTemporal;
+    PersonaPtr personaAux;
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPersonas(centroLogistico));
     while(!listaVacia(listaAux))
     {
-        PersonaTemporal = (PersonaPtr)getCabecera(listaAux);
-        if(getEsChofer(PersonaTemporal))
+        personaAux = (PersonaPtr)getCabecera(listaAux);
+        if(getEsChofer(personaAux))
         {
             listaAux = destruirLista(listaAux, false);
             return true;
@@ -3073,87 +3088,109 @@ bool ExistenChoferesDisponibles(CentroLogisticoPtr centroLogistico)
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux = destruirLista(listaAux, false);
-    return false;
+    return true;
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: Nada. */
 void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
 {
-    int Contador = 1;
-    bool ChoferHabilitado = true;
-    PersonaPtr PersonaTemporal;
+    int cont = 1;
+
+    bool condicion=false; ///Cambiamos el flag a una condicion compuesta
+
+    PersonaPtr personaAux;
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPersonas(centroLogistico));
     while(!listaVacia(listaAux))
     {
-        ChoferHabilitado = true;
-        PersonaTemporal = (PersonaPtr)getCabecera(listaAux);
-        if(!getEsChofer(PersonaTemporal))
+        personaAux = (PersonaPtr)getCabecera(listaAux);
+
+        condicion = getEsChofer(personaAux)
+                    && !choferEnReparto(centroLogistico, personaAux,true);
+    //Condicion: tiene que ser un chofer, y no figurar en la lista de repartos abiertos
+        if(!condicion) ///De esta manera, no se vuelve necesario encadenar tantos ifs.
         {
-            ChoferHabilitado = false;
-        }
-        if(ChoferEnReparto(centroLogistico, PersonaTemporal,true))
-        {
-            ChoferHabilitado = false;
-        }
-        if(ChoferEnReparto(centroLogistico, PersonaTemporal,false))
-        {
-            ChoferHabilitado = false;
-        }
-        if(ChoferHabilitado)
-        {
-            printf("\n\nPosicion %d.\n\n", Contador);
-            mostrarPersona(PersonaTemporal);
+            printf("\n\nPosicion %d.\n\n", cont);
+            mostrarPersona(personaAux);
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        Contador++;
+        cont++;
     }
     listaAux = destruirLista(listaAux, false);
 }
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: Nada. */
 void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
 {
-    int Contador = 1;
-    PaquetePtr PaqueteTemporal;
+    int cont = 1;
+
+    PaquetePtr paqueteAux;
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPaquetes(centroLogistico));
+
     while(!listaVacia(listaAux))
     {
-        PaqueteTemporal = (PaquetePtr)getCabecera(listaAux);
-        if(getEstado(PaqueteTemporal) == 0)
+        paqueteAux = (PaquetePtr)getCabecera(listaAux);
+
+        int estado = getEstado(paqueteAux);
+        bool paqueteDisponible = estado == 0 || estado == 5;
+        if(paqueteDisponible)
         {
-            printf("\n\n Posicion %d. \n\n", Contador);
-            mostrarPaquete(PaqueteTemporal);
+            printf("\n\n Posicion %d. \n\n", cont);
+            mostrarPaquete(paqueteAux);
         }
+
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        Contador++;
+        cont++;
     }
     listaAux = destruirLista(listaAux, false);
 }
 
-bool ExistenPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: Nada. */
+bool hayPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
 {
-    PaquetePtr PaqueteTemporal;
+    bool match = false;
+
+    PaquetePtr paqueteAux;
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPaquetes(centroLogistico));
+
     while(!listaVacia(listaAux))
     {
-        PaqueteTemporal = (PaquetePtr)getCabecera(listaAux);
-        if(getEstado(PaqueteTemporal) == 0)
-        {
-            listaAux = destruirLista(listaAux, false);
-            return true;
-        }
+        paqueteAux = (PaquetePtr)getCabecera(listaAux);
+
+        int estado = getEstado(paqueteAux);
+        bool paqueteDisponible = estado == 0 || estado == 5;
+        if(paqueteDisponible)
+            match = true;
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux = destruirLista(listaAux, false);
-    return false;
+    return match;
 }
+
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
@@ -3168,8 +3205,6 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
     int i=0;
 
     bool continuar = false;
-
-    bool hayRecursos = true;
 
     bool choferValido = false;
     bool vehiculoValido = false;
@@ -3188,12 +3223,20 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 ///SECCION DE VERIFICACION DE RECURSOS
 //------------------------------------------//
 
-    if(hayChoferes(centroLogistico)
-       && !listaVacia(getVehiculos(centroLogistico))
-       && !listaVacia(getPaquetes(centroLogistico))
-       && hayPaquetesDisponibles(centroLogistico))
-    { //Si hay recursos disponibles para armar un reparto, armamos
+    if(listaVacia(getPersonas(centroLogistico))
+       || !hayChoferes(centroLogistico)
+       || listaVacia(getVehiculos(centroLogistico))
+       || listaVacia(getPaquetes(centroLogistico))
+       || !hayPaquetesDisponibles(centroLogistico))
+    { //Si no hay recursos disponibles para armar un reparto, mostramos un mensaje de error y retornamos
+        printf("ERROR: no existen recursos disponibles o suficientes para armar un nuevo reparto.\n");
+        printf("Asegurese de que hayan choferes, vehiculos y paquetes disponibles y vuelva a intentar.");
+        presionarEnterYLimpiarPantalla();
+        return true;
+    else
+    {
 
+    }
     //------------------------------------------//
     ///SECCION DE ARMADO
     //------------------------------------------//
@@ -3240,7 +3283,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     presionarEnterYLimpiarPantalla();
                 }
                 system("cls");
-            }while(!choferValido);
+            } while(!choferValido);
 
             choferElegido = getDatoLista(getPersonas(centroLogistico),k-1);
 
