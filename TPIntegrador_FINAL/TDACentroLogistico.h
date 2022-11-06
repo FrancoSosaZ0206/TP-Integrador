@@ -194,7 +194,16 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
 //              4 = demorado
 //              5 = suspendido
 //Devuelve: nada.
-void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado); //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
+void filtrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico,int estado); //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
+/** OPERACION: MOSTRADO
+PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
+POSTCONDICION: MUESTRA LOS PAQUETES SEGUN SI ESTAN EN CURSO = ESTADO (1,2,4)
+               O SI ESTAN FINALIZADOS = ESTADO (3,5)
+PARAMETROS:
+    - PUNTERO A CENTRO LOGISTICO
+    - BOOLEANO SI SON EN CURSO O SI ESTAN FINALIZADOS
+DEVUELVE: Nada. */
+void filtrarPaquetesEnCurso(CentroLogisticoPtr centroLogistico, bool enCurso);
 
 //Operación: Muestra los paquetes con el estado que le haya pasado.
 //Precondición: Centro logistico debe haberse creado y llenado con una lista de paquetes

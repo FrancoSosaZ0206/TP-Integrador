@@ -312,7 +312,6 @@ ADVERTENCIA: Cuidado con menus o funciones que modifiquen la longitud de la list
 void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
 {
     int n=longitudLista(lista);
-    bool continuar = true;
 //Ingresamos la cantidad de indices a seleccionar
     do
     {
@@ -326,7 +325,7 @@ void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
     } while((*cantIndices)<1 || (*cantIndices) > n);
     //Elegimos los indices
     int i = 0;
-    while(i < (*cantIndices) && continuar)
+    while(i < (*cantIndices))
     {
         do
         {
@@ -340,7 +339,6 @@ void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
             }
         } while(indices[i]<1 || indices[i]>n);
         i++;
-        continuar = menuContinuar();
     }
     int salto=round((*cantIndices)/2);
     int temp=0;
@@ -661,8 +659,8 @@ void actualizarFecha(FechaPtr fecha)
 bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 {
     bool continuar;
-    int i = 1;
-    ///Paquete
+    bool paqueteCargado=false;
+
     PaquetePtr paquete;
     int ID=0;   //el ID del paquete se genera automáticamente, no lo tiene que ingresar el usuario.
     int ancho=0;//el mismo se genera aleatoriamente.
@@ -671,24 +669,15 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
     int peso=0;
     //por defecto, los paquetes se cargan con el estado 0: 'en depósito'.
     ///Variables para funciones
-    srand(time(NULL));
     do
     {
-        printf("CARGAR PAQUETE %d.\n\n", i++);
+        printf("CARGAR PAQUETE\n\n");
         //esto no se mostrará sino al final de la carga del paquete.
         ID = longitudLista(getPaquetes(centroLogistico))+1;
         while(!VerificarIDUnico(centroLogistico, ID))
-        {
             ID++;
-        }
-        printf("\tIngrese Ancho: ");
-        scanf("%d",&ancho);
-        limpiarBufferTeclado();
-        printf("\n\tIngrese Alto: ");
-        scanf("%d",&alto);
-        limpiarBufferTeclado();
-        printf("\n\tIngrese Largo: ");
-        scanf("%d",&largo);
+        printf("\tIngrese Ancho, alto, largo separados por espacios: ");
+        scanf("%d %d %d",&ancho,&alto,&alto);
         limpiarBufferTeclado();
         printf("\n\tIngrese Peso: ");
         scanf("%d",&peso);
@@ -702,20 +691,32 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
         FechaPtr fechaEntrega = cargarFecha();
 
         paquete=crearPaquete(ID,ancho,alto,largo,peso,dirRetiro,dirEntrega,fechaEntrega,0);
-        agregarPaquete(centroLogistico,paquete);
+        if(esPaqueteExistente(centroLogistico,paquete))
+        {
+            paquete=destruirPaquete(paquete);
+            printf("ERROR: el paquete cargado ya existe en el centro. Ingrese otros datos y vuelva a intentar.");
+        }
+        else
+        {
+            paqueteCargado=true;
+            agregarPaquete(centroLogistico,paquete);
 
-        printf("\n\nPaquete #%d cargado exitosamente.",ID);
-        presionarEnterYLimpiarPantalla();
+            printf("\n\nPaquete #%d cargado exitosamente.",ID);
+            presionarEnterYLimpiarPantalla();
+        }
 
         continuar=menuContinuar();
     } while(continuar);
 
-    return menuGuardarCambios(centroLogistico,1);
+    if(paqueteCargado)
+        return menuGuardarCambios(centroLogistico,1);
+    else
+        return true;
 }
 bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
     bool continuar;
-    bool personaCreada=false;
+    bool personaCargada=false;
 
     char nombre[100];
     char apellido[100];
@@ -749,7 +750,7 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             }
             else
             {
-                personaCreada=true;
+                personaCargada=true;
                 agregarPersona(centroLogistico, persona);
 
                 if(esChofer) { printf("Cliente cargado exitosamente."); }
@@ -760,7 +761,7 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         continuar = menuContinuar();
     } while(continuar);
 
-    if(personaCreada)
+    if(personaCargada)
         return menuGuardarCambios(centroLogistico,2);
     else
         return true;
@@ -840,8 +841,6 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 
 bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
 {
-    int indices[100];
-    int cantIndices = 0;
     PaquetePtr PaqueteRemover;
     ListaPtr listaAux = getPaquetes(centroLogistico);
 
@@ -853,7 +852,6 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
     }
     else
     {
-
 /// ////////////////////////////////////////////////////////////////////////////////// ///
         int modoAccion = menuModoAccion(opMenuAnterior);
         if(!(modoAccion==0 && modoAccion==-1))
@@ -864,51 +862,66 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
             //para el modo de accion 1,
                 int indice;
             //para el modo de accion 2,
+                int indices[100];
+                int cantIndices = 0;
             //para el modo de accion 3,
                 int desde=0,hasta=0;
 /// ////////////////////////////////////////////////////////////////////////////////// ///
-                switch(modoAccion)
+                if(modoAccion==1)
                 {
-                    case 1:
-                        printf("ELIMINAR PAQUETE\n");
-                        mostrarPaquetes(centroLogistico);
-                        printf("\n\n-----------------------------------------\n\n");
-                        printf("Paquete a remover: ");
-                        indice=menuModoAccion1(listaAux);
-                        ///Obtenemos y destruimos el elemento seleccionado
-                        destruirPaquete(removerPaquete(centroLogistico,indice-1));
-                        printf("\nPaquete eliminado exitosamente.\n\n");
-                        break;
-                    case 2:
-                        printf("ELIMINAR PAQUETES\n");
-                        mostrarPaquetes(centroLogistico);
-                        printf("\n\n-----------------------------------------\n\n");
-                        printf("Paquetes a remover: \n");
-                        menuModoAccion2(listaAux,&cantIndices,indices);
-                        printf("\n\nCantidad indices: %d", cantIndices);
-                        printf("\n\nPrimer indice: %d", indices[0]);
-                        ///Obtenemos y destruimos los elementos en los indices seleccionados
-                        for(int i = 0 ; i < cantIndices ; i++)
-                        {
-                            PaqueteRemover = removerPaquete(centroLogistico,indices[i]-i-1);
-                            PaqueteRemover = destruirPaquete(PaqueteRemover);
-                        }
-                        printf("\nPaquetes eliminados exitosamente.\n\n");
-                        break;
-                    case 3:
-                        printf("ELIMINAR PAQUETES\n");
-                        mostrarPaquetes(centroLogistico);
-                        printf("\n\n-----------------------------------------\n\n");
-                        printf("Paquetes a remover: ");
-                        menuModoAccion3(listaAux,&desde,&hasta);
-                        ///Obtenemos y destruimos los elementos en el rango de indices
-                        for(int i=desde;i<=hasta;i++)
-                        {
-                            destruirPaquete(removerPaquete(centroLogistico,desde-1));
-                        }
-                        printf("\nPaquetes eliminados exitosamente.\n\n");
-                        break;
+                    printf("ELIMINAR PAQUETE\n");
+                    mostrarPaquetes(centroLogistico);
+                    printf("\n\n-----------------------------------------\n\n");
+                    printf("Paquete a remover: ");
+                    indice=menuModoAccion1(listaAux);
+                    ///Obtenemos y destruimos el elemento seleccionado
+                    destruirPaquete(removerPaquete(centroLogistico,indice-1));
+                    printf("\nPaquete eliminado exitosamente.\n\n");
                 }
+                else if(modoAccion==2)
+                {
+                    printf("ELIMINAR PAQUETES\n");
+                    mostrarPaquetes(centroLogistico);
+                    printf("\n\n-----------------------------------------\n\n");
+                    printf("Paquetes a remover: \n");
+                    menuModoAccion2(listaAux,&cantIndices,indices);
+                    printf("\n\nCantidad indices: %d", cantIndices);
+                    printf("\n\nPrimer indice: %d", indices[0]);
+                    ///Obtenemos y destruimos los elementos en los indices seleccionados
+                    for(int i = 0 ; i < cantIndices ; i++)
+                    {
+                        PaqueteRemover = removerPaquete(centroLogistico,indices[i]-i-1);
+                        PaqueteRemover = destruirPaquete(PaqueteRemover);
+                    }
+                    printf("\nPaquetes eliminados exitosamente.\n\n");
+                }
+                else
+                {
+                    printf("ELIMINAR PAQUETES\n");
+                    mostrarPaquetes(centroLogistico);
+                    printf("\n\n-----------------------------------------\n\n");
+                    printf("Paquetes a remover: ");
+                    menuModoAccion3(listaAux,&desde,&hasta);
+                    ///Obtenemos y destruimos los elementos en el rango de indices
+                    for(int i=desde;i<=hasta;i++)
+                        destruirPaquete(removerPaquete(centroLogistico,desde-1));
+
+                    printf("\nPaquetes eliminados exitosamente.\n\n");
+                }
+
+                ListaPtr listaTemp = crearLista();
+                agregarLista(listaTemp,getPaquetes(centroLogistico));
+                while(!listaVacia(listaTemp))
+                {
+                    PaquetePtr paqueteAux = (PaquetePtr) getCabecera(listaTemp);
+                    int IDAux = getID(paqueteAux);
+                    setID(paqueteAux,IDAux--);
+
+                    ListaPtr listaDestruir = listaTemp;
+                    listaTemp = getResto(listaTemp);
+                    listaDestruir = destruirLista(listaDestruir,false);
+                }
+                listaTemp = destruirLista(listaTemp,false);
 
                 continuar=menuContinuar();
             } while(continuar);
@@ -916,8 +929,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
             return menuGuardarCambios(centroLogistico,1);
        }
        else //if(modoAccion == 0 || modoAccion == -1)
-       {
-           //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
+       { //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
            return true;
        }
     }
@@ -2693,14 +2705,19 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
     else
     {
         int op=0;
+        int op1=0;
+
+        int estadoBuscar=0;
+
         do
         {
             printf("EMITIR LISTADO DE PAQUETES");
             printf("\n\n-----------------------------------------\n\n");
-            printf("1. Ordenados por ID\n");
-            printf("2. Ordenados por Fecha de Entrega\n");
-            printf("3. Ordenados por Estado\n");
-            printf("4. SIN ORDENAR\n");
+            printf("1. Ordenar y mostrar\n");
+            printf("2. Filtrar por Estado\n");
+            printf("3. Filtrar paquetes En Curso\n");
+            printf("4. Filtrar paquetes En Deposito\n");
+            printf("5. MOSTRAR POR DEFECTO\n");
             printf("0. Volver\n");
             printf("-1. MENU PRINCIPAL");
             printf("\n\n-----------------------------------------\n\n");
@@ -2711,22 +2728,77 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
             switch(op)
             {
             case 1:
-                printf("LISTADO DE PAQUETES (ORDENADOS POR ID)");
-                ordenarPaquetes(centroLogistico,1);
-                cambiosGuardados = false;
+                do
+                {
+                    printf("ORDENAR PAQUETES:\n\n");
+
+                    printf("1. Por ID\n");
+                    printf("2. Por Fecha de Entrega\n");
+                    printf("3. Por Estado\n");
+                    printf("0. Volver\n");
+                    printf("-1. MENU PRINCIPAL");
+                    printf("\n\n-----------------------------------------\n\n");
+                    printf("Elija una opcion: ");
+                    scanf("%d",&op1);
+                    limpiarBufferTeclado();
+                    system("cls");
+                    switch(op1)
+                    {
+                    case 1:
+                        printf("LISTADO DE PAQUETES (ORDENADOS POR ID)");
+                        ordenarPaquetes(centroLogistico,1);
+                        cambiosGuardados = false;
+                        break;
+                    case 2:
+                        printf("LISTADO DE PAQUETES (ORDENADOS POR FECHA DE ENTREGA)");
+                        ordenarPaquetes(centroLogistico,2);
+                        cambiosGuardados = false;
+                        break;
+                    case 3:
+                        printf("LISTADO DE PAQUETES (ORDENADOS POR ESTADO)");
+                        ordenarPaquetes(centroLogistico,3);
+                        cambiosGuardados = false;
+                        break;
+                    case 0:
+                        break;
+                    case -1:
+                        *op=-1;
+                        break;
+                    default:
+                        printf("\nOpcion incorrecta.");
+                        break;
+                    }
+                } while((op1<-1 && op1>3)); //En este caso, saldremos de todos modos.
+
                 break;
             case 2:
-                printf("LISTADO DE PAQUETES (ORDENADOS POR FECHA DE SALIDA)");
-                ordenarPaquetes(centroLogistico,2);
-                cambiosGuardados = false;
+                do
+                {
+                    printf("FILTRAR PAQUETES POR ESTADO PARTICULAR\n\n");
+                    helpEstadoPaquete();
+                    printf("Ingrese un estado para filtrar: ");
+                    scanf("%d",&estadoBuscar);
+                    limpiarBufferTeclado();
+
+                    if(estadoBuscar<0 || estadoBuscar >5)
+                    {
+                        printf("ERROR: estado inexistente. Vuelva a intentar.");
+                        presionarEnterYLimpiarPantalla();
+                    }
+                } while(estadoBuscar>=0 && estadoBuscar <=5);
+
+                filtrarPaquetesPorEstado(centroLogistico,estadoBuscar);
                 break;
             case 3:
-                printf("LISTADO DE PAQUETES (ORDENADOS POR ESTADO)");
-                ordenarPaquetes(centroLogistico,3);
-                cambiosGuardados = false;
+                printf("FILTRAR PAQUETES EN CURSO\n\n");
+                filtrarPaquetesEnCurso(centroLogistico,true);
                 break;
             case 4:
-                printf("LISTADO DE PAQUETES (SIN ORDENAR)");
+                printf("FILTRAR PAQUETES EN DEPOSITO\n\n");
+                filtrarPaquetesEnCurso(centroLogistico,false);
+                break;
+            case 5:
+                printf("LISTADO DE PAQUETES");
                 break;
             case 0:
                 break;
@@ -2737,7 +2809,8 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                 printf("\nOpcion incorrecta.");
                 break;
             }
-            if(!(op==0 || op==-1))
+
+            if(op==1 || op==5)
             {
                 printf("\n\n-----------------------------------------------------\n");
                 mostrarPaquetes(centroLogistico);

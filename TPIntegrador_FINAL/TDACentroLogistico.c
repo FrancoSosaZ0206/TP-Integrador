@@ -262,9 +262,11 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
     printf("\n");
 }
 
-void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
+
+/// Estados en curso: 1,2 y 4
+void filtrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico,int estado) //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
 {
-    int Contador = 1;
+    int i = 1;
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPaquetes(centroLogistico));
     switch(estado)
@@ -297,7 +299,7 @@ void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los
         PaquetePtr paqueteAux=(PaquetePtr)getCabecera(listaAux);
         if(getEstado(paqueteAux)==estado)
         {
-            printf("\n\n Posicion %d. \n\n", Contador++);
+            printf("\n\n Posicion %d. \n\n", i++);
             mostrarPaquete(paqueteAux);
         }
         ListaPtr listaDestruir = listaAux;
@@ -306,6 +308,36 @@ void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los
     }
     listaAux = destruirLista(listaAux,false);
     printf("\n");
+}
+void filtrarPaquetesEnCurso(CentroLogisticoPtr centroLogistico, bool enCurso) ///NUEVA
+{
+    bool condicion;
+
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux, getPaquetes(centroLogistico));
+
+    if(enCurso) { printf("\n\nLISTA DE PAQUETES EN CURSO\n\n"); }
+    else { printf("\n\nLISTA DE PAQUETES EN DEPOSITO\n\n"); }
+
+    for(int i=1;!listaVacia(listaAux);i++)
+    {
+        PaquetePtr paqueteAux=(PaquetePtr)getCabecera(listaAux);
+        int estado = getEstado(paqueteAux);
+
+        if(enCurso) { condicion = estado == 1 || estado == 2 || estado == 4; }
+        else { condicion = estado == 0 || estado == 5; }
+
+        if(condicion)
+        {
+            printf("\n\n Posicion %d. \n\n", i);
+            mostrarPaquete(paqueteAux);
+        }
+
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+    }
+    listaAux = destruirLista(listaAux,false);
 }
 ///Funciones de búsqueda de datos en la lista
 bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID)
@@ -542,7 +574,7 @@ bool esCuilExistente(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
     {
         cuilAux = getCuilPersona( (PersonaPtr)getCabecera(listaAux) );
 
-        if( cuilsIguales( cuilAux , cuil )
+        if( cuilsIguales( cuilAux , cuil ) )
         {
             listaAux = destruirLista(listaAux, false);
             return true;
@@ -738,8 +770,8 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
 
         bool condicion2 = fechasIguales(getFechaSalida(repartoAux2),getFechaSalida(reparto));
         condicion = condicion && personasIguales(getChofer(repartoAux2),getChofer(reparto));
-        ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
-        ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
+    ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
+    ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
         if(condicion || condicion2)
         {
             listaAux=destruirLista(listaAux,false);
@@ -749,7 +781,8 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        ListaPtr listaDestruir = listaAux2;
+
+        listaDestruir = listaAux2;
         listaAux2 = getResto(listaAux2);
         listaDestruir = destruirLista(listaDestruir, false);
     }
