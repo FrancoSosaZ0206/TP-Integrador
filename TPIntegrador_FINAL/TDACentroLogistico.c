@@ -531,19 +531,18 @@ bool VerificarIDUnico(CentroLogisticoPtr centroLogistico, int ID_Analizar)
     return false;
 }
 
-bool VerificarCuilUnico(CentroLogisticoPtr centroLogistico, char* CuilComprobar)
+bool esCuilExistente(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
 {
-    PersonaPtr PersonaTemporal;
-    CuilPtr CuilTemporal;
-    int ResultadoComparacion = 0;
+    CuilPtr cuilAux;
+
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPersonas(centroLogistico) );
+
     while(!listaVacia(listaAux))
     {
-        PersonaTemporal = (PersonaPtr)getCabecera(listaAux);
-        CuilTemporal = getCuilPersona(PersonaTemporal);
-        ResultadoComparacion = strcmp(getCuil(CuilTemporal), CuilComprobar);
-        if( ResultadoComparacion == 0 )
+        cuilAux = getCuilPersona( (PersonaPtr)getCabecera(listaAux) );
+
+        if( cuilsIguales( cuilAux , cuil )
         {
             listaAux = destruirLista(listaAux, false);
             return true;

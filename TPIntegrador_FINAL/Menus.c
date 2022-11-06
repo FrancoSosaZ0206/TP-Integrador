@@ -15,7 +15,7 @@
 ///                                                  FUNCIONES AYUDANTES
 
 ///--------------------------------------------------------------------------------------------------------------------------
-/*OPERACIÓN: menu para continuar en un menú
+/** OPERACIÓN: menu para continuar en un menú
 PRECONDICIÓN: ninguna
 POSTCONDICION: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
 PARÁMETROS: ninguno
@@ -42,7 +42,7 @@ bool menuContinuar()
         return false;
 }
 
-/* OPERACIÓN: copia una lista
+/** OPERACIÓN: copia una lista
 PRECONDICIÓN: listaOriginal debe haber sido creada y tener contenido.
 POSTCONDICIÓN: copia una lista con todos sus elementos, cuales quiera sean sus tipos.
 PARÁMETROS:
@@ -105,7 +105,7 @@ ListaPtr copiarLista(ListaPtr listaOriginal,int tipoDato)
     return copiaLista;
 }
 
-/* OPERACIÓN: deteccion de cambios
+/** OPERACIÓN: deteccion de cambios
 PRECONDICIÓN: debe haberse usado copiarLista previamente, y por tanto, copiaLista ya debe
               haber recibido los contenidos de la lista original.
 POSTCONDICION: compara las listas, retornando si hubo cambios o no.
@@ -172,7 +172,7 @@ bool detectarCambios(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDato)
     return false; //Retornamos que no (false), no hubo ningún cambio.
 }
 
-/* OPERACIÓN: menu de guardado de cambios
+/** OPERACIÓN: menu de guardado de cambios
 PRECONDICIÓN:
     - centroLogistico debe haber sido creado y llenado con la lista de datos correspondiente.
     - debe haberse usado la funcion detectarCambios previamente.
@@ -239,7 +239,7 @@ bool menuGuardarCambios(CentroLogisticoPtr centroLogistico,int tipoDato)
     return cambiosGuardados;
 }
 
-/* OPERACIÓN: menu de modo de accion
+/** OPERACIÓN: menu de modo de accion
 PRECONDICIÓN: ninguna
 POSTCONDICION: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
 PARÁMETROS:
@@ -274,7 +274,7 @@ int menuModoAccion(int *opMenuAnterior)
 
     return eleccion;
 }
-/* OPERACIÓN: menu de modo de accion
+/** OPERACIÓN: menu de modo de accion
 PRECONDICIÓN: haber usado menuModoAccion
 POSTCONDICION: se ejecuta el modo de accion 1 - se toma un indice por pantalla.
 PARÁMETROS:
@@ -300,7 +300,7 @@ int menuModoAccion1(ListaPtr lista)
 
     return i;
 }
-/* OPERACIÓN: menu de modo de accion
+/** OPERACIÓN: menu de modo de accion
 PRECONDICIÓN: haber usado menuModoAccion
 POSTCONDICION: se ejecuta el modo de accion 2 - se toma un conjunto de índices por pantalla.
 PARÁMETROS:
@@ -363,7 +363,7 @@ void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
     system("cls");
 }
 
-/* OPERACIÓN: menu de modo de accion
+/** OPERACIÓN: menu de modo de accion
 PRECONDICIÓN: haber usado menuModoAccion
 POSTCONDICION: se ejecuta el modo de accion 3 - se toma un rango de índices por pantalla.
 PARÁMETROS:
@@ -416,13 +416,14 @@ void menuModoAccion3(ListaPtr lista,int* desde,int* hasta)
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
-/* OPERACIÓN: carga de cuil con datos
+/** OPERACIÓN: carga de cuil con datos
 PRECONDICIÓN: cuil debe haber sido DECLARADO
 POSTCONDICION: se piden datos por pantalla y se crea un cuil en memoria dinamica con datos válidos
 PARÁMETROS: ninguno
 DEVUELVE: puntero al cuil cargado
-*//**
-ADVERTENCIA: No debe crearse el cuil con su constructora, causará memory leaks. */
+
+***ADVERTENCIA***
+    No debe crearse el cuil con su constructora, causará memory leaks. */
 CuilPtr cargarCuil()
 {
     CuilPtr cuil = crearCuil("0000000000000");
@@ -443,7 +444,7 @@ CuilPtr cargarCuil()
 
     return cuil;
 }
-/* OPERACIÓN: carga de domicilio con datos
+/** OPERACIÓN: carga de domicilio con datos
 PRECONDICIÓN: domicilio debe haber sido DECLARADO
 POSTCONDICION: se piden datos por pantalla y se crea un domicilio en memoria dinamica
 PARÁMETROS: ninguno
@@ -468,7 +469,7 @@ DomicilioPtr cargarDomicilio()
 
     return crearDomicilio(calle,altura,localidad);
 }
-/* OPERACIÓN: carga de fecha con datos
+/** OPERACIÓN: carga de fecha con datos
 PRECONDICIÓN: fecha debe haber sido DECLARADA
 POSTCONDICION: se piden datos por pantalla y se crea una fecha con datos válidos
 PARÁMETROS: ninguno
@@ -517,7 +518,7 @@ FechaPtr cargarFecha()
     return fecha;
 }
 
-/* OPERACIÓN: actualiza los datos de un cuil
+/** OPERACIÓN: actualiza los datos de un cuil
 PRECONDICIÓN: cuil debe haberse creado
 POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
 PARÁMETROS:
@@ -542,7 +543,7 @@ void actualizarCuil(CuilPtr cuil)
             system("cls");
     } while(!esCuilValido(cuil));
 }
-/* OPERACIÓN: actualiza los datos de un domicilio
+/** OPERACIÓN: actualiza los datos de un domicilio
 PRECONDICIÓN: domicilio debe haberse creado
 POSTCONDICION: se piden datos por pantalla y se actualiza la estructura
 PARÁMETROS:
@@ -568,7 +569,7 @@ void actualizarDomicilio(DomicilioPtr domicilio)
     setAltura(domicilio,altura);
     setLocalidad(domicilio,localidad);
 }
-/* OPERACIÓN: actualiza los datos de una fecha
+/** OPERACIÓN: actualiza los datos de una fecha
 PRECONDICIÓN: fecha debe haberse creado
 POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
 PARÁMETROS:
@@ -675,19 +676,19 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 }
 bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
-    bool CuilUnico = false;
     bool continuar;
-    ///Variables para funciones
+///Variables para funciones
     int i = 1;
-    ///Cliente
+///Variables para personas
     char nombre[100];
     char apellido[100];
     PersonaPtr persona;
     CuilPtr cuil;
+
     do
     {
         if(esChofer) { printf("CARGAR CHOFER %d.\n\n", i++); }
-        if(!esChofer) { printf("CARGAR CLIENTE %d.\n\n", i++); }
+        else { printf("CARGAR CLIENTE %d.\n\n", i++); }
 
         printf("\tIngrese Nombre: ");
         scanf("%[^\n]%*c",nombre);
@@ -699,35 +700,36 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         printf("\n\tDomicilio");
         DomicilioPtr domicilio = cargarDomicilio();
 
-        CuilUnico = false;
-        while(!CuilUnico)
+        bool cuilExistente = false;
+        do
         {
-            CuilUnico = true;
+            cuilExistente = true;
             cuil = cargarCuil();
-            if(!VerificarCuilUnico(centroLogistico, getCuil(cuil)))
+            if(cuil == NULL)
             {
-                CuilUnico = false;
+                printf("\n\n\tCuil invalido.");
+                presionarEnterYLimpiarPantalla();
+            }
+            else
+            {
+
+            }
+            if(esCuilExistente(centroLogistico, cuil))
+            {
+                cuilExistente = false;
                 printf("\n\n\t[Cuil existente...]\n");
                 presionarEnterYLimpiarPantalla();
             }
-        }
+        } while(cuilExistente || cuil==NULL);
 
-        if(cuil != NULL)
-        {
             persona = crearPersona(nombre, apellido, domicilio, cuil, false);
             agregarPersona(centroLogistico, persona);
-        }
 
-        if(cuil == NULL)
-        {
-            printf("\n\n\tCuil invalido, saliendo del menu.");
+            if(esChofer) { printf("Cliente cargado exitosamente."); }
+            else { printf("Cliente cargado exitosamente."); }
+
             presionarEnterYLimpiarPantalla();
         }
-
-        if(esChofer) { printf("Cliente cargado exitosamente."); }
-        if(!esChofer) { printf("Cliente cargado exitosamente."); }
-
-        presionarEnterYLimpiarPantalla();
 
         continuar=menuContinuar();
 
@@ -2329,6 +2331,12 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
     }
 }
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: . */
 int menuTipoRepartos()
 {
    system("cls");
@@ -2348,6 +2356,12 @@ int menuTipoRepartos()
    return eleccion;
 }
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: . */
 int MenuSeleccionAtributoReparto()
 {
     int eleccion;
@@ -2381,6 +2395,12 @@ RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAb
     }
 }
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: . */
 RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     char CuilBuscar[100];
@@ -2452,6 +2472,12 @@ RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool 
     return RepartoElegido;
 }
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: . */
 RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil, bool esRepartoAbierto)
 {
     bool match=false;
@@ -2487,6 +2513,12 @@ RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil,
     }
 }
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: . */
 RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* patente, bool esRepartoAbierto)
 {
     bool match=false;
@@ -2520,6 +2552,12 @@ RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* pat
     }
 }
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: . */
 RepartoPtr devolverRepartoFecha(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, bool esRepartoAbierto, bool esFechaSalida)
 {
     int hora = 0;
@@ -2564,6 +2602,12 @@ RepartoPtr devolverRepartoFecha(CentroLogisticoPtr centroLogistico, FechaPtr fec
     else{ return NULL; }
 }
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: . */
 RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID, bool esRepartoAbierto)
 {
     ListaPtr listaAux = crearLista();
@@ -3027,33 +3071,6 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
     }
 }
 
-bool ChoferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr PersonaEvaluar, bool esRepartoAbierto)
-{
-    int ResultadoComparacion = 0;
-    RepartoPtr RepartoTemporal;
-    PersonaPtr PersonaTemporal;
-    CuilPtr CuilActual;
-    CuilPtr CuilEvaluar = getCuilPersona(PersonaEvaluar);
-    ListaPtr listaAux = crearLista();
-    agregarLista(listaAux, getRepartos(centroLogistico, esRepartoAbierto));
-    while(!listaVacia(listaAux))
-    {
-        RepartoTemporal = (RepartoPtr)getCabecera(listaAux);
-        PersonaTemporal = getChofer(RepartoTemporal);
-        CuilActual = getCuilPersona(PersonaTemporal);
-        ResultadoComparacion = strcmp(getCuil(CuilActual), getCuil(CuilEvaluar));
-        if(ResultadoComparacion == 0)
-        {
-            listaAux = destruirLista(listaAux, false);
-            return true;
-        }
-        ListaPtr listaDestruir = listaAux;
-        listaAux = getResto(listaAux);
-        listaDestruir = destruirLista(listaDestruir, false);
-    }
-    listaAux = destruirLista(listaAux, false);
-    return false;
-}
 
 ///--------------------------------------------------------------------------------------------------------------------------///
 
@@ -3069,7 +3086,7 @@ PRECONDICIÓN:
 POSTCONDICIÓN:
 PARÁMETROS:
     -
-DEVUELVE: Nada. */
+DEVUELVE: . */
 bool hayChoferes(CentroLogisticoPtr centroLogistico)
 {
     PersonaPtr personaAux;
@@ -3133,41 +3150,6 @@ POSTCONDICIÓN:
 PARÁMETROS:
     -
 DEVUELVE: Nada. */
-void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
-{
-    int cont = 1;
-
-    PaquetePtr paqueteAux;
-    ListaPtr listaAux = crearLista();
-    agregarLista(listaAux, getPaquetes(centroLogistico));
-
-    while(!listaVacia(listaAux))
-    {
-        paqueteAux = (PaquetePtr)getCabecera(listaAux);
-
-        int estado = getEstado(paqueteAux);
-        bool paqueteDisponible = estado == 0 || estado == 5;
-        if(paqueteDisponible)
-        {
-            printf("\n\n Posicion %d. \n\n", cont);
-            mostrarPaquete(paqueteAux);
-        }
-
-        ListaPtr listaDestruir = listaAux;
-        listaAux = getResto(listaAux);
-        listaDestruir = destruirLista(listaDestruir, false);
-        cont++;
-    }
-    listaAux = destruirLista(listaAux, false);
-}
-
-/** OPERACIÓN:
-PRECONDICIÓN:
-POSTCONDICIÓN:
-PARÁMETROS:
-    -
-DEVUELVE: Nada. */
-///Cambio Franco: la condición ahora es analizar la lista de repartos y ver si hay paquetes iguales al que no
 bool hayPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
 {
     PaquetePtr paqueteAux;
@@ -3193,6 +3175,37 @@ bool hayPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
     return false;
 }
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: Nada. */
+void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
+{
+    PaquetePtr paqueteAux;
+
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux, getPaquetes(centroLogistico));
+
+    for(int i=1;!listaVacia(listaAux);i++)
+    {
+        paqueteAux = (PaquetePtr)getCabecera(listaAux);
+
+        int estado = getEstado(paqueteAux);
+        bool paqueteDisponible = estado == 0 || estado == 5;
+        if(paqueteDisponible)
+        {
+            printf("\n\n Posicion %d. \n\n", i);
+            mostrarPaquete(paqueteAux);
+        }
+
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+    }
+    listaAux = destruirLista(listaAux, false);
+}
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
@@ -3202,27 +3215,6 @@ bool hayPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
 
 bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 {
-    int k=0;
-    int n=0;
-    int i=0;
-
-    bool continuar = false;
-
-    bool repartoArmado = false;
-
-    bool choferValido = false;
-    bool vehiculoValido = false;
-    bool paqueteValido = false;
-    bool seguirApilando = false;
-
-    RepartoPtr reparto;
-
-    PersonaPtr choferElegido;
-    VehiculoPtr vehiculoElegido;
-    PaquetePtr paqueteElegido;
-
-    PilaPtr pilaPaquetesElegidos = crearPila();
-
 //------------------------------------------//
 ///SECCION DE VERIFICACION DE RECURSOS
 //------------------------------------------//
@@ -3240,18 +3232,36 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
     }
     else
     {
+        bool continuar = false;
+        bool repartoArmado = false; //para el final de la funcion
+
+        RepartoPtr reparto;
+
+        PersonaPtr choferElegido;
+        VehiculoPtr vehiculoElegido;
+        PaquetePtr paqueteElegido;
+
     //------------------------------------------//
     ///SECCION DE ARMADO
     //------------------------------------------//
-
+        printf("ARMAR REPARTO\n\n");
         do
         {
-
         //------------------------------------------//
         ///SECCION DE VALIDACION
         //------------------------------------------//
 
-        printf("ARMAR REPARTO\n\n");
+            int k=0;
+            int n=0;
+            int i=0;
+
+            bool choferValido = false;
+            bool vehiculoValido = false;
+            bool paqueteValido = false;
+            bool seguirApilando = false;
+
+            PilaPtr pilaPaquetesElegidos = crearPila();
+
             do
             { /// Validación y elección de chofer
                 n = longitudLista(getPersonas(centroLogistico));
@@ -3327,42 +3337,40 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             system("cls");
 
             do
-            {
-                paqueteValido = false;
-                do
+            { ///Validación y elección de paquetes
+                n = longitudLista(getPaquetes(centroLogistico));
+                mostrarPaquetesDisponibles(centroLogistico);
+
+                printf("\n\nPaquete nro: %d. \n", i+1);
+                printf("Seleccione el paquete a cargar ingresando su indice: ");
+                scanf("%d",&k);
+                limpiarBufferTeclado();
+
+                if(k > 0 && k < n)
                 {
-                    ///SELECCION DE PAQUETES
-                    n = longitudLista(getPaquetes(centroLogistico));
-                    mostrarPaquetesDisponibles(centroLogistico);
-                    printf("\n\nPaquete nro: %d. \n", i+1);
-                    printf("Seleccione el paquete a cargar ingresando su indice: ");
-                    limpiarBufferTeclado();
-                    scanf("%d",&k);
-                    if(k > 0 && k < n)
-                    {
-                        paqueteElegido = getDatoLista(getPaquetes(centroLogistico), k-1);
-                        if(getEstado(paqueteElegido) == 0 || getEstado(paqueteElegido) == 5)
-                            paqueteValido = true;
-                        else
-                        {
-                            printf("\n\nERROR: Paquete actualmente en curso. Vuelva a elegir.");
-                            presionarEnterYLimpiarPantalla();
-                        }
-                    }
+                    paqueteElegido = getDatoLista(getPaquetes(centroLogistico), k-1);
+                    if(getEstado(paqueteElegido) == 0 || getEstado(paqueteElegido) == 5)
+                        paqueteValido = true;
                     else
                     {
-                        printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
+                        printf("\n\nERROR: Paquete actualmente en curso. Vuelva a elegir.");
                         presionarEnterYLimpiarPantalla();
                     }
-                    system("cls");
-                } while(!paqueteValido && hayPaquetesDisponibles(centroLogistico));
+                }
+                else
+                {
+                    printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
+                    presionarEnterYLimpiarPantalla();
+                }
+                system("cls");
 
                 setEstado(paqueteElegido, 1);
                 apilar(pilaPaquetesElegidos, (PaquetePtr)paqueteElegido);
                 seguirApilando = menuContinuar();
                 i++;
-            } while(seguirApilando);
+            } while(!paqueteValido && hayPaquetesDisponibles(centroLogistico) && seguirApilando);
 
+        ///Armado del reparto y última barrera de verificación:
             reparto = armarReparto(choferElegido, vehiculoElegido, fechaSalida, fechaRetorno, pilaPaquetesElegidos);
             if(esRepartoExistente(centroLogistico,reparto))
             {
