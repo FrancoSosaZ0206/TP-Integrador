@@ -542,7 +542,7 @@ bool esCuilExistente(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
     {
         cuilAux = getCuilPersona( (PersonaPtr)getCabecera(listaAux) );
 
-        if( cuilsIguales( cuilAux , cuil )
+        if( cuilsIguales( cuilAux , cuil ) )
         {
             listaAux = destruirLista(listaAux, false);
             return true;
@@ -609,14 +609,14 @@ bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComp
         if( strcmp( PatenteComprobar, getPatente(VehiculoTemporal) ) == 0 )
         {
             listaAux = destruirLista(listaAux, false);
-            return true;
+            return false;
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux = destruirLista(listaAux, false);
-    return false;
+    return true;
 }
 
 bool VerificarExistenciaChoferes(CentroLogisticoPtr centroLogistico)
@@ -749,9 +749,9 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        ListaPtr listaDestruir = listaAux2;
+        ListaPtr listaDestruir2 = listaAux2;
         listaAux2 = getResto(listaAux2);
-        listaDestruir = destruirLista(listaDestruir, false);
+        listaDestruir2 = destruirLista(listaDestruir2, false);
     }
     listaAux=destruirLista(listaAux,false);
     listaAux2=destruirLista(listaAux2,false);

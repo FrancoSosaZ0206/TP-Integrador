@@ -674,6 +674,7 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
 
     return menuGuardarCambios(centroLogistico,1);
 }
+
 bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
 {
     bool continuar;
@@ -705,15 +706,6 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
         {
             cuilExistente = true;
             cuil = cargarCuil();
-            if(cuil == NULL)
-            {
-                printf("\n\n\tCuil invalido.");
-                presionarEnterYLimpiarPantalla();
-            }
-            else
-            {
-
-            }
             if(esCuilExistente(centroLogistico, cuil))
             {
                 cuilExistente = false;
@@ -722,21 +714,26 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             }
         } while(cuilExistente || cuil==NULL);
 
-            persona = crearPersona(nombre, apellido, domicilio, cuil, false);
-            agregarPersona(centroLogistico, persona);
+        persona = crearPersona(nombre, apellido, domicilio, cuil, false);
+        agregarPersona(centroLogistico, persona);
 
-            if(esChofer) { printf("Cliente cargado exitosamente."); }
-            else { printf("Cliente cargado exitosamente."); }
-
+        if(esChofer)
+        {
+            printf("Cliente cargado exitosamente.");
             presionarEnterYLimpiarPantalla();
         }
-
-        continuar=menuContinuar();
-
+        else
+        {
+            printf("Cliente cargado exitosamente.");
+            presionarEnterYLimpiarPantalla();
+        }
+        continuar = menuContinuar();
     } while(continuar);
 
     return menuGuardarCambios(centroLogistico,2);
 }
+
+
 bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico)
 {
     bool PatenteValida = false;
@@ -3455,7 +3452,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                         while(i<nIndices && !existeEnCerrados)
                         {
                             repartoCerrar=(RepartoPtr)getDatoLista(getRepartos(centroLogistico,false),indices[i]-1);
-                            if(esRepartoExistente(centroLogistico,repartoCerrar,false))
+                            if(esRepartoExistente(centroLogistico,repartoCerrar))
                                 existeEnCerrados=true;
                             i++;
                         }
@@ -3476,7 +3473,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                         while(i<=hasta && !existeEnCerrados)
                         {
                             repartoCerrar=(RepartoPtr)getDatoLista(getRepartos(centroLogistico,false),i);
-                            if(esRepartoExistente(centroLogistico,repartoCerrar,false))
+                            if(esRepartoExistente(centroLogistico,repartoCerrar))
                                 existeEnCerrados=true;
                             i++;
                         }

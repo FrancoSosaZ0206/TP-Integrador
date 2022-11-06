@@ -13,8 +13,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez);
 int main()
 {
     CentroLogisticoPtr c = crearCentroLogisticoDefecto();
-    RepartoPtr R = SeleccionRepartoPorAtributo(c,true);
-    if(R != NULL) {mostrarRepartoSinPaquetes(R);}
 /** **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
