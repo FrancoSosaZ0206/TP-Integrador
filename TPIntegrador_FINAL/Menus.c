@@ -3237,6 +3237,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
         printf("Asegurese de que hayan choferes, vehiculos y paquetes disponibles y vuelva a intentar.");
         presionarEnterYLimpiarPantalla();
         return true;
+    }
     else
     {
     //------------------------------------------//
