@@ -3163,76 +3163,74 @@ bool ExistenPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
 
 bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 {
-    int k = 0;
-    int longLista=0;
+    int k=0;
+    int n=0;
     int i=0;
+
     bool continuar = false;
-    bool SeguirApilandoPaquetes = false;
-    bool SePuedeArmar = true;
-    bool PaqueteValido = false;
-    bool ChoferValido = false;
-    bool VehiculoValido = false;
+
+    bool hayRecursos = true;
+
+    bool choferValido = false;
+    bool vehiculoValido = false;
+    bool paqueteValido = false;
+    bool seguirApilando = false;
+
     RepartoPtr reparto;
+
     PersonaPtr choferElegido;
     VehiculoPtr vehiculoElegido;
     PaquetePtr paqueteElegido;
+
     PilaPtr pilaPaquetesElegidos = crearPila();
+
+//------------------------------------------//
+///SECCION DE VERIFICACION DE RECURSOS
+//------------------------------------------//
+
+    if(hayChoferes(centroLogistico)
+       && !listaVacia(getVehiculos(centroLogistico))
+       && !listaVacia(getPaquetes(centroLogistico))
+       && hayPaquetesDisponibles(centroLogistico))
+    { //Si hay recursos disponibles para armar un reparto, armamos
+
     //------------------------------------------//
-    ///SECCION DE VERIFICACION DE RECURSOS
+    ///SECCION DE ARMADO
     //------------------------------------------//
-    if(!ExistenChoferesDisponibles(centroLogistico))
-    {
-        SePuedeArmar = false;
-    }
-    if(listaVacia(getPaquetes(centroLogistico)))
-    {
-        SePuedeArmar = false;
-    }
-    if(!ExistenPaquetesDisponibles(centroLogistico))
-    {
-        SePuedeArmar = false;
-    }
-    //------------------------------------------//
-    ///SECCION DE VALIDACION Y ARMADO DE REPARTO
-    //------------------------------------------//
-    if(SePuedeArmar)
-    {
+
         do
         {
+
+        //------------------------------------------//
+        ///SECCION DE VALIDACION
+        //------------------------------------------//
+
+        printf("ARMAR REPARTO\n\n");
             do
-            {
-                ChoferValido = false;
-                longLista = longitudLista(getPersonas(centroLogistico));
+            { /// Validación y elección de chofer
+                n = longitudLista(getPersonas(centroLogistico));
                 mostrarChoferesDisponibles(centroLogistico);
-                printf("\n\nElegir chofer: ");
-                limpiarBufferTeclado();
+
+                printf("\n\nSeleccione un chofer ingresando su indice: ");
                 scanf("%d",&k);
-                if(k > 0 && k < longLista)
+                limpiarBufferTeclado();
+
+                if(k > 0 && k < n)
                 {
                     choferElegido = getDatoLista(getPersonas(centroLogistico), k-1);
                     if(getEsChofer(choferElegido))
                     {
-                        if(!ChoferEnReparto(centroLogistico, choferElegido, true))
-                        {
-                            if(!ChoferEnReparto(centroLogistico, choferElegido, false))
-                            {
-                                ChoferValido = true;
-                            }
-                            else
-                            {
-                                printf("\n\nChofer con reparto diario concretado. Vuelva a elegir.");
-                                presionarEnterYLimpiarPantalla();
-                            }
-                        }
+                        if(!choferEnReparto(centroLogistico, choferElegido,false))
+                            choferValido=true;
                         else
                         {
-                            printf("\n\nChofer en otro reparto. Vuelva a elegir.");
+                            printf("\n\nERROR: El chofer elegido ya esta en un reparto abierto. Vuelva a elegir.");
                             presionarEnterYLimpiarPantalla();
                         }
                     }
                     else
                     {
-                        printf("\n\nChofer elegido no ser chofer. Vuelva a elegir.");
+                        printf("\n\nERROR: La persona elegida no es un chofer. Vuelva a elegir.");
                         presionarEnterYLimpiarPantalla();
                     }
                 }
@@ -3242,24 +3240,24 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     presionarEnterYLimpiarPantalla();
                 }
                 system("cls");
-            }while(!ChoferValido);
+            }while(!choferValido);
+
+            choferElegido = getDatoLista(getPersonas(centroLogistico),k-1);
 
             do
-            {
-                VehiculoValido = false;
-                ///SELECCION DEL VEHICULO
-                longLista = longitudLista(getVehiculos(centroLogistico));
+            { /// Validación y elección de vehículo
+                n = longitudLista(getVehiculos(centroLogistico));
                 mostrarVehiculos(centroLogistico);
+
                 printf("\n\nSeleccione un vehiculo ingresando su indice: ");
-                limpiarBufferTeclado();
                 scanf("%d",&k);
-                if(k > 0 && k < longLista)
+                limpiarBufferTeclado();
+
+                if(k > 0 && k < n)
                 {
                     vehiculoElegido = getDatoLista(getVehiculos(centroLogistico),k-1);
                     if(!buscarVehiculoRepartos(centroLogistico, getPatente(vehiculoElegido)))
-                    {
-                        VehiculoValido = true;
-                    }
+                        vehiculoValido = true;
                     else
                     {
                         printf("\n\nVehiculo en otro reparto. Vuelva a elegir.");
@@ -3271,7 +3269,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     printf("\n\nIndice inexistente. Vuelva a elegir.");
                     presionarEnterYLimpiarPantalla();
                 }
-            } while(!VehiculoValido);
+            } while(!vehiculoValido);
 
             vehiculoElegido=getDatoLista(getVehiculos(centroLogistico),k-1);
 
@@ -3284,22 +3282,22 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
             do
             {
-                PaqueteValido = false;
+                paqueteValido = false;
                 do
                 {
                     ///SELECCION DE PAQUETES
-                    longLista = longitudLista(getPaquetes(centroLogistico));
+                    n = longitudLista(getPaquetes(centroLogistico));
                     mostrarPaquetesDisponibles(centroLogistico);
                     printf("\n\nPaquete nro: %d. \n", i+1);
                     printf("Seleccione el paquete a cargar ingresando su indice: ");
                     limpiarBufferTeclado();
                     scanf("%d",&k);
-                    if(k > 0 && k < longLista)
+                    if(k > 0 && k < n)
                     {
                         paqueteElegido = getDatoLista(getPaquetes(centroLogistico), k-1);
                         if(getEstado(paqueteElegido) == 0)
                         {
-                            PaqueteValido = true;
+                            paqueteValido = true;
                         }
                         else
                         {
@@ -3313,17 +3311,24 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                         presionarEnterYLimpiarPantalla();
                     }
                     system("cls");
-                }while(!PaqueteValido && ExistenPaquetesDisponibles(centroLogistico));
+                }while(!paqueteValido && hayPaquetesDisponibles(centroLogistico));
                 setEstado(paqueteElegido, 1);
                 apilar(pilaPaquetesElegidos, (PaquetePtr)paqueteElegido);
-                SeguirApilandoPaquetes = menuContinuar();
+                seguirApilando = menuContinuar();
                 i++;
-            }while(SeguirApilandoPaquetes);
+            } while(seguirApilando);
 
             reparto = armarReparto(choferElegido, vehiculoElegido, fechaSalida, fechaRetorno, pilaPaquetesElegidos);
-            agregarReparto(centroLogistico, reparto, true);
-
-            printf("\n\nReparto armado exitosamente.");
+            if(esRepartoExistente(centroLogistico,reparto,true) && esRepartoExistente(centroLogistico,reparto,false))
+            {
+                reparto = destruirReparto(reparto);
+                printf("ERROR: el reparto armado ya existia en el centro logistico. Pruebe seleccionando otro chofer o cambiando la fecha.");
+            }
+            else
+            {
+                agregarReparto(centroLogistico, reparto, true);
+                printf("\n\nReparto armado exitosamente.");
+            }
 
             continuar=menuContinuar();
         } while(continuar);
