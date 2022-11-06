@@ -455,7 +455,7 @@ CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico)
         else if(esCuilExistente(centroLogistico,cuil))
             printf("Cuil existente. Vuelva a ingresar.");
 
-    } while(!esCuilValido(cuil) && !esCuilExistente(centroLogistico,cuil));
+    } while(!esCuilValido(cuil) && esCuilExistente(centroLogistico,cuil));
 
     return cuil;
 }
@@ -545,6 +545,8 @@ DEVUELVE: Nada */
 void actualizarCuil(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
 {
     char strCuil[100];
+    CuilPtr cuilAux;
+
     int i=0;
     do
     {
@@ -553,16 +555,20 @@ void actualizarCuil(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
         if(i<4)
-            setCuil(cuil,strCuil);
+            cuilAux = crearCuil(strCuil);
         else    //if(i==4)
+        {
+            cuilAux = destruirCuil(cuilAux);
             printf("\n\nIntentos agotados.\n\n");
+            return;
+        }
         i++;
         if(!esCuilValido(cuil))
             printf("Cuil invalido. Vuelva a ingresar.");
         else if(esCuilExistente(centroLogistico,cuil))
             printf("Cuil existente. Vuelva a ingresar.");
 
-    } while(!esCuilValido(cuil));
+    } while(!esCuilValido(cuil) && esCuilExistente(centroLogistico,cuil));
 }
 /** OPERACIÓN: actualiza los datos de un domicilio
 PRECONDICIÓN: domicilio debe haberse creado
@@ -604,6 +610,8 @@ void actualizarFecha(FechaPtr fecha)
     int hora=0;
     int minuto=0;
 
+    FechaPtr fechaAux;
+
     int i=0;
 
     do
@@ -615,11 +623,8 @@ void actualizarFecha(FechaPtr fecha)
         scanf("%d %d",&hora,&minuto);
         limpiarBufferTeclado();
 
-        setDia(fecha,dia);
-        setMes(fecha,mes);
-        setAnio(fecha,anio);
-        setHora(fecha,hora);
-        setMinuto(fecha,minuto);
+        fechaAux = crearFecha(dia,mes,anio,hora,minuto);
+
         if(!esFechaValida(fecha) && i<4)
         {
             printf("\n\nFecha invalida. Reingrese la fecha.");
@@ -627,11 +632,21 @@ void actualizarFecha(FechaPtr fecha)
         }
         else if(i==4)
         {
+            fechaAux = destruirFecha(fechaAux);
+
             printf("\n\nSe agotaron los intentos.");
             presionarEnterYLimpiarPantalla();
-            break;
+            return;
         }
     } while (!esFechaValida(fecha));
+
+    setDia(fecha,dia);
+    setMes(fecha,mes);
+    setAnio(fecha,anio);
+    setHora(fecha,hora);
+    setMinuto(fecha,minuto);
+
+    fechaAux = destruirFecha(fechaAux);
 }
 
 
