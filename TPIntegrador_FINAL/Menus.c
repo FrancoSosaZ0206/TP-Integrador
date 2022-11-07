@@ -1251,7 +1251,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
     FechaPtr nFechaEntrega = crearFecha(0,0,0,0,0);
     PaquetePtr paquetesAModificar[100];
     int nEstado;
-
+    ListaPtr listaOriginal = crearLista();
 
     if(listaVacia(listaAux))
     {
@@ -1261,6 +1261,7 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
     }
     else
     {
+        listaOriginal = copiarLista(getPaquetes(centroLogistico),1);
         int modoAccion = menuModoAccion(opMenuAnterior);
         if(!(modoAccion == 0 || modoAccion == -1))
         {
@@ -1530,8 +1531,11 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
 
         nDireccion = destruirDomicilio(nDireccion);
         nFechaEntrega = destruirFecha(nFechaEntrega);
-        return menuGuardarCambios(centroLogistico,1);
-        return true; //"todo sigue igual que lo guardado."
+        bool cambioDetectado = detectarCambios(listaOriginal, getPaquetes(centroLogistico), 1);
+        if(cambioDetectado)
+            return menuGuardarCambios(centroLogistico,1);
+        else
+            return true; //"todo sigue igual que lo guardado."
     }
 }
 bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *opMenuAnterior)
