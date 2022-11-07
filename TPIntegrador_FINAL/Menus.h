@@ -7,7 +7,7 @@
 
 /**************************************************************************************************************************
 
-                                                MENUS - INTERFAZ DE OPERACIÓNES
+                                                MENUS - INTERFAZ DE OPERACIONES
 
 ***************************************************************************************************************************/
 
@@ -188,16 +188,9 @@ POSTCONDICION: se muestra el reparto buscado, o se muestra un mensaje de error d
 PARÁMETROS:
       - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
       - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
-DEVUELVE: puntero al reparto buscado. */
-RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
+DEVUELVE: nada. */
+void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
 
-int menuTipoRepartos();
-int MenuSeleccionAtributoReparto();
-RepartoPtr devolverRepartoPaquete(CentroLogisticoPtr centroLogistico, int ID, bool esRepartoAbierto);
-RepartoPtr devolverRepartoFecha(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, bool esRepartoAbierto, bool esFechaSalida);
-RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* patente, bool esRepartoAbierto);
-RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil, bool esRepartoAbierto);
-RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 ///--------------------------------------------------------------------------------------------------------------------------
 
 ///                                             MENÚS DE MUESTRA DE DATOS
@@ -303,6 +296,33 @@ PARÁMETROS:
   ctroLog: puntero a la estructura centro logístico que se desea crear
 DEVUELVE: puntero al centro logístico creado. */
 CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog);
+
+
+///--------------------------------------------------------------------------------------------------------------------------
+
+///                                             FUNCIONES ESPECIALES
+
+///--------------------------------------------------------------------------------------------------------------------------
+
+
+/** OPERACIÓN: carga de cuil con datos
+PRECONDICIÓN: cuil debe haber sido DECLARADO
+POSTCONDICION: se piden datos por pantalla y se crea un cuil en memoria dinamica con datos válidos
+PARÁMETROS: puntero al centro Logistico
+DEVUELVE: puntero al cuil cargado
+
+***ADVERTENCIA***
+    No debe crearse el cuil con su constructora, causará memory leaks. */
+CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico);
+/** OPERACIÓN: carga de fecha con datos
+PRECONDICIÓN: fecha debe haber sido DECLARADA
+POSTCONDICION: se piden datos por pantalla y se crea una fecha con datos válidos
+PARÁMETROS: ninguno
+DEVUELVE: puntero a la fecha cargada
+
+***ADVERTENCIA***
+    No debe crearse la fecha con su constructora, causará memory leaks. */
+FechaPtr cargarFecha();
 
 
 #endif // MENUS_H_INCLUDED

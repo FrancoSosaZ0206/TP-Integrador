@@ -483,6 +483,155 @@ bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente)
     return match;
 }
 
+bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo)
+{
+    bool condicion=false;
+    bool match=false;
+
+    int n=0;
+
+    int i=0;
+    char cuilBuscar[100];
+    char patenteBuscar[100];
+    int IDBuscar;
+    FechaPtr fechaBuscar;
+
+    if(modo==1)
+    {
+        n=longitudLista(getRepartos(centroLogistico,esRepartoAbierto));
+        do
+        {
+            printf("BUSCAR POR INDICE: \n");
+
+            printf("Seleccione un indice: ");
+            scanf("%d",&i);
+            limpiarBufferTeclado();
+
+            if(i<=0 || i>n)
+                printf("ERROR: Indice inexistente.\n\n");
+        } while(i<=0 || i>n);
+    }
+    else if(modo == 2)
+    {
+        printf("BUSCAR POR CUIL: \n");
+        cuilBuscar=cargarCuil(centroLogistico);
+        if(cuil==NULL)
+        {
+            printf("No se pudo buscar por CUIL.");
+            presionarEnterYLimpiarPantalla();
+            return match;
+        }
+    }
+    else if(modo == 3)
+    {
+        printf("BUSCAR POR PATENTE: \n");
+        do
+        {
+            printf("\n\n\tFormato: [AA 111 AA]");
+            printf("\n\n\tPatente: ");
+            scanf("%[^\n]%*c", patente);
+            limpiarBufferTeclado();
+
+            if(!esPatenteValida(patente))
+            {
+                printf("\n\n\t [Patente invalida...]\n");
+                presionarEnterYLimpiarPantalla();
+            }
+        } while(!esPatenteValida(patente));
+    }
+    else if(modo == 4)
+    {
+        printf("BUSCAR POR FECHA DE SALIDA: \n");
+        fechaBuscar = cargarFecha();
+    }
+    else if(modo == 5)
+    {
+        printf("BUSCAR POR FECHA DE RETORNO: \n");
+        fechaBuscar = cargarFecha();
+    }
+    else if(modo == 6)
+    {
+        n=longitudLista(getPaquetes(centroLogistico));
+
+        do
+        {
+            printf("BUSCAR POR ID DEL PAQUETE: \n");
+            pritnf("Ingrese el ID del paquete: ");
+            scanf("%d",&IDBuscar);
+            limpiarBufferTeclado();
+
+            if(IDBuscar<0 || IDBuscar>n)
+                printf("ERROR: ID inexistente.");
+        } while(IDBuscar<0 || IDBuscar>n);
+    }
+
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico));
+
+    for(int j=0;!listaVacia(listaAux);j++)
+    {
+        RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
+
+        switch(modo)
+        {
+        case 1:
+            condicion = i==j;
+            break;
+        case 2:
+            condicion = cuilsIguales(cuilBuscar,getCuilPersona(getChofer(repartoAux)));
+            break;
+        case 3:
+            condicion = strcmp(patenteBuscar,(getPatente(getVehiculo(repartoAux))));
+            break;
+        case 4:
+            condicion = fechasIguales(fechaBuscar,getFechaSalida(repartoAux));
+            break;
+        case 5:
+            condicion = fechasIguales(fechaBuscar,getFechaRetorno(repartoAux));
+            break;
+        }
+        if(modo==6)
+        {
+            n=cantidadPaquetes(repartoAux);
+            PaquetePtr paquetesAux[n];
+            int ultimaPos=0;
+            for(int i=0;!pilaVacia(getPaquetesReparto(repartoAux));i++)
+            {
+                paquetesAux[i] = descargarPaquete(repartoAux),
+
+                if(IDBuscar==getID(paquetesAux[i]))
+                {
+                    condicion=true;
+                    ultimaPos=n-i;
+                    break;
+                }
+                if(condicion)
+                {
+                    printf("FUNCION BUSCAR REPARTO, CLAUSULA 6: no se siguio el break en el 1er for.\n\n");
+                    presionarEnterYLimpiarPantalla();
+                }
+            }
+            for(int i=n-1;i>ultimaPos-1;i--)
+                cargarPaquete(repartoAux,paquetesAux[i]);
+        }
+
+        if(condicion)
+        {
+            match=true;
+            mostrarReparto(repartoAux);
+        }
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+    }
+    listaAux=destruirLista(listaAux,false);
+
+    if(match)
+        printf("\n"); //esto lo pongo acá para que no pase si no hay un match.
+
+    return match;
+}
+
 /// /////////////////////////////////////////FUNCIONES DE AGREGADO A LA LISTA//////////////////////////////////////////////////////////////////////////
 
 void agregarPaquete(CentroLogisticoPtr centroLogistico,PaquetePtr paquete)
