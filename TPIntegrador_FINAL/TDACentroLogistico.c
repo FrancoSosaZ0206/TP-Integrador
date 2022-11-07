@@ -624,26 +624,6 @@ bool VerificarPatenteValida(char* PatenteValidar)
     return false;
 }
 
-bool RepartoDiarioConcretado(CentroLogisticoPtr centroLogistico, FechaPtr fechaAnalizar)
-{
-    RepartoPtr repartoTemp;
-    ListaPtr listaAux = crearLista();
-    agregarLista(listaAux, getRepartos(centroLogistico, true));
-    while(!listaVacia(listaAux))
-    {
-        repartoTemp = (RepartoPtr)getCabecera(listaAux);
-        if(getDia(fechaAnalizar) == getDia2(getFechaSalida(repartoTemp)))
-        {
-            listaAux = destruirLista(listaAux, false);
-            return true;
-        }
-        ListaPtr listaDestruir = listaAux;
-        listaAux = getResto(listaAux);
-        listaDestruir = destruirLista(listaDestruir, false);
-    }
-    listaAux = destruirLista(listaAux, false);
-    return false;
-}
 
 bool choferEnReparto(CentroLogisticoPtr centroLogistico, char* cuilBuscar, bool esRepartoAbierto)
 {

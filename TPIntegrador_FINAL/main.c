@@ -13,10 +13,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez);
 int main()
 {
     CentroLogisticoPtr c = crearCentroLogisticoDefecto();
-    FechaPtr f = crearFecha(10,12,2022,8,30);
-    bool r = RepartoDiarioConcretado(c,f);
-    if(r){printf("YES\n");}
-    else{printf("NO\n");}
 /** **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************

@@ -30,7 +30,7 @@ int seleccionarNumero()
     limpiarBufferTeclado();
     return eleccion;
 }
-`
+
 void seleccionarString(char* literal)
 {
     limpiarBufferTeclado();
