@@ -491,7 +491,7 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
     int n=0;
 
     int i=0;
-    char cuilBuscar[100];
+    CuilPtr cuilBuscar = NULL;
     char patenteBuscar[100];
     int IDBuscar;
     FechaPtr fechaBuscar;
@@ -515,7 +515,7 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
     {
         printf("BUSCAR POR CUIL: \n");
         cuilBuscar=cargarCuil(centroLogistico);
-        if(cuil==NULL)
+        if(cuilBuscar==NULL)
         {
             printf("No se pudo buscar por CUIL.");
             presionarEnterYLimpiarPantalla();
@@ -529,15 +529,15 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
         {
             printf("\n\n\tFormato: [AA 111 AA]");
             printf("\n\n\tPatente: ");
-            scanf("%[^\n]%*c", patente);
+            scanf("%[^\n]%*c", patenteBuscar);
             limpiarBufferTeclado();
 
-            if(!esPatenteValida(patente))
+            if(!esPatenteValida(patenteBuscar))
             {
                 printf("\n\n\t [Patente invalida...]\n");
                 presionarEnterYLimpiarPantalla();
             }
-        } while(!esPatenteValida(patente));
+        } while(!esPatenteValida(patenteBuscar));
     }
     else if(modo == 4)
     {
@@ -566,7 +566,7 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
     }
 
     ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getRepartos(centroLogistico));
+    agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
 
     for(int j=0;!listaVacia(listaAux);j++)
     {
@@ -597,7 +597,7 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
             int ultimaPos=0;
             for(int i=0;!pilaVacia(getPaquetesReparto(repartoAux));i++)
             {
-                paquetesAux[i] = descargarPaquete(repartoAux),
+                paquetesAux[i] = descargarPaquete(repartoAux);
 
                 if(IDBuscar==getID(paquetesAux[i]))
                 {

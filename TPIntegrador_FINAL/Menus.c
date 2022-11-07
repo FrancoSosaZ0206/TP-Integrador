@@ -1039,10 +1039,17 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
                     for(int i=desde;i<=hasta;i++)
                     {
                         if(getEsChofer(getDatoLista(getPersonas(centroLogistico),desde-1)) == esChofer)
+                        {
                             destruirPersona(removerPersona(centroLogistico,desde-1));
-
-                            if(esChofer) { printf("\nChofer %d eliminado exitosamente.\n\n",i); }
-                            else { printf("\nCliente %d eliminado exitosamente.\n\n",i); }
+                            if(esChofer)
+                            {
+                                printf("\nChofer %d eliminado exitosamente.\n\n",i);
+                            }
+                            else
+                            {
+                                printf("\nCliente %d eliminado exitosamente.\n\n",i);
+                            }
+                        }
                         else
                         {
                             if(esChofer)
@@ -1542,7 +1549,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
 
     if(esChofer)
     {
-        if(!VerificarExistenciaChoferes(centroLogistico))
+        if(!hayPersonas(centroLogistico,esChofer))
         {
             ExistenDatos = false;
             printf("\n\n\tNo existen choferes para modificar.");
@@ -1551,7 +1558,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
     }
     if(!esChofer)
     {
-        if(!VerificarExistenciaClientes(centroLogistico))
+        if(!hayPersonas(centroLogistico,esChofer))
         {
             ExistenDatos = false;
             printf("\n\n\tNo existen clientes para modificar.");
@@ -1705,7 +1712,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                     break;
                 case 4:
                     printf("\n\nNuevo CUIL:");
-                    actualizarCuil(nCuil);
+                    actualizarCuil(centroLogistico, nCuil);
 
                     if(modoAccion==1)
                         setCuilPersona(personaAModificar,nCuil);
@@ -2069,7 +2076,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                     menuModoAccion3(listaAux,&desde,&hasta);
                 //Obtenemos los elementos en el rango de indices
                     for(int i=desde;i<=hasta;i++)
-                        repartosAModificar[i]=(RepartoPtr)getDatoLista(listaAux,j-1);
+                        repartosAModificar[i]=(RepartoPtr)getDatoLista(listaAux,i-1);
 
                     printf("Ha elegido Repartos {%d - %d}\n",desde,hasta);
                     for(int i=0,j=desde;i<(hasta-desde)+1;i++,j++)
@@ -2417,7 +2424,6 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
     {
         printf("ERROR: Lista vacia. No hay repartos para buscar.");
         presionarEnterYLimpiarPantalla();
-        return NULL;
     }
     else
     {
@@ -2537,7 +2543,7 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                     case 0:
                         break;
                     case -1:
-                        *op=-1;
+                        (*opMenuAnterior)=-1;
                         break;
                     default:
                         printf("\nOpcion incorrecta.");
@@ -3008,13 +3014,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     choferElegido = getDatoLista(getPersonas(centroLogistico), k-1);
                     if(getEsChofer(choferElegido))
                     {
-                        if(!choferEnReparto(centroLogistico, choferElegido,false))
-                            choferValido=true;
-                        else
-                        {
-                            printf("\n\nERROR: El chofer elegido ya esta en un reparto abierto. Vuelva a elegir.");
-                            presionarEnterYLimpiarPantalla();
-                        }
+                        choferValido = true;
                     }
                     else
                     {
@@ -3187,7 +3187,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                         while(i<nIndices && !existeEnCerrados)
                         {
                             repartoCerrar=(RepartoPtr)getDatoLista(getRepartos(centroLogistico,false),indices[i]-1);
-                            if(esRepartoExistente(centroLogistico,repartoCerrar,false))
+                            if(esRepartoExistente(centroLogistico,repartoCerrar))
                                 existeEnCerrados=true;
                             i++;
                         }
@@ -3208,7 +3208,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                         while(i<=hasta && !existeEnCerrados)
                         {
                             repartoCerrar=(RepartoPtr)getDatoLista(getRepartos(centroLogistico,false),i);
-                            if(esRepartoExistente(centroLogistico,repartoCerrar,false))
+                            if(esRepartoExistente(centroLogistico,repartoCerrar))
                                 existeEnCerrados=true;
                             i++;
                         }
