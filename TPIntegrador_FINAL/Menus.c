@@ -1039,10 +1039,12 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
                     for(int i=desde;i<=hasta;i++)
                     {
                         if(getEsChofer(getDatoLista(getPersonas(centroLogistico),desde-1)) == esChofer)
+                        {
                             destruirPersona(removerPersona(centroLogistico,desde-1));
 
                             if(esChofer) { printf("\nChofer %d eliminado exitosamente.\n\n",i); }
                             else { printf("\nCliente %d eliminado exitosamente.\n\n",i); }
+                        }
                         else
                         {
                             if(esChofer)
@@ -1534,31 +1536,18 @@ bool menuModificarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
 }
 bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *opMenuAnterior)
 {
-    bool ExistenDatos = true;
     DomicilioPtr nDomicilio = crearDomicilio("",0,"");
     CuilPtr nCuil = crearCuil("000000000000000");
     PersonaPtr personasAModificar[100];
     ListaPtr listaAux=getPersonas(centroLogistico);
 
-    if(esChofer)
+    if(!hayPersonas(centroLogistico,esChofer))
     {
-        if(!VerificarExistenciaChoferes(centroLogistico))
-        {
-            ExistenDatos = false;
-            printf("\n\n\tNo existen choferes para modificar.");
-            presionarEnterYLimpiarPantalla();
-        }
+        if(esChofer) { printf("\n\n\tNo existen choferes para modificar."); }
+        else { printf("\n\n\tNo existen clientes para modificar."); }
+        presionarEnterYLimpiarPantalla();
     }
-    if(!esChofer)
-    {
-        if(!VerificarExistenciaClientes(centroLogistico))
-        {
-            ExistenDatos = false;
-            printf("\n\n\tNo existen clientes para modificar.");
-            presionarEnterYLimpiarPantalla();
-        }
-    }
-    if(ExistenDatos)
+    else
     {
         ListaPtr copiaLista = copiarLista(listaAux,2);
 
@@ -1705,7 +1694,7 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                     break;
                 case 4:
                     printf("\n\nNuevo CUIL:");
-                    actualizarCuil(nCuil);
+                    actualizarCuil(centroLogistico,nCuil);
 
                     if(modoAccion==1)
                         setCuilPersona(personaAModificar,nCuil);
