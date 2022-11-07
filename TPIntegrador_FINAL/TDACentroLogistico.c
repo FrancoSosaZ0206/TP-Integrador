@@ -443,8 +443,10 @@ void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico)
     int i=1;
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getVehiculos(centroLogistico));
-    while(!listaVacia(listaAux)){
-        if(!buscarVehiculoRepartos(centroLogistico,getPatente(getCabecera(listaAux)))){
+    while(!listaVacia(listaAux))
+    {
+        if(!buscarVehiculoRepartos(centroLogistico,getPatente(getCabecera(listaAux))))
+        {
             printf("\n\nPosicion %d.",i++);
             mostrarVehiculo(getCabecera(listaAux));
         }
