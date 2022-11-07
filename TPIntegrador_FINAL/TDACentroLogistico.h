@@ -10,6 +10,16 @@
 #include "TDAVehiculo.h"
 #include "TDARepartos.h"
 
+/** **********************************************************************************************************************
+**************************************************************************************************************************
+**************************************************************************************************************************
+
+                                            INTERFAZ DEL TDA CENTRO LOGÍSTICO
+
+**************************************************************************************************************************
+**************************************************************************************************************************
+*** *********************************************************************************************************************/
+
 typedef struct CentroLogistico
 {
     char *nombre;
@@ -21,6 +31,9 @@ typedef struct CentroLogistico
 } CentroLogistico;
 
 typedef CentroLogistico * CentroLogisticoPtr;
+
+
+//---------------------------------------Funciones de creacion y destruccion----------------------------------------------
 
 //Operación:Crea la estructura Centro Logistico
 //Precondición:Que el centro logistico no haya sido creado
@@ -47,6 +60,8 @@ CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre); ///Crea un centro l
 // centroLogistico: puntero a estructura representando el centro logistico.
 //Devuelve NULL
 CentroLogisticoPtr destruirCentroLogistico(CentroLogisticoPtr centroLogistico);
+
+//---------------------------------------getters----------------------------------------------
 
 //Operación:Obtencion del nombre del centro logistico.
 //Precondición:Que centro logistico haya sido creado.
@@ -86,6 +101,8 @@ ListaPtr getVehiculos(CentroLogisticoPtr centroLogistico);
 //      false = si se quiere obtener un reparto cerrado.
 //Devuelve: puntero a la lista de repartos indicada por esRepartoAbierto.
 ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+
+//---------------------------------------setters----------------------------------------------
 
 //Operación: Asigna el nombre
 //Precondición: Centro logistico debe haberse creado.
@@ -130,6 +147,8 @@ void setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos);
 // repartos: puntero a estructura que representa al nuevo valor de repartos.
 //Devuelve: nada.
 void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esRepartoAbierto);
+
+//---------------------------------------Funciones de muestra y filtrado----------------------------------------------
 
 //Operación: Muestra los paquetes.
 //Precondición: Centro logistico debe haberse creado y cargado con, al menos, un paquete
@@ -195,6 +214,7 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
 //              5 = suspendido
 //Devuelve: nada.
 void filtrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico,int estado); //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
+
 /** OPERACION: MOSTRADO
 PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
 POSTCONDICION: MUESTRA LOS PAQUETES SEGUN SI ESTAN EN CURSO = ESTADO (1,2,4)
@@ -204,6 +224,25 @@ PARAMETROS:
     - BOOLEANO SI SON EN CURSO O SI ESTAN FINALIZADOS
 DEVUELVE: Nada. */
 void filtrarPaquetesEnCurso(CentroLogisticoPtr centroLogistico, bool enCurso);
+
+//Operación: Muestra los paquetes.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, un paquete
+//Postcondición: Imprime la lista de paquetes, solamente aquellos que tienen estado = 0.
+//Parámetros:
+// centroLogistico: puntero a estructura que representa al centro logistico.
+//Devuelve: nada.
+void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico);
+
+//Operación: Muestra los choferes
+//Precondición: Centro logistico debe haberse creado en memoria dinamica y haber un chofer
+//Postcondición: Imprime la lista de personas filtrada por chofer, en la cual muestra aquellos
+// que no se encuentran en repartos actualmente
+//Parámetros:
+//  centroLogistico: puntero a estructura que representa al centro logistico.
+//Devuelve: nada.
+void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico);
+
+//---------------------------------------Funciones de búsqueda----------------------------------------------
 
 //Operación: Muestra los paquetes con el estado que le haya pasado.
 //Precondición: Centro logistico debe haberse creado y llenado con una lista de paquetes
@@ -232,6 +271,7 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer
 bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente);
 
 //---------------------------------------Funciones de agregado a la lista----------------------------------------------
+
 //Operación: Agrega un nuevo paquete.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: El centro logistico va a tener un nuevo paquete.
@@ -453,6 +493,22 @@ void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo);
 //Devuelve: nada
 void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo);
 
+/** OPERACIÓN:
+PRECONDICIÓN:
+POSTCONDICIÓN:
+PARÁMETROS:
+    -
+DEVUELVE: Nada. */
+bool hayPaquetesDisponibles(CentroLogisticoPtr centroLogistico);
+
+///OPERACION: VERIFICACION
+///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
+///POSTCONDICION: VERIFICA SI EN LA LISTA DE PERSONAS QUE EXISTA UNA PERSONA TIPO CHOFERES
+///PARAMETROS:
+/// PUNTERO A CENTRO LOGISTICO
+///DEVUELVE BOOLEANO (TRUE = EXISTEN / FALSE = NO EXISTEN)
+bool hayPersonas(CentroLogisticoPtr centroLogistico,bool esChofer);
+
 ///OPERACION: VERIFICACION
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
 ///POSTCONDICION: VERIFICA 1 POR 1 TODOS LOS IDS EXISTENTES, VERIFICANDO
@@ -461,7 +517,7 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
 /// PUNTERO A CENTRO LOGISTICO
 /// ENTERO ID DEL PAQUETE NUEVO
 ///DEVUELVE BOOLEANO (TRUE = UNICO / FALSE = NO UNICO)
-bool VerificarIDUnico(CentroLogisticoPtr centroLogistico, int ID_Analizar);
+bool esIDExistente(CentroLogisticoPtr centroLogistico, int ID_Analizar);
 
 ///OPERACION: VERIFICACION
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
@@ -481,31 +537,15 @@ bool esCuilExistente(CentroLogisticoPtr centroLogistico, CuilPtr cuil);
 /// PUNTERO A CENTRO LOGISTICO
 /// PUNTERO A CHAR DE LA PATENTE NUEVA
 ///DEVUELVE BOOLEANO (TRUE = UNICO / FALSE = NO UNICO)
-bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar);
+bool esPatenteExistente(CentroLogisticoPtr centroLogistico, char* PatenteComprobar);
 
 ///OPERACION: VERIFICACION
-///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
+///PRECONDICION: ninguna.
 ///POSTCONDICION: VERIFICA QUE EL FORMATO DE LA PATENTE SEA VALIDO (AA 111 AA)
 ///PARAMETROS:
 /// PUNTERO A CHAR DE LA PATENTE A VALIDAR
 ///DEVUELVE BOOLEANO (TRUE = VALIDO / FALSE = INVALIDO)
-bool VerificarPatenteValida(char* PatenteValidar);
-
-///OPERACION: VERIFICACION
-///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
-///POSTCONDICION: VERIFICA SI EN LA LISTA DE PERSONAS QUE EXISTA UNA PERSONA TIPO CHOFERES
-///PARAMETROS:
-/// PUNTERO A CENTRO LOGISTICO
-///DEVUELVE BOOLEANO (TRUE = EXISTEN / FALSE = NO EXISTEN)
-bool VerificarExistenciaChoferes(CentroLogisticoPtr centroLogistico);
-
-///OPERACION: VERIFICACION
-///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
-///POSTCONDICION: VERIFICA EN LA LISTA DE PERSONAS QUE EXISTA UNA PERSONA TIPO CLIENTE
-///PARAMETROS:
-/// PUNTERO A CENTRO LOGISTICO
-///DEVUELVE BOOLEANO (TRUE = EXISTEN / FALSE = NO EXISTEN)
-bool VerificarExistenciaClientes(CentroLogisticoPtr centroLogistico);
+bool esPatenteValida(char* PatenteValidar);
 
 ///OPERACION: BUSQUEDA
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
@@ -516,8 +556,6 @@ bool VerificarExistenciaClientes(CentroLogisticoPtr centroLogistico);
 /// PUNTERO A CHAR DE LA PATENTE A EVALUAR
 ///DEVUELVE BOOLEANO (TRUE = NO DISPONIBLES / FALSE = DISPONIBLE)
 bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
-
-
 
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

@@ -12,6 +12,9 @@
 #include "util.h"
 
 
+
+/// /////////////////////////////////FUNCIONES CONSTRUCTORAS Y DESTRUCTORAS//////////////////////////////////////////////////////////////////////////
+
 CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,ListaPtr listaPersonas,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados)
 {
     CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
@@ -54,6 +57,8 @@ CentroLogisticoPtr destruirCentroLogistico(CentroLogisticoPtr centroLogistico)
     return NULL;
 }
 
+/// ///////////////////////////////////////////////GETTERS//////////////////////////////////////////////////////////////////////////
+
 char *getNombreCentroLogistico(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->nombre;
@@ -78,6 +83,8 @@ ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 		return centroLogistico->listaRepartosCerrados;
 }
 
+/// ///////////////////////////////////////////////SETTERS//////////////////////////////////////////////////////////////////////////
+
 void setNombreCentroLogistico(CentroLogisticoPtr centroLogistico,char *nombre)
 {
     strcpy(centroLogistico->nombre,nombre);
@@ -101,6 +108,8 @@ void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esR
 	else
 		centroLogistico->listaRepartosCerrados = repartos;
 }
+
+/// ///////////////////////////////////////////////FUNCIONES DE MUESTRA Y FILTRADO//////////////////////////////////////////////////////////////////////////
 
 void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
 {
@@ -232,6 +241,7 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
     printf("\n-----------------------------------------------------");
     listaAux=destruirLista(listaAux,false);
 }
+
 void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,FechaPtr fechaSalida)
 {
     ordenarRepartos(centroLogistico,esRepartoAbierto,1);
@@ -262,8 +272,6 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
     printf("\n");
 }
 
-
-/// Estados en curso: 1,2 y 4
 void filtrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico,int estado) //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
 {
     int i = 1;
@@ -309,6 +317,7 @@ void filtrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico,int estado) //f
     listaAux = destruirLista(listaAux,false);
     printf("\n");
 }
+
 void filtrarPaquetesEnCurso(CentroLogisticoPtr centroLogistico, bool enCurso) ///NUEVA
 {
     bool condicion;
@@ -339,7 +348,64 @@ void filtrarPaquetesEnCurso(CentroLogisticoPtr centroLogistico, bool enCurso) //
     }
     listaAux = destruirLista(listaAux,false);
 }
-///Funciones de búsqueda de datos en la lista
+
+void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
+{
+    PaquetePtr paqueteAux;
+
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux, getPaquetes(centroLogistico));
+
+    for(int i=1;!listaVacia(listaAux);i++)
+    {
+        paqueteAux = (PaquetePtr)getCabecera(listaAux);
+
+        int estado = getEstado(paqueteAux);
+        bool paqueteDisponible = estado == 0 || estado == 5;
+        if(paqueteDisponible)
+        {
+            printf("\n\n Posicion %d. \n\n", i);
+            mostrarPaquete(paqueteAux);
+        }
+
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+    }
+    listaAux = destruirLista(listaAux, false);
+}
+
+void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
+{
+    int cont = 1;
+
+    bool condicion=false; ///Cambiamos el flag a una condicion compuesta
+
+    PersonaPtr personaAux;
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux, getPersonas(centroLogistico));
+    while(!listaVacia(listaAux))
+    {
+        personaAux = (PersonaPtr)getCabecera(listaAux);
+
+        condicion = getEsChofer(personaAux)
+                    && !choferEnReparto(centroLogistico, personaAux,true);
+    //Condicion: tiene que ser un chofer, y no figurar en la lista de repartos abiertos
+        if(!condicion) ///De esta manera, no se vuelve necesario encadenar tantos ifs.
+        {
+            printf("\n\nPosicion %d.\n\n", cont);
+            mostrarPersona(personaAux);
+        }
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+        cont++;
+    }
+    listaAux = destruirLista(listaAux, false);
+}
+
+/// ///////////////////////////////////////////////FUNCIONES DE BÚSQUEDA//////////////////////////////////////////////////////////////////////////
+
 bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID)
 {
     bool match=false;
@@ -416,7 +482,9 @@ bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente)
 
     return match;
 }
-//Funciones de agregado a la lista
+
+/// /////////////////////////////////////////FUNCIONES DE AGREGADO A LA LISTA//////////////////////////////////////////////////////////////////////////
+
 void agregarPaquete(CentroLogisticoPtr centroLogistico,PaquetePtr paquete)
 {
     agregarDatoLista(centroLogistico->listaPaquetes,(PaquetePtr)paquete);
@@ -436,7 +504,9 @@ void agregarReparto(CentroLogisticoPtr centroLogistico,RepartoPtr reparto, bool 
 	else
 		agregarDatoLista(getRepartos(centroLogistico,false), reparto);
 }
-//Funciones de inserción a la lista
+
+/// ////////////////////////////////////////FUNCIONES DE INSERCIÓN A LA LISTA//////////////////////////////////////////////////////////////////////////
+
 bool insertarPaqueteLista(CentroLogisticoPtr centroLogistico,PaquetePtr paquete,int posicion)
 {
     return insertarDatoLista(centroLogistico->listaPaquetes,(PaquetePtr)paquete,posicion);
@@ -453,7 +523,9 @@ bool insertarRepartoLista(CentroLogisticoPtr centroLogistico,RepartoPtr reparto,
 {
     return insertarDatoLista(centroLogistico->listaRepartosAbiertos,(RepartoPtr)reparto,posicion);
 }
-//Funciones para eliminar de la lista
+
+/// //////////////////////////////////////FUNCIONES DE ELIMINACIÓN DE LA LISTA//////////////////////////////////////////////////////////////////////////
+
 PaquetePtr removerPaquete(CentroLogisticoPtr centroLogistico,int posicion)
 {
     return (PaquetePtr)removerDeLista(centroLogistico->listaPaquetes,posicion);
@@ -540,17 +612,65 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
         printf("Se suspendieron algunos paquetes. Revisarlos y reasignarlos a un nuevo reparto.\n\n");
 }
 
-///////////////////////////////////////////////////FUNCIONES DE VALIDACION//////////////////////////////////////////////////////////////////////////
+/// ///////////////////////////////////////////////FUNCIONES DE VALIDACIÓN//////////////////////////////////////////////////////////////////////////
 
-bool VerificarIDUnico(CentroLogisticoPtr centroLogistico, int ID_Analizar)
+bool hayPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
 {
-    PaquetePtr PaqueteActual;
+    PaquetePtr paqueteAux;
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPaquetes(centroLogistico));
+
     while(!listaVacia(listaAux))
     {
-        PaqueteActual = (PaquetePtr)getCabecera(listaAux);
-        if(ID_Analizar == getID(PaqueteActual))
+        paqueteAux = (PaquetePtr)getCabecera(listaAux);
+
+        int estado = getEstado(paqueteAux);
+        bool paqueteDisponible = estado == 0 || estado == 5;
+        if(paqueteDisponible)
+        {
+            listaAux = destruirLista(listaAux, false);
+            return true;
+        }
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+    }
+    listaAux = destruirLista(listaAux, false);
+    return false;
+}
+
+bool hayPersonas(CentroLogisticoPtr centroLogistico,bool esChofer)
+{
+    PersonaPtr personaAux;
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux, getPersonas(centroLogistico));
+    while(!listaVacia(listaAux))
+    {
+        personaAux = (PersonaPtr)getCabecera(listaAux);
+        if(getEsChofer(personaAux) == esChofer)
+        {
+            listaAux = destruirLista(listaAux, false);
+            return true;
+        }
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+    }
+    listaAux = destruirLista(listaAux, false);
+    return false;
+}
+
+bool esIDExistente(CentroLogisticoPtr centroLogistico, int ID)
+{
+    PaquetePtr paqueteAux;
+
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux, getPaquetes(centroLogistico));
+
+    while(!listaVacia(listaAux))
+    {
+        paqueteAux = (PaquetePtr)getCabecera(listaAux);
+        if(ID == getID(paqueteAux))
         {
             listaAux = destruirLista(listaAux, false);
             return true;
@@ -587,25 +707,25 @@ bool esCuilExistente(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
     return false;
 }
 
-bool VerificarPatenteValida(char* PatenteValidar)
+bool esPatenteValida(char* patente)
 {
-    int ContadorValidas = 0;
+    int pass = 0;
+///Se evalua si tiene 4 letras y 3 numeros
 
-    ///Se evalua si tiene 4 letras y 3 numeros
+    if( isalpha(patente[0]) ) { pass++; }
+    if( isalpha(patente[1]) ) { pass++; }
 
-    if( isalpha(PatenteValidar[0]) ) { ContadorValidas++; }
-    if( isalpha(PatenteValidar[1]) ) { ContadorValidas++; }
+    if( isdigit(patente[3]) ) { pass++; }
+    if( isdigit(patente[4]) ) { pass++; }
+    if( isdigit(patente[5]) ) { pass++; }
 
-    if( isdigit(PatenteValidar[3]) ) { ContadorValidas++; }
-    if( isdigit(PatenteValidar[4]) ) { ContadorValidas++; }
-    if( isdigit(PatenteValidar[5]) ) { ContadorValidas++; }
+    if( isalpha(patente[7]) ) { pass++; }
+    if( isalpha(patente[8]) ) { pass++; }
 
-    if( isalpha(PatenteValidar[7]) ) { ContadorValidas++; }
-    if( isalpha(PatenteValidar[8]) ) { ContadorValidas++; }
-
-    if( ContadorValidas == 7 ){ return true; }
-
-    return false;
+    if( pass == 7 )
+        return true;
+    else
+        return false;
 }
 
 
@@ -630,57 +750,17 @@ bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente)
     return false;
 }
 
-bool VerificarPatenteUnica(CentroLogisticoPtr centroLogistico, char* PatenteComprobar)
+bool esPatenteExistente(CentroLogisticoPtr centroLogistico, char* patente)
 {
-    VehiculoPtr VehiculoTemporal;
+    VehiculoPtr vehiculoAux;
+
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getVehiculos(centroLogistico) );
-    while(!listaVacia(listaAux))
-    {
-        VehiculoTemporal = (VehiculoPtr)getCabecera(listaAux);
-        if( strcmp( PatenteComprobar, getPatente(VehiculoTemporal) ) == 0 )
-        {
-            listaAux = destruirLista(listaAux, false);
-            return true;
-        }
-        ListaPtr listaDestruir = listaAux;
-        listaAux = getResto(listaAux);
-        listaDestruir = destruirLista(listaDestruir, false);
-    }
-    listaAux = destruirLista(listaAux, false);
-    return false;
-}
 
-bool VerificarExistenciaChoferes(CentroLogisticoPtr centroLogistico)
-{
-    PersonaPtr PersonaActual;
-    ListaPtr listaAux = crearLista();
-    agregarLista(listaAux, getPersonas(centroLogistico));
     while(!listaVacia(listaAux))
     {
-        PersonaActual = (PersonaPtr)getCabecera(listaAux);
-        if(getEsChofer(PersonaActual))
-        {
-            listaAux = destruirLista(listaAux, false);
-            return true;
-        }
-        ListaPtr listaDestruir = listaAux;
-        listaAux = getResto(listaAux);
-        listaDestruir = destruirLista(listaDestruir, false);
-    }
-    listaAux = destruirLista(listaAux, false);
-    return false;
-}
-
-bool VerificarExistenciaClientes(CentroLogisticoPtr centroLogistico)
-{
-    PersonaPtr PersonaActual;
-    ListaPtr listaAux = crearLista();
-    agregarLista(listaAux, getPersonas(centroLogistico));
-    while(!listaVacia(listaAux))
-    {
-        PersonaActual = (PersonaPtr)getCabecera(listaAux);
-        if(!getEsChofer(PersonaActual))
+        vehiculoAux = (VehiculoPtr)getCabecera(listaAux);
+        if( strcmp( patente, getPatente(vehiculoAux) ) == 0 )
         {
             listaAux = destruirLista(listaAux, false);
             return true;
@@ -791,7 +871,7 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
     return false;
 }
 
-///////////////////////////////////////////////////FUNCIONES DE ORDENAMIENTO//////////////////////////////////////////////////////////////////////////
+/// ///////////////////////////////////////////////FUNCIONES DE ORDENAMIENTO//////////////////////////////////////////////////////////////////////////
 
 void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo)
 {
