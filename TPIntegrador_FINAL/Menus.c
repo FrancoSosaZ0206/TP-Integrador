@@ -97,7 +97,7 @@ ListaPtr copiarLista(ListaPtr listaOriginal,int tipoDato)
     {
         agregarDatoLista(copiaLista,getCabecera(temp));
         ListaPtr listaDestruir = temp;
-        temp = getResto(listaAux);
+        temp = getResto(temp);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     temp=destruirLista(temp,false);
@@ -416,34 +416,30 @@ void menuModoAccion3(ListaPtr lista,int* desde,int* hasta)
 
 CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico)
 {
-    CuilPtr cuil;
+    CuilPtr cuil=crearCuil("");
     char strCuil[100];
-
     int i=0;
-
     do
     {
         helpCuil();
         printf("\n\tCUIL: ");
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
-        if(i==0)
-            cuil=crearCuil(strCuil);
-        else if(i>0 && i<4)
+        if(i>0 && i<4)
+        {
             setCuil(cuil,strCuil);
-        else    //if(i==4)
+        }
+        else//if(i==4)
         {
             cuil = destruirCuil(cuil);
             printf("\n\nIntentos agotados.\n\n");
             return NULL;
         }
-
         i++;
         if(!esCuilValido(cuil))
             printf("Cuil invalido. Vuelva a ingresar.");
         else if(esCuilExistente(centroLogistico,cuil))
             printf("Cuil existente. Vuelva a ingresar.");
-
     } while(!esCuilValido(cuil) && esCuilExistente(centroLogistico,cuil));
 
     return cuil;
@@ -524,31 +520,30 @@ DEVUELVE: Nada */
 void actualizarCuil(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
 {
     char strCuil[100];
-    CuilPtr cuilAux;
-
+    char cuilSeguridad[100] = {"20 24576456 2"};
+    CuilPtr cuilAux = crearCuil("");;
     int i=0;
     do
     {
+        printf("\n\n\tCUIL VALIDO DE EJEMPLO: %s\n\n",cuilSeguridad);
         helpCuil();
-        printf("\n\tNuevo CUIL:");
+        printf("\n\tNuevo CUIL: ");
+        limpiarBufferTeclado();
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
-        if(i<4)
-            cuilAux = crearCuil(strCuil);
-        else    //if(i==4)
+        setCuil(cuilAux,strCuil);
+        if(!esCuilValido(cuilAux))
         {
-            cuilAux = destruirCuil(cuilAux);
-            printf("\n\nIntentos agotados.\n\n");
-            return;
-        }
-        if(!esCuilValido(cuil))
             printf("Cuil invalido. Vuelva a ingresar.");
-        else if(esCuilExistente(centroLogistico,cuil))
+            presionarEnterYLimpiarPantalla();
+        }
+        if(esCuilExistente(centroLogistico,cuilAux))
+        {
             printf("Cuil existente. Vuelva a ingresar.");
-
+            presionarEnterYLimpiarPantalla();
+        }
         i++;
-    } while(!esCuilValido(cuil) && esCuilExistente(centroLogistico,cuil));
-
+    } while(!esCuilValido(cuilAux) || esCuilExistente(centroLogistico,cuilAux));
     setCuil(cuil,strCuil);
     cuilAux = destruirCuil(cuilAux);
 }
@@ -586,14 +581,8 @@ PARÁMETROS:
 DEVUELVE: Nada */
 void actualizarFecha(FechaPtr fecha)
 {
-    int dia=0;
-    int mes=0;
-    int anio=0;
-    int hora=0;
-    int minuto=0;
-
-    FechaPtr fechaAux;
-
+    int dia=0,mes=0,anio=0,hora=0,minuto=0;
+    FechaPtr fechaAux = crearFecha(dia,mes,anio,hora,minuto);;
     do
     {
         printf("\n\t\tFecha (DD MM AAAA): ");
@@ -602,22 +591,22 @@ void actualizarFecha(FechaPtr fecha)
         printf("\n\t\tHorario (HH MM): ");
         scanf("%d %d",&hora,&minuto);
         limpiarBufferTeclado();
-
-        fechaAux = crearFecha(dia,mes,anio,hora,minuto);
-
-        if(!esFechaValida(fecha))
+        setDia(fechaAux,dia);
+        setMes(fechaAux,mes);
+        setAnio(fechaAux,anio);
+        setHora(fechaAux,hora);
+        setMinuto(fechaAux,minuto);
+        if(!esFechaValida(fechaAux))
         {
             printf("\n\nFecha invalida. Reingrese la fecha.");
             presionarEnterYLimpiarPantalla();
         }
-    } while (!esFechaValida(fecha));
-
+    } while (!esFechaValida(fechaAux));
     setDia(fecha,dia);
     setMes(fecha,mes);
     setAnio(fecha,anio);
     setHora(fecha,hora);
     setMinuto(fecha,minuto);
-
     fechaAux = destruirFecha(fechaAux);
 }
 
@@ -713,7 +702,7 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
             printf("No se pudo cargar el cuil.");
         else
         {
-            PersonaPtr persona = crearPersona(nombre, apellido, domicilio, cuil, false);
+            PersonaPtr persona = crearPersona(nombre, apellido, domicilio, cuil, esChofer);
 
             if(esPersonaExistente(centroLogistico,persona))
             {
@@ -928,7 +917,7 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
 {
     ListaPtr listaAux = getPersonas(centroLogistico);
 
-    if(listaVacia(listaAux))
+    if(!hayPersonas(centroLogistico, esChofer))
     {
         if(esChofer)
             printf("ERROR: Lista vacia. Debe agregar choferes para poder eliminarlos.");
@@ -1053,12 +1042,21 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
                     }
                 }
 
-                if(listaVacia(listaAux))
+                if(!hayPersonas(centroLogistico, esChofer))
+                {
                     printf("La lista esta vacia, ya no se puede continuar. Saliendo del menu...\n\n");
-                else { continuar=menuContinuar(); }
-            } while(continuar && !listaVacia(listaAux));
+                    presionarEnterYLimpiarPantalla();
+                }
+                else
+                {
+                    continuar=menuContinuar();
+                }
+            } while(continuar && !hayPersonas(centroLogistico, esChofer));
 
-            return menuGuardarCambios(centroLogistico,2);
+            if(!continuar)
+                return menuGuardarCambios(centroLogistico,2);
+            else
+                return true;
         }
         else //if(modoAccion == 0 || modoAccion == -1)
             return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
@@ -1853,7 +1851,9 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterio
                         helpTipoVehiculo();
 
                         printf("\n\nSeleccione una opcion: ");
+                        limpiarBufferTeclado();
                         scanf("%d",&opNTipo);
+                        limpiarBufferTeclado();
 
                         system("cls");
                         switch(opNTipo)
@@ -1885,7 +1885,9 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterio
                     break;
                 case 2:
                     printf("\n\nIngrese la nueva marca:");
+                    limpiarBufferTeclado();
                     scanf("%[^\n]%*c",nMarca);
+                    limpiarBufferTeclado();
 
                     if(modoAccion==1)
                         setMarca(vehiculoAModificar,nMarca);
@@ -1898,7 +1900,9 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterio
                     break;
                 case 3:
                     printf("\n\nIngrese el nuevo modelo:");
+                    limpiarBufferTeclado();
                     scanf("%[^\n]%*c",nModelo);
+                    limpiarBufferTeclado();
 
                     if(modoAccion==1)
                         setModelo(vehiculoAModificar,nModelo);
@@ -1911,7 +1915,9 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterio
                     break;
                 case 4:
                     printf("\n\nIngrese la nueva patente (AA 111 AA):\n\t");
+                    limpiarBufferTeclado();
                     scanf("%[^\n]%*c",nPatente);
+                    limpiarBufferTeclado();
 
                     if(modoAccion==1)
                         setPatente(vehiculoAModificar,nPatente);
@@ -3019,8 +3025,10 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
             PilaPtr pilaPaquetesElegidos = crearPila();
         ///Primero, cargamos la fecha de salida y el chofer para validarlo
-            printf("\n\nFecha de salida:");
+            printf("\n\nFecha de salida: ");
             FechaPtr fechaSalida = cargarFecha();
+            printf("\n\nFecha de retorno: ");
+            FechaPtr fechaRetorno = cargarFecha();
 
             do
             { /// Validación y elección de chofer
@@ -3028,6 +3036,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                 mostrarChoferesDisponibles(centroLogistico,fechaSalida);
 
                 printf("\n\nSeleccione un chofer ingresando su indice: ");
+                limpiarBufferTeclado();
                 scanf("%d",&k);
                 limpiarBufferTeclado();
 
@@ -3088,11 +3097,6 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             } while(!vehiculoValido);
 
             vehiculoElegido=getDatoLista(getVehiculos(centroLogistico),k-1);
-
-            system("cls");
-            printf("\n\nFecha de retorno:");
-            FechaPtr fechaRetorno = cargarFecha();
-            system("cls");
 
             do
             { ///Validación y elección de paquetes
