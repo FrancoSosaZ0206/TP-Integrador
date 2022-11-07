@@ -262,6 +262,54 @@ void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbie
     printf("\n");
 }
 
+///OPERACION: MOSTRADO
+///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
+///POSTCONDICION: MUESTRA LOS PAQUETES SEGUN SI ESTAN EN CURSO = ESTADO (1,2,4)
+/// O SI ESTAN FINALIZADOS = ESTADO (3,5)
+///PARAMETROS:
+///         PUNTERO A CENTRO LOGISTICO
+///         BOOLEANO SI SON EN CURSO O SI ESTAN FINALIZADOS
+///DEVUELVE: VACIO
+void mostrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico, bool enCurso)
+{
+    int Contador = 0;
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux, getPaquetes(centroLogistico));
+    if(enCurso)
+    {
+        printf("\n\nLISTA DE PAQUETES EN CURSO\n\n");
+    }
+    else
+    {
+        printf("\n\nLISTA DE PAQUETES FINALIZADOS\n\n");
+    }
+    while(!listaVacia(listaAux))
+    {
+        PaquetePtr paqueteAux=(PaquetePtr)getCabecera(listaAux);
+        if(enCurso)
+        {
+            if(getEstado(paqueteAux) == 1 || getEstado(paqueteAux) == 2 || getEstado(paqueteAux) == 4)
+            {
+                printf("\n\n Posicion %d. \n\n", Contador++);
+                mostrarPaquete(paqueteAux);
+            }
+        }
+        else
+        {
+            if(getEstado(paqueteAux) == 3 || getEstado(paqueteAux) == 5)
+            {
+                printf("\n\n Posicion %d. \n\n", Contador++);
+                mostrarPaquete(paqueteAux);
+            }
+        }
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+    }
+    listaAux = destruirLista(listaAux,false);
+}
+
+
 void filtrarPaquetes(CentroLogisticoPtr centroLogistico,int estado) //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
 {
     int Contador = 1;
@@ -441,7 +489,7 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
     else
         return (RepartoPtr)removerDeLista(centroLogistico->listaRepartosCerrados,posicion);
 }
-///NUEVA IMPLEMENTACIÓN
+
 void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
 { ///extraemos el reparto de la lista de abiertos
     RepartoPtr repartoACerrar = removerReparto(centroLogistico,posicion,true);
@@ -576,6 +624,48 @@ bool VerificarPatenteValida(char* PatenteValidar)
     return false;
 }
 
+bool RepartoDiarioConcretado(CentroLogisticoPtr centroLogistico, FechaPtr fechaAnalizar)
+{
+    RepartoPtr repartoTemp;
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux, getRepartos(centroLogistico, true));
+    while(!listaVacia(listaAux))
+    {
+        repartoTemp = (RepartoPtr)getCabecera(listaAux);
+        if(getDia(fechaAnalizar) == getDia2(getFechaSalida(repartoTemp)))
+        {
+            listaAux = destruirLista(listaAux, false);
+            return true;
+        }
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+    }
+    listaAux = destruirLista(listaAux, false);
+    return false;
+}
+
+bool choferEnReparto(CentroLogisticoPtr centroLogistico, char* cuilBuscar, bool esRepartoAbierto)
+{
+    RepartoPtr RepartoTemp;
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico, esRepartoAbierto));
+    while(!listaVacia(listaAux))
+    {
+        RepartoTemp = (RepartoPtr)getCabecera(listaAux);
+        PersonaPtr personaAux = getChofer(RepartoTemp);
+        if(strcmp(getCuil(getCuilPersona(personaAux)),cuilBuscar)==0 && getEsChofer(personaAux)==true)
+        {
+            listaAux=destruirLista(listaAux,false);
+            return true;
+        }
+        ListaPtr ListaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    listaAux=destruirLista(listaAux,false);
+    return false;
+}
 
 bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente)
 {
@@ -723,7 +813,7 @@ bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehicul
 }
 
 bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
-{ ///NUEVO: ahora recorre la lista de repartos abiertos y cerrados a la vez.
+{
     ListaPtr listaAux=crearLista();
     ListaPtr listaAux2=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico,true));

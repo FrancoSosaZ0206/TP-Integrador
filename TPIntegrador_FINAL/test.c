@@ -33,6 +33,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","17 UJI 30");
     PilaPtr PilaPaquetes1 = crearPila();
     apilar(PilaPaquetes1, (PaquetePtr)paquete1);
+    apilar(PilaPaquetes1, (PaquetePtr)paquete1);
     RepartoPtr reparto1= NULL;;
     reparto1=crearReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,PilaPaquetes1);
 
@@ -47,6 +48,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     PaquetePtr paquete2 = crearPaquete(2,2,5,3,120,dirRetiro2,dirEntrega2,fechaEntrega2,0);
     PilaPtr PilaPaquetes2 = crearPila();
     apilar(PilaPaquetes2, (PaquetePtr)paquete2);
+    apilar(PilaPaquetes2, (PaquetePtr)paquete1);
     VehiculoPtr vehiculo2=crearVehiculo(3,"Mercedes Benz","Actros","81 NMB 30");
     RepartoPtr reparto2= NULL;;
     reparto2=crearReparto(chofer2,vehiculo2,fechaSalida2,fechaRetorno2,PilaPaquetes2);
@@ -62,6 +64,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     PaquetePtr paquete3=crearPaquete(3,8,8,10,800,dirRetiro3,dirEntrega3,fechaEntrega3,0);
     PilaPtr PilaPaquetes3 = crearPila();
     apilar(PilaPaquetes3, (PaquetePtr)paquete3);
+    apilar(PilaPaquetes3, (PaquetePtr)paquete1);
     VehiculoPtr vehiculo3=crearVehiculo(3,"Mercedes Benz","Actros","19 JUY 78");
     RepartoPtr reparto3= NULL;;
     reparto3=crearReparto(chofer3,vehiculo3,fechaSalida3,fechaRetorno3,PilaPaquetes3);
@@ -74,9 +77,10 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     FechaPtr fechaEntrega4=crearFecha(10,12,2022,8,30);
     CuilPtr cuil4=crearCuil("30234565431");
     PersonaPtr chofer4=crearPersona("Alberto","Alonzo",domicilioChofer4,cuil4,true);
-    PaquetePtr paquete4=crearPaquete(3,8,8,10,800,dirRetiro4,dirEntrega4,fechaEntrega4,0);
+    PaquetePtr paquete4=crearPaquete(4,8,8,10,800,dirRetiro4,dirEntrega4,fechaEntrega4,0);
     PilaPtr PilaPaquetes4 = crearPila();
     apilar(PilaPaquetes4, (PaquetePtr)paquete4);
+    apilar(PilaPaquetes4, (PaquetePtr)paquete1);
     VehiculoPtr vehiculo4=crearVehiculo(3,"Mercedes Benz","Actros","19 JUY 78");
     RepartoPtr reparto4 = NULL;
     reparto4=crearReparto(chofer4,vehiculo4,fechaSalida4,fechaRetorno4,PilaPaquetes4);

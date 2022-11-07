@@ -123,7 +123,7 @@ void setMinuto(FechaPtr fecha,int minuto) ///NUEVA
 //Operaciones
 int *calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2) ///Nueva implementación
 {
-    int *diferencias = obtenerMemoria(sizeof(int)*3);
+    int *diferencias = (int*)obtenerMemoria(sizeof(int)*3);
 
     diferencias[0] = getDiaJuliano(fecha1) - getDiaJuliano(fecha2);
     diferencias[1] = getHora(fecha1) - getHora(fecha2);

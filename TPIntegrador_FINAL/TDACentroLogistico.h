@@ -508,7 +508,51 @@ bool VerificarExistenciaClientes(CentroLogisticoPtr centroLogistico);
 ///DEVUELVE BOOLEANO (TRUE = NO DISPONIBLES / FALSE = DISPONIBLE)
 bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
 
+///OPERACION: BUSQUEDA
+///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
+///POSTCONDICION: VERIFICA SI EL CUIL DEL CHOFER SE ENCUENTRA DENTRO
+/// DE LOS CHOFERES ASIGNADOS A REPARTOS
+///PARAMETROS:
+/// PUNTERO A CENTRO LOGISTICO
+/// PUNTERO A CHAR DEL CUIL A EVALUAR
+///DEVUELVE BOOLEANO (TRUE = NO DISPONIBLES / FALSE = DISPONIBLE)
+bool choferEnReparto(CentroLogisticoPtr centroLogistico, char* cuilBuscar, bool esRepartoAbierto);
+
+//Operación: Muestra los paquetes.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, un paquete
+//Postcondición: Imprime la lista de paquetes.
+//Parámetros:
+// centroLogistico: puntero a estructura que representa al centro logistico.
+//Devuelve: nada.
+
+//Operación: Muestra una las personas del centro logistico
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, una persona
+//Postcondición: Imprime la lista de personas filtrada bajo una serie de parámetros a elegir por el usuario.
+//                  1 = Filtramos por Chofer
+//                  2 = Filtramos por Cliente
+///                 3 = SIN FILTRO - Se muestran todas las personas
+//Parámetros:
+//  centroLogistico: puntero a estructura que representa al centro logistico.
+//  modo: entero representando el modo en que se quiere mostrar la lista.
+//Devuelve: nada.
 
 
+
+//Operación: Muestra los paquetes.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, un paquete
+//Postcondición: Imprime la lista de paquetes, solamente aquellos que tienen estado = 0.
+//Parámetros:
+// centroLogistico: puntero a estructura que representa al centro logistico.
+//Devuelve: nada.
+void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico);
+
+//Operación: Muestra los choferes
+//Precondición: Centro logistico debe haberse creado en memoria dinamica y haber un chofer
+//Postcondición: Imprime la lista de personas filtrada por chofer, en la cual muestra aquellos
+// que no se encuentran en repartos actualmente
+//Parámetros:
+//  centroLogistico: puntero a estructura que representa al centro logistico.
+//Devuelve: nada.
+void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico);
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

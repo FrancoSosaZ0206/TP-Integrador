@@ -312,7 +312,6 @@ ADVERTENCIA: Cuidado con menus o funciones que modifiquen la longitud de la list
 void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
 {
     int n=longitudLista(lista);
-    bool continuar = true;
 //Ingresamos la cantidad de indices a seleccionar
     do
     {
@@ -326,11 +325,12 @@ void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
     } while((*cantIndices)<1 || (*cantIndices) > n);
     //Elegimos los indices
     int i = 0;
-    while(i < (*cantIndices) && continuar)
+    for(int i=0; i<(*cantIndices);i++)
     {
         do
         {
             printf("\n\nIngrese indice %d: ",i+1);
+            limpiarBufferTeclado();
             scanf("%d",&indices[i]);
             limpiarBufferTeclado();
             if(indices[i]<1 || indices[i]>n)
@@ -339,8 +339,7 @@ void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
                 presionarEnterYLimpiarPantalla();
             }
         } while(indices[i]<1 || indices[i]>n);
-        i++;
-        continuar = menuContinuar();
+
     }
     int salto=round((*cantIndices)/2);
     int temp=0;
@@ -349,12 +348,12 @@ void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
         bool hayCambio=false;
         for(int i=0;i<(*cantIndices)-salto;i++)
         {
-            if(indices[i]>indices[i+1])
+            if(indices[i]>indices[i+salto])
             {
                 hayCambio=true;
                 temp=indices[i];
-                indices[i]=indices[i+1];
-                indices[i+1]=temp;
+                indices[i]=indices[i+salto];
+                indices[i+salto]=temp;
             }
         }
         if(!hayCambio)
@@ -880,7 +879,7 @@ bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                 }
 
                 continuar=menuContinuar();
-            } while(continuar);
+            } while(continuar && !listaVacia(getPaquetes(centroLogistico)));
 
             return menuGuardarCambios(centroLogistico,1);
        }
@@ -937,7 +936,10 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
                     printf("Persona a remover: ");
                     indice=menuModoAccion1(listaAux);
                 //Obtenemos y destruimos el elemento seleccionado
-                    destruirPersona(removerPersona(centroLogistico,indice-1));
+                    if(getEsChofer(getDatoLista(getPersonas(centroLogistico),indice-1)) == esChofer)
+                        destruirPersona(removerPersona(centroLogistico,indice-1));
+                    else
+                        printf("\n\nERROR: Seleccion incorrecta\n\n");
                     if(esChofer)
                         printf("\nChofer eliminado exitosamente.\n\n");
                     else
@@ -961,7 +963,10 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
                 //Obtenemos y destruimos los elementos seleccionados
                     for(int i = 0 ; i < nIndices ; i++)
                     {
-                        destruirPersona(removerPersona(centroLogistico,indices[i]-i-1));
+                        if(getEsChofer(getDatoLista(getPersonas(centroLogistico),indices[i]-i-1)) == esChofer)
+                            destruirPersona(removerPersona(centroLogistico,indices[i]-i-1));
+                        else
+                            printf("\n\n Posicion %d. ERROR: Seleccion incorrecta\n\n", indices[i]);
                     }
                     if(esChofer)
                         printf("\nChoferes eliminados exitosamente.\n\n");
@@ -986,11 +991,12 @@ bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *o
                     menuModoAccion3(listaAux,&desde,&hasta);
                 //Obtenemos y destruimos los elementos en el rango de indices
                     for(int i=desde;i<=hasta;i++)
-                        destruirPersona(removerPersona(centroLogistico,desde-1));
-                    if(esChofer)
-                        printf("\nChoferes eliminados exitosamente.\n\n");
-                    else
-                        printf("\nClientes eliminados exitosamente.\n\n");
+                    {
+                        if(getEsChofer(getDatoLista(getPersonas(centroLogistico),desde-1)) == esChofer)
+                            destruirPersona(removerPersona(centroLogistico,desde-1));
+                        else
+                            printf("\n\n Posicion %d. ERROR: Seleccion incorrecta", i);
+                    }
                 }
 
                 continuar=menuContinuar();
@@ -2676,7 +2682,8 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
             printf("1. Ordenados por ID\n");
             printf("2. Ordenados por Fecha de Entrega\n");
             printf("3. Ordenados por Estado\n");
-            printf("4. SIN ORDENAR\n");
+            printf("4. Paquetes en curso\n");
+            printf("5. SIN ORDENAR\n");
             printf("0. Volver\n");
             printf("-1. MENU PRINCIPAL");
             printf("\n\n-----------------------------------------\n\n");
@@ -2702,6 +2709,12 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                 cambiosGuardados = false;
                 break;
             case 4:
+                printf("LISTADO DE PAQUETES (EN CURSO)\n\n");
+                filtrarPaquetes(centroLogistico, 1);
+                filtrarPaquetes(centroLogistico, 2);
+                filtrarPaquetes(centroLogistico, 4);
+                break;
+            case 5:
                 printf("LISTADO DE PAQUETES (SIN ORDENAR)");
                 break;
             case 0:
@@ -3067,6 +3080,10 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
         return cambiosGuardados;
     }
 }
+
+
+
+
 
 
 ///--------------------------------------------------------------------------------------------------------------------------///
@@ -3612,7 +3629,7 @@ bool menuActualizarReparto(CentroLogisticoPtr centroLogistico)
                         presionarEnterYLimpiarPantalla();
                     }
                     system("cls");
-                } while(opEstado <= 1 && opEstado >= 4);
+                } while(opEstado <= 1 || opEstado >= 4);
                 for(int i = Total-1 ; i > -1 ; i--)
                 {
                     apilar(getPaquetesReparto(repartoActualizar), (PaquetePtr)PaquetesModificar[i]);
