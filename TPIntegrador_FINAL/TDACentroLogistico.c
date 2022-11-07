@@ -8,6 +8,7 @@
 #include "TDAPersona.h"
 #include "TDAVehiculo.h"
 #include "TDARepartos.h"
+#include "Menus.h"
 #include "TDACentroLogistico.h"
 #include "util.h"
 
@@ -375,34 +376,123 @@ void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
     listaAux = destruirLista(listaAux, false);
 }
 
+
+
+bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr PersonaEvaluar,bool esRepartoAbierto)
+{
+    bool Match = false;
+    int ResultadoComparacion = 0;
+    RepartoPtr RepartoTemporal;
+    PersonaPtr PersonaTemporal;
+    CuilPtr CuilActual;
+    CuilPtr CuilEvaluar = getCuilPersona(PersonaEvaluar);
+    ListaPtr ListaAuxiliar = crearLista();
+    agregarLista(ListaAuxiliar, getRepartos(centroLogistico, esRepartoAbierto));
+    while(!listaVacia(ListaAuxiliar))
+    {
+        RepartoTemporal = (RepartoPtr)getCabecera(ListaAuxiliar);
+        PersonaTemporal = getChofer(RepartoTemporal);
+        CuilActual = getCuilPersona(PersonaTemporal);
+        ResultadoComparacion = strcmp(getCuil(CuilActual), getCuil(CuilEvaluar));
+        if(ResultadoComparacion == 0)
+        {
+            Match = true;
+            ///break;
+        }
+        ListaPtr ListaDestruir = ListaAuxiliar;
+        ListaAuxiliar = getResto(ListaAuxiliar);
+        ListaDestruir = destruirLista(ListaDestruir, false);
+    }
+    ListaAuxiliar = destruirLista(ListaAuxiliar, false);
+    return Match;
+}
+
+/*void choferDisponible(CentroLogisticoPtr c, FechaPtr f)
+{
+    int i = 1;
+    bool valido = true;
+    ListaPtr l1 = crearLista();
+    agregarLista(l1,getPersonas(c));
+    while(!listaVacia(l1))
+    {
+        valido=true;
+        ListaPtr l2 = crearLista();
+        agregarLista(l2,getRepartos(c,true));
+        while(!listaVacia(l2))
+        {
+            if(choferEnReparto(c,getCabecera(l1),true) || getDia(f)==getDia(getFechaSalida(getCabecera(l2))) || choferEnReparto(c,getCabecera(l1),false))
+            {
+                valido=false;
+            }
+            ListaPtr ld2 = l2;
+            l2 = getResto(l2);
+            ld2 = destruirLista(ld2,false);
+        }
+        l2 = destruirLista(l2,false);
+        if(valido && getEsChofer(getCabecera(l1)))
+        {
+            printf("\n\nPosicion %d.\n\n", i);
+            mostrarPersona(getCabecera(l1));
+        }
+        ListaPtr ld1 = l1;
+        l1 = getResto(l1);
+        ld1 = destruirLista(ld1,false);
+        i++;
+    }
+    l1 = destruirLista(l1,false);
+}*/
+
+void choferDisponible(CentroLogisticoPtr c, FechaPtr f){
+    for(int i=0;i<longitudLista(getPersonas(c));i++){
+        bool valido = true;
+        for(int j=0;j<longitudLista(getRepartos(c,true));j++){
+            if(getDia(f)==getDia(getFechaSalida(getDatoLista(getRepartos(c,true),j)))){valido=false;}
+        }
+        if(choferEnReparto(c,getDatoLista(getPersonas(c),i),true)){valido=false;}
+        if(choferEnReparto(c,getDatoLista(getPersonas(c),i),false)){valido=false;}
+        if(!getEsChofer(getDatoLista(getPersonas(c),i))){valido=false;}
+        if(valido){ printf("\n\nPosicion %d.\n\n", i+1); mostrarPersona(getDatoLista(getPersonas(c),i)); }
+    }
+}
+
+
 void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
 {
-    int cont = 1;
-
-    bool condicion=false; ///Cambiamos el flag a una condicion compuesta
-
-    PersonaPtr personaAux;
+    ///Cambiamos el flag a una condicion compuesta
+    bool condicion;
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPersonas(centroLogistico));
-    while(!listaVacia(listaAux))
+    for(int i=1;!listaVacia(listaAux);i++)
     {
-        personaAux = (PersonaPtr)getCabecera(listaAux);
-
-        condicion = getEsChofer(personaAux)
-                    && !choferEnReparto(centroLogistico, personaAux,true);
-    //Condicion: tiene que ser un chofer, y no figurar en la lista de repartos abiertos
-        if(!condicion) ///De esta manera, no se vuelve necesario encadenar tantos ifs.
+        condicion = getEsChofer(getCabecera(listaAux));
+        condicion = condicion && !choferEnReparto(centroLogistico,getCabecera(listaAux),true);
+        //Condicion: tiene que ser un chofer, y no figurar en la lista de repartos abiertos
+        ///De esta manera, no se vuelve necesario encadenar tantos ifs.
+        if(condicion)
         {
-            printf("\n\nPosicion %d.\n\n", cont);
-            mostrarPersona(personaAux);
+            printf("\n\nPosicion %d.\n\n", i);
+            mostrarPersona(getCabecera(listaAux));
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        cont++;
     }
     listaAux = destruirLista(listaAux, false);
 }
+
+/*void mostrarChoferesDisponibles(CentroLogisticoPtr c)
+{
+    for(int i=1;i<=longitudLista(getPersonas(c));i++)
+    {
+        bool b=getEsChofer(getDatoLista(getPersonas(c),i-1));
+        b=b && !choferEnReparto(c,getDatoLista(getPersonas(c),i-1));
+        if(b)
+        {
+            printf("\n\nPosicion %d.\n\n", i);
+            mostrarPersona(getDatoLista(getPersonas(c),i-1));
+        }
+    }
+}*/
 
 /// ///////////////////////////////////////////////FUNCIONES DE BÚSQUEDA//////////////////////////////////////////////////////////////////////////
 
@@ -556,7 +646,7 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
         do
         {
             printf("BUSCAR POR ID DEL PAQUETE: \n");
-            pritnf("Ingrese el ID del paquete: ");
+            printf("Ingrese el ID del paquete: ");
             scanf("%d",&IDBuscar);
             limpiarBufferTeclado();
 

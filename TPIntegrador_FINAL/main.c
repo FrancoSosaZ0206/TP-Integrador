@@ -13,7 +13,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez);
 int main()
 {
     CentroLogisticoPtr c = crearCentroLogisticoDefecto();
-    menuBuscarReparto(c,true);
 /** **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************

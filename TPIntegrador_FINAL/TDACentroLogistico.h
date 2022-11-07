@@ -574,5 +574,7 @@ bool esPatenteValida(char* PatenteValidar);
 ///DEVUELVE BOOLEANO (TRUE = NO DISPONIBLES / FALSE = DISPONIBLE)
 bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
 
+void choferDisponible(CentroLogisticoPtr c, FechaPtr f);
+
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED
