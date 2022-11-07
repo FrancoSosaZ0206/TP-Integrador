@@ -33,7 +33,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","17 UJI 30");
     PilaPtr PilaPaquetes1 = crearPila();
     apilar(PilaPaquetes1, (PaquetePtr)paquete1);
-    RepartoPtr reparto1= NULL;;
+    RepartoPtr reparto1= NULL;
     reparto1=crearReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,PilaPaquetes1);
 
     DomicilioPtr domicilioChofer2=crearDomicilio("Boqueron",1500,"Villa Fiorito");
@@ -48,7 +48,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     PilaPtr PilaPaquetes2 = crearPila();
     apilar(PilaPaquetes2, (PaquetePtr)paquete2);
     VehiculoPtr vehiculo2=crearVehiculo(3,"Mercedes Benz","Actros","81 NMB 30");
-    RepartoPtr reparto2= NULL;;
+    RepartoPtr reparto2= NULL;
     reparto2=crearReparto(chofer2,vehiculo2,fechaSalida2,fechaRetorno2,PilaPaquetes2);
 
     DomicilioPtr domicilioChofer3=crearDomicilio("Espania",1500,"Puerto Madero");
@@ -63,7 +63,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     PilaPtr PilaPaquetes3 = crearPila();
     apilar(PilaPaquetes3, (PaquetePtr)paquete3);
     VehiculoPtr vehiculo3=crearVehiculo(3,"Mercedes Benz","Actros","19 JUY 78");
-    RepartoPtr reparto3= NULL;;
+    RepartoPtr reparto3= NULL;
     reparto3=crearReparto(chofer3,vehiculo3,fechaSalida3,fechaRetorno3,PilaPaquetes3);
 
     DomicilioPtr domicilioChofer4=crearDomicilio("Espania",1500,"Puerto Madero");

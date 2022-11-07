@@ -132,7 +132,7 @@ void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
 
         i++;
     }
-    printf("\n-----------------------------------------------------");
+    printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
 }
 
@@ -187,7 +187,7 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
 
         i++;
     }
-    printf("\n-----------------------------------------------------");
+    printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
 }
 
@@ -212,20 +212,15 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
 
         i++;
     }
-    printf("\n-----------------------------------------------------");
+    printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
 }
 
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
-	if(esRepartoAbierto)
-    {
-        printf("\nLISTA DE REPARTOS ABIERTOS: \n\n");
-    }
-	else
-    {
-        printf("\nLISTA DE REPARTOS CERRADOS (*): \n\n");
-    }
+	if(esRepartoAbierto) { printf("\nLISTA DE REPARTOS ABIERTOS: \n\n"); }
+	else { printf("\nLISTA DE REPARTOS CERRADOS (*): \n\n"); }
+
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
     int i = 1;
@@ -239,7 +234,7 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         listaDestruir = destruirLista(listaDestruir, false);
         i++;
     }
-    printf("\n-----------------------------------------------------");
+    printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
 }
 
@@ -946,19 +941,16 @@ bool esPatenteValida(char* patente)
         return false;
 }
 
-void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo)
+void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fecha)
 {
-    int i = 1;
-    VehiculoPtr vehiculoAux;
     ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getRepartos(centroLogistico,true));
-    while(!listaVacia(listaAux))
+    agregarLista(listaAux,getVehiculos(centroLogistico));
+    for(int i=1;!listaVacia(listaAux);i++)
     {
-        vehiculoAux=getVehiculo((RepartoPtr)getCabecera(listaAux));
-        if(strcmp(getPatente(vehiculoAux),getPatente(vehiculo))!=0)
+        if(esVehiculoDisponible(centroLogistico,getPatente(getCabecera(listaAux)),fecha))
         {
-            printf("\n\nPosicion %d. \n\n", i++);
-            mostrarVehiculo(vehiculoAux);
+            printf("\n\nPosicion %d.",i);
+            mostrarVehiculo(getCabecera(listaAux));
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
@@ -967,25 +959,27 @@ void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico, VehiculoPtr
     listaAux=destruirLista(listaAux,false);
 }
 
-bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente)
+bool esVehiculoDisponible(CentroLogisticoPtr centroLogistico, char* patente,FechaPtr fecha)
 {
     VehiculoPtr vehiculoDevolver;
+
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico,true));
     while(!listaVacia(listaAux))
     {
-        vehiculoDevolver=getVehiculo((RepartoPtr)getCabecera(listaAux));
-        if(strcmp(getPatente(vehiculoDevolver),patente)==0)
+        RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
+        vehiculoDevolver=getVehiculo(repartoAux);
+        if(strcmp(getPatente(vehiculoDevolver),patente)==0 && getDiaJuliano(fecha)==getDiaJuliano(getFechaSalida(repartoAux)))
         {
             listaAux=destruirLista(listaAux,false);
-            return true;
+            return false;
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
-    return false;
+    return true;
 }
 
 bool esPatenteExistente(CentroLogisticoPtr centroLogistico, char* patente)

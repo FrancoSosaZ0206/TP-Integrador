@@ -576,6 +576,15 @@ bool esPatenteExistente(CentroLogisticoPtr centroLogistico, char* PatenteComprob
 ///DEVUELVE BOOLEANO (TRUE = VALIDO / FALSE = INVALIDO)
 bool esPatenteValida(char* PatenteValidar);
 
+//Operación: Muestra los vehiculos.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, un vehiculo
+//Postcondición: Imprime la lista de vehiculos, solo aquellos que no se encuentren en un reparto
+//Parámetros:
+// centroLogistico: puntero a estructura que representa al centro logistico.
+// fecha: puntero a la fecha para ver si estan disponibles
+//Devuelve: nada.
+void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fecha);
+
 ///OPERACION: BUSQUEDA
 ///PRECONDICION: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
 ///POSTCONDICION: VERIFICA SI LA PATENTE DEL VEHICULO SE ENCUENTRA DENTRO
@@ -583,8 +592,9 @@ bool esPatenteValida(char* PatenteValidar);
 ///PARAMETROS:
 /// PUNTERO A CENTRO LOGISTICO
 /// PUNTERO A CHAR DE LA PATENTE A EVALUAR
+// fecha: puntero a la fecha para buscar
 ///DEVUELVE BOOLEANO (TRUE = NO DISPONIBLES / FALSE = DISPONIBLE)
-bool buscarVehiculoRepartos(CentroLogisticoPtr centroLogistico, char* patente);
+bool esVehiculoDisponible(CentroLogisticoPtr centroLogistico, char* patente,FechaPtr fecha);
 
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

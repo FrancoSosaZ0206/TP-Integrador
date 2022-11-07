@@ -425,21 +425,26 @@ CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico)
         printf("\n\tCUIL: ");
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
-        if(i>0 && i<4)
-        {
-            setCuil(cuil,strCuil);
-        }
-        else//if(i==4)
+        if(i>0 && i<4) { setCuil(cuil,strCuil); }
+        else //if(i==4)
         {
             cuil = destruirCuil(cuil);
             printf("\n\nIntentos agotados.\n\n");
+            presionarEnterYLimpiarPantalla();
             return NULL;
         }
         i++;
+
         if(!esCuilValido(cuil))
+        {
             printf("Cuil invalido. Vuelva a ingresar.");
+            presionarEnterYLimpiarPantalla();
+        }
         else if(esCuilExistente(centroLogistico,cuil))
+        {
             printf("Cuil existente. Vuelva a ingresar.");
+            presionarEnterYLimpiarPantalla();
+        }
     } while(!esCuilValido(cuil) && esCuilExistente(centroLogistico,cuil));
 
     return cuil;
@@ -473,7 +478,7 @@ DomicilioPtr cargarDomicilio()
 FechaPtr cargarFecha()
 {
     int dia=0,mes=0,anio=0,hora=0,minuto=0;
-    FechaPtr fecha=crearFecha(dia,mes,anio,hora,minuto);;
+    FechaPtr fecha=crearFecha(dia,mes,anio,hora,minuto);
     do{
         printf("\n\t\tFecha (DD MM AAAA): ");
         limpiarBufferTeclado();
@@ -507,32 +512,39 @@ DEVUELVE: Nada */
 void actualizarCuil(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
 {
     char strCuil[100];
-    char cuilSeguridad[100] = {"20 24576456 2"};
-    CuilPtr cuilAux = crearCuil("");;
-    int i=0;
+    int i=1;
     do
     {
-        printf("\n\n\tCUIL VALIDO DE EJEMPLO: %s\n\n",cuilSeguridad);
         helpCuil();
         printf("\n\tNuevo CUIL: ");
         limpiarBufferTeclado();
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
-        setCuil(cuilAux,strCuil);
-        if(!esCuilValido(cuilAux))
+
+        if(i==0) { cuil=crearCuil(strCuil); }
+        else { setCuil(cuil,strCuil); }
+
+        if(!esCuilValido(cuil))
         {
             printf("Cuil invalido. Vuelva a ingresar.");
             presionarEnterYLimpiarPantalla();
         }
-        if(esCuilExistente(centroLogistico,cuilAux))
+        else if(esCuilExistente(centroLogistico,cuil))
         {
             printf("Cuil existente. Vuelva a ingresar.");
             presionarEnterYLimpiarPantalla();
         }
+        else if(i==4)
+        {
+            cuil=destruirCuil(cuil);
+            printf("Intentos agotados.");
+            presionarEnterYLimpiarPantalla();
+            return;
+        }
         i++;
-    } while(!esCuilValido(cuilAux) || esCuilExistente(centroLogistico,cuilAux));
+    } while(!esCuilValido(cuil) || esCuilExistente(centroLogistico,cuil));
     setCuil(cuil,strCuil);
-    cuilAux = destruirCuil(cuilAux);
+    cuil = destruirCuil(cuil);
 }
 /** OPERACIÓN: actualiza los datos de un domicilio
 PRECONDICIÓN: domicilio debe haberse creado
@@ -569,7 +581,7 @@ DEVUELVE: Nada */
 void actualizarFecha(FechaPtr fecha)
 {
     int dia=0,mes=0,anio=0,hora=0,minuto=0;
-    FechaPtr fechaAux = crearFecha(dia,mes,anio,hora,minuto);;
+    bool primeraVez=true;
     do
     {
         printf("\n\t\tFecha (DD MM AAAA): ");
@@ -578,23 +590,30 @@ void actualizarFecha(FechaPtr fecha)
         printf("\n\t\tHorario (HH MM): ");
         scanf("%d %d",&hora,&minuto);
         limpiarBufferTeclado();
-        setDia(fechaAux,dia);
-        setMes(fechaAux,mes);
-        setAnio(fechaAux,anio);
-        setHora(fechaAux,hora);
-        setMinuto(fechaAux,minuto);
-        if(!esFechaValida(fechaAux))
+
+        if(primeraVez) { fecha=crearFecha(dia,mes,anio,hora,minuto); }
+        else
+        {
+            setDia(fecha,dia);
+            setMes(fecha,mes);
+            setAnio(fecha,anio);
+            setHora(fecha,hora);
+            setMinuto(fecha,minuto);
+        }
+
+        if(!esFechaValida(fecha))
         {
             printf("\n\nFecha invalida. Reingrese la fecha.");
             presionarEnterYLimpiarPantalla();
         }
-    } while (!esFechaValida(fechaAux));
+        primeraVez=false;
+    } while (!esFechaValida(fecha));
+
     setDia(fecha,dia);
     setMes(fecha,mes);
     setAnio(fecha,anio);
     setHora(fecha,hora);
     setMinuto(fecha,minuto);
-    fechaAux = destruirFecha(fechaAux);
 }
 
 
@@ -1558,14 +1577,21 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
 
                 if(modoAccion==1)
                 {
-                    if(esChofer)
-                        printf("MODIFICAR CHOFER\n\n");
-                    else
-                        printf("MODIFICAR CLIENTE\n\n");
-                    indice=menuModoAccion1(listaAux);
-                //Obtenemos el elemento seleccionado
-                    personaAModificar=(PersonaPtr)getDatoLista(listaAux,indice-1);
+                    do
+                    {
+                        if(esChofer) { printf("MODIFICAR CHOFER\n\n"); }
+                        else { printf("MODIFICAR CLIENTE\n\n"); }
+                        indice=menuModoAccion1(listaAux);
 
+                        if(esChofer != getEsChofer((PersonaPtr)getDatoLista(listaAux,indice-1)))
+                        {
+                            if(esChofer) { printf("ERROR: el indice seleccionado no corresponde a un chofer\n\n"); }
+                            else { printf("ERROR: el indice seleccionado no corresponde a un cliente\n\n"); }
+                            presionarEnterYLimpiarPantalla();
+                        }
+                    } while(esChofer != getEsChofer(personaAModificar));
+                //Obtenemos el elemento seleccionado
+                        personaAModificar=(PersonaPtr)getDatoLista(listaAux,indice-1);
                     printf("Ha elegido - ");
                     mostrarPersona(personaAModificar);
                 }
@@ -1583,11 +1609,19 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                         printf("Ha elegido Clientes");
                     for(int i=0;i<nIndices;i++)
                     { //Obtenemos los elementos en los indices seleccionados y los mostramos
-                        personasAModificar[i]=(PersonaPtr)getDatoLista(listaAux,indices[i]-1);
-                        printf("%d. ",indices[i]);
-                        mostrarPersona(personasAModificar[i]);
+                        if(esChofer != getEsChofer((PersonaPtr)getDatoLista(listaAux,indices[i]-1)))
+                        {
+                            if(esChofer) { printf("ERROR: la persona %d no es un chofer\n\n",indices[i]); }
+                            else { printf("ERROR: la persona %d no es un cliente\n\n",indices[i]); }
+                            presionarEnterYLimpiarPantalla();
+                        }
+                        else
+                        {
+                            personasAModificar[i]=(PersonaPtr)getDatoLista(listaAux,indices[i]-1);
+                            printf("%d. ",indices[i]);
+                            mostrarPersona(personasAModificar[i]);
+                        }
                     }
-
                 }
                 else
                 {
@@ -1597,18 +1631,25 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                         printf("MODIFICAR CLIENTES\n\n");
                     menuModoAccion3(listaAux,&desde,&hasta);
 
-                    for(int i=desde;i<=hasta;i++)
-
                     if(esChofer)
-                        printf("Ha elegido Choferes {%d - %d}\n",desde,hasta);
+                        printf("Ha elegido Choferes {%d - %d}\n\n",desde,hasta);
                     else
-                        printf("Ha elegido Clientes {%d - %d}\n",desde,hasta);
+                        printf("Ha elegido Clientes {%d - %d}\n\n",desde,hasta);
+
                     for(int i=0,j=desde;i<=(hasta-desde);i++,j++)
                     { //Obtenemos los elementos en el rango de indices y los mostramos
-                        personasAModificar[i]=(PersonaPtr)getDatoLista(listaAux,j-1);
-
-                        printf("%d. ",j);
-                        mostrarPersona(personasAModificar[i]);
+                        if(esChofer != getEsChofer((PersonaPtr)getDatoLista(listaAux,j-1)))
+                        {
+                            if(esChofer) { printf("ERROR: la persona %d no es un chofer\n\n",j); }
+                            else { printf("ERROR: la persona %d no es un cliente\n\n",j); }
+                            presionarEnterYLimpiarPantalla();
+                        }
+                        else
+                        {
+                            personasAModificar[i]=(PersonaPtr)getDatoLista(listaAux,j-1);
+                            printf("%d. ",j);
+                            mostrarPersona(personasAModificar[i]);
+                        }
                     }
                 }
 /// ////////////////////////////////////////////////////////////////////////////////// ///
@@ -1678,15 +1719,18 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                 case 4:
                     printf("\n\nNuevo CUIL:");
                     actualizarCuil(centroLogistico,nCuil);
-
-                    if(modoAccion==1)
-                        setCuilPersona(personaAModificar,nCuil);
-                    else if(modoAccion==2)
-                        for(int i=0;i<nIndices;i++)
-                            setCuilPersona(personasAModificar[i],nCuil);
-                    else
-                        for(int i=0;i<=(hasta-desde);i++)
-                            setCuilPersona(personasAModificar[i],nCuil);
+                    if(nCuil!=NULL)
+                    {
+                        if(modoAccion==1)
+                            setCuilPersona(personaAModificar,nCuil);
+                        else if(modoAccion==2)
+                            for(int i=0;i<nIndices;i++)
+                                setCuilPersona(personasAModificar[i],nCuil);
+                        else
+                            for(int i=0;i<=(hasta-desde);i++)
+                                setCuilPersona(personasAModificar[i],nCuil);
+                    }
+                    else { printf("No se pudo actualizar el CUIL."); }
                     break;
                 case 5:
                     if(esChofer)
@@ -3061,16 +3105,16 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             do
             { /// Validación y elección de vehículo
                 n = longitudLista(getVehiculos(centroLogistico));
-                mostrarVehiculosDisponibles(centroLogistico);
+                mostrarVehiculosDisponibles(centroLogistico,fechaSalida);
 
                 printf("\n\nSeleccione un vehiculo ingresando su indice: ");
                 scanf("%d",&k);
                 limpiarBufferTeclado();
 
-                if(k > 0 && k < n)
+                if(k > 0 && k < n+1)
                 {
                     vehiculoElegido = getDatoLista(getVehiculos(centroLogistico),k-1);
-                    if(!buscarVehiculoRepartos(centroLogistico, getPatente(vehiculoElegido)))
+                    if(esVehiculoDisponible(centroLogistico, getPatente(vehiculoElegido),fechaSalida))
                         vehiculoValido = true;
                     else
                     {
@@ -3087,8 +3131,38 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
             vehiculoElegido=(VehiculoPtr)getDatoLista(getVehiculos(centroLogistico),k-1);
 
-            printf("\n\nFecha de retorno: ");
-            FechaPtr fechaRetorno = cargarFecha();
+            int hora=0,minuto=0;
+            FechaPtr fechaRetorno = crearFecha(getDia(fechaSalida),getMes(fechaSalida),getAnio(fechaSalida),hora,minuto);
+            int *difFechas=NULL;
+            do
+            {
+                system("cls");
+                char buffer[10];
+                traerFechaYHora(fechaSalida,buffer);
+                printf("\n\t\tFecha y Horario de Salida: %s\n",buffer);
+                printf("\n\t\tHorario de Retorno (HH MM): ");
+                limpiarBufferTeclado();
+                scanf("%d %d",&hora,&minuto);
+                limpiarBufferTeclado();
+                setHora(fechaRetorno,hora);
+                setMinuto(fechaRetorno,minuto);
+
+                difFechas = calcularDiferenciaFechas(fechaSalida,fechaRetorno);
+
+                if(!esFechaValida(fechaRetorno))
+                {
+                    printf("\n\nFecha invalida. Reingrese la fecha.\n\n");
+                    presionarEnterYLimpiarPantalla();
+                }
+                else if(difFechas[1]>0 || (difFechas[1]<=0 && difFechas[2]>0))
+                {
+                    printf("\n\nERROR: El horario de retorno debe ser posterior al de salida.");
+                    presionarEnterYLimpiarPantalla();
+                }
+            } while (!esFechaValida(fechaRetorno) || difFechas[1]>0 || (difFechas[1]<=0 && difFechas[2]>0));
+
+            free(difFechas);
+            difFechas=NULL;
 
             do
             { ///Validación y elección de paquetes
@@ -3103,7 +3177,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     scanf("%d",&k);
                     limpiarBufferTeclado();
 
-                    if(k > 0 && k < n)
+                    if(k > 0 && k < n+1)
                     {
                         paqueteElegido = (PaquetePtr)getDatoLista(getPaquetes(centroLogistico), k-1);
                         if(getEstado(paqueteElegido) == 0 || getEstado(paqueteElegido) == 5)
