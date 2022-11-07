@@ -2398,12 +2398,6 @@ RepartoPtr menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAb
     }
 }
 
-/** OPERACIÓN:
-PRECONDICIÓN:
-POSTCONDICIÓN:
-PARÁMETROS:
-    -
-DEVUELVE: . */
 RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
     char CuilBuscar[100];
@@ -2475,12 +2469,6 @@ RepartoPtr SeleccionRepartoPorAtributo(CentroLogisticoPtr centroLogistico, bool 
     return RepartoElegido;
 }
 
-/** OPERACIÓN:
-PRECONDICIÓN:
-POSTCONDICIÓN:
-PARÁMETROS:
-    -
-DEVUELVE: . */
 RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil, bool esRepartoAbierto)
 {
     bool match=false;
@@ -2516,12 +2504,6 @@ RepartoPtr devolverRepartoChofer(CentroLogisticoPtr centroLogistico, char* cuil,
     }
 }
 
-/** OPERACIÓN:
-PRECONDICIÓN:
-POSTCONDICIÓN:
-PARÁMETROS:
-    -
-DEVUELVE: . */
 RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* patente, bool esRepartoAbierto)
 {
     bool match=false;
@@ -2555,12 +2537,7 @@ RepartoPtr devolverRepartoVehiculo(CentroLogisticoPtr centroLogistico, char* pat
     }
 }
 
-/** OPERACIÓN:
-PRECONDICIÓN:
-POSTCONDICIÓN:
-PARÁMETROS:
-    -
-DEVUELVE: . */
+
 RepartoPtr devolverRepartoFecha(CentroLogisticoPtr centroLogistico, FechaPtr fechaBuscar, bool esRepartoAbierto, bool esFechaSalida)
 {
     int hora = 0;
