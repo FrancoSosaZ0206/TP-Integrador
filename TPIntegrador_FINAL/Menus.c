@@ -509,8 +509,6 @@ FechaPtr cargarFecha()
                 printf("\n\nFecha invalida. Reingrese la fecha.\n\n");
         }
         primeraVez=false;
-        if(primeraVez==false)
-            system("cls");
     } while (!esFechaValida(fecha));
 
     return fecha;
@@ -2526,7 +2524,7 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                     case 0:
                         break;
                     case -1:
-                        *op=-1;
+                        op=-1;
                         break;
                     default:
                         printf("\nOpcion incorrecta.");
@@ -2761,9 +2759,8 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
 }
 bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int *opMenuAnterior)
 {
-    bool cambiosGuardados = true;
-    FechaPtr fechaSalida = crearFecha(0,0,0,0,0);
-    if(listaVacia(getRepartos(centroLogistico,esRepartoAbierto)))
+    ListaPtr listaAux = getRepartos(centroLogistico,esRepartoAbierto);
+    if(listaVacia(listaAux))
     {
         printf("ERROR: La lista esta vacia.");
         presionarEnterYLimpiarPantalla();
@@ -2771,10 +2768,18 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
     }
     else
     {
+        bool cambiosGuardados = true;
+    ///Para filtrar por fecha:
+        FechaPtr fecha;
+        int dia=0,mes=0,anio=0;
+        bool primeraVez=true;
+    /// //////////////////////////
         int op2=0;
         int op3=0;
 
         int i=0;
+        int n=longitudLista(listaAux);
+
 
         do
         {
@@ -2800,16 +2805,19 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 do
                 {
                     mostrarRepartos(centroLogistico,esRepartoAbierto);
-                    printf("\nSeleccione un reparto para mostrar:");
-                    limpiarBufferTeclado();
+                    printf("\nSeleccione un reparto para mostrar: ");
                     scanf("%d",&i);
-                    if(i<1 || i>longitudLista(getRepartos(centroLogistico,esRepartoAbierto)))
+                    limpiarBufferTeclado();
+
+                    if(i<1 || i>n)
+                    {
                         printf("\n\nIndice inexistente. Vuelva a ingresarlo.");
-                    presionarEnterYLimpiarPantalla();
-                } while(i<1 || i>longitudLista(getRepartos(centroLogistico,esRepartoAbierto)));
+                        presionarEnterYLimpiarPantalla();
+                    }
+                } while(i<1 || i>n);
 
-                mostrarReparto(getDatoLista(getRepartos(centroLogistico,esRepartoAbierto),i-1));
-
+                printf("\n\n");
+                mostrarReparto((RepartoPtr)getDatoLista(listaAux,i-1));
                 presionarEnterYLimpiarPantalla();
                 break;
             case 2:
@@ -2817,7 +2825,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                 {
                     printf("MOSTRAR LISTA DE REPARTOS:\n");
 
-                    printf("1. Filtrados por fecha de salida\n");
+                    printf("1. Filtrados por fecha\n");
                     printf("2. Sin filtrar\n");
                     printf("0. Volver\n");
                     printf("-1. MENU PRINCIPAL");
@@ -2829,24 +2837,47 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                     switch(op3)
                     {
                     case 1:
-                        printf("MOSTRAR LISTA DE REPARTOS FILTRADOS POR FECHA DE SALIDA\n\n");
+                        primeraVez=true;
+                        do
+                        { //Primero, ingresamos y validamos la fecha
+                            printf("MOSTRAR LISTA DE REPARTOS FILTRADOS POR FECHA DE SALIDA\n\n");
 
-                        printf("Fecha para filtrar\n");
-                        cargarFecha(fechaSalida);
-                        ordenarRepartos(centroLogistico,esRepartoAbierto,1);
+                            printf("Ingrese una fecha para filtrar [DD MM AAAA]: ");
+                            scanf("%d %d %d",&dia,&mes,&anio);
+                            limpiarBufferTeclado();
+
+                            if(primeraVez)
+                                fecha=crearFecha(dia,mes,anio,0,0);
+                            else
+                            {
+                                setDia(fecha,dia);
+                                setMes(fecha,mes);
+                                setAnio(fecha,anio);
+                                if(!esFechaValida(fecha))
+                                    printf("\n\nFecha invalida. Reingrese la fecha.\n\n");
+                            }
+                            primeraVez=false;
+                        } while (!esFechaValida(fecha));
+                        system("cls");
+                        filtrarRepartosPorFecha(centroLogistico,esRepartoAbierto,fecha);
+                        fecha=destruirFecha(fecha);
                         cambiosGuardados = false;
                         break;
                     case 2:
+                        mostrarRepartos(centroLogistico,esRepartoAbierto);
                         break;
                     case 0:
                         break;
                     case -1:
-                        op2=-1;
+                        op2=0;
+                        op3=0;
+                        *opMenuAnterior=0;
                         break;
                     default:
                         printf("Opcion incorrecta.");
                         break;
                     }
+
                     if(!(op3==0 || op3==-1))
                         presionarEnterYLimpiarPantalla();
                 } while(!(op3==0 || op3==-1));
@@ -2901,7 +2932,10 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                     case 0:
                         break;
                     case -1:
-                        op2=-1; //En lugar de poner cada una en 0, ponemos en -1 para que vaya a la cláusula del menú anterior, haciendo todo de una
+                        op2=0; //En lugar de poner cada una en 0, ponemos en -1 para que vaya a la cláusula del menú anterior, haciendo todo de una
+                        op3=0;
+                        *opMenuAnterior=0;
+                        break;
                     default:
                         printf("Opcion incorrecta.");
                         presionarEnterYLimpiarPantalla();
@@ -2917,14 +2951,16 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
             case 0:
                 break;
             case -1:
+                op2=0;
+                op3=0;
                 *opMenuAnterior=0;
+                break;
             default:
                 printf("Opcion incorrecta.");
                 presionarEnterYLimpiarPantalla();
                 break;
             }
         } while(!(op2==0 || op2==-1));
-        fechaSalida = destruirFecha(fechaSalida);
         return cambiosGuardados;
     }
 }
@@ -2989,7 +3025,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             do
             { /// Validación y elección de chofer
                 n = longitudLista(getPersonas(centroLogistico));
-                mostrarChoferesDisponibles(centroLogistico,1);
+                mostrarChoferesDisponibles(centroLogistico,fechaSalida);
 
                 printf("\n\nSeleccione un chofer ingresando su indice: ");
                 scanf("%d",&k);
@@ -3060,37 +3096,41 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
             do
             { ///Validación y elección de paquetes
-                n = longitudLista(getPaquetes(centroLogistico));
-                mostrarPaquetesDisponibles(centroLogistico);
+                paqueteValido = false;
+                do
+                { //Primero validamos el paquete
+                    n = longitudLista(getPaquetes(centroLogistico));
+                    mostrarPaquetesDisponibles(centroLogistico);
 
-                printf("\n\nPaquete nro: %d. \n", i+1);
-                printf("Seleccione el paquete a cargar ingresando su indice: ");
-                scanf("%d",&k);
-                limpiarBufferTeclado();
+                    printf("\n\nPaquete nro: %d. \n", i+1);
+                    printf("Seleccione el paquete a cargar ingresando su indice: ");
+                    scanf("%d",&k);
+                    limpiarBufferTeclado();
 
-                if(k > 0 && k < n)
-                {
-                    paqueteElegido = getDatoLista(getPaquetes(centroLogistico), k-1);
-                    if(getEstado(paqueteElegido) == 0 || getEstado(paqueteElegido) == 5)
-                        paqueteValido = true;
+                    if(k > 0 && k < n)
+                    {
+                        paqueteElegido = getDatoLista(getPaquetes(centroLogistico), k-1);
+                        if(getEstado(paqueteElegido) == 0 || getEstado(paqueteElegido) == 5)
+                            paqueteValido = true;
+                        else
+                        {
+                            printf("\n\nERROR: Paquete actualmente en curso. Vuelva a elegir.");
+                            presionarEnterYLimpiarPantalla();
+                        }
+                    }
                     else
                     {
-                        printf("\n\nERROR: Paquete actualmente en curso. Vuelva a elegir.");
+                        printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
                         presionarEnterYLimpiarPantalla();
                     }
-                }
-                else
-                {
-                    printf("\n\nERROR: indice inexistente. Vuelva a elegir.");
-                    presionarEnterYLimpiarPantalla();
-                }
-                system("cls");
-
+                    system("cls");
+                } while(!paqueteValido);
+            //Luego, lo agregamos
                 setEstado(paqueteElegido, 1);
                 apilar(pilaPaquetesElegidos, (PaquetePtr)paqueteElegido);
                 seguirApilando = menuContinuar();
                 i++;
-            } while(!paqueteValido && hayPaquetesDisponibles(centroLogistico) && seguirApilando);
+            } while(hayPaquetesDisponibles(centroLogistico) && seguirApilando);
 
         ///Armado del reparto y última barrera de verificación:
             reparto = armarReparto(choferElegido, vehiculoElegido, fechaSalida, fechaRetorno, pilaPaquetesElegidos);
@@ -3177,7 +3217,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                         while(i<nIndices && !existeEnCerrados)
                         {
                             repartoCerrar=(RepartoPtr)getDatoLista(getRepartos(centroLogistico,false),indices[i]-1);
-                            if(esRepartoExistente(centroLogistico,repartoCerrar,false))
+                            if(esRepartoExistente(centroLogistico,repartoCerrar))
                                 existeEnCerrados=true;
                             i++;
                         }
@@ -3198,7 +3238,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                         while(i<=hasta && !existeEnCerrados)
                         {
                             repartoCerrar=(RepartoPtr)getDatoLista(getRepartos(centroLogistico,false),i);
-                            if(esRepartoExistente(centroLogistico,repartoCerrar,false))
+                            if(esRepartoExistente(centroLogistico,repartoCerrar))
                                 existeEnCerrados=true;
                             i++;
                         }

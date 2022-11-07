@@ -189,17 +189,18 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico);
 //Devuelve: nada.
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
 
-//Operacion: Muestra lista de repartos ordenados por fecha de salida.
-///          De cada reparto de la lista, solo se muestran fecha, vehiculo y chofer
-//Precondicion: La lista debe estar creada.
-//Postcondicion: Se ordena la lista por fecha de salida y se muestra por pantalla los repartos
+//Operación: Muestra lista de repartos filtrados por una fecha determinada (de salida o retorno, no importa) (sin horario, solo día juliano).
+//          De cada reparto de la lista, solo se muestran fecha, vehiculo y chofer
+//Precondición: La lista debe estar creada.
+//Postcondición: Se ordena la lista por fecha de salida y se muestra por pantalla los repartos
 //               del día especificado.
-//Parametros:
+//Parámetros:
 //  centroLogistico: puntero al Centro Logistico del que se quiere mostrar los repartos.
 //  esRepartoAbierto: booleano indicando si la lista es de repartos abiertos (true) o cerrados (false).
-//  fechaSalida: puntero a la estructura fecha que se usará para filtrar.
+//  fecha: puntero a la estructura fecha que se usará para filtrar.
 //Devuelve: nada.
-void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,FechaPtr fechaSalida); ///NUEVA
+void filtrarRepartosPorFecha(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,FechaPtr fecha);
+
 //Operación: Muestra los paquetes con el estado que le haya pasado.
 //Precondición: Centro logistico debe haberse creado.
 //Postcondición: Imprime los paquetes con la condicion que se les haya pasado.

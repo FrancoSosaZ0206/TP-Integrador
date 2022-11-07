@@ -9,6 +9,7 @@
 #include "TDAVehiculo.h"
 #include "TDARepartos.h"
 #include "TDACentroLogistico.h"
+#include "Menus.h"
 #include "util.h"
 
 
@@ -242,28 +243,30 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
     listaAux=destruirLista(listaAux,false);
 }
 
-void filtrarPorFechaSalida(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,FechaPtr fechaSalida)
+void filtrarRepartosPorFecha(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,FechaPtr fecha)
 {
-    ordenarRepartos(centroLogistico,esRepartoAbierto,1);
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
 
-    printf("\n LISTA DE REPARTOS ");
+    printf("\nLISTA DE REPARTOS ");
     if(esRepartoAbierto)
         printf("ABIERTOS ");
     else
         printf("CERRADOS ");
     char buffer[11];
-    traerFechaCorta(fechaSalida,buffer);
-    printf("FILTRADOS POR DIA DE SALIDA - %s \n\n",buffer);
+    traerFechaCorta(fecha,buffer);
+    printf("FILTRADOS POR DIA DE SALIDA - %s \n\n\n\n",buffer);
     while(!listaVacia(listaAux))
     {
         RepartoPtr repartoAux=getCabecera(listaAux);
-        int *diaDeReparto=calcularDiferenciaFechas(getFechaSalida(repartoAux),fechaSalida); /**getDia(getFechaSalida((RepartoPtr)getCabecera(listaAux))*/
-        bool condicion=diaDeReparto[0]==0;
+        int *diaJulianoDeReparto = calcularDiferenciaFechas(getFechaSalida(repartoAux),fecha);
+        bool condicion = diaJulianoDeReparto[0]==0;
     ///CONDICION: "si SOLAMENTE el día JULIANO del reparto (dia, mes y año) coincide con el de la fecha recibida..."
         if(condicion)
+        {
             mostrarRepartoSinPaquetes(repartoAux);
+            printf("\n\n\n");
+        }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir,false);
@@ -377,8 +380,6 @@ void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
 
 bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr chofer, FechaPtr fechaSalida)
 {
-    RepartoPtr repartoAux;
-
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getRepartos(centroLogistico, true));
 
@@ -390,14 +391,14 @@ bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr chofer, Fech
         RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
         RepartoPtr repartoAux2 = (RepartoPtr)getCabecera(listaAux2);
 
-        int *difFechas = calcularDiferenciaFechas(getFechaSalida(reparto,getFechaSalida(repartoAux));
-        bool condicion = difFechas[0]==0 && personasIguales(getChofer(repartoAux),getChofer(reparto));
+        int *difFechas = calcularDiferenciaFechas(fechaSalida,getFechaSalida(repartoAux));
+        bool condicion = difFechas[0]==0 && personasIguales(chofer,getChofer(repartoAux));
 
-        int *difFechas2 = calcularDiferenciaFechas(getFechaSalida(reparto,getFechaSalida(repartoAux2));
-        bool condicion2 = difFechas[0]==0 && personasIguales(getChofer(repartoAux2),getChofer(reparto));
+        int *difFechas2 = calcularDiferenciaFechas(fechaSalida,getFechaSalida(repartoAux2));
+        bool condicion2 = difFechas2[0]==0 && personasIguales(chofer,getChofer(repartoAux2));
     ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
     ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
-        if(condicion || condicion2)
+        if((condicion || condicion2) && getEsChofer(chofer))
         {
             listaAux = destruirLista(listaAux, false);
             listaAux2 = destruirLista(listaAux2, false);
@@ -410,7 +411,8 @@ bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr chofer, Fech
 
         listaDestruir = listaAux2;
         listaAux2 = getResto(listaAux2);
-        listaDestruir = destruirLista(listaDestruir2, false);
+        listaDestruir = destruirLista(listaDestruir, false);
+
     }
 
     listaAux = destruirLista(listaAux, false);
@@ -420,34 +422,24 @@ bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr chofer, Fech
 
 void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fechaSalida)
 {
-    int cont = 1;
-
-    bool condicion=false; ///Cambiamos el flag a una condicion compuesta
-
     PersonaPtr personaAux;
 
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPersonas(centroLogistico));
 
-    while(!listaVacia(listaAux))
+    for(int i=1;!listaVacia(listaAux);i++)
     {
         personaAux = (PersonaPtr)getCabecera(listaAux);
 
-        int *difFechas = calcularDiferenciaFechas(fechaSalida,);
-
-        condicion = getEsChofer(personaAux)
-                    && !choferEnReparto(centroLogistico, personaAux)
-                    && !fechasIguales(fechaSalida,getFechaSalida(getRepartos(centroLogistico)));
     //Condicion: tiene que ser un chofer, y no figurar en la lista de repartos abiertos
-        if(!condicion) ///De esta manera, no se vuelve necesario encadenar tantos ifs.
+        if(!choferEnReparto(centroLogistico, personaAux, fechaSalida)) ///De esta manera, no se vuelve necesario encadenar tantos ifs.
         {
-            printf("\n\nPosicion %d.\n\n", cont);
+            printf("\n\nPosicion %d.\n\n", i);
             mostrarPersona(personaAux);
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        cont++;
     }
     listaAux = destruirLista(listaAux, false);
 }
@@ -539,7 +531,7 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
     int n=0;
 
     int i=0;
-    char cuilBuscar[100];
+    CuilPtr cuilBuscar;
     char patenteBuscar[100];
     int IDBuscar;
     FechaPtr fechaBuscar;
@@ -563,7 +555,7 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
     {
         printf("BUSCAR POR CUIL: \n");
         cuilBuscar=cargarCuil(centroLogistico);
-        if(cuil==NULL)
+        if(cuilBuscar==NULL)
         {
             printf("No se pudo buscar por CUIL.");
             presionarEnterYLimpiarPantalla();
@@ -577,15 +569,15 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
         {
             printf("\n\n\tFormato: [AA 111 AA]");
             printf("\n\n\tPatente: ");
-            scanf("%[^\n]%*c", patente);
+            scanf("%[^\n]%*c", patenteBuscar);
             limpiarBufferTeclado();
 
-            if(!esPatenteValida(patente))
+            if(!esPatenteValida(patenteBuscar))
             {
                 printf("\n\n\t [Patente invalida...]\n");
                 presionarEnterYLimpiarPantalla();
             }
-        } while(!esPatenteValida(patente));
+        } while(!esPatenteValida(patenteBuscar));
     }
     else if(modo == 4)
     {
@@ -604,7 +596,7 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
         do
         {
             printf("BUSCAR POR ID DEL PAQUETE: \n");
-            pritnf("Ingrese el ID del paquete: ");
+            printf("Ingrese el ID del paquete: ");
             scanf("%d",&IDBuscar);
             limpiarBufferTeclado();
 
@@ -614,7 +606,7 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
     }
 
     ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getRepartos(centroLogistico));
+    agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
 
     for(int j=0;!listaVacia(listaAux);j++)
     {
@@ -645,7 +637,7 @@ bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int 
             int ultimaPos=0;
             for(int i=0;!pilaVacia(getPaquetesReparto(repartoAux));i++)
             {
-                paquetesAux[i] = descargarPaquete(repartoAux),
+                paquetesAux[i] = descargarPaquete(repartoAux);
 
                 if(IDBuscar==getID(paquetesAux[i]))
                 {
@@ -1042,13 +1034,11 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
         RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
         RepartoPtr repartoAux2=(RepartoPtr)getCabecera(listaAux2);
 
-        int *difFechas = calcularDiferenciaFechas(getFechaSalida(reparto,getFechaSalida(repartoAux));
-        bool condicion = difFechas[0]==0;
-        condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto));
+        int *difFechas = calcularDiferenciaFechas(getFechaSalida(reparto),getFechaSalida(repartoAux));
+        bool condicion = difFechas[0]==0 && personasIguales(getChofer(repartoAux),getChofer(reparto));
 
-        int *difFechas2 = calcularDiferenciaFechas(getFechaSalida(reparto,getFechaSalida(repartoAux2));
-        bool condicion2 = difFechas2[0]==0;
-        condicion2 = condicion2 && personasIguales(getChofer(repartoAux2),getChofer(reparto));
+        int *difFechas2 = calcularDiferenciaFechas(getFechaSalida(reparto),getFechaSalida(repartoAux2));
+        bool condicion2 = difFechas2[0]==0 && personasIguales(getChofer(repartoAux2),getChofer(reparto));
     ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
     ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
         if(condicion || condicion2)

@@ -226,7 +226,7 @@ void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual de
 
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 {
-    bool match = match && (getID(paquete1) == getID(paquete2));
+    bool match = (getID(paquete1) == getID(paquete2));
     match = match && (getAncho(paquete1) == getAncho(paquete2));
     match = match && (getAlto(paquete1) == getAlto(paquete2));
     match = match && (getLargo(paquete1) == getLargo(paquete2));

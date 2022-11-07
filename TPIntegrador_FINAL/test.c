@@ -24,7 +24,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     DomicilioPtr domicilioChofer1=crearDomicilio("Vieytes",2000,"Lomas de zamora");
     DomicilioPtr dirRetiro1=crearDomicilio("Deposito",5000,"Sector industrial"); /// (*)
     DomicilioPtr dirEntrega1=crearDomicilio("Santa fe",1500,"Banfield"); /// (**)
-    FechaPtr fechaSalida1=crearFecha(10,12,2022,8,30); //Para el reparto
+    FechaPtr fechaSalida1=crearFecha(15,12,2022,8,30); //Para el reparto
     FechaPtr fechaRetorno1=crearFecha(10,12,2022,8,30); //Para el reparto
     FechaPtr fechaEntrega1=crearFecha(10,12,2022,8,30);
     CuilPtr cuil1=crearCuil("20346547546");

@@ -268,7 +268,7 @@
 	<stdlib.h>
 	<stdbool.h>
 
-1667765937 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdarepartos.c
+1667799969 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdarepartos.c
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -318,7 +318,7 @@
 	"Lista.h"
 	"Pila.h"
 
-1667765937 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdavehiculo.c
+1667797540 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdavehiculo.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -343,7 +343,7 @@
 	<sys/stat.h>
 	<dirent.h>
 
-1667786237 e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdacentrologistico.h
+1667798882 e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdacentrologistico.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -358,7 +358,7 @@
 	<stdlib.h>
 	"TDACentroLogistico.h"
 
-1667791216 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\main.c
+1667801116 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -379,7 +379,7 @@
 	<stdbool.h>
 	"TDACentroLogistico.h"
 
-1667765937 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdafechayhora.c
+1667792520 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdafechayhora.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -393,7 +393,7 @@
 	"util.h"
 	"TDANodo.h"
 
-1667765937 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdapaquetes.c
+1667797532 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdapaquetes.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -412,7 +412,7 @@
 	"TDAPersona.h"
 	"util.h"
 
-1667099430 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\menus.c
+1667801278 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\menus.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -425,17 +425,19 @@
 	"util.h"
 	"Menus.h"
 
-1667099808 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdacentrologistico.c
+1667800036 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdacentrologistico.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<stdbool.h>
+	<ctype.h>
 	"Lista.h"
 	"TDAPaquetes.h"
 	"TDAPersona.h"
 	"TDAVehiculo.h"
 	"TDARepartos.h"
 	"TDACentroLogistico.h"
+	"Menus.h"
 	"util.h"
 
 1667765937 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\tdacuil.c
@@ -445,7 +447,7 @@
 	"TDACuil.h"
 	"util.h"
 
-1667765937 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\test.c
+1667800178 source:e:\franco\9. programas\github\github - repositorios\tp-integrador-repositorio\tpintegrador_final\test.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

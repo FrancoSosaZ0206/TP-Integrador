@@ -42,7 +42,8 @@ int main()
     return 0;
 
 /// **************************************************************************************************************/
-    CentroLogisticoPtr centroLogistico;
+    ///CentroLogisticoPtr centroLogistico=NULL;
+    CentroLogisticoPtr centroLogistico=crearCentroLogisticoDefecto();
     int START_OP=0;
     do
     {
@@ -61,7 +62,7 @@ int main()
         switch(START_OP)
         {
         case 1:
-            ///centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
+            centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             system("cls");
             START_OP = MAIN_MENU(centroLogistico,true);
             centroLogistico=destruirCentroLogistico(centroLogistico);
@@ -92,7 +93,6 @@ int main()
     return 0;
 }
 
-/** NUEVO: ahora detecta si es la primera vez que se ingresa al sistema.*/
 int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
 {
     ///Menúes
