@@ -380,47 +380,76 @@ void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
 
 bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr chofer, FechaPtr fechaSalida)
 {
-    ListaPtr listaAux = crearLista();
-    agregarLista(listaAux, getRepartos(centroLogistico, true));
-
-    ListaPtr listaAux2 = crearLista();
-    agregarLista(listaAux2, getRepartos(centroLogistico, false));
-
-    while(!listaVacia(listaAux) && !listaVacia(listaAux2))
+    if(!getEsChofer(chofer))
+        return false;
+    else
     {
-        RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
-        RepartoPtr repartoAux2 = (RepartoPtr)getCabecera(listaAux2);
+        ListaPtr listaAux = crearLista();
+        agregarLista(listaAux, getRepartos(centroLogistico, true));
 
-        int *difFechas = calcularDiferenciaFechas(fechaSalida,getFechaSalida(repartoAux));
-        bool condicion = difFechas[0]==0 && personasIguales(chofer,getChofer(repartoAux));
+        ListaPtr listaAux2 = crearLista();
+        agregarLista(listaAux2, getRepartos(centroLogistico, false));
 
-        int *difFechas2 = calcularDiferenciaFechas(fechaSalida,getFechaSalida(repartoAux2));
-        bool condicion2 = difFechas2[0]==0 && personasIguales(chofer,getChofer(repartoAux2));
-    ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
-    ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
-        if((condicion || condicion2) && getEsChofer(chofer))
+        int *difFechas = NULL;
+        int *difFechas2 = NULL;
+
+        while(!listaVacia(listaAux))
         {
-            listaAux = destruirLista(listaAux, false);
-            listaAux2 = destruirLista(listaAux2, false);
-            return true;
+            RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
+
+            difFechas = calcularDiferenciaFechas(fechaSalida,getFechaSalida(repartoAux));
+            bool condicion = difFechas[0]==0 && personasIguales(chofer,getChofer(repartoAux));
+
+        ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
+        ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
+            if(condicion)
+            {
+                listaAux = destruirLista(listaAux, false);
+
+                free(difFechas);
+                difFechas = NULL;
+                return true;
+            }
+
+            ListaPtr listaDestruir = listaAux;
+            listaAux = getResto(listaAux);
+            listaDestruir = destruirLista(listaDestruir, false);
+        }
+        free(difFechas);
+        difFechas = NULL;
+        listaAux = destruirLista(listaAux, false);
+
+        while(!listaVacia(listaAux2))
+        {
+            RepartoPtr repartoAux2 = (RepartoPtr)getCabecera(listaAux2);
+
+            difFechas2 = calcularDiferenciaFechas(fechaSalida,getFechaSalida(repartoAux2));
+            bool condicion2 = difFechas2[0]==0 && personasIguales(chofer,getChofer(repartoAux2));
+        ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
+        ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
+            if(condicion2)
+            {
+                listaAux2 = destruirLista(listaAux2, false);
+
+                free(difFechas2);
+                difFechas2 = NULL;
+                return true;
+            }
+
+            ListaPtr listaDestruir2 = listaAux2;
+            listaAux2 = getResto(listaAux2);
+            listaDestruir2 = destruirLista(listaDestruir2, false);
         }
 
-        ListaPtr listaDestruir = listaAux;
-        listaAux = getResto(listaAux);
-        listaDestruir = destruirLista(listaDestruir, false);
+        free(difFechas2);
+        difFechas2 = NULL;
 
-        listaDestruir = listaAux2;
-        listaAux2 = getResto(listaAux2);
-        listaDestruir = destruirLista(listaDestruir, false);
-
+        listaAux2 = destruirLista(listaAux2, false);
+        return false;
     }
-
-    listaAux = destruirLista(listaAux, false);
-    listaAux2 = destruirLista(listaAux2, false);
-    return false;
 }
 
-/*void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fechaSalida)
+void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fechaSalida)
 {
     PersonaPtr personaAux;
 
@@ -432,8 +461,8 @@ bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr chofer, Fech
         personaAux = (PersonaPtr)getCabecera(listaAux);
 
     //Condicion: tiene que ser un chofer, y no figurar en la lista de repartos abiertos
-        if(!choferEnReparto(centroLogistico, personaAux, fechaSalida)) ///De esta manera, no se vuelve necesario encadenar tantos ifs.
-        {
+        if(!choferEnReparto(centroLogistico, personaAux, fechaSalida) && getEsChofer(personaAux))
+        { ///De esta manera, no se vuelve necesario encadenar tantos ifs.
             printf("\n\nPosicion %d.\n\n", i);
             mostrarPersona(personaAux);
         }
@@ -442,53 +471,6 @@ bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr chofer, Fech
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux = destruirLista(listaAux, false);
-}*/
-
-void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico, FechaPtr fechaSalida)
-{
-    int i = 1;
-    bool valido = true;
-    ListaPtr listaAux_1 = crearLista();
-    agregarLista(listaAux_1,getPersonas(centroLogistico));
-    while(!listaVacia(listaAux_1))
-    {
-        valido=true;
-        ListaPtr listaAux_2 = crearLista();
-        agregarLista(listaAux_2,getRepartos(centroLogistico,true));
-        while(!listaVacia(listaAux_2))
-        {
-            if(choferEnReparto(centroLogistico,getCabecera(listaAux_1),true))
-            {
-                valido = false;
-            }
-            if(getDia(fechaSalida)==getDia(getFechaSalida(getCabecera(listaAux_2))))
-            {
-                valido=false;
-            }
-            if(choferEnReparto(centroLogistico,getCabecera(listaAux_1),false))
-            {
-                valido=false;
-            }
-            if(!getEsChofer(getCabecera(listaAux_1)))
-            {
-                valido=false;
-            }
-            ListaPtr listaDestruir_2 = listaAux_2;
-            listaAux_2 = getResto(listaAux_2);
-            listaDestruir_2 = destruirLista(listaDestruir_2,false);
-        }
-        listaAux_2 = destruirLista(listaAux_2,false);
-        if(valido)
-        {
-            printf("\n\nPosicion %d.\n\n", i);
-            mostrarPersona(getCabecera(listaAux_1));
-        }
-        ListaPtr listaDestruir_1 = listaAux_1;
-        listaAux_1 = getResto(listaAux_1);
-        listaDestruir_1 = destruirLista(listaDestruir_1,false);
-        i++;
-    }
-    listaAux_1 = destruirLista(listaAux_1,false);
 }
 
 /// ///////////////////////////////////////////////FUNCIONES DE BÚSQUEDA//////////////////////////////////////////////////////////////////////////

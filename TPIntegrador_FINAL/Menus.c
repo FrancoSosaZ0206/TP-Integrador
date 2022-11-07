@@ -2540,7 +2540,7 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                         printf("ERROR: estado inexistente. Vuelva a intentar.");
                         presionarEnterYLimpiarPantalla();
                     }
-                } while(estadoBuscar>=0 && estadoBuscar <=5);
+                } while(estadoBuscar<0 || estadoBuscar >5);
 
                 filtrarPaquetesPorEstado(centroLogistico,estadoBuscar);
                 break;
@@ -3014,8 +3014,6 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
         ///Primero, cargamos la fecha de salida y el chofer para validarlo
             printf("\n\nFecha de salida: ");
             FechaPtr fechaSalida = cargarFecha();
-            printf("\n\nFecha de retorno: ");
-            FechaPtr fechaRetorno = cargarFecha();
 
             do
             { /// Validación y elección de chofer
@@ -3027,9 +3025,13 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                 scanf("%d",&k);
                 limpiarBufferTeclado();
 
-                if(k > 0 && k < n)
+                if(k > 0 && k < n+1)
                 {
-                    choferElegido = getDatoLista(getPersonas(centroLogistico), k-1);
+                    choferElegido = (PersonaPtr)getDatoLista(getPersonas(centroLogistico), k-1);
+                    system("pause");
+                    if(choferElegido==NULL)
+                        printf("ERROR: chofer fallo en ser obtenido\n\n");
+
                     if(getEsChofer(choferElegido))
                     {
                         if(!choferEnReparto(centroLogistico, choferElegido, fechaSalida))
@@ -3054,7 +3056,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                 system("cls");
             } while(!choferValido);
 
-            choferElegido = getDatoLista(getPersonas(centroLogistico),k-1);
+            choferElegido = (PersonaPtr)getDatoLista(getPersonas(centroLogistico),k-1);
 
             do
             { /// Validación y elección de vehículo
@@ -3083,7 +3085,10 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                 }
             } while(!vehiculoValido);
 
-            vehiculoElegido=getDatoLista(getVehiculos(centroLogistico),k-1);
+            vehiculoElegido=(VehiculoPtr)getDatoLista(getVehiculos(centroLogistico),k-1);
+
+            printf("\n\nFecha de retorno: ");
+            FechaPtr fechaRetorno = cargarFecha();
 
             do
             { ///Validación y elección de paquetes
@@ -3100,7 +3105,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
                     if(k > 0 && k < n)
                     {
-                        paqueteElegido = getDatoLista(getPaquetes(centroLogistico), k-1);
+                        paqueteElegido = (PaquetePtr)getDatoLista(getPaquetes(centroLogistico), k-1);
                         if(getEstado(paqueteElegido) == 0 || getEstado(paqueteElegido) == 5)
                             paqueteValido = true;
                         else

@@ -17,33 +17,78 @@ int main()
 /// **************************************************************************************************************
 
     CentroLogisticoPtr c = crearCentroLogisticoRapido("prueba");
-    PaquetePtr p = crearPaqueteDirect(1111,1,1,1,1,"a",1,"a","a",1,"b",12,10,2023,13,15,0);
-    PaquetePtr p2 = crearPaqueteDirect(1111,1,1,1,1,"a",1,"a","a",1,"b",13,11,2022,10,40,0);
+    PersonaPtr chof1 = crearPersonaDirect("aaa","aaa","a",1,"a","20 43265222 0",true);
+    PersonaPtr chof2 = crearPersonaDirect("bbb","bbb","b",2,"b","27 44389013 6",true);
+    PersonaPtr chof3 = crearPersonaDirect("zzz","zzz","z",9,"z","23 58679636 4",true);
+    PersonaPtr cli1 = crearPersonaDirect("ccc","ccc","c",1,"c","20 11238840 1",false);
+    PersonaPtr cli2 = crearPersonaDirect("ddd","ddd","d",2,"d","27 33497693 4",false);
 
-    agregarPaquete(c,p);
-    agregarPaquete(c,p2);
+    agregarPersona(c,chof1);
+    agregarPersona(c,cli2);
+    agregarPersona(c,cli1);
+    agregarPersona(c,chof2);
+    agregarPersona(c,chof3);
 
-    mostrarPaquetes(c);
-    presionarEnterYLimpiarPantalla();
 
-    guardarTodo(c);
-    c=destruirCentroLogistico(c);
+    VehiculoPtr v = crearVehiculo(1,"Acme","Acme","BU 843 ZP");
+    PaquetePtr paq = crearPaqueteDirect(200,1,2,3,4,"z",9,"z","zA",99,"zA",13,12,2022,10,45,1);
 
-    c = abrirTodo();
-    if(c!=NULL)
+    agregarVehiculo(c,v);
+    agregarPaquete(c,paq);
+
+    PilaPtr pPaq = crearPila();
+    apilar(pPaq,(PaquetePtr)paq);
+
+    FechaPtr fS = crearFecha(13,12,2022,9,30);
+    FechaPtr fR = crearFecha(13,12,2022,18,36);
+
+    RepartoPtr r = armarReparto(chof3,v,fS,fR,pPaq);
+    agregarReparto(c,r,true);
+
+    FechaPtr fS2 = crearFecha(13,12,2022,11,25);
+
+    bool valido=false;
+    int n=longitudLista(getPersonas(c));
+
+    do
     {
-        printf("Recuperado:\n\n");
-        mostrarPaquetes(c);
-        presionarEnterYLimpiarPantalla();
-    }
+        valido = false;
+/// //////////////////////////////////////////// ///
+        mostrarChoferesDisponibles(c,fS2);
 
+        char strFecha[100];
+        traerFechaCorta(fS2,strFecha);
+        printf("\n\nFECHA DE SALIDA A ANALIZAR: %s\n\n",strFecha);
+
+        int i=0;
+        printf("\n\nSeleccione Chofer: ");
+        scanf("%d",&i);
+
+        PersonaPtr cE = (PersonaPtr)getDatoLista(getPersonas(c),i-1);
+
+        if(i<0 || i>n)
+            printf("\n\nIndice incorrecto.");
+        else if(!getEsChofer(cE))
+            printf("\n\nNo es un chofer.");
+        else if(choferEnReparto(c,cE,fS2))
+            printf("\n\nChofer en reparto.");
+        else
+        {
+            valido=true;
+            system("cls");
+            printf("Chofer Valido!!\n\n\n");
+            mostrarPersona(cE);
+            system("pause");
+        }
+        if(!valido)
+            presionarEnterYLimpiarPantalla();
+    } while(!valido);
+/// //////////////////////////////////////////// ///
     c=destruirCentroLogistico(c);
-
     return 0;
 
 /// **************************************************************************************************************/
-    ///CentroLogisticoPtr centroLogistico=NULL;
-    CentroLogisticoPtr centroLogistico=crearCentroLogisticoDefecto();
+    CentroLogisticoPtr centroLogistico=NULL;
     int START_OP=0;
     do
     {
@@ -51,6 +96,7 @@ int main()
         printf("\n\n\t-----------------------------------\n\n");
         printf("\t\t 1. REGISTRARSE\n");
         printf("\t\t 2. INICIAR SESION\n");
+        printf("\t\t 3. SESION DE PRUEBAS\n");
         printf("\t\t 0. SALIR");
         printf("\n\n\t-----------------------------------\n\n");
         printf("\t     Seleccione una opcion: ");
@@ -62,7 +108,7 @@ int main()
         switch(START_OP)
         {
         case 1:
-            ///centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
+            centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             system("cls");
             START_OP = MAIN_MENU(centroLogistico,true);
             centroLogistico=destruirCentroLogistico(centroLogistico);
@@ -77,6 +123,19 @@ int main()
             else
             {
                 START_OP = MAIN_MENU(centroLogistico,false);
+                centroLogistico=destruirCentroLogistico(centroLogistico);
+            }
+            break;
+        case 3:
+            centroLogistico = crearCentroLogisticoDefecto();
+            if(centroLogistico==NULL)
+            {
+                printf("ERROR: problema al crear centroLogistico por defecto.\n\n");
+                exit(1);
+            }
+            else
+            {
+                START_OP = MAIN_MENU(centroLogistico,true);
                 centroLogistico=destruirCentroLogistico(centroLogistico);
             }
             break;
