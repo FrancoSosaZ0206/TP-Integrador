@@ -270,6 +270,23 @@ bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer
 //Devuelve true si se encontró una coincidencia, false de lo contrario.
 bool buscarVehiculo(CentroLogisticoPtr centroLogistico,char *patente);
 
+//Operación: Muestra los vehiculos con la patente que le haya pasado.
+//Precondición: Centro logistico debe haberse creado y llenado con una lista de vehiculos
+//Postcondición: De encontrarse, imprime el vehiculo buscado.
+//Parámetros:
+// centroLogistico: puntero a estructura que representa al centro logistico.
+// esRepartoAbierto: booleano que representa el tipo de reparto a buscar.
+// modo: entero representando el modo de búsqueda:
+//      1: busca por indice de la lista de repartos.
+//      2: busca por CUIL del chofer.
+//      3: busca por patente del vehiculo.
+//      4: busca por fecha de salida.
+//      5: busca por fecha de retorno.
+//      6: busca por ID de alguno de los paquetes del reparto.
+//Devuelve true si se encontró una coincidencia, false de lo contrario.
+bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo);
+
+
 //---------------------------------------Funciones de agregado a la lista----------------------------------------------
 
 //Operación: Agrega un nuevo paquete.
