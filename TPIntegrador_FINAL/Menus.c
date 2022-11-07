@@ -1577,7 +1577,14 @@ bool menuModificarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *
                         printf("MODIFICAR CLIENTE\n\n");
                     indice=menuModoAccion1(listaAux);
                 //Obtenemos el elemento seleccionado
-                    personaAModificar=(PersonaPtr)getDatoLista(listaAux,indice-1);
+                    if(getEsChofer(getDatoLista(listaAux,indice-1)) == esChofer)
+                    {
+                        personaAModificar=(PersonaPtr)getDatoLista(listaAux,indice-1);
+                    }
+                    else
+                    {
+                        printf("ERROR: posicion",indice-1);
+                    }
 
                     printf("Ha elegido - ");
                     mostrarPersona(personaAModificar);
