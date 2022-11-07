@@ -469,12 +469,16 @@ void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico, FechaPtr fec
             {
                 valido=false;
             }
+            if(!getEsChofer(getCabecera(listaAux_1)))
+            {
+                valido=false;
+            }
             ListaPtr listaDestruir_2 = listaAux_2;
             listaAux_2 = getResto(listaAux_2);
             listaDestruir_2 = destruirLista(listaDestruir_2,false);
         }
         listaAux_2 = destruirLista(listaAux_2,false);
-        if(valido && getEsChofer(getCabecera(listaAux_1)))
+        if(valido)
         {
             printf("\n\nPosicion %d.\n\n", i);
             mostrarPersona(getCabecera(listaAux_1));
