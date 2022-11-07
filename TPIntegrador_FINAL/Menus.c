@@ -2540,30 +2540,34 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
 
                 break;
             case 2:
-                do
-                {
+                do{
                     printf("FILTRAR PAQUETES POR ESTADO PARTICULAR\n\n");
                     helpEstadoPaquete();
                     printf("Ingrese un estado para filtrar: ");
+                    limpiarBufferTeclado();
                     scanf("%d",&estadoBuscar);
                     limpiarBufferTeclado();
-
                     if(estadoBuscar<0 || estadoBuscar >5)
                     {
                         printf("ERROR: estado inexistente. Vuelva a intentar.");
                         presionarEnterYLimpiarPantalla();
                     }
-                } while(estadoBuscar>=0 && estadoBuscar <=5);
-
+                } while(estadoBuscar<0 || estadoBuscar >5);
                 filtrarPaquetesPorEstado(centroLogistico,estadoBuscar);
+                system("pause");
+                system("cls");
                 break;
             case 3:
                 printf("FILTRAR PAQUETES EN CURSO\n\n");
                 filtrarPaquetesEnCurso(centroLogistico,true);
+                system("pause");
+                system("cls");
                 break;
             case 4:
                 printf("FILTRAR PAQUETES EN DEPOSITO\n\n");
                 filtrarPaquetesEnCurso(centroLogistico,false);
+                system("pause");
+                system("cls");
                 break;
             case 5:
                 printf("LISTADO DE PAQUETES");
@@ -3025,11 +3029,10 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
             PilaPtr pilaPaquetesElegidos = crearPila();
         ///Primero, cargamos la fecha de salida y el chofer para validarlo
-            printf("\n\nFecha de salida: ");
+            printf("\n\nFECHA DE SALIDA: \n\n");
             FechaPtr fechaSalida = cargarFecha();
-            printf("\n\nFecha de retorno: ");
+            printf("\n\nFECHA DE RETORNO: \n\n");
             FechaPtr fechaRetorno = cargarFecha();
-
             do
             { /// Validación y elección de chofer
                 n = longitudLista(getPersonas(centroLogistico));
@@ -3040,13 +3043,15 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                 scanf("%d",&k);
                 limpiarBufferTeclado();
 
-                if(k > 0 && k < n)
+                if(k > 0 && k <= n)
                 {
                     choferElegido = getDatoLista(getPersonas(centroLogistico), k-1);
                     if(getEsChofer(choferElegido))
                     {
                         if(!choferEnReparto(centroLogistico, choferElegido, fechaSalida))
+                        {
                             choferValido=true;
+                        }
                         else
                         {
                             printf("\n\nERROR: El chofer elegido no esta disponible en la fecha de salida elegida. Vuelva a elegir.");
@@ -3078,7 +3083,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                 scanf("%d",&k);
                 limpiarBufferTeclado();
 
-                if(k > 0 && k < n)
+                if(k > 0 && k <= n)
                 {
                     vehiculoElegido = getDatoLista(getVehiculos(centroLogistico),k-1);
                     if(!buscarVehiculoRepartos(centroLogistico, getPatente(vehiculoElegido)))
@@ -3111,7 +3116,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     scanf("%d",&k);
                     limpiarBufferTeclado();
 
-                    if(k > 0 && k < n)
+                    if(k > 0 && k <= n)
                     {
                         paqueteElegido = getDatoLista(getPaquetes(centroLogistico), k-1);
                         if(getEstado(paqueteElegido) == 0 || getEstado(paqueteElegido) == 5)
@@ -3286,6 +3291,7 @@ bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
             return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
     }
 }
+
 bool menuActualizarReparto(CentroLogisticoPtr centroLogistico)
 {
     int Indice = 0;

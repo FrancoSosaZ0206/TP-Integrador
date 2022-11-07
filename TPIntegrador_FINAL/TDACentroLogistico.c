@@ -382,57 +382,51 @@ bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr chofer, Fech
 {
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getRepartos(centroLogistico, true));
-
-    ListaPtr listaAux2 = crearLista();
-    agregarLista(listaAux2, getRepartos(centroLogistico, false));
-
-    while(!listaVacia(listaAux) && !listaVacia(listaAux2))
+    while(!listaVacia(listaAux))
     {
         RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
-        RepartoPtr repartoAux2 = (RepartoPtr)getCabecera(listaAux2);
-
-        int *difFechas = calcularDiferenciaFechas(fechaSalida,getFechaSalida(repartoAux));
-        bool condicion = difFechas[0]==0 && personasIguales(chofer,getChofer(repartoAux));
-
-        int *difFechas2 = calcularDiferenciaFechas(fechaSalida,getFechaSalida(repartoAux2));
-        bool condicion2 = difFechas2[0]==0 && personasIguales(chofer,getChofer(repartoAux2));
-    ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
-    ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
-        if((condicion || condicion2) && getEsChofer(chofer))
+        bool condicion = personasIguales(getChofer(repartoAux),chofer);
+        if(condicion)
         {
-            listaAux = destruirLista(listaAux, false);
-            listaAux2 = destruirLista(listaAux2, false);
+            listaAux = destruirLista(listaAux,false);
             return true;
         }
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir,false);
+    }
+    listaAux = destruirLista(listaAux,false);
 
+    listaAux = crearLista();
+    agregarLista(listaAux, getRepartos(centroLogistico, false));
+    while(!listaVacia(listaAux))
+    {
+        RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
+        bool condicion = (getDia(fechaSalida)==getDia(getFechaSalida(repartoAux))) && personasIguales(getChofer(repartoAux),chofer);
+        if(condicion)
+        {
+            listaAux = destruirLista(listaAux, false);
+            return true;
+        }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-
-        listaDestruir = listaAux2;
-        listaAux2 = getResto(listaAux2);
-        listaDestruir = destruirLista(listaDestruir, false);
-
     }
-
     listaAux = destruirLista(listaAux, false);
-    listaAux2 = destruirLista(listaAux2, false);
     return false;
 }
 
 void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fechaSalida)
 {
     PersonaPtr personaAux;
-
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPersonas(centroLogistico));
-
     for(int i=1;!listaVacia(listaAux);i++)
     {
         personaAux = (PersonaPtr)getCabecera(listaAux);
-
-    //Condicion: tiene que ser un chofer, y no figurar en la lista de repartos abiertos
-        if(!choferEnReparto(centroLogistico, personaAux, fechaSalida)) ///De esta manera, no se vuelve necesario encadenar tantos ifs.
+        ///De esta manera, no se vuelve necesario encadenar tantos ifs.
+        //Condicion: tiene que ser un chofer, y no figurar en la lista de repartos abiertos
+        if(!choferEnReparto(centroLogistico, personaAux, fechaSalida) && getEsChofer(personaAux))
         {
             printf("\n\nPosicion %d.\n\n", i);
             mostrarPersona(personaAux);
@@ -442,6 +436,22 @@ void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fech
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux = destruirLista(listaAux, false);
+}
+
+bool mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico)
+{
+    VehiculoPtr vehiculoDevolver;
+    ListaPtr listaAux=crearLista();
+    agregarLista(listaAux,getRepartos(centroLogistico,true));
+    while(!listaVacia(listaAux))
+    {
+        vehiculoDevolver=getVehiculo((RepartoPtr)getCabecera(listaAux));
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+    }
+    listaAux=destruirLista(listaAux,false);
+    return false;
 }
 
 /// ///////////////////////////////////////////////FUNCIONES DE BÚSQUEDA//////////////////////////////////////////////////////////////////////////
