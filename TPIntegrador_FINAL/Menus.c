@@ -472,41 +472,28 @@ DomicilioPtr cargarDomicilio()
 }
 FechaPtr cargarFecha()
 {
-    FechaPtr fecha;
-
-    int dia=0;
-    int mes=0;
-    int anio=0;
-    int hora=0;
-    int minuto=0;
-
-    bool primeraVez=true;
-
-    do
-    {
+    int dia=0,mes=0,anio=0,hora=0,minuto=0;
+    FechaPtr fecha=crearFecha(dia,mes,anio,hora,minuto);;
+    do{
         printf("\n\t\tFecha (DD MM AAAA): ");
+        limpiarBufferTeclado();
         scanf("%d %d %d",&dia,&mes,&anio);
         limpiarBufferTeclado();
         printf("\n\t\tHorario (HH MM): ");
+        limpiarBufferTeclado();
         scanf("%d %d",&hora,&minuto);
         limpiarBufferTeclado();
-
-
-        if(primeraVez)
-            fecha=crearFecha(dia,mes,anio,hora,minuto);
-        else
+        setDia(fecha,dia);
+        setMes(fecha,mes);
+        setAnio(fecha,anio);
+        setHora(fecha,hora);
+        setMinuto(fecha,minuto);
+        if(!esFechaValida(fecha))
         {
-            setDia(fecha,dia);
-            setMes(fecha,mes);
-            setAnio(fecha,anio);
-            setHora(fecha,hora);
-            setMinuto(fecha,minuto);
-            if(!esFechaValida(fecha))
-                printf("\n\nFecha invalida. Reingrese la fecha.\n\n");
+            printf("\n\nFecha invalida. Reingrese la fecha.\n\n");
+            presionarEnterYLimpiarPantalla();
         }
-        primeraVez=false;
     } while (!esFechaValida(fecha));
-
     return fecha;
 }
 
@@ -3072,7 +3059,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             do
             { /// Validación y elección de vehículo
                 n = longitudLista(getVehiculos(centroLogistico));
-                mostrarVehiculos(centroLogistico);
+                mostrarVehiculosDisponibles(centroLogistico);
 
                 printf("\n\nSeleccione un vehiculo ingresando su indice: ");
                 scanf("%d",&k);
