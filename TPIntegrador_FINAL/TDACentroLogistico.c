@@ -375,21 +375,69 @@ void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
     listaAux = destruirLista(listaAux, false);
 }
 
-void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
+bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr chofer, FechaPtr fechaSalida)
+{
+    RepartoPtr repartoAux;
+
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux, getRepartos(centroLogistico, true));
+
+    ListaPtr listaAux2 = crearLista();
+    agregarLista(listaAux2, getRepartos(centroLogistico, false));
+
+    while(!listaVacia(listaAux) && !listaVacia(listaAux2))
+    {
+        RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
+        RepartoPtr repartoAux2 = (RepartoPtr)getCabecera(listaAux2);
+
+        int *difFechas = calcularDiferenciaFechas(getFechaSalida(reparto,getFechaSalida(repartoAux));
+        bool condicion = difFechas[0]==0 && personasIguales(getChofer(repartoAux),getChofer(reparto));
+
+        int *difFechas2 = calcularDiferenciaFechas(getFechaSalida(reparto,getFechaSalida(repartoAux2));
+        bool condicion2 = difFechas[0]==0 && personasIguales(getChofer(repartoAux2),getChofer(reparto));
+    ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
+    ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
+        if(condicion || condicion2)
+        {
+            listaAux = destruirLista(listaAux, false);
+            listaAux2 = destruirLista(listaAux2, false);
+            return true;
+        }
+
+        ListaPtr listaDestruir = listaAux;
+        listaAux = getResto(listaAux);
+        listaDestruir = destruirLista(listaDestruir, false);
+
+        listaDestruir = listaAux2;
+        listaAux2 = getResto(listaAux2);
+        listaDestruir = destruirLista(listaDestruir2, false);
+    }
+
+    listaAux = destruirLista(listaAux, false);
+    listaAux2 = destruirLista(listaAux2, false);
+    return false;
+}
+
+void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fechaSalida)
 {
     int cont = 1;
 
     bool condicion=false; ///Cambiamos el flag a una condicion compuesta
 
     PersonaPtr personaAux;
+
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux, getPersonas(centroLogistico));
+
     while(!listaVacia(listaAux))
     {
         personaAux = (PersonaPtr)getCabecera(listaAux);
 
+        int *difFechas = calcularDiferenciaFechas(fechaSalida,);
+
         condicion = getEsChofer(personaAux)
-                    && !choferEnReparto(centroLogistico, personaAux,true);
+                    && !choferEnReparto(centroLogistico, personaAux)
+                    && !fechasIguales(fechaSalida,getFechaSalida(getRepartos(centroLogistico)));
     //Condicion: tiene que ser un chofer, y no figurar en la lista de repartos abiertos
         if(!condicion) ///De esta manera, no se vuelve necesario encadenar tantos ifs.
         {
@@ -994,11 +1042,13 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto)
         RepartoPtr repartoAux=(RepartoPtr)getCabecera(listaAux);
         RepartoPtr repartoAux2=(RepartoPtr)getCabecera(listaAux2);
 
-        bool condicion = fechasIguales(getFechaSalida(repartoAux),getFechaSalida(reparto));
+        int *difFechas = calcularDiferenciaFechas(getFechaSalida(reparto,getFechaSalida(repartoAux));
+        bool condicion = difFechas[0]==0;
         condicion = condicion && personasIguales(getChofer(repartoAux),getChofer(reparto));
 
-        bool condicion2 = fechasIguales(getFechaSalida(repartoAux2),getFechaSalida(reparto));
-        condicion = condicion && personasIguales(getChofer(repartoAux2),getChofer(reparto));
+        int *difFechas2 = calcularDiferenciaFechas(getFechaSalida(reparto,getFechaSalida(repartoAux2));
+        bool condicion2 = difFechas2[0]==0;
+        condicion2 = condicion2 && personasIguales(getChofer(repartoAux2),getChofer(reparto));
     ///Un chofer puede tener varios repartos asignados, pero no en el mismo día. Por eso,
     ///Condición: "si la fecha de salida **Y** el cuil del chofer del reparto recibido, ya existen en otro reparto..."
         if(condicion || condicion2)

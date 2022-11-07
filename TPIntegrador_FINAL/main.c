@@ -12,9 +12,6 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez);
 
 int main()
 {
-    CentroLogisticoPtr c = crearCentroLogisticoDefecto();
-    RepartoPtr R = SeleccionRepartoPorAtributo(c,true);
-    if(R != NULL) {mostrarRepartoSinPaquetes(R);}
 /** **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
@@ -66,8 +63,8 @@ int main()
         case 1:
             ///centroLogistico=menuCrearNuevoCtroLogRapido(centroLogistico);
             system("cls");
-            START_OP = MAIN_MENU(c,true);
-            centroLogistico=destruirCentroLogistico(c);
+            START_OP = MAIN_MENU(centroLogistico,true);
+            centroLogistico=destruirCentroLogistico(centroLogistico);
             break;
         case 2:
             centroLogistico = abrirTodo();

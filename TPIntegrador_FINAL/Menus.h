@@ -14,6 +14,33 @@
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
+///                                             FUNCIONES ESPECIALES
+
+///--------------------------------------------------------------------------------------------------------------------------
+
+
+/** OPERACIÓN: carga de cuil con datos
+PRECONDICIÓN: cuil debe haber sido DECLARADO
+POSTCONDICION: se piden datos por pantalla y se crea un cuil en memoria dinamica con datos válidos
+PARÁMETROS: puntero al centro Logistico
+DEVUELVE: puntero al cuil cargado
+
+***ADVERTENCIA***
+    No debe crearse el cuil con su constructora, causará memory leaks. */
+CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico);
+/** OPERACIÓN: carga de fecha con datos
+PRECONDICIÓN: fecha debe haber sido DECLARADA
+POSTCONDICION: se piden datos por pantalla y se crea una fecha con datos válidos
+PARÁMETROS: ninguno
+DEVUELVE: puntero a la fecha cargada
+
+***ADVERTENCIA***
+    No debe crearse la fecha con su constructora, causará memory leaks. */
+FechaPtr cargarFecha();
+
+
+///--------------------------------------------------------------------------------------------------------------------------
+
 ///                                                 MENÚS DE CARGA DE DATOS
 
 ///--------------------------------------------------------------------------------------------------------------------------
@@ -296,33 +323,6 @@ PARÁMETROS:
   ctroLog: puntero a la estructura centro logístico que se desea crear
 DEVUELVE: puntero al centro logístico creado. */
 CentroLogisticoPtr menuCrearNuevoCtroLogRapido(CentroLogisticoPtr ctroLog);
-
-
-///--------------------------------------------------------------------------------------------------------------------------
-
-///                                             FUNCIONES ESPECIALES
-
-///--------------------------------------------------------------------------------------------------------------------------
-
-
-/** OPERACIÓN: carga de cuil con datos
-PRECONDICIÓN: cuil debe haber sido DECLARADO
-POSTCONDICION: se piden datos por pantalla y se crea un cuil en memoria dinamica con datos válidos
-PARÁMETROS: puntero al centro Logistico
-DEVUELVE: puntero al cuil cargado
-
-***ADVERTENCIA***
-    No debe crearse el cuil con su constructora, causará memory leaks. */
-CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico);
-/** OPERACIÓN: carga de fecha con datos
-PRECONDICIÓN: fecha debe haber sido DECLARADA
-POSTCONDICION: se piden datos por pantalla y se crea una fecha con datos válidos
-PARÁMETROS: ninguno
-DEVUELVE: puntero a la fecha cargada
-
-***ADVERTENCIA***
-    No debe crearse la fecha con su constructora, causará memory leaks. */
-FechaPtr cargarFecha();
 
 
 #endif // MENUS_H_INCLUDED

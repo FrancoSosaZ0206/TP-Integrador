@@ -233,14 +233,25 @@ void filtrarPaquetesEnCurso(CentroLogisticoPtr centroLogistico, bool enCurso);
 //Devuelve: nada.
 void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico);
 
-//Operación: Muestra los choferes
+/** OPERACION: indica si hay un chofer en un reparto en un día determinado
+PRECONDICION:
+POSTCONDICION:
+PARÁMETROS:
+    - centroLogistico: puntero al centro logistico
+    - chofer: puntero a la estructura chofer a buscar en la lista de repartos
+    - fechaSalida: puntero a la fecha de salida especificada
+DEVUELVE: booleano indicando si se encontró (true) o no (false). */
+bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr chofer, FechaPtr fechaSalida);
+
+//Operación: Muestra los choferes disponibles para un día determinado
 //Precondición: Centro logistico debe haberse creado en memoria dinamica y haber un chofer
 //Postcondición: Imprime la lista de personas filtrada por chofer, en la cual muestra aquellos
 // que no se encuentran en repartos actualmente
 //Parámetros:
 //  centroLogistico: puntero a estructura que representa al centro logistico.
+//  fechaSalida: puntero a fecha de salida de los repartos a buscar el chofer.
 //Devuelve: nada.
-void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico);
+void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fechaSalida);
 
 //---------------------------------------Funciones de búsqueda----------------------------------------------
 

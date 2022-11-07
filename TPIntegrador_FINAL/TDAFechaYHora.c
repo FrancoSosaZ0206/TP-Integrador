@@ -22,7 +22,7 @@ FechaPtr crearFecha(int dia,int mes,int anio,int hora,int minuto)
 
     return f;
 }
-///NUEVA: Orientada a crear fecha a partir de otra fecha (o si se parte de d. julianos) (utilizada en Files).
+///Orientada a crear fecha a partir de otra fecha (o si se parte de d. julianos) (utilizada en Files).
 FechaPtr crearFechaDirect(int diaJuliano,int hora,int minuto)
 {
     FechaPtr f = (FechaPtr)obtenerMemoria(sizeof(Fecha));
@@ -32,13 +32,12 @@ FechaPtr crearFechaDirect(int diaJuliano,int hora,int minuto)
 
     return f;
 }
-FechaPtr destruirFecha(FechaPtr fecha) ///Esta no cambia.
+FechaPtr destruirFecha(FechaPtr fecha)
 {
     free(fecha);
     return NULL;
 }
 //getters:
-///NUEVA
 int getDiaJuliano(FechaPtr fecha)
 {
     return fecha->diaJuliano;
@@ -71,16 +70,15 @@ int getAnio(FechaPtr fecha)
     int mes =((h / 153 + 2) % 12) + 1;
     return (e / 1461) - 4716 + (12 + 2 - mes) / 12;
 }
-int getHora(FechaPtr fecha) ///NUEVA
+int getHora(FechaPtr fecha)
 {
     return fecha->hora;
 }
-int getMinuto(FechaPtr fecha) ///NUEVA
+int getMinuto(FechaPtr fecha)
 {
     return fecha->minuto;
 }
 ///setters
-///NUEVA
 void setDiaJuliano(FechaPtr fecha,int diaJuliano)
 {
     fecha->diaJuliano=diaJuliano;
@@ -112,11 +110,11 @@ void setAnio(FechaPtr fecha,int anio)
     int newYear=calcularDiaJuliano(d,m,a);
     fecha->diaJuliano=newYear;
 }
-void setHora(FechaPtr fecha,int hora) ///NUEVA
+void setHora(FechaPtr fecha,int hora)
 {
     fecha->hora=hora;
 }
-void setMinuto(FechaPtr fecha,int minuto) ///NUEVA
+void setMinuto(FechaPtr fecha,int minuto)
 {
     fecha->minuto=minuto;
 }

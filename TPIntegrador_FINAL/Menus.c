@@ -2058,7 +2058,7 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
                     menuModoAccion3(listaAux,&desde,&hasta);
                 //Obtenemos los elementos en el rango de indices
                     for(int i=desde;i<=hasta;i++)
-                        repartosAModificar[i]=(RepartoPtr)getDatoLista(listaAux,j-1);
+                        repartosAModificar[i]=(RepartoPtr)getDatoLista(listaAux,i-1);
 
                     printf("Ha elegido Repartos {%d - %d}\n",desde,hasta);
                     for(int i=0,j=desde;i<(hasta-desde)+1;i++,j++)
@@ -2406,7 +2406,7 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
     {
         printf("ERROR: Lista vacia. No hay repartos para buscar.");
         presionarEnterYLimpiarPantalla();
-        return NULL;
+        return;
     }
     else
     {
@@ -2982,11 +2982,14 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             bool seguirApilando = false;
 
             PilaPtr pilaPaquetesElegidos = crearPila();
+        ///Primero, cargamos la fecha de salida y el chofer para validarlo
+            printf("\n\nFecha de salida:");
+            FechaPtr fechaSalida = cargarFecha();
 
             do
             { /// Validación y elección de chofer
                 n = longitudLista(getPersonas(centroLogistico));
-                mostrarChoferesDisponibles(centroLogistico);
+                mostrarChoferesDisponibles(centroLogistico,1);
 
                 printf("\n\nSeleccione un chofer ingresando su indice: ");
                 scanf("%d",&k);
@@ -2997,11 +3000,11 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     choferElegido = getDatoLista(getPersonas(centroLogistico), k-1);
                     if(getEsChofer(choferElegido))
                     {
-                        if(!choferEnReparto(centroLogistico, choferElegido,false))
+                        if(!choferEnReparto(centroLogistico, choferElegido, fechaSalida))
                             choferValido=true;
                         else
                         {
-                            printf("\n\nERROR: El chofer elegido ya esta en un reparto abierto. Vuelva a elegir.");
+                            printf("\n\nERROR: El chofer elegido no esta disponible en la fecha de salida elegida. Vuelva a elegir.");
                             presionarEnterYLimpiarPantalla();
                         }
                     }
@@ -3051,8 +3054,6 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             vehiculoElegido=getDatoLista(getVehiculos(centroLogistico),k-1);
 
             system("cls");
-            printf("\n\nFecha de salida:");
-            FechaPtr fechaSalida = cargarFecha();
             printf("\n\nFecha de retorno:");
             FechaPtr fechaRetorno = cargarFecha();
             system("cls");
