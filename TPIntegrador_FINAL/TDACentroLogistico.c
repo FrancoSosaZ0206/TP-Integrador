@@ -438,20 +438,21 @@ void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fech
     listaAux = destruirLista(listaAux, false);
 }
 
-bool mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico)
+void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico)
 {
-    VehiculoPtr vehiculoDevolver;
+    int i=1;
     ListaPtr listaAux=crearLista();
-    agregarLista(listaAux,getRepartos(centroLogistico,true));
-    while(!listaVacia(listaAux))
-    {
-        vehiculoDevolver=getVehiculo((RepartoPtr)getCabecera(listaAux));
+    agregarLista(listaAux,getVehiculos(centroLogistico));
+    while(!listaVacia(listaAux)){
+        if(!buscarVehiculoRepartos(centroLogistico,getPatente(getCabecera(listaAux)))){
+            printf("\n\nPosicion %d.",i++);
+            mostrarVehiculo(getCabecera(listaAux));
+        }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
     }
     listaAux=destruirLista(listaAux,false);
-    return false;
 }
 
 /// ///////////////////////////////////////////////FUNCIONES DE BÚSQUEDA//////////////////////////////////////////////////////////////////////////

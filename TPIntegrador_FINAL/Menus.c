@@ -1914,10 +1914,18 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterio
                             setModelo(vehiculosAModificar[i],nModelo);
                     break;
                 case 4:
-                    printf("\n\nIngrese la nueva patente (AA 111 AA):\n\t");
-                    limpiarBufferTeclado();
-                    scanf("%[^\n]%*c",nPatente);
-                    limpiarBufferTeclado();
+                    do{
+                        printf("\n\nIngrese la nueva patente (AA 111 AA):\n\t");
+                        seleccionarString(nPatente);
+                        if(!esPatenteValida(nPatente)){
+                            printf("\n\nPatente invalida. Vuelva a elegir.");
+                            presionarEnterYLimpiarPantalla();
+                        }
+                        if(!esPatenteExistente(centroLogistico,nPatente)){
+                            printf("\n\nPatente existente. Vuelva a elegir.");
+                            presionarEnterYLimpiarPantalla();
+                        }
+                    }while(!esPatenteValida(nPatente) || !esPatenteExistente(centroLogistico,nPatente));
 
                     if(modoAccion==1)
                         setPatente(vehiculoAModificar,nPatente);
@@ -3077,7 +3085,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             do
             { /// Validación y elección de vehículo
                 n = longitudLista(getVehiculos(centroLogistico));
-                mostrarVehiculos(centroLogistico);
+                mostrarVehiculosDisponibles(centroLogistico);
 
                 printf("\n\nSeleccione un vehiculo ingresando su indice: ");
                 scanf("%d",&k);

@@ -176,6 +176,16 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo);
 // centroLogistico: puntero a estructura que representa al centro logistico.
 //Devuelve: nada.
 void mostrarVehiculos(CentroLogisticoPtr centroLogistico);
+
+//Operación: Muestra los vehiculos.
+//Precondición: Centro logistico debe haberse creado y cargado con, al menos, un vehiculo
+//Postcondición: Imprime la lista de vehiculos, solo aquellos que no se encuentren en un reparto
+//Parámetros:
+// centroLogistico: puntero a estructura que representa al centro logistico.
+//Devuelve: nada.
+void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico);
+
+
 //Operación: Muestra los repartos.
 //Precondición: Centro logistico debe haberse creado y cargado con, al menos, un reparto
 //Postcondición: Imprime la lista de repartos. Si es una lista de repartos cerrados,
