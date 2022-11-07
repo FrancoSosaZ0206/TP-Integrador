@@ -407,42 +407,50 @@ bool choferEnReparto(CentroLogisticoPtr centroLogistico, PersonaPtr PersonaEvalu
     return Match;
 }
 
-/*void choferDisponible(CentroLogisticoPtr c, FechaPtr f)
+void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico, FechaPtr fechaSalida)
 {
     int i = 1;
     bool valido = true;
-    ListaPtr l1 = crearLista();
-    agregarLista(l1,getPersonas(c));
-    while(!listaVacia(l1))
+    ListaPtr listaAux_1 = crearLista();
+    agregarLista(listaAux_1,getPersonas(centroLogistico));
+    while(!listaVacia(listaAux_1))
     {
         valido=true;
-        ListaPtr l2 = crearLista();
-        agregarLista(l2,getRepartos(c,true));
-        while(!listaVacia(l2))
+        ListaPtr listaAux_2 = crearLista();
+        agregarLista(listaAux_2,getRepartos(centroLogistico,true));
+        while(!listaVacia(listaAux_2))
         {
-            if(choferEnReparto(c,getCabecera(l1),true) || getDia(f)==getDia(getFechaSalida(getCabecera(l2))) || choferEnReparto(c,getCabecera(l1),false))
+            if(choferEnReparto(centroLogistico,getCabecera(listaAux_1),true))
+            {
+                valido = false;
+            }
+            if(getDia(fechaSalida)==getDia(getFechaSalida(getCabecera(listaAux_2))))
             {
                 valido=false;
             }
-            ListaPtr ld2 = l2;
-            l2 = getResto(l2);
-            ld2 = destruirLista(ld2,false);
+            if(choferEnReparto(centroLogistico,getCabecera(listaAux_1),false))
+            {
+                valido=false;
+            }
+            ListaPtr listaDestruir_2 = listaAux_2;
+            listaAux_2 = getResto(listaAux_2);
+            listaDestruir_2 = destruirLista(listaDestruir_2,false);
         }
-        l2 = destruirLista(l2,false);
-        if(valido && getEsChofer(getCabecera(l1)))
+        listaAux_2 = destruirLista(listaAux_2,false);
+        if(valido && getEsChofer(getCabecera(listaAux_1)))
         {
             printf("\n\nPosicion %d.\n\n", i);
-            mostrarPersona(getCabecera(l1));
+            mostrarPersona(getCabecera(listaAux_1));
         }
-        ListaPtr ld1 = l1;
-        l1 = getResto(l1);
-        ld1 = destruirLista(ld1,false);
+        ListaPtr listaDestruir_1 = listaAux_1;
+        listaAux_1 = getResto(listaAux_1);
+        listaDestruir_1 = destruirLista(listaDestruir_1,false);
         i++;
     }
-    l1 = destruirLista(l1,false);
-}*/
+    listaAux_1 = destruirLista(listaAux_1,false);
+}
 
-void choferDisponible(CentroLogisticoPtr c, FechaPtr f){
+/*void choferDisponible(CentroLogisticoPtr c, FechaPtr f){
     for(int i=0;i<longitudLista(getPersonas(c));i++){
         bool valido = true;
         for(int j=0;j<longitudLista(getRepartos(c,true));j++){
@@ -453,7 +461,7 @@ void choferDisponible(CentroLogisticoPtr c, FechaPtr f){
         if(!getEsChofer(getDatoLista(getPersonas(c),i))){valido=false;}
         if(valido){ printf("\n\nPosicion %d.\n\n", i+1); mostrarPersona(getDatoLista(getPersonas(c),i)); }
     }
-}
+}*/
 
 
 void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico)
