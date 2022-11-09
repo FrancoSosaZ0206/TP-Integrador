@@ -89,8 +89,6 @@ int main()
 
 /// **************************************************************************************************************/
     CentroLogisticoPtr centroLogistico=NULL;
-    CentroLogisticoPtr c=crearCentroLogisticoDefecto();
-    system("pause");
     int START_OP=0;
     do
     {
