@@ -113,35 +113,29 @@ int cantidadPaquetes(RepartoPtr reparto) //devuelve cantidad de paquetes que con
 
 void mostrarReparto(RepartoPtr reparto)
 {
+    printf("\n");
+    printf("\tFecha de Salida:");MostrarFecha(getFechaSalida(reparto));
+    printf("\tFecha de Retorno:");MostrarFecha(getFechaRetorno(reparto));
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
-    char strFecha[18];
-    traerFechaYHora(getFechaSalida(reparto),strFecha);
-    printf("Fecha de Salida: %s\n",strFecha);
-    traerFechaYHora(getFechaRetorno(reparto),strFecha);
-    printf("Fecha de Retorno: %s\n",strFecha);
-
     int cantPaq=longitudPila(getPaquetesReparto(reparto));
     PaquetePtr paquetes[cantPaq];
-
-    for(int i=0;i<cantPaq;i++)
-    {
-        printf("%d. ",i+1);
+    for(int i=0;i<cantPaq;i++){
+        printf("\t---[Posicion: %d.]---",i+1);
         paquetes[i]=(PaquetePtr)desapilar(getPaquetesReparto(reparto));
         mostrarPaquete(paquetes[i]);
     }
-    for(int i=0;i<cantPaq;i++)
-        apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[cantPaq-i]);
+    for(int i=0;i<cantPaq;i++){apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[cantPaq-i]);}
+    printf("\n");
 }
 void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 {
+    printf("\n");
+    printf("\tFecha de Salida:");MostrarFecha(getFechaSalida(reparto));
+    printf("\tFecha de Retorno:");MostrarFecha(getFechaRetorno(reparto));
     mostrarPersona(getChofer(reparto));
     mostrarVehiculo(getVehiculo(reparto));
-    char strFecha[18];
-    traerFechaYHora(getFechaSalida(reparto),strFecha);
-    printf("Fecha de Salida: %s\n",strFecha);
-    traerFechaYHora(getFechaRetorno(reparto),strFecha);
-    printf("Fecha de Retorno: %s\n",strFecha);
+    printf("\n");
 }
 
 

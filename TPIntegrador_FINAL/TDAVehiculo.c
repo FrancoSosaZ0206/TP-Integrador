@@ -62,18 +62,17 @@ void setPatente(VehiculoPtr vehiculo,char *patente)
 
 void mostrarVehiculo(VehiculoPtr vehiculo)
 {
-    if(getTipoVehiculo(vehiculo)==1)
-        printf("Vehiculo tipo: MOTO.\n");
-    else if(getTipoVehiculo(vehiculo)==2)
-        printf("Vehiculo tipo: AUTO.\n");
-    else if(getTipoVehiculo(vehiculo)==3)
-        printf("Vehiculo tipo: CAMION.\n");
-    else
-        printf("ERROR, REINGRESE TIPO DE VEHICULO EXISTENTE\n");
-
+    printf("\n");
+    switch(getTipoVehiculo(vehiculo)){
+        case 1: printf("\tVehiculo tipo: MOTO.\n"); break;
+        case 2: printf("\tVehiculo tipo: AUTO.\n"); break;
+        case 3: printf("\tVehiculo tipo: CAMION.\n"); break;
+        default: printf("\tVehiculo tipo: ERROR\n"); break;
+    }
     printf("\tMarca: %s\n",getMarca(vehiculo));
     printf("\tModelo: %s\n",getModelo(vehiculo));
     printf("\tPatente: %s\n",getPatente(vehiculo));
+    printf("\n");
 }
 void helpTipoVehiculo() ///muestra al usuario que significa cada numero de tipo de vehiculo.
 {   //1: Moto, 2: Auto, 3: Camión.

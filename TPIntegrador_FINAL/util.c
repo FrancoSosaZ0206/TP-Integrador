@@ -80,3 +80,27 @@ int extraerDigitosString(char *source,int buffer[])
     }
     return k-1;
 }
+
+
+void imprimirTexto(char* texto){
+    limpiarBufferTeclado();
+    printf("\n\n%s\n\n",texto);
+    limpiarBufferTeclado();
+    ///system("pause");
+}
+
+void imprimirNumeros(char* texto, int num){
+    limpiarBufferTeclado();
+    printf("\n\n%s === ",texto);
+    printf("%d\n\n",num);
+    limpiarBufferTeclado();
+    ///system("pause");
+}
+
+void verificarBooleano(bool booleano){
+    limpiarBufferTeclado();
+    if(booleano){printf("\n\nEl booleano ingresado ha devuelto VERDADERO\n\n");}
+    else{printf("\n\nEl booleano ingresado ha devuelto FALSO\n\n");}
+    limpiarBufferTeclado();
+    ///system("pause");
+}

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "TDACuil.h"
+#include <math.h>
 #include "util.h"
 
 
@@ -131,7 +132,7 @@ int getNVerificador(CuilPtr cuil)
 
 
 ///NO APTA PARA TIPO EMPRESA
-bool esCuilValido(CuilPtr cuil) ///NUEVA
+bool esCuilValido(CuilPtr cuil)
 {
 /** COMO CALCULAR EL CUIL / CUIT ***
 
@@ -179,57 +180,58 @@ Y * 4
     c) Caso contrario, XY pasa a ser (11 - Resto).
 */
 
-    char *cuilStr = getCuil(cuil);
+    ///1. Obtenemos cada numero y hacemos las multiplicaciones
+    char digitosCuil[100];
+    strcpy(digitosCuil,getCuil(cuil));
 
-//1. Obtenemos cada numero y hacemos las multiplicaciones
-    int digitosCuil[11];
-    extraerDigitosString(cuilStr,digitosCuil);
-
+    int sumatoria = 0;
     int multiplicador[10] = {5,4,3,2,7,6,5,4,3,2};
 
-    int sumatoria=0;
-    for(int i=0;i<10;i++)
-        sumatoria += digitosCuil[i] * multiplicador[i];
+    sumatoria += (((int)digitosCuil[0])-48)*multiplicador[0];
+    sumatoria += (((int)digitosCuil[1])-48)*multiplicador[1];
 
-    int division = sumatoria / 11;
+    sumatoria += (((int)digitosCuil[3])-48)*multiplicador[2];
+    sumatoria += (((int)digitosCuil[4])-48)*multiplicador[3];
+    sumatoria += (((int)digitosCuil[5])-48)*multiplicador[4];
+    sumatoria += (((int)digitosCuil[6])-48)*multiplicador[5];
+
+    sumatoria += (((int)digitosCuil[7])-48)*multiplicador[6];
+    sumatoria += (((int)digitosCuil[8])-48)*multiplicador[7];
+    sumatoria += (((int)digitosCuil[9])-48)*multiplicador[8];
+    sumatoria += (((int)digitosCuil[10])-48)*multiplicador[9];
+
+    int zOriginal = ((int)digitosCuil[12])-48;
+    int division = ceil(sumatoria / 11);
     int resto = sumatoria - (division * 11);
-
-    int tipo=getTipo(cuil);
-
-    int zRes = 0;
+    int zRes = 11 - resto;
+    int tipo = getTipo(cuil);
 
     switch(resto)
     {
-    case 0:
-//Se deja como está.
-        break;
+    case 0: ///Se deja como está. break;
     case 1:
-        switch(tipo)
-        {
-        case 20:
-            zRes = 9;
-            setTipo(cuil,23);
-            break;
-        case 27:
-            zRes = 4;
-            setTipo(cuil,23);
-            break;
-        default: ///Posiblemente salga este mensaje aunque el tipo sea empresa.
-            printf("\n\nERROR: TIPO DE CUIL INEXISTENTE.\n\n");
+        switch(tipo){
+            case 20:
+                zRes = 9;
+                setTipo(cuil,23);
+                break;
+            case 27:
+                zRes = 4;
+                setTipo(cuil,23);
+                break;
+            default:
+                ///Posiblemente salga este mensaje aunque el tipo sea empresa.
+                printf("\n\nERROR: TIPO DE CUIL INEXISTENTE.\n\n");
         }
         break;
-    default:
-        zRes = 11 - resto;
-        break;
     }
-//Si son iguales, es un cuil valido (retornará true), caso contrario es invalido (false).
-    return (digitosCuil[10] == zRes);
+    ///Si son iguales, es un cuil valido (retornará true), caso contrario es invalido (false).
+    return (zOriginal == zRes);
 }
 
 
 
-void helpCuil()
-{
+void helpCuil(){
     printf("\n\n----------------------------------------\n");
     printf("AYUDA CUIL\n\n");
     printf("CUIL = XY 12345678 Z\n");
@@ -244,12 +246,10 @@ void helpCuil()
     printf("\n\n----------------------------------------\n");
 }
 
-void mostrarCuil(CuilPtr cuil)
-{
+void mostrarCuil(CuilPtr cuil){
     printf("\tCuil: %s\n",getCuil(cuil));
 }
 
-bool cuilsIguales(CuilPtr cuil1,CuilPtr cuil2)
-{
+bool cuilsIguales(CuilPtr cuil1,CuilPtr cuil2){
     return strcmp(getCuil(cuil1),getCuil(cuil2)) == 0;
 }

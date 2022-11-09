@@ -33,6 +33,9 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","17 UJI 30");
     PilaPtr PilaPaquetes1 = crearPila();
     apilar(PilaPaquetes1, (PaquetePtr)paquete1);
+    apilar(PilaPaquetes1, (PaquetePtr)paquete1);
+    apilar(PilaPaquetes1, (PaquetePtr)paquete1);
+    apilar(PilaPaquetes1, (PaquetePtr)paquete1);
     RepartoPtr reparto1= NULL;
     reparto1=crearReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,PilaPaquetes1);
 
@@ -113,6 +116,8 @@ ListaPtr crearListaPersonasGenerica()
     CuilPtr cuil_1 = crearCuil("20654342341");
     PersonaPtr cliente1 = crearPersona("Javier","Gonzalez",domicilio1,cuil_1,false);
 
+    PersonaPtr cliente5=crearPersona("Aladin","Baez",domicilio1,cuil_1,false);
+
     DomicilioPtr domicilio2 = crearDomicilio("Italia",1000,"Lomas de zamora");
     CuilPtr cuil_2 = crearCuil("20655612332");
     PersonaPtr cliente2 = crearPersona("Gonzalo","Gutierrez",domicilio2,cuil_2,false);
@@ -150,6 +155,7 @@ ListaPtr crearListaPersonasGenerica()
     agregarDatoLista(personas,(PersonaPtr)cliente2);
     agregarDatoLista(personas,(PersonaPtr)cliente3);
     agregarDatoLista(personas,(PersonaPtr)cliente4);
+    agregarDatoLista(personas,(PersonaPtr)cliente5);
 
     return personas;
 }

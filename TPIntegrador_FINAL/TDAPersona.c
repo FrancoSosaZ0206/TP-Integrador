@@ -102,17 +102,12 @@ bool getEsChofer(PersonaPtr persona)
 
 void mostrarPersona(PersonaPtr persona)
 {
-    printf("Apellido y Nombre: %s, %s\n",getApellido(persona),getNombre(persona));
-
-    printf("\tTipo: ");
-    if(getEsChofer(persona))
-        printf("Chofer\n");
-    else
-        printf("Cliente\n");
-
-    printf("\tDomicilio: ");
-    mostrarDomicilio(getDomicilio(persona));
+    printf("\n");
+    printf("\tTipo: ");if(getEsChofer(persona)){printf("Chofer\n");}else{printf("Cliente\n");}
+    printf("\tNombre y Apellido: %s, %s\n",getNombre(persona),getApellido(persona));
+    printf("\tDomicilio: ");mostrarDomicilio(getDomicilio(persona));
     mostrarCuil(getCuilPersona(persona));
+    printf("\n");
 }
 
 

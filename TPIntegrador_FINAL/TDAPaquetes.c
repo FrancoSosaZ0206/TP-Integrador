@@ -136,48 +136,29 @@ void setEstado(PaquetePtr paquete,int estado)
 
 void mostrarPaquete(PaquetePtr paquete)
 {
-    printf("Paquete #%d\n",getID(paquete));
-
-    switch(getEstado(paquete))
-    {
-    case 0:
-        printf("\tEstado: En Deposito\n");
-        break;
-    case 1:
-        printf("\tEstado: En Curso\n");
-        break;
-    case 2:
-        printf("\tEstado: Retirado\n");
-        break;
-    case 3:
-        printf("\tEstado: Entregado\n");
-        break;
-    case 4:
-        printf("\tEstado: Demorado\n");
-        break;
-    case 5:
-        printf("\tEstado: Suspendido\n");
-        break;
-    default:
-        printf("\tEstado: ERROR\n");
-        break;
+    printf("\n");
+    printf("\tID Paquete: #%d\n",getID(paquete));
+    switch(getEstado(paquete)){
+        case 0: printf("\tEstado: En Deposito\n"); break;
+        case 1: printf("\tEstado: En Curso\n"); break;
+        case 2: printf("\tEstado: Retirado\n"); break;
+        case 3: printf("\tEstado: Entregado\n"); break;
+        case 4: printf("\tEstado: Demorado\n"); break;
+        case 5: printf("\tEstado: Suspendido\n"); break;
+        default: printf("\tEstado: ERROR\n"); break;
     }
-
-    printf("\tAncho: %d\n",getAncho(paquete));
-    printf("\tAlto: %d\n",getAlto(paquete));
-    printf("\tLargo: %d\n",getLargo(paquete));
-    printf("\tPeso: %d\n",getPeso(paquete));
-
-    printf("\tDireccion de Retiro: ");
-    mostrarDomicilio(getDirRetiro(paquete));
-    printf("\tDireccion de Entrega: ");
-    mostrarDomicilio(getDirEntrega(paquete));
-
-    printf("\tFecha y Hora de Entrega:");
-    MostrarFecha(getFechaEntrega(paquete));
+    printf("\tAncho: %d Metros\n",getAncho(paquete));
+    printf("\tAlto: %d Metros\n",getAlto(paquete));
+    printf("\tLargo: %d Metros\n",getLargo(paquete));
+    printf("\tPeso: %d Kilogramos\n",getPeso(paquete));
+    printf("\tDireccion de Retiro: ");mostrarDomicilio(getDirRetiro(paquete));
+    printf("\tDireccion de Entrega: ");mostrarDomicilio(getDirEntrega(paquete));
+    printf("\tFecha entrega:");MostrarFecha(getFechaEntrega(paquete));
+    printf("\n");
 }
-void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
-{
+
+///muestra que relacion hay entre cada numero y cada estado posible del paquete.
+void helpEstadoPaquete() {
     printf("Codigo de estados: \n");
     printf("\t0 = En Deposito\n");
     printf("\t1 = En Curso\n");
@@ -186,43 +167,19 @@ void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada est
     printf("\t4 = Demorado\n");
     printf("\t5 = Suspendido\n\n");
 }
-void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual del paquete recibido.
-{
-    switch(getEstado(paquete))
-    {
-    case 0:
-        printf("Estado del Paquete #%d = En Deposito.\n\n",getID(paquete));
-        break;
-    case 1:
-        printf("Estado del Paquete #%d = En Curso.\n\n",getID(paquete));
-        break;
-    case 2:
-        printf("Estado del Paquete #%d = Retirado.\n\n",getID(paquete));
-        break;
-    case 3:
-        printf("Estado del Paquete #%d = Entregado.\n\n",getID(paquete));
-        break;
-    case 4:
-        printf("Estado del Paquete #%d = Demorado.\n\n",getID(paquete));
-        break;
-    case 5:
-        printf("Estado del Paquete #%d = Suspendido.\n\n",getID(paquete));
-        break;
-    default:
-        printf("Estado del Paquete #%d = ERROR.\n",getID(paquete));
-        break;
+
+//muestra solo el estado actual del paquete recibido.
+void mostrarEstadopaquete(PaquetePtr paquete) {
+    switch(getEstado(paquete)){
+        case 0: printf("Estado del Paquete #%d = En Deposito.\n\n",getID(paquete)); break;
+        case 1: printf("Estado del Paquete #%d = En Curso.\n\n",getID(paquete)); break;
+        case 2: printf("Estado del Paquete #%d = Retirado.\n\n",getID(paquete)); break;
+        case 3: printf("Estado del Paquete #%d = Entregado.\n\n",getID(paquete)); break;
+        case 4: printf("Estado del Paquete #%d = Demorado.\n\n",getID(paquete)); break;
+        case 5: printf("Estado del Paquete #%d = Suspendido.\n\n",getID(paquete)); break;
+        default: printf("Estado del Paquete #%d = ERROR.\n",getID(paquete)); break;
     }
 }
-
-    int ID;
-    int ancho;
-    int alto;
-    int largo;
-    int peso;
-    DomicilioPtr dirRetiro;
-    DomicilioPtr dirEntrega;
-    FechaPtr fechaEntrega;
-    int estado; ///0=En depósito,1=En curso,2=Retirado,3=Entregado,4=Demorado,5=Suspendido
 
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 {
@@ -237,11 +194,11 @@ bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
     return match && (getEstado(paquete1) == getEstado(paquete2));
 }
 
-PaquetePtr copiarPaquete(PaquetePtr paqueteOriginal) ///NUEVA - Orientada para la funcion copiarLista
+PaquetePtr copiarPaquete(PaquetePtr paquete)
 {
-    return crearPaqueteDirect(getID(paqueteOriginal),getAncho(paqueteOriginal),getAlto(paqueteOriginal),getLargo(paqueteOriginal),getPeso(paqueteOriginal),
-                                                  getCalle(getDirRetiro(paqueteOriginal)),getAltura(getDirRetiro(paqueteOriginal)),getLocalidad(getDirRetiro(paqueteOriginal)),
-                                                  getCalle(getDirEntrega(paqueteOriginal)),getAltura(getDirEntrega(paqueteOriginal)),getLocalidad(getDirEntrega(paqueteOriginal)),
-                                                  getDia(getFechaEntrega(paqueteOriginal)),getMes(getFechaEntrega(paqueteOriginal)),getAnio(getFechaEntrega(paqueteOriginal)),getHora(getFechaEntrega(paqueteOriginal)),getMinuto(getFechaEntrega(paqueteOriginal)),
-                                                  getEstado(paqueteOriginal));
+    return crearPaqueteDirect(getID(paquete),getAncho(paquete),getAlto(paquete),getLargo(paquete),getPeso(paquete),
+                              getCalle(getDirRetiro(paquete)),getAltura(getDirRetiro(paquete)),getLocalidad(getDirRetiro(paquete)),
+                              getCalle(getDirEntrega(paquete)),getAltura(getDirEntrega(paquete)),getLocalidad(getDirEntrega(paquete)),
+                              getDia(getFechaEntrega(paquete)),getMes(getFechaEntrega(paquete)),getAnio(getFechaEntrega(paquete)),
+                              getHora(getFechaEntrega(paquete)),getMinuto(getFechaEntrega(paquete)),getEstado(paquete));
 }

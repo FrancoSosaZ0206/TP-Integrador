@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 #include <ctype.h>
 #include "Lista.h"
 #include "TDAPaquetes.h"
@@ -114,23 +115,17 @@ void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esR
 
 void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
 {
+    int i=1;
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPaquetes(centroLogistico));
-
-    int i=0;
-
     printf("\nLISTA DE PAQUETES: \n\n");
     while(!listaVacia(listaAux))
     {
-        printf("%d. ",i+1);
+        printf("\n---[Posicion %d.]---\n", i++);
         mostrarPaquete((PaquetePtr)getCabecera(listaAux));
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        if(!listaVacia(listaAux))
-            printf("\n");
-
-        i++;
     }
     printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
@@ -138,11 +133,9 @@ void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
 
 void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
 {
+    int i=1;
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPersonas(centroLogistico));
-
-    int i=0;
-
     switch(modo)
     {
     case 1:
@@ -163,29 +156,25 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
         case 1: //Filtra por chofer
             if(getEsChofer(personaAux))
             {
-                printf("%d. ",i+1);
+                printf("\n---[Posicion %d.]---\n", i++);
                 mostrarPersona(personaAux);
             }
             break;
         case 2: //Filtra por cliente
             if(!getEsChofer(personaAux))
             {
-                printf("%d. ",i+1);
+                printf("\n---[Posicion %d.]---\n", i++);
                 mostrarPersona(personaAux);
             }
             break;
         case 3: //Sin filtro - Muestra todas las personas
-            printf("%d. ",i+1);
+            printf("\n---[Posicion %d.]---\n", i++);
             mostrarPersona(personaAux);
             break;
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        if(!listaVacia(listaAux))
-            printf("\n");
-
-        i++;
     }
     printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
@@ -193,24 +182,17 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
 
 void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
 {
+    int i=1;
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getVehiculos(centroLogistico));
-
-    int i=0;
-
     printf("\nLISTA DE VEHICULOS: \n\n");
     while(!listaVacia(listaAux))
     {
-        printf("%d. ",i+1);
-
+        printf("\n---[Posicion %d.]---\n", i++);
         mostrarVehiculo((VehiculoPtr)getCabecera(listaAux));
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        if(!listaVacia(listaAux))
-            printf("\n");
-
-        i++;
     }
     printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
@@ -218,21 +200,19 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
 
 void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
+    int i=1;
 	if(esRepartoAbierto) { printf("\nLISTA DE REPARTOS ABIERTOS: \n\n"); }
-	else { printf("\nLISTA DE REPARTOS CERRADOS (*): \n\n"); }
-
+	else { printf("\nLISTA DE REPARTOS CERRADOS: \n\n"); }
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
-    int i = 1;
     while(!listaVacia(listaAux))
     {
         RepartoPtr repartoAux = (RepartoPtr) getCabecera(listaAux);
-        printf("\n\n Posicion %d. \n\n", i);
+        printf("\n---[Posicion %d.]---\n", i++);
         mostrarRepartoSinPaquetes(repartoAux);
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        i++;
     }
     printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
@@ -242,12 +222,8 @@ void filtrarRepartosPorFecha(CentroLogisticoPtr centroLogistico,bool esRepartoAb
 {
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
-
-    printf("\nLISTA DE REPARTOS ");
-    if(esRepartoAbierto)
-        printf("ABIERTOS ");
-    else
-        printf("CERRADOS ");
+    if(esRepartoAbierto){printf("\n\nLISTA DE REPARTOS ABIERTOS:\n\n");}
+    else{printf("\n\nLISTA DE REPARTOS CERRADOS:\n\n");}
     char buffer[11];
     traerFechaCorta(fecha,buffer);
     printf("FILTRADOS POR DIA DE SALIDA - %s \n\n\n\n",buffer);
@@ -256,11 +232,10 @@ void filtrarRepartosPorFecha(CentroLogisticoPtr centroLogistico,bool esRepartoAb
         RepartoPtr repartoAux=getCabecera(listaAux);
         int *diaJulianoDeReparto = calcularDiferenciaFechas(getFechaSalida(repartoAux),fecha);
         bool condicion = diaJulianoDeReparto[0]==0;
-    ///CONDICION: "si SOLAMENTE el día JULIANO del reparto (dia, mes y año) coincide con el de la fecha recibida..."
+        ///CONDICION: "si SOLAMENTE el día JULIANO del reparto (dia, mes y año) coincide con el de la fecha recibida..."
         if(condicion)
         {
             mostrarRepartoSinPaquetes(repartoAux);
-            printf("\n\n\n");
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
@@ -759,52 +734,30 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
         return (RepartoPtr)removerDeLista(centroLogistico->listaRepartosCerrados,posicion);
 }
 ///NUEVA IMPLEMENTACIÓN
-void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
-{ ///extraemos el reparto de la lista de abiertos
+void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion){
+    ///extraemos el reparto de la lista de abiertos
     RepartoPtr repartoACerrar = removerReparto(centroLogistico,posicion,true);
-///Copiamos el contenido del reparto en uno nuevo.
-///NUEVO: aprovechamos las nuevas funciones "copiarX" para agilizar y simplificar el proceso.
-    RepartoPtr copiaReparto = copiarReparto(repartoACerrar);
-
-///Obtenemos cada paquete de la pila y registramos sus estados
+    ///Obtenemos cada paquete de la pila y registramos sus estados
     int n=cantidadPaquetes(repartoACerrar);
     PaquetePtr paquetesAux[n];
-
+    imprimirNumeros("Cantidad de paquetes totales",n);
     int estadoPaquetes[6];
-    for(int i=0;i<n;i++)
-    {
+    for(int i=0;i<n;i++){
         paquetesAux[i] = descargarPaquete(repartoACerrar);
-    ///Salvamos el conjunto de estados de los paquetes de la pila como valores de verdad en un vector de enteros
-        switch(getEstado(paquetesAux[i]))
-        {
-        case 0:
-            estadoPaquetes[0]=1;
-            break;
-        case 1:
-            estadoPaquetes[1]=1;
-            break;
-        case 2:
-            estadoPaquetes[2]=1;
-            break;
-        case 3:
-            estadoPaquetes[3]=1;
-            break;
-        case 4:
-            estadoPaquetes[4]=1;
-            break;
-        case 5:
-            estadoPaquetes[5]=1;
-            break;
+        ///Salvamos el conjunto de estados de los paquetes de la pila como valores de verdad en un vector de enteros
+        switch(getEstado(paquetesAux[i])){
+            case 0: estadoPaquetes[0]=1; break;
+            case 1: estadoPaquetes[1]=1; break;
+            case 2: estadoPaquetes[2]=1; break;
+            case 3: estadoPaquetes[3]=1; break;
+            case 4: estadoPaquetes[4]=1; break;
+            case 5: estadoPaquetes[5]=1; break;
         }
     }
-    for(int i=n-1;i>-1;i--)
-        cargarPaquete(repartoACerrar,paquetesAux[i]);
-
-///Agregamos la copia del reparto cerrado a la lista de cerrados
-    agregarReparto(centroLogistico,copiaReparto,false);
-///Destruimos el reparto original
-    repartoACerrar=destruirReparto(repartoACerrar);
-
+    ///Devolvemos los paquetes en su orden original
+    for(int i=n-1;i>-1;i--){cargarPaquete(repartoACerrar,paquetesAux[i]);}
+    ///Agregamos el reparto cerrado a la lista de cerrados
+    agregarReparto(centroLogistico,repartoACerrar,false);
     printf("\n\nCerrando reparto...\n\n");
     bool condicion = estadoPaquetes[0]==0;
     condicion = condicion && estadoPaquetes[1]==0;
@@ -812,17 +765,13 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion)
     condicion = condicion && estadoPaquetes[3]==1;
     condicion = condicion && estadoPaquetes[4]==0;
     condicion = condicion && estadoPaquetes[5]==0;
-///Imprimimos un mensaje informativo acerca del estado de los paquetes
-    if(condicion)
-        printf("Todos los paquetes fueron entregados con exito.\n\n");
-    else if(estadoPaquetes[0]==1)
-        printf("ADVERTENCIA: Quedaron paquetes marcados como 'EN DEPOSITO'.\n\n");
-    else if(estadoPaquetes[1]==1 || estadoPaquetes[2]==1)
-        printf("Quedaron paquetes sin entregar. Revisarlos y reasignarlos a un nuevo reparto.\n\n");
-    else if(estadoPaquetes[4]==1)
-        printf("Algunos paquetes estan demorados. Revisarlos y reasignarlos a un nuevo reparto.\n\n");
-    else if(estadoPaquetes[5]==1)
-        printf("Se suspendieron algunos paquetes. Revisarlos y reasignarlos a un nuevo reparto.\n\n");
+    ///Imprimimos un mensaje informativo acerca del estado de los paquetes
+    if(estadoPaquetes[0]==1){printf("ADVERTENCIA: Quedaron paquetes marcados como 'EN DEPOSITO'.\n\n");}
+    if(estadoPaquetes[1]==1 ){printf("Quedaron paquetes retirados sin entregar. Revisarlos y reasignarlos a un nuevo reparto.\n\n");}
+    if(estadoPaquetes[2]==1){printf("Quedaron paquetes en curso sin entregar. Revisarlos y reasignarlos a un nuevo reparto.\n\n");}
+    if(estadoPaquetes[4]==1){printf("Algunos paquetes estan demorados. Revisarlos y reasignarlos a un nuevo reparto.\n\n");}
+    if(estadoPaquetes[5]==1){printf("Se suspendieron algunos paquetes. Revisarlos y reasignarlos a un nuevo reparto.\n\n");}
+    if(condicion){printf("Todos los paquetes fueron entregados con exito.\n\n");}
 }
 
 /// ///////////////////////////////////////////////FUNCIONES DE VALIDACIÓN//////////////////////////////////////////////////////////////////////////
@@ -923,7 +872,7 @@ bool esCuilExistente(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
 bool esPatenteValida(char* patente)
 {
     int pass = 0;
-///Se evalua si tiene 4 letras y 3 numeros
+    ///Se evalua si tiene 4 letras y 3 numeros
 
     if( isalpha(patente[0]) ) { pass++; }
     if( isalpha(patente[1]) ) { pass++; }
@@ -934,6 +883,9 @@ bool esPatenteValida(char* patente)
 
     if( isalpha(patente[7]) ) { pass++; }
     if( isalpha(patente[8]) ) { pass++; }
+
+    ///En caso de que el usuario se pase
+    if( isalpha(patente[9]) || isalnum(patente[9]) ) { pass++; }
 
     if( pass == 7 )
         return true;
@@ -1164,17 +1116,20 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo)
     PersonaPtr personaAux;
 
     bool condicion;
+    char stringAux1[100];
+    char stringAux2[100];
 
     for(int i=0;i<n;i++) ///Primero, vaciamos la lista en el vector
         personas[i]=removerPersona(centroLogistico,0);
 
-    int salto=n/2;
+    int salto=round(n/2);
     ///Luego, ordenamos el vector (m. shell)
     while(salto>0)
     {
         bool cambios = false;
         for(int i=0;i<(n-salto);i++)
         {
+
             switch(modo)
             {
             case 1:
@@ -1186,8 +1141,11 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo)
             //condición: "Si el apellido de la persona en j va después del de la persona en [i+salto]..."
                 break;
             case 3:
-                condicion = strcmp(getApellido(personas[i]),getApellido(personas[i+salto])) >= 0;
-                condicion = condicion && strcmp(getNombre(personas[i]),getNombre(personas[i+salto])) > 0;
+                strcpy(stringAux1,getNombre(personas[i]));
+                strcat(stringAux1,getApellido(personas[i]));
+                strcpy(stringAux2,getNombre(personas[i+salto]));
+                strcat(stringAux2,getApellido(personas[i+salto]));
+                condicion=strcmp(stringAux1,stringAux2)>0;
             //condición: "Si el APELLIDO Y EL NOMBRE de la persona en j van después de los de la persona en [i+salto]..."
                 break;
             }
@@ -1198,9 +1156,10 @@ void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo)
                 personas[i]=personas[i+salto];
                 personas[i+salto]=personaAux;
             }
+
         }
         if(!cambios)
-            salto/=2;
+            salto=round(salto/2);
     }
 ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
     for(int i=n-1; i>-1; i--)
