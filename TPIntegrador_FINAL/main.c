@@ -90,35 +90,6 @@ int main()
 /// **************************************************************************************************************/
     CentroLogisticoPtr centroLogistico=NULL;
     CentroLogisticoPtr c=crearCentroLogisticoDefecto();
-    FechaPtr fechaSalida=crearFecha(10,12,2022,12,30);
-    int hora=0,minuto=0;
-    FechaPtr fechaRetorno = crearFecha(getDia(fechaSalida),getMes(fechaSalida),getAnio(fechaSalida),hora,minuto);
-    int *difFechas=NULL;
-    do{
-        system("cls");
-        char buffer[10];
-        traerFechaYHora(fechaSalida,buffer);
-        printf("\n\t\tFecha y Horario de Salida: %s\n",buffer);
-        printf("\n\t\tHorario de Retorno (HH MM): ");
-        limpiarBufferTeclado();
-        scanf("%d %d",&hora,&minuto);
-        limpiarBufferTeclado();
-        setHora(fechaRetorno,hora);
-        setMinuto(fechaRetorno,minuto);
-
-        difFechas = calcularDiferenciaFechas(fechaSalida,fechaRetorno);
-
-        if(!esFechaValida(fechaRetorno)){
-            printf("\n\nFecha invalida. Reingrese la fecha.\n\n");
-            presionarEnterYLimpiarPantalla();
-        }else if(difFechas[1]>0 || (difFechas[1]<=0 && difFechas[2]>0)){
-            printf("\n\nERROR: El horario de retorno debe ser posterior al de salida.");
-            presionarEnterYLimpiarPantalla();
-        }
-    } while (!esFechaValida(fechaRetorno) || difFechas[1]>0 || (difFechas[1]<=0 && difFechas[2]>0));
-
-    free(difFechas);
-    difFechas=NULL;
     system("pause");
     int START_OP=0;
     do
