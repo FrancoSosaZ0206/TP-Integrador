@@ -130,8 +130,8 @@ void mostrarReparto(RepartoPtr reparto)
         paquetes[i]=(PaquetePtr)desapilar(getPaquetesReparto(reparto));
         mostrarPaquete(paquetes[i]);
     }
-    for(int i=0;i<cantPaq;i++)
-        apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[cantPaq-i]);
+    for(int i=cantPaq-1;i>-1;i--)
+        apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[i]);
 }
 void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 {

@@ -210,9 +210,11 @@ bool menuGuardarCambios(CentroLogisticoPtr centroLogistico,int tipoDato)
                 break;
             case 3:
                 guardarLista = guardarVehiculos(centroLogistico);
+                guardarLista = guardarVehiculos(centroLogistico);
                 break;
             case 4:
-                guardarLista = guardarRepartos(centroLogistico,true) && guardarRepartos(centroLogistico,false);
+                //guardarLista = guardarRepartos(centroLogistico,true) && guardarRepartos(centroLogistico,false);
+                guardarLista=true;
                 break;
             }
             if(guardarLista)
@@ -416,7 +418,7 @@ void menuModoAccion3(ListaPtr lista,int* desde,int* hasta)
 
 CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico)
 {
-    CuilPtr cuil=crearCuil("");
+    CuilPtr cuil=NULL;
     char strCuil[100];
     int i=0;
     do
@@ -425,8 +427,9 @@ CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico)
         printf("\n\tCUIL: ");
         scanf("%[^\n]%*c",strCuil);
         limpiarBufferTeclado();
-        if(i>0 && i<4) { setCuil(cuil,strCuil); }
-        else //if(i==4)
+        if(i==0) { cuil=crearCuil(strCuil); }
+        else if(i>0 && i<4) { setCuil(cuil,strCuil); }
+        else if(i==4)
         {
             cuil = destruirCuil(cuil);
             printf("\n\nIntentos agotados.\n\n");
@@ -445,7 +448,7 @@ CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico)
             printf("Cuil existente. Vuelva a ingresar.");
             presionarEnterYLimpiarPantalla();
         }
-    } while(!esCuilValido(cuil) && esCuilExistente(centroLogistico,cuil));
+    } while(!esCuilValido(cuil) || esCuilExistente(centroLogistico,cuil));
 
     return cuil;
 }
@@ -720,7 +723,7 @@ bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer)
                 personaCargada=true;
                 agregarPersona(centroLogistico, persona);
 
-                if(esChofer) { printf("Cliente cargado exitosamente."); }
+                if(esChofer) { printf("Chofer cargado exitosamente."); }
                 else { printf("Cliente cargado exitosamente."); }
             }
         }
@@ -2707,22 +2710,7 @@ bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int *opMenu
                 }
 
                 printf("\n\n-----------------------------------------------------\n\n");
-                switch(tipo)
-                {
-                case 1:
-                    ordenarPersonas(centroLogistico, 1);
-                    cambiosGuardados = false;
-                    break;
-                case 2:
-                    ordenarPersonas(centroLogistico, 2);
-                    cambiosGuardados = false;
-                    break;
-                case 3:
-                    ordenarPersonas(centroLogistico, 3);
-                    cambiosGuardados = false;
-                    break;
-                }
-                printf("\n\n-----------------------------------------------------");
+                mostrarPersonas(centroLogistico,tipo);
                 presionarEnterYLimpiarPantalla();
             }
         } while(!(op==0 || op==-1));
@@ -2786,7 +2774,6 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
             {
                 printf("\n\n-----------------------------------------------------\n\n");
                 mostrarVehiculos(centroLogistico);
-                printf("\n\n-----------------------------------------------------");
                 presionarEnterYLimpiarPantalla();
             }
         } while(!(op==0 || op==-1));

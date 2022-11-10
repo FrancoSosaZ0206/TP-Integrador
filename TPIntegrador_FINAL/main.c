@@ -32,9 +32,15 @@ int main()
 
     VehiculoPtr v = crearVehiculo(1,"Acme","Acme","BU 843 ZP");
     PaquetePtr paq = crearPaqueteDirect(200,1,2,3,4,"z",9,"z","zA",99,"zA",13,12,2022,10,45,1);
+    PaquetePtr paq2 = crearPaqueteDirect(201,1,2,3,4,"a",9,"a","aaa",123,"aaa",13,12,2022,10,45,1);
+    PaquetePtr paq3 = crearPaqueteDirect(202,1,2,3,4,"b",9,"b","bbb",66,"bbb",13,12,2022,10,45,1);
+    PaquetePtr paq4 = crearPaqueteDirect(203,1,2,3,4,"c",9,"c","ccc",88,"ccc",13,12,2022,10,45,1);
 
     agregarVehiculo(c,v);
     agregarPaquete(c,paq);
+    agregarPaquete(c,paq2);
+    agregarPaquete(c,paq3);
+    agregarPaquete(c,paq4);
 
     PilaPtr pPaq = crearPila();
     apilar(pPaq,(PaquetePtr)paq);
