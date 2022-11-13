@@ -130,8 +130,10 @@ void mostrarReparto(RepartoPtr reparto)
         paquetes[i]=(PaquetePtr)desapilar(getPaquetesReparto(reparto));
         mostrarPaquete(paquetes[i]);
     }
-    for(int i=0;i<cantPaq;i++)
-        apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[cantPaq-i]);
+    for(int i=cantPaq-1;i>-1;i--)
+    {
+        apilar(getPaquetesReparto(reparto),(PaquetePtr)paquetes[i]);
+    }
 }
 void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 {
@@ -231,7 +233,7 @@ RepartoPtr copiarReparto(RepartoPtr repartoOriginal) ///NUEVA
         copiaPaquetes[i] = copiarPaquete(paquetesOriginales[i]);
     }
 /// Luego, los volvemos a poner en sus respectivas pilas
-    for(int i=n;i>0;i--)
+    for(int i=n-1;i>-1;i--)
     {
         apilar(pilaPaquetesOriginal,paquetesOriginales[i]);
         apilar(copiaPilaPaquetes,copiaPaquetes[i]);

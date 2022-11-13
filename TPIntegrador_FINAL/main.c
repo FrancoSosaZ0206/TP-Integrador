@@ -44,6 +44,8 @@ int main()
 /// **************************************************************************************************************/
     ///CentroLogisticoPtr centroLogistico=NULL;
     CentroLogisticoPtr centroLogistico=crearCentroLogisticoDefecto();
+    cerrarReparto(centroLogistico, 0);
+    mostrarReparto(getDatoLista(getRepartos(centroLogistico,false),longitudLista(getRepartos(centroLogistico,false))));
     int START_OP=0;
     do
     {

@@ -3049,7 +3049,8 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             printf("\n\nFECHA DE RETORNO: \n\n");
             FechaPtr fechaRetorno = cargarFecha();
             do
-            { /// Validación y elección de chofer
+            {
+                /// Validación y elección de chofer
                 n = longitudLista(getPersonas(centroLogistico));
                 mostrarChoferesDisponibles(centroLogistico,fechaSalida);
 
@@ -3090,7 +3091,8 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             choferElegido = getDatoLista(getPersonas(centroLogistico),k-1);
 
             do
-            { /// Validación y elección de vehículo
+            {
+                /// Validación y elección de vehículo
                 n = longitudLista(getVehiculos(centroLogistico));
                 mostrarVehiculosDisponibles(centroLogistico);
 
