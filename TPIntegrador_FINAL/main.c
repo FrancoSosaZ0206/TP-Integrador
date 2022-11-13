@@ -5,6 +5,7 @@
 #include "Lista.h"
 #include "Menus.h"
 #include "test.h"
+#include <time.h>
 #include "util.h"
 
 
@@ -12,6 +13,11 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez);
 
 int main()
 {
+    time(NULL);
+    struct tm t;
+    printf("%s\n", ctime(&t));
+
+    system("pause");
 /** **************************************************************************************************************
 ///                                             SECCIÓN DE PRUEBAS RÁPIDAS
 /// **************************************************************************************************************
