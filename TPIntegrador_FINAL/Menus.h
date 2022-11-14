@@ -7,7 +7,7 @@
 
 /**************************************************************************************************************************
 
-                                                MENUS - INTERFAZ DE OPERACIONES
+                                                MENUS - INTERFAZ DE OPERACIÓNES
 
 ***************************************************************************************************************************/
 
@@ -21,7 +21,7 @@
 
 /** OPERACIÓN: carga de cuil con datos
 PRECONDICIÓN: cuil debe haber sido DECLARADO
-POSTCONDICION: se piden datos por pantalla y se crea un cuil en memoria dinamica con datos válidos
+POSTCONDICIÓN: se piden datos por pantalla y se crea un cuil en memoria dinamica con datos válidos
 PARÁMETROS: puntero al centro Logistico
 DEVUELVE: puntero al cuil cargado
 
@@ -30,7 +30,7 @@ DEVUELVE: puntero al cuil cargado
 CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico);
 /** OPERACIÓN: carga de fecha con datos
 PRECONDICIÓN: fecha debe haber sido DECLARADA
-POSTCONDICION: se piden datos por pantalla y se crea una fecha con datos válidos
+POSTCONDICIÓN: se piden datos por pantalla y se crea una fecha con datos válidos
 PARÁMETROS: ninguno
 DEVUELVE: puntero a la fecha cargada
 
@@ -47,23 +47,23 @@ FechaPtr cargarFecha();
 
 /*OPERACIÓN: menu de carga de paquete
 PRECONDICIÓN: centro logistico debe haberse creado en main.c
-POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion,
+POSTCONDICIÓN: se piden datos por pantalla, se pasan por un proceso de validacion,
                se crea un paquete y se agrega a la lista de paquetes del centro logistico
 PARÁMETROS:
   puntero al centro logistico
 DEVUELVE: true si se guardaron los cambios, false de lo contrario. */
 bool menuCargarPaquete(CentroLogisticoPtr centroLogistico);
-/* OPERACIÓN: menu de carga de personas
+/** OPERACIÓN: menu de carga de personas
 PRECONDICIÓN: centro logistico debe haberse creado en main.c
-POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion,
+POSTCONDICIÓN: se piden datos por pantalla, se pasan por un proceso de validacion,
                se crea una persona y se agrega a la lista de personas del centro logistico
 PARÁMETROS:
   puntero al centro logistico
 DEVUELVE: true si se guardaron los cambios, false de lo contrario. */
 bool menuCargarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
-/* OPERACIÓN: menu de carga de vehiculos
+/** OPERACIÓN: menu de carga de vehiculos
 PRECONDICIÓN: centro logistico debe haberse creado en main.c
-POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion,
+POSTCONDICIÓN: se piden datos por pantalla, se pasan por un proceso de validacion,
                se crea un vehiculo y se agrega a la lista de vehiculos del centro logistico
 PARÁMETROS:
   puntero al centro logistico
@@ -78,40 +78,40 @@ bool menuCargarVehiculo(CentroLogisticoPtr centroLogistico);
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
-/* OPERACIÓN: menu de eliminacion de un paquete de la lista
+/** OPERACIÓN: menu de eliminacion de un paquete de la lista
 PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de paquetes.
-POSTCONDICION: Se muestra la lista de paquetes, y el usuario elige el indice del paquete a eliminar.
+POSTCONDICIÓN: Se muestra la lista de paquetes, y el usuario elige el indice del paquete a eliminar.
                Si el indice es valido, se destruye el paquete, y si no se muestra un mensaje
-               que informa el fracaso de la operacion.
+               que informa el fracaso de la OPERACIÓN.
 PARÁMETROS:
       - centroLogistico: puntero al centro logistico
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario. */
 bool menuEliminarPaquete(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
-/* OPERACIÓN: menu de eliminacion de un persona de la lista
+/** OPERACIÓN: menu de eliminacion de un persona de la lista
 PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de personas.
-POSTCONDICION: Se muestra la lista de personas, y el usuario elige el indice de la persona a eliminar.
+POSTCONDICIÓN: Se muestra la lista de personas, y el usuario elige el indice de la persona a eliminar.
                Si el indice es valido, se destruye la persona, y si no se muestra un mensaje
-               que informa el fracaso de la operacion.
+               que informa el fracaso de la OPERACIÓN.
 PARÁMETROS:
       - centroLogistico: puntero al centro logistico
       - esChofer: booleano para determinar si es un chofer o un cliente
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario. */
 bool menuEliminarPersona(CentroLogisticoPtr centroLogistico,bool esChofer,int *opMenuAnterior);
-/* OPERACIÓN: menu de eliminacion de un vehiculo de la lista
+/** OPERACIÓN: menu de eliminacion de un vehiculo de la lista
 PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de vehiculos.
-POSTCONDICION: Se muestra la lista de vehiculos, y el usuario elige el indice del vehiculo a eliminar.
+POSTCONDICIÓN: Se muestra la lista de vehiculos, y el usuario elige el indice del vehiculo a eliminar.
                Si el indice es valido, se destruye el vehiculo, y si no se muestra un mensaje
-               que informa el fracaso de la operacion.
+               que informa el fracaso de la OPERACIÓN.
 PARÁMETROS:
       - centroLogistico: puntero al centro logistico
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario. */
 bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
-/* OPERACIÓN: menu de eliminacion de repartos
+/** OPERACIÓN: menu de eliminacion de repartos
 PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
-POSTCONDICION: se destruye el reparto seleccionado.
+POSTCONDICIÓN: se destruye el reparto seleccionado.
 PARÁMETROS:
       - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
       - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
@@ -166,10 +166,10 @@ PARÁMETROS:
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario. */
 bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
-/* OPERACIÓN: menu de actualizacion de datos de un reparto
+/** OPERACIÓN: menu de actualizacion de datos de un reparto
 PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
-POSTCONDICION: se ingresan los nuevos datos del reparto y se aplican los cambios,
-///              pasando previamente por el mismo proceso de chequeo que en la funcion menuArmarReparto.
+POSTCONDICIÓN: se ingresan los nuevos datos del reparto y se aplican los cambios,
+              pasando previamente por el mismo proceso de chequeo que en la funcion menuArmarReparto.
 PARÁMETROS:
       - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
       - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
@@ -185,33 +185,33 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
-/* OPERACIÓN: menu de busqueda de paquetes
+/** OPERACIÓN: menu de busqueda de paquetes
 PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de paquetes.
-POSTCONDICION: se pide un ID, se busca si hay algun paquete que lo tenga.
+POSTCONDICIÓN: se pide un ID, se busca si hay algun paquete que lo tenga.
               De encontrarse, lo muestra por pantalla, y de lo contrario se informa que no se encontró.
 PARÁMETROS:
   puntero al centro logistico
 DEVUELVE: Nada. */
 void menuBuscarPaquete(CentroLogisticoPtr centroLogistico);
-/* OPERACIÓN: menu de busqueda de personas
+/** OPERACIÓN: menu de busqueda de personas
 PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de personas.
-POSTCONDICION: se pide un CUIL, se busca si hay algun persona que lo tenga.
+POSTCONDICIÓN: se pide un CUIL, se busca si hay algun persona que lo tenga.
               De encontrarse, la muestra por pantalla, y de lo contrario se informa que no se encontró.
 PARÁMETROS:
   puntero al centro logistico, booleano para determinar si es un chofer o un cliente
 DEVUELVE: Nada. */
 void menuBuscarPersona(CentroLogisticoPtr centroLogistico,bool esChofer);
-/* OPERACIÓN: menu de busqueda de vehiculos
+/** OPERACIÓN: menu de busqueda de vehiculos
 PRECONDICIÓN: centro logistico debe haber sido creado y cargado con una lista de vehiculos.
-POSTCONDICION: se pide una patente, se busca si hay algun vehiculo que lo tenga.
+POSTCONDICIÓN: se pide una patente, se busca si hay algun vehiculo que lo tenga.
               De encontrarse, lo muestra por pantalla, y de lo contrario se informa que no se encontró.
 PARÁMETROS:
       - centroLogistico: puntero al centro logistico
 DEVUELVE: Nada. */
 void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico);
-/* OPERACIÓN: menu de busqueda de repartos
+/** OPERACIÓN: menu de busqueda de repartos
 PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
-POSTCONDICION: se muestra el reparto buscado, o se muestra un mensaje de error de lo contrario.
+POSTCONDICIÓN: se muestra el reparto buscado, o se muestra un mensaje de error de lo contrario.
 PARÁMETROS:
       - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
       - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
@@ -225,7 +225,7 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
-/* OPERACIÓN: menú de muestra de paquetes
+/** OPERACIÓN: menú de muestra de paquetes
 PRECONDICIÓN:
               - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
               - Una lista de paquetes debe haber sido creada y cargada con, al menos, 2 paquetes.
@@ -235,7 +235,7 @@ PARÁMETROS:
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario. */
 bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
-/* OPERACIÓN: menú de muestra de personas
+/** OPERACIÓN: menú de muestra de personas
 PRECONDICIÓN:
               - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
               - Una lista de personas debe haber sido creada y cargada con, al menos, 2 personas.
@@ -246,7 +246,7 @@ PARÁMETROS:
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario. */
 bool menuMostrarPersonas(CentroLogisticoPtr centroLogistico,int tipo,int *opMenuAnterior);
-/* OPERACIÓN: menú de muestra de vehiculos
+/** OPERACIÓN: menú de muestra de vehiculos
 PRECONDICIÓN:
               - CentroLogistico debe haber sido creado previamente con crearCentroLogistico en memoria dinamica
               - Una lista de vehiculos debe haber sido creada y cargada con, al menos, 2 vehiculos.
@@ -256,9 +256,9 @@ PARÁMETROS:
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario. */
 bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
-/* OPERACIÓN: menú de muestra de repartos
+/** OPERACIÓN: menú de muestra de repartos
 PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente, y se debe haber armado al menos un reparto.
-POSTCONDICION: despliega una serie de opciones de menues y submenues que permiten mostrar por
+POSTCONDICIÓN: despliega una serie de opciones de menues y submenues que permiten mostrar por
                pantalla los repartos abiertos y cerrados en las categorias de totales, particular, y filtrados por fecha
 PARÁMETROS:
       - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
@@ -275,12 +275,12 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
-/* OPERACIÓN: menu de armado de repartos
+/** OPERACIÓN: menu de armado de repartos
 PRECONDICIÓN: centroLogistico debe haber sido creado y llenado con, al menos:
                   - Un chofer.
                   - Un vehiculo.
                   - Un paquete.
-POSTCONDICION: se arma un reparto con fecha de salida y retorno ingresadas por el usuario, y un chofer, vehiculo
+POSTCONDICIÓN: se arma un reparto con fecha de salida y retorno ingresadas por el usuario, y un chofer, vehiculo
                y pila de paquetes seleccionados de las respectivas listas del centro logistico.
                Luego, se determina si los datos del reparto no existen en ningún otro:
                   1. De ser así, se agrega a la lista de repartos abiertos del centro logístico.
@@ -290,9 +290,9 @@ PARÁMETROS:
   centroLogistico: puntero a la estructura del Centro Logistico
 DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario. */
 bool menuArmarReparto(CentroLogisticoPtr centroLogistico);
-/* OPERACIÓN: menu de cerrado de repartos
+/** OPERACIÓN: menu de cerrado de repartos
 PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
-POSTCONDICION: se mueve el reparto seleccionado a la lista de repartos cerrados.
+POSTCONDICIÓN: se mueve el reparto seleccionado a la lista de repartos cerrados.
 PARÁMETROS:
       - centroLogistico: puntero a la estructura del Centro Logistico
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
@@ -300,12 +300,12 @@ DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.*/
 bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
 
 
-/* OPERACIÓN: menu de actualizado de repartos
+/** OPERACIÓN: menu de actualizado de repartos
 PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
-POSTCONDICION: se modifica el estado del proximo paquete a entregar
+POSTCONDICIÓN: se modifica el estado del proximo paquete a entregar
 PARÁMETROS:
       - centroLogistico: puntero a la estructura del Centro Logistico
-DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario.*/
+DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario. */
 bool menuActualizarReparto(CentroLogisticoPtr centroLogistico); ///NUEVA
 
 
@@ -316,9 +316,9 @@ bool menuActualizarReparto(CentroLogisticoPtr centroLogistico); ///NUEVA
 ///--------------------------------------------------------------------------------------------------------------------------
 
 
-/* OPERACIÓN: menú rápido de creación de centro logistico
+/** OPERACIÓN: menú rápido de creación de centro logistico
 PRECONDICIÓN: el centro logistico debe haber sido DECLARADO previamente y estar vacío.
-POSTCONDICION: se pide un nombre para el nuevo centro logistico, y se crea de forma rápida con listas vacías.
+POSTCONDICIÓN: se pide un nombre para el nuevo centro logistico, y se crea de forma rápida con listas vacías.
 PARÁMETROS:
   ctroLog: puntero a la estructura centro logístico que se desea crear
 DEVUELVE: puntero al centro logístico creado. */

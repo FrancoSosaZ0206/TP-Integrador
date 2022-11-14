@@ -17,7 +17,7 @@
 ///--------------------------------------------------------------------------------------------------------------------------
 /** OPERACIÓN: menu para continuar en un menú
 PRECONDICIÓN: ninguna
-POSTCONDICION: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
+POSTCONDICIÓN: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
 PARÁMETROS: ninguno
 DEVUELVE: booleano representando la opcion elegida:
               true = SI, DESEA CONTINUAR
@@ -108,7 +108,7 @@ ListaPtr copiarLista(ListaPtr listaOriginal,int tipoDato)
 /** OPERACIÓN: deteccion de cambios
 PRECONDICIÓN: debe haberse usado copiarLista previamente, y por tanto, copiaLista ya debe
               haber recibido los contenidos de la lista original.
-POSTCONDICION: compara las listas, retornando si hubo cambios o no.
+POSTCONDICIÓN: compara las listas, retornando si hubo cambios o no.
 PARÁMETROS:
     - listaOriginal: puntero a la lista como estaba antes de hacer alguna modificación
     - copiaLista: puntero a la copia de la lista que se hizo
@@ -176,7 +176,7 @@ bool detectarCambios(ListaPtr listaOriginal,ListaPtr copiaLista,int tipoDato)
 PRECONDICIÓN:
     - centroLogistico debe haber sido creado y llenado con la lista de datos correspondiente.
     - debe haberse usado la funcion detectarCambios previamente.
-POSTCONDICION: se despliega un menú por pantalla preguntando al usuario si quiere guardar los cambios realizados en la funcion correspondiente.
+POSTCONDICIÓN: se despliega un menú por pantalla preguntando al usuario si quiere guardar los cambios realizados en la funcion correspondiente.
 PARÁMETROS:
     - centroLogistico: puntero a entero representando la opcion del menu anterior
     - tipoDato: entero representando el tipo de lista que corresponde guardar:
@@ -243,7 +243,7 @@ bool menuGuardarCambios(CentroLogisticoPtr centroLogistico,int tipoDato)
 
 /** OPERACIÓN: menu de modo de accion
 PRECONDICIÓN: ninguna
-POSTCONDICION: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
+POSTCONDICIÓN: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
 PARÁMETROS:
   opMenuAnterior: puntero a entero representando la opcion del menu anterior
 DEVUELVE: entero representando la opcion elegida. */
@@ -278,7 +278,7 @@ int menuModoAccion(int *opMenuAnterior)
 }
 /** OPERACIÓN: menu de modo de accion
 PRECONDICIÓN: haber usado menuModoAccion
-POSTCONDICION: se ejecuta el modo de accion 1 - se toma un indice por pantalla.
+POSTCONDICIÓN: se ejecuta el modo de accion 1 - se toma un indice por pantalla.
 PARÁMETROS:
   lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
 DEVUELVE: entero representando el índice elegido. */
@@ -304,12 +304,12 @@ int menuModoAccion1(ListaPtr lista)
 }
 /** OPERACIÓN: menu de modo de accion
 PRECONDICIÓN: haber usado menuModoAccion
-POSTCONDICION: se ejecuta el modo de accion 2 - se toma un conjunto de índices por pantalla.
+POSTCONDICIÓN: se ejecuta el modo de accion 2 - se toma un conjunto de índices por pantalla.
 PARÁMETROS:
   lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
   cantIndices: entero representando la variable que se cargará con la cantidad de indices seleccionados
 DEVUELVE: vector de enteros representando la seleccion de índices elegidos.
-*//**
+*/**
 ADVERTENCIA: Cuidado con menus o funciones que modifiquen la longitud de la lista (ej: menuEliminar). */
 void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
 {
@@ -365,7 +365,7 @@ void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
 
 /** OPERACIÓN: menu de modo de accion
 PRECONDICIÓN: haber usado menuModoAccion
-POSTCONDICION: se ejecuta el modo de accion 3 - se toma un rango de índices por pantalla.
+POSTCONDICIÓN: se ejecuta el modo de accion 3 - se toma un rango de índices por pantalla.
 PARÁMETROS:
   lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
   desde: entero representando la variable donde se cargará el índice mínimo.
@@ -454,7 +454,7 @@ CuilPtr cargarCuil(CentroLogisticoPtr centroLogistico)
 }
 /** OPERACIÓN: carga de domicilio con datos
 PRECONDICIÓN: domicilio debe haber sido DECLARADO
-POSTCONDICION: se piden datos por pantalla y se crea un domicilio en memoria dinamica
+POSTCONDICIÓN: se piden datos por pantalla y se crea un domicilio en memoria dinamica
 PARÁMETROS: ninguno
 DEVUELVE: puntero al domicilio cargado
 
@@ -507,7 +507,7 @@ FechaPtr cargarFecha()
 
 /** OPERACIÓN: actualiza los datos de un cuil
 PRECONDICIÓN: cuil debe haberse creado
-POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
+POSTCONDICIÓN: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
 PARÁMETROS:
     - puntero al centro logistico
     - puntero a la estructura a actualizar
@@ -551,7 +551,7 @@ void actualizarCuil(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
 }
 /** OPERACIÓN: actualiza los datos de un domicilio
 PRECONDICIÓN: domicilio debe haberse creado
-POSTCONDICION: se piden datos por pantalla y se actualiza la estructura
+POSTCONDICIÓN: se piden datos por pantalla y se actualiza la estructura
 PARÁMETROS:
   puntero a la estructura a actualizar
 DEVUELVE: Nada */
@@ -577,7 +577,7 @@ void actualizarDomicilio(DomicilioPtr domicilio)
 }
 /** OPERACIÓN: actualiza los datos de una fecha
 PRECONDICIÓN: fecha debe haberse creado
-POSTCONDICION: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
+POSTCONDICIÓN: se piden datos por pantalla, se pasan por un proceso de validacion, y se actualiza la estructura
 PARÁMETROS:
   puntero a la estructura a actualizar
 DEVUELVE: Nada */
