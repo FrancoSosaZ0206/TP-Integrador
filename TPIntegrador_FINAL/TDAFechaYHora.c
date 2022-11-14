@@ -259,13 +259,13 @@ bool esFechaValida(FechaPtr fecha)
 
 bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
 {
-    bool SonFechasIguales = true;
-    SonFechasIguales = SonFechasIguales && (getDia(fecha1) == getDia(fecha2));
-    SonFechasIguales = SonFechasIguales && (getMes(fecha1) == getMes(fecha2));
-    SonFechasIguales = SonFechasIguales && (getAnio(fecha1) == getAnio(fecha2));
-    SonFechasIguales = SonFechasIguales && (getHora(fecha1) == getHora(fecha2));
-    SonFechasIguales = SonFechasIguales && (getMinuto(fecha1) == getMinuto(fecha2));
-    return SonFechasIguales;
+    bool match = true;
+    match = match && (getDia(fecha1) == getDia(fecha2));
+    match = match && (getMes(fecha1) == getMes(fecha2));
+    match = match && (getAnio(fecha1) == getAnio(fecha2));
+    match = match && (getHora(fecha1) == getHora(fecha2));
+    match = match && (getMinuto(fecha1) == getMinuto(fecha2));
+    return match;
 }
 
 void mostrarFecha(FechaPtr fecha)
