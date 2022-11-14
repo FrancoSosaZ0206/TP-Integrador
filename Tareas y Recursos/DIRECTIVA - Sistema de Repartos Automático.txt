@@ -1,0 +1,17 @@
+¿Qué necesitamos?
+
+Detectar cuando se llego a una fecha de entrega.
+
+¿Para qué?
+
+Para cambiar automáticamente el estado de los paquetes que no se entregaron.
+
+¿Qué hay que hacer?
+
+1. Fijarse si se llego a la fecha de entrega.
+	a. Si se llegó y hay paquetes sin entregar, se marcan como suspendidas.
+
+2. Los paquetes tienen fecha de entrega.
+	a. Si se pasa la fecha de entrega de un paquete, pero todavía queda tiempo antes de la fecha de retorno del reparto, ese paquete se marca como demorado.
+
+3. Cuando se llega a la fecha de retorno, el reparto se cierra automáticamente.

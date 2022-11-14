@@ -173,8 +173,8 @@ void mostrarPaquete(PaquetePtr paquete)
     printf("\tDireccion de Entrega: ");
     mostrarDomicilio(getDirEntrega(paquete));
 
-    printf("\tFecha y Hora de Entrega:");
-    MostrarFecha(getFechaEntrega(paquete));
+    printf("\tFecha y Hora de Entrega: ");
+    mostrarFecha(getFechaEntrega(paquete));
 }
 void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada estado posible del paquete.
 {

@@ -261,7 +261,7 @@ bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2); ///NUEVA
 ///PARAMETROS:
 /// PUNTERO A FECHA [A MOSTRAR]
 ///DEVUELVE: NULL
-void MostrarFecha(FechaPtr fecha);
+void mostrarFecha(FechaPtr fecha);
 
 
 #endif //TDAFECHAYHORA_H_INCLUDED

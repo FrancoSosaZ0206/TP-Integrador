@@ -114,16 +114,19 @@ int cantidadPaquetes(RepartoPtr reparto) //devuelve cantidad de paquetes que con
 void mostrarReparto(RepartoPtr reparto)
 {
     mostrarPersona(getChofer(reparto));
+    printf("\n");
     mostrarVehiculo(getVehiculo(reparto));
     char strFecha[18];
     traerFechaYHora(getFechaSalida(reparto),strFecha);
-    printf("Fecha de Salida: %s\n",strFecha);
+    printf("\nFecha de Salida: %s\n",strFecha);
     traerFechaYHora(getFechaRetorno(reparto),strFecha);
     printf("Fecha de Retorno: %s\n",strFecha);
 
     int cantPaq=longitudPila(getPaquetesReparto(reparto));
     PaquetePtr paquetes[cantPaq];
 
+    printf("\n*************************************\n");
+    printf("ENTREGAS DEL REPARTO:\n\n");
     for(int i=0;i<cantPaq;i++)
     {
         printf("%d. ",i+1);
@@ -231,7 +234,7 @@ RepartoPtr copiarReparto(RepartoPtr repartoOriginal) ///NUEVA
         copiaPaquetes[i] = copiarPaquete(paquetesOriginales[i]);
     }
 /// Luego, los volvemos a poner en sus respectivas pilas
-    for(int i=n;i>0;i--)
+    for(int i=n-1;i>-1;i--)
     {
         apilar(pilaPaquetesOriginal,paquetesOriginales[i]);
         apilar(copiaPilaPaquetes,copiaPaquetes[i]);

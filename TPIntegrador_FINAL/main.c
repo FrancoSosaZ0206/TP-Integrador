@@ -105,7 +105,7 @@ int main()
         printf("\t\t 3. SESION DE PRUEBAS\n");
         printf("\t\t 0. SALIR");
         printf("\n\n\t-----------------------------------\n\n");
-        printf("\t     Seleccione una opcion: ");
+        printf("\t     Seleccione una opcion\n\n\n\t\t\t");
         scanf("%d",&START_OP);
 
         limpiarBufferTeclado();
@@ -165,7 +165,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
     int op1=0;
     int op2=0;
 
-    bool cambiosGuardados=false; //Asumimos que no es verdad para que la opcion al salir no salga si no hacemos nada.
+    bool cambiosGuardados=true; //Asumimos que no es verdad para que la opcion al salir no salga si no hacemos nada.
 
     if(primeraVez)
     {
@@ -695,7 +695,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
             } while(op1!=0);
             break;
         case 0:
-            if(!cambiosGuardados || primeraVez) //"Si no se efectuaron cambios o si se efectuaron y no se guardaron"
+            if(!cambiosGuardados) //"Si no se efectuaron cambios o si se efectuaron y no se guardaron"
             {
                 do
                 {
