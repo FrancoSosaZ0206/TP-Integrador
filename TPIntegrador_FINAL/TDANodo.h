@@ -15,53 +15,52 @@ typedef Nodo* PtrNodo;
 
 const void* SinNodoSgte;
 
-// Operación de construccion (constructor)
-// Precondición: El nodo no debe haberse creado
-// Postcondición: Se crea el nodo con null en PtrDato y SinNodoSgte en sgte
-// Parámetros:
-//  Ninguno
-// Devuelve puntero al nodo creado
+/** OPERACIÓN: construccion (constructor)
+PRECONDICIÓN: El nodo no debe haberse creado
+POSTCONDICIÓN: Se crea el nodo con null en PtrDato y SinNodoSgte en sgte
+PARÁMETROS: ninguno
+DEVUELVE: puntero al nodo creado. */
 PtrNodo crearNodo(PtrDato dato);
 
-// Operación de destruccion (destructor)
-// Precondición: El nodo debe haberse creado
-// Postcondición: Se Libera la memoria del nodo eliminado
-// Parámetros:
-//  puntero al nodo a eliminar
-// Devuelve NULL
+/** OPERACIÓN: destruccion (destructor)
+PRECONDICIÓN: El nodo debe haberse creado
+POSTCONDICIÓN: Se Libera la memoria del nodo eliminado
+PARÁMETROS:
+    - puntero al nodo a eliminar
+DEVUELVE: NULL. */
 PtrNodo destruirNodo(PtrNodo nodo);
 
-// Operación de establecimiento de datos
-// Precondición: nodo creado con crearNodo()
-// Postcondición: almacena el dato proporcionado en el nodo apuntado por ptrNodo.
-// Parámetros:
-//  ptrNodo: puntero al nodo
-//  PtrDato: Puntero al dato a almacenar
-// No devuelve valor
+/** OPERACIÓN: establecimiento de datos
+PRECONDICIÓN: nodo creado con crearNodo()
+POSTCONDICIÓN: almacena el dato proporcionado en el nodo apuntado por ptrNodo.
+PARÁMETROS:
+    - ptrNodo: puntero al nodo
+    - PtrDato: Puntero al dato a almacenar
+DEVUELVE: NULL. */
 void setDato(PtrNodo nodo,PtrDato dato);
 
-// Operación de obtención de datos
-// Precondición: nodo creado con crearNodo()
-// Postcondición: obtiene el dato almacenado en el nodo apuntado por ptrNodo.
-// Parámetros:
-//  ptrNodo: puntero al nodo
-// Devuelve puntero al dato almacenado
+/** OPERACIÓN: obtención de datos
+PRECONDICIÓN: nodo creado con crearNodo()
+POSTCONDICIÓN: obtiene el dato almacenado en el nodo apuntado por ptrNodo.
+PARÁMETROS:
+    - ptrNodo: puntero al nodo
+DEVUELVE: puntero al dato almacenado. */
 PtrDato getDato(PtrNodo nodo);
 
-// Operación de establecimiento del siguiente nodo
-// Precondición: esteNodo creado con crearNodo()
-// Postcondición: se establece el nodo siguiente al actual
-// Parámetros:
-//  esteNodo: puntero al nodo
-// No devuelve valor
+/** OPERACIÓN: establecimiento del siguiente nodo
+PRECONDICIÓN: esteNodo creado con crearNodo()
+POSTCONDICIÓN: se establece el nodo siguiente al actual
+PARÁMETROS:
+    - esteNodo: puntero al nodo
+DEVUELVE: NULL. */
 void setSiguiente(PtrNodo esteNodo,PtrNodo siguienteNodo);
 
-// Operación de obtención del siguiente nodo
-// Precondición: esteNodo creado con crearNodo()
-// Postcondición: se obtiene el nodo siguiente al actual
-// Parámetros:
-//  nodo: puntero al nodo
-// No devuelve valor
+/** OPERACIÓN: obtención del siguiente nodo
+PRECONDICIÓN: esteNodo creado con crearNodo()
+POSTCONDICIÓN: se obtiene el nodo siguiente al actual
+PARÁMETROS:
+    - nodo: puntero al nodo
+DEVUELVE: NULL. */
 PtrNodo getSiguiente(PtrNodo nodo);
 
 #endif // TDANODO_H_INCLUDED

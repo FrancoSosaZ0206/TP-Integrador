@@ -23,13 +23,13 @@ typedef Cuil* CuilPtr;
 ///*****************************************************************************************************
 ///                                 FUNCIONES: CREACION Y DESTRUCCION
 //Operación: Creacion del TDACuil
-//Precondición: Cuil no debe estar creado.
-//Postcondición: Crea un nuevo cuil.
-//Parámetros:
-// tipo: entero que representa el genero
-// dni: entero que representa el documenteo dni.
-// nVerificador: entero que representa el numero verificador.
-//Devuelve un puntero a la estructura creada.
+//PRECONDICIÓN: Cuil no debe estar creado.
+//POSTCONDICIÓN: Crea un nuevo cuil.
+//PARÁMETROS:
+tipo: entero que representa el genero
+dni: entero que representa el documenteo dni.
+nVerificador: entero que representa el numero verificador.
+//DEVUELVE: un puntero a la estructura creada.
 CuilPtr crearCuil(char *cuilStr);
 
 //Para no reemplazar la funcion con la vieja implementacion que teníamos con la nueva, hice esta
@@ -37,11 +37,11 @@ CuilPtr crearCuil(char *cuilStr);
 CuilPtr crearCuilNumeros(int tipoPersona,int dni,int nVerificador);
 
 //Operación: Destruccion del TDACuil.
-//Precondición: Cuil debe estar creado.
-//Postcondición: Se elimina de la memoria el cuil y se libera.
-//Parámetros:
-// cuil: puntero a la estructura a destruir.
-//Devuelve NULL.
+//PRECONDICIÓN: Cuil debe estar creado.
+//POSTCONDICIÓN: Se elimina de la memoria el cuil y se libera.
+//PARÁMETROS:
+cuil: puntero a la estructura a destruir.
+//DEVUELVE: NULL.
 CuilPtr destruirCuil(CuilPtr cuil);
 
 ///*****************************************************************************************************
@@ -49,28 +49,28 @@ CuilPtr destruirCuil(CuilPtr cuil);
 
 void setCuil(CuilPtr cuil,char *cuilStr); ///NUEVA
 //Operación: Asignacion de tipo de genero.
-//Precondición: Cuil debe estar creado.
-//Postcondición: Cuil va a tener un nuevo tipo de valor.
-//Parámetros:
-// cuil: puntero a la estructura a asignar el nuevo dato.
-// tipo: entero que representa el nuevo dato.
-//Devuelve nada
+//PRECONDICIÓN: Cuil debe estar creado.
+//POSTCONDICIÓN: Cuil va a tener un nuevo tipo de valor.
+//PARÁMETROS:
+cuil: puntero a la estructura a asignar el nuevo dato.
+tipo: entero que representa el nuevo dato.
+//DEVUELVE: nada
 void setTipo(CuilPtr cuil,int tipo);
 //Operación: Asignacion de dni.
-//Precondición: Cuil debe estar creado.
-//Postcondición: Cuil va a tener un nuevo tipo de valor.
-//Parámetros:
-// cuil: puntero a la estructura a asignar el nuevo dato.
-// dni: entero que representa el nuevo dato.
-//Devuelve nada
+//PRECONDICIÓN: Cuil debe estar creado.
+//POSTCONDICIÓN: Cuil va a tener un nuevo tipo de valor.
+//PARÁMETROS:
+cuil: puntero a la estructura a asignar el nuevo dato.
+dni: entero que representa el nuevo dato.
+//DEVUELVE: nada
 void setDni(CuilPtr cuil,int dni);
 //Operación: Asignacion de tipo de genero.
-//Precondición: Cuil debe estar creado.
-//Postcondición: Cuil va a tener un nuevo tipo de valor.
-//Parámetros:
-// cuil: puntero a la estructura a asignar el nuevo dato.
-// nVerificador: entero que representa el nuevo dato.
-//Devuelve nada
+//PRECONDICIÓN: Cuil debe estar creado.
+//POSTCONDICIÓN: Cuil va a tener un nuevo tipo de valor.
+//PARÁMETROS:
+cuil: puntero a la estructura a asignar el nuevo dato.
+nVerificador: entero que representa el nuevo dato.
+//DEVUELVE: nada
 void setNVerificador(CuilPtr cuil,int nVerificador);
 
 ///*****************************************************************************************************
@@ -79,60 +79,60 @@ void setNVerificador(CuilPtr cuil,int nVerificador);
 char *getCuil(CuilPtr cuil); ///NUEVA
 
 //Operación: Obtencion del tipo.
-//Precondición: Cuil debe estar creado.
-//Postcondición: Se obtiene el tipo de cuil.
-//Parámetros:
+//PRECONDICIÓN: Cuil debe estar creado.
+//POSTCONDICIÓN: Se obtiene el tipo de cuil.
+//PARÁMETROS:
 // cuil: puntero a la estructura a sacar el dato.
-//Devuelve un entero representando el tipo de cuil.
+//DEVUELVE: un entero representando el tipo de cuil.
 int getTipo(CuilPtr cuil);
 //Operación: Obtencion del tipo.
-//Precondición: Cuil debe estar creado.
-//Postcondición: Se obtiene el dni de cuil.
-//Parámetros:
-// cuil: puntero a la estructura a sacar el dato.
-//Devuelve un entero representando el dni de cuil.
+//PRECONDICIÓN: Cuil debe estar creado.
+//POSTCONDICIÓN: Se obtiene el dni de cuil.
+//PARÁMETROS:
+cuil: puntero a la estructura a sacar el dato.
+//DEVUELVE: un entero representando el dni de cuil.
 int getDni(CuilPtr cuil);
 //Operación: Obtencion del tipo.
-//Precondición: Cuil debe estar creado.
-//Postcondición: Se obtiene el numero verificador de cuil.
-//Parámetros:
-// cuil: puntero a la estructura a sacar el dato.
-//Devuelve un entero representando el nuemero verificador de cuil.
+//PRECONDICIÓN: Cuil debe estar creado.
+//POSTCONDICIÓN: Se obtiene el numero verificador de cuil.
+//PARÁMETROS:
+cuil: puntero a la estructura a sacar el dato.
+//DEVUELVE: un entero representando el nuemero verificador de cuil.
 int getNVerificador(CuilPtr cuil);
 
 ///*****************************************************************************************************
 ///                                       ESPECIALES
 
 //Operación: determina si el cuil recibido es valido
-//Precondición: cuil debe haber sido creado con crearCuil()
-//Postcondición: ninguna
-//Parámetros: puntero a estructura cuil a validar
-//Devuelve true si es valido, false de lo contrario
+//PRECONDICIÓN: cuil debe haber sido creado con crearCuil()
+//POSTCONDICIÓN: ninguna
+//PARÁMETROS: puntero a estructura cuil a validar
+//DEVUELVE: true si es valido, false de lo contrario. */
 bool esCuilValido(CuilPtr cuil); ///NUEVA - NO APTA PARA TIPO EMPRESA
 
 ///*****************************************************************************************************
 
 //Operación: menú de ayuda de CUIL
-//Precondición: ninguna
-//Postcondición: ninguna
-//Parámetros: despliega un menú de ayuda para que el usuario sepa como es un cuil
-//No devuelve nada.
+//PRECONDICIÓN: ninguna
+//POSTCONDICIÓN: ninguna
+//PARÁMETROS: despliega un menú de ayuda para que el usuario sepa como es un cuil
+//No DEVUELVE: nada.
 void helpCuil();
 
 //Operación: muestra el CUIL recibido
-//Precondición: cuil debe haber sido creado con crearCuil()
-//Postcondición: imprime el CUIL recibido por pantalla
-//Parámetros: puntero a estructura cuil que se quiere mostrar
-//No devuelve nada.
+//PRECONDICIÓN: cuil debe haber sido creado con crearCuil()
+//POSTCONDICIÓN: imprime el CUIL recibido por pantalla
+//PARÁMETROS: puntero a estructura cuil que se quiere mostrar
+//No DEVUELVE: nada.
 void mostrarCuil(CuilPtr cuil);
 
 //Operación: verifica si dos CUIL son iguales.
-//Precondición: Ambos cuil deben haber sido creados.
-//Postcondición: chequea si las estructuras son idénticas en cuil
-//Parámetros:
-//  cuil1: puntero a la estructura a verificar.
-//  cuil2: puntero a la estructura a verificar.
-//Devuelve: true si son idénticos, false de lo contrario.
+//PRECONDICIÓN: Ambos cuil deben haber sido creados.
+//POSTCONDICIÓN: chequea si las estructuras son idénticas en cuil
+//PARÁMETROS:
+ cuil1: puntero a la estructura a verificar.
+ cuil2: puntero a la estructura a verificar.
+//DEVUELVE:  true si son idénticos, false de lo contrario. */.
 bool cuilsIguales(CuilPtr cuil1,CuilPtr cuil2);
 
 

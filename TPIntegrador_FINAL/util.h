@@ -4,60 +4,60 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//FUNCIÓN DE OBTENCIÓN DE MEMORIA
-//PRECONDICIÓN: Debe haber espacio en memoria disponible
-//POSTCONDICIÓN: Devuelve un puntero a memoria dinamica
-//PARÁMETROS: tamanio en bytes de la memoria a reservar
-//DEVUELVE: puntero a void, casteable a cualquier tipo de dato.
+/** OPERACIÓN: obtención de memoria
+PRECONDICIÓN: Debe haber espacio en memoria disponible
+POSTCONDICIÓN: crea un puntero a un dato general en memoria dinamica
+PARÁMETROS:
+    - tamanio: tamaño en bytes de la memoria a reservar
+DEVUELVE: puntero a void casteable a cualquier tipo de dato. */
 void *obtenerMemoria(size_t tamanio);
-//FUNCIÓN DE CREACIÓN DE STRING DINAMICO
-//PRECONDICIÓN: debe haber memoria suficiente disponible
-//POSTCONDICIÓN: Devuelve un puntero a char con la posicion del string reservado en memoria dinamica
-//PARÁMETROS: una cadena de caracteres representada por medio de un puntero a char
-//DEVUELVE: un puntero a char a la primera posicion de la memoria reservada
+
+/** OPERACIÓN: creación de string dinámico
+PRECONDICIÓN: debe haber memoria suficiente disponible
+POSTCONDICIÓN: crea un puntero a char en memoria dinámica con el contenido del string recibido
+PARÁMETROS:
+    - literal: puntero a char representando una cadena de caracteres
+DEVUELVE: puntero a char a la primera posicion de la memoria reservada. */
 char *crearStringDinamico(char* literal);
-//FUNCIÓN DE DESTRUCCIÓN DE STRING DINAMICO
-//PRECONDICIÓN: debe haber sido creado en memoria dinamica para ser destruido con crearStringDinamico
-//POSTCONDICIÓN: libera la memoria que anteriormente ocupaba esa cadena de caracteres reservada en memoria dinamica
-//PARÁMETROS: cadena de caracteres representada por medio de un puntero a char
-//devuelve NULL
+
+/** OPERACIÓN: destrucción de string dinámico
+PRECONDICIÓN: buffer debe haberse creado con crearStringDinámico
+POSTCONDICIÓN: libera la memoria previamente reservada para el string dinámico
+PARÁMETROS:
+    - buffer: puntero a char representando una cadena de caracteres
+DEVUELVE: NULL. */
 char *destruirStringDinamico(char *buffer);
 
-//FUNCIÓN DE LIMPIEZA DE BUFFER DE TECLADO (UTILIZA FFLUSH(STDIN))
-//PRECONDICIÓN: Ninguna
-//POSTCONDICIÓN: Libera la acumulacion del EOF, permitiendo ingresar datos por teclado correctamente sin errores
-//PARÁMETROS: Ninguno
-//DEVUELVE: Nada.
+/** OPERACIÓN: limpieza de buffer de teclado (utiliza fflush(STDIN))
+PRECONDICIÓN: Ninguna
+POSTCONDICIÓN: Libera la acumulacion del buffer del teclado,
+               permitiendo ingresar más datos por teclado correctamente sin errores
+PARÁMETROS: Ninguno
+DEVUELVE:  Nada. */
 void limpiarBufferTeclado();
-//FUNCIÓN DE LIMPIEZA DE BUFFER DE TECLADO (UTILIZA GETCHAR())
-//PRECONDICIÓN: Ninguna
-//POSTCONDICIÓN: Libera la acumulacion del EOF, permitiendo ingresar datos por teclado correctamente sin errores
-//PARÁMETROS: Ninguno
-//DEVUELVE: Nada.
+/** OPERACIÓN: LIMPIEZA DE BUFFER DE TECLADO (UTILIZA GETCHAR())
+PRECONDICIÓN: Ninguna
+POSTCONDICIÓN: Libera la acumulacion del EOF, permitiendo ingresar datos por teclado correctamente sin errores
+PARÁMETROS: Ninguno
+DEVUELVE:  Nada. */
 void limpiarBufferTecladoPresionandoEnter();
 
-//FUNCIÓN DE LIMPIEZA Y PAUSA
-//PRECONDICIÓN: Ninguna
-//POSTCONDICIÓN: Limpia la pantalla con system("cls") y genera una pausa con getChar
-//PARÁMETROS: Ninguno
-//DEVUELVE: Nada.
+/** OPERACIÓN: LIMPIEZA Y PAUSA
+PRECONDICIÓN: Ninguna
+POSTCONDICIÓN: Limpia la pantalla con system("cls") y genera una pausa con getChar
+PARÁMETROS: Ninguno
+DEVUELVE:  Nada. */
 void presionarEnterYLimpiarPantalla();
 
-/* OPERACIÓN: Extrae todos los números de un string y los separa en dígitos individuales
+/** OPERACIÓN: Extrae todos los números de un string y los separa en dígitos individuales
 PRECONDICIÓN: el string recibido debe contener uno o más números
               el vector de enteros recibido debe haber sido declarado
 POSTCONDICIÓN: Copia todos los números del string en un vector de enteros
 PARÁMETROS:
     - source: string del que se extraerán los números
     - buffer: vector de enteros que contendrá cada dígito de los números.
-DEVUELVE: cantidad de dígitos extraídos. */
+DEVUELVE:  cantidad de dígitos extraídos. */
 int extraerDigitosString(char *source,int buffer[]);
-
-
-int seleccionarNumero();
-
-
-void seleccionarString(char* literal);
 
 
 #endif // UTIL_H_INCLUDED
