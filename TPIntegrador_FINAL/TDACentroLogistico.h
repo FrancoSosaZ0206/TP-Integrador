@@ -18,7 +18,7 @@
 
 **************************************************************************************************************************
 **************************************************************************************************************************
-*** *********************************************************************************************************************/
+*** ****************************************************************************************************************** **/
 
 typedef struct CentroLogistico
 {
@@ -46,12 +46,13 @@ PARÁMETROS:
     - listaRepartos: puntero a lista representando la lista de repartos.
 DEVUELVE: un puntero de la estructura creada. */
 CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,ListaPtr listaPersonas,ListaPtr listaVehiculos,ListaPtr listaRepartosAbiertos,ListaPtr listaRepartosCerrados);
+
 /** OPERACIÓN: Crea la estructura Centro Logistico de forma aleatoria
 PRECONDICIÓN: Que el centro logistico no haya sido creado
 POSTCONDICIÓN: Se crea un centro logistico con nombre, lista de paquetes, lista de personas, lista de vehiculos y lista de repartos.
 PARÁMETROS:
     - nombre del centro logístico
-DEVUELVE: un puntero de la estructura creada.
+DEVUELVE: un puntero de la estructura creada. */
 CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre); ///Crea un centro logístico con un nombre y listas vacías.
 /** OPERACIÓN: Destruye la estructura de centro logistico.
 PRECONDICIÓN: Que la estructura de centro logistico haya sido creada.
@@ -70,6 +71,7 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
 DEVUELVE: un string representando el nombre del centro logístico. */
 char *getNombreCentroLogistico(CentroLogisticoPtr centroLogistico);
+
 /** OPERACIÓN: Obtencion de la estructura de lista de paquetes
 PRECONDICIÓN: Que centro logistico haya sido creado.
 POSTCONDICIÓN: Se obtiene la lista de paquetes.
@@ -77,6 +79,7 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
 DEVUELVE: un puntero de la estructura lista. */
 ListaPtr getPaquetes(CentroLogisticoPtr centroLogistico);
+
 /** OPERACIÓN: Obtencion de la estructura de lista de personas.
 PRECONDICIÓN: Que centro logistico haya sido creado.
 POSTCONDICIÓN: Se obtiene la lista de personas.
@@ -84,6 +87,7 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
 DEVUELVE: un puntero de la estructura lista. */
 ListaPtr getPersonas(CentroLogisticoPtr centroLogistico);
+
 /** OPERACIÓN: Obtencion de la estructura de lista de vehiculos.
 PRECONDICIÓN: Que centro logistico haya sido creado.
 POSTCONDICIÓN: Se obtiene la lista de vehiculos.
@@ -91,6 +95,7 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
 DEVUELVE: un puntero de la estructura lista. */
 ListaPtr getVehiculos(CentroLogisticoPtr centroLogistico);
+
 /** OPERACIÓN: Obtencion de listas de repartos.
 PRECONDICIÓN: Que centro logistico haya sido creado.
 POSTCONDICIÓN: Se obtiene la lista de repartos
@@ -112,6 +117,7 @@ PARÁMETROS:
     - nombre: string representando al nuevo valor de nombre.
 DEVUELVE: nada. */
 void setNombreCentroLogistico(CentroLogisticoPtr centroLogistico,char *nombre);
+
 /** OPERACIÓN: Asigna la estructura de paquetes.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: paquetes cambia con el nuevo valor de paquetes.
@@ -120,6 +126,7 @@ PARÁMETROS:
     - listaPaquetes: puntero a estructura que representa al nuevo valor de paquetes.
 DEVUELVE: nada. */
 void setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes);
+
 /** OPERACIÓN: Asigna la estructura de personas.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: personas cambia con el nuevo valor de personas.
@@ -128,6 +135,7 @@ PARÁMETROS:
     - listaPersonas: puntero a estructura que representa al nuevo valor de personas.
 DEVUELVE: nada. */
 void setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr listaPersonas);
+
 /** OPERACIÓN: Asigna la estructura de vehiculos.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: vehiculos cambia con el nuevo valor de vehiculos.
@@ -136,6 +144,7 @@ PARÁMETROS:
     - listaPaquetes: puntero a estructura que representa al nuevo valor de vehiculos.
 DEVUELVE: nada. */
 void setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos);
+
 /** OPERACIÓN: Asigna la estructura de repartos.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: la lista de repartos seleccionada cambia con el nuevo valor de repartos.
@@ -157,6 +166,7 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
 DEVUELVE: nada. */
 void mostrarPaquetes(CentroLogisticoPtr centroLogistico);
+
 /** OPERACIÓN: Muestra una las personas del centro logistico
 PRECONDICIÓN: Centro logistico debe haberse creado y cargado con, al menos, una persona
 POSTCONDICIÓN: Imprime la lista de personas filtrada bajo una serie de parámetros a elegir por el usuario.
@@ -176,6 +186,7 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
 DEVUELVE: nada. */
 void mostrarVehiculos(CentroLogisticoPtr centroLogistico);
+
 /** OPERACIÓN: Muestra los repartos.
 PRECONDICIÓN: Centro logistico debe haberse creado y cargado con, al menos, un reparto
 POSTCONDICIÓN: Imprime la lista de repartos. Si es una lista de repartos cerrados,
@@ -216,13 +227,14 @@ PARÁMETROS:
 DEVUELVE: nada. */
 void filtrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico,int estado); //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
 
-/** OPERACIÓN: MOSTRADO
-PRECONDICIÓN: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
-POSTCONDICIÓN: MUESTRA LOS PAQUETES SEGUN SI ESTAN EN CURSO = ESTADO (1,2,4)
-               O SI ESTAN FINALIZADOS = ESTADO (3,5)
+/** OPERACIÓN: muestra paquetes en curso o en depósito
+PRECONDICIÓN: centroLogistico debe haberse creado
+POSTCONDICIÓN: recorre la lista de paquetes, mostrando solamente los que coincidan con el parámetro enCurso:
+                   - Si enCurso == true, se muestran los paquetes en curso - estados 1 (en curso), 2 (retirado) o 3 (demorado)
+                   - Si enCurso == false, se muestran los paquetes en depósito - estados 0 (en depósito) o 5 (suspendido)
 PARÁMETROS:
-    - PUNTERO A CENTRO LOGISTICO
-    - BOOLEANO SI SON EN CURSO O SI ESTAN FINALIZADOS
+    - centroLogistico: puntero al centro logistico
+    - enCurso: booleano indicando si se quiere mostrar paquetes en curso (true) o en depósito (false)
 DEVUELVE: Nada. */
 void filtrarPaquetesEnCurso(CentroLogisticoPtr centroLogistico, bool enCurso);
 
@@ -264,6 +276,7 @@ PARÁMETROS:
     - ID: entero que representa el ID del paquete.
 DEVUELVE: true si se encontró una coincidencia, false de lo contrario. */
 bool buscarPaquete(CentroLogisticoPtr centroLogistico,int ID);
+
 /** OPERACIÓN: Muestra las personas (clientes o choferes) con el cuil que le haya pasado.
 PRECONDICIÓN: Centro logistico debe haberse creado y llenado con una lista de clientes/choferes
 POSTCONDICIÓN: Si hay coincidencia, imprime la persona (cliente o chofer) con el cuil buscado.
@@ -273,6 +286,7 @@ PARÁMETROS:
     - esChofer: booleano que aclara al buscador si se trata de un chofer (true) o un cliente (false).
 DEVUELVE: true si se encontró una coincidencia, false de lo contrario. */
 bool buscarPersona(CentroLogisticoPtr centroLogistico,CuilPtr cuil,bool esChofer);
+
 /** OPERACIÓN: Muestra los vehiculos con la patente que le haya pasado.
 PRECONDICIÓN: Centro logistico debe haberse creado y llenado con una lista de vehiculos
 POSTCONDICIÓN: De encontrarse, imprime el vehiculo buscado.
@@ -289,12 +303,12 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
     - esRepartoAbierto: booleano que representa el tipo de reparto a buscar.
     - modo: entero representando el modo de búsqueda:
-      1: busca por indice de la lista de repartos.
-      2: busca por CUIL del chofer.
-      3: busca por patente del vehiculo.
-      4: busca por fecha de salida.
-      5: busca por fecha de retorno.
-      6: busca por ID de alguno de los paquetes del reparto.
+            1: busca por indice de la lista de repartos.
+            2: busca por CUIL del chofer.
+            3: busca por patente del vehiculo.
+            4: busca por fecha de salida.
+            5: busca por fecha de retorno.
+            6: busca por ID de alguno de los paquetes del reparto.
 DEVUELVE: true si se encontró una coincidencia, false de lo contrario. */
 bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo);
 
@@ -309,6 +323,7 @@ PARÁMETROS:
     - paquete: puntero a estructura que representa al nuevo paquete.
 DEVUELVE: nada. */
 void agregarPaquete(CentroLogisticoPtr centroLogistico,PaquetePtr paquete);
+
 /** OPERACIÓN: Agrega una nueva persona.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: El centro logistico va a tener una nueva persona.
@@ -317,6 +332,7 @@ PARÁMETROS:
     - persona: puntero a estructura que representa a la nueva persona.
 DEVUELVE: nada. */
 void agregarPersona(CentroLogisticoPtr centroLogistico,PersonaPtr persona);
+
 /** OPERACIÓN: Agrega un nuevo vehiculo.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: El centro logistico va a tener un nuevo vehiculo.
@@ -325,6 +341,7 @@ PARÁMETROS:
     - vehiculo: puntero a estructura que representa al nuevo vehiculo.
 DEVUELVE: nada. */
 void agregarVehiculo(CentroLogisticoPtr centroLogistico,VehiculoPtr vehiculo);
+
 /** OPERACIÓN: Agrega un nuevo reparto.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: La lista de repartos correspondiente tendrá un nuevo reparto.
@@ -337,7 +354,9 @@ PARÁMETROS:
 DEVUELVE: nada. */
 void agregarReparto(CentroLogisticoPtr centroLogistico,RepartoPtr reparto, bool esRepartoAbierto);
 
+
 ///-----------------------------------------Funciones de inserción a la lista--------------------------------------------------
+
 /** OPERACIÓN: Inserta un paquete en la posicion de la lista pasada por referencia.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: Un nuevo paquete se va a agregar a la posicion de la lista.
@@ -345,8 +364,9 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
     - paquete: puntero a estructura que representa al nuevo paquete.
     - posicion: entero que representa la posicion.
-DEVUELVE: true=si pudo agregar o false=si no pudo agregar.
+DEVUELVE: true=si pudo agregar o false=si no pudo agregar. */
 bool insertarPaqueteLista(CentroLogisticoPtr centroLogistico,PaquetePtr paquete,int posicion);
+
 /** OPERACIÓN: Inserta una persona en la posicion de la lista pasada por referencia.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: Una nueva persona se va a agregar a la posicion de la lista.
@@ -354,8 +374,9 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
     - persona: puntero a estructura que representa a la nueva persona.
     - posicion: entero que representa la posicion.
-DEVUELVE: true=si pudo agregar o false=si no pudo agregar.
+DEVUELVE: true=si pudo agregar o false=si no pudo agregar. */
 bool insertarPersonaLista(CentroLogisticoPtr centroLogistico,PersonaPtr persona,int posicion);
+
 /** OPERACIÓN: Inserta un vehiculo en la posicion de la lista pasada por referencia.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: Un nuevo vehiculo se va a agregar a la posicion de la lista.
@@ -363,8 +384,9 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
     - vehiculo: puntero a estructura que representa al nuevo vehiculo.
     - posicion: entero que representa la posicion.
-DEVUELVE: true=si pudo agregar o false=si no pudo agregar.
+DEVUELVE: true=si pudo agregar o false=si no pudo agregar. */
 bool insertarVehiculoLista(CentroLogisticoPtr centroLogistico,VehiculoPtr vehiculo,int posicion);
+
 /** OPERACIÓN: Inserta un reparto en la posicion de la lista pasada por referencia.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: Un nuevo reparto se va a agregar a la posicion de la lista.
@@ -372,34 +394,39 @@ PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
     - reparto: puntero a estructura que representa al nuevo reparto.
     - posicion: entero que representa la posicion.
-DEVUELVE: true=si pudo agregar o false=si no pudo agregar.
+DEVUELVE: true=si pudo agregar o false=si no pudo agregar. */
 bool insertarRepartoLista(CentroLogisticoPtr centroLogistico,RepartoPtr reparto,int posicion);
 
+
 ///----------------------------------------------Funciones para remover de la lista----------------------------------------------
+
 /** OPERACIÓN: Remueve un paquete en la posicion de la lista.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: El paquete de la posicion pasada por referencia se remueve.
 PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
     - posicion: entero que representa la posicion.
-DEVUELVE: un puntero a la estructura.
+DEVUELVE: un puntero al paquete removido. */
 PaquetePtr removerPaquete(CentroLogisticoPtr centroLogistico,int posicion);
+
 /** OPERACIÓN: Remueve una persona en la posicion de la lista.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: La persona de la posicion pasada por referencia se remueve.
 PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
     - posicion: entero que representa la posicion.
-DEVUELVE: un puntero a la estructura.
+DEVUELVE: un puntero a la persona removida. */
 PersonaPtr removerPersona(CentroLogisticoPtr centroLogistico,int posicion);
+
 /** OPERACIÓN: Remueve un vehiculo en la posicion de la lista.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: El vehiculo de la posicion pasada por referencia se remueve.
 PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
     - posicion: entero que representa la posicion.
-DEVUELVE: un puntero a la estructura.
+DEVUELVE: un puntero al vehiculo removido. */
 VehiculoPtr removerVehiculo(CentroLogisticoPtr centroLogistico,int posicion);
+
 /** OPERACIÓN: Remueve un reparto en la posicion de la lista.
 PRECONDICIÓN: Centro logistico debe haberse creado.
 POSTCONDICIÓN: El reparto de la posicion pasada por referencia se remueve.
@@ -409,9 +436,10 @@ PARÁMETROS:
             true = si se quiere remover un reparto abierto,
             false = si se quiere remover un reparto cerrado.
     - posicion: entero que representa la posicion.
-DEVUELVE: un puntero a la estructura.
+DEVUELVE: un puntero al reparto removido. */
 RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto);
 
+/** OPERACIÓN: cierra un reparto
 PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
 POSTCONDICIÓN:
       1. Remueve un reparto seleccionado seleccionado por el usuario de la lista de repartos abiertos.
@@ -435,6 +463,7 @@ PARÁMETROS:
     - paquete: puntero a la estructura paquete de la que se desea verificar su existencia.
 DEVUELVE: true si el paquete recibido tiene el mismo ID O parámetros que uno de los paquetes, false de lo contrario. */
 bool esPaqueteExistente(CentroLogisticoPtr centroLogistico, PaquetePtr paquete);
+
 /** OPERACIÓN: se verifica si la persona existe en el Centro Logistico.
 PRECONDICIÓN: Centro logistico debe haberse creado y cargado con, al menos, una persona.
 POSTCONDICIÓN: se recorre la lista de personas del centro, chequeando si en algun momento coincide el cuil con la persona recibida.
@@ -443,6 +472,7 @@ PARÁMETROS:
     - persona: puntero a la estructura persona de la que se desea verificar su existencia.
 DEVUELVE: true si la persona recibida tiene el mismo cuil que una de las personas, false de lo contrario. */
 bool esPersonaExistente(CentroLogisticoPtr centroLogistico, PersonaPtr persona);
+
 /** OPERACIÓN: se verifica si el vehiculo existe en el Centro Logistico.
 PRECONDICIÓN: Centro logistico debe haberse creado y cargado con, al menos, un vehiculo.
 POSTCONDICIÓN: se recorre la lista de vehiculos del centro, chequeando si en algun momento coincide el ID
@@ -452,6 +482,7 @@ PARÁMETROS:
     - vehiculo: puntero a la estructura vehiculo de la que se desea verificar su existencia.
 DEVUELVE: true si el vehiculo recibido tiene el mismo ID O parámetros que uno de los vehiculos, false de lo contrario. */
 bool esVehiculoExistente(CentroLogisticoPtr centroLogistico, VehiculoPtr vehiculo);
+
 /** OPERACIÓN: verifica si el chofer y fecha de salida de un reparto, son iguales a los de algún reparto previamente ingresado.
 PRECONDICIÓN: Centro logistico debe haberse creado y cargado con, al menos, una persona.
 POSTCONDICIÓN: se recorre las listas de repartos del centro,
@@ -464,19 +495,20 @@ bool esRepartoExistente(CentroLogisticoPtr centroLogistico, RepartoPtr reparto);
 
 ///---------------------------------------Funciones de ordenamiento------------------------------------------------
 
-/** OPERACIÓN: ordena una lista de paquetes por una serie de parámetros:
-              1 = Por ID
-              2 = Por Fecha de Entrega
-              3 = Por Estado (como están representados por números, se ordenan "de menor a mayor")
+/** OPERACIÓN: ordena una lista de paquetes por una serie de parámetros
 PRECONDICIÓN:
-              - centroLogistico debe haber sido creado previamente
-              - Una lista de paquetes debe haber sido creada y cargada con, al menos, 2 paquetes.
+    - centroLogistico debe haber sido creado previamente
+    - Una lista de paquetes debe haber sido creada y cargada con, al menos, 2 paquetes.
 POSTCONDICIÓN: reinserta dentro de centro logistico todos los paquetes ordenados segun el parámetro elegido.
 PARÁMETROS:
     - centroLogistico: puntero a la estructura centro logistico
-    - modo: entero representando el parámetro con el que se quiere ordenar la lista
-DEVUELVE: nada
+    - modo: entero representando el parámetro con el que se quiere ordenar la lista:
+        1 = Por ID
+        2 = Por Fecha de Entrega
+        3 = Por Estado (ver TDAPaquetes.h)
+DEVUELVE: nada. */
 void ordenarPaquetes(CentroLogisticoPtr centroLogistico,int modo);
+
 /** OPERACIÓN: ordena una lista de personas alfabéticamente.
 PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente  y cargado con, al menos, 2 personas.
 POSTCONDICIÓN: reinserta dentro de centro logistico todas las personas ordenadas segun su apellido y nombre.
@@ -487,8 +519,9 @@ POSTCONDICIÓN: reinserta dentro de centro logistico todas las personas ordenadas
 PARÁMETROS:
     - centroLogistico: puntero a la estructura centro logistico
     - modo: entero representando el modo de ordenamiento elegido
-DEVUELVE: nada
+DEVUELVE: nada. */
 void ordenarPersonas(CentroLogisticoPtr centroLogistico,int modo);
+
 /** OPERACIÓN: ordena una lista de vehículos alfabéticamente
 PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente y cargado con, al menos, 2 vehículos.
 POSTCONDICIÓN: setea dentro de centro logistico todos los vehículos ordenados alfabéticamente.
@@ -499,7 +532,7 @@ POSTCONDICIÓN: setea dentro de centro logistico todos los vehículos ordenados al
 PARÁMETROS:
     - centroLogistico: puntero a la estructura centro logistico
     - modo: entero representando el modo de ordenamiento elegido
-DEVUELVE: nada
+DEVUELVE: nada. */
 void ordenarVehiculos(CentroLogisticoPtr centroLogistico,int modo);
 
 
@@ -519,81 +552,87 @@ PARÁMETROS:
     - centroLogistico: puntero a la estructura centro logistico
     - esRepartoAbierto: booleano que indica si es un reparto abierto (true) o cerrado (false)
     - modo: entero representando el modo de ordenamiento elegido
-DEVUELVE: nada
+DEVUELVE: nada. */
 void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo);
 
-/** OPERACIÓN:
+/** OPERACIÓN: verificacion de paquetes disponibles
 PRECONDICIÓN:
-POSTCONDICIÓN:
+    - centroLogistico debe haberse creado
+    - centroLogistico debe contener una lista de paquetes
+POSTCONDICIÓN: revisa si hay paquetes en la lista del centro
+               cuyos estados sean 0 (en depósito) o 5 (suspendido)
 PARÁMETROS:
-    -
+    - centroLogistico: puntero al centro logistico a revisar
 DEVUELVE: Nada. */
 bool hayPaquetesDisponibles(CentroLogisticoPtr centroLogistico);
 
-/** OPERACIÓN: VERIFICACION
-/PRECONDICIÓN: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
-POSTCONDICIÓN: VERIFICA SI EN LA LISTA DE PERSONAS QUE EXISTA UNA PERSONA TIPO CHOFERES
+/** OPERACIÓN: verificación de existencia de personas de cierta clase
+PRECONDICIÓN: centroLogistico debe haberse creado
+POSTCONDICIÓN: verifica si en el centro existen personas de la clase indicada
 PARÁMETROS:
-/// PUNTERO A CENTRO LOGISTICO
-DEVUELVE BOOLEANO (TRUE = EXISTEN / FALSE = NO EXISTEN)
+    - centroLogistico: puntero al centro logistico
+    - esChofer: booleano indicando si se quiere ver si hay choferes (true) o clientes (false)
+DEVUELVE: booleano indicando si hay personas de dicha clase (true) o no (false). */
 bool hayPersonas(CentroLogisticoPtr centroLogistico,bool esChofer);
 
-/** OPERACIÓN: VERIFICACION
-/PRECONDICIÓN: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
-POSTCONDICIÓN: VERIFICA 1 POR 1 TODOS LOS IDS EXISTENTES, VERIFICANDO
- QUE EL NUEVO GENERADO SEA REALMENTE UNICO
+/** OPERACIÓN: verificación de existencia de un ID
+PRECONDICIÓN: centroLogistico debe haberse creado
+POSTCONDICIÓN: recorre todas los ID existentes del
+               centro, revisando si alguno es igual al recibido
 PARÁMETROS:
- PUNTERO A CENTRO LOGISTICO
- ENTERO ID DEL PAQUETE NUEVO
-DEVUELVE BOOLEANO (TRUE = UNICO / FALSE = NO UNICO)
-bool esIDExistente(CentroLogisticoPtr centroLogistico, int ID_Analizar);
+    - centroLogistico: puntero al centro logistico
+    - ID: entero representando al nuevo ID
+DEVUELVE: booleano indicando si existe (true) o no (false). */
+bool esIDExistente(CentroLogisticoPtr centroLogistico, int ID);
 
-/** OPERACIÓN: VERIFICACION
-/PRECONDICIÓN: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
-POSTCONDICIÓN: REVISA 1 POR 1 TODOS LOS CUILS EXISTENTES, VERIFICANDO
-               QUE EL NUEVO GENERADO SEA REALMENTE UNICO
+/** OPERACIÓN: verificación de existencia de un cuil
+PRECONDICIÓN: centroLogistico debe haberse creado
+POSTCONDICIÓN: recorre todas los cuil existentes del
+               centro, revisando si alguno es igual al recibido
 PARÁMETROS:
- PUNTERO A CENTRO LOGISTICO
- PUNTERO A CUIL NUEVO
-DEVUELVE BOOLEANO (TRUE = EXISTE / FALSE = NO EXISTE)
+    - centroLogistico: puntero al centro logistico
+    - cuil: puntero al nuevo cuil
+DEVUELVE: booleano indicando si existe (true) o no (false). */
 bool esCuilExistente(CentroLogisticoPtr centroLogistico, CuilPtr cuil);
 
-/** OPERACIÓN: VERIFICACION
-/PRECONDICIÓN: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
-POSTCONDICIÓN: VERIFICA 1 POR 1 TODOS LAS PATENTES EXISTENTES, VERIFICANDO
- QUE EL NUEVO GENERADO SEA REALMENTE UNICO
+/** OPERACIÓN: verificación de existencia de una patente
+PRECONDICIÓN: centroLogistico debe haberse creado
+POSTCONDICIÓN: recorre todas las patentes existentes del
+               centro, revisando si alguna es igual a la recibida
 PARÁMETROS:
- PUNTERO A CENTRO LOGISTICO
- PUNTERO A CHAR DE LA PATENTE NUEVA
-DEVUELVE BOOLEANO (TRUE = UNICO / FALSE = NO UNICO)
-bool esPatenteExistente(CentroLogisticoPtr centroLogistico, char* PatenteComprobar);
+    - centroLogistico: puntero al centro logistico
+    - patente: string representando la patente a validar.
+DEVUELVE: booleano indicando si la patente existe (true) o no (false). */
+bool esPatenteExistente(CentroLogisticoPtr centroLogistico, char* patente);
 
-/** OPERACIÓN: VERIFICACION
-/PRECONDICIÓN: ninguna.
-POSTCONDICIÓN: VERIFICA QUE EL FORMATO DE LA PATENTE SEA VALIDO (AA 111 AA)
+/** OPERACIÓN: verificación de validez de una patente
+PRECONDICIÓN: ninguna.
+POSTCONDICIÓN: verifica que el formato de la patente sea válido (AA 111 AA)
 PARÁMETROS:
- PUNTERO A CHAR DE LA PATENTE A VALIDAR
-DEVUELVE BOOLEANO (TRUE = VALIDO / FALSE = INVALIDO)
-bool esPatenteValida(char* PatenteValidar);
+    - patente: string representando la patente a validar.
+DEVUELVE: booleano indicando si es una patente válida (true) o no (false). */
+bool esPatenteValida(char* patente);
 
-/** OPERACIÓN: Muestra los vehiculos.
+/** OPERACIÓN: Muestra los vehiculos disponibles
 PRECONDICIÓN: Centro logistico debe haberse creado y cargado con, al menos, un vehiculo
-POSTCONDICIÓN: Imprime la lista de vehiculos, solo aquellos que no se encuentren en un reparto
+POSTCONDICIÓN: de la lista de vehiculos, solo imprime aquellos que no se encuentren en un reparto
 PARÁMETROS:
     - centroLogistico: puntero a estructura que representa al centro logistico.
     - fecha: puntero a la fecha para ver si estan disponibles
 DEVUELVE: nada. */
 void mostrarVehiculosDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fecha);
 
-/** OPERACIÓN: BUSQUEDA
-/PRECONDICIÓN: CENTRO LOGISTICO DEBE HABER SIDO CREADO EN MEMORIA DINAMICA
-POSTCONDICIÓN: VERIFICA SI LA PATENTE DEL VEHICULO SE ENCUENTRA DENTRO
- DE LOS VEHICULS ASIGNADOS A REPARTOS
+/** OPERACIÓN: busca si un vehículo está disponible en un día concreto
+PRECONDICIÓN:
+    - centroLogistico debe haberse creado
+    - patente debe ser válida.
+    - fecha debe ser válida.
+POSTCONDICIÓN: verifica si la patente recibida pertenece a un vehiculo asignado a un reparto
 PARÁMETROS:
- PUNTERO A CENTRO LOGISTICO
- PUNTERO A CHAR DE LA PATENTE A EVALUAR
+    - centroLogistico: puntero al centro logistico
+    - patente: string representando la patente del vehiculo a buscar
     - fecha: puntero a la fecha para buscar
-DEVUELVE BOOLEANO (TRUE = NO DISPONIBLES / FALSE = DISPONIBLE)
+DEVUELVE: booleano indicando si hay vehículos disponibles (true) o no (false). */
 bool esVehiculoDisponible(CentroLogisticoPtr centroLogistico, char* patente,FechaPtr fecha);
 
 

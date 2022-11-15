@@ -119,7 +119,7 @@ void setMinuto(FechaPtr fecha,int minuto)
     fecha->minuto=minuto;
 }
 //Operaciones
-int *calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2) ///Nueva implementación
+int *calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2)
 {
     int *diferencias = obtenerMemoria(sizeof(int)*3);
 
@@ -130,7 +130,7 @@ int *calcularDiferenciaFechas(FechaPtr fecha1,FechaPtr fecha2) ///Nueva implemen
     return diferencias;
 }
 void traerFechaCorta(FechaPtr fecha,char *buffer)
-{ /**OPTIMIZACION DE LA FUNCIÓN:
+{ /** OPTIMIZACIÓN DE LA FUNCIÓN:
 En lugar de calcular donde poner las barras haciendo una cadena de ifs
 que contemplen la cantidad de dígitos posibles del día y mes de la fecha,
 Usamos la funcion strcat, con lo que concatenamos la barra al final del
@@ -257,7 +257,7 @@ bool esFechaValida(FechaPtr fecha)
     return resultado;
 }
 
-bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
+bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2)
 {
     bool match = true;
     match = match && (getDia(fecha1) == getDia(fecha2));
@@ -271,4 +271,37 @@ bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
 void mostrarFecha(FechaPtr fecha)
 {
     printf("%d/%d/%d - %d:%d \n\n", getDia(fecha), getMes(fecha), getAnio(fecha), getHora(fecha), getMinuto(fecha));
+}
+
+
+///ESPECIALES
+
+FechaPtr convertirAFecha(time_e *tiempo)
+{
+    return crearFecha(tiempo->tm_mday,tiempo->tm_mon+1,tiempo->tm_year+1900,tiempo->tm_hour,tiempo->tm_min);
+}
+
+FechaPtr getTiempoActual()
+{
+    time_t aux;
+    time(&aux);
+    time_e *tActual = localtime(&aux);
+
+    return crearFecha(tActual->tm_mday,tActual->tm_mon+1,tActual->tm_year+1900,tActual->tm_hour,tActual->tm_min);
+}
+
+bool quedaTiempo(FechaPtr fechaLimite)
+{
+    FechaPtr tiempoActual = getTiempoActual();
+    int *aux = calcularDiferenciaFechas(fechaLimite,tiempoActual);
+
+    bool condicion = aux[0]>0;
+    condicion = condicion || (aux[0]==0 && aux[1]>0);
+    condicion = condicion || (aux[0]==0 && aux[1]==0 && aux[2]>0);
+
+    tiempoActual = destruirFecha(tiempoActual);
+    free(aux);
+    aux=NULL;
+
+    return condicion;
 }

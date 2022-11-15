@@ -6,53 +6,63 @@
 #include <stdbool.h>
 #include "TDACentroLogistico.h"
 
-/** OPERACIÓN: CREACION
-PRECONDICIÓN: LA LISTA RECEPTORA DEBE HABER SIDO DECLARADA
-POSTCONDICIÓN: CREA UNA LISTA DE REPARTOS CON DATOS POR DEFECTO
-PARÁMETROS: NINGUNO
-DEVUELVE:  PUNTERO A LISTA
-ListaPtr crearListaRepartosPorDefectoConLista();
+/** **********************************************************************************************************************
+**************************************************************************************************************************
+**************************************************************************************************************************
+
+                                        INTERFAZ DE FUNCIONES EN FASE DE TESTEO
+
+**************************************************************************************************************************
+**************************************************************************************************************************
+*** ****************************************************************************************************************** **/
 
 /** OPERACIÓN: CREACION
-PRECONDICIÓN: LA LISTA RECEPTORA DEBE HABER SIDO DECLARADA
+PRECONDICIÓN: NINGUNA
+POSTCONDICIÓN: CREA UNA LISTA DE REPARTOS CON DATOS POR DEFECTO
+PARÁMETROS: NINGUNO
+DEVUELVE: PUNTERO A LISTA. */
+ListaPtr crearListaRepartosDefecto();
+
+/** OPERACIÓN: CREACION
+PRECONDICIÓN: NINGUNA
 POSTCONDICIÓN: CREA UNA LISTA DE PAQUETES CON DATOS POR DEFECTO
 PARÁMETROS: NINGUNO
-DEVUELVE:  PUNTERO A LISTA
+DEVUELVE: PUNTERO A LISTA. */
 ListaPtr crearListaPaquetesGenerico();
 
 /** OPERACIÓN: CREACION
-PRECONDICIÓN: LA LISTA RECEPTORA DEBE HABER SIDO DECLARADA
+PRECONDICIÓN: NINGUNA
 POSTCONDICIÓN: CREA UNA LISTA DE PERSONAS CON DATOS POR DEFECTO
 PARÁMETROS: NINGUNO
-DEVUELVE:  PUNTERO A LISTA
+DEVUELVE: PUNTERO A LISTA. */
 ListaPtr crearListaPersonasGenerica();
 
 /** OPERACIÓN: CREACION
-PRECONDICIÓN: LA LISTA RECEPTORA DEBE HABER SIDO DECLARADA
+PRECONDICIÓN: NINGUNA
 POSTCONDICIÓN: CREA UNA LISTA DE CLIENTES CON DATOS POR DEFECTO
 PARÁMETROS: NINGUNO
-DEVUELVE:  PUNTERO A LISTA
+DEVUELVE: PUNTERO A LISTA. */
 ListaPtr clientesGenericos();
 
 /** OPERACIÓN: CREACION
-PRECONDICIÓN: LA LISTA RECEPTORA DEBE HABER SIDO DECLARADA
+PRECONDICIÓN: NINGUNA
 POSTCONDICIÓN: CREA UNA LISTA DE CHOFERES CON DATOS POR DEFECTO
 PARÁMETROS: NINGUNO
-DEVUELVE:  PUNTERO A LISTA
+DEVUELVE: PUNTERO A LISTA. */
 ListaPtr choferesGenericos();
 
 /** OPERACIÓN: CREACION
-PRECONDICIÓN: LA LISTA RECEPTORA DEBE HABER SIDO DECLARADA
+PRECONDICIÓN: NINGUNA
 POSTCONDICIÓN: CREA UNA LISTA DE VEHICULOS CON DATOS POR DEFECTO
 PARÁMETROS: NINGUNO
-DEVUELVE:  PUNTERO A LISTA
+DEVUELVE: PUNTERO A LISTA. */
 ListaPtr crearListaVehiculosGenerico();
 
 /** OPERACIÓN: CREACION
-PRECONDICIÓN: LA LISTA RECEPTORA DEBE HABER SIDO DECLARADA
+PRECONDICIÓN: NINGUNA
 POSTCONDICIÓN: CREA UN CENTRO LOGISTICO CON DATOS POR DEFECTO
 PARÁMETROS: NINGUNO
-DEVUELVE:  PUNTERO A CENTRO LOGISTICO
+DEVUELVE: PUNTERO A CENTRO LOGISTICO. */
 CentroLogisticoPtr crearCentroLogisticoDefecto();
 
 

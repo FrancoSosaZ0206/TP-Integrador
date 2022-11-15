@@ -7,20 +7,30 @@
 #include "TDADomicilio.h"
 #include "TDACuil.h"
 
+/** **********************************************************************************************************************
+**************************************************************************************************************************
+**************************************************************************************************************************
+
+                                                    INTERFAZ DEL TDA PERSONA
+
+**************************************************************************************************************************
+**************************************************************************************************************************
+*** ****************************************************************************************************************** **/
+
 typedef struct Persona
 {
     char *nombre;
     char *apellido;
     DomicilioPtr domicilio;
     CuilPtr cuil;
-    bool esChofer; //la persona es un chofer si da verdadero, de lo contrario es un cliente.
+    bool esChofer; //true=chofer, false=cliente.
 } Persona;
 
 typedef Persona* PersonaPtr;
 
-//PRIMITIVAS
+///CREACIÓN Y DESTRUCCIÓN
 
-/** OPERACIÓN de creacion de persona (construccion)
+/** OPERACIÓN: creación de persona (constructora)
 PRECONDICIÓN: la persona no debe haber sido creada
 POSTCONDICIÓN: se crea una estructura persona con los datos recibidos.
 PARÁMETROS:
@@ -29,10 +39,10 @@ PARÁMETROS:
     - domicilio: estructura representando el domicilio de la persona
     - cuil: estructura representando el cuil de la persona
     - esChofer: booleana que indica si se trata es un chofer(true) o cliente (false)
-DEVUELVE:  puntero a la persona creada
+DEVUELVE: puntero a la persona creada. */
 PersonaPtr crearPersona(char *nombre,char *apellido,DomicilioPtr domicilio,CuilPtr cuil,bool esChofer);
 
-Creador especial que solo recibe datos primitivos.
+/** OPERACIÓN: creador especial que solo recibe datos primitivos.
 PRECONDICIÓN: la persona no debe haber sido creada
 POSTCONDICIÓN: se crea una estructura persona con los datos recibidos.
 PARÁMETROS:
@@ -43,131 +53,135 @@ PARÁMETROS:
     - localidad: entero representando la localidad del domicilio
     - cuil: string representando el cuil de la persona
     - esChofer: booleana que indica si se trata es un chofer(true) o cliente (false)
-DEVUELVE:  puntero a la persona creada
+DEVUELVE: puntero a la persona creada. */
 PersonaPtr crearPersonaDirect(char *nombre,char *apellido,char *calle,int altura,char *localidad,char *cuilStr,bool esChofer);
 
-/** OPERACIÓN de destruccion de la persona (destructora)
+/** OPERACIÓN: destruccion de la persona (destructora)
 PRECONDICIÓN: la persona recibida debió haber sido creada con crearPersona o crearPersonaDirect.
-POSTCONDICIÓN: se destruye la persona recibida con sus datos
+POSTCONDICIÓN: se libera la memoria reservada para la persona
 PARÁMETROS:
     - persona: puntero a la estructura persona que se quiere destruir.
-DEVUELVE:  NULL. */
+DEVUELVE: NULL. */
 PersonaPtr destruirPersona(PersonaPtr persona);
 
 
+///SETEAR
 
-
-
-void setNombre(PersonaPtr persona, char *nombre);
 /** OPERACIÓN: asigna el nombre
 PRECONDICIÓN: la estructura Persona debe haberse creado
-POSTCONDICIÓN: agrega el valor de nombre a la estructura Persona
-PARÁMETROS: persona(puntero a la estructura persona), nombre(string que representa el nuevo nombre)
+POSTCONDICIÓN: persona cambia con el nuevo nombre
+PARÁMETROS:
+    - persona: puntero a la persona a setear el apellido
+    - nombre: string representando el nuevo nombre
+DEVUELVE: nada. */
+void setNombre(PersonaPtr persona, char *nombre);
 
-DEVUELVE:  nada
-
-void setApellido(PersonaPtr persona, char *apellido);
 /** OPERACIÓN: asigna el apellido
 PRECONDICIÓN: la estructura Persona debe haberse creado
-POSTCONDICIÓN: agrega el valor de apellido a la estructura Persona
-PARÁMETROS: persona(puntero a la estructura persona), apellido(string que representa el nuevo apellido)
+POSTCONDICIÓN: persona cambia con el nuevo apellido
+PARÁMETROS:
+    - persona: puntero a la persona a setear el apellido
+    - apellido: string representando el nuevo apellido
+DEVUELVE: nada. */
+void setApellido(PersonaPtr persona, char *apellido);
 
-DEVUELVE:  nada
-
-void setDomicilio(PersonaPtr persona, DomicilioPtr domicilio); //en TDADomicilio solo se puede setear cada campo de struct Domicilio
 /** OPERACIÓN: asigna el domicilio
 PRECONDICIÓN: la estructura Persona debe haberse creado
-POSTCONDICIÓN: agrega el valor de domicilio a la estructura Persona
-PARÁMETROS: persona(puntero a la estructura persona), domicilio(string que representa el nuevo domicilio)
+POSTCONDICIÓN: persona cambia con el nuevo domicilio
+PARÁMETROS:
+    - persona: puntero a la persona a setear el domicilio
+    - domicilio: puntero al nuevo domicilio
+DEVUELVE: nada. */
+void setDomicilio(PersonaPtr persona, DomicilioPtr domicilio);
 
-DEVUELVE:  nada
-
-void setCuilPersona(PersonaPtr persona, CuilPtr cuil); ///NUEVO NOMBRE PARA NO CONFUNDIR CON SETCUIL DEL TDA CUIL
 /** OPERACIÓN: asigna el cuil
 PRECONDICIÓN: la estructura Persona debe haberse creado
-POSTCONDICIÓN: agrega el valor de cuil a la estructura Persona
-PARÁMETROS: persona(puntero a la estructura persona), cuil(string que representa el nuevo cuil)
+POSTCONDICIÓN: persona cambia con el nuevo cuil
+PARÁMETROS:
+    - persona: puntero a la persona a setear el cuil
+    - cuil: puntero al nuevo cuil
+DEVUELVE: nada. */
+void setCuilPersona(PersonaPtr persona, CuilPtr cuil);
 
-DEVUELVE:  nada
-
-void setEsChofer(PersonaPtr persona, bool esChofer); //pondremos true or false, o bien 1 o 0 dependiendo de si queremos que sea chofer o no.
-/** OPERACIÓN: determina si es chofer
+/** OPERACIÓN: asigna una nueva clase de persona
 PRECONDICIÓN: la estructura Persona debe haberse creado
-POSTCONDICIÓN: agrega el valor true or false dependiendo de si es chofer o no
-PARÁMETROS: persona(puntero a la estructura persona), esChofer(bool que representa el nuevo valor)
+POSTCONDICIÓN: persona cambia con el nuevo valor de esChofer
+PARÁMETROS:
+    - persona: puntero a la persona a setear la clase
+    - esChofer: booleano representando la nueva clase de persona
+DEVUELVE: nada. */
+void setEsChofer(PersonaPtr persona, bool esChofer);
 
-DEVUELVE:  nada
 
+///GETTERS
 
-
-
-
+/** OPERACIÓN: obtiene el nombre asignado a la persona
+PRECONDICIÓN: persona debe haberse creado
+POSTCONDICIÓN: se obtiene el nombre de la persona
+PARÁMETROS:
+    - persona: puntero a la persona de la que obtener el nombre
+DEVUELVE: string representando el nombre de la persona. */
 char *getNombre(PersonaPtr persona);
-/** OPERACIÓN: obtiene el nombre asignado de la persona
-PRECONDICIÓN: la estructura Persona debe tener un nombre asignado
-POSTCONDICIÓN: muestra el nombre obtenido
-PARÁMETROS: persona(puntero a la estructura persona)
 
-DEVUELVE:  char
-
+/** OPERACIÓN: obtiene el apellido asignado a la persona
+PRECONDICIÓN: persona debe haberse creado
+POSTCONDICIÓN: se obtiene el apellido de la persona
+PARÁMETROS:
+    - persona: puntero a la persona de la que obtener el apellido
+DEVUELVE: string representando el apellido de la persona. */
 char *getApellido(PersonaPtr persona);
-/** OPERACIÓN: obtiene el apellido asignado de la persona
-PRECONDICIÓN: la estructura Persona debe tener un apellido asignado
-POSTCONDICIÓN: muestra el apellido obtenido
-PARÁMETROS: persona(puntero a la estructura persona)
 
-DEVUELVE:  char
-
+/** OPERACIÓN: obtiene el domicilio asignado a la persona
+PRECONDICIÓN: persona debe haberse creado
+POSTCONDICIÓN: se obtiene el domicilio de la persona
+PARÁMETROS:
+    - persona: puntero a la persona de la que obtener el cuil
+DEVUELVE: puntero al TDA Domicilio de la persona. */
 DomicilioPtr getDomicilio(PersonaPtr persona);
-/** OPERACIÓN: obtiene el domicilio asignado de la persona
-PRECONDICIÓN: la estructura Persona debe tener un domicilio asignado
-POSTCONDICIÓN: muestra el domicilio obtenido
-PARÁMETROS: persona(puntero a la estructura persona)
 
-DEVUELVE:  char
+/** OPERACIÓN: obtiene el cuil asignado a la persona
+PRECONDICIÓN: persona debe haberse creado
+POSTCONDICIÓN: se obtiene el cuil de la persona
+PARÁMETROS:
+    - persona: puntero a la persona de la que obtener el cuil
+DEVUELVE: puntero a TDA Cuil de la persona. */
+CuilPtr getCuilPersona(PersonaPtr persona);
 
-CuilPtr getCuilPersona(PersonaPtr persona); ///NUEVO NOMBRE PARA NO CONFUNDIR CON GETCUIL DEL TDA CUIL
-/** OPERACIÓN: obtiene el cuil asignado de la persona
-PRECONDICIÓN: la estructura Persona debe tener un cuil asignado
-POSTCONDICIÓN: muestra el cuil obtenido
-PARÁMETROS: persona(puntero a la estructura persona)
-
-DEVUELVE:  char
-
+/** OPERACIÓN: obtiene el tipo de persona como booleano
+PRECONDICIÓN: persona debe haberse creado
+POSTCONDICIÓN: se obtiene la clase de persona contenida en esChofer
+PARÁMETROS:
+    - persona: puntero a la persona de la que obtener la clase
+DEVUELVE: booleano indicando si se trata de un chofer (true) o un cliente (false). */
 bool getEsChofer(PersonaPtr persona);
-/** OPERACIÓN: obtiene el valor asignado de esChofer para determinar si lo es o no
-PRECONDICIÓN: esChofer en la estructura Persona debe tener un valor booleano asignado
-POSTCONDICIÓN: muestra el valor obtenido
-PARÁMETROS: persona(puntero a la estructura persona)
 
-DEVUELVE:  booleano representando el tipo de persona que es (chofer=true,cliente=false)
 
-///Especiales
+///ESPECIALES
 
-void mostrarPersona(PersonaPtr persona);
 /** OPERACIÓN: muestra la persona
-PRECONDICIÓN: estructura Persona debe tener todos los campos asignado
-POSTCONDICIÓN: DEVUELVE: los valores de persona
-PARÁMETROS: persona(puntero a la estructura persona)
+PRECONDICIÓN: persona debe haberse creado
+POSTCONDICIÓN: imprime los datos de una persona por pantalla
+PARÁMETROS:
+    - persona: puntero a la persona a mostrar
+DEVUELVE: todos los datos de Persona. */
+void mostrarPersona(PersonaPtr persona);
 
-DEVUELVE:  todos los datos de Persona
-
-bool personasIguales(PersonaPtr persona1,PersonaPtr persona2);
 /** OPERACIÓN: verifica si dos personas son iguales.
 PRECONDICIÓN: Ambas personas deben haber sido creadas.
 POSTCONDICIÓN: chequea si las estructuras son idénticas en cuil
 PARÁMETROS:
     - persona1: puntero a la estructura a verificar.
     - persona2: puntero a la estructura a verificar.
-DEVUELVE:  true si son idénticos en cuil, false de lo contrario. */
+DEVUELVE: true si son idénticos en cuil, false de lo contrario. */
+bool personasIguales(PersonaPtr persona1,PersonaPtr persona2);
 
-PersonaPtr copiarPersona(PersonaPtr personaOriginal); ///NUEVA - Orientada para la funcion copiarLista
-/*  OPERACIÓN: crea una copia de una persona
+/** OPERACIÓN: crea una copia de una persona (Orientada a la funcion copiarLista)
 PRECONDICIÓN: personaOriginal debe haber sido creada previamente
 POSTCONDICIÓN: duplica los contenidos de la persona en una nueva
 PARÁMETROS:
     - personaOriginal: puntero a la persona de la que se quiere hacer una copia
-DEVUELVE:  puntero a la copia de la persona creada. */
+DEVUELVE: puntero a la copia de la persona creada. */
+PersonaPtr copiarPersona(PersonaPtr personaOriginal);
 
 
 #endif // TDAPERSONA_H_INCLUDED

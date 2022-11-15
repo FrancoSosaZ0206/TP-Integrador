@@ -9,6 +9,7 @@
 #include "Pila.h"
 #include "TDARepartos.h"
 
+
 RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes)
 {
     RepartoPtr reparto=(RepartoPtr)obtenerMemoria(sizeof(Reparto));
@@ -23,8 +24,7 @@ RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
 }
 RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes)
 {
-    RepartoPtr reparto=crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
-    return reparto;
+    return crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
 }
 RepartoPtr destruirReparto(RepartoPtr reparto)
 { /** Liberamos la memoria de todos los campos EXCLUSIVOS DEL REPARTO.
@@ -87,7 +87,7 @@ void setPaquetesReparto(RepartoPtr reparto, PilaPtr paquetes)
 }
 
 void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) //agrega un paquete a la pila de paquetes
-{ //antes de hacer nada, debemos comprobar que haya algun dato en la pila. Sino, creamos la pila y le insertamos el dato.
+{ //antes de hacer nada, debemos comprobar que haya algún dato en la pila. Sino, creamos la pila y le insertamos el dato.
     if(pilaVacia(getPaquetesReparto(reparto)))
         reparto->paquetes=crearPila();
     else

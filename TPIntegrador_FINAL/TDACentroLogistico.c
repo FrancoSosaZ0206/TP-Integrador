@@ -316,7 +316,7 @@ void filtrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico,int estado) //f
     printf("\n");
 }
 
-void filtrarPaquetesEnCurso(CentroLogisticoPtr centroLogistico, bool enCurso) ///NUEVA
+void filtrarPaquetesEnCurso(CentroLogisticoPtr centroLogistico, bool enCurso)
 {
     bool condicion;
 
@@ -923,7 +923,7 @@ bool esCuilExistente(CentroLogisticoPtr centroLogistico, CuilPtr cuil)
 bool esPatenteValida(char* patente)
 {
     int pass = 0;
-///Se evalua si tiene 4 letras y 3 numeros
+///Se evalúa si tiene 4 letras y 3 numeros
 
     if( isalpha(patente[0]) ) { pass++; }
     if( isalpha(patente[1]) ) { pass++; }

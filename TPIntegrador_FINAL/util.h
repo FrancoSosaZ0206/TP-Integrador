@@ -4,6 +4,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/** **********************************************************************************************************************
+**************************************************************************************************************************
+**************************************************************************************************************************
+
+                                                INTERFAZ DE UTILIDADES
+
+**************************************************************************************************************************
+**************************************************************************************************************************
+*** ****************************************************************************************************************** **/
+
 /** OPERACIÓN: obtención de memoria
 PRECONDICIÓN: Debe haber espacio en memoria disponible
 POSTCONDICIÓN: crea un puntero a un dato general en memoria dinamica
@@ -33,20 +43,20 @@ PRECONDICIÓN: Ninguna
 POSTCONDICIÓN: Libera la acumulacion del buffer del teclado,
                permitiendo ingresar más datos por teclado correctamente sin errores
 PARÁMETROS: Ninguno
-DEVUELVE:  Nada. */
+DEVUELVE: Nada. */
 void limpiarBufferTeclado();
 /** OPERACIÓN: LIMPIEZA DE BUFFER DE TECLADO (UTILIZA GETCHAR())
 PRECONDICIÓN: Ninguna
 POSTCONDICIÓN: Libera la acumulacion del EOF, permitiendo ingresar datos por teclado correctamente sin errores
 PARÁMETROS: Ninguno
-DEVUELVE:  Nada. */
+DEVUELVE: Nada. */
 void limpiarBufferTecladoPresionandoEnter();
 
 /** OPERACIÓN: LIMPIEZA Y PAUSA
 PRECONDICIÓN: Ninguna
 POSTCONDICIÓN: Limpia la pantalla con system("cls") y genera una pausa con getChar
 PARÁMETROS: Ninguno
-DEVUELVE:  Nada. */
+DEVUELVE: Nada. */
 void presionarEnterYLimpiarPantalla();
 
 /** OPERACIÓN: Extrae todos los números de un string y los separa en dígitos individuales
@@ -56,7 +66,7 @@ POSTCONDICIÓN: Copia todos los números del string en un vector de enteros
 PARÁMETROS:
     - source: string del que se extraerán los números
     - buffer: vector de enteros que contendrá cada dígito de los números.
-DEVUELVE:  cantidad de dígitos extraídos. */
+DEVUELVE: cantidad de dígitos extraídos. */
 int extraerDigitosString(char *source,int buffer[]);
 
 

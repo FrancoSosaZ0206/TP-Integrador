@@ -18,7 +18,7 @@
 ///-------------------------------------------------------------------------------------------------////
 
 
-ListaPtr crearListaRepartosPorDefectoConLista()
+ListaPtr crearListaRepartosDefecto()
 {
     ListaPtr listaRepartos=crearLista();
     DomicilioPtr domicilioChofer1=crearDomicilio("Vieytes",2000,"Lomas de zamora");
@@ -34,7 +34,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     PilaPtr PilaPaquetes1 = crearPila();
     apilar(PilaPaquetes1, (PaquetePtr)paquete1);
     RepartoPtr reparto1= NULL;
-    reparto1=crearReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,PilaPaquetes1);
+    reparto1=armarReparto(chofer1,vehiculo1,fechaSalida1,fechaRetorno1,PilaPaquetes1);
 
     DomicilioPtr domicilioChofer2=crearDomicilio("Boqueron",1500,"Villa Fiorito");
     DomicilioPtr dirRetiro2=crearDomicilio("Repositorio Intel",5000,"Sector industrial");
@@ -49,7 +49,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     apilar(PilaPaquetes2, (PaquetePtr)paquete2);
     VehiculoPtr vehiculo2=crearVehiculo(3,"Mercedes Benz","Actros","81 NMB 30");
     RepartoPtr reparto2= NULL;
-    reparto2=crearReparto(chofer2,vehiculo2,fechaSalida2,fechaRetorno2,PilaPaquetes2);
+    reparto2=armarReparto(chofer2,vehiculo2,fechaSalida2,fechaRetorno2,PilaPaquetes2);
 
     DomicilioPtr domicilioChofer3=crearDomicilio("Espania",1500,"Puerto Madero");
     DomicilioPtr dirRetiro3=crearDomicilio("Tesla Industry",10000,"Washington DC");
@@ -64,7 +64,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     apilar(PilaPaquetes3, (PaquetePtr)paquete3);
     VehiculoPtr vehiculo3=crearVehiculo(3,"Mercedes Benz","Actros","19 JUY 78");
     RepartoPtr reparto3= NULL;
-    reparto3=crearReparto(chofer3,vehiculo3,fechaSalida3,fechaRetorno3,PilaPaquetes3);
+    reparto3=armarReparto(chofer3,vehiculo3,fechaSalida3,fechaRetorno3,PilaPaquetes3);
 
     DomicilioPtr domicilioChofer4=crearDomicilio("Espania",1500,"Puerto Madero");
     DomicilioPtr dirRetiro4=crearDomicilio("Tesla Industry",10000,"Washington DC");
@@ -79,7 +79,7 @@ ListaPtr crearListaRepartosPorDefectoConLista()
     apilar(PilaPaquetes4, (PaquetePtr)paquete4);
     VehiculoPtr vehiculo4=crearVehiculo(3,"Mercedes Benz","Actros","19 JUY 78");
     RepartoPtr reparto4 = NULL;
-    reparto4=crearReparto(chofer4,vehiculo4,fechaSalida4,fechaRetorno4,PilaPaquetes4);
+    reparto4=armarReparto(chofer4,vehiculo4,fechaSalida4,fechaRetorno4,PilaPaquetes4);
 
     agregarDatoLista(listaRepartos,(RepartoPtr)reparto1);
     agregarDatoLista(listaRepartos,(RepartoPtr)reparto2);
@@ -223,7 +223,7 @@ ListaPtr crearListaVehiculosGenerico()
 
 CentroLogisticoPtr crearCentroLogisticoDefecto()
 {
-    ListaPtr repartosAbiertos=crearListaRepartosPorDefectoConLista();
+    ListaPtr repartosAbiertos=crearListaRepartosDefecto();
     ListaPtr repartosCerrados=crearLista();
     ListaPtr paquetes=crearListaPaquetesGenerico();
     ListaPtr personas=crearListaPersonasGenerica();

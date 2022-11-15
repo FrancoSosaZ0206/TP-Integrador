@@ -241,7 +241,8 @@ bool menuGuardarCambios(CentroLogisticoPtr centroLogistico,int tipoDato)
     return cambiosGuardados;
 }
 
-/** OPERACIÓN: menu de modo de accion
+
+/** OPERACIÓN: menu de modo de accion (general)
 PRECONDICIÓN: ninguna
 POSTCONDICIÓN: se imprime en pantalla un menu preguntando como proceder a la accion sobre una lista de datos.
 PARÁMETROS:
@@ -276,7 +277,8 @@ int menuModoAccion(int *opMenuAnterior)
 
     return op;
 }
-/** OPERACIÓN: menu de modo de accion
+
+/** OPERACIÓN: menu de modo de accion (opcion 1)
 PRECONDICIÓN: haber usado menuModoAccion
 POSTCONDICIÓN: se ejecuta el modo de accion 1 - se toma un indice por pantalla.
 PARÁMETROS:
@@ -302,15 +304,15 @@ int menuModoAccion1(ListaPtr lista)
 
     return i;
 }
-/** OPERACIÓN: menu de modo de accion
+
+/** OPERACIÓN: menu de modo de accion (opcion 2)
 PRECONDICIÓN: haber usado menuModoAccion
 POSTCONDICIÓN: se ejecuta el modo de accion 2 - se toma un conjunto de índices por pantalla.
 PARÁMETROS:
-  lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
-  cantIndices: entero representando la variable que se cargará con la cantidad de indices seleccionados
-DEVUELVE: vector de enteros representando la seleccion de índices elegidos.
-*/**
-ADVERTENCIA: Cuidado con menus o funciones que modifiquen la longitud de la lista (ej: menuEliminar). */
+    - lista: puntero representando la lista sobre la que se quiere accionar (repartos, personas...).
+    - cantIndices: entero representando la variable que se cargará con la cantidad de indices seleccionados
+DEVUELVE: vector de enteros representando la seleccion de índices elegidos. */
+/// *** ADVERTENCIA: Cuidado con menus o funciones que modifiquen la longitud de la lista (ej: menuEliminar) *** ///
 void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
 {
     int n=longitudLista(lista);
@@ -363,7 +365,7 @@ void menuModoAccion2(ListaPtr lista,int* cantIndices, int* indices)
     system("cls");
 }
 
-/** OPERACIÓN: menu de modo de accion
+/** OPERACIÓN: menu de modo de accion (opcion 3)
 PRECONDICIÓN: haber usado menuModoAccion
 POSTCONDICIÓN: se ejecuta el modo de accion 3 - se toma un rango de índices por pantalla.
 PARÁMETROS:
