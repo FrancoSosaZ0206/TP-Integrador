@@ -555,7 +555,7 @@ PARÁMETROS:
 DEVUELVE: nada. */
 void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo);
 
-/** OPERACIÓN: verificacion de paquetes disponibles
+/** OPERACIÓN: verificación de paquetes disponibles
 PRECONDICIÓN:
     - centroLogistico debe haberse creado
     - centroLogistico debe contener una lista de paquetes
@@ -634,6 +634,17 @@ PARÁMETROS:
     - fecha: puntero a la fecha para buscar
 DEVUELVE: booleano indicando si hay vehículos disponibles (true) o no (false). */
 bool esVehiculoDisponible(CentroLogisticoPtr centroLogistico, char* patente,FechaPtr fecha);
+
+/** OPERACIÓN: actualiza la lista de repartos abiertos del centro
+PRECONDICIÓN: ctroLog debe haberse creado y contener repartos abiertos
+POSTCONDICIÓN: se actualizan los estados de los paquetes asignados
+               a los repartos de acuerdo al tiempo actual
+            *** También se cierran todos los repartos de los cuales
+               se hayan pasado sus fechas de retorno ***
+PARÁMETROS:
+    - ctroLog: puntero al centro logístico del que actualizar sus repartos
+DEVUELVE: nada. */
+void actualizarRepartos(CentroLogisticoPtr ctroLog); ///NUEVA
 
 
 #endif // TDACENTROLOGISTICO_H_INCLUDED

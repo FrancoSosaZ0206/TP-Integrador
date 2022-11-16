@@ -151,7 +151,7 @@ void mostrarRepartoSinPaquetes(RepartoPtr reparto)
 
 ///---------------------------------------Funciones de validación------------------------------------------------
 
-bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete) ///NUEVA
+bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete)
 {
     bool match = false;
 
@@ -172,7 +172,7 @@ bool esPaqueteCargado(RepartoPtr reparto, PaquetePtr paquete) ///NUEVA
     return match;
 }
 
-bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
+bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2)
 {
     PilaPtr pilaAux1=crearPila();
     PilaPtr pilaAux2=crearPila();
@@ -208,7 +208,10 @@ bool repartosIguales(RepartoPtr reparto1,RepartoPtr reparto2) ///NUEVA
     else { return false; }
 }
 
-RepartoPtr copiarReparto(RepartoPtr repartoOriginal) ///NUEVA
+
+///-----------------------------------------Funciones especiales------------------------------------------------
+
+RepartoPtr copiarReparto(RepartoPtr repartoOriginal)
 {
 /// Antes de crear la copia del reparto, copiaremos todos sus campos
 //Copiamos el chofer
@@ -241,4 +244,41 @@ RepartoPtr copiarReparto(RepartoPtr repartoOriginal) ///NUEVA
     }
 /// Finalmente, creamos y retornamos la copia del reparto, en una sola linea.
     return crearReparto(copiaChofer,copiaVehiculo,copiaFechaSalida,copiaFechaRetorno,copiaPilaPaquetes);
+}
+
+bool actualizarReparto(RepartoPtr reparto,int posicion) ///NUEVA
+{
+    int n=cantidadPaquetes(reparto);
+    PaquetePtr paquetes[n];
+
+    bool repartoEnCurso=false, repartoActualizado=false;
+
+    for(int i=0;i<n;i++)
+    {
+        paquetes[i] = descargarPaquete(reparto);
+
+        if(!quedaTiempo(getFechaSalida(reparto)))
+        {
+            repartoEnCurso=true;
+            repartoActualizado=true;
+            setEstado(paquetes[i],1);
+        }
+        else if(!quedaTiempo(getFechaEntrega(paquetes[i]))
+                && quedaTiempo(getFechaRetorno(reparto))
+                && getEstado(paquetes[i])!=3)
+        {
+            repartoActualizado=true;
+            setEstado(paquetes[i],4);
+            printf("El paquete #%d esta demorado.\n",getID(paquetes[i]));
+        }
+    }
+    for(int i=n-1;i>-1;i--)
+        cargarPaquete(reparto,paquetes[i]);
+
+    if(repartoEnCurso)
+        printf("\n\nReparto %d en curso.\n",posicion);
+    else if(repartoActualizado)
+        printf("\nActualizado reparto %d.\n",posicion);
+
+    return repartoActualizado;
 }

@@ -211,5 +211,21 @@ PARÁMETROS:
 DEVUELVE: puntero a la copia del reparto creada. */
 RepartoPtr copiarReparto(RepartoPtr repartoOriginal);
 
+/** OPERACIÓN: actualización de un reparto
+PRECONDICIÓN: reparto debe haberse armado
+POSTCONDICIÓN:
+    - Se actualiza el estado de los paquetes de acuerdo con
+               como se van cumpliendo los plazos de retiro / entrega de los paquetes,
+               y los plazos de salida / retorno del propio reparto.
+    - Se imprime por pantalla qué paquetes fueron marcados con qué estado
+      al actualizar (de haberse actualizado).
+PARÁMETROS:
+    - reparto: puntero al reparto a actualizar
+    - posicion: entero representando la posicion del reparto en la
+                lista de repartos abiertos del centro (meramente para printf)
+                (ver TDACentroLogistico)
+DEVUELVE: booleano informando si se actualizaron repartos (true) o no (false). */
+bool actualizarReparto(RepartoPtr reparto,int posicion); ///NUEVA
+
 
 #endif // TDAREPARTOS_H_INCLUDED

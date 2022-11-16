@@ -308,16 +308,6 @@ PARÁMETROS:
 DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario. */
 bool menuArmarReparto(CentroLogisticoPtr centroLogistico);
 
-/** OPERACIÓN: menú de cerrado de repartos
-PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
-POSTCONDICIÓN: se mueve el reparto seleccionado a la lista de repartos cerrados.
-PARÁMETROS:
-      - centroLogistico: puntero a la estructura del Centro Logistico
-      - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
-DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario. */
-bool menuCerrarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
-
-
 /** OPERACIÓN: menú de actualizado de repartos
 PRECONDICIÓN: centroLogistico debe haber sido creado, y se debe haber armado al menos un reparto.
 POSTCONDICIÓN: se modifica el estado del proximo paquete a entregar

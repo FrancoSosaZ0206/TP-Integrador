@@ -105,7 +105,7 @@ int main()
         printf("\t\t 3. SESION DE PRUEBAS\n");
         printf("\t\t 0. SALIR");
         printf("\n\n\t-----------------------------------\n\n");
-        printf("\t     Seleccione una opcion\n\n\n\t\t\t");
+        printf("\t       Seleccione una opcion\n\n\n\t\t\t");
         scanf("%d",&START_OP);
 
         limpiarBufferTeclado();
@@ -194,6 +194,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
         system("pause");
         system("cls");
     }
+    else
+        actualizarRepartos(centroLogistico);
 
     do
     {
@@ -203,7 +205,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
         printf("2. REPARTOS\n");
         printf("3. INDICAR RESULTADOS DE ENTREGAS\n");
         printf("4. EMITIR LISTADOS\n");
-        printf("5. GUARDAR CAMBIOS\n"); ///NUEVO
+        printf("5. GUARDAR CAMBIOS\n");
         printf("0. SALIR");
         printf("\n\n-----------------------------------------\n\n");
         printf("Elija una opcion: ");
@@ -420,12 +422,10 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
             {
                 printf("MENU DE REPARTOS");
                 printf("\n\n-----------------------------------------\n\n");
-                    ///Son solo para repartos abiertos:
-                printf("1. Armar reparto\n"); //Este
-                printf("2. Cerrar reparto\n"); //Y este
-                printf("3. Eliminar reparto\n");
-                printf("4. Modificar reparto\n");
-                printf("5. Buscar reparto\n");
+                printf("1. Armar reparto\n"); ///Esta es solo para repartos abiertos
+                printf("2. Eliminar reparto\n");
+                printf("3. Modificar reparto\n");
+                printf("4. Buscar reparto\n");
                 printf("0. Volver");
                 printf("\n\n-----------------------------------------\n\n");
                 printf("Elija una opcion: ");
@@ -433,15 +433,15 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
 
                 limpiarBufferTeclado();
                 system("cls");
+
+                actualizarRepartos(centroLogistico);
+
                 switch(op1)
                 {
                 case 1:
                     cambiosGuardados = menuArmarReparto(centroLogistico);
                     break;
                 case 2:
-                    cambiosGuardados = menuCerrarReparto(centroLogistico,&op1);
-                    break;
-                case 3:
                     do
                     {
                         printf("ELIMINAR REPARTO:\n\n");
@@ -454,6 +454,9 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
                         scanf("%d",&op2);
                         limpiarBufferTeclado();
                         system("cls");
+
+                        actualizarRepartos(centroLogistico);
+
                         switch(op2)
                         {
                         case 1:
@@ -474,7 +477,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
                         }
                     } while(!(op2==0 || op2==-1));
                     break;
-                case 4:
+                case 3:
                     do
                     {
                         printf("MODIFICAR REPARTO:\n\n");
@@ -487,6 +490,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
                         scanf("%d",&op2);
                         limpiarBufferTeclado();
                         system("cls");
+                        actualizarRepartos(centroLogistico);
+
                         switch(op2)
                         {
                         case 1:
@@ -507,7 +512,7 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
                         }
                     } while(!(op2==0 || op2==-1));
                     break;
-                case 5:
+                case 4:
                     do
                     {
                         printf("BUSCAR REPARTO:\n\n");
@@ -520,6 +525,9 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
                         scanf("%d",&op2);
                         limpiarBufferTeclado();
                         system("cls");
+
+                        actualizarRepartos(centroLogistico);
+
                         switch(op2)
                         {
                         case 1:
@@ -550,6 +558,9 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
             } while(op1!=0);
             break;
         case 3:
+
+            actualizarRepartos(centroLogistico);
+
             printf("INDICAR RESULTADOS DE ENTREGAS");
             printf("\n\n-----------------------------------------\n\n");
 
@@ -751,6 +762,8 @@ int MAIN_MENU(CentroLogisticoPtr centroLogistico,bool primeraVez)
             presionarEnterYLimpiarPantalla();
             break;
         }
+
+        actualizarRepartos(centroLogistico);
     } while(MAIN_OP!=0);
 
     return MAIN_OP; //salimos de todo el programa

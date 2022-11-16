@@ -37,6 +37,7 @@ typedef Paquete * PaquetePtr;
         3 = Entregado
         4 = Demorado
         5 = Suspendido
+        6 = Reservado
 */
 
 

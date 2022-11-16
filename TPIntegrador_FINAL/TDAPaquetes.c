@@ -158,6 +158,9 @@ void mostrarPaquete(PaquetePtr paquete)
     case 5:
         printf("\tEstado: Suspendido\n");
         break;
+    case 6:
+        printf("\tEstado: Reservado\n");
+        break;
     default:
         printf("\tEstado: ERROR\n");
         break;
@@ -184,7 +187,8 @@ void helpEstadoPaquete() //muestra que relacion hay entre cada numero y cada est
     printf("\t2 = Retirado\n");
     printf("\t3 = Entregado\n");
     printf("\t4 = Demorado\n");
-    printf("\t5 = Suspendido\n\n");
+    printf("\t5 = Suspendido\n");
+    printf("\t6 = Reservado\n\n");
 }
 void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual del paquete recibido.
 {
@@ -208,21 +212,14 @@ void mostrarEstadopaquete(PaquetePtr paquete) //muestra solo el estado actual de
     case 5:
         printf("Estado del Paquete #%d = Suspendido.\n\n",getID(paquete));
         break;
+    case 6:
+        printf("Estado del Paquete #%d = Reservado.\n\n",getID(paquete));
+        break;
     default:
-        printf("Estado del Paquete #%d = ERROR.\n",getID(paquete));
+        printf("Estado del Paquete #%d = ERROR.\n\n",getID(paquete));
         break;
     }
 }
-
-    int ID;
-    int ancho;
-    int alto;
-    int largo;
-    int peso;
-    DomicilioPtr dirRetiro;
-    DomicilioPtr dirEntrega;
-    FechaPtr fechaEntrega;
-    int estado; ///0=En depósito,1=En curso,2=Retirado,3=Entregado,4=Demorado,5=Suspendido
 
 bool paquetesIguales(PaquetePtr paquete1,PaquetePtr paquete2)
 {
