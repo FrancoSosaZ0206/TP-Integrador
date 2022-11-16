@@ -145,6 +145,7 @@ void mostrarPaquete(PaquetePtr paquete)
         case 3: printf("\tEstado: Entregado\n"); break;
         case 4: printf("\tEstado: Demorado\n"); break;
         case 5: printf("\tEstado: Suspendido\n"); break;
+        case 6: printf("\tEstado: Reservado\n"); break;
         default: printf("\tEstado: ERROR\n"); break;
     }
     printf("\tAncho: %d Metros\n",getAncho(paquete));
@@ -165,7 +166,8 @@ void helpEstadoPaquete() {
     printf("\t2 = Retirado\n");
     printf("\t3 = Entregado\n");
     printf("\t4 = Demorado\n");
-    printf("\t5 = Suspendido\n\n");
+    printf("\t5 = Suspendido\n");
+    printf("\t6 = reservado\n\n");
 }
 
 //muestra solo el estado actual del paquete recibido.
@@ -177,6 +179,7 @@ void mostrarEstadopaquete(PaquetePtr paquete) {
         case 3: printf("Estado del Paquete #%d = Entregado.\n\n",getID(paquete)); break;
         case 4: printf("Estado del Paquete #%d = Demorado.\n\n",getID(paquete)); break;
         case 5: printf("Estado del Paquete #%d = Suspendido.\n\n",getID(paquete)); break;
+        case 6: printf("Estado del paquete #%d = Reservado.\n\n",getID(paquete)); break;
         default: printf("Estado del Paquete #%d = ERROR.\n",getID(paquete)); break;
     }
 }

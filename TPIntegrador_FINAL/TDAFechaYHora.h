@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 
 ///Interfaz del TDA FECHA
@@ -20,7 +21,7 @@ typedef struct Fecha
 }   Fecha;
 typedef Fecha * FechaPtr;
 
-
+typedef struct tm time_e;
 
 ///Operaciones
 
@@ -262,6 +263,38 @@ bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2); ///NUEVA
 /// PUNTERO A FECHA [A MOSTRAR]
 ///DEVUELVE: NULL
 void MostrarFecha(FechaPtr fecha);
+
+
+///FUNCIONES ESPECIALES:
+
+/// //////////////////////////////////////////////////////////////////////////////////// ///
+/** OPERACIÓN: conversion de tipo de dato del tiempo a tipo TDA Fecha
+PRECONDICIÓN: tiempo debe haber sido cargado con la fecha actual.
+POSTCONDICIÓN: convierte un tiempo (fecha y hora) a TDA Fecha.
+PARÁMETROS:
+    - tiempo: puntero a la estructura de tiempo de time.h
+DEVUELVE: puntero a TDA fecha con el tiempo recibido. */
+FechaPtr convertirAFecha(time_e *tiempo);
+///Estas 2 son independientes entre sí.
+/** OPERACIÓN: obtencion del tiempo actual en un TDA Fecha
+PRECONDICIÓN: ninguna.
+POSTCONDICIÓN: obtiene el tiempo actual con las funciones de time.
+               y las pone en un TDA fecha para hacerlo compatible
+               con funciones de TDAFechaYHora.h .
+PARÁMETROS: ninguno.
+DEVUELVE: puntero a TDA fecha con la hora actual. */
+FechaPtr getTiempoActual();
+/// //////////////////////////////////////////////////////////////////////////////////// ///
+
+
+/** OPERACIÓN: revisa si queda tiempo entre una fecha y el tiempo actual.
+PRECONDICIÓN: fechaLimite debe haber sido creada con crearFecha.
+POSTCONDICIÓN: calcula la diferencia de tiempo entre la fecha límite y el tiempo actual.
+PARÁMETROS:
+    - fechaLimite: puntero a TDA fecha representando una fecha límite determinada.
+DEVUELVE: booleano informando si queda tiempo (true) o no (false) antes de la fecha límite. */
+bool quedaTiempo(FechaPtr fechaLimite);
+
 
 
 #endif //TDAFECHAYHORA_H_INCLUDED

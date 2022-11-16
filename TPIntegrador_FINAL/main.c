@@ -89,7 +89,12 @@ int main()
 
 /// **************************************************************************************************************/
     CentroLogisticoPtr centroLogistico=NULL;
-    int START_OP=0;
+    ///CentroLogisticoPtr CL = crearCentroLogisticoDefecto();
+    ///cargarRepartosAutomaticamente(CL);
+
+
+
+    int START_OP = 0;
     do
     {
         printf("\t    MENU DE INICIO - BIENVENIDO");

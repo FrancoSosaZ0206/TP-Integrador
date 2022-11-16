@@ -3132,7 +3132,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     }
                     system("cls");
                 } while(!paqueteValido);
-                setEstado(paqueteElegido, 1);
+                setEstado(paqueteElegido, 6);
                 apilar(pilaPaquetesElegidos, (PaquetePtr)paqueteElegido);
                 seguirApilando = menuContinuar();
             } while(hayPaquetesDisponibles(centroLogistico) && seguirApilando);

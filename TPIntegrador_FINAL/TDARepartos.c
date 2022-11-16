@@ -233,3 +233,4 @@ RepartoPtr copiarReparto(RepartoPtr repartoOriginal) ///NUEVA
 /// Finalmente, creamos y retornamos la copia del reparto, en una sola linea.
     return crearReparto(copiaChofer,copiaVehiculo,copiaFechaSalida,copiaFechaRetorno,copiaPilaPaquetes);
 }
+

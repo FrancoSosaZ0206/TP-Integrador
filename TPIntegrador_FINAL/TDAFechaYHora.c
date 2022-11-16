@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <stdbool.h>
 #include "TDAFechaYHora.h"
 #include "util.h"
@@ -112,7 +113,11 @@ void setAnio(FechaPtr fecha,int anio)
 }
 void setHora(FechaPtr fecha,int hora)
 {
-    fecha->hora=hora;
+    if( hora+getHora(fecha) >= 24 ){
+        fecha->hora = hora+getHora(fecha)-24;
+    }else{
+        fecha->hora = hora+getHora(fecha);
+    }
 }
 void setMinuto(FechaPtr fecha,int minuto)
 {
@@ -270,5 +275,62 @@ bool fechasIguales(FechaPtr fecha1,FechaPtr fecha2) ///NUEVA
 
 void MostrarFecha(FechaPtr fecha)
 {
-    printf(" %d / %d / %d - %d : %d \n\n", getDia(fecha), getMes(fecha), getAnio(fecha), getHora(fecha), getMinuto(fecha));
+    ///****************************///
+    if(getDia(fecha) < 10){
+        printf("0%d/",getDia(fecha));
+    }else{
+        printf("%d/",getDia(fecha));
+    }
+    ///****************************///
+    if(getMes(fecha) < 10){
+        printf("0%d/",getMes(fecha));
+    }else{
+        printf("%d/",getMes(fecha));
+    }
+    ///****************************///
+    printf("%d ",getAnio(fecha));
+    ///****************************///
+    if(getHora(fecha) < 10){
+        printf("0%d:",getHora(fecha));
+    }else{
+        printf("%d:",getHora(fecha));
+    }
+    ///****************************///
+    if(getMinuto(fecha) < 10){
+        printf("0%d:",getMinuto(fecha));
+    }else{
+        printf("%d\n",getMinuto(fecha));
+    }
+    ///****************************///
 }
+
+FechaPtr convertirAFecha(time_e *tiempo)
+{
+    return crearFecha(tiempo->tm_mday,tiempo->tm_mon+1,tiempo->tm_year+1900,tiempo->tm_hour,tiempo->tm_min);
+}
+
+FechaPtr getTiempoActual()
+{
+    time_t aux;
+    time(&aux);
+    time_e *tActual = localtime(&aux);
+
+    return crearFecha(tActual->tm_mday,tActual->tm_mon+1,tActual->tm_year+1900,tActual->tm_hour,tActual->tm_min);
+}
+
+bool quedaTiempo(FechaPtr fechaLimite)
+{
+    FechaPtr tiempoActual = getTiempoActual();
+    int *aux = calcularDiferenciaFechas(fechaLimite,tiempoActual);
+
+    bool condicion = aux[0]>0;
+    condicion = condicion || (aux[0]==0 && aux[1]>0);
+    condicion = condicion || (aux[0]==0 && aux[1]==0 && aux[2]>0);
+
+    tiempoActual = destruirFecha(tiempoActual);
+    free(aux);
+    aux=NULL;
+
+    return condicion;
+}
+

@@ -1291,3 +1291,135 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
     for(int i=n-1; i>-1; i--)
         agregarReparto(centroLogistico,repartos[i],esRepartoAbierto);
 }
+
+
+bool hayVehiculosDisponibles(CentroLogisticoPtr CL){
+    FechaPtr f1 = getTiempoActual();
+    ListaPtr l1 = crearLista();
+    agregarLista(l1,getVehiculos(CL));
+    while( !listaVacia(l1) ){
+        if( esVehiculoDisponible(CL,getPatente(getCabecera(l1)),f1) ){
+            l1 = destruirLista(l1,false);
+            f1 = destruirFecha(f1);
+            return true;
+        }
+        ListaPtr l2 = l1;
+        l1 = getResto(l1);
+        l2 = destruirLista(l2,false);
+    }
+    l1 = destruirLista(l1,false);
+    f1 = destruirFecha(f1);
+    return false;
+}
+
+bool hayChoferesDisponibles(CentroLogisticoPtr CL){
+    FechaPtr f1 = getTiempoActual();
+    ListaPtr l1 = crearLista();
+    agregarLista(l1,getPersonas(CL));
+    while( !listaVacia(l1) ){
+        if( getEsChofer(getCabecera(l1)) ){
+            if( !choferEnReparto(CL,getCabecera(l1),f1) ){
+                l1 = destruirLista(l1,false);
+                f1 = destruirFecha(f1);
+                return true;
+            }
+        }
+        ListaPtr l2 = l1;
+        l1 = getResto(l1);
+        l2 = destruirLista(l2,false);
+    }
+    l1 = destruirLista(l1,false);
+    f1 = destruirFecha(f1);
+    return false;
+}
+
+
+///-----------------------------------------------------------------------------------------------------------------------///
+
+///-----------------------------------------------------------------------------------------------------------------------///
+
+                                    ///SECCION DE PRUEBAS
+
+///-----------------------------------------------------------------------------------------------------------------------///
+
+///-----------------------------------------------------------------------------------------------------------------------///
+
+
+void cargarRepartosAutomaticamente(CentroLogisticoPtr CL){
+    ListaPtr l1; ///LISTA GENERICA
+    ListaPtr l2; ///LISTA AUXILIAR
+    ListaPtr lAux = crearLista(); ///LISTA FINAL
+    PersonaPtr c = NULL;
+    VehiculoPtr v = NULL;
+    FechaPtr f1 = getTiempoActual();
+    FechaPtr f2 = getTiempoActual();
+    setHora(f2,8);
+    while( hayChoferesDisponibles(CL) && hayPaquetesDisponibles(CL) && hayVehiculosDisponibles(CL) ){
+        ///*********************************************************///
+        ///AGREGAMOS CHOFER AUTOMATICAMENTE
+        l1 = crearLista();
+        agregarLista(l1,getPersonas(CL));
+        while( !listaVacia(l1) ){
+            if( getEsChofer(getCabecera(l1)) ){
+                if( !choferEnReparto(CL,getCabecera(l1),f1) ){
+                    c = getCabecera(l1);
+                    break;
+                }
+            }
+            l2 = l1;
+            l1 = getResto(l1);
+            l2 = destruirLista(l2,false);
+        }
+        l1 = destruirLista(l1,false);
+        ///*********************************************************///
+        ///AGREGAMOS VEHICULO AUTOMATICAMENTE
+        l1 = crearLista();
+        agregarLista(l1,getVehiculos(CL));
+        while( !listaVacia(l1) ){
+            if( esVehiculoDisponible(CL,getCabecera(l1),f1) ){
+                v = getCabecera(l1);
+                break;
+            }
+            l2 = l1;
+            l1 = getResto(l1);
+            l2 = destruirLista(l2,false);
+        }
+        l1 = destruirLista(l1,false);
+        ///*********************************************************///
+        ///AGREGAMOS PAQUETES AUTOMATICAMENTE
+        int paquetesCargados = 0;
+        l1 = crearLista();
+        PilaPtr p = crearPila();
+        agregarLista(l1,getPaquetes(CL));
+        while( !listaVacia(l1) && paquetesCargados != 3 ){
+            if( getEstado( getCabecera(l1) ) == 0 ){
+                setEstado( getCabecera(l1),6 );
+                apilar( p,getCabecera(l1) );
+                paquetesCargados++;
+            }
+            l2 = l1;
+            l1 = getResto(l1);
+            l2 = destruirLista(l2,false);
+        }
+        l1 = destruirLista(l1,false);
+        ///*********************************************************///
+        agregarDatoLista(  lAux,crearReparto(c,v,f1,f2,p) );
+    }
+    ///*********************************************************///
+    int i = 1;
+    l1 = crearLista();
+    agregarLista(l1,lAux);
+    while( !listaVacia(l1) ){
+        printf("Reparto creado NRO: %d. \n\n", i++);
+        mostrarReparto(getCabecera(l1));
+        agregarDatoLista( getRepartos(CL,true),getCabecera(l1) );
+        l2 = l1;
+        l1 = getResto(l1);
+        l2 = destruirLista(l2,false);
+    }
+    l1 = destruirLista(l1,false);
+    lAux = destruirLista(l2,false);
+    system("pause");
+}
+
+
