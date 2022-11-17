@@ -29,7 +29,7 @@ ListaPtr crearListaRepartosDefecto()
     FechaPtr fechaEntrega1=crearFecha(17,11,2022,17,35);
     CuilPtr cuil1=crearCuil("20 34654754 6");
     PersonaPtr chofer1=crearPersona("Roberto","Garcia",domicilioChofer1,cuil1,true);
-    PaquetePtr paquete1=crearPaquete(1,4,5,2,65,dirRetiro1,dirEntrega1,fechaEntrega1,0);
+    PaquetePtr paquete1=crearPaquete(1,4,5,2,65,dirRetiro1,dirEntrega1,fechaEntrega1,6);
     VehiculoPtr vehiculo1=crearVehiculo(3,"Mercedes Benz","Actros","17 UJI 30");
     PilaPtr PilaPaquetes1 = crearPila();
     apilar(PilaPaquetes1, (PaquetePtr)paquete1);
@@ -44,7 +44,7 @@ ListaPtr crearListaRepartosDefecto()
     FechaPtr fechaEntrega2=crearFecha(17,11,2022,17,30);
     CuilPtr cuil2=crearCuil("27 24576456 7");
     PersonaPtr chofer2=crearPersona("Maria","Gonzalez",domicilioChofer2,cuil2,true);
-    PaquetePtr paquete2 = crearPaquete(2,2,5,3,120,dirRetiro2,dirEntrega2,fechaEntrega2,0);
+    PaquetePtr paquete2 = crearPaquete(2,2,5,3,120,dirRetiro2,dirEntrega2,fechaEntrega2,6);
     PilaPtr PilaPaquetes2 = crearPila();
     apilar(PilaPaquetes2, (PaquetePtr)paquete2);
     VehiculoPtr vehiculo2=crearVehiculo(3,"Mercedes Benz","Actros","81 NMB 30");
@@ -59,7 +59,7 @@ ListaPtr crearListaRepartosDefecto()
     FechaPtr fechaEntrega3=crearFecha(17,11,2022,17,40);
     CuilPtr cuil3=crearCuil("30 23456543 1");
     PersonaPtr chofer3=crearPersona("Gonzalo","Gutierrez",domicilioChofer3,cuil3,true);
-    PaquetePtr paquete3=crearPaquete(3,8,8,10,800,dirRetiro3,dirEntrega3,fechaEntrega3,0);
+    PaquetePtr paquete3=crearPaquete(3,8,8,10,800,dirRetiro3,dirEntrega3,fechaEntrega3,6);
     PilaPtr PilaPaquetes3 = crearPila();
     apilar(PilaPaquetes3, (PaquetePtr)paquete3);
     VehiculoPtr vehiculo3=crearVehiculo(3,"Mercedes Benz","Actros","19 JUY 78");
@@ -74,7 +74,7 @@ ListaPtr crearListaRepartosDefecto()
     FechaPtr fechaEntrega4=crearFecha(17,11,2022,17,30);
     CuilPtr cuil4=crearCuil("30 23456543 1");
     PersonaPtr chofer4=crearPersona("Alberto","Alonzo",domicilioChofer4,cuil4,true);
-    PaquetePtr paquete4=crearPaquete(3,8,8,10,800,dirRetiro4,dirEntrega4,fechaEntrega4,0);
+    PaquetePtr paquete4=crearPaquete(3,8,8,10,800,dirRetiro4,dirEntrega4,fechaEntrega4,6);
     PilaPtr PilaPaquetes4 = crearPila();
     apilar(PilaPaquetes4, (PaquetePtr)paquete4);
     VehiculoPtr vehiculo4=crearVehiculo(3,"Mercedes Benz","Actros","19 JUY 78");
