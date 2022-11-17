@@ -248,37 +248,22 @@ RepartoPtr copiarReparto(RepartoPtr repartoOriginal)
 
 bool actualizarReparto(RepartoPtr reparto,int posicion) ///NUEVA
 {
-    int n=cantidadPaquetes(reparto);
+    int n = cantidadPaquetes(reparto);
     PaquetePtr paquetes[n];
-
-    bool repartoEnCurso=false, repartoActualizado=false;
-
-    for(int i=0;i<n;i++)
-    {
+    bool repartoActualizado=false;
+    for(int i=0;i<n;i++){
         paquetes[i] = descargarPaquete(reparto);
-
-        if(!quedaTiempo(getFechaSalida(reparto)))
-        {
-            repartoEnCurso=true;
-            repartoActualizado=true;
-            setEstado(paquetes[i],1);
-        }
-        else if(!quedaTiempo(getFechaEntrega(paquetes[i]))
-                && quedaTiempo(getFechaRetorno(reparto))
-                && getEstado(paquetes[i])!=3)
-        {
+        if(!quedaTiempo( getFechaEntrega(paquetes[i]) ) && getEstado(paquetes[i]) != 3){
             repartoActualizado=true;
             setEstado(paquetes[i],4);
-            printf("El paquete #%d esta demorado.\n",getID(paquetes[i]));
+            printf("\nEl paquete #%d esta demorado",getID(paquetes[i]));
         }
     }
-    for(int i=n-1;i>-1;i--)
+    for(int i=n-1;i>-1;i--){
         cargarPaquete(reparto,paquetes[i]);
-
-    if(repartoEnCurso)
-        printf("\n\nReparto %d en curso.\n",posicion);
-    else if(repartoActualizado)
-        printf("\nActualizado reparto %d.\n",posicion);
-
+    }
+    if(repartoActualizado){
+        printf("\nReparto actualizado %d.\n",posicion);
+    }
     return repartoActualizado;
 }

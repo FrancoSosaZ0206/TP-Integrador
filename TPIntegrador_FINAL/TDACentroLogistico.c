@@ -11,6 +11,7 @@
 #include "TDACentroLogistico.h"
 #include "Menus.h"
 #include "util.h"
+#include <math.h>
 
 
 
@@ -753,73 +754,46 @@ VehiculoPtr removerVehiculo(CentroLogisticoPtr centroLogistico,int posicion)
 }
 RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto)
 {
-    RepartoPtr repartoRemover=0;
-
-    if(esRepartoAbierto)
-    {
-        repartoRemover = (RepartoPtr)removerDeLista(centroLogistico->listaRepartosAbiertos,posicion);
-
+    RepartoPtr repartoRemover = 0;
+    if(esRepartoAbierto) {
+        repartoRemover = (RepartoPtr)removerDeLista(getRepartos(centroLogistico, true), posicion);
         int n = cantidadPaquetes(repartoRemover);
         PaquetePtr paquetes[n];
-        for(int i=0;i<n;i++)
-        {
+        for(int i=0; i<n; i++ ){
             paquetes[i] = descargarPaquete(repartoRemover);
-
-            if(getEstado(paquetes[i]!=3) && getEstado(paquetes[i])!=5)
-                setEstado(paquetes[i],0);
+            if(getEstado(paquetes[i]) != 3 && getEstado(paquetes[i]) != 5){
+                setEstado(paquetes[i], 0);
+            }
         }
-        for(int i=n-1;i>-1;i--)
+        for(int i=n-1; i>-1; i--){
             cargarPaquete(repartoRemover,paquetes[i]);
+        }
+    } else {
+        repartoRemover = (RepartoPtr)removerDeLista(getRepartos(centroLogistico, false), posicion);
     }
-    else
-        repartoRemover = (RepartoPtr)removerDeLista(centroLogistico->listaRepartosCerrados,posicion);
-
     return repartoRemover;
 }
 
 void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es automático
-{ ///extraemos el reparto de la lista de abiertos
-    RepartoPtr repartoACerrar = removerReparto(centroLogistico,posicion,true);
-
-///Copiamos el contenido del reparto en uno nuevo.
+{
+    RepartoPtr repartoACerrar = removerReparto(centroLogistico, posicion, true);
     RepartoPtr copiaReparto = copiarReparto(repartoACerrar);
-
-///Obtenemos cada paquete de la pila y marcamos como suspendido los que no se entregaron
-    int n=cantidadPaquetes(repartoACerrar);
+    int n = cantidadPaquetes(repartoACerrar), cantPaquetes = 0;
     PaquetePtr paquetesAux[n];
-
-    int nPaqSuspendidos=0;
-
-    for(int i=0;i<n;i++)
-    {
+    for(int i=0; i<n; i++) {
         paquetesAux[i] = descargarPaquete(repartoACerrar);
-
-        if(!quedaTiempo(getFechaRetorno(repartoACerrar))
-           && getEstado(paquetesAux[i])!=3)
-        {
+        if( !quedaTiempo( getFechaRetorno(repartoACerrar) ) && getEstado(paquetesAux[i]) != 3 ) {
             setEstado(paquetesAux[i],5);
-            nPaqSuspendidos++;
+            printf("\nPaquete suspendido %d", getID(paquetesAux[i]) );
         }
+    cantPaquetes ++;
     }
-
-    int paqSuspendidos[nPaqSuspendidos];
-    for(int i=n-1;i>-1;i--)
-    {
+    for(int i=cantPaquetes-1;i>-1;i--){
         cargarPaquete(repartoACerrar,paquetesAux[i]);
-        paqSuspendidos[i] = getID(paquetesAux[i]);
     }
-
-///Agregamos la copia del reparto cerrado a la lista de cerrados
-    agregarReparto(centroLogistico,copiaReparto,false);
-
-///Destruimos el reparto original e informamos
+    agregarReparto(centroLogistico,copiaReparto, false);
     repartoACerrar=destruirReparto(repartoACerrar);
-    printf("\n\nCerrado reparto %d...\n",posicion);
-
-    printf("Se suspendieron los paquetes:\n");
-    for(int i=0;i<nPaqSuspendidos-1;i++)
-        printf("\t#%d\n",paqSuspendidos[i]);
-    printf("\t#%d\n\n",paqSuspendidos[nPaqSuspendidos]);
+    printf("\n\nReparto cerrado %d", posicion);
 }
 
 /// ///////////////////////////////////////////////FUNCIONES DE VALIDACIÓN/////////////////////////////////////////////////////////////////////// ///
@@ -1273,7 +1247,7 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
         repartos[i]=removerReparto(centroLogistico,0,esRepartoAbierto);
 
     ///Luego, ordenamos el vector (m. shell)
-    int salto=n/2;
+    int salto=round(n/2);
     while(salto>0)
     {
         bool cambios = false;
@@ -1323,7 +1297,7 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
             }
         }
         if(!cambios)
-            salto/=2;
+            salto=round(salto/2);
     }
 ///Finalmente, agregamos nuevamente los elementos ordenados a la lista
     for(int i=n-1; i>-1; i--)
@@ -1333,28 +1307,28 @@ void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,in
 
 /// ///////////////////////////////////////////////SISTEMA DE ACTUALIZACIÓN AUTOMÁTICA DE REPARTOS////////////////////////////////////////////////////////// ///
 
-void actualizarRepartos(CentroLogisticoPtr ctroLog) ///NUEVA
-{
-    ListaPtr listaAux = crearLista();
-    agregarLista(listaAux,getRepartos(ctroLog,true));
-
-    bool hayCambios=false;
-
-    for(int i=0;!listaVacia(listaAux);i++)
-    {
-        RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
-
-        if(!quedaTiempo(getFechaRetorno(repartoAux))) { hayCambios=true; cerrarReparto(ctroLog,i); }
-        else { hayCambios = actualizarReparto(repartoAux,i); }
-
-        if(hayCambios) { printf("\n\n"); }
-
-        ListaPtr listaDestruir = listaAux;
-        listaAux = getResto(listaAux);
-        listaDestruir = destruirLista(listaDestruir,false);
+void actualizarRepartos(CentroLogisticoPtr ctroLog) {
+    if( listaVacia( getRepartos(ctroLog, true) ) ){
+        return;
+    } else {
+        ListaPtr listaAux = crearLista();
+        agregarLista(listaAux, getRepartos(ctroLog, true));
+        bool hayCambios = false;
+        for(int i=0; !listaVacia(listaAux); i++) {
+            RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
+            if( !quedaTiempo( getFechaRetorno(repartoAux) ) )  {
+                cerrarReparto(ctroLog, i);
+                hayCambios = true;
+            } else {
+                hayCambios = actualizarReparto(repartoAux, i);
+            }
+            ListaPtr listaDestruir = listaAux;
+            listaAux = getResto(listaAux);
+            listaDestruir = destruirLista(listaDestruir, false);
+        }
+        listaAux = destruirLista(listaAux, false);
+        if( hayCambios ) {
+            presionarEnterYLimpiarPantalla();
+        }
     }
-    listaAux = destruirLista(listaAux,false);
-
-    if(hayCambios)
-        presionarEnterYLimpiarPantalla();
 }

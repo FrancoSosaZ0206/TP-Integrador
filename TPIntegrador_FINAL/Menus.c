@@ -3034,7 +3034,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             bool seguirApilando = false;
 
             PilaPtr pilaPaquetesElegidos = crearPila();
-        ///Primero, cargamos la fecha de salida y el chofer para validarlo
+            ///Primero, cargamos la fecha de salida y el chofer para validarlo
             printf("\n\nFecha de salida: ");
             FechaPtr fechaSalida = cargarFecha();
 
@@ -3082,7 +3082,8 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             choferElegido = (PersonaPtr)getDatoLista(getPersonas(centroLogistico),k-1);
 
             do
-            { /// Validación y elección de vehículo
+            {
+                /// Validación y elección de vehículo
                 n = longitudLista(getVehiculos(centroLogistico));
                 mostrarVehiculosDisponibles(centroLogistico,fechaSalida);
 
@@ -3128,21 +3129,17 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
 
                 difFechas = calcularDiferenciaFechas(fechaSalida,fechaRetorno);
 
-                if(!esFechaValida(fechaRetorno))
-                {
+                if(!esFechaValida(fechaRetorno)){
                     printf("\n\nFecha invalida. Reingrese la fecha.\n\n");
                     presionarEnterYLimpiarPantalla();
                 }
-                else if(difFechas[1]>0 || (difFechas[1]<=0 && difFechas[2]>0))
-                {
+                if(difFechas[1]>0 || (difFechas[1]>=0 && difFechas[2]>0)){
                     printf("\n\nERROR: El horario de retorno debe ser posterior al de salida.");
                     presionarEnterYLimpiarPantalla();
                 }
             } while(!esFechaValida(fechaRetorno) || difFechas[1]>0 || (difFechas[1]<=0 && difFechas[2]>0));
-
             free(difFechas);
             difFechas=NULL;
-
             do
             { ///Validación y elección de paquetes
                 paqueteValido = false;

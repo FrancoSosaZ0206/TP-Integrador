@@ -85,6 +85,19 @@ ListaPtr crearListaRepartosDefecto()
     agregarDatoLista(listaRepartos,(RepartoPtr)reparto2);
     agregarDatoLista(listaRepartos,(RepartoPtr)reparto3);
     agregarDatoLista(listaRepartos,(RepartoPtr)reparto4);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto4);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto3);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto4);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto3);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto4);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto3);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto4);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto2);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto2);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto2);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto1);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto1);
+    agregarDatoLista(listaRepartos,(RepartoPtr)reparto1);
     return listaRepartos;
 }
 

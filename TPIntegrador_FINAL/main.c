@@ -134,6 +134,8 @@ int main()
             break;
         case 3:
             centroLogistico = crearCentroLogisticoDefecto();
+            cerrarReparto(centroLogistico, 1);
+            system("pause");
             if(centroLogistico==NULL)
             {
                 printf("ERROR: problema al crear centroLogistico por defecto.\n\n");

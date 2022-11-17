@@ -286,22 +286,18 @@ FechaPtr getTiempoActual()
     time_t aux;
     time(&aux);
     time_e *tActual = localtime(&aux);
-
     return crearFecha(tActual->tm_mday,tActual->tm_mon+1,tActual->tm_year+1900,tActual->tm_hour,tActual->tm_min);
 }
 
 bool quedaTiempo(FechaPtr fechaLimite)
 {
     FechaPtr tiempoActual = getTiempoActual();
-    int *aux = calcularDiferenciaFechas(fechaLimite,tiempoActual);
-
-    bool condicion = aux[0]>0;
-    condicion = condicion || (aux[0]==0 && aux[1]>0);
-    condicion = condicion || (aux[0]==0 && aux[1]==0 && aux[2]>0);
-
+    int *aux = calcularDiferenciaFechas(fechaLimite, tiempoActual);
+    bool condicion = aux[0] > 0;
+    condicion = condicion || aux[1] > 0;
+    condicion = condicion || aux[2] > 0;
     tiempoActual = destruirFecha(tiempoActual);
     free(aux);
-    aux=NULL;
-
+    aux = NULL;
     return condicion;
 }
