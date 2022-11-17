@@ -91,11 +91,7 @@ void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) //agrega un paquete a 
     if(pilaVacia(getPaquetesReparto(reparto)))
         reparto->paquetes=crearPila();
     else
-    {
-        printf("\n\nERROR: PILA YA CREADA.\n\n");
-        exit(1);
-    }
-    apilar(reparto->paquetes,(PaquetePtr)paquete);
+        apilar(reparto->paquetes,(PaquetePtr)paquete);
 }
 PaquetePtr descargarPaquete(RepartoPtr reparto) //elimina el ultimo paquete agregado de la pila. Devuelve el paquete eliminado.
 {

@@ -663,8 +663,8 @@ bool menuCargarPaquete(CentroLogisticoPtr centroLogistico)
         ID = longitudLista(getPaquetes(centroLogistico))+1;
         while(esIDExistente(centroLogistico, ID))
             ID++;
-        printf("\tIngrese Ancho, alto, largo separados por espacios: ");
-        scanf("%d %d %d",&ancho,&alto,&alto);
+        printf("\tIngrese Ancho, alto y largo separados por espacios: ");
+        scanf("%d %d %d",&ancho,&alto,&largo);
         limpiarBufferTeclado();
         printf("\n\tIngrese Peso: ");
         scanf("%d",&peso);
@@ -3133,12 +3133,12 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
                     printf("\n\nFecha invalida. Reingrese la fecha.\n\n");
                     presionarEnterYLimpiarPantalla();
                 }
-                else if(difFechas[1]>0 || (difFechas[1]<=0 && difFechas[2]>0))
+                else if(difFechas[1]>0 || (difFechas[1]==0 && difFechas[2]>0))
                 {
                     printf("\n\nERROR: El horario de retorno debe ser posterior al de salida.");
                     presionarEnterYLimpiarPantalla();
                 }
-            } while(!esFechaValida(fechaRetorno) || difFechas[1]>0 || (difFechas[1]<=0 && difFechas[2]>0));
+            } while(!esFechaValida(fechaRetorno) || difFechas[1]>0 || (difFechas[1]==0 && difFechas[2]>0));
 
             free(difFechas);
             difFechas=NULL;

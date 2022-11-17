@@ -765,7 +765,7 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
         {
             paquetes[i] = descargarPaquete(repartoRemover);
 
-            if(getEstado(paquetes[i]!=3) && getEstado(paquetes[i])!=5)
+            if(getEstado(paquetes[i])!=3 && getEstado(paquetes[i])!=5)
                 setEstado(paquetes[i],0);
         }
         for(int i=n-1;i>-1;i--)
@@ -819,7 +819,7 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
     printf("Se suspendieron los paquetes:\n");
     for(int i=0;i<nPaqSuspendidos-1;i++)
         printf("\t#%d\n",paqSuspendidos[i]);
-    printf("\t#%d\n\n",paqSuspendidos[nPaqSuspendidos]);
+    printf("\t#%d\n\n",paqSuspendidos[nPaqSuspendidos-1]);
 }
 
 /// ///////////////////////////////////////////////FUNCIONES DE VALIDACIÓN/////////////////////////////////////////////////////////////////////// ///
