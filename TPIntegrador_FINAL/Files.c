@@ -757,20 +757,42 @@ CentroLogisticoPtr abrirTodo() //implementacion: creará un centro logistico y lo
 
 /* Función para leer líneas de texto terminadas con un
 caracter determinado */
-int LeerString(FILE *archivo,char buffer[], int longitudMax,char terminador)
-{
-    // leemos caracter a caracter hasta encontrar terminador o EOF
+int LeerString(FILE *archivo, char buffer[], int longitudMax, char terminador){
     char caracter;
-    int k=0;
+    int k = 0;
     do{
-        caracter=fgetc(archivo);
-        if(k<longitudMax)
-            buffer[k]=caracter;
+        caracter = fgetc(archivo);
+        if(k < longitudMax) { buffer[k] = caracter; }
         k++;
-    } while(caracter!=EOF && caracter!=terminador);
-    buffer[k]=0; // agregamos el terminador
-    if(caracter==EOF)
-        return EOF;
-    else
-        return k;
+    } while(caracter != EOF && caracter != terminador);
+    buffer[k] = 0;
+    if(caracter == EOF) { return EOF; }
+    else { return k; }
+}
+
+void guardarPersonaPrueba(PersonaPtr p1, int posicion) {
+    fPersona p2;
+    fsetPersona(&p2,p1,true);
+    strcat(p2.nombre, "\n");
+    strcat(p2.apellido, "\n");
+    strcat(p2.domicilio.calle, "\n");
+    strcat(p2.domicilio.localidad, "\n");
+    strcat(p2.cuil.cuil, "\n");
+    FILE* a = fopen("Pruebas.txt", "wb");
+    fprintf(a, "%s %d %s", "Persona ", posicion, "\n");
+    fprintf(a, "%s", "Nombre: ");
+    fprintf(a, "%s", p2.nombre);
+    fprintf(a, "%s", "Apellido: ");
+    fprintf(a, "%s", p2.apellido);
+    fprintf(a, "%s", "Domicilio: \n");
+    fprintf(a, "%s", "Calle: ");
+    fprintf(a, "%s", p2.domicilio.calle);
+    fprintf(a, "%s", "Altura: ");
+    fprintf(a, "%d", p2.domicilio.altura);
+    fprintf(a, "%s", "\n");
+    fprintf(a, "%s", "Localidad: ");
+    fprintf(a, "%s", p2.domicilio.localidad);
+    fprintf(a, "%s", "Cuil: ");
+    fprintf(a, "%s", p2.cuil.cuil);
+    fclose(a);
 }

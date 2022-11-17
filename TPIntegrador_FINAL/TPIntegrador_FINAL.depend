@@ -701,7 +701,7 @@
 	<string.h>
 	"util.h"
 
-1668566627 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\files.c
+1668718975 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\files.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -795,7 +795,7 @@
 	"TDANodo.h"
 	"Lista.h"
 
-1668716740 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\main.c
+1668718930 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -870,7 +870,7 @@
 	"TDAPersona.h"
 	"util.h"
 
-1668715929 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdarepartos.c
+1668717709 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdarepartos.c
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -928,7 +928,7 @@
 	"util.h"
 	"Menus.h"
 
-1668716682 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacentrologistico.c
+1668717709 source:c:\users\gaston\desktop\github\proyecto central\tp-integrador\tpintegrador_final\tdacentrologistico.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

@@ -134,7 +134,7 @@ int main()
             break;
         case 3:
             centroLogistico = crearCentroLogisticoDefecto();
-            cerrarReparto(centroLogistico, 1);
+            guardarPersonaPrueba( getDatoLista(getPersonas(centroLogistico), 0) , 0 );
             system("pause");
             if(centroLogistico==NULL)
             {

@@ -754,46 +754,30 @@ VehiculoPtr removerVehiculo(CentroLogisticoPtr centroLogistico,int posicion)
 }
 RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto)
 {
-    RepartoPtr repartoRemover = 0;
     if(esRepartoAbierto) {
-        repartoRemover = (RepartoPtr)removerDeLista(getRepartos(centroLogistico, true), posicion);
-        int n = cantidadPaquetes(repartoRemover);
-        PaquetePtr paquetes[n];
-        for(int i=0; i<n; i++ ){
-            paquetes[i] = descargarPaquete(repartoRemover);
-            if(getEstado(paquetes[i]) != 3 && getEstado(paquetes[i]) != 5){
-                setEstado(paquetes[i], 0);
-            }
-        }
-        for(int i=n-1; i>-1; i--){
-            cargarPaquete(repartoRemover,paquetes[i]);
-        }
+        return (RepartoPtr)removerDeLista(getRepartos(centroLogistico, true), posicion);
     } else {
-        repartoRemover = (RepartoPtr)removerDeLista(getRepartos(centroLogistico, false), posicion);
+        return (RepartoPtr)removerDeLista(getRepartos(centroLogistico, false), posicion);
     }
-    return repartoRemover;
 }
 
 void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es automático
 {
     RepartoPtr repartoACerrar = removerReparto(centroLogistico, posicion, true);
-    RepartoPtr copiaReparto = copiarReparto(repartoACerrar);
-    int n = cantidadPaquetes(repartoACerrar), cantPaquetes = 0;
+    int n = cantidadPaquetes(repartoACerrar);
     PaquetePtr paquetesAux[n];
     for(int i=0; i<n; i++) {
         paquetesAux[i] = descargarPaquete(repartoACerrar);
-        if( !quedaTiempo( getFechaRetorno(repartoACerrar) ) && getEstado(paquetesAux[i]) != 3 ) {
-            setEstado(paquetesAux[i],5);
-            printf("\nPaquete suspendido %d", getID(paquetesAux[i]) );
+        if( getEstado(paquetesAux[i]) != 3 ) {
+            setEstado(paquetesAux[i], 0);
+            printf("\nPaquete devuelto al deposito #%d", getID(paquetesAux[i]) );
         }
-    cantPaquetes ++;
     }
-    for(int i=cantPaquetes-1;i>-1;i--){
+    for(int i=n-1;i>-1;i--){
         cargarPaquete(repartoACerrar,paquetesAux[i]);
     }
-    agregarReparto(centroLogistico,copiaReparto, false);
-    repartoACerrar=destruirReparto(repartoACerrar);
-    printf("\n\nReparto cerrado %d", posicion);
+    agregarReparto(centroLogistico, repartoACerrar, false);
+    printf("\n\nReparto cerrado %d\n\n", posicion);
 }
 
 /// ///////////////////////////////////////////////FUNCIONES DE VALIDACIÓN/////////////////////////////////////////////////////////////////////// ///
