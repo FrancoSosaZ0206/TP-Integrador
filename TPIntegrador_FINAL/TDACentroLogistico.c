@@ -117,20 +117,18 @@ void mostrarPaquetes(CentroLogisticoPtr centroLogistico)
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPaquetes(centroLogistico));
 
-    int i=0;
-
     printf("\nLISTA DE PAQUETES: \n\n");
-    while(!listaVacia(listaAux))
+    for(int i=1;!listaVacia(listaAux);i++)
     {
-        printf("%d. ",i+1);
+        printf("%d. ",i);
         mostrarPaquete((PaquetePtr)getCabecera(listaAux));
+
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
+
         if(!listaVacia(listaAux))
             printf("\n");
-
-        i++;
     }
     printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
@@ -140,8 +138,6 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
 {
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPersonas(centroLogistico));
-
-    int i=0;
 
     switch(modo)
     {
@@ -155,37 +151,38 @@ void mostrarPersonas(CentroLogisticoPtr centroLogistico,int modo)
         printf("\nLISTA DE PERSONAS: \n\n");
         break;
     }
-    while(!listaVacia(listaAux))
+    for(int i=1;!listaVacia(listaAux);i++)
     {
         PersonaPtr personaAux=(PersonaPtr)getCabecera(listaAux);
+
         switch(modo)
         {
         case 1: //Filtra por chofer
             if(getEsChofer(personaAux))
             {
-                printf("%d. ",i+1);
+                printf("%d. ",i);
                 mostrarPersona(personaAux);
             }
             break;
         case 2: //Filtra por cliente
             if(!getEsChofer(personaAux))
             {
-                printf("%d. ",i+1);
+                printf("%d. ",i);
                 mostrarPersona(personaAux);
             }
             break;
         case 3: //Sin filtro - Muestra todas las personas
-            printf("%d. ",i+1);
+            printf("%d. ",i);
             mostrarPersona(personaAux);
             break;
         }
+
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
+
         if(!listaVacia(listaAux))
             printf("\n");
-
-        i++;
     }
     printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
@@ -196,21 +193,18 @@ void mostrarVehiculos(CentroLogisticoPtr centroLogistico)
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getVehiculos(centroLogistico));
 
-    int i=0;
-
     printf("\nLISTA DE VEHICULOS: \n\n");
-    while(!listaVacia(listaAux))
+    for(int i=1;!listaVacia(listaAux);i++)
     {
-        printf("%d. ",i+1);
-
+        printf("%d. ",i);
         mostrarVehiculo((VehiculoPtr)getCabecera(listaAux));
+
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
+
         if(!listaVacia(listaAux))
             printf("\n");
-
-        i++;
     }
     printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
@@ -232,6 +226,9 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
+
+        if(!listaVacia(listaAux))
+            printf("\n");
     }
     printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
@@ -250,7 +247,7 @@ void filtrarRepartosPorFecha(CentroLogisticoPtr centroLogistico,bool esRepartoAb
     char buffer[11];
     traerFechaCorta(fecha,buffer);
     printf("FILTRADOS POR DIA DE SALIDA - %s \n\n\n\n",buffer);
-    while(!listaVacia(listaAux))
+    for(int i=1;!listaVacia(listaAux);i++)
     {
         RepartoPtr repartoAux=getCabecera(listaAux);
         int *diaJulianoDeReparto = calcularDiferenciaFechas(getFechaSalida(repartoAux),fecha);
@@ -258,8 +255,8 @@ void filtrarRepartosPorFecha(CentroLogisticoPtr centroLogistico,bool esRepartoAb
     ///CONDICION: "si SOLAMENTE el día JULIANO del reparto (dia, mes y año) coincide con el de la fecha recibida..."
         if(condicion)
         {
+            printf("\n\n%d. ", i);
             mostrarRepartoSinPaquetes(repartoAux);
-            printf("\n\n\n");
         }
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
@@ -271,7 +268,6 @@ void filtrarRepartosPorFecha(CentroLogisticoPtr centroLogistico,bool esRepartoAb
 
 void filtrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico,int estado) //filtra los paquetes que se muestran por el estado indicado. Ver: TDAPaquete.h>>>Funcion helpEstadoPaquete().
 {
-    int i = 1;
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getPaquetes(centroLogistico));
     switch(estado)
@@ -299,12 +295,12 @@ void filtrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico,int estado) //f
         break;
     }
 
-    while(!listaVacia(listaAux))
+    for(int i=1;!listaVacia(listaAux);i++)
     {
         PaquetePtr paqueteAux=(PaquetePtr)getCabecera(listaAux);
         if(getEstado(paqueteAux)==estado)
         {
-            printf("\n\n Posicion %d. \n\n", i++);
+            printf("\n\n%d. ", i);
             mostrarPaquete(paqueteAux);
         }
         ListaPtr listaDestruir = listaAux;
@@ -335,7 +331,7 @@ void filtrarPaquetesEnCurso(CentroLogisticoPtr centroLogistico, bool enCurso)
 
         if(condicion)
         {
-            printf("\n\n Posicion %d. \n\n", i);
+            printf("\n\n%d. ", i);
             mostrarPaquete(paqueteAux);
         }
 
@@ -361,7 +357,7 @@ void mostrarPaquetesDisponibles(CentroLogisticoPtr centroLogistico)
         bool paqueteDisponible = estado == 0 || estado == 5;
         if(paqueteDisponible)
         {
-            printf("\n\n Posicion %d. \n\n", i);
+            printf("\n\n%d. ", i);
             mostrarPaquete(paqueteAux);
         }
 
