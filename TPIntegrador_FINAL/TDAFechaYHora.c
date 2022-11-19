@@ -158,9 +158,23 @@ bool esBiciesto(FechaPtr fecha)
     else
         return false;
 }
-FechaPtr sumarAFecha(FechaPtr fecha,int dias)
+FechaPtr sumarAFecha(FechaPtr fecha,int dias,int horas,int minutos) ///Nueva Implementación
 {
     fecha->diaJuliano+=dias;
+    fecha->hora+=horas;
+    fecha->minuto+=minutos;
+
+    if(fecha->minuto>=60)
+    {
+        fecha->hora++;
+        fecha->minuto-=60;
+    }
+    if(fecha->hora>=24)
+    {
+        fecha->diaJuliano++;
+        fecha->hora-=24;
+    }
+
     return fecha;
 }
 int diaSemana(FechaPtr fecha)

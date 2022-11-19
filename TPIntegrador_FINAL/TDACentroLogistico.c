@@ -223,16 +223,15 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 
     ListaPtr listaAux=crearLista();
     agregarLista(listaAux,getRepartos(centroLogistico,esRepartoAbierto));
-    int i = 1;
-    while(!listaVacia(listaAux))
+    for(int i=1;!listaVacia(listaAux);i++)
     {
         RepartoPtr repartoAux = (RepartoPtr) getCabecera(listaAux);
-        printf("\n\n Posicion %d. \n\n", i);
+        printf("%d. ", i);
         mostrarRepartoSinPaquetes(repartoAux);
+
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);
         listaDestruir = destruirLista(listaDestruir, false);
-        i++;
     }
     printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);

@@ -218,16 +218,19 @@ PARÁMETROS:
 DEVUELVE: booleano indicando si es biciesto (true) o no (false). */
 bool esBiciesto(FechaPtr fecha);
 
-/** OPERACIÓN: suma dias a una fecha
+///Nueva implementación: ahora también podemos sumar horas y minutos
+/** OPERACIÓN: suma dias, horas y/o minutos a una fecha
 PRECONDICIÓN: fecha debe haberse creado
 POSTCONDICIÓN: a la fecha se le sumarán los días indicados
 PARÁMETROS:
     - fecha: puntero a la fecha original
     - dias: entero representando los dias a sumar
-DEVUELVE: puntero a la fecha con los días sumados. */
-FechaPtr sumarAFecha(FechaPtr fecha,int dias);
+    - horas: entero representando las horas a sumar
+    - minutos: entero representando los minutos a sumar
+DEVUELVE: puntero a la fecha con los días, horas y/o minutos sumados. */
+FechaPtr sumarAFecha(FechaPtr fecha,int dias,int horas,int minutos);
 
-/** OPERACIÓN: Indica el numero de semana.
+/** OPERACIÓN: Indica el número de semana.
 PRECONDICIÓN: fecha debe haberse creado
 POSTCONDICIÓN: Se sabe que numero de la semana es.
 PARÁMETROS:
@@ -235,7 +238,7 @@ PARÁMETROS:
 DEVUELVE: un entero a representar el numero de semana. */
 int diaSemana(FechaPtr fecha);
 
-/** OPERACIÓN: Da el nombre del dia.
+/** OPERACIÓN: Da el nombre del día.
 PRECONDICIÓN: fecha debe haberse creado.
 POSTCONDICIÓN: El buffer contiene el nombre del dia.
 PARÁMETROS:
