@@ -253,20 +253,29 @@ bool actualizarReparto(RepartoPtr reparto,int posicion) ///NUEVA
     {
         paquetes[i] = descargarPaquete(reparto);
 
-        if(!quedaTiempo(getFechaSalida(reparto)))
+        bool condEnCurso = !quedaTiempo(getFechaSalida(reparto));
+
+        bool condDemorar = !quedaTiempo(getFechaEntrega(paquetes[i]));
+        condDemorar=condDemorar && quedaTiempo(getFechaRetorno(reparto));
+        condDemorar=condDemorar && getEstado(paquetes[i])!=3;
+
+        if(condEnCurso)
         {
             repartoEnCurso=true;
             repartoActualizado=true;
             setEstado(paquetes[i],1);
+            printf("El paquete #%d esta en curso.\n",getID(paquetes[i]));
         }
-        else if(!quedaTiempo(getFechaEntrega(paquetes[i]))
-                && quedaTiempo(getFechaRetorno(reparto))
-                && getEstado(paquetes[i])!=3)
+        else if(condDemorar)
         {
             repartoActualizado=true;
             setEstado(paquetes[i],4);
             printf("El paquete #%d esta demorado.\n",getID(paquetes[i]));
         }
+
+        printf("\n************************************\n");
+        mostrarPaquete(paquetes[i]);
+        printf("\n************************************\n");
     }
     for(int i=n-1;i>-1;i--)
         cargarPaquete(reparto,paquetes[i]);

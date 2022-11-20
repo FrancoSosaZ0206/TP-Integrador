@@ -290,6 +290,9 @@ void filtrarPaquetesPorEstado(CentroLogisticoPtr centroLogistico,int estado) //f
     case 5:
         printf("\nLISTA DE PAQUETES FILTRADOS POR ESTADO 'SUSPENDIDO': \n\n");
         break;
+    case 6:
+        printf("\nLISTA DE PAQUETES FILTRADOS POR ESTADO 'RESERVADO': \n\n");
+        break;
     default:
         printf("\nLISTA DE PAQUETES FILTRADOS POR ESTADO 'ERROR': \n\n");
         break;
@@ -453,7 +456,7 @@ void mostrarChoferesDisponibles(CentroLogisticoPtr centroLogistico,FechaPtr fech
     //Condicion: tiene que ser un chofer, y no figurar en la lista de repartos abiertos
         if(!choferEnReparto(centroLogistico, personaAux, fechaSalida) && getEsChofer(personaAux))
         { ///De esta manera, no se vuelve necesario encadenar tantos ifs.
-            printf("\n\nPosicion %d.\n\n", i);
+            printf("\n\n%d. ",i);
             mostrarPersona(personaAux);
         }
         ListaPtr listaDestruir = listaAux;

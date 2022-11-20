@@ -2574,12 +2574,12 @@ bool menuMostrarPaquetes(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
                     scanf("%d",&estadoBuscar);
                     limpiarBufferTeclado();
 
-                    if(estadoBuscar<0 || estadoBuscar >5)
+                    if(estadoBuscar<0 || estadoBuscar >6)
                     {
                         printf("ERROR: estado inexistente. Vuelva a intentar.");
                         presionarEnterYLimpiarPantalla();
                     }
-                } while(estadoBuscar<0 || estadoBuscar >5);
+                } while(estadoBuscar<0 || estadoBuscar >6);
 
                 filtrarPaquetesPorEstado(centroLogistico,estadoBuscar);
                 break;
