@@ -886,6 +886,17 @@ void leerPersonaPrueba() {
 
     fgets(basura, 100, a);
 
+
+    /**
+    fscanf(a, "%[^\n]%*c", basura);
+    fscanf(a, "%s %[^\n]%*c", basura, nombre);
+    fscanf(a, "%s %[^\n]%*c", basura, apellido);
+    fscanf(a, "%[^\n]%*c %s %[^\n]%*c", basura, basura, calle);
+    fscanf(a, "%s %d", basura, &altura);
+    fscanf(a, "%s %[^\n]%*c", basura, localidad);
+    fscanf(a, "%s %[^\n]%*c", basura, cuil);
+    **/
+
     while(!feof(a))
     {
         fscanf(a, "%[^\n]%*c", basura);
@@ -912,7 +923,7 @@ void leerPersonaPrueba() {
         fscanf(a, "%s", basura);
         printf("%s", basura);
         fscanf(a, "%s", basura);
-        fscanf(a, "%d", p2.domicilio.altura);
+        fscanf(a, "%d", &p2.domicilio.altura);
         printf("%d\n", p2.domicilio.altura);
 
         fscanf(a, "%s", basura);
