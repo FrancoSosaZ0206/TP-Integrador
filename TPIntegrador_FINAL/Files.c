@@ -770,33 +770,74 @@ int LeerString(FILE *archivo, char buffer[], int longitudMax, char terminador){
     else { return k; }
 }
 
-void guardarPersonaPrueba(PersonaPtr p1, int posicion) {
+void guardarPersonaPrueba(PersonaPtr p1) {
     fPersona p2;
     fsetPersona(&p2,p1,true);
-    strcat(p2.nombre, "\n");
-    strcat(p2.apellido, "\n");
-    strcat(p2.domicilio.calle, "\n");
-    strcat(p2.domicilio.localidad, "\n");
-    strcat(p2.cuil.cuil, "\n");
-    FILE* a = fopen("Pruebas.txt", "wb");
-    fprintf(a, "%s %d %s", "Persona ", posicion, "\n");
+    FILE* a = fopen("Pruebas.txt", "w");
+    fprintf(a, "%s %d %s", "Persona ", 0, "\n");
     fprintf(a, "%s", "Nombre: ");
     fprintf(a, "%s", p2.nombre);
+    fprintf(a, "%s", "\n" );
     fprintf(a, "%s", "Apellido: ");
     fprintf(a, "%s", p2.apellido);
+    fprintf(a, "%s", "\n" );
     fprintf(a, "%s", "Domicilio: \n");
     fprintf(a, "%s", "Calle: ");
     fprintf(a, "%s", p2.domicilio.calle);
+    fprintf(a, "%s", "\n" );
     fprintf(a, "%s", "Altura: ");
     fprintf(a, "%d", p2.domicilio.altura);
     fprintf(a, "%s", "\n");
     fprintf(a, "%s", "Localidad: ");
     fprintf(a, "%s", p2.domicilio.localidad);
+    fprintf(a, "%s", "\n" );
     fprintf(a, "%s", "Cuil: ");
     fprintf(a, "%s", p2.cuil.cuil);
+    fprintf(a, "%s", "\n" );
     fclose(a);
 }
 
-void leerPersonaPrueba(PersonaPtr p1, int posicion) {
+void leerPersonaPrueba() {
+    fPersona p2;
+    char basura[100];
+    FILE* a = fopen("Pruebas.txt", "r");
+    fgets(basura, 100, a);
+    printf("%s", basura);
 
+    fscanf(a, "%s", basura);
+    printf("%s\n", basura);
+    fgets(p2.nombre, 20, a);
+    printf("%s\n", p2.nombre);
+
+    fscanf(a, "%s", basura);
+    printf("%s\n", basura);
+    fgets(p2.apellido, 20, a);
+    printf("%s\n", p2.apellido);
+
+    fscanf(a, "%s", basura);
+    printf("%s\n", basura);
+    fscanf(a, "%s", basura);
+    printf("%s\n", basura);
+    fgets(p2.domicilio.calle, 20, a);
+    printf("%s\n", p2.domicilio.calle);
+
+    fscanf(a, "%s", basura);
+    printf("%s\n", basura);
+    fscanf(a, "%s", basura);
+    fscanf(a, "%d", p2.domicilio.altura);
+    printf("%d\n", p2.domicilio.altura);
+
+    fscanf(a, "%s", basura);
+    printf("%s\n", basura);
+    fgets(p2.domicilio.localidad, 20, a);
+    printf("%s\n", p2.domicilio.localidad);
+
+    fscanf(a, "%s", basura);
+    printf("%s\n", basura);
+    fgets(p2.cuil.cuil, 20, a);
+    printf("%s\n", p2.cuil.cuil);
+
+    fgets(basura, 100, a);
+
+    fclose(a);
 }
