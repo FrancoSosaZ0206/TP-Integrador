@@ -228,7 +228,7 @@ void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
         listaDestruir = destruirLista(listaDestruir, false);
 
         if(!listaVacia(listaAux))
-            printf("\n");
+            printf("\n\n\n");
     }
     printf("\n-----------------------------------------------------\n\n");
     listaAux=destruirLista(listaAux,false);
@@ -801,10 +801,12 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
     }
 
     int paqSuspendidos[nPaqSuspendidos];
-    for(int i=n-1;i>-1;i--)
+
+    for(int i=n-1,j=0;i>-1,j<nPaqSuspendidos;i--,j++)
     {
+        if(getID(paquetesAux[i])==5)
+            paqSuspendidos[j] = getID(paquetesAux[i]);
         cargarPaquete(repartoACerrar,paquetesAux[i]);
-        paqSuspendidos[i] = getID(paquetesAux[i]);
     }
 
 ///Agregamos la copia del reparto cerrado a la lista de cerrados
@@ -812,12 +814,12 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
 
 ///Destruimos el reparto original e informamos
     repartoACerrar=destruirReparto(repartoACerrar);
-    printf("\n\nCerrado reparto %d...\n",posicion);
+    printf("Cerrado reparto %d...\n",posicion+1);
 
     printf("Se suspendieron los paquetes:\n");
-    for(int i=0;i<nPaqSuspendidos-1;i++)
+    for(int i=0;i<nPaqSuspendidos;i++)
         printf("\t#%d\n",paqSuspendidos[i]);
-    printf("\t#%d\n\n",paqSuspendidos[nPaqSuspendidos-1]);
+    printf("\n");
 }
 
 /// ///////////////////////////////////////////////FUNCIONES DE VALIDACIÓN/////////////////////////////////////////////////////////////////////// ///
@@ -1342,10 +1344,16 @@ void actualizarRepartos(CentroLogisticoPtr ctroLog) ///NUEVA
     {
         RepartoPtr repartoAux = (RepartoPtr)getCabecera(listaAux);
 
-        if(!quedaTiempo(getFechaRetorno(repartoAux))) { hayCambios=true; cerrarReparto(ctroLog,i); }
-        else { hayCambios = actualizarReparto(repartoAux,i); }
+        if(!quedaTiempo(getFechaRetorno(repartoAux)))
+        {
+            hayCambios=true;
+            cerrarReparto(ctroLog,i);
+        }
+        else
+            hayCambios = actualizarReparto(repartoAux,i+1);
 
-        if(hayCambios) { printf("\n\n"); }
+        if(hayCambios)
+            printf("\n\n");
 
         ListaPtr listaDestruir = listaAux;
         listaAux = getResto(listaAux);

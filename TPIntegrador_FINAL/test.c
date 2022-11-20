@@ -99,7 +99,7 @@ void crearListaRepartosDefecto(CentroLogisticoPtr c)
     paquetes[0]=crearPaquete(1,4,5,2,65,dirsRetiro[0],dirsEntrega[0],fechasEntrega,6);
     paquetes[1]=crearPaquete(2,2,5,3,120,dirsRetiro[1],dirsEntrega[1],fechasEntrega,6);
     paquetes[2]=crearPaquete(3,8,8,10,800,dirsRetiro[2],dirsEntrega[2],fechasEntrega,6);
-    paquetes[3]=crearPaquete(3,8,8,10,800,dirsRetiro[3],dirsEntrega[3],fechasEntrega,6);
+    paquetes[3]=crearPaquete(4,8,8,10,800,dirsRetiro[3],dirsEntrega[3],fechasEntrega,6);
 
 
 

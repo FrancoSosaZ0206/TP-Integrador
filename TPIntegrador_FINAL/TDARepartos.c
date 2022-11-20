@@ -87,11 +87,14 @@ void setPaquetesReparto(RepartoPtr reparto, PilaPtr paquetes)
 }
 
 void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) //agrega un paquete a la pila de paquetes
-{ //antes de hacer nada, debemos comprobar que haya algún dato en la pila. Sino, creamos la pila y le insertamos el dato.
-    if(pilaVacia(getPaquetesReparto(reparto)))
-        reparto->paquetes=crearPila();
-    else
+{ //antes de hacer nada, debemos comprobar que exista la pila. Sino, mostramos un mensaje de error.
+    if(getPaquetesReparto(reparto)!=NULL)
         apilar(reparto->paquetes,(PaquetePtr)paquete);
+    else
+    {
+        printf("ERROR: tratando de cargar un paquete en un reparto cuya pila no existe. Crear pila antes de cargar paquetes.");
+        exit(1);
+    }
 }
 PaquetePtr descargarPaquete(RepartoPtr reparto) //elimina el ultimo paquete agregado de la pila. Devuelve el paquete eliminado.
 {
@@ -254,36 +257,41 @@ bool actualizarReparto(RepartoPtr reparto,int posicion) ///NUEVA
         paquetes[i] = descargarPaquete(reparto);
 
         bool condEnCurso = !quedaTiempo(getFechaSalida(reparto));
+        condEnCurso = condEnCurso && getEstado(paquetes[i])==6; //Si está reservado
 
         bool condDemorar = !quedaTiempo(getFechaEntrega(paquetes[i]));
         condDemorar=condDemorar && quedaTiempo(getFechaRetorno(reparto));
-        condDemorar=condDemorar && getEstado(paquetes[i])!=3;
+        condDemorar=condDemorar && (getEstado(paquetes[i])!=3); //Si no fue entregado
 
         if(condEnCurso)
         {
             repartoEnCurso=true;
             repartoActualizado=true;
             setEstado(paquetes[i],1);
+
             printf("El paquete #%d esta en curso.\n",getID(paquetes[i]));
         }
-        else if(condDemorar)
+        if(condDemorar)
         {
             repartoActualizado=true;
             setEstado(paquetes[i],4);
+
             printf("El paquete #%d esta demorado.\n",getID(paquetes[i]));
         }
-
-        printf("\n************************************\n");
-        mostrarPaquete(paquetes[i]);
-        printf("\n************************************\n");
     }
     for(int i=n-1;i>-1;i--)
         cargarPaquete(reparto,paquetes[i]);
 
     if(repartoEnCurso)
+    {
         printf("\n\nReparto %d en curso.\n",posicion);
+        printf("\n**********************************************\n\n");
+    }
     else if(repartoActualizado)
-        printf("\nActualizado reparto %d.\n",posicion);
+    {
+        printf("\n\nActualizado reparto %d.\n",posicion);
+        printf("\n**********************************************\n\n");
+    }
 
     return repartoActualizado;
 }
