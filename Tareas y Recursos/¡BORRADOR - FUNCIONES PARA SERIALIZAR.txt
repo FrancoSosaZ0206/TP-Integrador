@@ -1,0 +1,77 @@
+void guardarPersonasPrueba(CentroLogisticoPtr c)
+{
+    DomicilioPtr d2=crearDomicilio("Frias",1642,"Lomas de Zamora");
+    CuilPtr c2 = crearCuil("20 43265222 0");
+    PersonaPtr p2 = crearPersona("Armando Mencio","Paredes CHAD",d2,c2,false);
+
+    agregarPersona(c,p2);
+
+    ListaPtr listaAux = crearLista();
+    agregarLista(listaAux,getPersonas(c));
+
+    int n=longitudLista(listaAux);
+
+    FILE* a = fopen("Pruebas.txt", "w");
+
+    fprintf(a,"LISTA DE PERSONAS (%d)",n);
+    for(int i=1;!listaVacia(listaAux);i++)
+    {
+        PersonaPtr personaAux = getCabecera(listaAux);
+
+        fprintf(a,"\n\n------------------------------------------\n\n");
+        fprintf(a,"Persona %d\n",i);
+        fprintf(a,"Nombre: %s, %s\n",getApellido(personaAux),getNombre(personaAux));
+        fprintf(a,"Domicilio: %s %d, %s\n",getCalle(getDomicilio(personaAux)),
+                                          getAltura(getDomicilio(personaAux)),
+                                          getLocalidad(getDomicilio(personaAux)));
+        fprintf(a,"Cuil: %s",getCuil(getCuilPersona(personaAux)));
+
+        ListaPtr listaDestruir = listaAux;
+        listaAux=getResto(listaAux);
+        listaDestruir=destruirLista(listaDestruir,false);
+    }
+    listaAux=destruirLista(listaAux,false);
+
+    fclose(a);
+}
+
+void leerPersonasPrueba()
+{
+    FILE* a = fopen("Pruebas.txt", "r");
+
+    int n=0;
+    fscanf(a,"LISTA DE PERSONAS (%d)",&n);
+
+    ListaPtr listaAux = crearLista();
+
+    for(int i=0;i<n;i++)
+    {
+        PersonaPtr personaAux=NULL;
+
+        int i=0;
+        char nombre[100];
+        char apellido[100];
+        char calle[100];
+        int altura=0;
+        char localidad[100];
+        char cuil[100];
+        bool esChofer = false;
+
+        fscanf(a,"\n\n------------------------------------------\n\n");
+        fscanf(a,"Persona %d\n",&i);
+        fprintf(a,"Nombre: %s, %s\n",apellido,nombre);
+        fscanf(a,"Domicilio: %s %d, %s\n",calle,&altura,localidad);
+        fscanf(a,"Cuil: %s",cuil);
+
+        personaAux=crearPersonaDirect(nombre,apellido,calle,altura,localidad,cuil,esChofer);
+        agregarDatoLista(listaAux,(PersonaPtr)personaAux);
+    }
+    fclose(a);
+
+
+    CentroLogisticoPtr c=crearCentroLogisticoRapido("Hola");
+    setPersonas(c,listaAux);
+
+    mostrarPersonas(c,3);
+    presionarEnterYLimpiarPantalla();
+}
