@@ -246,23 +246,23 @@ RepartoPtr copiarReparto(RepartoPtr repartoOriginal)
     return crearReparto(copiaChofer,copiaVehiculo,copiaFechaSalida,copiaFechaRetorno,copiaPilaPaquetes);
 }
 
-bool actualizarReparto(RepartoPtr reparto,int posicion) ///NUEVA
+bool actualizarReparto(RepartoPtr reparto,int posicion)
 {
     int n = cantidadPaquetes(reparto);
     PaquetePtr paquetes[n];
-    bool repartoActualizado=false;
-    for(int i=0;i<n;i++){
+    bool repartoActualizado=  false;
+    for(int i=0;i<n;i++) {
         paquetes[i] = descargarPaquete(reparto);
-        if( !quedaTiempo( getFechaEntrega(paquetes[i]) ) && getEstado(paquetes[i]) != 3 ){
+        if( !quedaTiempo( getFechaEntrega(paquetes[i]) ) && getEstado(paquetes[i]) != 3 ) {
             repartoActualizado = true;
             setEstado(paquetes[i],4);
             printf("\nEl paquete #%d esta demorado",getID(paquetes[i]));
         }
     }
-    for(int i=n-1;i>-1;i--){
+    for(int i=n-1;i>-1;i--) {
         cargarPaquete(reparto,paquetes[i]);
     }
-    if(repartoActualizado){
+    if(repartoActualizado) {
         printf("\n\nReparto actualizado %d.\n\n",posicion);
     }
     return repartoActualizado;

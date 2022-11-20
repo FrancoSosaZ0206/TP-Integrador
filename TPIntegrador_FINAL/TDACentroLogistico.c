@@ -761,8 +761,7 @@ RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool e
     }
 }
 
-void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es automático
-{
+void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) {
     RepartoPtr repartoACerrar = removerReparto(centroLogistico, posicion, true);
     int n = cantidadPaquetes(repartoACerrar);
     PaquetePtr paquetesAux[n];

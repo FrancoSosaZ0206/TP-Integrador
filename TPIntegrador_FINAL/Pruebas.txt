@@ -1,5 +1,8 @@
-Alfonso
-Romero
-9 de mayo
-2000Lomas de zamora
-20126543214
+Persona  0 
+Nombre: Alfonso
+Apellido: Romero
+Domicilio: 
+Calle: 9 de mayo
+Altura: 2000
+Localidad: Lomas de zamora
+Cuil: 20126543214

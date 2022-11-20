@@ -796,3 +796,7 @@ void guardarPersonaPrueba(PersonaPtr p1, int posicion) {
     fprintf(a, "%s", p2.cuil.cuil);
     fclose(a);
 }
+
+void leerPersonaPrueba(PersonaPtr p1, int posicion) {
+
+}
