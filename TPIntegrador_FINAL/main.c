@@ -135,6 +135,7 @@ int main()
         case 3:
             centroLogistico = crearCentroLogisticoDefecto();
             guardarPersonaPrueba( getDatoLista(getPersonas(centroLogistico), 0) );
+            guardarPersonaPrueba( getDatoLista(getPersonas(centroLogistico), 1) );
             leerPersonaPrueba();
             system("pause");
             if(centroLogistico==NULL)

@@ -1,8 +1,8 @@
 Persona  0 
-Nombre: Alfonso
-Apellido: Romero
+Nombre: Gabriel
+Apellido: Alonzo
 Domicilio: 
-Calle: 9 de mayo
-Altura: 2000
+Calle: Espania
+Altura: 3000
 Localidad: Lomas de zamora
-Cuil: 20126543214
+Cuil: 20245432343

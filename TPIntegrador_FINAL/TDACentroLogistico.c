@@ -752,13 +752,8 @@ VehiculoPtr removerVehiculo(CentroLogisticoPtr centroLogistico,int posicion)
 {
     return (VehiculoPtr)removerDeLista(centroLogistico->listaVehiculos,posicion);
 }
-RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto)
-{
-    if(esRepartoAbierto) {
-        return (RepartoPtr)removerDeLista(getRepartos(centroLogistico, true), posicion);
-    } else {
-        return (RepartoPtr)removerDeLista(getRepartos(centroLogistico, false), posicion);
-    }
+RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto) {
+    return (RepartoPtr)removerDeLista(getRepartos(centroLogistico, esRepartoAbierto), posicion);
 }
 
 void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) {
