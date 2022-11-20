@@ -29,6 +29,7 @@ CentroLogisticoPtr crearCentroLogistico(char *nombre,ListaPtr listaPaquetes,List
 
     return centroLogistico;
 }
+
 CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre) ///Crea un centro logístico con un nombre y listas vacías.
 {
     CentroLogisticoPtr centroLogistico=(CentroLogisticoPtr)obtenerMemoria(sizeof(CentroLogistico));
@@ -43,6 +44,7 @@ CentroLogisticoPtr crearCentroLogisticoRapido(char *nombre) ///Crea un centro lo
 
     return centroLogistico;
 }
+
 CentroLogisticoPtr destruirCentroLogistico(CentroLogisticoPtr centroLogistico)
 {
     centroLogistico->nombre=destruirStringDinamico(centroLogistico->nombre);
@@ -64,18 +66,22 @@ char *getNombreCentroLogistico(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->nombre;
 }
+
 ListaPtr getPaquetes(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->listaPaquetes;
 }
+
 ListaPtr getPersonas(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->listaPersonas;
 }
+
 ListaPtr getVehiculos(CentroLogisticoPtr centroLogistico)
 {
     return centroLogistico->listaVehiculos;
 }
+
 ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto)
 {
 	if(esRepartoAbierto)
@@ -90,18 +96,22 @@ void setNombreCentroLogistico(CentroLogisticoPtr centroLogistico,char *nombre)
 {
     strcpy(centroLogistico->nombre,nombre);
 }
+
 void setPaquetes(CentroLogisticoPtr centroLogistico,ListaPtr listaPaquetes)
 {
     centroLogistico->listaPaquetes=listaPaquetes;
 }
+
 void setPersonas(CentroLogisticoPtr centroLogistico,ListaPtr listaPersonas)
 {
     centroLogistico->listaPersonas=listaPersonas;
 }
+
 void setVehiculos(CentroLogisticoPtr centroLogistico,ListaPtr listaVehiculos)
 {
     centroLogistico->listaVehiculos=listaVehiculos;
 }
+
 void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esRepartoAbierto)
 {
 	if(esRepartoAbierto)
@@ -722,14 +732,17 @@ bool insertarPaqueteLista(CentroLogisticoPtr centroLogistico,PaquetePtr paquete,
 {
     return insertarDatoLista(centroLogistico->listaPaquetes,(PaquetePtr)paquete,posicion);
 }
+
 bool insertarPersonaLista(CentroLogisticoPtr centroLogistico,PersonaPtr persona,int posicion)
 {
     return insertarDatoLista(centroLogistico->listaPersonas,(PersonaPtr)persona,posicion);
 }
+
 bool insertarVehiculoLista(CentroLogisticoPtr centroLogistico,VehiculoPtr vehiculo,int posicion)
 {
     return insertarDatoLista(centroLogistico->listaVehiculos,(VehiculoPtr)vehiculo,posicion);
 }
+
 bool insertarRepartoLista(CentroLogisticoPtr centroLogistico,RepartoPtr reparto,int posicion) ///SOLO PARA REPARTOS ABIERTOS
 {
     return insertarDatoLista(centroLogistico->listaRepartosAbiertos,(RepartoPtr)reparto,posicion);
@@ -751,26 +764,23 @@ VehiculoPtr removerVehiculo(CentroLogisticoPtr centroLogistico,int posicion)
 }
 RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto)
 {
-    RepartoPtr repartoRemover=0;
+    RepartoPtr repartoRemover = (RepartoPtr)removerDeLista(getRepartos(centroLogistico,esRepartoAbierto),posicion);
 
     if(esRepartoAbierto)
     {
-        repartoRemover = (RepartoPtr)removerDeLista(centroLogistico->listaRepartosAbiertos,posicion);
-
         int n = cantidadPaquetes(repartoRemover);
         PaquetePtr paquetes[n];
         for(int i=0;i<n;i++)
         {
             paquetes[i] = descargarPaquete(repartoRemover);
 
-            if(getEstado(paquetes[i])!=3 && getEstado(paquetes[i])!=5)
+            int estado = getEstado(paquetes[i]);
+            if(estado!=3 && estado!=5)
                 setEstado(paquetes[i],0);
         }
         for(int i=n-1;i>-1;i--)
             cargarPaquete(repartoRemover,paquetes[i]);
     }
-    else
-        repartoRemover = (RepartoPtr)removerDeLista(centroLogistico->listaRepartosCerrados,posicion);
 
     return repartoRemover;
 }
@@ -792,8 +802,7 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
     {
         paquetesAux[i] = descargarPaquete(repartoACerrar);
 
-        if(!quedaTiempo(getFechaRetorno(repartoACerrar))
-           && getEstado(paquetesAux[i])!=3)
+        if(!quedaTiempo(getFechaRetorno(repartoACerrar)) && getEstado(paquetesAux[i])!=3)
         {
             setEstado(paquetesAux[i],5);
             nPaqSuspendidos++;
@@ -804,7 +813,7 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
 
     for(int i=n-1,j=0;i>-1,j<nPaqSuspendidos;i--,j++)
     {
-        if(getID(paquetesAux[i])==5)
+        if(getEstado(paquetesAux[i])==5)
             paqSuspendidos[j] = getID(paquetesAux[i]);
         cargarPaquete(repartoACerrar,paquetesAux[i]);
     }
@@ -818,7 +827,7 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
 
     printf("Se suspendieron los paquetes:\n");
     for(int i=0;i<nPaqSuspendidos;i++)
-        printf("\t#%d\n",paqSuspendidos[i]);
+        printf("\t #%d \n",paqSuspendidos[i]);
     printf("\n");
 }
 

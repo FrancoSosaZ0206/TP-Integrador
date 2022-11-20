@@ -2810,7 +2810,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
             printf("0. Volver\n");
             printf("-1. MENU PRINCIPAL");
             printf("\n\n-----------------------------------------\n\n");
-            printf("Elija una opcion:");
+            printf("Elija una opcion: ");
             scanf("%d",&op2);
             limpiarBufferTeclado();
 
