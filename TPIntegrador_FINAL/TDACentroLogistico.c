@@ -811,10 +811,13 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
 
     int paqSuspendidos[nPaqSuspendidos];
 
-    for(int i=n-1,j=0;i>-1,j<nPaqSuspendidos;i--,j++)
+    for(int i=n-1,j=0;i>-1;i--)
     {
         if(getEstado(paquetesAux[i])==5)
+        {
             paqSuspendidos[j] = getID(paquetesAux[i]);
+            j++;
+        }
         cargarPaquete(repartoACerrar,paquetesAux[i]);
     }
 
