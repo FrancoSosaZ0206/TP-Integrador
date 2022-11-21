@@ -203,14 +203,14 @@ bool menuGuardarCambios(CentroLogisticoPtr centroLogistico,int tipoDato)
             switch(tipoDato)
             {
             case 1:
-                guardarLista = guardarPaquetes(centroLogistico);
+                //guardarLista = guardarPaquetes(centroLogistico);
                 break;
             case 2:
-                guardarLista = guardarPersonas(centroLogistico);
+                //guardarLista = guardarPersonas(centroLogistico);
                 break;
             case 3:
-                guardarLista = guardarVehiculos(centroLogistico);
-                guardarLista = guardarVehiculos(centroLogistico);
+                //guardarLista = guardarVehiculos(centroLogistico);
+                //guardarLista = guardarVehiculos(centroLogistico);
                 break;
             case 4:
                 //guardarLista = guardarRepartos(centroLogistico,true) && guardarRepartos(centroLogistico,false);
