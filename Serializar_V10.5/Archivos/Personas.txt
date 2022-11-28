@@ -1,0 +1,17 @@
+LISTA DE PERSONAS (1)
+
+***************************************
+
+
+PERSONA 1
+
+	Tipo Chofer (true)
+	Apellido y Nombre: Mellino, Juan Carlos
+	Domicilio:
+		Calle: a
+		Altura: 1
+		Localidad: a
+	CUIL: 20 43265222 0
+
+
+***************************************

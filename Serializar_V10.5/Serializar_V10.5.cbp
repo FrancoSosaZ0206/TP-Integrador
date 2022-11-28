@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Serializar_V10.5" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Serializar_V10.5" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Serializar_V10.5" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="FilesV2.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FilesV2.h" />
+		<Unit filename="Lista.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lista.h" />
+		<Unit filename="Menus.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Menus.h" />
+		<Unit filename="Pila.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Pila.h" />
+		<Unit filename="TDACentroLogistico.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="TDACentroLogistico.h" />
+		<Unit filename="TDACuil.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="TDACuil.h" />
+		<Unit filename="TDADomicilio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="TDADomicilio.h" />
+		<Unit filename="TDAFechaYHora.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="TDAFechaYHora.h" />
+		<Unit filename="TDANodo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="TDANodo.h" />
+		<Unit filename="TDAPaquetes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="TDAPaquetes.h" />
+		<Unit filename="TDAPersona.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="TDAPersona.h" />
+		<Unit filename="TDARepartos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="TDARepartos.h" />
+		<Unit filename="TDAVehiculo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="TDAVehiculo.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="test.h" />
+		<Unit filename="util.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="util.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

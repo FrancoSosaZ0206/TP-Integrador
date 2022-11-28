@@ -1,0 +1,22 @@
+LISTA DE PAQUETES (1)
+
+***************************************
+
+
+PAQUETE 1 (#1)
+
+	Estado: 0. En Deposito
+	Ancho, Alto y Largo: 1, 1, 1
+	Peso: 1
+	Direccion de Retiro:
+		Calle: 1
+		Altura: 1
+		Localidad: 1
+	Direccion de Entrega:
+		Calle: 11
+		Altura: 11
+		Localidad: 11
+	Fecha de Entrega: 28/11/2022, 17:16
+
+
+***************************************

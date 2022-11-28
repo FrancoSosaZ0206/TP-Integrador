@@ -1,0 +1,14 @@
+LISTA DE VEHICULOS (1)
+
+***************************************
+
+
+VEHICULO 1
+
+	Tipo 2 - Auto
+	Marca: Lamborghini
+	Modelo: Aventador
+	Patente: FG 445 ZT
+
+
+***************************************

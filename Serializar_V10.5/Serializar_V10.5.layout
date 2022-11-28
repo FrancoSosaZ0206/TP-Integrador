@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<FileVersion major="1" minor="0" />
+	<ActiveTarget name="Debug" />
+	<File name="main.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="5" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3184" topLine="60" />
+		</Cursor>
+	</File>
+	<File name="FilesV2.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="30812" topLine="470" />
+		</Cursor>
+		<Folding>
+			<Collapse line="32" />
+			<Collapse line="68" />
+			<Collapse line="74" />
+			<Collapse line="82" />
+			<Collapse line="92" />
+			<Collapse line="104" />
+			<Collapse line="119" />
+			<Collapse line="130" />
+			<Collapse line="151" />
+			<Collapse line="157" />
+			<Collapse line="161" />
+			<Collapse line="165" />
+			<Collapse line="171" />
+			<Collapse line="175" />
+			<Collapse line="179" />
+			<Collapse line="183" />
+			<Collapse line="189" />
+			<Collapse line="193" />
+			<Collapse line="197" />
+			<Collapse line="201" />
+			<Collapse line="206" />
+			<Collapse line="210" />
+			<Collapse line="214" />
+			<Collapse line="220" />
+			<Collapse line="224" />
+			<Collapse line="228" />
+			<Collapse line="232" />
+			<Collapse line="236" />
+			<Collapse line="240" />
+			<Collapse line="244" />
+			<Collapse line="248" />
+			<Collapse line="252" />
+			<Collapse line="256" />
+			<Collapse line="262" />
+			<Collapse line="266" />
+			<Collapse line="270" />
+			<Collapse line="274" />
+			<Collapse line="278" />
+			<Collapse line="284" />
+			<Collapse line="288" />
+			<Collapse line="292" />
+			<Collapse line="296" />
+			<Collapse line="300" />
+			<Collapse line="304" />
+			<Collapse line="311" />
+			<Collapse line="317" />
+			<Collapse line="325" />
+			<Collapse line="327" />
+			<Collapse line="333" />
+			<Collapse line="339" />
+			<Collapse line="341" />
+			<Collapse line="356" />
+			<Collapse line="369" />
+			<Collapse line="413" />
+			<Collapse line="415" />
+			<Collapse line="424" />
+			<Collapse line="429" />
+			<Collapse line="435" />
+			<Collapse line="436" />
+			<Collapse line="439" />
+			<Collapse line="450" />
+			<Collapse line="459" />
+			<Collapse line="461" />
+			<Collapse line="469" />
+			<Collapse line="486" />
+			<Collapse line="499" />
+			<Collapse line="508" />
+			<Collapse line="546" />
+			<Collapse line="551" />
+			<Collapse line="571" />
+			<Collapse line="573" />
+			<Collapse line="582" />
+			<Collapse line="584" />
+			<Collapse line="619" />
+			<Collapse line="627" />
+			<Collapse line="635" />
+			<Collapse line="664" />
+			<Collapse line="668" />
+			<Collapse line="682" />
+			<Collapse line="686" />
+			<Collapse line="729" />
+			<Collapse line="742" />
+			<Collapse line="751" />
+			<Collapse line="756" />
+			<Collapse line="766" />
+			<Collapse line="788" />
+			<Collapse line="801" />
+			<Collapse line="816" />
+			<Collapse line="838" />
+			<Collapse line="851" />
+			<Collapse line="866" />
+			<Collapse line="888" />
+			<Collapse line="901" />
+			<Collapse line="942" />
+			<Collapse line="972" />
+			<Collapse line="990" />
+			<Collapse line="1006" />
+			<Collapse line="1024" />
+			<Collapse line="1040" />
+			<Collapse line="1058" />
+		</Folding>
+	</File>
+	<File name="TDACentroLogistico.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="23960" topLine="702" />
+		</Cursor>
+	</File>
+</CodeBlocks_layout_file>
