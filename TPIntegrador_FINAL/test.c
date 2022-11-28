@@ -40,9 +40,9 @@ void crearListaRepartosDefecto(CentroLogisticoPtr c)
     FechaPtr fechasSalida = getTiempoActual();
     FechaPtr fechasRetorno = getTiempoActual();
 
-    fechasSalida = sumarAFecha(fechasSalida,0,0,1);
-    fechasEntrega = sumarAFecha(fechasEntrega,0,0,2);
-    fechasRetorno = sumarAFecha(fechasRetorno,0,0,3);
+    fechasSalida = sumarAFecha(fechasSalida,0,0,0);
+    fechasEntrega = sumarAFecha(fechasEntrega,0,0,0);
+    fechasRetorno = sumarAFecha(fechasRetorno,0,0,1);
 
 
 

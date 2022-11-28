@@ -789,9 +789,6 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
 { ///extraemos el reparto de la lista de abiertos
     RepartoPtr repartoACerrar = removerReparto(centroLogistico,posicion,true);
 
-///Copiamos el contenido del reparto en uno nuevo.
-    RepartoPtr copiaReparto = copiarReparto(repartoACerrar);
-
 ///Obtenemos cada paquete de la pila y marcamos como suspendido los que no se entregaron
     int n=cantidadPaquetes(repartoACerrar);
     PaquetePtr paquetesAux[n];
@@ -820,6 +817,9 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
         }
         cargarPaquete(repartoACerrar,paquetesAux[i]);
     }
+
+///Copiamos el contenido del reparto en uno nuevo.
+    RepartoPtr copiaReparto = copiarReparto(repartoACerrar);
 
 ///Agregamos la copia del reparto cerrado a la lista de cerrados
     agregarReparto(centroLogistico,copiaReparto,false);
