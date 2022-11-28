@@ -26,9 +26,8 @@ typedef struct CentroLogistico
     ListaPtr listaPaquetes;
     ListaPtr listaPersonas;
     ListaPtr listaVehiculos;
-    ListaPtr listaRepartosAbiertos; ///Nueva implementacion: Ahora los repartos que se cierran
-    ListaPtr listaRepartosCerrados; ///se pasan a esta lista en lugar de ser eliminados.
-} CentroLogistico;
+    ListaPtr listaRepartos; ///Nueva implementacion: Ahora todos los repartos están en 1 sola lista
+} CentroLogistico;          ///Y para identificarlos usamos un booleano como el listaPersonas
 
 typedef CentroLogistico * CentroLogisticoPtr;
 
@@ -64,7 +63,7 @@ CentroLogisticoPtr destruirCentroLogistico(CentroLogisticoPtr centroLogistico);
 
 //---------------------------------------getters----------------------------------------------
 
-/** OPERACIÓN: Obtencion del nombre del centro logistico.
+/** OPERACIÓN: Obtención del nombre del centro logistico.
 PRECONDICIÓN: Que centro logistico haya sido creado.
 POSTCONDICIÓN: Se obtiene el nombre de centro logistico.
 PARÁMETROS:
@@ -72,7 +71,7 @@ PARÁMETROS:
 DEVUELVE: un string representando el nombre del centro logístico. */
 char *getNombreCentroLogistico(CentroLogisticoPtr centroLogistico);
 
-/** OPERACIÓN: Obtencion de la estructura de lista de paquetes
+/** OPERACIÓN: Obtención de la estructura de lista de paquetes
 PRECONDICIÓN: Que centro logistico haya sido creado.
 POSTCONDICIÓN: Se obtiene la lista de paquetes.
 PARÁMETROS:
@@ -80,7 +79,7 @@ PARÁMETROS:
 DEVUELVE: un puntero de la estructura lista. */
 ListaPtr getPaquetes(CentroLogisticoPtr centroLogistico);
 
-/** OPERACIÓN: Obtencion de la estructura de lista de personas.
+/** OPERACIÓN: Obtención de la estructura de lista de personas.
 PRECONDICIÓN: Que centro logistico haya sido creado.
 POSTCONDICIÓN: Se obtiene la lista de personas.
 PARÁMETROS:
@@ -88,7 +87,7 @@ PARÁMETROS:
 DEVUELVE: un puntero de la estructura lista. */
 ListaPtr getPersonas(CentroLogisticoPtr centroLogistico);
 
-/** OPERACIÓN: Obtencion de la estructura de lista de vehiculos.
+/** OPERACIÓN: Obtención de la estructura de lista de vehiculos.
 PRECONDICIÓN: Que centro logistico haya sido creado.
 POSTCONDICIÓN: Se obtiene la lista de vehiculos.
 PARÁMETROS:
@@ -96,7 +95,7 @@ PARÁMETROS:
 DEVUELVE: un puntero de la estructura lista. */
 ListaPtr getVehiculos(CentroLogisticoPtr centroLogistico);
 
-/** OPERACIÓN: Obtencion de listas de repartos.
+/** OPERACIÓN: Obtención de listas de repartos.
 PRECONDICIÓN: Que centro logistico haya sido creado.
 POSTCONDICIÓN: Se obtiene la lista de repartos
 PARÁMETROS:

@@ -27,6 +27,7 @@ typedef struct Reparto
     FechaPtr fechaSalida;
     FechaPtr fechaRetorno;
     PilaPtr paquetes;
+    bool esAbierto;
 } Reparto;
 typedef Reparto * RepartoPtr;
 
@@ -54,9 +55,10 @@ DEVUELVE: NULL. */
 RepartoPtr destruirReparto(RepartoPtr reparto);
 
 
+
 ///GETTERS
 
-/** OPERACIÓN: Obtencion de chofer.
+/** OPERACIÓN: Obtención de chofer.
 PRECONDICIÓN: Repartos debe estar creado.
 POSTCONDICIÓN: Se obtiene al chofer
 PARÁMETROS:
@@ -64,7 +66,7 @@ PARÁMETROS:
 DEVUELVE: un puntero al chofer del reparto. */
 PersonaPtr getChofer(RepartoPtr reparto);
 
-/** OPERACIÓN: Obtencion de vehiculo.
+/** OPERACIÓN: Obtención de vehiculo.
 PRECONDICIÓN: Repartos debe estar creado.
 POSTCONDICIÓN: Se obtiene al vehiculo.
 PARÁMETROS:
@@ -72,7 +74,7 @@ PARÁMETROS:
 DEVUELVE: un puntero al vehiculo del reparto. */
 VehiculoPtr getVehiculo(RepartoPtr reparto);
 
-/** OPERACIÓN: Obtencion de fecha de salida.
+/** OPERACIÓN: Obtención de fecha de salida.
 PRECONDICIÓN: Repartos debe estar creado.
 POSTCONDICIÓN: Se obtiene la fecha de salida.
 PARÁMETROS:
@@ -80,7 +82,7 @@ PARÁMETROS:
 DEVUELVE: un puntero a la fecha de salida. */
 FechaPtr getFechaSalida(RepartoPtr reparto);
 
-/** OPERACIÓN: Obtencion de fecha de retorno.
+/** OPERACIÓN: Obtención de fecha de retorno.
 PRECONDICIÓN: Repartos debe estar creado.
 POSTCONDICIÓN: Se obtiene la fecha de retorno.
 PARÁMETROS:
@@ -88,13 +90,25 @@ PARÁMETROS:
 DEVUELVE: un puntero a la fecha de retorno. */
 FechaPtr getFechaRetorno(RepartoPtr reparto);
 
-/** OPERACIÓN: Obtencion de la pila de paquetes del reparto.
+/** OPERACIÓN: Obtención de la pila de paquetes del reparto.
 PRECONDICIÓN: Repartos debe estar creado.
 POSTCONDICIÓN: Se obtiene la pila de paquetes.
 PARÁMETROS:
     - reparto: puntero a la estructura para sacar el dato.
 DEVUELVE: un puntero a la pila de paquetes. */
 PilaPtr getPaquetesReparto(RepartoPtr reparto);
+
+/** OPERACIÓN: Obtención del tipo del reparto (abierto/cerrado).
+PRECONDICIÓN: Repartos debe estar creado.
+POSTCONDICIÓN: Se obtiene un booleano que representa el tipo del reparto (abierto/cerrado).
+PARÁMETROS:
+    - reparto: puntero a la estructura para sacar el dato.
+DEVUELVE: true si el reparto es abierto, false de lo contrario. */
+bool getEsAbierto(RepartoPtr reparto);
+
+
+
+///SETTERS
 
 /** OPERACIÓN: Asignacion de chofer.
 PRECONDICIÓN: Repartos debe estar creado.
@@ -136,9 +150,22 @@ PRECONDICIÓN: Repartos debe estar creado.
 POSTCONDICIÓN: El reparto cambia con el nuevo valor de paquetes
 PARÁMETROS:
     - reparto: puntero a la estructura a asignar el nuevo valor.
-    - pila paquetes: puntero a la estructura del nuevo valor.
+    - paquetes: puntero a la estructura del nuevo valor.
 DEVUELVE: nada. */
 void setPaquetesReparto(RepartoPtr reparto, PilaPtr paquetes);
+
+/** OPERACIÓN: Asignacion de tipo de reparto (cerrado/abierto).
+PRECONDICIÓN: Repartos debe estar creado.
+POSTCONDICIÓN: El reparto cambia con el nuevo valor de paquetes
+PARÁMETROS:
+    - reparto: puntero a la estructura a asignar el nuevo valor.
+    - esAbierto: booleano representando el nuevo tipo de reparto.
+DEVUELVE: nada. */
+void setEsAbierto(RepartoPtr reparto,bool esAbierto);
+
+
+
+///ESPECIALES
 
 /** OPERACIÓN: Agrega un nuevo paquete a la pila de paquetes.
 PRECONDICIÓN: La pila debe haberse creado

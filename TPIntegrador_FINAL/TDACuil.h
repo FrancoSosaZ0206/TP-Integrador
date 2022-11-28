@@ -104,7 +104,7 @@ PARÁMETROS:
 DEVUELVE: un puntero a char representando el cuil. */
 char *getCuil(CuilPtr cuil);
 
-/** OPERACIÓN: Obtencion del tipo.
+/** OPERACIÓN: Obtención del tipo.
 PRECONDICIÓN: cuil debe haberse creado con crearCuil
 POSTCONDICIÓN: Se obtiene el tipo de cuil.
 PARÁMETROS:
@@ -112,7 +112,7 @@ PARÁMETROS:
 DEVUELVE: un entero representando el tipo de cuil. */
 int getTipo(CuilPtr cuil);
 
-/** OPERACIÓN: Obtencion del tipo.
+/** OPERACIÓN: Obtención del tipo.
 PRECONDICIÓN: cuil debe haberse creado con crearCuil
 POSTCONDICIÓN: Se obtiene el dni de cuil.
 PARÁMETROS:
@@ -120,7 +120,7 @@ PARÁMETROS:
 DEVUELVE: un entero representando el dni de cuil. */
 int getDni(CuilPtr cuil);
 
-/** OPERACIÓN: Obtencion del tipo.
+/** OPERACIÓN: Obtención del tipo.
 PRECONDICIÓN: cuil debe haberse creado con crearCuil
 POSTCONDICIÓN: Se obtiene el numero verificador de cuil.
 PARÁMETROS:

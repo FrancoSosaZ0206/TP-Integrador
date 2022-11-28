@@ -91,7 +91,7 @@ PaquetePtr destruirPaquete(PaquetePtr paquete);
 
 ///GETTERS
 
-/** OPERACIÓN: Obtencion de ID.
+/** OPERACIÓN: Obtención de ID.
 PRECONDICIÓN: Paquete debe estar creado.
 POSTCONDICIÓN: Se obtiene el ID.
 PARÁMETROS:
@@ -99,7 +99,7 @@ PARÁMETROS:
 DEVUELVE: un entero represntando el ID. */
 int getID(PaquetePtr paquete);
 
-/** OPERACIÓN: Obtencion del ancho.
+/** OPERACIÓN: Obtención del ancho.
 PRECONDICIÓN: Paquete debe estar creado.
 POSTCONDICIÓN: Se obtiene el ancho.
 PARÁMETROS:
@@ -107,7 +107,7 @@ PARÁMETROS:
 DEVUELVE: un entero representando el ancho. */
 int getAncho(PaquetePtr paquete);
 
-/** OPERACIÓN: Obtencion de alto.
+/** OPERACIÓN: Obtención de alto.
 PRECONDICIÓN: Paquete debe estar creado.
 POSTCONDICIÓN: Se obtiene el alto.
 PARÁMETROS:
@@ -115,7 +115,7 @@ PARÁMETROS:
 DEVUELVE: un entero representando el ancho. */
 int getAlto(PaquetePtr paquete);
 
-/** OPERACIÓN: Obtencion de largo.
+/** OPERACIÓN: Obtención de largo.
 PRECONDICIÓN: Paquete debe estar creado.
 POSTCONDICIÓN: Se obtiene el largo.
 PARÁMETROS:
@@ -123,7 +123,7 @@ PARÁMETROS:
 DEVUELVE: un entero representando el largo. */
 int getLargo(PaquetePtr paquete);
 
-/** OPERACIÓN: Obtencion de peso.
+/** OPERACIÓN: Obtención de peso.
 PRECONDICIÓN: Paquete debe estar creado.
 POSTCONDICIÓN: Se obtiene el peso.
 PARÁMETROS:
@@ -131,7 +131,7 @@ PARÁMETROS:
 DEVUELVE: un entero representando el peso. */
 int getPeso(PaquetePtr paquete);
 
-/** OPERACIÓN: Obtencion de direcccion de retiro.
+/** OPERACIÓN: Obtención de direcccion de retiro.
 PRECONDICIÓN: Paquete debe estar creado.
 POSTCONDICIÓN: Se obtiene la direccion de retiro.
 PARÁMETROS:
@@ -139,7 +139,7 @@ PARÁMETROS:
 DEVUELVE: un puntero a la direccion de retiro. */
 DomicilioPtr getDirRetiro(PaquetePtr paquete);
 
-/** OPERACIÓN: Obtencion de direccion de entrega.
+/** OPERACIÓN: Obtención de direccion de entrega.
 PRECONDICIÓN: Paquete debe estar creado.
 POSTCONDICIÓN: Se obtiene la direccion de entrega.
 PARÁMETROS:
@@ -147,7 +147,7 @@ PARÁMETROS:
 DEVUELVE: un puntero a la direccion de entrega. */
 DomicilioPtr getDirEntrega(PaquetePtr paquete);
 
-/** OPERACIÓN: Obtencion de fecha de entrega.
+/** OPERACIÓN: Obtención de fecha de entrega.
 PRECONDICIÓN: Paquete debe estar creado.
 POSTCONDICIÓN: Se obtiene la fecha y horas de la entrega.
 PARÁMETROS:
@@ -155,7 +155,7 @@ PARÁMETROS:
 DEVUELVE: un puntero a la fecha de entrega. */
 FechaPtr getFechaEntrega(PaquetePtr paquete);
 
-/** OPERACIÓN: Obtencion de estado.
+/** OPERACIÓN: Obtención de estado.
 PRECONDICIÓN: Paquete debe estar creado.
 POSTCONDICIÓN: Se obtiene el estado.
 PARÁMETROS:

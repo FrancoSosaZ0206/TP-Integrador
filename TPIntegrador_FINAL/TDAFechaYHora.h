@@ -64,7 +64,7 @@ FechaPtr destruirFecha(FechaPtr fecha);
 
 ///Getters
 
-/** OPERACIÓN: Obtencion de dia juliano.
+/** OPERACIÓN: Obtención de dia juliano.
 PRECONDICIÓN: fecha debe haberse creado
 POSTCONDICIÓN: se obtiene el dia juliano de fecha
 PARÁMETROS:

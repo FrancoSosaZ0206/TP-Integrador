@@ -10,7 +10,7 @@
 #include "TDARepartos.h"
 
 
-RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes)
+RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes,bool esAbierto)
 {
     RepartoPtr reparto=(RepartoPtr)obtenerMemoria(sizeof(Reparto));
 
@@ -19,12 +19,13 @@ RepartoPtr crearReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSal
     reparto->fechaSalida=fechaSalida;
     reparto->fechaRetorno=fechaRetorno;
     reparto->paquetes=paquetes;
+    reparto->esAbierto=esAbierto;
 
     return reparto;
 }
 RepartoPtr armarReparto(PersonaPtr chofer,VehiculoPtr vehiculo,FechaPtr fechaSalida,FechaPtr fechaRetorno,PilaPtr paquetes)
 {
-    return crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes);
+    return crearReparto(chofer,vehiculo,fechaSalida,fechaRetorno,paquetes,true);
 }
 RepartoPtr destruirReparto(RepartoPtr reparto)
 { /** Liberamos la memoria de todos los campos EXCLUSIVOS DEL REPARTO.
@@ -59,6 +60,12 @@ PilaPtr getPaquetesReparto(RepartoPtr reparto)
 {
     return reparto->paquetes;
 }
+bool getEsAbierto(RepartoPtr reparto)
+{
+    return reparto->esAbierto;
+}
+
+
 
 void setChofer(RepartoPtr reparto,PersonaPtr chofer)
 {
@@ -80,11 +87,17 @@ void setFechaRetorno(RepartoPtr reparto,FechaPtr fechaRetorno)
     reparto->fechaRetorno = destruirFecha(reparto->fechaRetorno);
     reparto->fechaRetorno = fechaRetorno;
 }
-
 void setPaquetesReparto(RepartoPtr reparto, PilaPtr paquetes)
 {
     reparto->paquetes = paquetes;
 }
+void setEsAbierto(RepartoPtr reparto,bool esAbierto)
+{
+    reparto->esAbierto=esAbierto;
+}
+
+
+
 
 void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) //agrega un paquete a la pila de paquetes
 { //antes de hacer nada, debemos comprobar que exista la pila. Sino, mostramos un mensaje de error.
@@ -217,6 +230,7 @@ RepartoPtr copiarReparto(RepartoPtr repartoOriginal)
     PersonaPtr copiaChofer = copiarPersona(getChofer(repartoOriginal));
 //Copiamos el vehiculo
     VehiculoPtr copiaVehiculo = copiarVehiculo(getVehiculo(repartoOriginal));
+
 //Copiamos las fechas de salida y retorno
     FechaPtr fechaSalidaOriginal = getFechaSalida(repartoOriginal);
     FechaPtr copiaFechaSalida = crearFechaDirect(getDiaJuliano(fechaSalidaOriginal),getHora(fechaSalidaOriginal),getMinuto(fechaSalidaOriginal));
