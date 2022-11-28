@@ -1360,6 +1360,7 @@ void actualizarRepartos(CentroLogisticoPtr ctroLog) ///NUEVA
         {
             hayCambios=true;
             cerrarReparto(ctroLog,i);
+            i--;
         }
         else
             hayCambios = actualizarReparto(repartoAux,i+1);
