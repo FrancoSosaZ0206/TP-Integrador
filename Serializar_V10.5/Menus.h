@@ -124,7 +124,7 @@ PARÁMETROS:
       - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario. */
-bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int *opMenuAnterior);
+bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
 
 
 ///--------------------------------------------------------------------------------------------------------------------------
@@ -185,7 +185,7 @@ PARÁMETROS:
       - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true si hubo cambios y se guardaron, false de lo contrario. */
-bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int *opMenuAnterior);
+bool menuModificarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
 
 
 ///--------------------------------------------------------------------------------------------------------------------------
@@ -230,7 +230,7 @@ PARÁMETROS:
       - centroLogistico: puntero al centro logístico del que se mostrará la lista de paquetes.
       - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
 DEVUELVE: nada. */
-void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto);
+void menuBuscarReparto(CentroLogisticoPtr centroLogistico);
 
 ///--------------------------------------------------------------------------------------------------------------------------
 
@@ -282,7 +282,7 @@ PARÁMETROS:
       - esRepartoAbierto: booleano que indica si es una lista repartos abiertos (true) o cerrados (false)
       - opMenuAnterior: puntero a entero representando la variable utilizada para elegir la opcion del menú anterior.
 DEVUELVE: true SI SE GUARDÓ UN CAMBIO en el orden de la lista, false de lo contrario. */
-bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int *opMenuAnterior);
+bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,int *opMenuAnterior);
 
 
 ///--------------------------------------------------------------------------------------------------------------------------

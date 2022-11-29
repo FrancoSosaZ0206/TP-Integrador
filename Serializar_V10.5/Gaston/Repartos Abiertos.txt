@@ -1,0 +1,161 @@
+LISTA DE REPARTOS (4)
+
+***************************************
+
+
+REPARTO 1
+
+Chofer:
+	Tipo Chofer (true)
+	Apellido y Nombre: Garcia, Roberto
+	Domicilio:
+		Calle: Vieytes
+		Altura: 2000
+		Localidad: Lomas de zamora
+	CUIL: 20 34654754 6
+
+Vehiculo:
+	Tipo 3 - Camion
+	Marca: Mercedes Benz
+	Modelo: Actros
+	Patente: 17 UJI 30
+
+Fecha de Salida: 28/11/2022, 21:12
+Fecha de Retorno: 28/11/2022, 21:14
+
+ENTREGAS DEL REPARTO (1):
+
+Paquete 1 (#1)
+
+	Estado: 6. Reservado
+	Ancho, Alto y Largo: 4, 5, 2
+	Peso: 65
+	Direccion de Retiro:
+		Calle: Deposito
+		Altura: 5000
+		Localidad: Sector industrial
+	Direccion de Entrega:
+		Calle: Santa fe
+		Altura: 1500
+		Localidad: Banfield
+	Fecha de Entrega: 28/11/2022, 21:13
+
+---------------------------------------
+
+REPARTO 2
+
+Chofer:
+	Tipo Chofer (true)
+	Apellido y Nombre: Gonzalez, Maria
+	Domicilio:
+		Calle: Boqueron
+		Altura: 1500
+		Localidad: Villa Fiorito
+	CUIL: 27 24576456 7
+
+Vehiculo:
+	Tipo 3 - Camion
+	Marca: Mercedes Benz
+	Modelo: Actros
+	Patente: 81 NMB 30
+
+Fecha de Salida: 28/11/2022, 21:12
+Fecha de Retorno: 28/11/2022, 21:14
+
+ENTREGAS DEL REPARTO (1):
+
+Paquete 1 (#2)
+
+	Estado: 6. Reservado
+	Ancho, Alto y Largo: 2, 5, 3
+	Peso: 120
+	Direccion de Retiro:
+		Calle: Repositorio Intel
+		Altura: 5000
+		Localidad: Sector industrial
+	Direccion de Entrega:
+		Calle: Italia
+		Altura: 3000
+		Localidad: Palermo
+	Fecha de Entrega: 28/11/2022, 21:13
+
+---------------------------------------
+
+REPARTO 3
+
+Chofer:
+	Tipo Chofer (true)
+	Apellido y Nombre: Gutierrez, Gonzalo
+	Domicilio:
+		Calle: Espania
+		Altura: 1500
+		Localidad: Puerto Madero
+	CUIL: 30 23456543 1
+
+Vehiculo:
+	Tipo 3 - Camion
+	Marca: Mercedes Benz
+	Modelo: Actros
+	Patente: 19 JUY 78
+
+Fecha de Salida: 28/11/2022, 21:12
+Fecha de Retorno: 28/11/2022, 21:14
+
+ENTREGAS DEL REPARTO (1):
+
+Paquete 1 (#3)
+
+	Estado: 6. Reservado
+	Ancho, Alto y Largo: 8, 8, 10
+	Peso: 800
+	Direccion de Retiro:
+		Calle: Tesla Industry
+		Altura: 10000
+		Localidad: Washington DC
+	Direccion de Entrega:
+		Calle: 24 de mayo
+		Altura: 3000
+		Localidad: Capital Federal
+	Fecha de Entrega: 28/11/2022, 21:13
+
+---------------------------------------
+
+REPARTO 4
+
+Chofer:
+	Tipo Chofer (true)
+	Apellido y Nombre: Alonzo, Alberto
+	Domicilio:
+		Calle: Espania
+		Altura: 1500
+		Localidad: Puerto Madero
+	CUIL: 30 23456543 1
+
+Vehiculo:
+	Tipo 3 - Camion
+	Marca: Mercedes Benz
+	Modelo: Actros
+	Patente: 19 JUY 78
+
+Fecha de Salida: 28/11/2022, 21:12
+Fecha de Retorno: 28/11/2022, 21:14
+
+ENTREGAS DEL REPARTO (1):
+
+Paquete 1 (#4)
+
+	Estado: 6. Reservado
+	Ancho, Alto y Largo: 8, 8, 10
+	Peso: 800
+	Direccion de Retiro:
+		Calle: Tesla Industry
+		Altura: 10000
+		Localidad: Washington DC
+	Direccion de Entrega:
+		Calle: 24 de mayo
+		Altura: 3000
+		Localidad: Capital Federal
+	Fecha de Entrega: 28/11/2022, 21:13
+
+
+***************************************

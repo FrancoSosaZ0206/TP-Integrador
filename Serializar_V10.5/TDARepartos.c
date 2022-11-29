@@ -86,15 +86,8 @@ void setPaquetesReparto(RepartoPtr reparto, PilaPtr paquetes)
     reparto->paquetes = paquetes;
 }
 
-void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) //agrega un paquete a la pila de paquetes
-{ //antes de hacer nada, debemos comprobar que exista la pila. Sino, mostramos un mensaje de error.
-    if(getPaquetesReparto(reparto)!=NULL)
-        apilar(reparto->paquetes,(PaquetePtr)paquete);
-    else
-    {
-        printf("ERROR: tratando de cargar un paquete en un reparto cuya pila no existe. Crear pila antes de cargar paquetes.");
-        exit(1);
-    }
+void cargarPaquete(RepartoPtr reparto,PaquetePtr paquete) {
+    apilar(reparto->paquetes, (PaquetePtr)paquete);
 }
 PaquetePtr descargarPaquete(RepartoPtr reparto) //elimina el ultimo paquete agregado de la pila. Devuelve el paquete eliminado.
 {

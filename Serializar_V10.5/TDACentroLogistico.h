@@ -27,7 +27,6 @@ typedef struct CentroLogistico
     ListaPtr listaPersonas;
     ListaPtr listaVehiculos;
     ListaPtr listaRepartosAbiertos; ///Nueva implementacion: Ahora los repartos que se cierran
-    ListaPtr listaRepartosCerrados; ///se pasan a esta lista en lugar de ser eliminados.
 } CentroLogistico;
 
 typedef CentroLogistico * CentroLogisticoPtr;
@@ -105,7 +104,7 @@ PARÁMETROS:
             true = si se quiere obtener un reparto abierto,
             false = si se quiere obtener un reparto cerrado.
 DEVUELVE: puntero a la lista de repartos indicada por esRepartoAbierto. */
-ListaPtr getRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+ListaPtr getRepartos(CentroLogisticoPtr centroLogistico);
 
 //---------------------------------------setters----------------------------------------------
 
@@ -155,7 +154,7 @@ PARÁMETROS:
             false = si se quiere asignar un reparto cerrado.
     - repartos: puntero a estructura que representa al nuevo valor de repartos.
 DEVUELVE: nada. */
-void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos, bool esRepartoAbierto);
+void setRepartos(CentroLogisticoPtr centroLogistico, ListaPtr repartos);
 
 //---------------------------------------Funciones de muestra y filtrado----------------------------------------------
 
@@ -198,7 +197,7 @@ PARÁMETROS:
             true = si se quiere mostrar un reparto abierto,
             false = si se quiere mostrar un reparto cerrado.
 DEVUELVE: nada. */
-void mostrarRepartos(CentroLogisticoPtr centroLogistico, bool esRepartoAbierto);
+void mostrarRepartos(CentroLogisticoPtr centroLogistico);
 
 /** OPERACIÓN: Muestra lista de repartos filtrados por una fecha determinada (de salida o retorno, no importa) (sin horario, solo día juliano).
           De cada reparto de la lista, solo se muestran fecha, vehiculo y chofer
@@ -210,7 +209,7 @@ PARÁMETROS:
     - esRepartoAbierto: booleano indicando si la lista es de repartos abiertos (true) o cerrados (false).
     - fecha: puntero a la estructura fecha que se usará para filtrar.
 DEVUELVE: nada. */
-void filtrarRepartosPorFecha(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,FechaPtr fecha);
+void filtrarRepartosPorFecha(CentroLogisticoPtr centroLogistico,FechaPtr fecha);
 
 /** OPERACIÓN: Muestra los paquetes con el estado que le haya pasado.
 PRECONDICIÓN: Centro logistico debe haberse creado.
@@ -310,7 +309,7 @@ PARÁMETROS:
             5: busca por fecha de retorno.
             6: busca por ID de alguno de los paquetes del reparto.
 DEVUELVE: true si se encontró una coincidencia, false de lo contrario. */
-bool buscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo);
+bool buscarReparto(CentroLogisticoPtr centroLogistico,int modo);
 
 
 //---------------------------------------Funciones de agregado a la lista----------------------------------------------
@@ -352,7 +351,7 @@ PARÁMETROS:
             false = si se quiere agregar un reparto cerrado.
     - reparto: puntero a estructura que representa al nuevo reparto.
 DEVUELVE: nada. */
-void agregarReparto(CentroLogisticoPtr centroLogistico,RepartoPtr reparto, bool esRepartoAbierto);
+void agregarReparto(CentroLogisticoPtr centroLogistico,RepartoPtr reparto);
 
 
 ///-----------------------------------------Funciones de inserción a la lista--------------------------------------------------
@@ -437,7 +436,7 @@ PARÁMETROS:
             false = si se quiere remover un reparto cerrado.
     - posicion: entero que representa la posicion.
 DEVUELVE: un puntero al reparto removido. */
-RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion,bool esRepartoAbierto);
+RepartoPtr removerReparto(CentroLogisticoPtr centroLogistico,int posicion);
 
 /** OPERACIÓN: cierra un reparto
 PRECONDICIÓN: centroLogistico debe haber sido creado anteriormente con crearCentroLogistico
@@ -553,7 +552,7 @@ PARÁMETROS:
     - esRepartoAbierto: booleano que indica si es un reparto abierto (true) o cerrado (false)
     - modo: entero representando el modo de ordenamiento elegido
 DEVUELVE: nada. */
-void ordenarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int modo);
+void ordenarRepartos(CentroLogisticoPtr centroLogistico,int modo);
 
 /** OPERACIÓN: verificación de paquetes disponibles
 PRECONDICIÓN:

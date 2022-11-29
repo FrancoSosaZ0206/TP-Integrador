@@ -1,4 +1,4 @@
-LISTA DE PERSONAS (13)
+LISTA DE PERSONAS (12)
 
 ***************************************
 
@@ -144,18 +144,6 @@ PERSONA 12
 		Altura: 1500
 		Localidad: Puerto Madero
 	CUIL: 30 23456543 1
-
----------------------------------------
-
-PERSONA 13
-
-	Tipo Chofer (true)
-	Apellido y Nombre: Mellino, Juan Carlos
-	Domicilio:
-		Calle: a
-		Altura: 1
-		Localidad: a
-	CUIL: 20 43265222 0
 
 
 ***************************************

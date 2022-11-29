@@ -1,4 +1,4 @@
-LISTA DE VEHICULOS (9)
+LISTA DE VEHICULOS (8)
 
 ***************************************
 
@@ -72,15 +72,6 @@ VEHICULO 8
 	Marca: Mercedes Benz
 	Modelo: Actros
 	Patente: 19 JUY 78
-
----------------------------------------
-
-VEHICULO 9
-
-	Tipo 2 - Auto
-	Marca: Lamborghini
-	Modelo: Aventador
-	Patente: FG 445 ZT
 
 
 ***************************************

@@ -1165,11 +1165,11 @@ bool menuEliminarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
             return true; //ya nos encargamos de poner opMenuAnterior en la funcion menuModoAccion
     }
 }
-bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int *opMenuAnterior)
+bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
 {
     bool continuar;
 
-    ListaPtr listaAux = getRepartos(centroLogistico,esRepartoAbierto);
+    ListaPtr listaAux = getRepartos(centroLogistico);
 
     if(listaVacia(listaAux))
     {
@@ -1195,49 +1195,40 @@ bool menuEliminarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 /// ////////////////////////////////////////////////////////////////////////////////// ///
                 if(modoAccion==1)
                 {
-                    if(esRepartoAbierto)
-                        printf("ELIMINAR REPARTO ABIERTO\n");
-                    else
-                        printf("ELIMINAR REPARTO CERRADO\n");
-                    mostrarRepartos(centroLogistico,esRepartoAbierto);
+                    printf("ELIMINAR REPARTO ABIERTO\n");
+                    mostrarRepartos(centroLogistico);
                     printf("\n\n-----------------------------------------\n\n");
                     printf("Reparto a remover: ");
                     indice=menuModoAccion1(listaAux);
                 //Obtenemos y destruimos el elemento seleccionado
-                    destruirReparto(removerReparto(centroLogistico,indice-1,esRepartoAbierto));
+                    destruirReparto(removerReparto(centroLogistico,indice-1));
                     printf("\nReparto eliminado exitosamente.\n\n");
                 }
                 else if(modoAccion==2)
                 {
-                    if(esRepartoAbierto)
-                        printf("ELIMINAR REPARTOS ABIERTOS\n");
-                    else
-                        printf("ELIMINAR REPARTOS CERRADOS\n");
-                    mostrarRepartos(centroLogistico,esRepartoAbierto);
+                    printf("ELIMINAR REPARTOS ABIERTOS\n");
+                    mostrarRepartos(centroLogistico);
                     printf("\n\n-----------------------------------------\n\n");
                     printf("Repartos a remover: ");
                     menuModoAccion2(listaAux,&nIndices,indices);
                 //Obtenemos y destruimos los elementos seleccionados
                     for(int i = 0 ; i < nIndices ; i++)
                     {
-                        destruirReparto(removerReparto(centroLogistico,indices[i]-i,esRepartoAbierto));
+                        destruirReparto(removerReparto(centroLogistico,indices[i]-i));
                     }
                     printf("\nRepartos eliminados exitosamente.\n\n");
 
                 }
                 else
                 {
-                    if(esRepartoAbierto)
-                        printf("ELIMINAR REPARTOS ABIERTOS\n");
-                    else
-                        printf("ELIMINAR REPARTOS CERRADOS\n");
-                    mostrarRepartos(centroLogistico,esRepartoAbierto);
+                    printf("ELIMINAR REPARTOS ABIERTOS\n");
+                    mostrarRepartos(centroLogistico);
                     printf("\n\n-----------------------------------------\n\n");
                     printf("Repartos a remover: ");
                     menuModoAccion3(listaAux,&desde,&hasta);
                 //Obtenemos y destruimos los elementos en el rango de indices
                     for(int i=desde;i<=hasta;i++)
-                        destruirReparto(removerReparto(centroLogistico,desde,esRepartoAbierto));
+                        destruirReparto(removerReparto(centroLogistico,desde));
                     printf("\nRepartos eliminados exitosamente.\n\n");
                 }
 
@@ -2007,10 +1998,10 @@ bool menuModificarVehiculo(CentroLogisticoPtr centroLogistico,int *opMenuAnterio
     }
     return true;
 }
-bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int *opMenuAnterior)
+bool menuModificarReparto(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
 {
     FechaPtr fechaAModificar = crearFecha(0,0,0,0,0);
-    ListaPtr listaAux=getRepartos(centroLogistico,esRepartoAbierto);
+    ListaPtr listaAux=getRepartos(centroLogistico);
 
     if(listaVacia(listaAux))
     {
@@ -2031,12 +2022,9 @@ bool menuModificarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbier
 
             do
             {
-                if(esRepartoAbierto)
-                    printf("MODIFICAR REPARTO ABIERTO\n");
-                else
-                    printf("MODIFICAR REPARTO CERRADO\n");
+                printf("MODIFICAR REPARTO ABIERTO\n");
                 printf("\n\n-----------------------------------------\n\n");
-                mostrarRepartos(centroLogistico,esRepartoAbierto);
+                mostrarRepartos(centroLogistico);
                 printf("\n\n-----------------------------------------\n\n");
 
                 int nuevoEstado;
@@ -2428,9 +2416,9 @@ void menuBuscarVehiculo(CentroLogisticoPtr centroLogistico)
         } while(continuar);
     }
 }
-void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
+void menuBuscarReparto(CentroLogisticoPtr centroLogistico)
 {
-    ListaPtr listaAux = getRepartos(centroLogistico,esRepartoAbierto);
+    ListaPtr listaAux = getRepartos(centroLogistico);
 
     if(listaVacia(listaAux))
     {
@@ -2465,9 +2453,9 @@ void menuBuscarReparto(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto)
             }
             else if(op>0 && op<=6)
             {
-                mostrarRepartos(centroLogistico, esRepartoAbierto);
+                mostrarRepartos(centroLogistico);
 
-                if(!buscarReparto(centroLogistico,esRepartoAbierto,op))
+                if(!buscarReparto(centroLogistico,op))
                 {
                     printf("No se pudo encontrar el reparto buscado.");
                     presionarEnterYLimpiarPantalla();
@@ -2773,9 +2761,9 @@ bool menuMostrarVehiculos(CentroLogisticoPtr centroLogistico,int *opMenuAnterior
         return cambiosGuardados;
     }
 }
-bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbierto,int *opMenuAnterior)
+bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,int *opMenuAnterior)
 {
-    ListaPtr listaAux = getRepartos(centroLogistico,esRepartoAbierto);
+    ListaPtr listaAux = getRepartos(centroLogistico);
     if(listaVacia(listaAux))
     {
         printf("ERROR: La lista esta vacia.");
@@ -2799,10 +2787,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
 
         do
         {
-            if(esRepartoAbierto)
-                printf("EMITIR LISTADO DE REPARTOS ABIERTOS\n");
-            else
-                printf("EMITIR LISTADO DE REPARTOS CERRADOS\n");
+            printf("EMITIR LISTADO DE REPARTOS ABIERTOS\n");
             printf("\n\n-----------------------------------------\n\n");
             printf("1. Mostrar un reparto\n");
             printf("2. Mostrar lista de repartos\n");
@@ -2820,7 +2805,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
             case 1:
                 do
                 {
-                    mostrarRepartos(centroLogistico,esRepartoAbierto);
+                    mostrarRepartos(centroLogistico);
                     printf("\nSeleccione un reparto para mostrar: ");
                     scanf("%d",&i);
                     limpiarBufferTeclado();
@@ -2875,12 +2860,12 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                             primeraVez=false;
                         } while (!esFechaValida(fecha));
                         system("cls");
-                        filtrarRepartosPorFecha(centroLogistico,esRepartoAbierto,fecha);
+                        filtrarRepartosPorFecha(centroLogistico,fecha);
                         fecha=destruirFecha(fecha);
                         cambiosGuardados = false;
                         break;
                     case 2:
-                        mostrarRepartos(centroLogistico,esRepartoAbierto);
+                        mostrarRepartos(centroLogistico);
                         break;
                     case 0:
                         break;
@@ -2920,27 +2905,27 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                     switch(op3)
                     {
                     case 1:
-                        ordenarRepartos(centroLogistico,esRepartoAbierto,1);
+                        ordenarRepartos(centroLogistico,1);
                         cambiosGuardados = false;
                         break;
                     case 2:
-                        ordenarRepartos(centroLogistico,esRepartoAbierto,2);
+                        ordenarRepartos(centroLogistico,2);
                         cambiosGuardados = false;
                         break;
                     case 3:
-                        ordenarRepartos(centroLogistico,esRepartoAbierto,3);
+                        ordenarRepartos(centroLogistico,3);
                         cambiosGuardados = false;
                         break;
                     case 4:
-                        ordenarRepartos(centroLogistico,esRepartoAbierto,4);
+                        ordenarRepartos(centroLogistico,4);
                         cambiosGuardados = false;
                         break;
                     case 5:
-                        ordenarRepartos(centroLogistico,esRepartoAbierto,5);
+                        ordenarRepartos(centroLogistico,5);
                         cambiosGuardados = false;
                         break;
                     case 6:
-                        ordenarRepartos(centroLogistico,esRepartoAbierto,6);
+                        ordenarRepartos(centroLogistico,6);
                         cambiosGuardados = false;
                         break;
                     case 7:
@@ -2959,7 +2944,7 @@ bool menuMostrarRepartos(CentroLogisticoPtr centroLogistico,bool esRepartoAbiert
                     }
                     if(op3>=1 && op3<=6) //si se eligio volver o una opcion invalida,
                     {
-                        mostrarRepartos(centroLogistico,esRepartoAbierto); //no mostramos nada.
+                        mostrarRepartos(centroLogistico); //no mostramos nada.
                         presionarEnterYLimpiarPantalla();
                     }
                 } while(!(op3==0 || op3==-1));
@@ -3190,7 +3175,7 @@ bool menuArmarReparto(CentroLogisticoPtr centroLogistico)
             }
             else
             { //Si el reparto es válido, lo agregamos a la lista del centro,
-                agregarReparto(centroLogistico, reparto, true);
+                agregarReparto(centroLogistico, reparto);
                 printf("\n\nReparto armado exitosamente.");
                 repartoArmado = true;
             }
@@ -3211,12 +3196,12 @@ bool menuActualizarReparto(CentroLogisticoPtr centroLogistico)
     int k = 0;
     int opEstado;
     int nEstado;
-    int n = longitudLista(getRepartos(centroLogistico,true));
+    int n = longitudLista(getRepartos(centroLogistico));
     bool PaqueteValido = false;
     PaquetePtr PaqueteElegido;
     RepartoPtr repartoActualizar;
 
-    if(listaVacia(getRepartos(centroLogistico,true)))
+    if(listaVacia(getRepartos(centroLogistico)))
     {
         printf("ERROR: Lista Vacia.");
         presionarEnterYLimpiarPantalla();
@@ -3226,7 +3211,7 @@ bool menuActualizarReparto(CentroLogisticoPtr centroLogistico)
     {
         do
         {
-            mostrarRepartos(centroLogistico,true);
+            mostrarRepartos(centroLogistico);
             printf("\n\nEleccion: ");
             scanf("%d",&k);
             limpiarBufferTeclado();
@@ -3239,7 +3224,7 @@ bool menuActualizarReparto(CentroLogisticoPtr centroLogistico)
         } while(k < 1 || k > n);
 
         system("cls");
-        repartoActualizar = (RepartoPtr)getDatoLista(getRepartos(centroLogistico,true),k-1);
+        repartoActualizar = (RepartoPtr)getDatoLista(getRepartos(centroLogistico),k-1);
 
         if(pilaVacia(getPaquetesReparto(repartoActualizar)))
         {

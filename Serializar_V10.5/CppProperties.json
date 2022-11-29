@@ -1,0 +1,42 @@
+{
+  "configurations": [
+    {
+      "inheritEnvironments": [
+        "mingw_64"
+      ],
+      "name": "Mingw64",
+      "includePath": [
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\libiberty",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include\\gdb",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${workspaceRoot}\\..\\..\\..\\..\\..\\..\\..\\Program Files\\CodeBlocks\\MinGW\\include",
+        "${env.INCLUDE}",
+        "${workspaceRoot}\\**"
+      ],
+      "intelliSenseMode": "linux-gcc-x64"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-LISTA DE PAQUETES (11)
+LISTA DE PAQUETES (10)
 
 ***************************************
 
@@ -118,7 +118,7 @@ PAQUETE 7 (#1)
 		Calle: Santa fe
 		Altura: 1500
 		Localidad: Banfield
-	Fecha de Entrega: 28/11/2022, 21:8
+	Fecha de Entrega: 28/11/2022, 21:13
 
 ---------------------------------------
 
@@ -135,7 +135,7 @@ PAQUETE 8 (#2)
 		Calle: Italia
 		Altura: 3000
 		Localidad: Palermo
-	Fecha de Entrega: 28/11/2022, 21:8
+	Fecha de Entrega: 28/11/2022, 21:13
 
 ---------------------------------------
 
@@ -152,7 +152,7 @@ PAQUETE 9 (#3)
 		Calle: 24 de mayo
 		Altura: 3000
 		Localidad: Capital Federal
-	Fecha de Entrega: 28/11/2022, 21:8
+	Fecha de Entrega: 28/11/2022, 21:13
 
 ---------------------------------------
 
@@ -169,24 +169,7 @@ PAQUETE 10 (#4)
 		Calle: 24 de mayo
 		Altura: 3000
 		Localidad: Capital Federal
-	Fecha de Entrega: 28/11/2022, 21:8
-
----------------------------------------
-
-PAQUETE 11 (#1)
-
-	Estado: 0. En Deposito
-	Ancho, Alto y Largo: 1, 1, 1
-	Peso: 1
-	Direccion de Retiro:
-		Calle: 1
-		Altura: 1
-		Localidad: 1
-	Direccion de Entrega:
-		Calle: 11
-		Altura: 11
-		Localidad: 11
-	Fecha de Entrega: 28/11/2022, 21:46
+	Fecha de Entrega: 28/11/2022, 21:13
 
 
 ***************************************

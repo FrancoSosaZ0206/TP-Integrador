@@ -115,7 +115,7 @@ void crearListaRepartosDefecto(CentroLogisticoPtr c)
         agregarPaquete(c,paquetes[i]);
         agregarPersona(c,choferes[i]);
         agregarVehiculo(c,vehiculos[i]);
-        agregarReparto(c,repartos[i],true);
+        agregarReparto(c,repartos[i]);
     }
 }
 

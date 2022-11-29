@@ -1,9 +1,105 @@
-LISTA DE REPARTOS (1)
+LISTA DE REPARTOS (5)
 
 ***************************************
 
 
 REPARTO 1
+
+Chofer:
+	Tipo Chofer (true)
+	Apellido y Nombre: Garcia, Roberto
+	Domicilio:
+		Calle: Vieytes
+		Altura: 2000
+		Localidad: Lomas de zamora
+	CUIL: 20 34654754 6
+
+Vehiculo:
+	Tipo 3 - Camion
+	Marca: Mercedes Benz
+	Modelo: Actros
+	Patente: 17 UJI 30
+
+Fecha de Salida: 28/11/2022, 21:7
+Fecha de Retorno: 28/11/2022, 21:9
+
+ENTREGAS DEL REPARTO (0):
+
+---------------------------------------
+
+REPARTO 2
+
+Chofer:
+	Tipo Chofer (true)
+	Apellido y Nombre: Gonzalez, Maria
+	Domicilio:
+		Calle: Boqueron
+		Altura: 1500
+		Localidad: Villa Fiorito
+	CUIL: 27 24576456 7
+
+Vehiculo:
+	Tipo 3 - Camion
+	Marca: Mercedes Benz
+	Modelo: Actros
+	Patente: 81 NMB 30
+
+Fecha de Salida: 28/11/2022, 21:7
+Fecha de Retorno: 28/11/2022, 21:9
+
+ENTREGAS DEL REPARTO (0):
+
+---------------------------------------
+
+REPARTO 3
+
+Chofer:
+	Tipo Chofer (true)
+	Apellido y Nombre: Gutierrez, Gonzalo
+	Domicilio:
+		Calle: Espania
+		Altura: 1500
+		Localidad: Puerto Madero
+	CUIL: 30 23456543 1
+
+Vehiculo:
+	Tipo 3 - Camion
+	Marca: Mercedes Benz
+	Modelo: Actros
+	Patente: 19 JUY 78
+
+Fecha de Salida: 28/11/2022, 21:7
+Fecha de Retorno: 28/11/2022, 21:9
+
+ENTREGAS DEL REPARTO (0):
+
+---------------------------------------
+
+REPARTO 4
+
+Chofer:
+	Tipo Chofer (true)
+	Apellido y Nombre: Alonzo, Alberto
+	Domicilio:
+		Calle: Espania
+		Altura: 1500
+		Localidad: Puerto Madero
+	CUIL: 30 23456543 1
+
+Vehiculo:
+	Tipo 3 - Camion
+	Marca: Mercedes Benz
+	Modelo: Actros
+	Patente: 19 JUY 78
+
+Fecha de Salida: 28/11/2022, 21:7
+Fecha de Retorno: 28/11/2022, 21:9
+
+ENTREGAS DEL REPARTO (0):
+
+---------------------------------------
+
+REPARTO 5
 
 Chofer:
 	Tipo Chofer (true)
@@ -20,8 +116,10 @@ Vehiculo:
 	Modelo: Aventador
 	Patente: FG 445 ZT
 
-Fecha de Salida: 28/11/2022, 16:36
-Fecha de Retorno: 28/11/2022, 17:16
+Fecha de Salida: 28/11/2022, 21:6
+Fecha de Retorno: 28/11/2022, 21:46
+
+ENTREGAS DEL REPARTO (1):
 
 Paquete 1 (#1)
 
@@ -36,7 +134,7 @@ Paquete 1 (#1)
 		Calle: 11
 		Altura: 11
 		Localidad: 11
-	Fecha de Entrega: 28/11/2022, 17:16
+	Fecha de Entrega: 28/11/2022, 21:46
 
 
 ***************************************

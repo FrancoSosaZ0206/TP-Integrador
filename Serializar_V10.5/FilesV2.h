@@ -50,7 +50,7 @@ POSTCONDICIÓN: se serializan los datos de la lista en un archivo de texto con un
 PARÁMETROS:
     - c: puntero al centro logistico
 DEVUELVE: true si se pudo guardar, false de lo contrario. */
-bool serializarPaquetes(CentroLogisticoPtr c);
+bool serializarPaquetes(CentroLogisticoPtr c, char* nombreCarpeta);
 
 /** OPERACIÓN: serialización de personas (guardado)
 PRECONDICIÓN: c debe haberse creado
@@ -58,7 +58,7 @@ POSTCONDICIÓN: se serializan los datos de la lista en un archivo de texto con un
 PARÁMETROS:
     - c: puntero al centro logistico
 DEVUELVE: true si se pudo guardar, false de lo contrario. */
-bool serializarPersonas(CentroLogisticoPtr c);
+bool serializarPersonas(CentroLogisticoPtr c, char* nombreCarpeta);
 
 /** OPERACIÓN: serialización de vehículos (guardado)
 PRECONDICIÓN: c debe haberse creado
@@ -66,7 +66,7 @@ POSTCONDICIÓN: se serializan los datos de la lista en un archivo de texto con un
 PARÁMETROS:
     - c: puntero al centro logistico
 DEVUELVE: true si se pudo guardar, false de lo contrario. */
-bool serializarVehiculos(CentroLogisticoPtr c);
+bool serializarVehiculos(CentroLogisticoPtr c, char* nombreCarpeta);
 
 /** OPERACIÓN: serialización de repartos (guardado)
 PRECONDICIÓN: c debe haberse creado
@@ -75,7 +75,7 @@ PARÁMETROS:
     - c: puntero al centro logistico
     - esRepartoAbierto: booleano indicando si es lista de repartos abiertos (true) o cerrados (false)
 DEVUELVE: true si se pudo guardar, false de lo contrario. */
-bool serializarRepartos(CentroLogisticoPtr c,bool esRepartoAbierto);
+bool serializarRepartos(CentroLogisticoPtr c, char* nombreCarpeta);
 
 
 
@@ -85,7 +85,7 @@ POSTCONDICIÓN: se deserializan los datos de la lista desde un archivo de texto a
 PARÁMETROS:
     - c: puntero al centro logistico
 DEVUELVE: true si se pudo abrir, false de lo contrario. */
-bool deserializarPaquetes(CentroLogisticoPtr c);
+bool deserializarPaquetes(CentroLogisticoPtr c, char* nombreCarpeta);
 
 /** OPERACIÓN: deserialización de personas (apertura)
 PRECONDICIÓN: c debe haberse creado
@@ -93,7 +93,7 @@ POSTCONDICIÓN: se deserializan los datos de la lista desde un archivo de texto a
 PARÁMETROS:
     - c: puntero al centro logistico
 DEVUELVE: true si se pudo abrir, false de lo contrario. */
-bool deserializarPersonas(CentroLogisticoPtr c);
+bool deserializarPersonas(CentroLogisticoPtr c, char* nombreCarpeta);
 
 /** OPERACIÓN: deserialización de vehículos (apertura)
 PRECONDICIÓN: c debe haberse creado
@@ -101,7 +101,7 @@ POSTCONDICIÓN: se deserializan los datos de la lista desde un archivo de texto a
 PARÁMETROS:
     - c: puntero al centro logistico
 DEVUELVE: true si se pudo abrir, false de lo contrario. */
-bool deserializarVehiculos(CentroLogisticoPtr c);
+bool deserializarVehiculos(CentroLogisticoPtr c, char* nombreCarpeta);
 
 /** OPERACIÓN: deserialización de repartos (apertura)
 PRECONDICIÓN: c debe haberse creado
@@ -110,7 +110,9 @@ PARÁMETROS:
     - c: puntero al centro logistico
     - esRepartoAbierto: booleano indicando si es lista de repartos abiertos (true) o cerrados (false)
 DEVUELVE: true si se pudo abrir, false de lo contrario. */
-bool deserializarRepartos(CentroLogisticoPtr c,bool esRepartoAbierto);
+bool deserializarRepartos(CentroLogisticoPtr c, char* nombreCarpeta);
 
+bool abrirTodo(CentroLogisticoPtr c, char* directorio);
+bool guardarTodo(CentroLogisticoPtr c, char* nombreCarpeta);
 
 #endif // FILESV2_H_INCLUDED

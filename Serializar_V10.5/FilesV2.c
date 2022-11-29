@@ -16,7 +16,7 @@
 ///                                                 MACROS
 
 /// *** NOMBRES DE CARPETAS ***
-const char *CARPETA = "Archivos";
+const char *nombreCarpeta = "Archivos";
 /// *** NOMBRES DE ARCHIVOS ***
 const char *F_PAQUETES = "Paquetes";
 const char *F_PERSONAS = "Personas";
@@ -144,6 +144,8 @@ typedef fReparto* fRepartoPtr;
 
 ///                                             FUNCIONES PRIVADAS/INTERNAS
 
+DomicilioPtr fsetDomicilio(fDomicilioPtr pfdomicilio,DomicilioPtr domicilio,bool setGuardar);
+FechaPtr fsetFecha(fFechaPtr pffecha,FechaPtr fecha,bool setGuardar);
 
 ///Getters
 
@@ -308,7 +310,7 @@ fPaquetePtr fgetPaquetesReparto(fRepartoPtr pfreparto)
 
 //Nuevo "getter" para el array de paquetes estáticos:
 //Copia el contenido de cada paquete en un array aparte
-void fsetPaquetesReparto2(fRepartoPtr pfreparto,fPaquetePtr pfpaquetes[100],int n)
+void fsetPaquetesReparto2(fRepartoPtr pfreparto,fPaquetePtr pfpaquetes[],int n)
 {
     for(int i=0;i<n;i++)
     {
@@ -317,45 +319,20 @@ void fsetPaquetesReparto2(fRepartoPtr pfreparto,fPaquetePtr pfpaquetes[100],int 
         pfpaquetes[i]->alto=fgetAlto(&pfreparto->paquetes[i]);
         pfpaquetes[i]->largo=fgetLargo(&pfreparto->paquetes[i]);
         pfpaquetes[i]->peso=fgetPeso(&pfreparto->paquetes[i]);
-    //Copiamos la direccion de retiro
-        strcpy(pfdomicilio->calle,getCalle(domicilio));
-        pfdomicilio->altura=getAltura(domicilio);
-        strcpy(pfdomicilio->localidad,getLocalidad(domicilio));
-    //Copiamos la direccion de entrega
-        strcpy(pfdomicilio->calle,getCalle(domicilio));
-        pfdomicilio->altura=getAltura(domicilio);
-        strcpy(pfdomicilio->localidad,getLocalidad(domicilio));
-    //Copiamos la fecha de entrega
-        fsetFecha(fgetFechaEntrega(pfpaquete),getFechaEntrega(paquete),true);
 
-        pfpaquetes[i]->estado=fgetEstado(&pfreparto->paquetes[i]);
-        switch(pfpaquetes[i]->estado)
-        {
-        case 0:
-            strcpy(pfpaquetes[i]->estadoStr,"En Deposito");
-            break;
-        case 1:
-            strcpy(pfpaquetes[i]->estadoStr,"En Curso");
-            break;
-        case 2:
-            strcpy(pfpaquetes[i]->estadoStr,"Retirado");
-            break;
-        case 3:
-            strcpy(pfpaquetes[i]->estadoStr,"Entregado");
-            break;
-        case 4:
-            strcpy(pfpaquetes[i]->estadoStr,"Demorado");
-            break;
-        case 5:
-            strcpy(pfpaquetes[i]->estadoStr,"Suspendido");
-            break;
-        case 6:
-            strcpy(pfpaquetes[i]->estadoStr,"Reservado");
-            break;
-        default:
-            strcpy(pfpaquetes[i]->estadoStr,"ERROR");
-            break;
-        }
+        strcpy(pfpaquetes[i]->dirRetiro.calle, pfreparto->paquetes[i].dirRetiro.calle);
+        pfpaquetes[i]->dirRetiro.altura = pfreparto->paquetes[i].dirRetiro.altura;
+        strcpy(pfpaquetes[i]->dirRetiro.localidad, pfreparto->paquetes[i].dirRetiro.localidad);
+
+        strcpy(pfpaquetes[i]->dirEntrega.calle, pfreparto->paquetes[i].dirEntrega.calle);
+        pfpaquetes[i]->dirEntrega.altura = pfreparto->paquetes[i].dirEntrega.altura;
+        strcpy(pfpaquetes[i]->dirEntrega.localidad, pfreparto->paquetes[i].dirEntrega.localidad);
+
+        pfpaquetes[i]->fechaEntrega.diaJuliano = pfreparto->paquetes[i].fechaEntrega.diaJuliano;
+        pfpaquetes[i]->fechaEntrega.hora = pfreparto->paquetes[i].fechaEntrega.hora;
+        pfpaquetes[i]->fechaEntrega.minuto = pfreparto->paquetes[i].fechaEntrega.minuto;
+
+        strcpy(pfpaquetes[i]->estadoStr,pfreparto->paquetes[i].estadoStr);
     }
 }
 
@@ -384,9 +361,7 @@ DomicilioPtr fsetDomicilio(fDomicilioPtr pfdomicilio,DomicilioPtr domicilio,bool
         strcpy(pfdomicilio->localidad,getLocalidad(domicilio));
     }
     else ///asumimos que la estructura está vacía y la creamos.
-        domicilio = crearDomicilio(pfdomicilio->calle,
-                                   pfdomicilio->altura,
-                                   pfdomicilio->localidad);
+        domicilio = crearDomicilio(pfdomicilio->calle,pfdomicilio->altura,pfdomicilio->localidad);
     return domicilio;
 }
 FechaPtr fsetFecha(fFechaPtr pffecha,FechaPtr fecha,bool setGuardar)
@@ -653,30 +628,17 @@ void serializarReparto(fRepartoPtr pfreparto,FILE *f)
     fprintf(f,"Fecha de Retorno: ");
     serializarFecha(fgetFechaRetorno(pfreparto),f);
 
-/// /////////////////////////////////////////////////////////
-/// /////////////////////////////////////////////////////////
-/// /////////////////////////////////////////////////////////
-    fprintf(f,"\nPaquete %d ",1);
+    int n=fgetTamanioPilaPaq(pfreparto);
+    fPaquetePtr fpaquetes = fgetPaquetesReparto(pfreparto);
 
-    fPaquetePtr paquetes;
-    paquetes = fgetPaquetesReparto(pfreparto);
-    serializarPaquete(paquetes[0],f);
-/// /////////////////////////////////////////////////////////
-/// /////////////////////////////////////////////////////////
-/// /////////////////////////////////////////////////////////
-
-
-//    int n=fgetTamanioPilaPaq(pfreparto);
-//    fPaquetePtr fpaquetes = fgetPaquetesReparto(pfreparto);
-//
-//    assert(fprintf(f,"\nENTREGAS DEL REPARTO (%d):\n",n)!=-1);
-//    for(int i=n-1,j=1;i>-1;i--,j++)
-//    {
-//        fprintf(f,"\nPaquete %d ",j);
-//        serializarPaquete(&fpaquetes[i],f);
-//        if(i>0)
-//            fprintf(f,"\n");
-//    }
+    assert(fprintf(f,"\nENTREGAS DEL REPARTO (%d):\n",n)!=-1);
+    for(int i=n-1,j=1;i>-1;i--,j++)
+    {
+        fprintf(f,"\nPaquete %d ",j);
+        serializarPaquete(&fpaquetes[i],f);
+        if(i>0)
+            fprintf(f,"\n");
+    }
 }
 
 /// *** FUNCIONES DE DESERIALIZACIÓN (AYUDANTES) ***
@@ -715,8 +677,7 @@ void deserializarPaquete(fPaquetePtr pfpaquete,FILE *f)
     assert(f!=NULL);
 
     int n=7;
-    int res = fscanf(f,PAQUETE_IN,&pfpaquete->ID,&pfpaquete->estado,pfpaquete->estadoStr,
-                        &pfpaquete->ancho,&pfpaquete->alto,&pfpaquete->largo,&pfpaquete->peso);
+    int res = fscanf(f,PAQUETE_IN,&pfpaquete->ID,&pfpaquete->estado,pfpaquete->estadoStr,&pfpaquete->ancho,&pfpaquete->alto,&pfpaquete->largo,&pfpaquete->peso);
     assert(res == n);
 
     fscanf(f,"\tDireccion de Retiro:\n");
@@ -731,8 +692,7 @@ void deserializarPersona(fPersonaPtr pfpersona,FILE *f)
     assert(f!=NULL);
 
     int n=4;
-    int res = fscanf(f,PERSONA_IN,pfpersona->esChoferStr,pfpersona->valorDeVerdadStr,
-            pfpersona->apellido,pfpersona->nombre);
+    int res = fscanf(f,PERSONA_IN,pfpersona->esChoferStr,pfpersona->valorDeVerdadStr,pfpersona->apellido,pfpersona->nombre);
     assert(res==n);
 
     fscanf(f,"\tDomicilio:\n");
@@ -749,10 +709,18 @@ void deserializarVehiculo(fVehiculoPtr pfvehiculo,FILE *f)
     assert(f!=NULL);
 
     int n=5;
-    int res = fscanf(f,VEHICULO_IN,&pfvehiculo->tipo,pfvehiculo->tipoStr,
-                         pfvehiculo->marca,pfvehiculo->modelo,pfvehiculo->patente);
+    int res = fscanf(f,VEHICULO_IN,&pfvehiculo->tipo,pfvehiculo->tipoStr,pfvehiculo->marca,pfvehiculo->modelo,pfvehiculo->patente);
     assert(res==n);
 }
+
+
+void mostrarPaqueteEstatico(fPaquetePtr p){
+    printf("%d %d %d %d %d %d\n", p->ID, p->alto, p->ancho, p->largo, p->peso, p->estado);
+    printf("%s %d %s\n", p->dirRetiro.calle, p->dirRetiro.altura, p->dirRetiro.localidad);
+    printf("%s %d %s\n", p->dirEntrega.calle, p->dirEntrega.altura, p->dirEntrega.localidad);
+    printf("%d %d %d\n", p->fechaEntrega.diaJuliano, p->fechaEntrega.hora, p->fechaEntrega.minuto);
+}
+
 void deserializarReparto(fRepartoPtr pfreparto,FILE *f)
 {
     assert(f!=NULL);
@@ -767,29 +735,13 @@ void deserializarReparto(fRepartoPtr pfreparto,FILE *f)
     fscanf(f,"Fecha de Retorno: ");
     deserializarFecha(fgetFechaRetorno(pfreparto),f);
 
-
-/// /////////////////////////////////////////////////////////
-/// /////////////////////////////////////////////////////////
-/// /////////////////////////////////////////////////////////
-    int indicePaq=0;
-    fscanf(f,"\nPaquete %d ",&indicePaq);
-    deserializarPaquete(&pfreparto->paquetes[0],f);
-/// /////////////////////////////////////////////////////////
-/// /////////////////////////////////////////////////////////
-/// /////////////////////////////////////////////////////////
-
-
-//    int n=0;
-//    assert(fscanf(f,"\nENTREGAS DEL REPARTO (%d):\n",&n)==1);
-//    pfreparto->tamanioPilaPaq=n;
-//    for(int i=0,j=0;i<n;i++)
-//    {
-//        fPaquetePtr fpaquetes = fgetPaquetesReparto(pfreparto);
-//        assert(fscanf(f,"\nPaquete %d ",&j)==1);
-//        deserializarPaquete(&fpaquetes[i],f);
-//        if(i>0)
-//            fscanf(f,"\n\n");
-//    }
+    int n=0;
+    assert(fscanf(f,"\nENTREGAS DEL REPARTO (%d):\n",&n)==1);
+    pfreparto->tamanioPilaPaq=n;
+    for(int i=0,j=0;i<n;i++){
+        assert(fscanf(f,"\nPaquete %d ",&j)==1);
+        deserializarPaquete(&pfreparto->paquetes[i],f);
+    }
 }
 
 
@@ -839,10 +791,10 @@ bool abrirCarpeta(const char *nombre)
 
 /// *** FUNCIONES DE SERIALIZACIÓN ***
 
-bool serializarPaquetes(CentroLogisticoPtr c)
+bool serializarPaquetes(CentroLogisticoPtr c, char* nombreCarpeta)
 {
-    if(!abrirCarpeta(CARPETA))
-        if(!crearCarpeta(CARPETA))
+    if(!abrirCarpeta(nombreCarpeta))
+        if(!crearCarpeta(nombreCarpeta))
             return false;
 
     FILE *f;
@@ -853,7 +805,7 @@ bool serializarPaquetes(CentroLogisticoPtr c)
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux,getPaquetes(c));
 
-    char *directorio = getDirectorio(CARPETA,F_PAQUETES,F_TEXTO);
+    char *directorio = getDirectorio(nombreCarpeta,F_PAQUETES,F_TEXTO);
 
     f = fopen(directorio,"w");
     directorio = destruirStringDinamico(directorio);
@@ -889,10 +841,10 @@ bool serializarPaquetes(CentroLogisticoPtr c)
     return true;
 }
 
-bool serializarPersonas(CentroLogisticoPtr c)
+bool serializarPersonas(CentroLogisticoPtr c, char* nombreCarpeta)
 {
-    if(!abrirCarpeta(CARPETA))
-        if(!crearCarpeta(CARPETA))
+    if(!abrirCarpeta(nombreCarpeta))
+        if(!crearCarpeta(nombreCarpeta))
             return false;
 
     FILE *f;
@@ -903,7 +855,7 @@ bool serializarPersonas(CentroLogisticoPtr c)
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux,getPersonas(c));
 
-    char *directorio = getDirectorio(CARPETA,F_PERSONAS,F_TEXTO);
+    char *directorio = getDirectorio(nombreCarpeta,F_PERSONAS,F_TEXTO);
 
     f = fopen(directorio,"w");
     directorio = destruirStringDinamico(directorio);
@@ -939,10 +891,10 @@ bool serializarPersonas(CentroLogisticoPtr c)
     return true;
 }
 
-bool serializarVehiculos(CentroLogisticoPtr c)
+bool serializarVehiculos(CentroLogisticoPtr c, char* nombreCarpeta)
 {
-    if(!abrirCarpeta(CARPETA))
-        if(!crearCarpeta(CARPETA))
+    if(!abrirCarpeta(nombreCarpeta))
+        if(!crearCarpeta(nombreCarpeta))
             return false;
 
     FILE *f;
@@ -953,7 +905,7 @@ bool serializarVehiculos(CentroLogisticoPtr c)
     ListaPtr listaAux = crearLista();
     agregarLista(listaAux,getVehiculos(c));
 
-    char *directorio = getDirectorio(CARPETA,F_VEHICULOS,F_TEXTO);
+    char *directorio = getDirectorio(nombreCarpeta,F_VEHICULOS,F_TEXTO);
 
     f = fopen(directorio,"w");
     directorio = destruirStringDinamico(directorio);
@@ -989,25 +941,22 @@ bool serializarVehiculos(CentroLogisticoPtr c)
     return true;
 }
 
-bool serializarRepartos(CentroLogisticoPtr c,bool esRepartoAbierto)
+bool serializarRepartos(CentroLogisticoPtr c, char* nombreCarpeta)
 {
-    if(!abrirCarpeta(CARPETA))
-        if(!crearCarpeta(CARPETA))
+    if(!abrirCarpeta(nombreCarpeta))
+        if(!crearCarpeta(nombreCarpeta))
             return false;
 
     FILE *f;
-    int n=longitudLista(getRepartos(c,esRepartoAbierto));
+    int n=longitudLista(getRepartos(c));
     fReparto frepartos[n];
     RepartoPtr repartoAux;
 
     ListaPtr listaAux = crearLista();
-    agregarLista(listaAux,getRepartos(c,esRepartoAbierto));
+    agregarLista(listaAux,getRepartos(c));
 
     char *directorio;
-    if(esRepartoAbierto)
-        directorio = getDirectorio(CARPETA,F_REPARTOS_ABIERTOS,F_TEXTO);
-    else
-        directorio = getDirectorio(CARPETA,F_REPARTOS_CERRADOS,F_TEXTO);
+    directorio = getDirectorio(nombreCarpeta,F_REPARTOS_ABIERTOS,F_TEXTO);
 
     f = fopen(directorio,"w");
     directorio = destruirStringDinamico(directorio);
@@ -1045,9 +994,9 @@ bool serializarRepartos(CentroLogisticoPtr c,bool esRepartoAbierto)
 
 /// *** FUNCIONES DE DESERIALIZACIÓN ***
 
-bool deserializarPaquetes(CentroLogisticoPtr c)
+bool deserializarPaquetes(CentroLogisticoPtr c, char* nombreCarpeta)
 {
-    if(!abrirCarpeta(CARPETA))
+    if(!abrirCarpeta(nombreCarpeta))
         return false;
 
     FILE *f;
@@ -1055,7 +1004,7 @@ bool deserializarPaquetes(CentroLogisticoPtr c)
     fPaquete fpaquete;
     PaquetePtr paqueteAux;
 
-    char *directorio = getDirectorio(CARPETA,F_PAQUETES,F_TEXTO);
+    char *directorio = getDirectorio(nombreCarpeta,F_PAQUETES,F_TEXTO);
     f = fopen(directorio,"r");
     directorio = destruirStringDinamico(directorio);
     if(f==NULL)
@@ -1079,9 +1028,9 @@ bool deserializarPaquetes(CentroLogisticoPtr c)
     return true;
 }
 
-bool deserializarPersonas(CentroLogisticoPtr c)
+bool deserializarPersonas(CentroLogisticoPtr c, char* nombreCarpeta)
 {
-    if(!abrirCarpeta(CARPETA))
+    if(!abrirCarpeta(nombreCarpeta))
         return false;
 
     FILE *f;
@@ -1089,7 +1038,7 @@ bool deserializarPersonas(CentroLogisticoPtr c)
     fPersona fpersona;
     PersonaPtr personaAux;
 
-    char *directorio = getDirectorio(CARPETA,F_PERSONAS,F_TEXTO);
+    char *directorio = getDirectorio(nombreCarpeta,F_PERSONAS,F_TEXTO);
     f = fopen(directorio,"r");
     directorio = destruirStringDinamico(directorio);
     if(f==NULL)
@@ -1113,9 +1062,9 @@ bool deserializarPersonas(CentroLogisticoPtr c)
     return true;
 }
 
-bool deserializarVehiculos(CentroLogisticoPtr c)
+bool deserializarVehiculos(CentroLogisticoPtr c, char* nombreCarpeta)
 {
-    if(!abrirCarpeta(CARPETA))
+    if(!abrirCarpeta(nombreCarpeta))
         return false;
 
     FILE *f;
@@ -1123,7 +1072,7 @@ bool deserializarVehiculos(CentroLogisticoPtr c)
     fVehiculo fvehiculo;
     VehiculoPtr vehiculoAux;
 
-    char *directorio = getDirectorio(CARPETA,F_VEHICULOS,F_TEXTO);
+    char *directorio = getDirectorio(nombreCarpeta,F_VEHICULOS,F_TEXTO);
     f = fopen(directorio,"r");
     directorio = destruirStringDinamico(directorio);
     if(f==NULL)
@@ -1147,9 +1096,9 @@ bool deserializarVehiculos(CentroLogisticoPtr c)
     return true;
 }
 
-bool deserializarRepartos(CentroLogisticoPtr c,bool esRepartoAbierto)
+bool deserializarRepartos(CentroLogisticoPtr c, char* nombreCarpeta)
 {
-    if(!abrirCarpeta(CARPETA))
+    if(!abrirCarpeta(nombreCarpeta))
         return false;
 
     FILE *f;
@@ -1158,10 +1107,7 @@ bool deserializarRepartos(CentroLogisticoPtr c,bool esRepartoAbierto)
     RepartoPtr repartoAux;
 
     char *directorio;
-    if(esRepartoAbierto)
-        directorio = getDirectorio(CARPETA,F_REPARTOS_ABIERTOS,F_TEXTO);
-    else
-        directorio = getDirectorio(CARPETA,F_REPARTOS_CERRADOS,F_TEXTO);
+    directorio = getDirectorio(nombreCarpeta,F_REPARTOS_ABIERTOS,F_TEXTO);
 
     f = fopen(directorio,"r");
     directorio = destruirStringDinamico(directorio);
@@ -1177,7 +1123,7 @@ bool deserializarRepartos(CentroLogisticoPtr c,bool esRepartoAbierto)
         deserializarReparto(&freparto,f);
 
         repartoAux = fsetReparto(&freparto,repartoAux,false);
-        agregarReparto(c,repartoAux,esRepartoAbierto);
+        agregarReparto(c,repartoAux);
 
         if(i>n-1)
             fscanf(f,F_BETWEEN);
@@ -1185,4 +1131,36 @@ bool deserializarRepartos(CentroLogisticoPtr c,bool esRepartoAbierto)
     fclose(f);
 
     return true;
+}
+
+
+bool guardarTodo(CentroLogisticoPtr c, char* nombreCarpeta)
+{
+    char* directorio = getDirectorio(nombreCarpeta,"nombreCtro","txt");
+    char nombreCtro[100];
+    strcpy(nombreCtro, getNombreCentroLogistico(c));
+    FILE* a = fopen(directorio,"w");
+    fwrite(nombreCtro, sizeof(char), 100, a);
+    fclose(a);
+    bool condicion = serializarRepartos(c, nombreCarpeta);
+    condicion = condicion && serializarPersonas(c, nombreCarpeta);
+    condicion = condicion && serializarVehiculos(c, nombreCarpeta);
+    condicion = condicion && serializarPaquetes(c, nombreCarpeta);
+    return condicion;
+}
+
+
+bool abrirTodo(CentroLogisticoPtr c, char* nombreCarpeta)
+{
+    char* directorio = getDirectorio(nombreCarpeta,"nombreCtro","txt");
+    char nombreCtro[100];
+    FILE* a = fopen(directorio,"r");
+    fscanf(a, "s", nombreCtro);
+    fclose(a);
+    c = crearCentroLogisticoRapido(nombreCtro);
+    bool condicion = deserializarRepartos(c, nombreCarpeta);
+    condicion = condicion && deserializarPersonas(c, nombreCarpeta);
+    condicion = condicion && deserializarVehiculos(c, nombreCarpeta);
+    condicion = condicion && deserializarPaquetes(c, nombreCarpeta);
+    return condicion;
 }
