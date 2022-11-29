@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <assert.h>
 #include "Lista.h"
 #include "TDAPaquetes.h"
 #include "TDAPersona.h"
@@ -826,11 +827,18 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
 
 ///Destruimos el reparto original e informamos
     repartoACerrar=destruirReparto(repartoACerrar);
+
     printf("Cerrado reparto %d...\n",posicion+1);
 
     printf("Se suspendieron los paquetes:\n");
+
+    assert(nPaqSuspendidos>0);
+//    printf("Cantidad de paquetes suspendidos: %d\n",nPaqSuspendidos);
     for(int i=0;i<nPaqSuspendidos;i++)
+    {
         printf("\t #%d \n",paqSuspendidos[i]);
+//        system("pause");
+    }
     printf("\n");
 }
 
@@ -1361,6 +1369,9 @@ void actualizarRepartos(CentroLogisticoPtr ctroLog) ///NUEVA
             hayCambios=true;
             cerrarReparto(ctroLog,i);
             i--;
+
+//            printf("i=%d\n",i);
+//            system("pause");
         }
         else
             hayCambios = actualizarReparto(repartoAux,i+1);
