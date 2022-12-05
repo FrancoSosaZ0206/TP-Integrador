@@ -255,13 +255,14 @@ bool actualizarReparto(RepartoPtr reparto,int posicion) ///NUEVA
     for(int i=0;i<n;i++)
     {
         paquetes[i] = descargarPaquete(reparto);
+        int estado = getEstado(paquetes[i]);
 
         bool condEnCurso = !quedaTiempo(getFechaSalida(reparto));
-        condEnCurso = condEnCurso && getEstado(paquetes[i])==6; //Si está reservado
+        condEnCurso = condEnCurso && estado==6; //Si está reservado
 
         bool condDemorar = !quedaTiempo(getFechaEntrega(paquetes[i]));
         condDemorar=condDemorar && quedaTiempo(getFechaRetorno(reparto));
-        condDemorar=condDemorar && (getEstado(paquetes[i])!=3); //Si no fue entregado
+        condDemorar=condDemorar && (estado!=3 && estado!=4); //Si no fue entregado ni estaba marcado como demorado de antes
 
         if(condEnCurso)
         {

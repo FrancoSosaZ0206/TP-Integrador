@@ -807,11 +807,12 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
         }
     }
 
+    assert(nPaqSuspendidos>0);
     int paqSuspendidos[nPaqSuspendidos];
 
     for(int i=n-1,j=0;i>-1;i--)
     {
-        if(getEstado(paquetesAux[i])==5)
+        if(getEstado(paquetesAux[i])==5 && nPaqSuspendidos>0)
         {
             paqSuspendidos[j] = getID(paquetesAux[i]);
             j++;
@@ -832,14 +833,16 @@ void cerrarReparto(CentroLogisticoPtr centroLogistico, int posicion) ///Ahora es
 
     printf("Se suspendieron los paquetes:\n");
 
-    assert(nPaqSuspendidos>0);
-//    printf("Cantidad de paquetes suspendidos: %d\n",nPaqSuspendidos);
-    for(int i=0;i<nPaqSuspendidos;i++)
+    if(nPaqSuspendidos>0)
     {
-        printf("\t #%d \n",paqSuspendidos[i]);
-//        system("pause");
+//        printf("Cantidad de paquetes suspendidos: %d\n",nPaqSuspendidos);
+        for(int i=0;i<nPaqSuspendidos;i++)
+        {
+            printf("\t #%d \n",paqSuspendidos[i]);
+//            system("pause");
+        }
+        printf("\n");
     }
-    printf("\n");
 }
 
 /// ///////////////////////////////////////////////FUNCIONES DE VALIDACIÓN/////////////////////////////////////////////////////////////////////// ///

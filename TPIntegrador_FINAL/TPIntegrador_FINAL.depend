@@ -1424,3 +1424,245 @@
 	<ctype.h>
 	"util.h"
 
+1669671938 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\files.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"TDACentroLogistico.h"
+	"Files.h"
+	<sys/stat.h>
+	<dirent.h>
+
+1670262700 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdacentrologistico.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"Lista.h"
+	"TDAPaquetes.h"
+	"TDAPersona.h"
+	"TDAVehiculo.h"
+	"TDARepartos.h"
+
+1669671866 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\lista.h
+	<stdbool.h>
+	"util.h"
+	"TDANodo.h"
+
+1669671866 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\util.h
+	<stdio.h>
+	<stdlib.h>
+
+1669671866 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdanodo.h
+	<stdio.h>
+	<stdlib.h>
+
+1670262700 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdapaquetes.h
+	<stdio.h>
+	<stdlib.h>
+	"TDAFechaYHora.h"
+	"TDADomicilio.h"
+
+1670262700 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdafechayhora.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<time.h>
+
+1669671866 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdadomicilio.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
+1669671866 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdapersona.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"TDADomicilio.h"
+	"TDACuil.h"
+
+1670262700 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdacuil.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
+1669671866 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdavehiculo.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
+1670262700 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdarepartos.h
+	<stdio.h>
+	<stdlib.h>
+	"TDAPersona.h"
+	"TDAVehiculo.h"
+	"TDAFechaYHora.h"
+	"TDAPaquetes.h"
+	"Lista.h"
+	"Pila.h"
+
+1669671866 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\pila.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"TDANodo.h"
+
+1669671938 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\files.h
+	<stdio.h>
+	<stdlib.h>
+	"TDACentroLogistico.h"
+
+1669671866 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\lista.c
+	<stdbool.h>
+	"util.h"
+	"TDANodo.h"
+	"Lista.h"
+
+1669671938 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Files.h"
+	"Lista.h"
+	"Menus.h"
+	"test.h"
+	"util.h"
+
+1669671866 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\menus.h
+	<stdio.h>
+	<stdlib.h>
+	"TDACentroLogistico.h"
+
+1669671866 e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\test.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"TDACentroLogistico.h"
+
+1669671938 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\menus.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	<time.h>
+	<math.h>
+	"Files.h"
+	"TDACentroLogistico.h"
+	"test.h"
+	"util.h"
+	"Menus.h"
+
+1669671866 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\pila.c
+	<stdio.h>
+	<stdlib.h>
+	"Pila.h"
+	"TDANodo.h"
+	"Util.h"
+
+1669671866 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdacuil.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"TDACuil.h"
+	"util.h"
+
+1669671866 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdadomicilio.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"TDADomicilio.h"
+	"util.h"
+
+1669671866 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdafechayhora.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"TDAFechaYHora.h"
+	"util.h"
+
+1669671866 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdanodo.c
+	<stdio.h>
+	<stdlib.h>
+	"util.h"
+	"TDANodo.h"
+
+1669671866 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdapaquetes.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"TDAFechaYHora.h"
+	"TDADomicilio.h"
+	"TDAPaquetes.h"
+	"util.h"
+
+1669671866 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdapersona.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	"TDADomicilio.h"
+	"TDACuil.h"
+	"TDAPersona.h"
+	"util.h"
+
+1670263230 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdarepartos.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"TDAPersona.h"
+	"TDAVehiculo.h"
+	"TDAFechaYHora.h"
+	"TDAPaquetes.h"
+	"Lista.h"
+	"Pila.h"
+	"TDARepartos.h"
+
+1669671866 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdavehiculo.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"TDAVehiculo.h"
+	"util.h"
+
+1670262700 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\test.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	<math.h>
+	"TDAFechaYHora.h"
+	"TDACuil.h"
+	"TDADomicilio.h"
+	"TDAVehiculo.h"
+	"TDAPersona.h"
+	"TDAPaquetes.h"
+	"TDARepartos.h"
+	"TDACentroLogistico.h"
+	"util.h"
+	"test.h"
+
+1669671866 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\util.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"util.h"
+
+1670262976 source:e:\franco\9-programas\github\github-repositorios\tp-integrador-repositorio\tpintegrador_final\tdacentrologistico.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdbool.h>
+	<ctype.h>
+	<assert.h>
+	"Lista.h"
+	"TDAPaquetes.h"
+	"TDAPersona.h"
+	"TDAVehiculo.h"
+	"TDARepartos.h"
+	"TDACentroLogistico.h"
+	"Menus.h"
+	"util.h"
+
